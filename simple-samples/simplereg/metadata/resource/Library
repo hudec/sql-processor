@@ -8,8 +8,7 @@
     "userConfig": {
         "designer|userClassName": "Library",
         "basePath": "/ext/",
-        "debug": true,
         "theme": "neptune"
     },
-    "designerId": "52d05396-11ff-490f-b935-06929cca8036"
+    "designerId": "598ab1d2-219c-477c-8a47-6006a2798c97"
 }

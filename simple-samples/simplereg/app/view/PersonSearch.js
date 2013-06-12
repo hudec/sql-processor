@@ -16,7 +16,11 @@
 Ext.define('Simplereg.view.PersonSearch', {
     extend: 'Ext.window.Window',
 
-    id: 'PersonSearch',
+    requires: [
+        'Simplereg.view.override.PersonSearch'
+    ],
+
+    id: 'person-search',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-search',
@@ -30,21 +34,51 @@ Ext.define('Simplereg.view.PersonSearch', {
             items: [
                 {
                     xtype: 'form',
-                    defaults: {
-                        anchor: '1'
-                    },
                     bodyPadding: 10,
                     header: false,
-                    title: 'Personal Data',
-                    api: { submit: "Simplereg.controller.Person.searchPersonFromDialog" },
+                    title: 'Data',
+                    api: {
+    submit: "this.up('window').submit"
+},
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'bottom',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    itemId: 'reset',
+                                    iconCls: 'icon-reset',
+                                    text: 'Reset'
+                                },
+                                {
+                                    xtype: 'tbfill'
+                                },
+                                {
+                                    xtype: 'button',
+                                    itemId: 'cancel',
+                                    iconCls: 'icon-cancel',
+                                    text: 'Cancel'
+                                },
+                                {
+                                    xtype: 'button',
+                                    itemId: 'submit',
+                                    iconCls: 'icon-search',
+                                    text: 'Find Person'
+                                }
+                            ]
+                        }
+                    ],
                     items: [
                         {
                             xtype: 'textfield',
+                            anchor: '100%',
                             fieldLabel: 'First Name',
                             name: 'firstName'
                         },
                         {
                             xtype: 'textfield',
+                            anchor: '100%',
                             fieldLabel: 'Last Name',
                             name: 'lastName'
                         },
@@ -59,72 +93,44 @@ Ext.define('Simplereg.view.PersonSearch', {
                                 {
                                     xtype: 'datefield',
                                     flex: 1,
-                                    fieldLabel: 'Date of Birth from',
+                                    fieldLabel: 'From',
                                     hideLabel: true,
                                     name: 'dateOfBirthFrom',
-                                    altFormats: 'j.n.Y|d.m.Y|j.m.Y|d.n.Y|Y-m-d',
-                                    format: 'j.n.Y'
+                                    altFormats: 'd.m.Y',
+                                    format: 'd.m.Y'
                                 },
                                 {
                                     xtype: 'displayfield',
-                                    margin: '0 10',
-                                    fieldLabel: '',
-                                    value: '-'
+                                    margin: '0 5',
+                                    hideLabel: true,
+                                    value: '&ndash;'
                                 },
                                 {
                                     xtype: 'datefield',
                                     flex: 1,
-                                    fieldLabel: 'Date of Birth to',
+                                    fieldLabel: 'To',
                                     hideLabel: true,
                                     name: 'dateOfBirthTo',
-                                    altFormats: 'j.n.Y|d.m.Y|j.m.Y|d.n.Y|Y-m-d',
-                                    format: 'j.n.Y'
+                                    altFormats: 'd.m.Y',
+                                    format: 'd.m.Y'
                                 }
                             ]
                         },
                         {
                             xtype: 'textfield',
+                            anchor: '100%',
                             fieldLabel: 'SSN',
                             name: 'ssn'
                         },
                         {
                             xtype: 'combobox',
+                            anchor: '100%',
                             fieldLabel: 'Gender',
                             name: 'gender',
                             editable: false,
                             displayField: 'name',
-                            queryMode: 'local',
-                            store: 'Gender',
+                            store: 'Genders',
                             valueField: 'value'
-                        }
-                    ],
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset_dialog',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel_dialog',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit_dialog',
-                                    iconCls: 'icon-search',
-                                    text: 'Find Person'
-                                }
-                            ]
                         }
                     ]
                 }
@@ -132,37 +138,6 @@ Ext.define('Simplereg.view.PersonSearch', {
         });
 
         me.callParent(arguments);
-    },
-
-    bussy: function(msg) {
-        var me = this, bussy;
-
-        if (!me.bussyMask) {
-            me.bussyMask = new Ext.LoadMask({
-                msg: "Processing...",
-                target: me
-            });
-        }
-
-        if (msg == undefined || msg === true) {
-            bussy = true;
-        }
-        else if (!msg) {
-            bussy = false;
-        }
-        else {
-            me.bussyMask.msg = msg;
-            bussy = true;
-        }
-
-        if (bussy) {
-            me.bussyMask.show();
-        }
-        else {
-            me.bussyMask.hide();
-        }
-
-        return bussy;
     }
 
 });

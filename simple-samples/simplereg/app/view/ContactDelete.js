@@ -16,7 +16,7 @@
 Ext.define('Simplereg.view.ContactDelete', {
     extend: 'Ext.window.Window',
 
-    id: 'ContactDelete',
+    id: 'contact-delete',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-delete',
@@ -30,55 +30,9 @@ Ext.define('Simplereg.view.ContactDelete', {
             items: [
                 {
                     xtype: 'form',
-                    defaults: {
-                        anchor: '1'
-                    },
                     bodyPadding: 10,
                     header: false,
-                    title: 'Contact Data',
-                    api: { submit: "Simplereg.controller.Person.deleteContactFromDialog" },
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Id',
-                            name: 'id',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            itemId: 'person_id',
-                            fieldLabel: 'Person Id',
-                            name: 'personId',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Version',
-                            name: 'version',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'Type',
-                            name: 'ctype'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'Address',
-                            name: 'address'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'Phone',
-                            name: 'phoneNumber'
-                        }
-                    ],
+                    title: 'Data',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -89,17 +43,67 @@ Ext.define('Simplereg.view.ContactDelete', {
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'cancel_dialog',
+                                    itemId: 'cancel',
                                     iconCls: 'icon-cancel',
                                     text: 'Cancel'
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'submit_dialog',
+                                    itemId: 'submit',
                                     iconCls: 'icon-delete',
                                     text: 'Remove Contact'
                                 }
                             ]
+                        }
+                    ],
+                    items: [
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Person Id',
+                            name: 'id',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Person Id',
+                            name: 'version',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Person Id',
+                            name: 'personId',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'Type',
+                            name: 'ctype'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'Country',
+                            name: 'countryCode'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'Address',
+                            name: 'address'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'Phone',
+                            name: 'phoneNumber'
                         }
                     ]
                 }
@@ -107,37 +111,6 @@ Ext.define('Simplereg.view.ContactDelete', {
         });
 
         me.callParent(arguments);
-    },
-
-    bussy: function(msg) {
-        var me = this, bussy;
-
-        if (!me.bussyMask) {
-            me.bussyMask = new Ext.LoadMask({
-                msg: "Processing...",
-                target: me
-            });
-        }
-
-        if (msg == undefined || msg === true) {
-            bussy = true;
-        }
-        else if (!msg) {
-            bussy = false;
-        }
-        else {
-            me.bussyMask.msg = msg;
-            bussy = true;
-        }
-
-        if (bussy) {
-            me.bussyMask.show();
-        }
-        else {
-            me.bussyMask.hide();
-        }
-
-        return bussy;
     }
 
 });

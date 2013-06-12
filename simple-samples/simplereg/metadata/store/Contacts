@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "autoLoad": null,
         "model": "Contact",
         "storeId": "ContactsStore",
         "designer|userClassName": "Contacts",

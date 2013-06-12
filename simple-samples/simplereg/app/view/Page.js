@@ -17,9 +17,11 @@ Ext.define('Simplereg.view.Page', {
     extend: 'Ext.container.Viewport',
 
     requires: [
-        'Simplereg.view.PersonSelect'
+        'Simplereg.view.PersonSelect',
+        'Simplereg.view.override.Page'
     ],
 
+    id: 'page',
     layout: {
         type: 'fit'
     },
@@ -31,27 +33,30 @@ Ext.define('Simplereg.view.Page', {
             items: [
                 {
                     xtype: 'tabpanel',
-                    id: 'PersonRegistry',
+                    id: 'pages',
                     header: false,
-                    manageHeight: false,
-                    title: 'Simple Person Registry',
-                    activeTab: 0,
+                    title: 'Person Registry',
                     plain: true,
                     items: [
                         {
-                            xtype: 'personselect',
-                            itemId: 'person_select',
-                            tabConfig: {
-                                xtype: 'tab',
-                                closable: false
-                            }
+                            xtype: 'personselect'
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                beforerender: {
+                    fn: me.init,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    init: function(component, eOpts) {
+
     }
 
 });

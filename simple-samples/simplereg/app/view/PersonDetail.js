@@ -17,9 +17,19 @@ Ext.define('Simplereg.view.PersonDetail', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.persondetail',
 
-    frame: true,
-    margin: 5,
-    autoScroll: true,
+    requires: [
+        'Simplereg.view.PersonData',
+        'Simplereg.view.PersonContacts',
+        'Simplereg.view.override.PersonDetail'
+    ],
+
+    itemId: 'person_detail',
+    layout: {
+        type: 'column'
+    },
+    bodyPadding: 5,
+    closable: true,
+    header: false,
     title: 'Person Detail',
 
     initComponent: function() {
@@ -30,50 +40,62 @@ Ext.define('Simplereg.view.PersonDetail', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
+                    cls: 'thick',
                     items: [
                         {
+                            xtype: 'splitbutton',
+                            itemId: 'search-person',
+                            iconCls: 'icon-search',
+                            text: 'Find',
+                            menu: {
+                                xtype: 'menu',
+                                width: 120,
+                                items: [
+                                    {
+                                        xtype: 'menuitem',
+                                        itemId: 'search-all-people',
+                                        text: 'Clear Filter'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            xtype: 'tbseparator'
+                        },
+                        {
                             xtype: 'button',
-                            itemId: 'person_update',
-                            iconCls: 'icon-edit',
-                            text: 'Modify'
+                            itemId: 'reload',
+                            iconCls: 'icon-refresh',
+                            text: 'Refresh'
+                        },
+                        {
+                            xtype: 'tbseparator'
+                        },
+                        {
+                            xtype: 'button',
+                            itemId: 'create-person',
+                            iconCls: 'icon-add',
+                            text: 'Add'
+                        },
+                        {
+                            xtype: 'button',
+                            itemId: 'delete-person',
+                            iconCls: 'icon-delete',
+                            text: 'Remove'
                         }
                     ]
                 }
             ],
             items: [
                 {
-                    xtype: 'form',
-                    bodyPadding: 10,
-                    items: [
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'First Name',
-                            name: 'firstName'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'Last Name',
-                            name: 'lastName'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            renderer: function(value, displayField) {
-                                return Ext.util.Format.dateRenderer('j.n.Y')(value);
-                            },
-                            fieldLabel: 'Date of Birth',
-                            name: 'dateOfBirth'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'SSN',
-                            name: 'ssn'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'Gender',
-                            name: 'gender'
-                        }
-                    ]
+                    xtype: 'persondata',
+                    margin: 5,
+                    columnWidth: 0.5
+                },
+                {
+                    xtype: 'personcontacts',
+                    margin: 5,
+                    columnWidth: 0.5
                 }
             ]
         });

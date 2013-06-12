@@ -1,0 +1,41 @@
+Doresit...
+    * info o zmene (seznam) a smazani (detail) - nepovolit akce
+    * zpracovat hlasku ze serveru (record has been in the meantime modified)
+    * unregister store pri zavreni detailu
+    * unmask dialog on close
+    * format datumu (sladit in/out pro date field a renderer pro display field a grid) -> zmenit jednu stranu
+    * chybova hlaseni (napr. u datumu)
+    * mask(...) je bez textu, proc?
+    * form submit api + submit (kam dat handler a jak zapsat do api?, to je jen pro direct?)
+    * staticke methody (utility) kam s nima?
+    * jak s moduly v podadresarich v architektovi?
+    * lokalni alternativa k remote simpleService
+    * focusnout prvni polozku (dialog)
+    * odeslat dialog (via enter)
+    * field container label (nefocusne prvni polozku)
+
+Dodrzet
+    * load zachovava filter (extra params)
+    * po vyhledani (zruseni filtru) vratit seznam na zacatek
+
+K prmomysleni
+    * jeden detail jako jedna stranka/tab prohlizece, search a pripadne list modalne, historie objektu
+
+1. Poskladat gui via architect.
+    * userClassName UpperCase, ObjectType panel, ObjectAction dialog window
+    * displayname UpperCase, kde se nazev nedoplni (Toolbar, Separator, Fill apod.)
+    * userAlias lowercase, linknuta komponenta -> widget.alias
+    * itemId, storeId, id lower_case -> #id, kde je potreba komponentu najit (parent.down("#id"))
+    * iconCls "icon-...", jak pouzit theme ikony?
+    * grid: GridView, PagingToolbar (disp. name), store, item sortable, hiddable, hiden, flex 1, 2...
+    * viewport fit, page body column, padding 5, panel frame, margin 5, pripadne pro dva columnWidth 0.5
+    * combobox store, displayField, valueField
+    * hlavni komponenty s id (page, person-select) nebo itemId
+    * komponenty se spolecnym zpracovanim udalosti (tlacitka) s itemId (napr. person-search, submit)
+    * format (cislo 0, datum d.m.Y nebo j.n.Y, in formaty)
+    * rendering ciselniku a datumu (display)
+
+2. Skripty
+    * common akce v controleru
+    * specificke akce u objektu (napr. store asi ani jinak nejde)
+

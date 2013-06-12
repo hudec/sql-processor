@@ -16,7 +16,11 @@
 Ext.define('Simplereg.view.PersonUpdate', {
     extend: 'Ext.window.Window',
 
-    id: 'PersonUpdate',
+    requires: [
+        'Simplereg.view.override.PersonUpdate'
+    ],
+
+    id: 'person-update',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-edit',
@@ -30,65 +34,9 @@ Ext.define('Simplereg.view.PersonUpdate', {
             items: [
                 {
                     xtype: 'form',
-                    defaults: {
-                        anchor: '1'
-                    },
                     bodyPadding: 10,
                     header: false,
-                    title: 'Personal Data',
-                    api: { submit: "Simplereg.controller.Person.updatePersonFromDialog" },
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Id',
-                            name: 'id',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Version',
-                            name: 'version',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'textfield',
-                            fieldLabel: 'First Name',
-                            name: 'firstName'
-                        },
-                        {
-                            xtype: 'textfield',
-                            fieldLabel: 'Last Name',
-                            name: 'lastName',
-                            allowBlank: false
-                        },
-                        {
-                            xtype: 'datefield',
-                            fieldLabel: 'Date of Birth',
-                            name: 'dateOfBirth',
-                            altFormats: 'j.n.Y|d.m.Y|j.m.Y|d.n.Y|Y-m-d',
-                            format: 'j.n.Y'
-                        },
-                        {
-                            xtype: 'textfield',
-                            fieldLabel: 'SSN',
-                            name: 'ssn'
-                        },
-                        {
-                            xtype: 'combobox',
-                            fieldLabel: 'Gender',
-                            name: 'gender',
-                            allowBlank: false,
-                            editable: false,
-                            displayField: 'name',
-                            queryMode: 'local',
-                            store: 'Gender',
-                            valueField: 'value'
-                        }
-                    ],
+                    title: 'Data',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -96,8 +44,7 @@ Ext.define('Simplereg.view.PersonUpdate', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    disabled: true,
-                                    itemId: 'reset_dialog',
+                                    itemId: 'reset',
                                     iconCls: 'icon-reset',
                                     text: 'Reset'
                                 },
@@ -106,17 +53,71 @@ Ext.define('Simplereg.view.PersonUpdate', {
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'cancel_dialog',
+                                    itemId: 'cancel',
                                     iconCls: 'icon-cancel',
                                     text: 'Cancel'
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'submit_dialog',
+                                    itemId: 'submit',
                                     iconCls: 'icon-edit',
-                                    text: 'Modify Person'
+                                    text: 'ModifyPerson'
                                 }
                             ]
+                        }
+                    ],
+                    items: [
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Id',
+                            name: 'id',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Version',
+                            name: 'version',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: 'First Name',
+                            name: 'firstName'
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: 'Last Name',
+                            name: 'lastName'
+                        },
+                        {
+                            xtype: 'datefield',
+                            anchor: '100%',
+                            fieldLabel: 'Date of Birth',
+                            name: 'dateOfBirth',
+                            altFormats: 'd.m.Y',
+                            format: 'd.m.Y'
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: 'SSN',
+                            name: 'ssn'
+                        },
+                        {
+                            xtype: 'combobox',
+                            anchor: '100%',
+                            fieldLabel: 'Gender',
+                            name: 'gender',
+                            editable: false,
+                            displayField: 'name',
+                            store: 'Genders',
+                            valueField: 'value'
                         }
                     ]
                 }
@@ -124,37 +125,6 @@ Ext.define('Simplereg.view.PersonUpdate', {
         });
 
         me.callParent(arguments);
-    },
-
-    bussy: function(msg) {
-        var me = this, bussy;
-
-        if (!me.bussyMask) {
-            me.bussyMask = new Ext.LoadMask({
-                msg: "Processing...",
-                target: me
-            });
-        }
-
-        if (msg == undefined || msg === true) {
-            bussy = true;
-        }
-        else if (!msg) {
-            bussy = false;
-        }
-        else {
-            me.bussyMask.msg = msg;
-            bussy = true;
-        }
-
-        if (bussy) {
-            me.bussyMask.show();
-        }
-        else {
-            me.bussyMask.hide();
-        }
-
-        return bussy;
     }
 
 });

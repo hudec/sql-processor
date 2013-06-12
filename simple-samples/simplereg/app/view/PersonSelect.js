@@ -18,14 +18,13 @@ Ext.define('Simplereg.view.PersonSelect', {
     alias: 'widget.personselect',
 
     requires: [
-        'Simplereg.view.PersonList'
+        'Simplereg.view.PersonList',
+        'Simplereg.view.override.PersonSelect'
     ],
 
-    id: 'PersonSelect',
-    layout: {
-        type: 'column'
-    },
+    id: 'person-select',
     bodyPadding: 5,
+    header: false,
     title: 'Person Select',
 
     initComponent: function() {
@@ -36,20 +35,31 @@ Ext.define('Simplereg.view.PersonSelect', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
-                    cls: 'main',
+                    cls: 'thick',
                     items: [
                         {
-                            xtype: 'button',
-                            itemId: 'person_search',
+                            xtype: 'splitbutton',
+                            itemId: 'search-person',
                             iconCls: 'icon-search',
-                            text: 'Find'
+                            text: 'Find',
+                            menu: {
+                                xtype: 'menu',
+                                width: 120,
+                                items: [
+                                    {
+                                        xtype: 'menuitem',
+                                        itemId: 'search-all-people',
+                                        text: 'Clear Filter'
+                                    }
+                                ]
+                            }
                         },
                         {
                             xtype: 'tbseparator'
                         },
                         {
                             xtype: 'button',
-                            itemId: 'refresh_page',
+                            itemId: 'reload',
                             iconCls: 'icon-refresh',
                             text: 'Refresh'
                         },
@@ -58,7 +68,7 @@ Ext.define('Simplereg.view.PersonSelect', {
                         },
                         {
                             xtype: 'button',
-                            itemId: 'person_create',
+                            itemId: 'create-person',
                             iconCls: 'icon-add',
                             text: 'Add'
                         }
@@ -68,7 +78,7 @@ Ext.define('Simplereg.view.PersonSelect', {
             items: [
                 {
                     xtype: 'personlist',
-                    columnWidth: 1
+                    margin: 5
                 }
             ]
         });

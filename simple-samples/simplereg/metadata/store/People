@@ -60,30 +60,21 @@
             "designerId": "23bc44e9-ce91-4982-a6cd-c02c64608202"
         },
         {
-            "type": "Ext.util.Sorter",
+            "type": "basiceventbinding",
             "reference": {
-                "name": "sorters",
-                "type": "object"
+                "name": "listeners",
+                "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "property": "firstName",
-                "designer|displayName": "FirstNameSorter"
+                "fn": "fitin",
+                "implHandler": [
+                    ""
+                ],
+                "name": "load",
+                "scope": "me"
             },
-            "designerId": "8e5ebc00-b776-46e5-85a4-7b5435694398"
-        },
-        {
-            "type": "Ext.util.Sorter",
-            "reference": {
-                "name": "sorters",
-                "type": "object"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "property": "dateOfBirth",
-                "designer|displayName": "DateOfBirthSorter"
-            },
-            "designerId": "a3d5370e-770a-4ba1-97cc-77d9a75e2abd"
+            "designerId": "057b486b-8f58-40ca-bf19-7a7a0ed6d815"
         }
     ]
 }

@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "height": null,
-        "id": "PersonDelete",
+        "id": "person-delete",
         "width": 400,
         "designer|userClassName": "PersonDelete",
         "closeAction": "hide",
@@ -15,63 +15,8 @@
         "title": "Remove Person",
         "modal": true
     },
-    "configAlternates": {
-        "bussyMask": "object"
-    },
-    "designerId": "bad5ed8b-6683-4f37-bd51-7975024eecd9",
-    "customConfigs": [
-        {
-            "group": "(Custom Properties)",
-            "name": "bussyMask",
-            "type": "string"
-        }
-    ],
+    "designerId": "056485ed-0e4c-4bde-a7de-b5dcd6a98044",
     "cn": [
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "bussy",
-                "designer|params": [
-                    "msg"
-                ],
-                "implHandler": [
-                    "var me = this, bussy;",
-                    "",
-                    "if (!me.bussyMask) {",
-                    "    me.bussyMask = new Ext.LoadMask({",
-                    "        msg: \"Processing...\",",
-                    "        target: me",
-                    "    });",
-                    "}",
-                    "",
-                    "if (msg == undefined || msg === true) {",
-                    "    bussy = true;",
-                    "}",
-                    "else if (!msg) {",
-                    "    bussy = false;",
-                    "}",
-                    "else {",
-                    "    me.bussyMask.msg = msg;",
-                    "    bussy = true;",
-                    "}",
-                    "",
-                    "if (bussy) {",
-                    "    me.bussyMask.show();",
-                    "}",
-                    "else {",
-                    "    me.bussyMask.hide();",
-                    "}",
-                    "",
-                    "return bussy;"
-                ]
-            },
-            "designerId": "dcf33b2b-88dd-41ac-99fe-e764bf4e5919"
-        },
         {
             "type": "Ext.form.Panel",
             "reference": {
@@ -80,22 +25,72 @@
             },
             "codeClass": null,
             "userConfig": {
-                "defaults": [
-                    "{",
-                    "    anchor: \"1\"",
-                    "}"
-                ],
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Personal Data",
-                "api": [
-                    "{ submit: \"Simplereg.controller.Person.deletePersonFromDialog\" }"
-                ]
+                "title": "Data"
             },
-            "designerId": "9ef0b07d-9de3-4ef7-9059-e3ad698f4835",
+            "designerId": "6d070b86-296b-4080-88ba-32aac0a07141",
             "cn": [
                 {
-                    "type": "Ext.form.field.Text",
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "bottom",
+                        "designer|displayName": "Toolbar"
+                    },
+                    "designerId": "f6c3fa11-1258-4e94-8d64-ab9aba5f7cce",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Fill",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "designer|displayName": "Fill"
+                            },
+                            "designerId": "d5505849-2af9-47b0-83ec-88a12e9e84ab"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "itemId": "cancel",
+                                "iconCls": "icon-cancel",
+                                "text": "Cancel"
+                            },
+                            "designerId": "1264b123-1ea6-4b57-8a45-0bfbd92b581b"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "itemId": "submit",
+                                "iconCls": "icon-delete",
+                                "text": "Remove Person"
+                            },
+                            "designerId": "9f37efc6-768d-44c2-a756-ace61c1c8eae"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -108,10 +103,10 @@
                         "name": "id",
                         "readOnly": true
                     },
-                    "designerId": "1da17b10-e5bf-46b5-8ceb-b44a337c9b83"
+                    "designerId": "58e6fd59-f385-482b-9acf-ba91bd089292"
                 },
                 {
-                    "type": "Ext.form.field.Text",
+                    "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -124,7 +119,7 @@
                         "name": "version",
                         "readOnly": true
                     },
-                    "designerId": "f2f4c2a9-1d69-4420-823f-12a85f137d24"
+                    "designerId": "0b7e17ba-3bfd-45d0-825a-999d4831c6ea"
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -134,12 +129,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
+                        "layout|anchor": "100%",
                         "fieldLabel": "First Name",
                         "name": "firstName"
                     },
-                    "designerId": "1d1fae10-96b7-415c-a2d8-eb9eba7f9f68"
+                    "designerId": "d9d43971-75be-4395-8db6-35dfcb9c8ab6"
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -149,12 +143,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
+                        "layout|anchor": "100%",
                         "fieldLabel": "Last Name",
                         "name": "lastName"
                     },
-                    "designerId": "82ef65a5-e39e-470f-94c7-fe1ae3a8ccdc"
+                    "designerId": "5b0a2d82-353d-4c2e-afcd-1ba49bb58916"
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -164,12 +157,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
+                        "layout|anchor": "100%",
                         "fieldLabel": "Date of Birth",
                         "name": "dateOfBirth"
                     },
-                    "designerId": "05a1bdd3-fbc4-4301-b18b-fc3b748b3d6a",
+                    "designerId": "ccff32ad-b3c5-4e89-9d2d-784039a318f1",
                     "cn": [
                         {
                             "type": "fixedfunction",
@@ -185,10 +177,10 @@
                                     "displayField"
                                 ],
                                 "implHandler": [
-                                    "return Ext.util.Format.dateRenderer('j.n.Y')(value);"
+                                    "return Ext.util.Format.dateRenderer('d.m.Y')(value);"
                                 ]
                             },
-                            "designerId": "99cdd37d-7135-4361-b1da-d4b566bbf37a"
+                            "designerId": "323b53e9-3ac1-41c8-8912-49b2cc2dbb64"
                         }
                     ]
                 },
@@ -200,12 +192,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
+                        "layout|anchor": "100%",
                         "fieldLabel": "SSN",
                         "name": "ssn"
                     },
-                    "designerId": "3818542c-d418-44e6-bb8f-cdbd7f087bd1"
+                    "designerId": "f371489d-d12c-4487-a5d2-0cb9830239c1"
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -215,70 +206,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
+                        "layout|anchor": "100%",
                         "fieldLabel": "Gender",
                         "name": "gender"
                     },
-                    "designerId": "0e2b0015-ae09-4394-8073-23f5d49d2b78"
-                },
-                {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom",
-                        "designer|displayName": "Toolbar"
-                    },
-                    "designerId": "aaaa1ef6-c68b-4f2f-8103-c61a693e37cf",
-                    "cn": [
-                        {
-                            "type": "Ext.toolbar.Fill",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "designer|displayName": "Fill"
-                            },
-                            "designerId": "31b93344-caa1-4148-b414-d1615f6b2114"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "cancel_dialog",
-                                "iconCls": "icon-cancel",
-                                "text": "Cancel"
-                            },
-                            "designerId": "d1f279a3-80fe-4bf3-a367-aef6e2959266"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "submit_dialog",
-                                "iconCls": "icon-delete",
-                                "text": "Remove Person"
-                            },
-                            "designerId": "530ee19f-4c8e-4152-b8a2-d1bf8283e188"
-                        }
-                    ]
+                    "designerId": "040b270a-559f-435e-8e21-95addc65e723"
                 }
             ]
         }

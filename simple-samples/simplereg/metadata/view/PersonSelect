@@ -6,14 +6,17 @@
     },
     "codeClass": null,
     "userConfig": {
-        "id": "PersonSelect",
+        "height": null,
+        "id": "person-select",
+        "itemId": null,
+        "width": null,
         "designer|userClassName": "PersonSelect",
         "designer|userAlias": "personselect",
-        "layout": "column",
         "bodyPadding": 5,
+        "header": false,
         "title": "Person Select"
     },
-    "designerId": "1d93de59-655f-49ba-8188-a2c1b5aa2445",
+    "designerId": "8b573659-e8e3-458d-ab3f-f82ee954a47f",
     "cn": [
         {
             "type": "Ext.toolbar.Toolbar",
@@ -24,14 +27,13 @@
             "codeClass": null,
             "userConfig": {
                 "dock": "top",
-                "border": null,
-                "cls": "main",
+                "cls": "thick",
                 "designer|displayName": "Toolbar"
             },
-            "designerId": "74abba30-f7eb-490c-b237-422659750345",
+            "designerId": "2b72acd8-a0b5-4134-bb8d-7aff2805cd79",
             "cn": [
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.button.Split",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -39,12 +41,41 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "cls": null,
-                        "itemId": "person_search",
+                        "itemId": "search-person",
                         "iconCls": "icon-search",
                         "text": "Find"
                     },
-                    "designerId": "5939c9fb-815f-41cf-b132-8eb75029b560"
+                    "designerId": "9340489e-5c12-426b-818d-5d3b4d57002d",
+                    "cn": [
+                        {
+                            "type": "Ext.menu.Menu",
+                            "reference": {
+                                "name": "menu",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "width": 120,
+                                "designer|displayName": "Menu"
+                            },
+                            "designerId": "30f529d1-d5c8-4cb0-a644-bc9555554ddc",
+                            "cn": [
+                                {
+                                    "type": "Ext.menu.Item",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "itemId": "search-all-people",
+                                        "text": "Clear Filter"
+                                    },
+                                    "designerId": "ac20dd4a-a539-46cf-824c-722c29430fb6"
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.toolbar.Separator",
@@ -57,7 +88,7 @@
                         "layout|flex": null,
                         "designer|displayName": "Separator"
                     },
-                    "designerId": "b48a5628-76a1-4bca-8632-ba025b69c1c1"
+                    "designerId": "85a55f83-ea4d-41a8-b737-aa3450999acc"
                 },
                 {
                     "type": "Ext.button.Button",
@@ -68,12 +99,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "disabled": null,
-                        "itemId": "refresh_page",
+                        "itemId": "reload",
                         "iconCls": "icon-refresh",
                         "text": "Refresh"
                     },
-                    "designerId": "08837fd8-b5df-43c6-a5b5-c3f00551c641"
+                    "designerId": "17b0aa41-3a5a-4757-991c-5d6ee1e0ec78"
                 },
                 {
                     "type": "Ext.toolbar.Separator",
@@ -86,7 +116,7 @@
                         "layout|flex": null,
                         "designer|displayName": "Separator"
                     },
-                    "designerId": "42b379ca-b618-4d13-b92a-5af3f1a492bf"
+                    "designerId": "4da28afd-64dd-4be9-ad59-2d253eb45ed1"
                 },
                 {
                     "type": "Ext.button.Button",
@@ -97,11 +127,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "itemId": "person_create",
+                        "itemId": "create-person",
                         "iconCls": "icon-add",
                         "text": "Add"
                     },
-                    "designerId": "7277978f-d309-48cd-90ec-0ab02d6a3c16"
+                    "designerId": "5b11bf42-bb03-4000-8c37-31209c65f323"
                 }
             ]
         },
@@ -113,10 +143,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|columnWidth": 1
+                "margin": 5
             },
-            "designerId": "adac142b-ef30-4828-b1c0-372241013aee",
-            "masterInstanceId": "0ff729ba-a687-43c4-91e8-5e07c72fcb44"
+            "designerId": "e12bb8d4-a7f3-4e5b-9d55-d58262218401",
+            "masterInstanceId": "2bd1c73c-98bf-4cd1-857c-bd3acb916b45"
         }
     ]
 }

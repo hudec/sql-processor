@@ -17,6 +17,7 @@ Ext.define('Simplereg.store.People', {
     extend: 'Ext.data.Store',
 
     requires: [
+        'Simplereg.store.override.People',
         'Simplereg.model.Person'
     ],
 
@@ -37,17 +38,20 @@ Ext.define('Simplereg.store.People', {
                     root: 'records'
                 }
             },
-            sorters: [
-                {
-                    property: 'lastName'
-                },
-                {
-                    property: 'firstName'
-                },
-                {
-                    property: 'dateOfBirth'
+            sorters: {
+                property: 'lastName'
+            },
+            listeners: {
+                load: {
+                    fn: me.fitin,
+                    scope: me
                 }
-            ]
+            }
         }, cfg)]);
+    },
+
+    fitin: function(store, records, successful, eOpts) {
+
     }
+
 });

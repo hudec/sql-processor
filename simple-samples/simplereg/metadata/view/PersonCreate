@@ -7,72 +7,16 @@
     "codeClass": null,
     "userConfig": {
         "height": null,
-        "id": "PersonCreate",
+        "id": "person-create",
         "width": 400,
         "designer|userClassName": "PersonCreate",
         "closeAction": "hide",
-        "icon": null,
         "iconCls": "icon-add",
         "title": "Add Person",
         "modal": true
     },
-    "configAlternates": {
-        "bussyMask": "object"
-    },
-    "designerId": "566e70d4-0beb-4e36-8a2b-60975b319b51",
-    "customConfigs": [
-        {
-            "group": "(Custom Properties)",
-            "name": "bussyMask",
-            "type": "string"
-        }
-    ],
+    "designerId": "5c8f8e80-5078-4a40-b43a-6d129315630a",
     "cn": [
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "bussy",
-                "designer|params": [
-                    "msg"
-                ],
-                "implHandler": [
-                    "var me = this, bussy;",
-                    "",
-                    "if (!me.bussyMask) {",
-                    "    me.bussyMask = new Ext.LoadMask({",
-                    "        msg: \"Processing...\",",
-                    "        target: me",
-                    "    });",
-                    "}",
-                    "",
-                    "if (msg == undefined || msg === true) {",
-                    "    bussy = true;",
-                    "}",
-                    "else if (!msg) {",
-                    "    bussy = false;",
-                    "}",
-                    "else {",
-                    "    me.bussyMask.msg = msg;",
-                    "    bussy = true;",
-                    "}",
-                    "",
-                    "if (bussy) {",
-                    "    me.bussyMask.show();",
-                    "}",
-                    "else {",
-                    "    me.bussyMask.hide();",
-                    "}",
-                    "",
-                    "return bussy;"
-                ]
-            },
-            "designerId": "1e509590-cc1a-4c07-8983-22f75ddf27cc"
-        },
         {
             "type": "Ext.form.Panel",
             "reference": {
@@ -81,104 +25,14 @@
             },
             "codeClass": null,
             "userConfig": {
-                "defaults": [
-                    "{",
-                    "    anchor: \"1\"",
-                    "}"
-                ],
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Personal Data",
-                "api": [
-                    "{ submit: \"Simplereg.controller.Person.createPersonFromDialog\" }"
-                ]
+                "title": "Data",
+                "api": null,
+                "standardSubmit": false
             },
-            "designerId": "d38bfe37-92b7-44f0-93a3-2ede4f263168",
+            "designerId": "de1305d7-b0cb-4d22-8be6-e1347ed6f9ea",
             "cn": [
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "First Name",
-                        "name": "firstName"
-                    },
-                    "designerId": "324fbe82-d89b-4874-ad62-38d4f11f1145"
-                },
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "Last Name",
-                        "name": "lastName",
-                        "allowBlank": false
-                    },
-                    "designerId": "05e2d347-a29f-4e73-b7a9-c8f1c0f4254d"
-                },
-                {
-                    "type": "Ext.form.field.Date",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "Date of Birth",
-                        "name": "dateOfBirth",
-                        "altFormats": "j.n.Y|d.m.Y|j.m.Y|d.n.Y|Y-m-d",
-                        "format": "j.n.Y"
-                    },
-                    "designerId": "8ea944f3-e8ff-41e7-9483-dfd9bf042d51"
-                },
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "SSN",
-                        "name": "ssn"
-                    },
-                    "designerId": "e5461da1-a609-4d56-9ffb-0ba6af14264a"
-                },
-                {
-                    "type": "Ext.form.field.ComboBox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "Gender",
-                        "name": "gender",
-                        "allowBlank": false,
-                        "editable": false,
-                        "displayField": "name",
-                        "queryMode": "local",
-                        "store": "Gender",
-                        "valueField": "value"
-                    },
-                    "designerId": "1aa49c6a-4094-4d4b-adf8-6958a1be8f1c"
-                },
                 {
                     "type": "Ext.toolbar.Toolbar",
                     "reference": {
@@ -190,7 +44,7 @@
                         "dock": "bottom",
                         "designer|displayName": "Toolbar"
                     },
-                    "designerId": "b52a9f68-9dfd-4aaf-916f-7ddcb493dfdd",
+                    "designerId": "7de5cb3c-9106-4e85-a507-65475627795d",
                     "cn": [
                         {
                             "type": "Ext.button.Button",
@@ -201,11 +55,11 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
-                                "itemId": "reset_dialog",
+                                "itemId": "reset",
                                 "iconCls": "icon-reset",
                                 "text": "Reset"
                             },
-                            "designerId": "faf0ac4e-0f81-44e3-8c8b-b3c6be36a0ab"
+                            "designerId": "1ee8df82-8cd0-46eb-835c-f6749f03c1d8"
                         },
                         {
                             "type": "Ext.toolbar.Fill",
@@ -218,7 +72,7 @@
                                 "layout|flex": null,
                                 "designer|displayName": "Fill"
                             },
-                            "designerId": "c4be1555-ca5c-4248-a158-b849054c8c0e"
+                            "designerId": "6205e62f-7d95-4526-ba5e-6ca8750b83c6"
                         },
                         {
                             "type": "Ext.button.Button",
@@ -229,11 +83,12 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
-                                "itemId": "cancel_dialog",
+                                "id": null,
+                                "itemId": "cancel",
                                 "iconCls": "icon-cancel",
                                 "text": "Cancel"
                             },
-                            "designerId": "1dc87e5d-00a8-4bc6-ab44-c3093d10724a"
+                            "designerId": "85676f1a-a024-4665-a37d-d8898aacb62f"
                         },
                         {
                             "type": "Ext.button.Button",
@@ -244,13 +99,92 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
-                                "itemId": "submit_dialog",
+                                "id": null,
+                                "itemId": "submit",
                                 "iconCls": "icon-add",
                                 "text": "Add Person"
                             },
-                            "designerId": "355dfaed-bf88-40b9-b8b7-ddbf030615b7"
+                            "designerId": "042f4659-326d-443c-860d-a564bcfd3b48"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "First Name",
+                        "name": "firstName",
+                        "allowBlank": false
+                    },
+                    "designerId": "f6694b83-66cb-4dc7-a28d-35a8f7c1b963"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Last Name",
+                        "name": "lastName"
+                    },
+                    "designerId": "49c8a663-ee44-4c1e-95eb-7c7ad28577eb"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Date of Birth",
+                        "name": "dateOfBirth",
+                        "altFormats": "d.m.Y",
+                        "format": "d.m.Y"
+                    },
+                    "designerId": "a3e991ec-e784-4f73-80a1-5e2c522474b2"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "SSN",
+                        "name": "ssn"
+                    },
+                    "designerId": "89a58b61-0e58-44f4-81f1-199001cc1882"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Gender",
+                        "name": "gender",
+                        "allowBlank": false,
+                        "editable": false,
+                        "displayField": "name",
+                        "store": "Genders",
+                        "valueField": "value"
+                    },
+                    "designerId": "c8d0c09c-c51d-487a-8c44-4e7c9f28707a"
                 }
             ]
         }

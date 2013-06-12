@@ -21,21 +21,18 @@ Ext.Loader.setConfig({
 Ext.application({
     stores: [
         'People',
+        'Genders',
         'Contacts',
-        'Gender',
-        'ContactType'
+        'ContactTypes',
+        'Countries'
     ],
     views: [
         'Page'
     ],
     autoCreateViewport: true,
     controllers: [
-        'Person'
+        'Common'
     ],
     name: 'Simplereg',
-
-    launch: function() {
-        Simplereg.controller.Person.launch();
-    }
-
+    namespaces: 'person'
 });

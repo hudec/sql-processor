@@ -16,7 +16,7 @@
 Ext.define('Simplereg.view.ContactUpdate', {
     extend: 'Ext.window.Window',
 
-    id: 'ContactUpdate',
+    id: 'contact-update',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-edit',
@@ -30,60 +30,9 @@ Ext.define('Simplereg.view.ContactUpdate', {
             items: [
                 {
                     xtype: 'form',
-                    defaults: {
-                        anchor: '1'
-                    },
                     bodyPadding: 10,
                     header: false,
-                    title: 'Contact Data',
-                    api: { submit: "Simplereg.controller.Person.updateContactFromDialog" },
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Id',
-                            name: 'id',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Person Id',
-                            name: 'personId',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Version',
-                            name: 'version',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'combobox',
-                            fieldLabel: 'Type',
-                            name: 'ctype',
-                            allowBlank: false,
-                            editable: false,
-                            displayField: 'name',
-                            queryMode: 'local',
-                            store: 'ContactType',
-                            valueField: 'value'
-                        },
-                        {
-                            xtype: 'textfield',
-                            fieldLabel: 'Address',
-                            name: 'address'
-                        },
-                        {
-                            xtype: 'textfield',
-                            fieldLabel: 'Phone',
-                            name: 'phoneNumber'
-                        }
-                    ],
+                    title: 'Data',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -91,8 +40,7 @@ Ext.define('Simplereg.view.ContactUpdate', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    disabled: true,
-                                    itemId: 'reset_dialog',
+                                    itemId: 'reset',
                                     iconCls: 'icon-reset',
                                     text: 'Reset'
                                 },
@@ -101,17 +49,75 @@ Ext.define('Simplereg.view.ContactUpdate', {
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'cancel_dialog',
+                                    itemId: 'cancel',
                                     iconCls: 'icon-cancel',
                                     text: 'Cancel'
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'submit_dialog',
+                                    itemId: 'submit',
                                     iconCls: 'icon-edit',
                                     text: 'Modify Contact'
                                 }
                             ]
+                        }
+                    ],
+                    items: [
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Person Id',
+                            name: 'id',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Person Id',
+                            name: 'version',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Person Id',
+                            name: 'personId',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'combobox',
+                            anchor: '100%',
+                            fieldLabel: 'Type',
+                            name: 'ctype',
+                            editable: false,
+                            displayField: 'name',
+                            store: 'ContactTypes',
+                            valueField: 'value'
+                        },
+                        {
+                            xtype: 'combobox',
+                            anchor: '100%',
+                            fieldLabel: 'Country',
+                            name: 'countryCode',
+                            editable: false,
+                            displayField: 'name',
+                            store: 'Countries',
+                            valueField: 'code'
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: 'Address',
+                            name: 'address'
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: 'Phone',
+                            name: 'phoneNumber'
                         }
                     ]
                 }
@@ -119,37 +125,6 @@ Ext.define('Simplereg.view.ContactUpdate', {
         });
 
         me.callParent(arguments);
-    },
-
-    bussy: function(msg) {
-        var me = this, bussy;
-
-        if (!me.bussyMask) {
-            me.bussyMask = new Ext.LoadMask({
-                msg: "Processing...",
-                target: me
-            });
-        }
-
-        if (msg == undefined || msg === true) {
-            bussy = true;
-        }
-        else if (!msg) {
-            bussy = false;
-        }
-        else {
-            me.bussyMask.msg = msg;
-            bussy = true;
-        }
-
-        if (bussy) {
-            me.bussyMask.show();
-        }
-        else {
-            me.bussyMask.hide();
-        }
-
-        return bussy;
     }
 
 });

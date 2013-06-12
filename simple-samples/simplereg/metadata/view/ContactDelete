@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "height": null,
-        "id": "ContactDelete",
+        "id": "contact-delete",
         "width": 400,
         "designer|userClassName": "ContactDelete",
         "closeAction": "hide",
@@ -15,63 +15,8 @@
         "title": "Remove Contact",
         "modal": true
     },
-    "configAlternates": {
-        "bussyMask": "object"
-    },
-    "designerId": "631da3fd-ca79-4099-a586-8605c18306f7",
-    "customConfigs": [
-        {
-            "group": "(Custom Properties)",
-            "name": "bussyMask",
-            "type": "string"
-        }
-    ],
+    "designerId": "e1113478-bad0-407f-bf70-1c7be150fc00",
     "cn": [
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "bussy",
-                "designer|params": [
-                    "msg"
-                ],
-                "implHandler": [
-                    "var me = this, bussy;",
-                    "",
-                    "if (!me.bussyMask) {",
-                    "    me.bussyMask = new Ext.LoadMask({",
-                    "        msg: \"Processing...\",",
-                    "        target: me",
-                    "    });",
-                    "}",
-                    "",
-                    "if (msg == undefined || msg === true) {",
-                    "    bussy = true;",
-                    "}",
-                    "else if (!msg) {",
-                    "    bussy = false;",
-                    "}",
-                    "else {",
-                    "    me.bussyMask.msg = msg;",
-                    "    bussy = true;",
-                    "}",
-                    "",
-                    "if (bussy) {",
-                    "    me.bussyMask.show();",
-                    "}",
-                    "else {",
-                    "    me.bussyMask.hide();",
-                    "}",
-                    "",
-                    "return bussy;"
-                ]
-            },
-            "designerId": "c61451ae-4ebd-4efd-b155-1e2a30b87ea1"
-        },
         {
             "type": "Ext.form.Panel",
             "reference": {
@@ -80,115 +25,12 @@
             },
             "codeClass": null,
             "userConfig": {
-                "defaults": [
-                    "{",
-                    "    anchor: \"1\"",
-                    "}"
-                ],
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Contact Data",
-                "api": [
-                    "{ submit: \"Simplereg.controller.Person.deleteContactFromDialog\" }"
-                ]
+                "title": "Data"
             },
-            "designerId": "4e9fd1e8-ded1-44f7-b086-b30099f4c973",
+            "designerId": "403af547-0ceb-47e8-a8b0-d3649d55a8d7",
             "cn": [
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": "100%",
-                        "hidden": true,
-                        "itemId": null,
-                        "fieldLabel": "Id",
-                        "name": "id",
-                        "readOnly": true
-                    },
-                    "designerId": "902b4b4a-d751-4645-8038-ff2d34e9b7b6"
-                },
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": "100%",
-                        "hidden": true,
-                        "itemId": "person_id",
-                        "fieldLabel": "Person Id",
-                        "name": "personId",
-                        "readOnly": true
-                    },
-                    "designerId": "7d0a79c8-9122-4e08-9345-f7a6ff67ee1a"
-                },
-                {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": "100%",
-                        "hidden": true,
-                        "fieldLabel": "Version",
-                        "name": "version",
-                        "readOnly": true
-                    },
-                    "designerId": "b770ec6d-b47d-4e16-943e-f07a56e859f4"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "Type",
-                        "name": "ctype"
-                    },
-                    "designerId": "544f30f6-d06b-455a-9fd1-6d767d8b8ab7"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "Address",
-                        "name": "address"
-                    },
-                    "designerId": "faf50bc1-94a4-4483-8fa7-4072aa55639e"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": null,
-                        "itemId": null,
-                        "fieldLabel": "Phone",
-                        "name": "phoneNumber"
-                    },
-                    "designerId": "2b51cc4c-ab29-4665-9ebb-686d4e211837"
-                },
                 {
                     "type": "Ext.toolbar.Toolbar",
                     "reference": {
@@ -200,7 +42,7 @@
                         "dock": "bottom",
                         "designer|displayName": "Toolbar"
                     },
-                    "designerId": "2076861d-ceaf-48d2-bbe0-b935a45c23c3",
+                    "designerId": "7cdeab5f-b05c-4e96-921d-b00c4a24b8a3",
                     "cn": [
                         {
                             "type": "Ext.toolbar.Fill",
@@ -213,7 +55,7 @@
                                 "layout|flex": null,
                                 "designer|displayName": "Fill"
                             },
-                            "designerId": "dcf00ec6-182e-4775-8c68-7599ada35416"
+                            "designerId": "9043873e-f0e8-4da6-932a-a1ac34c14c82"
                         },
                         {
                             "type": "Ext.button.Button",
@@ -224,11 +66,11 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
-                                "itemId": "cancel_dialog",
+                                "itemId": "cancel",
                                 "iconCls": "icon-cancel",
                                 "text": "Cancel"
                             },
-                            "designerId": "a19fd450-3d54-44b5-ac4f-e92ab2680152"
+                            "designerId": "bacbb394-a0ff-44e2-b718-058bc6bd06b8"
                         },
                         {
                             "type": "Ext.button.Button",
@@ -239,13 +81,117 @@
                             "codeClass": null,
                             "userConfig": {
                                 "layout|flex": null,
-                                "itemId": "submit_dialog",
+                                "itemId": "submit",
                                 "iconCls": "icon-delete",
                                 "text": "Remove Contact"
                             },
-                            "designerId": "1693066e-6d65-49f1-950f-89b3d48137fe"
+                            "designerId": "fc5a7cd6-b930-444b-b151-d7ccb7dbaa0d"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Person Id",
+                        "name": "id",
+                        "readOnly": true
+                    },
+                    "designerId": "d5fd1864-a3e9-49e8-8fbb-2283c8794c76"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Person Id",
+                        "name": "version",
+                        "readOnly": true
+                    },
+                    "designerId": "07ea0a59-f119-472b-988c-c9eda38212b3"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Person Id",
+                        "name": "personId",
+                        "readOnly": true
+                    },
+                    "designerId": "8884ce18-a898-40fe-b932-2932c5acf480"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Type",
+                        "name": "ctype"
+                    },
+                    "designerId": "3c1b5790-afaa-46dc-a295-2b13cde93cea"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Country",
+                        "name": "countryCode"
+                    },
+                    "designerId": "b0800e10-6c49-4602-b29e-1f441607b609"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Address",
+                        "name": "address"
+                    },
+                    "designerId": "344a1204-bf5f-4ea4-9544-c23795836b46"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Phone",
+                        "name": "phoneNumber"
+                    },
+                    "designerId": "3bfbdaa7-8260-42c2-b658-14033ebf6597"
                 }
             ]
         }

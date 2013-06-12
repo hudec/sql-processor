@@ -16,7 +16,11 @@
 Ext.define('Simplereg.view.PersonDelete', {
     extend: 'Ext.window.Window',
 
-    id: 'PersonDelete',
+    requires: [
+        'Simplereg.view.override.PersonDelete'
+    ],
+
+    id: 'person-delete',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-delete',
@@ -30,59 +34,9 @@ Ext.define('Simplereg.view.PersonDelete', {
             items: [
                 {
                     xtype: 'form',
-                    defaults: {
-                        anchor: '1'
-                    },
                     bodyPadding: 10,
                     header: false,
-                    title: 'Personal Data',
-                    api: { submit: "Simplereg.controller.Person.deletePersonFromDialog" },
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Id',
-                            name: 'id',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Version',
-                            name: 'version',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'First Name',
-                            name: 'firstName'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'Last Name',
-                            name: 'lastName'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            renderer: function(value, displayField) {
-                                return Ext.util.Format.dateRenderer('j.n.Y')(value);
-                            },
-                            fieldLabel: 'Date of Birth',
-                            name: 'dateOfBirth'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'SSN',
-                            name: 'ssn'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'Gender',
-                            name: 'gender'
-                        }
-                    ],
+                    title: 'Data',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -93,17 +47,68 @@ Ext.define('Simplereg.view.PersonDelete', {
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'cancel_dialog',
+                                    itemId: 'cancel',
                                     iconCls: 'icon-cancel',
                                     text: 'Cancel'
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'submit_dialog',
+                                    itemId: 'submit',
                                     iconCls: 'icon-delete',
                                     text: 'Remove Person'
                                 }
                             ]
+                        }
+                    ],
+                    items: [
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Id',
+                            name: 'id',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Version',
+                            name: 'version',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'First Name',
+                            name: 'firstName'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'Last Name',
+                            name: 'lastName'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            renderer: function(value, displayField) {
+                                return Ext.util.Format.dateRenderer('d.m.Y')(value);
+                            },
+                            anchor: '100%',
+                            fieldLabel: 'Date of Birth',
+                            name: 'dateOfBirth'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'SSN',
+                            name: 'ssn'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'Gender',
+                            name: 'gender'
                         }
                     ]
                 }
@@ -111,37 +116,6 @@ Ext.define('Simplereg.view.PersonDelete', {
         });
 
         me.callParent(arguments);
-    },
-
-    bussy: function(msg) {
-        var me = this, bussy;
-
-        if (!me.bussyMask) {
-            me.bussyMask = new Ext.LoadMask({
-                msg: "Processing...",
-                target: me
-            });
-        }
-
-        if (msg == undefined || msg === true) {
-            bussy = true;
-        }
-        else if (!msg) {
-            bussy = false;
-        }
-        else {
-            me.bussyMask.msg = msg;
-            bussy = true;
-        }
-
-        if (bussy) {
-            me.bussyMask.show();
-        }
-        else {
-            me.bussyMask.hide();
-        }
-
-        return bussy;
     }
 
 });

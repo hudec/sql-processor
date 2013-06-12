@@ -8,35 +8,22 @@
     "userConfig": {
         "stores": [
             "People",
+            "Genders",
             "Contacts",
-            "Gender",
-            "ContactType"
+            "ContactTypes",
+            "Countries"
         ],
         "views": [
             "Page"
         ],
         "autoCreateViewport": true,
         "controllers": [
-            "Person"
+            "Common"
         ],
-        "name": "Simplereg"
+        "name": "Simplereg",
+        "namespaces": [
+            "person"
+        ]
     },
-    "designerId": "application",
-    "cn": [
-        {
-            "type": "fixedfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "launch",
-                "implHandler": [
-                    "Simplereg.controller.Person.launch();"
-                ]
-            },
-            "designerId": "71ca6f25-bdfd-40b3-b0ab-bf1716785218"
-        }
-    ]
+    "designerId": "application"
 }

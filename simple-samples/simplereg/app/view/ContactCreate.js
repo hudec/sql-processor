@@ -16,7 +16,7 @@
 Ext.define('Simplereg.view.ContactCreate', {
     extend: 'Ext.window.Window',
 
-    id: 'ContactCreate',
+    id: 'contact-create',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-add',
@@ -30,45 +30,9 @@ Ext.define('Simplereg.view.ContactCreate', {
             items: [
                 {
                     xtype: 'form',
-                    defaults: {
-                        anchor: '1'
-                    },
                     bodyPadding: 10,
                     header: false,
-                    title: 'Contact Data',
-                    api: { submit: "Simplereg.controller.Person.createContactFromDialog" },
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            hidden: true,
-                            itemId: 'person_id',
-                            fieldLabel: 'Person Id',
-                            name: 'personId',
-                            readOnly: true
-                        },
-                        {
-                            xtype: 'combobox',
-                            fieldLabel: 'Type',
-                            name: 'ctype',
-                            allowBlank: false,
-                            editable: false,
-                            displayField: 'name',
-                            queryMode: 'local',
-                            store: 'ContactType',
-                            valueField: 'value'
-                        },
-                        {
-                            xtype: 'textfield',
-                            fieldLabel: 'Address',
-                            name: 'address'
-                        },
-                        {
-                            xtype: 'textfield',
-                            fieldLabel: 'Phone',
-                            name: 'phoneNumber'
-                        }
-                    ],
+                    title: 'Data',
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -76,7 +40,7 @@ Ext.define('Simplereg.view.ContactCreate', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    itemId: 'reset_dialog',
+                                    itemId: 'reset',
                                     iconCls: 'icon-reset',
                                     text: 'Reset'
                                 },
@@ -85,17 +49,59 @@ Ext.define('Simplereg.view.ContactCreate', {
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'cancel_dialog',
+                                    itemId: 'cancel',
                                     iconCls: 'icon-cancel',
                                     text: 'Cancel'
                                 },
                                 {
                                     xtype: 'button',
-                                    itemId: 'submit_dialog',
+                                    itemId: 'submit',
                                     iconCls: 'icon-add',
                                     text: 'Add Contact'
                                 }
                             ]
+                        }
+                    ],
+                    items: [
+                        {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Person Id',
+                            name: 'personId',
+                            readOnly: true
+                        },
+                        {
+                            xtype: 'combobox',
+                            anchor: '100%',
+                            fieldLabel: 'Type',
+                            name: 'ctype',
+                            editable: false,
+                            displayField: 'name',
+                            store: 'ContactTypes',
+                            valueField: 'value'
+                        },
+                        {
+                            xtype: 'combobox',
+                            anchor: '100%',
+                            fieldLabel: 'Country',
+                            name: 'countryCode',
+                            editable: false,
+                            displayField: 'name',
+                            store: 'Countries',
+                            valueField: 'code'
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: 'Address',
+                            name: 'address'
+                        },
+                        {
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: 'Phone',
+                            name: 'phoneNumber'
                         }
                     ]
                 }
@@ -103,37 +109,6 @@ Ext.define('Simplereg.view.ContactCreate', {
         });
 
         me.callParent(arguments);
-    },
-
-    bussy: function(msg) {
-        var me = this, bussy;
-
-        if (!me.bussyMask) {
-            me.bussyMask = new Ext.LoadMask({
-                msg: "Processing...",
-                target: me
-            });
-        }
-
-        if (msg == undefined || msg === true) {
-            bussy = true;
-        }
-        else if (!msg) {
-            bussy = false;
-        }
-        else {
-            me.bussyMask.msg = msg;
-            bussy = true;
-        }
-
-        if (bussy) {
-            me.bussyMask.show();
-        }
-        else {
-            me.bussyMask.hide();
-        }
-
-        return bussy;
     }
 
 });

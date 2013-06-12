@@ -14,12 +14,13 @@
  */
 
 Ext.define('Simplereg.view.PersonList', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.grid.Panel',
     alias: 'widget.personlist',
 
     frame: true,
-    margin: 5,
-    title: 'Person List',
+    itemId: 'people',
+    title: 'People',
+    store: 'People',
 
     initComponent: function() {
         var me = this;
@@ -29,104 +30,74 @@ Ext.define('Simplereg.view.PersonList', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
-                    autoScroll: true,
                     items: [
                         {
                             xtype: 'button',
-                            hidden: true,
-                            itemId: 'person_create',
-                            iconCls: 'icon-add',
-                            text: 'Add'
-                        },
-                        {
-                            xtype: 'button',
-                            disabled: true,
-                            hidden: true,
-                            itemId: 'selected_person_delete',
-                            iconCls: 'icon-delete',
-                            text: 'Remove'
-                        },
-                        {
-                            xtype: 'button',
-                            disabled: true,
-                            itemId: 'person_open',
+                            itemId: 'open-person',
                             iconCls: 'icon-page',
                             text: 'Open Detail'
                         }
                     ]
+                },
+                {
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    width: 360,
+                    displayInfo: true,
+                    store: 'People'
                 }
             ],
-            items: [
+            columns: [
                 {
-                    xtype: 'gridpanel',
-                    itemId: 'person_list',
-                    autoScroll: true,
-                    header: false,
-                    title: 'Person List',
-                    store: 'People',
-                    columns: [
-                        {
-                            xtype: 'numbercolumn',
-                            hidden: true,
-                            sortable: false,
-                            dataIndex: 'id',
-                            text: 'Id',
-                            flex: 1,
-                            format: '0'
-                        },
-                        {
-                            xtype: 'numbercolumn',
-                            hidden: true,
-                            sortable: false,
-                            dataIndex: 'version',
-                            text: 'Version',
-                            flex: 1,
-                            format: '0'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            sortable: false,
-                            dataIndex: 'firstName',
-                            text: 'First Name',
-                            flex: 2
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            dataIndex: 'lastName',
-                            text: 'Last Name',
-                            flex: 2
-                        },
-                        {
-                            xtype: 'datecolumn',
-                            sortable: false,
-                            dataIndex: 'dateOfBirth',
-                            text: 'Date of Birth',
-                            flex: 1,
-                            format: 'j.n.Y'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            sortable: false,
-                            dataIndex: 'ssn',
-                            text: 'SSN',
-                            flex: 1
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            sortable: false,
-                            dataIndex: 'gender',
-                            text: 'Gender',
-                            flex: 1
-                        }
-                    ],
-                    dockedItems: [
-                        {
-                            xtype: 'pagingtoolbar',
-                            dock: 'bottom',
-                            displayInfo: true,
-                            store: 'People'
-                        }
-                    ]
+                    xtype: 'numbercolumn',
+                    hidden: true,
+                    sortable: false,
+                    dataIndex: 'id',
+                    text: 'Id',
+                    flex: 1
+                },
+                {
+                    xtype: 'numbercolumn',
+                    hidden: true,
+                    sortable: false,
+                    dataIndex: 'version',
+                    text: 'Version',
+                    flex: 1
+                },
+                {
+                    xtype: 'gridcolumn',
+                    sortable: false,
+                    dataIndex: 'firstName',
+                    text: 'First Name',
+                    flex: 2
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'lastName',
+                    text: 'Last Name',
+                    flex: 2
+                },
+                {
+                    xtype: 'datecolumn',
+                    sortable: false,
+                    dataIndex: 'dateOfBirth',
+                    text: 'Date of Birth',
+                    flex: 1,
+                    format: 'd.m.Y'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    sortable: false,
+                    dataIndex: 'ssn',
+                    text: 'SSN',
+                    flex: 1
+                },
+                {
+                    xtype: 'gridcolumn',
+                    sortable: false,
+                    dataIndex: 'gender',
+                    text: 'Gender',
+                    flex: 1
                 }
             ]
         });
