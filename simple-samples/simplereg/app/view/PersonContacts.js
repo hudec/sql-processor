@@ -17,6 +17,10 @@ Ext.define('Simplereg.view.PersonContacts', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.personcontacts',
 
+    requires: [
+        'Simplereg.view.override.PersonContacts'
+    ],
+
     frame: true,
     itemId: 'contacts',
     title: 'Contacts',

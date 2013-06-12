@@ -18,6 +18,24 @@ Ext.define("Simplereg.controller.override.Common", {
 
     init: function(application) {
         this.control({
+            "#page": {
+                beforerender: function(component, eOpts) {
+                    component.init();
+                }
+            },
+            "personselect": {
+                beforerender: function(component, eOpts) {
+                    component.init();
+                }
+            },
+            "persondetail": {
+                beforerender: function(component, eOpts) {
+                    //component.init();
+                },
+                afterrender: function(component, eOpts) {
+                    component.reload();
+                }
+            },
             "#reload": {
                 click: function(button, e, eOpts) {
                     Ext.getCmp("page").reload();
@@ -38,6 +56,11 @@ Ext.define("Simplereg.controller.override.Common", {
                     button.up("window").submit(); //submit dialog window
                 }
             },
+            "#close": {
+                click: function(button, e, eOpts) {
+                    //TODO
+                }
+            },
             "#search-person": {
                 click: function(button, e, eOpts) {
                     Ext.getCmp("person-search").show();
@@ -48,9 +71,28 @@ Ext.define("Simplereg.controller.override.Common", {
                     Ext.getCmp("person-select").search();
                 }
             },
-            "#people #open-person": {
+            "#people": {
+                itemdblclick: function(button, e, eOpts) {
+                    var record = button.up("#people").getSelectionModel().getSelection()[0],
+                            page = Ext.getCmp("page");
+                    page.openPersonDetail(record.data.id, record);
+                }
+            },
+            "#contacts": {
+                itemdblclick: function(button, e, eOpts) {
+                    var dialog = Ext.getCmp("contact-update"),
+                            record = button.up("#contacts").getSelectionModel().getSelection()[0];
+                    dialog.down("form").loadRecord(record);
+                    dialog.show();
+                }
+            },
+            "#people #open": {
                 click: function(button, e, eOpts) {
-                    Ext.getCmp("person-select").openSelected();
+                    var record = button.up("#people").getSelectionModel().getSelection()[0];
+                    if (record) {
+                        var page = Ext.getCmp("page");
+                        page.openPersonDetail(record.data.id, record);
+                    }
                 }
             },
             "#create-person": {
@@ -76,17 +118,30 @@ Ext.define("Simplereg.controller.override.Common", {
             },
             "#create-contact": {
                 click: function(button, e, eOpts) {
-                    Ext.getCmp("contact-create").show();
+                    var dialog = Ext.getCmp("contact-create"),
+                            record = button.up("persondetail").record;
+                    dialog.down("form").getForm().findField("personId").setValue(record.data.id);
+                    dialog.show();
                 }
             },
-            "#update-contact": {
+            "#contacts #update-contact": {
                 click: function(button, e, eOpts) {
-                    Ext.getCmp("contact-update").show();
+                    var dialog = Ext.getCmp("contact-update"),
+                            record = button.up("#contacts").getSelectionModel().getSelection()[0];
+                    if (record) {
+                        dialog.down("form").loadRecord(record);
+                        dialog.show();
+                    }
                 }
             },
-            "#delete-contact": {
+            "#contacts #delete-contact": {
                 click: function(button, e, eOpts) {
-                    Ext.getCmp("contact-delete").show();
+                    var dialog = Ext.getCmp("contact-delete"),
+                            record = button.up("#contacts").getSelectionModel().getSelection()[0];
+                    if (record) {
+                        dialog.down("form").loadRecord(record);
+                        dialog.show();
+                    }
                 }
             }
         });

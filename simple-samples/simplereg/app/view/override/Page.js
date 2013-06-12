@@ -47,8 +47,81 @@ Ext.define("Simplereg.view.override.Page", {
      */
     reload: function() {
         var me = this, view = Ext.getCmp("pages").getActiveTab();
+
         if (view && view.reload) {
             view.reload();
         }
-    }
+    },
+
+    /**
+     * Find person detail
+     * (by id)
+     */
+    findPersonDetail: function(id) {
+        var pages = Ext.getCmp("pages"),
+                ident = "person" + id + "-detail",
+                view = pages.child("#" + ident);
+
+        return view;
+    },
+
+    /**
+     * Reload person detail
+     */
+    reloadPersonDetail: function(id) {
+        var view = this.findPersonDetail(id);
+
+        if (view) {
+            view.reload();
+        }
+    },
+
+    /**
+     * Open person detail (new page item)
+     */
+    openPersonDetail: function(id, record) {
+        var view = this.findPersonDetail(id),
+                pages = Ext.getCmp("pages");
+
+        // New person detail
+        if (!view) {
+            view = Ext.create("Simplereg.view.PersonDetail");
+            view.init(id, record);
+            pages.add(view);
+            pages.setActiveTab(view);
+        }
+
+        // Existing...
+        else {
+            pages.setActiveTab(view);
+        }
+    },
+
+    /**
+     * Close person detail
+     */
+    closePersonDetail: function(id) {
+        var view = this.findPersonDetail(id),
+                pages = Ext.getCmp("pages");
+
+        // Close...
+        if (view && view.closable) {
+            pages.remove(view);
+
+            // Remove stores
+//TODO: store references to stores on view?
+            var store;
+            
+            store = Ext.data.StoreManager.lookup(view.id);
+            if (store) {
+                Ext.data.StoreManager.unregister(store);
+            }
+
+            store = Ext.data.StoreManager.lookup(view.id + "-contacts");
+            if (store) {
+                Ext.data.StoreManager.unregister(store);
+            }
+        }
+    },
+
 });

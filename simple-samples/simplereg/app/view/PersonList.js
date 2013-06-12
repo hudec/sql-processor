@@ -17,6 +17,10 @@ Ext.define('Simplereg.view.PersonList', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.personlist',
 
+    requires: [
+        'Simplereg.view.override.PersonList'
+    ],
+
     frame: true,
     itemId: 'people',
     title: 'People',
@@ -33,7 +37,7 @@ Ext.define('Simplereg.view.PersonList', {
                     items: [
                         {
                             xtype: 'button',
-                            itemId: 'open-person',
+                            itemId: 'open',
                             iconCls: 'icon-page',
                             text: 'Open Detail'
                         }

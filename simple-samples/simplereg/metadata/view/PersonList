@@ -39,7 +39,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "itemId": "open-person",
+                        "itemId": "open",
                         "iconCls": "icon-page",
                         "text": "Open Detail"
                     },

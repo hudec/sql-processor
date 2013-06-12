@@ -16,6 +16,10 @@
 Ext.define('Simplereg.view.ContactCreate', {
     extend: 'Ext.window.Window',
 
+    requires: [
+        'Simplereg.view.override.ContactCreate'
+    ],
+
     id: 'contact-create',
     width: 400,
     closeAction: 'hide',
@@ -76,6 +80,7 @@ Ext.define('Simplereg.view.ContactCreate', {
                             anchor: '100%',
                             fieldLabel: 'Type',
                             name: 'ctype',
+                            allowBlank: false,
                             editable: false,
                             displayField: 'name',
                             store: 'ContactTypes',
@@ -86,7 +91,6 @@ Ext.define('Simplereg.view.ContactCreate', {
                             anchor: '100%',
                             fieldLabel: 'Country',
                             name: 'countryCode',
-                            editable: false,
                             displayField: 'name',
                             store: 'Countries',
                             valueField: 'code'

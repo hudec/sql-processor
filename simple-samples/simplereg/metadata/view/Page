@@ -9,6 +9,7 @@
         "id": "page",
         "itemId": null,
         "designer|userClassName": "Page",
+        "designer|userAlias": null,
         "designer|initialView": true,
         "layout": "fit"
     },
@@ -24,6 +25,7 @@
             "userConfig": {
                 "id": "pages",
                 "itemId": null,
+                "designer|createAlias": null,
                 "header": false,
                 "title": "Person Registry",
                 "plain": true
@@ -52,23 +54,6 @@
                     ]
                 }
             ]
-        },
-        {
-            "type": "basiceventbinding",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "init",
-                "implHandler": [
-                    ""
-                ],
-                "name": "beforerender",
-                "scope": "me"
-            },
-            "designerId": "7ca291dc-2ef7-490e-850a-20bc9a4df792"
         }
     ]
 }

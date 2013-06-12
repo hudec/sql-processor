@@ -16,6 +16,10 @@
 Ext.define('Simplereg.view.ContactUpdate', {
     extend: 'Ext.window.Window',
 
+    requires: [
+        'Simplereg.view.override.ContactUpdate'
+    ],
+
     id: 'contact-update',
     width: 400,
     closeAction: 'hide',
@@ -92,6 +96,7 @@ Ext.define('Simplereg.view.ContactUpdate', {
                             anchor: '100%',
                             fieldLabel: 'Type',
                             name: 'ctype',
+                            allowBlank: false,
                             editable: false,
                             displayField: 'name',
                             store: 'ContactTypes',

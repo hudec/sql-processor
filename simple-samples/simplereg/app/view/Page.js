@@ -43,20 +43,10 @@ Ext.define('Simplereg.view.Page', {
                         }
                     ]
                 }
-            ],
-            listeners: {
-                beforerender: {
-                    fn: me.init,
-                    scope: me
-                }
-            }
+            ]
         });
 
         me.callParent(arguments);
-    },
-
-    init: function(component, eOpts) {
-
     }
 
 });

@@ -18,10 +18,6 @@
    background-image: url("icons/cross.png");
 }
 
-.icon-close {
-   background-image: url("icons/cross-white.png");
-}
-
 .icon-delete {
    background-image: url("icons/cross-button.png");
 }
@@ -39,6 +35,10 @@
 }
 
 .icon-page {
+   background-image: url("icons/document.png");
+}
+
+.icon-page-close {
    background-image: url("icons/document.png");
 }
 
