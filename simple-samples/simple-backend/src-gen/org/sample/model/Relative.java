@@ -3,22 +3,9 @@ package org.sample.model;
 import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
-import ch.ralscha.extdirectspring.generator.ModelField;
-import ch.ralscha.extdirectspring.generator.ModelType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.util.Date;
-import java.util.List;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import org.hibernate.validator.constraints.NotBlank;
-import org.sample.web.util.DMYDateDeserializer;
-import org.sample.web.util.DMYDateSerializer;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
@@ -26,22 +13,24 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Person", paging = true, readMethod = "simpleService.loadPeople")
-public class Person implements Serializable {
+@Model(value = "SimpleWeb.model.Relative")
+public class Relative implements Serializable {
   
   private static final long serialVersionUID = 1L;
   @JsonIgnore
   public static final int ORDER_BY_ID = 1;
   @JsonIgnore
-  public static final int ORDER_BY_LAST_NAME = 2;
+  public static final int ORDER_BY_PERSON_ID = 2;
+  @JsonIgnore
+  public static final int ORDER_BY_REL_PERSON = 3;
 	
-  public Person() {
+  public Relative() {
   }
   
-  public Person(String firstName, String lastName, PersonGender gender) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.gender = gender;
+  public Relative(Long personId, Person relPerson, RelativeRtype rtype) {
+    this.personId = personId;
+    this.relPerson = relPerson;
+    this.rtype = rtype;
   }
   
   private Long id;
@@ -54,140 +43,54 @@ public class Person implements Serializable {
     this.id = id;
   }
   
-  public Person _setId(Long id) {
+  public Relative _setId(Long id) {
     this.id = id;
     return this;
   }
   
-  @NotBlank
-  private String firstName;
+  private Long personId;
   
-  public String getFirstName() {
-    return firstName;
+  public Long getPersonId() {
+    return personId;
   }
   
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setPersonId(Long personId) {
+    this.personId = personId;
   }
   
-  public Person _setFirstName(String firstName) {
-    this.firstName = firstName;
+  public Relative _setPersonId(Long personId) {
+    this.personId = personId;
     return this;
   }
   
-  @NotBlank
-  private String lastName;
+  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Person.class)
+  private Person relPerson;
   
-  public String getLastName() {
-    return lastName;
+  public Person getRelPerson() {
+    return relPerson;
   }
   
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setRelPerson(Person relPerson) {
+    this.relPerson = relPerson;
   }
   
-  public Person _setLastName(String lastName) {
-    this.lastName = lastName;
+  public Relative _setRelPerson(Person relPerson) {
+    this.relPerson = relPerson;
     return this;
   }
   
-  @ModelField(dateFormat = "d.m.Y")
-  @Past
-  @DateTimeFormat(pattern = "dd.MM.yyyy")
-  private Date dateOfBirth;
+  private RelativeRtype rtype;
   
-  @JsonSerialize(using = DMYDateSerializer.class)
-  public Date getDateOfBirth() {
-    return dateOfBirth;
+  public RelativeRtype getRtype() {
+    return rtype;
   }
   
-  @JsonDeserialize(using = DMYDateDeserializer.class)
-  public void setDateOfBirth(Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
+  public void setRtype(RelativeRtype rtype) {
+    this.rtype = rtype;
   }
   
-  public Person _setDateOfBirth(Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-    return this;
-  }
-  
-  @ModelField(type = ModelType.STRING)
-  @NotNull
-  private PersonGender gender;
-  
-  public PersonGender getGender() {
-    return gender;
-  }
-  
-  public void setGender(PersonGender gender) {
-    this.gender = gender;
-  }
-  
-  public Person _setGender(PersonGender gender) {
-    this.gender = gender;
-    return this;
-  }
-  
-  private String ssn;
-  
-  public String getSsn() {
-    return ssn;
-  }
-  
-  public void setSsn(String ssn) {
-    this.ssn = ssn;
-  }
-  
-  public Person _setSsn(String ssn) {
-    this.ssn = ssn;
-    return this;
-  }
-  
-  @NotNull
-  private Integer version = 0;
-  
-  public Integer getVersion() {
-    return version;
-  }
-  
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-  
-  public Person _setVersion(Integer version) {
-    this.version = version;
-    return this;
-  }
-  
-  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Relative.class)
-  private List<Relative> relatives = new ArrayList<Relative>();
-  
-  public List<Relative> getRelatives() {
-    return relatives;
-  }
-  
-  public void setRelatives(List<Relative> relatives) {
-    this.relatives = relatives;
-  }
-  
-  public Person _setRelatives(List<Relative> relatives) {
-    this.relatives = relatives;
-    return this;
-  }
-  
-  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
-  private List<Contact> contacts = new ArrayList<Contact>();
-  
-  public List<Contact> getContacts() {
-    return contacts;
-  }
-  
-  public void setContacts(List<Contact> contacts) {
-    this.contacts = contacts;
-  }
-  
-  public Person _setContacts(List<Contact> contacts) {
-    this.contacts = contacts;
+  public Relative _setRtype(RelativeRtype rtype) {
+    this.rtype = rtype;
     return this;
   }
   
@@ -199,7 +102,7 @@ public class Person implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Person other = (Person) obj;
+    Relative other = (Relative) obj;
     if (id == null || !id.equals(other.id))
       return false;
     return true;
@@ -214,7 +117,7 @@ public class Person implements Serializable {
   }  
   
   public enum Association {
-    relatives, contacts
+    relPerson
   }
   
   private Set<String> initAssociations = new HashSet<String>();
@@ -260,7 +163,6 @@ public class Person implements Serializable {
   }
   
   public enum Attribute {
-    dateOfBirth, ssn
   }
   
   private Set<String> nullValues = new HashSet<String>();
@@ -340,15 +242,15 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + ", version=" + version + "]";
+    return "Relative [id=" + id + ", personId=" + personId + "]";
   }
   
   public String toStringFull() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + ", version=" + version + "]";
+    return "Relative [id=" + id + ", rtype=" + rtype + ", personId=" + personId + ", relPerson=" + relPerson + "]";
   }
   
   public enum OpAttribute {
-      id, firstName, lastName, dateOfBirth, gender, ssn, version, relatives, contacts
+      id, personId, relPerson, rtype
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

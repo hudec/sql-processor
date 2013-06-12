@@ -11,8 +11,11 @@ import org.sample.model.ContactCtype;
 import org.sample.model.Country;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
+import org.sample.model.Relative;
+import org.sample.model.RelativeRtype;
 import org.sample.web.app.ContactService;
 import org.sample.web.app.PersonService;
+import org.sample.web.app.RelativeService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +26,7 @@ public final class TestDataInitializer implements InitializingBean {
     private JdbcTemplate jdbcTemplate;
     private PersonService personService;
     private ContactService contactService;
+    private RelativeService relativeService;
     private boolean initData;
     private String catalog;
     private Resource people;
@@ -68,11 +72,17 @@ public final class TestDataInitializer implements InitializingBean {
                         PersonGender.MALE));
                 calendar.set(1967, 8, 27);
                 personService.insertPerson(newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001",
-                        PersonGender.MALE));
+                        PersonGender.MALE));                                                                               
                 contactService.insertContact(newContact(person, "address1", "123456789", ContactCtype.HOME,
                         new Country("UK")));
                 contactService.insertContact(newContact(person, "address2", "0123456789", ContactCtype.HOME,
                         new Country("CZ")));
+                
+                Person   personRel = null;                
+                calendar.set(2000, 7, 3);
+                personService.insertPerson(personRel = newPerson("Jane", "Jones", calendar.getTime(), "000-12-0002", PersonGender.FEMALE));
+                relativeService.insertRelative(newRelative(person, personRel, RelativeRtype.SISTER));
+                
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -97,6 +107,14 @@ public final class TestDataInitializer implements InitializingBean {
         person.setSsn(ssn);
         person.setGender(gender);
         return person;
+    }
+    
+    private Relative newRelative(Person person, Person relPerson, RelativeRtype type ) {
+    	Relative relative = new Relative();
+    	relative.setPersonId(person.getId());
+    	relative.setRelPerson(relPerson);
+    	relative.setRtype(type);
+    	return relative;
     }
 
     // public void readPeople(Resource people) throws IOException {
@@ -140,4 +158,8 @@ public final class TestDataInitializer implements InitializingBean {
     public void setContacts(Resource contacts) {
         this.contacts = contacts;
     }
+	
+	public void setRelativeService(RelativeService relativeService) {
+		this.relativeService = relativeService;
+	}
 }

@@ -29,6 +29,18 @@ package org.sample.model {
     UNKNOWN ::: "0"
   }
 
+  enum RelativeRtype serializable 1  {
+    value : java.lang.String
+    FATHER ::: "F"
+    MOTHER ::: "M"
+    SON ::: "S"
+    DAUGHTER ::: "D"
+    HUSBAND ::: "H"
+    WIFE ::: "W"
+    BROTHER ::: "B"
+    SISTER ::: "I"
+  }
+
   @Model ::: value "SimpleWeb.model.Contact", paging true, readMethod "simpleService.loadContacts"
   @@@JsonIgnore
   @@@@JsonIgnore
@@ -87,15 +99,34 @@ package org.sample.model {
     ssn : java.lang.String
     @NotNull
     version : java.lang.Integer optLock
+    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Relative class
+    relatives : java.util.List <:Relative>
     @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Contact class
     contacts : java.util.List <:Contact>
     equals ::: id
     hashCode ::: id
-    toInit ::: contacts
+    toInit ::: relatives contacts
     isDef ::: dateOfBirth ssn
     toString ::: dateOfBirth id lastName ssn gender firstName version
   }
+
+  @Model ::: value "SimpleWeb.model.Relative"
+  @@@JsonIgnore
+  @@@@JsonIgnore
+  pojo Relative serializable 1 operators {
+    id : java.lang.Long primaryKey index 1
+    personId : java.lang.Long required index 2
+    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Person class
+    relPerson :: Person required index 3
+    rtype :: RelativeRtype required
+    equals ::: id
+    hashCode ::: id
+    toInit ::: relPerson
+    isDef :::
+    toString ::: id rtype personId relPerson
+  }
 }
+
 
 package org.sample.web.form {
 	pojo PersonForm extends Person serializable 1 {
