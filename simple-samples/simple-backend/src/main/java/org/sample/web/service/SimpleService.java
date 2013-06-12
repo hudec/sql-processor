@@ -141,6 +141,7 @@ public class SimpleService {
         }
         if (resultContact != null) {
             postResult.addResultProperty("id", resultContact.getId());
+            postResult.addResultProperty("personId", contact.getPersonId());
         }
         return postResult;
     }
@@ -158,6 +159,8 @@ public class SimpleService {
 
             postResult.addResultProperty("id", resultContact.getId());
             postResult.addResultProperty("version", resultContact.getVersion());
+            postResult.addResultProperty("personId", contact.getPersonId());
+
         }
         return postResult;
     }
@@ -170,6 +173,7 @@ public class SimpleService {
             if (contact.getId() != null) {
                 resultContact = contactService.deleteContact(contact);
                 postResult.addResultProperty("id", resultContact.getId());
+                postResult.addResultProperty("personId", contact.getPersonId());
             }
             if (resultContact == null)
                 throw new RuntimeException("The record has been in the meantime modified");
@@ -216,4 +220,5 @@ public class SimpleService {
     public void setBeanUtils(BeanExtJsUtils beanUtils) {
         this.beanUtils = beanUtils;
     }
+
 }
