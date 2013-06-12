@@ -20,7 +20,9 @@ Ext.define("Simplereg.view.override.PersonSelect", {
     reload: function(config) {
         var me = this, store = me.down("#people").store;
 
-        me.mask("Loading...");
+        if (me.isVisible()) {
+            me.mask("Loading...");
+        }
 
         // From beginning
         if (config === true) {
@@ -41,37 +43,6 @@ Ext.define("Simplereg.view.override.PersonSelect", {
                 }
             }
         }, config));
-    },
-
-    /**
-     * Open person detail (new page item)
-     */
-    open: function(record) {
-        var pages = Ext.getCmp("pages"),
-                ident = "person" + record.data.id + "-detail",
-                view = pages.child("#" + ident);
-
-        // New person detail
-        if (!view) {
-            view = Ext.create("Simplereg.view.PersonDetail");
-            view.init(record);
-            pages.add(view);
-            pages.setActiveTab(view);
-            view.reload();
-        }
-
-        // Existing...
-        else {
-            pages.setActiveTab(view);
-        }
-    },
-
-    openSelected: function() {
-        var me = this,
-                record = me.down("#people").getSelectionModel().getSelection()[0];
-        if (record) {
-            me.open(record);
-        }
     },
 
     /**

@@ -131,6 +131,7 @@
                         "layout|anchor": "100%",
                         "fieldLabel": "Type",
                         "name": "ctype",
+                        "allowBlank": false,
                         "editable": false,
                         "displayField": "name",
                         "store": "ContactTypes",
@@ -149,9 +150,11 @@
                         "layout|anchor": "100%",
                         "fieldLabel": "Country",
                         "name": "countryCode",
-                        "editable": false,
+                        "editable": null,
                         "displayField": "name",
+                        "queryMode": null,
                         "store": "Countries",
+                        "typeAhead": null,
                         "valueField": "code"
                     },
                     "designerId": "6ebbd4c5-df22-471d-bfa0-f43113f3741b"

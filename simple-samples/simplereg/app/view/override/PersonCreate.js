@@ -12,18 +12,25 @@ Ext.define("Simplereg.view.override.PersonCreate", {
             return false;
         }
 
-        me.mask("Processing...");
+        form.mask("Processing...");
 
         // Create new person
         simpleService.createPerson(form.getInputForm(), function(result) {
-            me.unmask();
+            form.unmask();
 
             if (result.success) {
                 form.getForm().reset();
                 me.close();
 
-//TODO: open new person detail
-                Ext.getCmp("page").reload();
+                // Person select...
+                var view = Ext.getCmp("person-select");
+                view.reload();
+
+                // Open new person detail
+                if (result.id) {
+                    var page = Ext.getCmp("page");
+                    page.openPersonDetail(result.id);
+                }
             }
             else {
                 form.getForm().markInvalid(result.errors);

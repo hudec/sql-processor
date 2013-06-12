@@ -82,6 +82,16 @@ Ext.define('Simplereg.view.PersonDetail', {
                             itemId: 'delete-person',
                             iconCls: 'icon-delete',
                             text: 'Remove'
+                        },
+                        {
+                            xtype: 'tbfill'
+                        },
+                        {
+                            xtype: 'button',
+                            disabled: true,
+                            itemId: 'close',
+                            iconCls: 'icon-page-close',
+                            text: 'Close Detail'
                         }
                     ]
                 }

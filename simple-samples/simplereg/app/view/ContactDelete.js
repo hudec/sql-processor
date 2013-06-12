@@ -16,6 +16,10 @@
 Ext.define('Simplereg.view.ContactDelete', {
     extend: 'Ext.window.Window',
 
+    requires: [
+        'Simplereg.view.override.ContactDelete'
+    ],
+
     id: 'contact-delete',
     width: 400,
     closeAction: 'hide',

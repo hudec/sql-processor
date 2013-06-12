@@ -1,9 +1,8 @@
 Ext.define("Simplereg.view.override.PersonDetail", {
     override: "Simplereg.view.PersonDetail",
 
-    init: function(record) {
-        var me = this, id = record.data.id,
-                ident = "person" + id + "-detail";
+    init: function(id, record) {
+        var me = this, ident = "person" + id + "-detail";
 
         // Person detail
         me.itemId = ident;
@@ -32,7 +31,9 @@ Ext.define("Simplereg.view.override.PersonDetail", {
         contacts.down("pagingtoolbar").bindStore(contacts.store);
 
         // Fill...
-        me.fill(record);
+        if (record) {
+            me.fill(record);
+        }
     },
 
     /**
@@ -41,7 +42,9 @@ Ext.define("Simplereg.view.override.PersonDetail", {
     reload: function() {
         var me = this;
 
-        me.mask("Loading...");
+        if (me.isVisible()) {
+            me.mask("Loading...");
+        }
 
         // Load complex person data
         me.store.load({

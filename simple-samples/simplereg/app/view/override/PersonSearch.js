@@ -12,7 +12,7 @@ Ext.define("Simplereg.view.override.PersonSearch", {
             return false;
         }
 
-        //me.mask("Processing...");
+        //form.mask("Processing...");
         me.close();
 
         // Person select search

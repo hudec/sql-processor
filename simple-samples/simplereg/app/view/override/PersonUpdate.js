@@ -12,17 +12,25 @@ Ext.define("Simplereg.view.override.PersonUpdate", {
             return false;
         }
 
-        me.mask("Processing...");
+        form.mask("Processing...");
 
-        // Create new person
+        // Update person
         simpleService.updatePerson(form.getInputForm(), function(result) {
-            me.unmask();
+            form.unmask();
 
             if (result.success) {
                 form.getForm().reset();
                 me.close();
 
-                Ext.getCmp("page").reload();
+                // Person select
+                var view = Ext.getCmp("person-select");
+                view.reload();
+
+                // Person detail
+                if (result.id) {
+                    var page = Ext.getCmp("page");
+                    page.reloadPersonDetail(result.id);
+                }
             }
             else {
                 form.getForm().markInvalid(result.errors);

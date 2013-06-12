@@ -163,6 +163,7 @@
                         "layout|anchor": "100%",
                         "fieldLabel": "Type",
                         "name": "ctype",
+                        "allowBlank": false,
                         "editable": false,
                         "displayField": "name",
                         "store": "ContactTypes",

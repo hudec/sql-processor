@@ -1,18 +1,19 @@
 Doresit...
-    * info o zmene (seznam) a smazani (detail) - nepovolit akce
+    * mask(...) je bez textu, proc?
+    * dialble nedostupne cudliky (bez vyberu)
     * zpracovat hlasku ze serveru (record has been in the meantime modified)
-    * unregister store pri zavreni detailu
-    * unmask dialog on close
     * format datumu (sladit in/out pro date field a renderer pro display field a grid) -> zmenit jednu stranu
     * chybova hlaseni (napr. u datumu)
-    * mask(...) je bez textu, proc?
-    * form submit api + submit (kam dat handler a jak zapsat do api?, to je jen pro direct?)
-    * staticke methody (utility) kam s nima?
-    * jak s moduly v podadresarich v architektovi?
-    * lokalni alternativa k remote simpleService
+    * field container label (nefocusne prvni polozku)
     * focusnout prvni polozku (dialog)
     * odeslat dialog (via enter)
-    * field container label (nefocusne prvni polozku)
+    ? jak s moduly v podadresarich v architektovi?
+    ? info o zmene (seznam) a smazani (detail) - nepovolit akce
+    ? form submit api + submit (kam dat handler a jak zapsat do api?, to je jen pro direct?)
+    ? staticke methody (utility) kam s nima?
+    ? lokalni alternativa k remote simpleService
+    o unregister store pri zavreni detailu
+    o unmask dialog on close
 
 Dodrzet
     * load zachovava filter (extra params)
@@ -38,4 +39,5 @@ K prmomysleni
 2. Skripty
     * common akce v controleru
     * specificke akce u objektu (napr. store asi ani jinak nejde)
+    * override vsechny objekty (nutno vytvorit via architekt, pak ulozit, jinac to prepise)
 
