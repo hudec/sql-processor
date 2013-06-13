@@ -94,6 +94,21 @@ public class Relative implements Serializable {
     return this;
   }
   
+  private Integer version;
+  
+  public Integer getVersion() {
+    return version;
+  }
+  
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+  
+  public Relative _setVersion(Integer version) {
+    this.version = version;
+    return this;
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -163,6 +178,7 @@ public class Relative implements Serializable {
   }
   
   public enum Attribute {
+    version
   }
   
   private Set<String> nullValues = new HashSet<String>();
@@ -242,15 +258,15 @@ public class Relative implements Serializable {
   
   @Override
   public String toString() {
-    return "Relative [id=" + id + ", personId=" + personId + "]";
+    return "Relative [id=" + id + ", personId=" + personId + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Relative [id=" + id + ", rtype=" + rtype + ", personId=" + personId + ", relPerson=" + relPerson + "]";
+    return "Relative [id=" + id + ", rtype=" + rtype + ", personId=" + personId + ", relPerson=" + relPerson + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
-      id, personId, relPerson, rtype
+      id, personId, relPerson, rtype, version
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

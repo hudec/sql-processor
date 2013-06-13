@@ -93,12 +93,14 @@
     </bean>
     <bean id="relativeService" class="org.sample.web.app.RelativeService">
         <property name="relativeDao" ref="relativeDao" />
+        <property name="personDao" ref="personDao" />
     </bean>
 
     <bean id="simpleService" class="org.sample.web.service.SimpleService">
         <property name="personService" ref="personService" />
         <property name="contactService" ref="contactService" />
         <property name="countryService" ref="countryService" />
+        <property name="relativeService" ref="relativeService" />
         <property name="beanUtils" ref="beanUtils" />
     </bean>
 

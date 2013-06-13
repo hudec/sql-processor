@@ -31,6 +31,7 @@ pojogen-rename-columns CONTACT COUNTRY_CODE->COUNTRY;
 pojogen-ignore-many-to-one CONTACT PERSON_ID->PERSON;
 pojogen-ignore-many-to-one RELATIVE PERSON_ID->PERSON;
 pojogen-ignore-one-to-many PERSON ID->RELATIVE->PERSON_ID;
+pojogen-create-columns RELATIVE VERSION->:java.lang.Integer;
 
 // use indetity for primary keys
 // for HSQLDB

@@ -7,9 +7,11 @@ import javax.validation.Valid;
 import org.sample.model.Contact;
 import org.sample.model.Country;
 import org.sample.model.Person;
+import org.sample.model.Relative;
 import org.sample.web.app.ContactService;
 import org.sample.web.app.CountryService;
 import org.sample.web.app.PersonService;
+import org.sample.web.app.RelativeService;
 import org.sample.web.form.CountHolder;
 import org.sample.web.form.PersonForm;
 import org.sample.web.util.BeanExtJsUtils;
@@ -37,6 +39,7 @@ public class SimpleService {
     protected ContactService contactService;
     protected PersonService personService;
     protected CountryService countryService;
+    protected RelativeService relativeService;
     protected BeanExtJsUtils beanUtils;
 
     @InitBinder
@@ -196,7 +199,74 @@ public class SimpleService {
         logger.info("loadCountries <- " + result);
         return result;
     }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
+    public ExtDirectStoreReadResult<Relative> loadRelatives(ExtDirectStoreReadRequest request) throws Exception {
+        logger.info("loadRelatives -> " + request);
 
+        Relative form = beanUtils.buildFormFromParams(request.getParams(), Relative.class);
+        SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
+                : new SqlStandardControl();
+        if (request.getSorters() != null)
+            beanUtils.buildSortFromParams(Relative.class, sqlControl, request.getSorters());
+        logger.info("loadRelatives control " + sqlControl);
+
+        CountHolder count = new CountHolder();
+        List<Relative> relatives = relativeService.listRelatives(form, sqlControl, count);
+
+        ExtDirectStoreReadResult<Relative> result = new ExtDirectStoreReadResult<Relative>(new Long(count.getCount()),
+                relatives, true);
+        logger.info("loadRelatives <- " + result);
+        return result;
+    }
+    
+
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult createRelative(@Valid Relative relative, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Relative resultRelative = null;
+        if (!result.hasErrors()) {
+            resultRelative = relativeService.insertRelative(relative);
+        }
+        if (resultRelative != null) {
+            postResult.addResultProperty("id", resultRelative.getId());            
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult updateRelative(@Valid Relative relative, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Relative resultRelative = null;
+
+        if (!result.hasErrors()) {            
+            resultRelative = relativeService.updateRelative(relative);
+
+            if (resultRelative == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+
+            postResult.addResultProperty("id", resultRelative.getId());
+            postResult.addResultProperty("version", resultRelative.getVersion());
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
+    public ExtDirectFormPostResult deleteRelative(Relative relative, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Relative resultRelative = null;
+        if (!result.hasErrors()) {
+            if (relative.getId() != null) {
+                resultRelative = relativeService.deleteRelative(relative);
+                postResult.addResultProperty("id", resultRelative.getId());
+                postResult.addResultProperty("version", resultRelative.getVersion());	
+            }
+            if (resultRelative == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+        }
+        return postResult;
+    }
+    
     @Required
     public void setContactService(ContactService contactService) {
         this.contactService = contactService;
@@ -210,6 +280,11 @@ public class SimpleService {
     @Required
     public void setCountryService(CountryService countryService) {
         this.countryService = countryService;
+    }
+    
+    @Required
+    public void setRelativeService(RelativeService relativeService) {
+        this.relativeService = relativeService;
     }
 
     @Required

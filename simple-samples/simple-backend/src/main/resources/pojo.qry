@@ -1,5 +1,6 @@
 package org.sample.model {
 
+
   import org.sample.web.util.DMYDateDeserializer
   import javax.validation.constraints.NotNull
   import org.springframework.format.annotation.DateTimeFormat
@@ -119,11 +120,12 @@ package org.sample.model {
     @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Person class
     relPerson :: Person required index 3
     rtype :: RelativeRtype required
+    version : java.lang.Integer
     equals ::: id
     hashCode ::: id
     toInit ::: relPerson
-    isDef :::
-    toString ::: id rtype personId relPerson
+    isDef ::: version
+    toString ::: id rtype personId relPerson version
   }
 }
 
