@@ -33,9 +33,10 @@ public class ContactService {
     @Transactional
     public Contact insertContact(Contact contact) {
         logger.info("insertContact -> " + contact);
-        Contact p = contactDao.insert(contact);
-        logger.info("insertContact <- " + p);
-        return p;
+        Contact c = contactDao.insert(contact);
+        c.setVersion(0); // in other case the record should be reread
+        logger.info("insertContact <- " + c);
+        return c;
     }
 
     @Transactional

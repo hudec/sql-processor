@@ -37,6 +37,7 @@ public class PersonService {
     public Person insertPerson(Person person) {
         logger.info("insertPerson -> " + person);
         Person p = personDao.insert(person);
+        p.setVersion(0); // in other case the record should be reread
         logger.info("insertPerson <- " + p);
         return p;
     }
