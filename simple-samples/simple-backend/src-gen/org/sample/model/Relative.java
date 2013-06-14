@@ -3,7 +3,10 @@ package org.sample.model;
 import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
+import ch.ralscha.extdirectspring.generator.ModelField;
+import ch.ralscha.extdirectspring.generator.ModelType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -79,6 +82,8 @@ public class Relative implements Serializable {
     return this;
   }
   
+  @ModelField(type = ModelType.STRING)
+  @NotNull
   private RelativeRtype rtype;
   
   public RelativeRtype getRtype() {
@@ -94,6 +99,7 @@ public class Relative implements Serializable {
     return this;
   }
   
+  @NotNull
   private Integer version;
   
   public Integer getVersion() {
