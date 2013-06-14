@@ -37,6 +37,7 @@ Ext.define('Simplereg.view.PersonUpdate', {
                     bodyPadding: 10,
                     header: false,
                     title: 'Data',
+                    trackResetOnLoad: true,
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -115,8 +116,10 @@ Ext.define('Simplereg.view.PersonUpdate', {
                             anchor: '100%',
                             fieldLabel: 'Gender',
                             name: 'gender',
-                            editable: false,
+                            allowBlank: false,
                             displayField: 'name',
+                            forceSelection: true,
+                            queryMode: 'local',
                             store: 'Genders',
                             valueField: 'value'
                         }

@@ -23,6 +23,10 @@ Ext.define('Simplereg.store.Genders', {
             storeId: 'GendersStore',
             data: [
                 {
+                    value: '',
+                    name: ''
+                },
+                {
                     value: 'MALE',
                     name: 'MALE'
                 },

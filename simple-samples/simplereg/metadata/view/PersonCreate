@@ -29,8 +29,8 @@
                 "bodyPadding": 10,
                 "header": false,
                 "title": "Data",
-                "api": null,
-                "standardSubmit": false
+                "standardSubmit": false,
+                "trackResetOnLoad": true
             },
             "designerId": "de1305d7-b0cb-4d22-8be6-e1347ed6f9ea",
             "cn": [
@@ -180,8 +180,10 @@
                         "fieldLabel": "Gender",
                         "name": "gender",
                         "allowBlank": false,
-                        "editable": false,
+                        "editable": null,
                         "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
                         "store": "Genders",
                         "valueField": "value"
                     },

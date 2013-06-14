@@ -37,6 +37,7 @@ Ext.define('Simplereg.view.ContactCreate', {
                     bodyPadding: 10,
                     header: false,
                     title: 'Data',
+                    trackResetOnLoad: true,
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -44,6 +45,9 @@ Ext.define('Simplereg.view.ContactCreate', {
                             items: [
                                 {
                                     xtype: 'button',
+                                    handler: function(button, event) {
+                                        button.up("form").getForm().findField("personId").setValue(button.personId);
+                                    },
                                     itemId: 'reset',
                                     iconCls: 'icon-reset',
                                     text: 'Reset'
@@ -81,22 +85,24 @@ Ext.define('Simplereg.view.ContactCreate', {
                             fieldLabel: 'Type',
                             name: 'ctype',
                             allowBlank: false,
-                            editable: false,
                             displayField: 'name',
+                            forceSelection: true,
+                            queryMode: 'local',
+                            queryParam: 'name',
                             store: 'ContactTypes',
                             valueField: 'value'
                         },
                         {
                             xtype: 'combobox',
-                            anchor: '100%',
                             tpl: '<tpl for="."><div class="x-boundlist-item">{name} ({code})</div></tpl>',
                             displayTpl: '<tpl for=".">{name} ({code})</tpl>',
+                            anchor: '100%',
                             itemId: 'country',
                             fieldLabel: 'Country',
                             name: 'countryCode',
                             displayField: 'name',
                             forceSelection: true,
-                            queryMode: 'local',
+                            minChars: 1,
                             queryParam: 'name',
                             store: 'Countries',
                             valueField: 'code'

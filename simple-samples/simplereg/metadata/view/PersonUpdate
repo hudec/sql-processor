@@ -27,7 +27,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Data"
+                "title": "Data",
+                "trackResetOnLoad": true
             },
             "designerId": "0b8eb2fe-a888-49bc-91ec-12fa95e0ce2c",
             "cn": [
@@ -208,8 +209,11 @@
                         "layout|anchor": "100%",
                         "fieldLabel": "Gender",
                         "name": "gender",
-                        "editable": false,
+                        "allowBlank": false,
+                        "editable": null,
                         "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
                         "store": "Genders",
                         "valueField": "value"
                     },

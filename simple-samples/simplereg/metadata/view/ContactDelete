@@ -27,7 +27,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Data"
+                "title": "Data",
+                "trackResetOnLoad": true
             },
             "designerId": "403af547-0ceb-47e8-a8b0-d3649d55a8d7",
             "cn": [

@@ -10,6 +10,7 @@
         "designer|userClassName": "Genders",
         "data": [
             "[",
+            "    { value: \"\", name: \"\" },",
             "    { value: \"MALE\", name: \"MALE\" },",
             "    { value: \"FEMALE\", name: \"FEMALE\" },",
             "    { value: \"UNKNOWN\", name: \"UNKNOWN\" }",

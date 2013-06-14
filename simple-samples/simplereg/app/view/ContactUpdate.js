@@ -37,6 +37,7 @@ Ext.define('Simplereg.view.ContactUpdate', {
                     bodyPadding: 10,
                     header: false,
                     title: 'Data',
+                    trackResetOnLoad: true,
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -97,22 +98,25 @@ Ext.define('Simplereg.view.ContactUpdate', {
                             fieldLabel: 'Type',
                             name: 'ctype',
                             allowBlank: false,
-                            editable: false,
                             displayField: 'name',
+                            forceSelection: true,
+                            queryMode: 'local',
+                            queryParam: 'name',
                             store: 'ContactTypes',
                             valueField: 'value'
                         },
                         {
                             xtype: 'combobox',
-                            anchor: '100%',
                             tpl: '<tpl for="."><div class="x-boundlist-item">{name} ({code})</div></tpl>',
                             displayTpl: '<tpl for=".">{name} ({code})</tpl>',
+                            anchor: '100%',
                             itemId: 'country',
                             fieldLabel: 'Country',
                             name: 'countryCode',
                             displayField: 'name',
                             forceSelection: true,
-                            queryMode: 'local',
+                            minChars: 1,
+                            queryParam: 'name',
                             store: 'Countries',
                             valueField: 'code'
                         },

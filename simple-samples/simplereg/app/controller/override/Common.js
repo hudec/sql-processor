@@ -36,12 +36,12 @@ Ext.define("Simplereg.controller.override.Common", {
                     component.reload();
                 }
             },
-            "#country": {
-                beforequery: function(queryPlan, eOpts) {
-                    var value = queryPlan.query, field = queryPlan.combo,
-                            name = value.length > 1 && value == value.toUpperCase() ? "code" : "name";
-                    field.store.clearFilter();
-                    field.store.filter(name, value);
+            "combobox": {
+                blur: function(component, e, eOpts) {
+                    var filter = component.queryFilter;
+                    if (filter) {
+                        filter.value = "";
+                    }
                 }
             },
             "#reload": {
@@ -141,8 +141,14 @@ Ext.define("Simplereg.controller.override.Common", {
             "#create-contact": {
                 click: function(button, e, eOpts) {
                     var dialog = Ext.getCmp("contact-create"),
-                            record = button.up("persondetail").record;
-                    dialog.down("form").getForm().findField("personId").setValue(record.data.id);
+                            id = button.up("persondetail").record.data.id;
+//TODO: better way, but record create fails :(
+                    dialog.down("#reset").personId = id;
+                    dialog.down("form").getForm().findField("personId").setValue(id);
+                    /*
+                    record = Ext.data.Record.create([{ name: "personId", defaultValue: id }]);
+                    dialog.down("form").loadRecord(record);
+                    */
                     dialog.show();
                 }
             },

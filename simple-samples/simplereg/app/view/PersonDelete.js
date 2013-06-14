@@ -37,6 +37,7 @@ Ext.define('Simplereg.view.PersonDelete', {
                     bodyPadding: 10,
                     header: false,
                     title: 'Data',
+                    trackResetOnLoad: true,
                     dockedItems: [
                         {
                             xtype: 'toolbar',

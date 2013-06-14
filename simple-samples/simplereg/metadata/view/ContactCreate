@@ -27,7 +27,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Data"
+                "title": "Data",
+                "trackResetOnLoad": true
             },
             "designerId": "cee92c65-8aea-4183-bbc2-3b2ac7386206",
             "cn": [
@@ -57,7 +58,28 @@
                                 "iconCls": "icon-reset",
                                 "text": "Reset"
                             },
-                            "designerId": "6151f7aa-3f89-4bf0-bb63-368e68421f5f"
+                            "designerId": "6151f7aa-3f89-4bf0-bb63-368e68421f5f",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "handler",
+                                        "designer|params": [
+                                            "button",
+                                            "event"
+                                        ],
+                                        "implHandler": [
+                                            "button.up(\"form\").getForm().findField(\"personId\").setValue(button.personId);"
+                                        ]
+                                    },
+                                    "designerId": "5df5271a-c1ac-40fb-aa57-2de048d3c2c6"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.toolbar.Fill",
@@ -132,9 +154,10 @@
                         "fieldLabel": "Type",
                         "name": "ctype",
                         "allowBlank": false,
-                        "editable": false,
                         "displayField": "name",
-                        "queryMode": null,
+                        "forceSelection": true,
+                        "queryMode": "local",
+                        "queryParam": "name",
                         "store": "ContactTypes",
                         "valueField": "value"
                     },
@@ -148,9 +171,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
                         "tpl": "<tpl for=\".\"><div class=\"x-boundlist-item\">{name} ({code})</div></tpl>",
                         "displayTpl": "<tpl for=\".\">{name} ({code})</tpl>",
+                        "layout|anchor": "100%",
                         "itemId": "country",
                         "designer|displayName": "",
                         "fieldLabel": "Country",
@@ -159,8 +182,8 @@
                         "editable": null,
                         "displayField": "name",
                         "forceSelection": true,
-                        "minChars": null,
-                        "queryMode": "local",
+                        "minChars": 1,
+                        "queryMode": null,
                         "queryParam": "name",
                         "store": "Countries",
                         "triggerAction": null,

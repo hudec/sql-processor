@@ -27,7 +27,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Data"
+                "title": "Data",
+                "trackResetOnLoad": true
             },
             "designerId": "cca33185-6c4b-4597-8a0a-c7e423eb46cc",
             "cn": [
@@ -164,8 +165,10 @@
                         "fieldLabel": "Type",
                         "name": "ctype",
                         "allowBlank": false,
-                        "editable": false,
                         "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
+                        "queryParam": "name",
                         "store": "ContactTypes",
                         "valueField": "value"
                     },
@@ -179,9 +182,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
                         "tpl": "<tpl for=\".\"><div class=\"x-boundlist-item\">{name} ({code})</div></tpl>",
                         "displayTpl": "<tpl for=\".\">{name} ({code})</tpl>",
+                        "layout|anchor": "100%",
                         "itemId": "country",
                         "fieldLabel": "Country",
                         "name": "countryCode",
@@ -190,7 +193,9 @@
                         "editable": null,
                         "displayField": "name",
                         "forceSelection": true,
-                        "queryMode": "local",
+                        "minChars": 1,
+                        "queryMode": null,
+                        "queryParam": "name",
                         "store": "Countries",
                         "triggerAction": null,
                         "valueField": "code"

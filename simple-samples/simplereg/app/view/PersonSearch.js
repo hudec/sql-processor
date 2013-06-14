@@ -37,9 +37,6 @@ Ext.define('Simplereg.view.PersonSearch', {
                     bodyPadding: 10,
                     header: false,
                     title: 'Data',
-                    api: {
-    submit: "this.up('window').submit"
-},
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -127,8 +124,9 @@ Ext.define('Simplereg.view.PersonSearch', {
                             anchor: '100%',
                             fieldLabel: 'Gender',
                             name: 'gender',
-                            editable: false,
                             displayField: 'name',
+                            forceSelection: true,
+                            queryMode: 'local',
                             store: 'Genders',
                             valueField: 'value'
                         }

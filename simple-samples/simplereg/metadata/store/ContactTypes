@@ -10,6 +10,7 @@
         "designer|userClassName": "ContactTypes",
         "data": [
             "[",
+            "    { value: \"\", name: \"\" },",
             "    { value: \"HOME\", name: \"HOME\" },",
             "    { value: \"BUSINESS\", name: \"BUSINESS\" },",
             "    { value: \"ABROAD\", name: \"ABROAD\" }",
