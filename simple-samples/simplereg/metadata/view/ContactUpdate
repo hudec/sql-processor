@@ -180,14 +180,34 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|anchor": "100%",
+                        "tpl": "<tpl for=\".\"><div class=\"x-boundlist-item\">{name} ({code})</div></tpl>",
+                        "displayTpl": "<tpl for=\".\">{name} ({code})</tpl>",
+                        "itemId": "country",
                         "fieldLabel": "Country",
                         "name": "countryCode",
-                        "editable": false,
+                        "value": null,
+                        "selectOnFocus": null,
+                        "editable": null,
                         "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
                         "store": "Countries",
+                        "triggerAction": null,
                         "valueField": "code"
                     },
-                    "designerId": "65ef430b-9a05-4362-a8d5-ef10db6c4abd"
+                    "designerId": "655fb1b6-d2a0-474e-85fd-1272ff44b4ee",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "tpl",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "displayTpl",
+                            "type": "string"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Text",

@@ -134,6 +134,7 @@
                         "allowBlank": false,
                         "editable": false,
                         "displayField": "name",
+                        "queryMode": null,
                         "store": "ContactTypes",
                         "valueField": "value"
                     },
@@ -148,16 +149,37 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|anchor": "100%",
+                        "tpl": "<tpl for=\".\"><div class=\"x-boundlist-item\">{name} ({code})</div></tpl>",
+                        "displayTpl": "<tpl for=\".\">{name} ({code})</tpl>",
+                        "itemId": "country",
+                        "designer|displayName": "",
                         "fieldLabel": "Country",
                         "name": "countryCode",
+                        "value": null,
                         "editable": null,
                         "displayField": "name",
-                        "queryMode": null,
+                        "forceSelection": true,
+                        "minChars": null,
+                        "queryMode": "local",
+                        "queryParam": "name",
                         "store": "Countries",
+                        "triggerAction": null,
                         "typeAhead": null,
                         "valueField": "code"
                     },
-                    "designerId": "6ebbd4c5-df22-471d-bfa0-f43113f3741b"
+                    "designerId": "6ebbd4c5-df22-471d-bfa0-f43113f3741b",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "tpl",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "displayTpl",
+                            "type": "string"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Text",

@@ -24,6 +24,7 @@ Ext.define('Simplereg.store.Countries', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
+            autoLoad: true,
             model: 'Simplereg.model.Countriy',
             storeId: 'CountriesStore',
             proxy: {

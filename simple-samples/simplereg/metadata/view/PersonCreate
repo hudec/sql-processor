@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "autoShow": null,
         "height": null,
         "id": "person-create",
         "width": 400,
@@ -183,6 +184,9 @@
                         "displayField": "name",
                         "store": "Genders",
                         "valueField": "value"
+                    },
+                    "configAlternates": {
+                        "displayTpl": "object"
                     },
                     "designerId": "c8d0c09c-c51d-487a-8c44-4e7c9f28707a"
                 }

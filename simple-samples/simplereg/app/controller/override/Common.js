@@ -36,13 +36,35 @@ Ext.define("Simplereg.controller.override.Common", {
                     component.reload();
                 }
             },
+            "#country": {
+                beforequery: function(queryPlan, eOpts) {
+                    var value = queryPlan.query, field = queryPlan.combo,
+                            name = value.length > 1 && value == value.toUpperCase() ? "code" : "name";
+                    field.store.clearFilter();
+                    field.store.filter(name, value);
+                }
+            },
             "#reload": {
                 click: function(button, e, eOpts) {
                     Ext.getCmp("page").reload();
                 }
             },
+            "window": {
+                close: function(panel, eOpts) {
+                    var form = panel.down("form");
+                    if (form) {
+                        form.getForm().clearInvalid();
+//TODO: clear filter for all...
+                        var field = form.down("#country");
+                        if (field) {
+                            field.store.clearFilter();
+                        }
+                    }
+                }
+            },
             "#reset": {
                 click: function(button, e, eOpts) {
+//TODO: exclude readonly fields from reset
                     button.up("form").getForm().reset();
                 }
             },

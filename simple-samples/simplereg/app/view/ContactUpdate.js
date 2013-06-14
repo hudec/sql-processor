@@ -105,10 +105,14 @@ Ext.define('Simplereg.view.ContactUpdate', {
                         {
                             xtype: 'combobox',
                             anchor: '100%',
+                            tpl: '<tpl for="."><div class="x-boundlist-item">{name} ({code})</div></tpl>',
+                            displayTpl: '<tpl for=".">{name} ({code})</tpl>',
+                            itemId: 'country',
                             fieldLabel: 'Country',
                             name: 'countryCode',
-                            editable: false,
                             displayField: 'name',
+                            forceSelection: true,
+                            queryMode: 'local',
                             store: 'Countries',
                             valueField: 'code'
                         },

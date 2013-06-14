@@ -89,9 +89,15 @@ Ext.define('Simplereg.view.ContactCreate', {
                         {
                             xtype: 'combobox',
                             anchor: '100%',
+                            tpl: '<tpl for="."><div class="x-boundlist-item">{name} ({code})</div></tpl>',
+                            displayTpl: '<tpl for=".">{name} ({code})</tpl>',
+                            itemId: 'country',
                             fieldLabel: 'Country',
                             name: 'countryCode',
                             displayField: 'name',
+                            forceSelection: true,
+                            queryMode: 'local',
+                            queryParam: 'name',
                             store: 'Countries',
                             valueField: 'code'
                         },

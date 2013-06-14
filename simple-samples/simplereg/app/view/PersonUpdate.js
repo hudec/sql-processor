@@ -87,7 +87,8 @@ Ext.define('Simplereg.view.PersonUpdate', {
                             xtype: 'textfield',
                             anchor: '100%',
                             fieldLabel: 'First Name',
-                            name: 'firstName'
+                            name: 'firstName',
+                            allowBlank: false
                         },
                         {
                             xtype: 'textfield',

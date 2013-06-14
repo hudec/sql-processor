@@ -20,10 +20,7 @@
         "controllers": [
             "Common"
         ],
-        "name": "Simplereg",
-        "namespaces": [
-            "person"
-        ]
+        "name": "Simplereg"
     },
     "designerId": "application"
 }

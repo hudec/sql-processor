@@ -17,10 +17,6 @@ Ext.define("Simplereg.view.override.Page", {
         // Requested...
         //var request = Ext.urlDecode(window.location.search);
 
-        // Person select
-        var view = Ext.getCmp("person-select");
-        view.init();
-
         // Keyboard control
         new Ext.KeyMap(document, [
             {

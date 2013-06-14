@@ -148,7 +148,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "First Name",
-                        "name": "firstName"
+                        "name": "firstName",
+                        "allowBlank": false
                     },
                     "designerId": "f47eaaa5-c9c0-461c-b2ea-7a7f1772487c"
                 },

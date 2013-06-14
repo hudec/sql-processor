@@ -33,6 +33,5 @@ Ext.application({
     controllers: [
         'Common'
     ],
-    name: 'Simplereg',
-    namespaces: 'person'
+    name: 'Simplereg'
 });

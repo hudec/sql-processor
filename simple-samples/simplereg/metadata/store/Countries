@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": null,
+        "autoLoad": true,
         "model": "Countriy",
         "storeId": "CountriesStore",
         "designer|userClassName": "Countries",
