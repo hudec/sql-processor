@@ -81,6 +81,10 @@ public class BeanExtJsUtils {
                     ((Person) form).setInit(Person.Association.contacts);
                     continue;
                 }
+                if ("relatives".equals(key) && value instanceof Boolean && ((Boolean) value)) {
+                    ((Person) form).setInit(Person.Association.relatives);
+                    continue;
+                }
             }
             beanUtilsBean.setProperty(form, key, value);
         }

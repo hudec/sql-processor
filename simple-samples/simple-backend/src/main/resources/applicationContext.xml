@@ -55,6 +55,7 @@
         <property name="jdbcTemplate" ref="jdbcTemplate" />
         <property name="personService" ref="personService" />
         <property name="contactService" ref="contactService" />
+        <property name="relativeService" ref="relativeService" />
         <property name="initData" value="${init.data}" />
         <property name="catalog" value="hsqldb.ddl" />
         <property name="people" value="people.csv" />
@@ -69,6 +70,7 @@
     <bean id="personDao" class="org.sample.web.dao.PersonExtDao" parent="dao" />
     <bean id="contactDao" class="org.sample.dao.ContactDao" parent="dao" />
     <bean id="countryDao" class="org.sample.dao.CountryDao" parent="dao" />
+    <bean id="relativeDao" class="org.sample.dao.RelativeDao" parent="dao" />
 
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
         <property name="metaFilesNames">
@@ -89,11 +91,16 @@
     <bean id="countryService" class="org.sample.web.app.CountryService">
         <property name="countryDao" ref="countryDao" />
     </bean>
+    <bean id="relativeService" class="org.sample.web.app.RelativeService">
+        <property name="relativeDao" ref="relativeDao" />
+        <property name="personDao" ref="personDao" />
+    </bean>
 
     <bean id="simpleService" class="org.sample.web.service.SimpleService">
         <property name="personService" ref="personService" />
         <property name="contactService" ref="contactService" />
         <property name="countryService" ref="countryService" />
+        <property name="relativeService" ref="relativeService" />
         <property name="beanUtils" ref="beanUtils" />
     </bean>
 
