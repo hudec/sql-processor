@@ -23,10 +23,6 @@ Ext.define('Simplereg.store.ContactTypes', {
             storeId: 'ContactTypesStore',
             data: [
                 {
-                    value: '',
-                    name: ''
-                },
-                {
                     value: 'HOME',
                     name: 'HOME'
                 },

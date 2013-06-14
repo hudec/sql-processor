@@ -19,6 +19,8 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
+    version: '3.1',
+    title: 'Simple Reg.',
     stores: [
         'People',
         'Genders',

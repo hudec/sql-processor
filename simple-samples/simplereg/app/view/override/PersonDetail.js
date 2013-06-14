@@ -9,7 +9,7 @@ Ext.define("Simplereg.view.override.PersonDetail", {
 
         // Complex person store
         me.store = Ext.create("Simplereg.store.People", {
-            storeId: me.id
+            storeId: me.id + "-detail"
         });
 
         me.store.proxy.extraParams = {

@@ -107,10 +107,20 @@ Ext.define('Simplereg.view.PersonDetail', {
                     margin: 5,
                     columnWidth: 0.5
                 }
-            ]
+            ],
+            listeners: {
+                removed: {
+                    fn: me.onPerson_detailRemoved,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    onPerson_detailRemoved: function(component, ownerCt, eOpts) {
+
     }
 
 });

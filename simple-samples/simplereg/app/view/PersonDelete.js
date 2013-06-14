@@ -21,6 +21,7 @@ Ext.define('Simplereg.view.PersonDelete', {
     ],
 
     id: 'person-delete',
+    itemId: 'dialog',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-delete',

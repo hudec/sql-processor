@@ -6,6 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
+        "version": "3.1",
+        "title": "Simple Reg.",
         "stores": [
             "People",
             "Genders",
@@ -22,5 +24,17 @@
         ],
         "name": "Simplereg"
     },
-    "designerId": "application"
+    "designerId": "application",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "version",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "title",
+            "type": "string"
+        }
+    ]
 }

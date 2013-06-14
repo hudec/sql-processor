@@ -9,6 +9,7 @@
         "autoShow": null,
         "height": null,
         "id": "person-create",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "PersonCreate",
         "closeAction": "hide",
@@ -134,7 +135,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Last Name",
-                        "name": "lastName"
+                        "name": "lastName",
+                        "allowBlank": false
                     },
                     "designerId": "49c8a663-ee44-4c1e-95eb-7c7ad28577eb"
                 },
@@ -184,7 +186,7 @@
                         "displayField": "name",
                         "forceSelection": true,
                         "queryMode": "local",
-                        "store": "Genders",
+                        "store": "genders",
                         "valueField": "value"
                     },
                     "configAlternates": {

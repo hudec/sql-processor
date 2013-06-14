@@ -21,6 +21,7 @@ Ext.define('Simplereg.view.PersonCreate', {
     ],
 
     id: 'person-create',
+    itemId: 'dialog',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-add',
@@ -80,7 +81,8 @@ Ext.define('Simplereg.view.PersonCreate', {
                             xtype: 'textfield',
                             anchor: '100%',
                             fieldLabel: 'Last Name',
-                            name: 'lastName'
+                            name: 'lastName',
+                            allowBlank: false
                         },
                         {
                             xtype: 'datefield',
@@ -105,7 +107,7 @@ Ext.define('Simplereg.view.PersonCreate', {
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',
-                            store: 'Genders',
+                            store: 'genders',
                             valueField: 'value'
                         }
                     ]

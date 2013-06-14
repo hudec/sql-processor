@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "person-update",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "PersonUpdate",
         "closeAction": "hide",
@@ -164,7 +165,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Last Name",
-                        "name": "lastName"
+                        "name": "lastName",
+                        "allowBlank": false
                     },
                     "designerId": "ef2d9fc7-252a-4e68-b5c7-605a4ee34828"
                 },
@@ -214,7 +216,7 @@
                         "displayField": "name",
                         "forceSelection": true,
                         "queryMode": "local",
-                        "store": "Genders",
+                        "store": "genders",
                         "valueField": "value"
                     },
                     "designerId": "bcf92e76-2279-4012-9df1-7419aca2ff64"

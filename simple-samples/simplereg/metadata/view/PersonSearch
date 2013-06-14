@@ -9,7 +9,7 @@
         "autoShow": null,
         "height": null,
         "id": "person-search",
-        "itemId": null,
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "PersonSearch",
         "closeAction": "hide",
@@ -182,7 +182,7 @@
                                 "fieldLabel": null,
                                 "hideLabel": true,
                                 "value": [
-                                    "&ndash;"
+                                    "[\"&ndash;\"]"
                                 ]
                             },
                             "designerId": "029e75e7-426d-46de-aab4-2b93132ac249"
@@ -236,7 +236,7 @@
                         "forceSelection": true,
                         "queryMode": "local",
                         "queryParam": null,
-                        "store": "Genders",
+                        "store": "genders",
                         "valueField": "value"
                     },
                     "designerId": "53d96bae-07b8-47de-b0b9-2e274af506c4"

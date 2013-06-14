@@ -36,6 +36,7 @@ Ext.define('Simplereg.view.Page', {
                     id: 'pages',
                     header: false,
                     title: 'Person Registry',
+                    activeTab: 0,
                     plain: true,
                     items: [
                         {

@@ -16,7 +16,18 @@ Ext.form.Panel.prototype.getInputForm = function() {
 Ext.define("Simplereg.controller.override.Common", {
     override: "Simplereg.controller.Common",
 
+    resetComboboxFilter: function() {
+        if (this.is("combobox")) {
+            this.lastQuery = null;
+        }
+    },
+
     init: function(application) {
+
+        // Document title
+        document.defaultTitle = application.title + " " + application.version;
+        document.title = document.defaultTitle;
+
         this.control({
             "#page": {
                 beforerender: function(component, eOpts) {
@@ -34,13 +45,30 @@ Ext.define("Simplereg.controller.override.Common", {
                 },
                 afterrender: function(component, eOpts) {
                     component.reload();
+                },
+                removed: function(component, ownerCmp, eOpts) {
+                    var manager = Ext.data.StoreManager;
+                    manager.unregister(component.id + "-detail");
+                    manager.unregister(component.id + "-contacts");
                 }
             },
             "combobox": {
                 blur: function(component, e, eOpts) {
-                    var filter = component.queryFilter;
-                    if (filter) {
-                        filter.value = "";
+                    this.resetComboboxFilter.call(component);
+                },
+                beforequery: function(queryPlan, eOpts) {
+                    if (queryPlan.query == "") { //allow leave empty...
+                        queryPlan.combo.setValue("");
+                    }
+                }
+            },
+            "#pages": {
+                beforetabchange: function(tabPanel, newCard, oldCard, eOpts) {
+                    if (newCard.is("persondetail")) {
+                        document.title = newCard.title;
+                    }
+                    else {
+                        document.title = document.defaultTitle;
                     }
                 }
             },
@@ -49,22 +77,19 @@ Ext.define("Simplereg.controller.override.Common", {
                     Ext.getCmp("page").reload();
                 }
             },
-            "window": {
-                close: function(panel, eOpts) {
-                    var form = panel.down("form");
+            "#dialog": {
+                beforeshow: function(component, eOpts) {
+                    var form = component.down("form");
                     if (form) {
-                        form.getForm().clearInvalid();
-//TODO: clear filter for all...
-                        var field = form.down("#country");
-                        if (field) {
-                            field.store.clearFilter();
-                        }
+                        form = form.getForm(), fields = form.getFields();
+                        form.clearInvalid();
+
+                        fields.each(this.resetComboboxFilter);
                     }
                 }
             },
             "#reset": {
                 click: function(button, e, eOpts) {
-//TODO: exclude readonly fields from reset
                     button.up("form").getForm().reset();
                 }
             },

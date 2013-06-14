@@ -212,6 +212,23 @@
             },
             "designerId": "86282c05-ebb7-49f4-a8c0-5a0da3c79c31",
             "masterInstanceId": "a2e7af87-bcc4-4629-82c1-18f6e23566bd"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPerson_detailRemoved",
+                "implHandler": [
+                    ""
+                ],
+                "name": "removed",
+                "scope": "me"
+            },
+            "designerId": "3d3f9a91-bcbd-460d-aad3-d2f3661f6df9"
         }
     ]
 }

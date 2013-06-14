@@ -21,6 +21,7 @@ Ext.define('Simplereg.view.PersonSearch', {
     ],
 
     id: 'person-search',
+    itemId: 'dialog',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-search',
@@ -100,7 +101,9 @@ Ext.define('Simplereg.view.PersonSearch', {
                                     xtype: 'displayfield',
                                     margin: '0 5',
                                     hideLabel: true,
-                                    value: '&ndash;'
+                                    value: [
+                                        '&ndash;'
+                                    ]
                                 },
                                 {
                                     xtype: 'datefield',
@@ -127,7 +130,7 @@ Ext.define('Simplereg.view.PersonSearch', {
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',
-                            store: 'Genders',
+                            store: 'genders',
                             valueField: 'value'
                         }
                     ]

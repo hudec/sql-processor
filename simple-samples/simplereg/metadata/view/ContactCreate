@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "contact-create",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "ContactCreate",
         "closeAction": "hide",
@@ -158,7 +159,7 @@
                         "forceSelection": true,
                         "queryMode": "local",
                         "queryParam": "name",
-                        "store": "ContactTypes",
+                        "store": "contactTypes",
                         "valueField": "value"
                     },
                     "designerId": "29e1401a-2c2f-48bc-8ef4-d9a88a8c43e0"
@@ -179,13 +180,14 @@
                         "fieldLabel": "Country",
                         "name": "countryCode",
                         "value": null,
+                        "allowBlank": false,
                         "editable": null,
                         "displayField": "name",
                         "forceSelection": true,
-                        "minChars": 1,
-                        "queryMode": null,
+                        "minChars": null,
+                        "queryMode": "local",
                         "queryParam": "name",
-                        "store": "Countries",
+                        "store": "countries",
                         "triggerAction": null,
                         "typeAhead": null,
                         "valueField": "code"
@@ -214,7 +216,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Address",
-                        "name": "address"
+                        "name": "address",
+                        "allowBlank": false
                     },
                     "designerId": "46a77503-0e6c-4d2f-b807-a66f27dea3df"
                 },

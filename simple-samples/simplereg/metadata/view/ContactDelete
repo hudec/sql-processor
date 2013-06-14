@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "contact-delete",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "ContactDelete",
         "closeAction": "hide",

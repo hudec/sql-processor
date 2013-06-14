@@ -21,6 +21,7 @@ Ext.define('Simplereg.view.ContactCreate', {
     ],
 
     id: 'contact-create',
+    itemId: 'dialog',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-add',
@@ -89,7 +90,7 @@ Ext.define('Simplereg.view.ContactCreate', {
                             forceSelection: true,
                             queryMode: 'local',
                             queryParam: 'name',
-                            store: 'ContactTypes',
+                            store: 'contactTypes',
                             valueField: 'value'
                         },
                         {
@@ -100,18 +101,20 @@ Ext.define('Simplereg.view.ContactCreate', {
                             itemId: 'country',
                             fieldLabel: 'Country',
                             name: 'countryCode',
+                            allowBlank: false,
                             displayField: 'name',
                             forceSelection: true,
-                            minChars: 1,
+                            queryMode: 'local',
                             queryParam: 'name',
-                            store: 'Countries',
+                            store: 'countries',
                             valueField: 'code'
                         },
                         {
                             xtype: 'textfield',
                             anchor: '100%',
                             fieldLabel: 'Address',
-                            name: 'address'
+                            name: 'address',
+                            allowBlank: false
                         },
                         {
                             xtype: 'textfield',

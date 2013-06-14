@@ -21,6 +21,7 @@ Ext.define('Simplereg.view.ContactUpdate', {
     ],
 
     id: 'contact-update',
+    itemId: 'dialog',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-edit',
@@ -113,9 +114,10 @@ Ext.define('Simplereg.view.ContactUpdate', {
                             itemId: 'country',
                             fieldLabel: 'Country',
                             name: 'countryCode',
+                            allowBlank: false,
                             displayField: 'name',
                             forceSelection: true,
-                            minChars: 1,
+                            queryMode: 'local',
                             queryParam: 'name',
                             store: 'Countries',
                             valueField: 'code'
@@ -124,7 +126,8 @@ Ext.define('Simplereg.view.ContactUpdate', {
                             xtype: 'textfield',
                             anchor: '100%',
                             fieldLabel: 'Address',
-                            name: 'address'
+                            name: 'address',
+                            allowBlank: false
                         },
                         {
                             xtype: 'textfield',

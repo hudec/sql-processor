@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "contact-update",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "ContactUpdate",
         "closeAction": "hide",
@@ -189,12 +190,13 @@
                         "fieldLabel": "Country",
                         "name": "countryCode",
                         "value": null,
+                        "allowBlank": false,
                         "selectOnFocus": null,
                         "editable": null,
                         "displayField": "name",
                         "forceSelection": true,
-                        "minChars": 1,
-                        "queryMode": null,
+                        "minChars": null,
+                        "queryMode": "local",
                         "queryParam": "name",
                         "store": "Countries",
                         "triggerAction": null,
@@ -224,7 +226,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Address",
-                        "name": "address"
+                        "name": "address",
+                        "allowBlank": false
                     },
                     "designerId": "b9932dc2-86ad-480f-b977-0d4b42cfc351"
                 },

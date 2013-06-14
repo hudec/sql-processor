@@ -4,6 +4,22 @@ Ext.define("Simplereg.view.override.Page", {
     init: function() {
         var me = this;
 
+        // Codebooks...
+        var genders = Ext.create("Simplereg.store.Genders", {
+            storeId: "genders",
+            autoLoad: true
+        });
+
+        var contactTypes = Ext.create("Simplereg.store.ContactTypes", {
+            storeId: "contactTypes",
+            autoLoad: true
+        });
+
+        var countries = Ext.create("Simplereg.store.Countries", {
+            storeId: "countries",
+            autoLoad: true
+        });
+
         // Dialogs...
 //TODO: list dialog windows in application (not enaugh?)
         Ext.create("Simplereg.view.PersonSearch");
@@ -11,7 +27,7 @@ Ext.define("Simplereg.view.override.Page", {
         Ext.create("Simplereg.view.PersonUpdate");
         Ext.create("Simplereg.view.PersonDelete");
         Ext.create("Simplereg.view.ContactCreate");
-        Ext.create("Simplereg.view.ContactUpdate");
+        Ext.create("Simplereg.view.ContactUpdate")
         Ext.create("Simplereg.view.ContactDelete");
 
         // Requested...
@@ -100,23 +116,8 @@ Ext.define("Simplereg.view.override.Page", {
         var view = this.findPersonDetail(id),
                 pages = Ext.getCmp("pages");
 
-        // Close...
-        if (view && view.closable) {
+        if (view) {
             pages.remove(view);
-
-            // Remove stores
-//TODO: store references to stores on view?
-            var store;
-            
-            store = Ext.data.StoreManager.lookup(view.id);
-            if (store) {
-                Ext.data.StoreManager.unregister(store);
-            }
-
-            store = Ext.data.StoreManager.lookup(view.id + "-contacts");
-            if (store) {
-                Ext.data.StoreManager.unregister(store);
-            }
         }
     },
 

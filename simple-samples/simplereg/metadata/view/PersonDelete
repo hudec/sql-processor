@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "person-delete",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "PersonDelete",
         "closeAction": "hide",

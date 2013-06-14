@@ -21,6 +21,7 @@ Ext.define('Simplereg.view.PersonUpdate', {
     ],
 
     id: 'person-update',
+    itemId: 'dialog',
     width: 400,
     closeAction: 'hide',
     iconCls: 'icon-edit',
@@ -95,7 +96,8 @@ Ext.define('Simplereg.view.PersonUpdate', {
                             xtype: 'textfield',
                             anchor: '100%',
                             fieldLabel: 'Last Name',
-                            name: 'lastName'
+                            name: 'lastName',
+                            allowBlank: false
                         },
                         {
                             xtype: 'datefield',
@@ -120,7 +122,7 @@ Ext.define('Simplereg.view.PersonUpdate', {
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',
-                            store: 'Genders',
+                            store: 'genders',
                             valueField: 'value'
                         }
                     ]

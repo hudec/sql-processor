@@ -28,6 +28,7 @@
                 "designer|createAlias": null,
                 "header": false,
                 "title": "Person Registry",
+                "activeTab": 0,
                 "plain": true
             },
             "designerId": "7473e6b3-539b-4e3a-844c-128799617e74",
