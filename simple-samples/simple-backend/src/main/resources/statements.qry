@@ -31,8 +31,17 @@ INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person,MYSQL)=
   {= values (:id(idsel), :firstName, :lastName, :dateOfBirth, :gender, :ssn, :version) }
 ;
 
-// generated
+INSERT_COUNTRY(CRUD,inx=Country,outx=Country,tab=country,MYSQL)=
+  insert into %%COUNTRY (%CODE, %NAME)
+  {= values (:id(idsel), :code, :name) }
+;
 
+INSERT_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative,MYSQL)=
+  insert into %%RELATIVE (%PERSON_ID, %REL_PERSON_ID, %RTYPE)
+  {= values (:id(idsel), :personId, :relPerson.id, :rtype) }
+;
+
+// generated
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %COUNTRY_CODE)
