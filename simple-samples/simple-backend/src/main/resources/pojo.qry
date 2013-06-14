@@ -1,6 +1,5 @@
 package org.sample.model {
 
-
   import org.sample.web.util.DMYDateDeserializer
   import javax.validation.constraints.NotNull
   import org.springframework.format.annotation.DateTimeFormat
@@ -15,6 +14,7 @@ package org.sample.model {
   import org.hibernate.validator.constraints.NotBlank
   import com.fasterxml.jackson.databind.annotation.JsonDeserialize
   import org.sample.web.util.DMYDateSerializer
+  import org.sample.web.util.DMYDateDeserializer
 
   enum ContactCtype serializable 1  {
     value : java.lang.String
