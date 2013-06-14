@@ -23,7 +23,7 @@
         <version.dbunit>2.4.9</version.dbunit>
         <version.hsqldb>2.2.8</version.hsqldb>
         <hibernatevalidator.version>5.0.0.Final</hibernatevalidator.version>
-        <eds.version>1.3.3-SNAPSHOT</eds.version>
+        <eds.version>1.3.4-SNAPSHOT</eds.version>
         <version.ehcache>2.5.0</version.ehcache>
         <version.cglib>2.2.2</version.cglib>
         <version.mysql>5.1.21</version.mysql>
