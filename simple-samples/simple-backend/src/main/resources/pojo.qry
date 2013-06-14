@@ -119,7 +119,10 @@ package org.sample.model {
     personId : java.lang.Long required index 2
     @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Person class
     relPerson :: Person required index 3
+    @ModelField ::: type :ModelType STRING
+    @NotNull
     rtype :: RelativeRtype required
+    @NotNull
     version : java.lang.Integer
     equals ::: id
     hashCode ::: id
