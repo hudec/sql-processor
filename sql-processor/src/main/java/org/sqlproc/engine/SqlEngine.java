@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -102,7 +103,7 @@ public abstract class SqlEngine {
     }
 
     /**
-     * Sets the optional feature in the runtime.
+     * Sets the optional feature in the stament's or global scope.
      * 
      * @param name
      *            the name of the optional feature
@@ -111,25 +112,18 @@ public abstract class SqlEngine {
      */
     public void setFeature(String name, Object value) {
         features.put(name, value);
-        if (SqlFeature.SURROUND_QUERY_LIKE_FULL.equals(name)) {
-            unsetFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
-        } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(name)) {
-            unsetFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL);
-        } else if (SqlFeature.EMPTY_FOR_NULL.equals(name)) {
-            unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
-        } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.equals(name)) {
-            unsetFeature(SqlFeature.EMPTY_FOR_NULL);
-        }
+        unsetFeature(SqlUtils.oppositeFeature(name));
     }
 
     /**
-     * Clears the optional feature in the runtime.
+     * Clears the optional feature in the stament's or global scope.
      * 
      * @param name
      *            the name of the optional feature
      */
     public void unsetFeature(String name) {
-        features.remove(name);
+        if (name != null)
+            features.remove(name);
     }
 
     /**
@@ -214,5 +208,19 @@ public abstract class SqlEngine {
             return null;
         else
             return sqlControl.getMoreResultClasses();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the optiona features
+     */
+    Map<String, Object> getFeatures(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getFeatures();
     }
 }

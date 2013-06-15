@@ -267,4 +267,17 @@ public class SqlUtils {
             return s.toLowerCase();
         return s.substring(0, 1).toLowerCase() + s.substring(1);
     }
+
+    public static String oppositeFeature(String featureName) {
+        if (SqlFeature.SURROUND_QUERY_LIKE_FULL.equals(featureName)) {
+            return SqlFeature.SURROUND_QUERY_LIKE_PARTIAL;
+        } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(featureName)) {
+            return SqlFeature.SURROUND_QUERY_LIKE_FULL;
+        } else if (SqlFeature.EMPTY_FOR_NULL.equals(featureName)) {
+            return SqlFeature.EMPTY_USE_METHOD_IS_NULL;
+        } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.equals(featureName)) {
+            return SqlFeature.EMPTY_FOR_NULL;
+        }
+        return null;
+    }
 }

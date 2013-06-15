@@ -421,8 +421,8 @@ public class SqlQueryEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features, typeFactory,
-                            pluginFactory);
+                            getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
+                            getFeatures(sqlControl), typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
@@ -591,7 +591,8 @@ public class SqlQueryEngine extends SqlEngine {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
+                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
+                            typeFactory, pluginFactory);
                     SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     queryCount.setLogError(processResult.isLogError());
@@ -673,7 +674,8 @@ public class SqlQueryEngine extends SqlEngine {
                 public String run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
+                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
+                            typeFactory, pluginFactory);
                     return processResult.getSql().toString();
                 }
             }, String.class);

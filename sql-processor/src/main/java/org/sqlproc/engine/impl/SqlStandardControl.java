@@ -1,5 +1,6 @@
 package org.sqlproc.engine.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlControl;
@@ -46,6 +47,12 @@ public class SqlStandardControl implements SqlControl {
      * used mainly for the one-to-one, one-to-many and many-to-many associations.
      */
     private Map<String, Class<?>> moreResultClasses;
+
+    /**
+     * The optional features. These features are defined in the statement execution scope. In the case of conflict with
+     * the optional features defined in sthe statement/global scope, their priority is higher.
+     */
+    private Map<String, Object> features = new HashMap<String, Object>();
 
     /**
      * Standard constructor.
@@ -224,9 +231,52 @@ public class SqlStandardControl implements SqlControl {
      * {@inheritDoc}
      */
     @Override
+    public Map<String, Object> getFeatures() {
+        return features;
+    }
+
+    /**
+     * Sets the optional features. These features are defined in the statement execution scope. In the case of conflict
+     * with the optional features defined in sthe statement/global scope, their priority is higher.
+     * 
+     * @param features
+     *            the optional features
+     */
+    public void setFeatures(Map<String, Object> features) {
+        this.features = features;
+    }
+
+    /**
+     * Sets the optional feature in the stament's execution scope.
+     * 
+     * @param name
+     *            the name of the optional feature
+     * @param value
+     *            the value of the optional feature
+     */
+    public void setFeature(String name, Object value) {
+        features.put(name, value);
+        unsetFeature(SqlUtils.oppositeFeature(name));
+    }
+
+    /**
+     * Clears the optional feature in the stament's execution scope.
+     * 
+     * @param name
+     *            the name of the optional feature
+     */
+    public void unsetFeature(String name) {
+        if (name != null)
+            features.remove(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
         return "SqlStandardControl [staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
                 + ", firstResult=" + firstResult + ", maxResults=" + maxResults + ", order=" + order
-                + ", moreResultClasses=" + moreResultClasses + "]";
+                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + "]";
     }
 }
