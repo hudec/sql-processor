@@ -1811,7 +1811,7 @@ PLUGIN_IS_EMPTY(QRY)=
   from PERSON p
   {= where
   	p.id = :id(type=long,any)
-  	{& p.CREATED_BY = :createdBy(type=string,zero)}
+  	{& p.CREATED_BY = :createdBy(type=string,!zero)}
   }
 ;
 
@@ -1820,6 +1820,6 @@ PLUGIN_IS_TRUE(QRY)=
   from PERSON p
   {= where
     {? :id(type=long,null) | AND p.ID is null | AND p.ID = :id}
-    {? :createdBy(type=string,zero) | AND p.CREATED_BY = :createdBy | AND p.CREATED_BY is null}
+    {? :createdBy(type=string,zero) | AND p.CREATED_BY is null | AND p.CREATED_BY = :createdBy}
   }
 ;
