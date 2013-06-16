@@ -1555,6 +1555,17 @@ ANSI_BASIC_ASTERISK(OUT)=
 ;
 
 
+INSERT_PERSON_OPT(CRUD)=
+  insert into PERSON {= columns (, ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE) }
+  {= values (, :id, :ssn.number(type=string,any), :ssn.country, :name.first(type=string,any), :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+;
+INSERT_PERSON_OPT(CRUD,MSSQL)=
+  set identity_insert PERSON on
+  insert into PERSON {= columns (, ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE) }
+  {= values (, :id, :ssn.number(type=string,any), :ssn.country, :name.first(type=string,any), :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+  set identity_insert PERSON off
+;
+
 INSERT_PERSON(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   values (:id, :ssn.number(type=string,any), :ssn.country, :name.first(type=string,any), :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize)

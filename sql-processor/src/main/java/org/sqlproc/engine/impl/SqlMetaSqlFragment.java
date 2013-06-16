@@ -37,6 +37,7 @@ class SqlMetaSqlFragment implements SqlMetaElement {
     static final Pattern patternWhere = Pattern.compile("\\s*(and|AND|or|OR)?\\s*(.*)\\s*");
     static final Pattern patternValues = Pattern.compile("\\s*\\(?\\s*,?\\s*(.*?)\\s*,?\\s*\\)?\\s*");
     static final Pattern patternSet = Pattern.compile("\\s*,?\\s*(.*?)\\s*,?\\s*");
+    static final Pattern patternColumns = Pattern.compile("\\s*\\(?\\s*,?\\s*(.*?)\\s*,?\\s*\\)?\\s*");
 
     /**
      * The enumeration of types. These types are based on the prefix if this element: <code>{==</code> and
@@ -54,7 +55,11 @@ class SqlMetaSqlFragment implements SqlMetaElement {
         /**
          * The type for the element prefix <code>{= values</code>.
          */
-        VALUES
+        VALUES,
+        /**
+         * The type for the element prefix <code>{= columns</code>.
+         */
+        COLUMNS
     };
 
     /**
@@ -133,6 +138,11 @@ class SqlMetaSqlFragment implements SqlMetaElement {
             String fragment = (matcher.matches()) ? matcher.group(1) : s.toString();
             s.delete(0, s.length());
             s.append(VALUES_PREFIX).append("(").append(fragment).append(")");
+        } else if (type == Type.COLUMNS && ctx.sqlStatementType == SqlMetaStatement.Type.CREATE) {
+            Matcher matcher = patternColumns.matcher(s);
+            String fragment = (matcher.matches()) ? matcher.group(1) : s.toString();
+            s.delete(0, s.length());
+            s.append("(").append(fragment).append(")");
         }
     }
 
