@@ -203,7 +203,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         start = s1.toUpperCase().indexOf("SELECT");
         if (start < 0)
             return "select count(*) as vysledek from (" + sb.toString() + ") derived";
-        return s1.substring(0, start) + "select count(" + s1.substring(start + 6) + ") as vysledek " + s2;
+        end = (s1.indexOf(",") < 0) ? start + 6 : s1.indexOf(",") + 1;
+        return s1.substring(0, start) + "select count(distinct" + s1.substring(end) + ") as vysledek " + s2;
     }
 
     /**
