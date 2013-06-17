@@ -203,7 +203,7 @@ public class SimpleService {
         logger.info("loadCountries <- " + result);
         return result;
     }
-    
+
     @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "person")
     public ExtDirectStoreReadResult<Relative> loadRelatives(ExtDirectStoreReadRequest request) throws Exception {
         logger.info("loadRelatives -> " + request);
@@ -223,7 +223,6 @@ public class SimpleService {
         logger.info("loadRelatives <- " + result);
         return result;
     }
-    
 
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
     public ExtDirectFormPostResult createRelative(@Valid Relative relative, BindingResult result) {
@@ -233,17 +232,18 @@ public class SimpleService {
             resultRelative = relativeService.insertRelative(relative);
         }
         if (resultRelative != null) {
-            postResult.addResultProperty("id", resultRelative.getId());            
+            postResult.addResultProperty("id", resultRelative.getId());
+            postResult.addResultProperty("personId", resultRelative.getPersonId());
         }
         return postResult;
     }
-    
+
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
     public ExtDirectFormPostResult updateRelative(@Valid Relative relative, BindingResult result) {
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
         Relative resultRelative = null;
 
-        if (!result.hasErrors()) {            
+        if (!result.hasErrors()) {
             resultRelative = relativeService.updateRelative(relative);
 
             if (resultRelative == null)
@@ -251,10 +251,11 @@ public class SimpleService {
 
             postResult.addResultProperty("id", resultRelative.getId());
             postResult.addResultProperty("version", resultRelative.getVersion());
+            postResult.addResultProperty("personId", resultRelative.getPersonId());
         }
         return postResult;
     }
-    
+
     @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "person")
     public ExtDirectFormPostResult deleteRelative(Relative relative, BindingResult result) {
         ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
@@ -263,14 +264,15 @@ public class SimpleService {
             if (relative.getId() != null) {
                 resultRelative = relativeService.deleteRelative(relative);
                 postResult.addResultProperty("id", resultRelative.getId());
-                postResult.addResultProperty("version", resultRelative.getVersion());	
+                postResult.addResultProperty("version", resultRelative.getVersion());
+                postResult.addResultProperty("personId", resultRelative.getPersonId());
             }
             if (resultRelative == null)
                 throw new RuntimeException("The record has been in the meantime modified");
         }
         return postResult;
     }
-    
+
     @Required
     public void setContactService(ContactService contactService) {
         this.contactService = contactService;
@@ -285,7 +287,7 @@ public class SimpleService {
     public void setCountryService(CountryService countryService) {
         this.countryService = countryService;
     }
-    
+
     @Required
     public void setRelativeService(RelativeService relativeService) {
         this.relativeService = relativeService;
