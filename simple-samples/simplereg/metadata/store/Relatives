@@ -25,7 +25,8 @@
                 "designer|displayName": "Proxy",
                 "api": [
                     "{ read: \"simpleService.loadRelatives\" }"
-                ]
+                ],
+                "extraParams": null
             },
             "designerId": "0dc3a38c-fcea-45c2-994b-36e81a22e57b",
             "cn": [

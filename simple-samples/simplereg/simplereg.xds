@@ -58,12 +58,6 @@
             ],
             "className": "js"
         },
-        "3d4fcddd-cbeb-4fa6-9546-c5944afdc6d7": {
-            "paths": [
-                "metadata/resource/js1"
-            ],
-            "className": "js1"
-        },
         "b7f5a560-66d4-4faa-95d7-c8fa7b5a074e": {
             "paths": [
                 "metadata/store/Countries",
@@ -341,7 +335,6 @@
         "resource": [
             "598ab1d2-219c-477c-8a47-6006a2798c97",
             "bef30b06-3dfd-4d72-9ad7-1c50648249a0",
-            "3d4fcddd-cbeb-4fa6-9546-c5944afdc6d7",
             "9ca77b33-13e6-4638-8f71-746993b70b9a"
         ],
         "app": [
