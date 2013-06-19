@@ -59,28 +59,7 @@
                                 "iconCls": "icon-reset",
                                 "text": "Reset"
                             },
-                            "designerId": "6151f7aa-3f89-4bf0-bb63-368e68421f5f",
-                            "cn": [
-                                {
-                                    "type": "fixedfunction",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "handler",
-                                        "designer|params": [
-                                            "button",
-                                            "event"
-                                        ],
-                                        "implHandler": [
-                                            "button.up(\"form\").getForm().findField(\"personId\").setValue(button.personId);"
-                                        ]
-                                    },
-                                    "designerId": "5df5271a-c1ac-40fb-aa57-2de048d3c2c6"
-                                }
-                            ]
+                            "designerId": "6151f7aa-3f89-4bf0-bb63-368e68421f5f"
                         },
                         {
                             "type": "Ext.toolbar.Fill",
@@ -155,11 +134,12 @@
                         "fieldLabel": "Type",
                         "name": "ctype",
                         "allowBlank": false,
+                        "editable": false,
                         "displayField": "name",
                         "forceSelection": true,
                         "queryMode": "local",
                         "queryParam": "name",
-                        "store": "contactTypes",
+                        "store": "ContactTypes",
                         "valueField": "value"
                     },
                     "designerId": "29e1401a-2c2f-48bc-8ef4-d9a88a8c43e0"
@@ -187,7 +167,7 @@
                         "minChars": null,
                         "queryMode": "local",
                         "queryParam": "name",
-                        "store": "countries",
+                        "store": "Countries",
                         "triggerAction": null,
                         "typeAhead": null,
                         "valueField": "code"

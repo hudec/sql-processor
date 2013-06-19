@@ -58,7 +58,8 @@ Ext.define('Simplereg.view.PersonList', {
                     sortable: false,
                     dataIndex: 'id',
                     text: 'Id',
-                    flex: 1
+                    flex: 1,
+                    format: '0'
                 },
                 {
                     xtype: 'numbercolumn',
@@ -66,7 +67,8 @@ Ext.define('Simplereg.view.PersonList', {
                     sortable: false,
                     dataIndex: 'version',
                     text: 'Version',
-                    flex: 1
+                    flex: 1,
+                    format: '0'
                 },
                 {
                     xtype: 'gridcolumn',
@@ -86,7 +88,7 @@ Ext.define('Simplereg.view.PersonList', {
                     sortable: false,
                     dataIndex: 'dateOfBirth',
                     text: 'Date of Birth',
-                    flex: 1,
+                    flex: 2,
                     format: 'd.m.Y'
                 },
                 {
@@ -94,7 +96,7 @@ Ext.define('Simplereg.view.PersonList', {
                     sortable: false,
                     dataIndex: 'ssn',
                     text: 'SSN',
-                    flex: 1
+                    flex: 2
                 },
                 {
                     xtype: 'gridcolumn',

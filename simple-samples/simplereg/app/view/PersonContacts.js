@@ -30,6 +30,13 @@ Ext.define('Simplereg.view.PersonContacts', {
         var me = this;
 
         Ext.applyIf(me, {
+            tools: [
+                {
+                    xtype: 'tool',
+                    itemId: 'reload',
+                    type: 'refresh'
+                }
+            ],
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -54,19 +61,13 @@ Ext.define('Simplereg.view.PersonContacts', {
                             text: 'Modify'
                         }
                     ]
-                },
-                {
-                    xtype: 'pagingtoolbar',
-                    dock: 'bottom',
-                    width: 360,
-                    displayInfo: true,
-                    store: 'Contacts'
                 }
             ],
             columns: [
                 {
                     xtype: 'numbercolumn',
                     hidden: true,
+                    sortable: false,
                     dataIndex: 'id',
                     text: 'Id',
                     flex: 1,
@@ -75,6 +76,7 @@ Ext.define('Simplereg.view.PersonContacts', {
                 {
                     xtype: 'numbercolumn',
                     hidden: true,
+                    sortable: false,
                     dataIndex: 'version',
                     text: 'Version',
                     flex: 1,
@@ -83,32 +85,49 @@ Ext.define('Simplereg.view.PersonContacts', {
                 {
                     xtype: 'numbercolumn',
                     hidden: true,
+                    sortable: false,
                     dataIndex: 'personId',
-                    hideable: false,
                     text: 'Person Id',
                     flex: 1,
                     format: '0'
                 },
                 {
                     xtype: 'gridcolumn',
+                    sortable: false,
                     dataIndex: 'ctype',
                     text: 'Type',
                     flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        var value = Simplereg.getContactTitle(record);
+                        record.set("contact", value);
+                        record.commit();
+                        return value;
+                    },
+                    dataIndex: 'contact',
+                    text: 'Contact',
+                    flex: 2
+                },
+                {
+                    xtype: 'gridcolumn',
+                    hidden: true,
+                    sortable: false,
                     dataIndex: 'countryCode',
                     text: 'Country',
                     flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
+                    hidden: true,
                     dataIndex: 'address',
                     text: 'Address',
-                    flex: 3
+                    flex: 2
                 },
                 {
                     xtype: 'gridcolumn',
+                    sortable: false,
                     dataIndex: 'phoneNumber',
                     text: 'Phone',
                     flex: 2

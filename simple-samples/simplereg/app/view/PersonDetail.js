@@ -19,13 +19,14 @@ Ext.define('Simplereg.view.PersonDetail', {
 
     requires: [
         'Simplereg.view.PersonData',
+        'Simplereg.view.PersonRelatives',
         'Simplereg.view.PersonContacts',
         'Simplereg.view.override.PersonDetail'
     ],
 
     itemId: 'person_detail',
     layout: {
-        type: 'column'
+        type: 'hbox'
     },
     bodyPadding: 5,
     closable: true,
@@ -100,27 +101,22 @@ Ext.define('Simplereg.view.PersonDetail', {
                 {
                     xtype: 'persondata',
                     margin: 5,
-                    columnWidth: 0.5
+                    flex: 1
+                },
+                {
+                    xtype: 'personrelatives',
+                    margin: 5,
+                    flex: 1
                 },
                 {
                     xtype: 'personcontacts',
                     margin: 5,
-                    columnWidth: 0.5
+                    flex: 1
                 }
-            ],
-            listeners: {
-                removed: {
-                    fn: me.onPerson_detailRemoved,
-                    scope: me
-                }
-            }
+            ]
         });
 
         me.callParent(arguments);
-    },
-
-    onPerson_detailRemoved: function(component, ownerCt, eOpts) {
-
     }
 
 });

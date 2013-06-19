@@ -182,11 +182,11 @@
                         "fieldLabel": "Gender",
                         "name": "gender",
                         "allowBlank": false,
-                        "editable": null,
+                        "editable": false,
                         "displayField": "name",
                         "forceSelection": true,
                         "queryMode": "local",
-                        "store": "genders",
+                        "store": "Genders",
                         "valueField": "value"
                     },
                     "configAlternates": {

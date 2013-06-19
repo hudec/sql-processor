@@ -46,9 +46,6 @@ Ext.define('Simplereg.view.ContactCreate', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    handler: function(button, event) {
-                                        button.up("form").getForm().findField("personId").setValue(button.personId);
-                                    },
                                     itemId: 'reset',
                                     iconCls: 'icon-reset',
                                     text: 'Reset'
@@ -86,11 +83,12 @@ Ext.define('Simplereg.view.ContactCreate', {
                             fieldLabel: 'Type',
                             name: 'ctype',
                             allowBlank: false,
+                            editable: false,
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',
                             queryParam: 'name',
-                            store: 'contactTypes',
+                            store: 'ContactTypes',
                             valueField: 'value'
                         },
                         {
@@ -106,7 +104,7 @@ Ext.define('Simplereg.view.ContactCreate', {
                             forceSelection: true,
                             queryMode: 'local',
                             queryParam: 'name',
-                            store: 'countries',
+                            store: 'Countries',
                             valueField: 'code'
                         },
                         {

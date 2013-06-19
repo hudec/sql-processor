@@ -6,7 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "storeId": "ContactTypesStore",
+        "autoLoad": true,
+        "storeId": "ContactTypes",
         "designer|userClassName": "ContactTypes",
         "data": [
             "[",

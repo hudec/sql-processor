@@ -6,7 +6,6 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoShow": null,
         "height": null,
         "id": "person-search",
         "itemId": "dialog",
@@ -15,6 +14,7 @@
         "closeAction": "hide",
         "iconCls": "icon-search",
         "title": "Find Person",
+        "defaultFocus": "firstName",
         "modal": true
     },
     "designerId": "fb283a43-1836-4a41-a244-3b0c26b784b2",
@@ -231,12 +231,12 @@
                         "layout|anchor": "100%",
                         "fieldLabel": "Gender",
                         "name": "gender",
-                        "editable": null,
+                        "editable": false,
                         "displayField": "name",
                         "forceSelection": true,
                         "queryMode": "local",
                         "queryParam": null,
-                        "store": "genders",
+                        "store": "Genders",
                         "valueField": "value"
                     },
                     "designerId": "53d96bae-07b8-47de-b0b9-2e274af506c4"

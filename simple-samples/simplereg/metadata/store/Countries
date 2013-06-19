@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": null,
-        "model": "Countriy",
-        "storeId": "CountriesStore",
+        "autoLoad": true,
+        "model": "Country",
+        "storeId": "Countries",
         "designer|userClassName": "Countries",
         "pageSize": null
     },

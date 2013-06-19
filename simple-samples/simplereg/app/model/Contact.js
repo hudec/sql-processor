@@ -38,6 +38,10 @@ Ext.define('Simplereg.model.Contact', {
             type: 'string'
         },
         {
+            name: 'contact',
+            type: 'string'
+        },
+        {
             name: 'countryCode',
             type: 'string'
         },

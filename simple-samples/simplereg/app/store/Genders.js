@@ -20,7 +20,8 @@ Ext.define('Simplereg.store.Genders', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            storeId: 'GendersStore',
+            autoLoad: true,
+            storeId: 'Genders',
             data: [
                 {
                     value: 'MALE',

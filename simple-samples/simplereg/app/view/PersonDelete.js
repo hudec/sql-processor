@@ -93,10 +93,8 @@ Ext.define('Simplereg.view.PersonDelete', {
                         },
                         {
                             xtype: 'displayfield',
-                            renderer: function(value, displayField) {
-                                return Ext.util.Format.dateRenderer('d.m.Y')(value);
-                            },
                             anchor: '100%',
+                            itemId: 'date',
                             fieldLabel: 'Date of Birth',
                             name: 'dateOfBirth'
                         },

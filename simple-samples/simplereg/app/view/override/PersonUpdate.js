@@ -12,11 +12,11 @@ Ext.define("Simplereg.view.override.PersonUpdate", {
             return false;
         }
 
-        form.mask("Processing...");
+        me.loadMask.show();
 
         // Update person
-        simpleService.updatePerson(form.getInputForm(), function(result) {
-            form.unmask();
+        simpleService.updatePerson(form.getPlainForm(), function(result) {
+            me.loadMask.hide();
 
             if (result.success) {
                 form.getForm().reset();

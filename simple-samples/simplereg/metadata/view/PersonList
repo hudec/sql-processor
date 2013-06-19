@@ -87,7 +87,8 @@
                 "sortable": false,
                 "dataIndex": "id",
                 "text": "Id",
-                "flex": 1
+                "flex": 1,
+                "format": "0"
             },
             "designerId": "2f88fe7a-3a57-46ce-98bb-10ffc4cd75bb"
         },
@@ -103,7 +104,8 @@
                 "sortable": false,
                 "dataIndex": "version",
                 "text": "Version",
-                "flex": 1
+                "flex": 1,
+                "format": "0"
             },
             "designerId": "e05b5e26-752a-4d6a-ae05-8f5c8a75fb5c"
         },
@@ -147,7 +149,7 @@
                 "sortable": false,
                 "dataIndex": "dateOfBirth",
                 "text": "Date of Birth",
-                "flex": 1,
+                "flex": 2,
                 "format": "d.m.Y"
             },
             "designerId": "96251178-779e-444e-a3ad-9f882407e400"
@@ -163,7 +165,7 @@
                 "sortable": false,
                 "dataIndex": "ssn",
                 "text": "SSN",
-                "flex": 1
+                "flex": 2
             },
             "designerId": "908efa02-3b2d-4d1e-a8d5-193f77abf2c7"
         },

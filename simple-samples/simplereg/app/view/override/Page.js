@@ -4,31 +4,19 @@ Ext.define("Simplereg.view.override.Page", {
     init: function() {
         var me = this;
 
-        // Codebooks...
-        var genders = Ext.create("Simplereg.store.Genders", {
-            storeId: "genders",
-            autoLoad: true
-        });
-
-        var contactTypes = Ext.create("Simplereg.store.ContactTypes", {
-            storeId: "contactTypes",
-            autoLoad: true
-        });
-
-        var countries = Ext.create("Simplereg.store.Countries", {
-            storeId: "countries",
-            autoLoad: true
-        });
-
         // Dialogs...
-//TODO: list dialog windows in application (not enaugh?)
-        Ext.create("Simplereg.view.PersonSearch");
-        Ext.create("Simplereg.view.PersonCreate");
-        Ext.create("Simplereg.view.PersonUpdate");
-        Ext.create("Simplereg.view.PersonDelete");
-        Ext.create("Simplereg.view.ContactCreate");
-        Ext.create("Simplereg.view.ContactUpdate")
-        Ext.create("Simplereg.view.ContactDelete");
+        this.dialogs([
+            "Simplereg.view.PersonSearch",
+            "Simplereg.view.PersonCreate",
+            "Simplereg.view.PersonUpdate",
+            "Simplereg.view.PersonDelete",
+            "Simplereg.view.RelativeCreate",
+            "Simplereg.view.RelativeUpdate",
+            "Simplereg.view.RelativeDelete",
+            "Simplereg.view.ContactCreate",
+            "Simplereg.view.ContactUpdate",
+            "Simplereg.view.ContactDelete"
+        ]);
 
         // Requested...
         //var request = Ext.urlDecode(window.location.search);
@@ -55,11 +43,24 @@ Ext.define("Simplereg.view.override.Page", {
     },
 
     /**
+     * Create application dialogs
+     */
+    dialogs: function(types) {
+        for (var i in types) {
+            var dialog = Ext.create(types[i]);
+            dialog.loadMask = Ext.create("Ext.LoadMask", {
+                autoShow: false,
+                msg: "Processing...",
+                target: dialog
+            });
+        }
+    },
+
+    /**
      * Reload page (active view)
      */
     reload: function() {
         var me = this, view = Ext.getCmp("pages").getActiveTab();
-
         if (view && view.reload) {
             view.reload();
         }
@@ -70,11 +71,8 @@ Ext.define("Simplereg.view.override.Page", {
      * (by id)
      */
     findPersonDetail: function(id) {
-        var pages = Ext.getCmp("pages"),
-                ident = "person" + id + "-detail",
-                view = pages.child("#" + ident);
-
-        return view;
+        var pages = Ext.getCmp("pages");
+        return pages.child("#person" + id + "-detail");
     },
 
     /**
@@ -82,7 +80,6 @@ Ext.define("Simplereg.view.override.Page", {
      */
     reloadPersonDetail: function(id) {
         var view = this.findPersonDetail(id);
-
         if (view) {
             view.reload();
         }
@@ -99,7 +96,11 @@ Ext.define("Simplereg.view.override.Page", {
         if (!view) {
             view = Ext.create("Simplereg.view.PersonDetail");
             view.init(id, record);
-            pages.add(view);
+
+            // Detail tab...
+            //pages.add(view);
+            var index = pages.items.indexOf(pages.getActiveTab()) + 1;
+            pages.insert(index, view);
             pages.setActiveTab(view);
         }
 
@@ -119,6 +120,5 @@ Ext.define("Simplereg.view.override.Page", {
         if (view) {
             pages.remove(view);
         }
-    },
-
+    }
 });

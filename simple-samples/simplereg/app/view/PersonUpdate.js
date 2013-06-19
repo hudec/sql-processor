@@ -63,7 +63,7 @@ Ext.define('Simplereg.view.PersonUpdate', {
                                     xtype: 'button',
                                     itemId: 'submit',
                                     iconCls: 'icon-edit',
-                                    text: 'ModifyPerson'
+                                    text: 'Modify Person'
                                 }
                             ]
                         }
@@ -119,10 +119,11 @@ Ext.define('Simplereg.view.PersonUpdate', {
                             fieldLabel: 'Gender',
                             name: 'gender',
                             allowBlank: false,
+                            editable: false,
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',
-                            store: 'genders',
+                            store: 'Genders',
                             valueField: 'value'
                         }
                     ]

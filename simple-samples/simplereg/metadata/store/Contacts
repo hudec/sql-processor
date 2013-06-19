@@ -8,7 +8,7 @@
     "userConfig": {
         "autoLoad": null,
         "model": "Contact",
-        "storeId": "ContactsStore",
+        "storeId": "Contacts",
         "designer|userClassName": "Contacts",
         "pageSize": null
     },

@@ -13,7 +13,7 @@
         "width": null,
         "designer|userClassName": "PersonDetail",
         "designer|userAlias": "persondetail",
-        "layout": "column",
+        "layout": "hbox",
         "bodyPadding": 5,
         "closable": true,
         "header": false,
@@ -194,7 +194,7 @@
             "codeClass": null,
             "userConfig": {
                 "margin": 5,
-                "layout|columnWidth": 0.5
+                "layout|flex": 1
             },
             "designerId": "92ba2988-19ec-4c43-be94-07c3ca6add65",
             "masterInstanceId": "5215cbca-1508-4b8a-8e02-461087d2e39a"
@@ -208,27 +208,24 @@
             "codeClass": null,
             "userConfig": {
                 "margin": 5,
-                "layout|columnWidth": 0.5
+                "layout|flex": 1
             },
-            "designerId": "86282c05-ebb7-49f4-a8c0-5a0da3c79c31",
-            "masterInstanceId": "a2e7af87-bcc4-4629-82c1-18f6e23566bd"
+            "designerId": "6a6b99bb-8b19-4738-8253-c9e39c6d5c97",
+            "masterInstanceId": "72b36799-6432-4d89-a679-5e6bf87ed93d"
         },
         {
-            "type": "basiceventbinding",
+            "type": "linkedinstance",
             "reference": {
-                "name": "listeners",
+                "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onPerson_detailRemoved",
-                "implHandler": [
-                    ""
-                ],
-                "name": "removed",
-                "scope": "me"
+                "margin": 5,
+                "layout|flex": 1
             },
-            "designerId": "3d3f9a91-bcbd-460d-aad3-d2f3661f6df9"
+            "designerId": "86282c05-ebb7-49f4-a8c0-5a0da3c79c31",
+            "masterInstanceId": "a2e7af87-bcc4-4629-82c1-18f6e23566bd"
         }
     ]
 }

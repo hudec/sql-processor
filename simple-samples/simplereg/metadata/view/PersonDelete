@@ -160,31 +160,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|anchor": "100%",
+                        "itemId": "date",
                         "fieldLabel": "Date of Birth",
                         "name": "dateOfBirth"
                     },
-                    "designerId": "ccff32ad-b3c5-4e89-9d2d-784039a318f1",
-                    "cn": [
-                        {
-                            "type": "fixedfunction",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "renderer",
-                                "designer|params": [
-                                    "value",
-                                    "displayField"
-                                ],
-                                "implHandler": [
-                                    "return Ext.util.Format.dateRenderer('d.m.Y')(value);"
-                                ]
-                            },
-                            "designerId": "323b53e9-3ac1-41c8-8912-49b2cc2dbb64"
-                        }
-                    ]
+                    "designerId": "ccff32ad-b3c5-4e89-9d2d-784039a318f1"
                 },
                 {
                     "type": "Ext.form.field.Display",

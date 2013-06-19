@@ -17,6 +17,7 @@ Ext.define('Simplereg.model.Person', {
     extend: 'Ext.data.Model',
 
     uses: [
+        'Simplereg.model.Relative',
         'Simplereg.model.Contact'
     ],
 
@@ -52,11 +53,20 @@ Ext.define('Simplereg.model.Person', {
         }
     ],
 
-    hasMany: {
-        model: 'Simplereg.model.Contact',
-        foreignKey: 'personId',
-        name: 'contacts'
-    },
+    hasMany: [
+        {
+            associationKey: 'relatives',
+            model: 'Simplereg.model.Relative',
+            foreignKey: 'person_id',
+            name: 'relatives'
+        },
+        {
+            associationKey: 'contacts',
+            model: 'Simplereg.model.Contact',
+            foreignKey: 'person_id',
+            name: 'contacts'
+        }
+    ],
 
     validations: [
         {

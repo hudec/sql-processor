@@ -24,6 +24,8 @@ Ext.application({
     stores: [
         'People',
         'Genders',
+        'RelativePeople',
+        'RelativeTypes',
         'Contacts',
         'ContactTypes',
         'Countries'

@@ -1,24 +1,62 @@
 /**
+ * Static application methods
+ */
+Ext.ns("Simplereg");
+
+Ext.applyIf(Simplereg, {
+
+    /**
+     * Person title (name, date...)
+     */
+    getPersonTitle: function(record) {
+        var text = [];
+        text.push(record.data.firstName + " " + record.data.lastName);
+        if (record.data.ssn) {
+            text.push(record.data.ssn);
+        }
+        else if (record.data.dateOfBirth) {
+            text.push(Ext.util.Format.date(record.data.dateOfBirth, "d.m.Y"));
+        }
+        return text.join(", ");
+    },
+
+    /**
+     * Contact title (address, country...)
+     */
+    getContactTitle: function(record) {
+        var text = [];
+        text.push(record.data.address);
+        text.push(record.data.countryCode);
+        return text.join(", ");
+    }
+});
+
+/**
  * Get plain HTML form...
  */
-Ext.form.Panel.prototype.getInputForm = function() {
-    var values = this.getValues(), name, field,
-            form = document.createElement("form");
-    for (name in values) {
-        field = document.createElement("input");
-        field.name = name;
-        field.value = values[name];
-        form.appendChild(field);
+Ext.override(Ext.form.Panel, {
+    getPlainForm: function() {
+        var values = this.getValues(), name, field,
+                form = document.createElement("form");
+        for (name in values) {
+            field = document.createElement("input");
+            field.name = name;
+            field.value = values[name];
+            form.appendChild(field);
+        }
+        return form;
     }
-    return form;
-};
+});
 
 Ext.define("Simplereg.controller.override.Common", {
     override: "Simplereg.controller.Common",
 
+//TODO: better/right way?
     resetComboboxFilter: function() {
         if (this.is("combobox")) {
-            this.lastQuery = null;
+            var value = this.getValue();
+            this.reset();
+            this.setValue(value);
         }
     },
 
@@ -48,18 +86,22 @@ Ext.define("Simplereg.controller.override.Common", {
                 },
                 removed: function(component, ownerCmp, eOpts) {
                     var manager = Ext.data.StoreManager;
-                    manager.unregister(component.id + "-detail");
-                    manager.unregister(component.id + "-contacts");
+                    manager.unregister(component.id);
+                    manager.unregister(component.id + "Relatives");
+                    manager.unregister(component.id + "Contacts");
+                }
+            },
+            "#date": {
+//TODO: mixin formating date display field
+                beforerender: function(component, eOpts) {
+                    component.renderer = function(value) {
+                        return Ext.util.Format.date(value, "d.m.Y");
+                    };
                 }
             },
             "combobox": {
                 blur: function(component, e, eOpts) {
                     this.resetComboboxFilter.call(component);
-                },
-                beforequery: function(queryPlan, eOpts) {
-                    if (queryPlan.query == "") { //allow leave empty...
-                        queryPlan.combo.setValue("");
-                    }
                 }
             },
             "#pages": {
@@ -72,19 +114,27 @@ Ext.define("Simplereg.controller.override.Common", {
                     }
                 }
             },
+            "tool#reload": {
+                click: function(tool, e, eOpts) {
+                    var panel = tool.up("panel");
+                    if (panel.reload) {
+                        panel.reload();
+                    }
+                    return false;
+                }
+            },
             "#reload": {
                 click: function(button, e, eOpts) {
                     Ext.getCmp("page").reload();
                 }
             },
             "#dialog": {
-                beforeshow: function(component, eOpts) {
+                beforehide: function(component, eOpts) {
                     var form = component.down("form");
                     if (form) {
-                        form = form.getForm(), fields = form.getFields();
+                        form = form.getForm();
                         form.clearInvalid();
-
-                        fields.each(this.resetComboboxFilter);
+                        form.getFields().each(this.resetComboboxFilter);
                     }
                 }
             },
@@ -119,18 +169,9 @@ Ext.define("Simplereg.controller.override.Common", {
                 }
             },
             "#people": {
-                itemdblclick: function(button, e, eOpts) {
-                    var record = button.up("#people").getSelectionModel().getSelection()[0],
-                            page = Ext.getCmp("page");
+                itemdblclick: function(dataview, record, item, index, e, eOpts) {
+                    var page = Ext.getCmp("page");
                     page.openPersonDetail(record.data.id, record);
-                }
-            },
-            "#contacts": {
-                itemdblclick: function(button, e, eOpts) {
-                    var dialog = Ext.getCmp("contact-update"),
-                            record = button.up("#contacts").getSelectionModel().getSelection()[0];
-                    dialog.down("form").loadRecord(record);
-                    dialog.show();
                 }
             },
             "#people #open": {
@@ -149,54 +190,120 @@ Ext.define("Simplereg.controller.override.Common", {
             },
             "#update-person": {
                 click: function(button, e, eOpts) {
-                    var dialog = Ext.getCmp("person-update"),
-                            record = button.up("persondetail").record;
-                    dialog.down("form").loadRecord(record);
-                    dialog.show();
+                    return this.managePerson("person-update", button, e, eOpts);
                 }
             },
             "#delete-person": {
                 click: function(button, e, eOpts) {
-                    var dialog = Ext.getCmp("person-delete"),
-                            record = button.up("persondetail").record;
+                    return this.managePerson("person-delete", button, e, eOpts);
+                }
+            },
+            "#relatives": {
+                itemdblclick: function(dataview, record, item, index, e, eOpts) {
+                    var page = Ext.getCmp("page");
+                    page.openPersonDetail(record.data["relPerson.id"]);
+                }
+            },
+            "#relatives #open": {
+                click: function(button, e, eOpts) {
+                    var record = button.up("#relatives").getSelectionModel().getSelection()[0];
+                    if (record) {
+                        var page = Ext.getCmp("page");
+                        page.openPersonDetail(record.data["relPerson.id"]);
+                    }
+                }
+            },
+            "#create-relative": {
+                click: function(button, e, eOpts) {
+                    var dialog = Ext.getCmp("relative-create"),
+                            person = button.up("persondetail").record,
+                            record = Ext.create("Simplereg.model.RelativePerson", {
+                                personId: person.data.id,
+                                version: person.data.version
+                            });
                     dialog.down("form").loadRecord(record);
+                    dialog.show();
+                }
+            },
+            "#relatives #update-relative": {
+                click: function(button, e, eOpts) {
+                    return this.manageRelative("relative-update", button, e, eOpts);
+                }
+            },
+            "#relatives #delete-relative": {
+                click: function(button, e, eOpts) {
+                    return this.manageRelative("relative-delete", button, e, eOpts);
+                }
+            },
+            "#contacts": {
+                itemdblclick: function(dataview, record, item, index, e, eOpts) {
+                    var dialog = Ext.getCmp("contact-update"),
+                            form = dialog.down("form");
+                    form.loadRecord(record);
                     dialog.show();
                 }
             },
             "#create-contact": {
                 click: function(button, e, eOpts) {
                     var dialog = Ext.getCmp("contact-create"),
-                            id = button.up("persondetail").record.data.id;
-//TODO: better way, but record create fails :(
-                    dialog.down("#reset").personId = id;
-                    dialog.down("form").getForm().findField("personId").setValue(id);
-                    /*
-                    record = Ext.data.Record.create([{ name: "personId", defaultValue: id }]);
+                            person = button.up("persondetail").record,
+                            record = Ext.create("Simplereg.model.Contact", {
+                                personId: person.data.id
+                            });
                     dialog.down("form").loadRecord(record);
-                    */
                     dialog.show();
                 }
             },
             "#contacts #update-contact": {
                 click: function(button, e, eOpts) {
-                    var dialog = Ext.getCmp("contact-update"),
-                            record = button.up("#contacts").getSelectionModel().getSelection()[0];
-                    if (record) {
-                        dialog.down("form").loadRecord(record);
-                        dialog.show();
-                    }
+                    return this.manageContact("contact-update", button, e, eOpts);
                 }
             },
             "#contacts #delete-contact": {
                 click: function(button, e, eOpts) {
-                    var dialog = Ext.getCmp("contact-delete"),
-                            record = button.up("#contacts").getSelectionModel().getSelection()[0];
-                    if (record) {
-                        dialog.down("form").loadRecord(record);
-                        dialog.show();
-                    }
+                    return this.manageContact("contact-delete", button, e, eOpts);
                 }
             }
         });
+    },
+
+    /**
+     * Update/delete person
+     */
+    managePerson: function(d, button, e, eOpts) {
+        var dialog = Ext.getCmp(d),
+                record = button.up("persondetail").record,
+                form = dialog.down("form");
+        form.loadRecord(record);
+        dialog.show();
+    },
+
+    /**
+     * Update/delete relative
+     */
+    manageRelative: function(d, button, e, eOpts) {
+        var record = button.up("#relatives").getSelectionModel().getSelection()[0];
+        if (record) {
+            var dialog = Ext.getCmp(d),
+                    version = button.up("persondetail").record.data.version,
+                    form = dialog.down("form");
+            record = record.copy();
+            record.set("version", version);
+            form.loadRecord(record);
+            dialog.show();
+        }
+    },
+
+    /**
+     * Update/delete contact
+     */
+    manageContact: function(d, button, e, eOpts) {
+        var record = button.up("#contacts").getSelectionModel().getSelection()[0];
+        if (record) {
+            var dialog = Ext.getCmp(d),
+                    form = dialog.down("form");
+            form.loadRecord(record);
+            dialog.show();
+        }
     }
 });

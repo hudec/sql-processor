@@ -17,15 +17,16 @@ Ext.define('Simplereg.store.Countries', {
     extend: 'Ext.data.Store',
 
     requires: [
-        'Simplereg.model.Countriy'
+        'Simplereg.model.Country'
     ],
 
     constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            model: 'Simplereg.model.Countriy',
-            storeId: 'CountriesStore',
+            autoLoad: true,
+            model: 'Simplereg.model.Country',
+            storeId: 'Countries',
             proxy: {
                 type: 'direct',
                 api: { read: "simpleService.loadCountries" },

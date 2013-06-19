@@ -102,7 +102,7 @@
                                 "id": null,
                                 "itemId": "submit",
                                 "iconCls": "icon-edit",
-                                "text": "ModifyPerson"
+                                "text": "Modify Person"
                             },
                             "designerId": "f23ca92c-362f-4f38-bcd4-02c979f92297"
                         }
@@ -212,11 +212,11 @@
                         "fieldLabel": "Gender",
                         "name": "gender",
                         "allowBlank": false,
-                        "editable": null,
+                        "editable": false,
                         "displayField": "name",
                         "forceSelection": true,
                         "queryMode": "local",
-                        "store": "genders",
+                        "store": "Genders",
                         "valueField": "value"
                     },
                     "designerId": "bcf92e76-2279-4012-9df1-7419aca2ff64"

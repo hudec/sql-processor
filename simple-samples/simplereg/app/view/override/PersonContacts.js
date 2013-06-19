@@ -6,10 +6,6 @@ Ext.define("Simplereg.view.override.PersonContacts", {
      */
     reload: function() {
         var me = this, store = me.store;
-
-        // Reset selection (reread)
-        me.getSelectionModel().deselectAll();
-
         store.reload();
     }
 });

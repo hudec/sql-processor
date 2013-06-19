@@ -13,23 +13,22 @@ Ext.define("Simplereg.view.override.ContactUpdate", {
             return false;
         }
 
-        form.mask("Processing...");
+        me.loadMask.show();
 
         // Create new contact
-        simpleService.updateContact(form.getInputForm(), function(result) {
-            form.unmask();
+        simpleService.updateContact(form.getPlainForm(), function(result) {
+            me.loadMask.hide();
 
             if (result.success) {
                 form.getForm().reset();
                 me.close();
 
-                // Contacts
+                // Person contacts
                 if (result.personId) {
                     view = Ext.getCmp("page").findPersonDetail(result.personId);
-                }
-
-                if (view) {
-                    view.down("#contacts").reload();
+                    if (view) {
+                        view.down("#contacts").reload();
+                    }
                 }
             }
             else {

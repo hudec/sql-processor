@@ -12,11 +12,11 @@ Ext.define("Simplereg.view.override.PersonDelete", {
             return false;
         }
 
-        form.mask("Processing...");
+        me.loadMask.show();
 
         // Delete person
-        simpleService.deletePerson(form.getInputForm(), function(result) {
-            form.unmask();
+        simpleService.deletePerson(form.getPlainForm(), function(result) {
+            me.loadMask.hide();
 
             if (result.success) {
                 me.close();

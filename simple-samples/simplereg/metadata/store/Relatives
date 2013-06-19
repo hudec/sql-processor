@@ -1,0 +1,48 @@
+{
+    "type": "directstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": null,
+        "model": "Relative",
+        "storeId": "Relatives",
+        "designer|userClassName": "Relatives",
+        "pageSize": null
+    },
+    "designerId": "2d1ac55e-2631-401a-b281-46e3772c6a1c",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Direct",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy",
+                "api": [
+                    "{ read: \"simpleService.loadRelatives\" }"
+                ]
+            },
+            "designerId": "0dc3a38c-fcea-45c2-994b-36e81a22e57b",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "records",
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "622b1be5-8295-44bc-849a-670dcf86e601"
+                }
+            ]
+        }
+    ]
+}

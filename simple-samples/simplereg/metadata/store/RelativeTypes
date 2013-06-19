@@ -1,0 +1,52 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "storeId": "RelativeTypes",
+        "designer|userClassName": "RelativeTypes",
+        "data": [
+            "[",
+            "    { value: \"FATHER\", name: \"FATHER\" },",
+            "    { value: \"MOTHER\", name: \"MOTHER\" },",
+            "    { value: \"SON\", name: \"SON\" },",
+            "    { value: \"DAUGHTER\", name: \"DAUGHTER\" },",
+            "    { value: \"HUSBAND\", name: \"HUSBAND\" },",
+            "    { value: \"WIFE\", name: \"WIFE\" },",
+            "    { value: \"BROTHER\", name: \"BROTHER\" },",
+            "    { value: \"SISTER\", name: \"SISTER\" }",
+            "]"
+        ]
+    },
+    "designerId": "f5f7e072-260e-4526-a9c4-90767ad93a04",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value"
+            },
+            "designerId": "b182b7f4-214a-4e0b-a3f4-1cc2e16634be"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "designerId": "6576f6e4-a1c9-448b-a6e6-ccd19d7934ca"
+        }
+    ]
+}

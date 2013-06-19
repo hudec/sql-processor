@@ -44,6 +44,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "defaultValue": null,
                 "name": "firstName",
                 "type": "string"
             },
@@ -84,6 +85,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "defaultValue": null,
                 "name": "ssn",
                 "type": "string"
             },
@@ -110,9 +112,26 @@
             },
             "codeClass": null,
             "userConfig": {
+                "associationKey": "relatives",
+                "model": "Relative",
+                "designer|displayName": "hasManyRelatives",
+                "foreignKey": "person_id",
+                "name": "relatives"
+            },
+            "designerId": "8447a54e-cea1-41eb-98fa-361858a48f46"
+        },
+        {
+            "type": "Ext.data.association.HasMany",
+            "reference": {
+                "name": "hasMany",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "associationKey": "contacts",
                 "model": "Contact",
                 "designer|displayName": "hasManyContacts",
-                "foreignKey": "personId",
+                "foreignKey": "person_id",
                 "name": "contacts"
             },
             "designerId": "1369241559336473588"

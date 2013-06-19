@@ -14,22 +14,21 @@ Ext.define("Simplereg.view.override.ContactDelete", {
             return false;
         }
 
-        form.mask("Processing...");
+        me.loadMask.show();
 
         // Delete contact
-        simpleService.deleteContact(form.getInputForm(), function(result) {
-            form.unmask();
+        simpleService.deleteContact(form.getPlainForm(), function(result) {
+            me.loadMask.hide();
 
             if (result.success) {
                 me.close();
 
-                // Contacts
+                // Person contacts
                 if (result.personId) {
                     view = Ext.getCmp("page").findPersonDetail(result.personId);
-                }
-
-                if (view) {
-                    view.down("#contacts").reload();
+                    if (view) {
+                        view.down("#contacts").reload();
+                    }
                 }
             }
             else {

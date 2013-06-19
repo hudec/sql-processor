@@ -26,6 +26,7 @@ Ext.define('Simplereg.view.PersonSearch', {
     closeAction: 'hide',
     iconCls: 'icon-search',
     title: 'Find Person',
+    defaultFocus: 'firstName',
     modal: true,
 
     initComponent: function() {
@@ -127,10 +128,11 @@ Ext.define('Simplereg.view.PersonSearch', {
                             anchor: '100%',
                             fieldLabel: 'Gender',
                             name: 'gender',
+                            editable: false,
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',
-                            store: 'genders',
+                            store: 'Genders',
                             valueField: 'value'
                         }
                     ]

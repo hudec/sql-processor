@@ -99,6 +99,7 @@ Ext.define('Simplereg.view.ContactUpdate', {
                             fieldLabel: 'Type',
                             name: 'ctype',
                             allowBlank: false,
+                            editable: false,
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',

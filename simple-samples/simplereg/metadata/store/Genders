@@ -6,7 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "storeId": "GendersStore",
+        "autoLoad": true,
+        "storeId": "Genders",
         "designer|userClassName": "Genders",
         "data": [
             "[",

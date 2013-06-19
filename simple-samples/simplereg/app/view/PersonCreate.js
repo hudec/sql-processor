@@ -104,10 +104,11 @@ Ext.define('Simplereg.view.PersonCreate', {
                             fieldLabel: 'Gender',
                             name: 'gender',
                             allowBlank: false,
+                            editable: false,
                             displayField: 'name',
                             forceSelection: true,
                             queryMode: 'local',
-                            store: 'genders',
+                            store: 'Genders',
                             valueField: 'value'
                         }
                     ]

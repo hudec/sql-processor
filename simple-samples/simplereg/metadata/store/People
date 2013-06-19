@@ -10,7 +10,7 @@
         "model": "Person",
         "remoteFilter": true,
         "remoteSort": true,
-        "storeId": "PeopleStore",
+        "storeId": "People",
         "designer|userClassName": "People",
         "pageSize": 5
     },
@@ -69,12 +69,14 @@
             "userConfig": {
                 "fn": "fitin",
                 "implHandler": [
-                    ""
+                    "if (store.currentPage > 1 && !records.length) {",
+                    "    store.previousPage();",
+                    "}   "
                 ],
                 "name": "load",
                 "scope": "me"
             },
-            "designerId": "057b486b-8f58-40ca-bf19-7a7a0ed6d815"
+            "designerId": "ddf7a1fd-4d51-4e68-8fdc-5119187d12ec"
         }
     ]
 }

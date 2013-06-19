@@ -4,14 +4,17 @@ Ext.define("Simplereg.view.override.PersonSelect", {
     init: function() {
         var me = this;
 
+        me.loadMask = Ext.create("Ext.LoadMask", {
+            autoShow: false,
+            msg: "Loading...",
+            target: me
+        });
+
+        // Person select
+        me.id = "PersonSelect";
+        me.itemId = "person-select";
+
         // Person list
-        var grid = me.down("#people");
-
-        grid.bindStore(Ext.create("Simplereg.store.People", {
-            storeId: "person-select"
-        }));
-
-        grid.down("pagingtoolbar").bindStore(grid.store);
     },
 
     /**
@@ -20,9 +23,9 @@ Ext.define("Simplereg.view.override.PersonSelect", {
     reload: function(config) {
         var me = this, store = me.down("#people").store;
 
-        if (me.isVisible()) {
-            me.mask("Loading...");
-        }
+//TODO: disable grid loading mask
+        //me.loadMask.show();
+        me.mask();
 
         // From beginning
         if (config === true) {
@@ -33,14 +36,11 @@ Ext.define("Simplereg.view.override.PersonSelect", {
         // Load person select list
         store.load(Ext.apply({
             callback: function(records, operation, success) {
-                me.unmask();
-
                 if (success) {
                     me.down("grid").down("pagingtoolbar").onLoad();
-                    if (records.length) {
-                        ;
-                    }
                 }
+                //me.loadMask.hide();
+                me.unmask();
             }
         }, config));
     },

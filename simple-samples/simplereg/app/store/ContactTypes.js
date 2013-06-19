@@ -20,7 +20,8 @@ Ext.define('Simplereg.store.ContactTypes', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            storeId: 'ContactTypesStore',
+            autoLoad: true,
+            storeId: 'ContactTypes',
             data: [
                 {
                     value: 'HOME',

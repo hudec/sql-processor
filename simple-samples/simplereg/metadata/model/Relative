@@ -1,0 +1,100 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Relative"
+    },
+    "designerId": "a0481b45-c220-4fb8-a2a3-9794367246af",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id",
+                "type": "int"
+            },
+            "designerId": "0986808d-e89c-4054-b7e3-554916557383"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "personId",
+                "type": "int"
+            },
+            "designerId": "532ce61e-7c14-4b5e-b1e8-93523ba37cb2"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "version",
+                "type": "int"
+            },
+            "designerId": "84c81a95-f9be-467f-b787-8d05a95df946"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "rtype",
+                "type": "string"
+            },
+            "designerId": "07143d37-1746-4640-b810-01d7f43958f4"
+        },
+        {
+            "type": "Ext.data.association.BelongsTo",
+            "reference": {
+                "name": "belongsTo",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "associationKey": "person",
+                "model": "Person",
+                "designer|displayName": "belongsToPerson",
+                "foreignKey": "person_id",
+                "getterName": "setPerson",
+                "setterName": "getPerson"
+            },
+            "designerId": "6c512065-f21a-488a-af59-5d9fe1237b87"
+        },
+        {
+            "type": "Ext.data.association.HasOne",
+            "reference": {
+                "name": "hasOne",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "associationKey": "relPerson",
+                "model": "Person",
+                "designer|displayName": "hasRelativePerson",
+                "foreignKey": "rel_person_id",
+                "getterName": "getRelPerson",
+                "setterName": "setRelPerson"
+            },
+            "designerId": "bdeef460-a580-4df9-8418-b89a9e7743a6"
+        }
+    ]
+}

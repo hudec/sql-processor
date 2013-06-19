@@ -2,33 +2,51 @@ Ext.define("Simplereg.view.override.PersonDetail", {
     override: "Simplereg.view.PersonDetail",
 
     init: function(id, record) {
-        var me = this, ident = "person" + id + "-detail";
+        var me = this;
+
+        me.loadMask = Ext.create("Ext.LoadMask", {
+            autoShow: false,
+            msg: "Loading...",
+            target: me
+        });
 
         // Person detail
-        me.itemId = ident;
+        me.id = "Person" + id + "Detail";
+        me.itemId = "person" + id + "-detail";
 
         // Complex person store
         me.store = Ext.create("Simplereg.store.People", {
-            storeId: me.id + "-detail"
+            storeId: me.id
         });
 
         me.store.proxy.extraParams = {
+            relatives: true,
             contacts: true,
             id: id
+        };
+
+        // Person relatives
+        var relatives = me.down("#relatives");
+
+        relatives.bindStore(Ext.create("Simplereg.store.RelativePeople", {
+            storeId: me.id + "Relatives"
+        }));
+
+//TODO: unlimited...
+        relatives.store.proxy.extraParams = {
+            personId: id
         };
 
         // Person contacts
         var contacts = me.down("#contacts");
 
         contacts.bindStore(Ext.create("Simplereg.store.Contacts", {
-            storeId: me.id + "-contacts"
+            storeId: me.id + "Contacts"
         }));
 
         contacts.store.proxy.extraParams = {
             personId: id
         };
-
-        contacts.down("pagingtoolbar").bindStore(contacts.store);
 
         // Fill...
         if (record) {
@@ -43,8 +61,9 @@ Ext.define("Simplereg.view.override.PersonDetail", {
         var me = this;
 
         if (me.isVisible()) {
-            me.mask("Loading...");
+            //me.mask("Loading...");
         }
+        me.loadMask.show();
 
         // Load complex person data
         me.store.load({
@@ -54,7 +73,8 @@ Ext.define("Simplereg.view.override.PersonDetail", {
                         me.fill(records[0]);
                     }
                 }
-                me.unmask();
+                //me.unmask();
+                me.loadMask.hide();
             }
         });
     },
@@ -70,27 +90,38 @@ Ext.define("Simplereg.view.override.PersonDetail", {
         me.record = record;
 
         // Title
-        var text = [], title;
-        text.push(record.data.firstName + " " + record.data.lastName);
-        if (record.data.ssn) {
-            text.push(record.data.ssn);
-        }
-        title = text.join(" | ");
-
-        me.setTitle(title);
+        me.setTitle(Simplereg.getPersonTitle(record));
 
         // Personal data
         me.down("#data").loadRecord(record);
+
+        // Person relatives
+        var relatives = me.down("#relatives"), store = relatives.store,
+                items = record.relatives().data.items;
+
+        if (store.pageSize) {
+            items =  items.slice(0, store.pageSize);
+        }
+
+        store.on("load", function() {
+            relatives.getSelectionModel().deselectAll();
+        });
+
+        //store.loadData(items);
+        store.reload();
 
         // Person contacts
         var contacts = me.down("#contacts"), store = contacts.store,
                 items = record.contacts().data.items;
 
-        store.loadData(store.pageSize ? items.slice(0, store.pageSize) : items);
+        if (store.pageSize) {
+            items =  items.slice(0, store.pageSize);
+        }
 
-        // Correct...
-//TODO: total count (from response)
-        store.totalCount = items.length;
-        contacts.down("pagingtoolbar").onLoad();
+        store.on("load", function() {
+            contacts.getSelectionModel().deselectAll();
+        });
+
+        store.loadData(items);
     }
 });
