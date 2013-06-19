@@ -12,11 +12,11 @@ Ext.define("Simplereg.view.override.PersonCreate", {
             return false;
         }
 
-        dialog.loadMask.show();
+        me.loadMask.show();
 
         // Create new person
         simpleService.createPerson(form.getPlainForm(), function(result) {
-            dialog.loadMask.hide();
+            me.loadMask.hide();
 
             if (result.success) {
                 form.getForm().reset();

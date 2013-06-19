@@ -103,6 +103,7 @@ Ext.define("Simplereg.view.override.PersonDetail", {
             items =  items.slice(0, store.pageSize);
         }
 
+        relatives.getSelectionModel().deselectAll();
         store.on("load", function() {
             relatives.getSelectionModel().deselectAll();
         });
@@ -118,6 +119,7 @@ Ext.define("Simplereg.view.override.PersonDetail", {
             items =  items.slice(0, store.pageSize);
         }
 
+        contacts.getSelectionModel().deselectAll();
         store.on("load", function() {
             contacts.getSelectionModel().deselectAll();
         });

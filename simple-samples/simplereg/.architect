@@ -206,6 +206,7 @@
                 },
                 {
                     "id": "e3da6be9-bf83-4146-885f-2f34143b1a0b",
+                    "expanded": false,
                     "cn": [
                         {
                             "id": "7371c9b8-3393-4299-a8aa-09e7bfc803c8"
@@ -238,6 +239,7 @@
                 },
                 {
                     "id": "563744df-ce0e-4a33-b391-001c672692bf",
+                    "expanded": false,
                     "cn": [
                         {
                             "id": "1a6dee11-0df4-4110-9b6a-35bf3614ce74"
@@ -653,9 +655,11 @@
             "cn": [
                 {
                     "id": "cee92c65-8aea-4183-bbc2-3b2ac7386206",
+                    "expanded": false,
                     "cn": [
                         {
                             "id": "ef4c596a-2000-41ce-88f5-e8b99ea4ad16",
+                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "6151f7aa-3f89-4bf0-bb63-368e68421f5f"
@@ -1101,9 +1105,6 @@
         "bef30b06-3dfd-4d72-9ad7-1c50648249a0": {
             "id": "bef30b06-3dfd-4d72-9ad7-1c50648249a0"
         },
-        "3d4fcddd-cbeb-4fa6-9546-c5944afdc6d7": {
-            "id": "3d4fcddd-cbeb-4fa6-9546-c5944afdc6d7"
-        },
         "9ca77b33-13e6-4638-8f71-746993b70b9a": {
             "id": "9ca77b33-13e6-4638-8f71-746993b70b9a"
         }
@@ -1112,7 +1113,7 @@
         "openTabs": []
     },
     "canvasState": {
-        "topInstance": null
+        "topInstance": "cb7802ac-98b6-437d-ab1e-a624d3176f71"
     },
     "inspectorState": {
         "topInstance": "application",
