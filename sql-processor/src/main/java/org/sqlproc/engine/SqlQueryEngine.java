@@ -371,6 +371,7 @@ public class SqlQueryEngine extends SqlEngine {
             final Object staticInputValues, final SqlOrder order, final int maxTimeout, final int maxResults,
             final int firstResult, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
             SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return query(
                 session,
                 resultClass,
@@ -414,6 +415,7 @@ public class SqlQueryEngine extends SqlEngine {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         List<E> result = null;
 
@@ -552,6 +554,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public int queryCount(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final SqlOrder order, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return queryCount(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setOrder(order).setMaxTimeout(maxTimeout));
     }
@@ -583,6 +586,7 @@ public class SqlQueryEngine extends SqlEngine {
             logger.debug(">> queryCount, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Integer count = null;
 

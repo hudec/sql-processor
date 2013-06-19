@@ -302,6 +302,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return callQuery(session, resultClass, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
@@ -341,6 +342,7 @@ public class SqlProcedureEngine extends SqlEngine {
             logger.debug(">> callQuery, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         List<E> result = null;
 
@@ -428,6 +430,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public int callUpdate(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return callUpdate(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setMaxTimeout(maxTimeout));
     }
@@ -460,6 +463,7 @@ public class SqlProcedureEngine extends SqlEngine {
             logger.debug(">> callUpdate, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -528,6 +532,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public Object callFunction(final SqlSession session, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return callFunction(session, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
@@ -559,6 +564,7 @@ public class SqlProcedureEngine extends SqlEngine {
             logger.debug(">> callFunction, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Object result = null;
 
@@ -626,6 +632,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public String getSql(final Object dynamicInputValues, final Object staticInputValues,
             final SqlMetaStatement.Type statementType) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return getSql(dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues),
                 statementType);
     }
@@ -655,6 +662,7 @@ public class SqlProcedureEngine extends SqlEngine {
         if (logger.isDebugEnabled()) {
             logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         String sql = null;
 

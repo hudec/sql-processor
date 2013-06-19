@@ -1,5 +1,6 @@
 package org.sqlproc.engine;
 
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -222,5 +223,45 @@ public abstract class SqlEngine {
             return null;
         else
             return sqlControl.getFeatures();
+    }
+
+    /**
+     * Check the input parameters.
+     * 
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @throws InvalidParameterException
+     *             in the case the incorrect classes used for dynamic input values
+     */
+    void checkDynamicInputValues(final Object dynamicInputValues) {
+        if (dynamicInputValues == null)
+            return;
+        if (dynamicInputValues instanceof SqlOrder)
+            throw new InvalidParameterException("SqlOrder used as dynamic input values");
+        if (dynamicInputValues instanceof SqlControl)
+            throw new InvalidParameterException("SqlControl used as dynamic input values");
+    }
+
+    /**
+     * Check the input parameters.
+     * 
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @throws InvalidParameterException
+     *             in the case the incorrect classes used for static input values
+     */
+    void checkStaticInputValues(final Object staticInputValues) {
+        if (staticInputValues == null)
+            return;
+        if (staticInputValues instanceof SqlOrder)
+            throw new InvalidParameterException("SqlOrder used as static input values");
+        if (staticInputValues instanceof SqlControl)
+            throw new InvalidParameterException("SqlControl used as static input values");
     }
 }

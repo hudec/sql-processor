@@ -22,11 +22,6 @@ import org.sqlproc.engine.SqlFeature;
  */
 public class SqlUtils {
 
-    static final String SUPPVAL_ID = "id";
-    static final String SUPPVAL_GTYPE = "gtype";
-    static final String SUPPVAL_TYPE = "type";
-    static final String SUPPVAL_DISCRIMINATOR = "discr";
-
     // enums
 
     public static Object getEnumToValue(Object obj) {

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
 
@@ -104,9 +105,9 @@ class SqlMappingItem implements SqlMetaElement {
         fullName.append(names[0]);
         SqlMappingAttribute attr = new SqlMappingAttribute(this, fullName.toString(), names[0]);
         if (names.length > 1)
-            attr.setValues(SqlUtils.SUPPVAL_TYPE, names[1]);
+            attr.setValues(Modifiers.MODIFIER_TYPE, names[1]);
         if (names.length > 2)
-            attr.setValues(SqlUtils.SUPPVAL_GTYPE, names[2]);
+            attr.setValues(Modifiers.MODIFIER_GTYPE, names[2]);
         attributes.add(attr);
         attributesMap.put(fullName.toString(), attr);
         return attr;
@@ -124,9 +125,9 @@ class SqlMappingItem implements SqlMetaElement {
         String[] values = value.split("=");
         SqlMappingAttribute attr = attributesMap.get(attrName);
         if (values.length > 1)
-            attr.setValues(SqlUtils.SUPPVAL_GTYPE, values[1]);
+            attr.setValues(Modifiers.MODIFIER_GTYPE, values[1]);
         else
-            attr.setValues(SqlUtils.SUPPVAL_TYPE, values[0]);
+            attr.setValues(Modifiers.MODIFIER_TYPE, values[0]);
         return attr;
     }
 
@@ -253,7 +254,7 @@ class SqlMappingItem implements SqlMetaElement {
             value = value.substring(0, ix);
         }
         if (value2 == null) {
-            if (SqlUtils.SUPPVAL_ID.equalsIgnoreCase(value))
+            if (Modifiers.MODIFIER_ID.equalsIgnoreCase(value))
                 this.identity = true;
             else
                 sqlType.setValue(value);
@@ -320,7 +321,7 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                     if (isCollection) {
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
-                                + SqlUtils.SUPPVAL_GTYPE) : null;
+                                + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                         if (typeClass == null) {
                             ParameterizedType paramType = (ParameterizedType) m.getGenericReturnType();
@@ -340,7 +341,7 @@ class SqlMappingItem implements SqlMetaElement {
                         }
                     } else if (moreResultClasses != null) {
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
-                                + SqlUtils.SUPPVAL_GTYPE) : null;
+                                + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                         if (typeClass != null)
                             objClass = typeClass;
@@ -419,7 +420,7 @@ class SqlMappingItem implements SqlMetaElement {
             if (m != null) {
                 Object nextObj = BeanUtils.invokeMethod(obj, m.getName(), null);
                 if (nextObj == null) {
-                    String typeName = values.get(attr.getFullName() + SqlUtils.SUPPVAL_TYPE);
+                    String typeName = values.get(attr.getFullName() + Modifiers.MODIFIER_TYPE);
                     Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                     if (typeClass == null) {
                         Class<?> clazz = m.getReturnType();
@@ -445,9 +446,9 @@ class SqlMappingItem implements SqlMetaElement {
                     if (!exit) {
                         Class<?> typeClass2 = null;
                         if (moreResultClasses != null) {
-                            String typeName2 = values.get(attr.getFullName() + SqlUtils.SUPPVAL_GTYPE);
+                            String typeName2 = values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE);
                             if (typeName2 != null) {
-                                if (typeName2.toLowerCase().startsWith(SqlUtils.SUPPVAL_DISCRIMINATOR))
+                                if (typeName2.toLowerCase().startsWith(Modifiers.MODIFIER_DISCRIMINATOR))
                                     typeClass2 = moreResultClasses.get(resultValues[resultIndex]);
                                 else
                                     typeClass2 = moreResultClasses.get(typeName2);
@@ -479,10 +480,10 @@ class SqlMappingItem implements SqlMetaElement {
                         nextObj = idsProcessed.get(idsKey);
                     } else {
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
-                                + SqlUtils.SUPPVAL_GTYPE) : null;
+                                + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = null;
                         if (typeName != null) {
-                            if (typeName.toLowerCase().startsWith(SqlUtils.SUPPVAL_DISCRIMINATOR))
+                            if (typeName.toLowerCase().startsWith(Modifiers.MODIFIER_DISCRIMINATOR))
                                 typeClass = moreResultClasses.get(resultValues[resultIndex]);
                             else
                                 typeClass = moreResultClasses.get(typeName);

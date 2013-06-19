@@ -252,6 +252,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return insert(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setMaxTimeout(maxTimeout));
 
@@ -283,6 +284,7 @@ public class SqlCrudEngine extends SqlEngine {
             logger.debug(">> insert, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -393,6 +395,7 @@ public class SqlCrudEngine extends SqlEngine {
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout, final Map<String, Class<?>> moreResultClasses)
             throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return get(session, resultClass, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout)
                         .setMoreResultClasses(moreResultClasses));
@@ -432,6 +435,7 @@ public class SqlCrudEngine extends SqlEngine {
             logger.debug(">> get, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         E result = null;
 
@@ -548,6 +552,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return update(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setMaxTimeout(maxTimeout));
     }
@@ -579,6 +584,7 @@ public class SqlCrudEngine extends SqlEngine {
             logger.debug(">> update, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -654,6 +660,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return delete(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setMaxTimeout(maxTimeout));
     }
@@ -684,6 +691,7 @@ public class SqlCrudEngine extends SqlEngine {
             logger.debug(">> delete, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -772,6 +780,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public String getSql(final Object dynamicInputValues, final Object staticInputValues,
             final SqlMetaStatement.Type statementType) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return getSql(dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues),
                 statementType);
     }
@@ -800,6 +809,7 @@ public class SqlCrudEngine extends SqlEngine {
         if (logger.isDebugEnabled()) {
             logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         String sql = null;
 
