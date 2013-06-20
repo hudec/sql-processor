@@ -250,22 +250,6 @@
             ],
             "className": "RelativeUpdate"
         },
-        "2dcb3312-6be7-4dd5-94d8-f4e740c74ee0": {
-            "paths": [
-                "metadata/store/RelativePeople",
-                "app/store/override/RelativePeople.js",
-                "app/store/RelativePeople.js"
-            ],
-            "className": "RelativePeople"
-        },
-        "246be61e-ca7d-4ab8-a980-fa2cc9da69e3": {
-            "paths": [
-                "metadata/model/RelativePerson",
-                "app/model/override/RelativePerson.js",
-                "app/model/RelativePerson.js"
-            ],
-            "className": "RelativePerson"
-        },
         "ea663d05-65bd-45cb-ab3f-244f8a08ddcc": {
             "paths": [
                 "metadata/store/Relations",
@@ -289,6 +273,14 @@
                 "app/view/RelativeCreate.js"
             ],
             "className": "RelativeCreate"
+        },
+        "334aab56-bd97-4f9c-961f-451762250e85": {
+            "paths": [
+                "metadata/store/QueryPeople",
+                "app/store/override/QueryPeople.js",
+                "app/store/QueryPeople.js"
+            ],
+            "className": "QueryPeople"
         }
     },
     "viewOrderMap": {
@@ -315,7 +307,7 @@
             "0ced9bcb-c595-4399-b689-99144213cd8f",
             "964d190e-a3d8-4f4b-b7c5-3c5a05093fab",
             "2d1ac55e-2631-401a-b281-46e3772c6a1c",
-            "2dcb3312-6be7-4dd5-94d8-f4e740c74ee0",
+            "334aab56-bd97-4f9c-961f-451762250e85",
             "f5f7e072-260e-4526-a9c4-90767ad93a04",
             "ea663d05-65bd-45cb-ab3f-244f8a08ddcc",
             "f041d596-7bea-4d5b-8365-7c8fc9f6927f",
@@ -328,7 +320,6 @@
         "model": [
             "1369241559316371388",
             "a0481b45-c220-4fb8-a2a3-9794367246af",
-            "246be61e-ca7d-4ab8-a980-fa2cc9da69e3",
             "1369241776750326842",
             "03381d65-597c-4746-8910-13b6576264a7"
         ],

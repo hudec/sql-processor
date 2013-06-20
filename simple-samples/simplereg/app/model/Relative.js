@@ -36,22 +36,47 @@ Ext.define('Simplereg.model.Relative', {
         {
             name: 'rtype',
             type: 'string'
+        },
+        {
+            name: 'relPerson.id',
+            type: 'int'
+        },
+        {
+            name: 'relPerson.title',
+            type: 'string'
+        },
+        {
+            name: 'relPerson.firstName',
+            type: 'string'
+        },
+        {
+            name: 'relPerson.lastName',
+            type: 'string'
+        },
+        {
+            name: 'relPerson.dateOfBirth',
+            type: 'date'
+        },
+        {
+            name: 'relPerson.ssn',
+            type: 'string'
+        },
+        {
+            name: 'relPerson.gender',
+            type: 'string'
         }
     ],
 
     belongsTo: {
         associationKey: 'person',
         model: 'Simplereg.model.Person',
-        foreignKey: 'person_id',
-        getterName: 'setPerson',
-        setterName: 'getPerson'
+        foreignKey: 'personId'
     },
 
     hasOne: {
         associationKey: 'relPerson',
         model: 'Simplereg.model.Person',
-        foreignKey: 'rel_person_id',
-        getterName: 'getRelPerson',
-        setterName: 'setRelPerson'
+        foreignKey: 'relPerson.id',
+        getterName: 'getRelPerson'
     }
 });

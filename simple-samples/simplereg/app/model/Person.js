@@ -31,6 +31,13 @@ Ext.define('Simplereg.model.Person', {
             type: 'int'
         },
         {
+            convert: function(v, rec) {
+                return Simplereg.getPersonTitle(rec);
+            },
+            name: 'title',
+            type: 'string'
+        },
+        {
             name: 'firstName',
             type: 'string'
         },
@@ -57,13 +64,13 @@ Ext.define('Simplereg.model.Person', {
         {
             associationKey: 'relatives',
             model: 'Simplereg.model.Relative',
-            foreignKey: 'person_id',
+            foreignKey: 'personId',
             name: 'relatives'
         },
         {
             associationKey: 'contacts',
             model: 'Simplereg.model.Contact',
-            foreignKey: 'person_id',
+            foreignKey: 'personId',
             name: 'contacts'
         }
     ],

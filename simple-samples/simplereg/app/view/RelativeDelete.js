@@ -88,6 +88,12 @@ Ext.define('Simplereg.view.RelativeDelete', {
                             readOnly: true
                         },
                         {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            fieldLabel: 'Type',
+                            name: 'rtype'
+                        },
+                        {
                             xtype: 'numberfield',
                             anchor: '100%',
                             hidden: true,
@@ -98,14 +104,8 @@ Ext.define('Simplereg.view.RelativeDelete', {
                         {
                             xtype: 'displayfield',
                             anchor: '100%',
-                            fieldLabel: 'Type',
-                            name: 'rtype'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            anchor: '100%',
                             fieldLabel: 'Relative',
-                            name: 'relative'
+                            name: 'relPerson.title'
                         }
                     ]
                 }

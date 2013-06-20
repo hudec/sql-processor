@@ -38,7 +38,10 @@ Ext.define('Simplereg.model.Contact', {
             type: 'string'
         },
         {
-            name: 'contact',
+            convert: function(v, rec) {
+                return Simplereg.getContactTitle(rec);
+            },
+            name: 'title',
             type: 'string'
         },
         {
@@ -58,9 +61,7 @@ Ext.define('Simplereg.model.Contact', {
     belongsTo: {
         associationKey: 'person',
         model: 'Simplereg.model.Person',
-        foreignKey: 'person_id',
-        getterName: 'getPerson',
-        setterName: 'setPerson'
+        foreignKey: 'personId'
     },
 
     validations: [

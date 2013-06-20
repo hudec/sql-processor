@@ -166,7 +166,7 @@
                     "designerId": "ae0bb7fc-eabc-4231-9892-0f66ab6a6c55"
                 },
                 {
-                    "type": "Ext.form.field.Number",
+                    "type": "Ext.form.field.ComboBox",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -174,10 +174,18 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|anchor": "100%",
-                        "fieldLabel": "Rel. Person Id",
-                        "name": "relPerson.id"
+                        "fieldLabel": "Relative",
+                        "name": "relPerson.id",
+                        "allowBlank": false,
+                        "displayField": "title",
+                        "forceSelection": true,
+                        "minChars": 2,
+                        "queryMode": null,
+                        "queryParam": "lastName",
+                        "store": "QueryPeople",
+                        "valueField": "id"
                     },
-                    "designerId": "0653b428-b6fc-41dd-909d-bfe727ef619d"
+                    "designerId": "90ca8b7d-8140-4155-9ce0-78d79feacbbb"
                 }
             ]
         }

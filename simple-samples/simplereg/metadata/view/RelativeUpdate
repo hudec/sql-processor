@@ -160,22 +160,6 @@
                     "designerId": "c76befd1-3b77-4c85-995a-120d9cfb6536"
                 },
                 {
-                    "type": "Ext.form.field.Number",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": "100%",
-                        "hidden": true,
-                        "fieldLabel": "Rel. Person Id",
-                        "name": "relPerson.id",
-                        "readOnly": true
-                    },
-                    "designerId": "eb31d08b-170a-40bd-a940-bda9f514b3cf"
-                },
-                {
                     "type": "Ext.form.field.ComboBox",
                     "reference": {
                         "name": "items",
@@ -198,6 +182,22 @@
                     "designerId": "69f295cc-d650-4c0a-893d-7df430230da2"
                 },
                 {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Rel. Person Id",
+                        "name": "relPerson.id",
+                        "readOnly": true
+                    },
+                    "designerId": "eb31d08b-170a-40bd-a940-bda9f514b3cf"
+                },
+                {
                     "type": "Ext.form.field.Display",
                     "reference": {
                         "name": "items",
@@ -207,7 +207,7 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Relative",
-                        "name": "relative"
+                        "name": "relPerson.title"
                     },
                     "designerId": "6576df66-b97e-4de8-86c7-e70312200a4b"
                 }

@@ -100,10 +100,17 @@ Ext.define('Simplereg.view.RelativeCreate', {
                             valueField: 'value'
                         },
                         {
-                            xtype: 'numberfield',
+                            xtype: 'combobox',
                             anchor: '100%',
-                            fieldLabel: 'Rel. Person Id',
-                            name: 'relPerson.id'
+                            fieldLabel: 'Relative',
+                            name: 'relPerson.id',
+                            allowBlank: false,
+                            displayField: 'title',
+                            forceSelection: true,
+                            minChars: 2,
+                            queryParam: 'lastName',
+                            store: 'QueryPeople',
+                            valueField: 'id'
                         }
                     ]
                 }

@@ -63,6 +63,97 @@
             "designerId": "07143d37-1746-4640-b810-01d7f43958f4"
         },
         {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "relPerson.id",
+                "type": "int"
+            },
+            "designerId": "4a8f7a42-668d-4b9c-86a8-6f42821346f5"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "relPerson.title",
+                "type": "string"
+            },
+            "designerId": "60be59c5-fbf5-4c2d-94ec-9aac7784cf33"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "relPerson.firstName",
+                "type": "string"
+            },
+            "designerId": "5da5acb9-2a04-419b-95bf-9e3d319c72d5"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "relPerson.lastName",
+                "type": "string"
+            },
+            "designerId": "cac1ba5d-07f6-47e6-88ae-04d59c540cfc"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "relPerson.dateOfBirth",
+                "type": "date"
+            },
+            "designerId": "65daf04a-be60-4bcd-80aa-328afabd7e8f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "relPerson.ssn",
+                "type": "string"
+            },
+            "designerId": "a15e3c78-db49-4d7b-92d3-b463724be7cf"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "relPerson.gender",
+                "type": "string"
+            },
+            "designerId": "38f32229-3d49-4af1-9b4b-125577a42637"
+        },
+        {
             "type": "Ext.data.association.BelongsTo",
             "reference": {
                 "name": "belongsTo",
@@ -73,9 +164,9 @@
                 "associationKey": "person",
                 "model": "Person",
                 "designer|displayName": "belongsToPerson",
-                "foreignKey": "person_id",
-                "getterName": "setPerson",
-                "setterName": "getPerson"
+                "foreignKey": "personId",
+                "getterName": null,
+                "setterName": null
             },
             "designerId": "6c512065-f21a-488a-af59-5d9fe1237b87"
         },
@@ -90,9 +181,9 @@
                 "associationKey": "relPerson",
                 "model": "Person",
                 "designer|displayName": "hasRelativePerson",
-                "foreignKey": "rel_person_id",
+                "foreignKey": "relPerson.id",
                 "getterName": "getRelPerson",
-                "setterName": "setRelPerson"
+                "setterName": null
             },
             "designerId": "bdeef460-a580-4df9-8418-b89a9e7743a6"
         }

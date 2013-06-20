@@ -94,14 +94,6 @@ Ext.define('Simplereg.view.RelativeUpdate', {
                             readOnly: true
                         },
                         {
-                            xtype: 'numberfield',
-                            anchor: '100%',
-                            hidden: true,
-                            fieldLabel: 'Rel. Person Id',
-                            name: 'relPerson.id',
-                            readOnly: true
-                        },
-                        {
                             xtype: 'combobox',
                             anchor: '100%',
                             fieldLabel: 'Type',
@@ -116,10 +108,18 @@ Ext.define('Simplereg.view.RelativeUpdate', {
                             valueField: 'value'
                         },
                         {
+                            xtype: 'numberfield',
+                            anchor: '100%',
+                            hidden: true,
+                            fieldLabel: 'Rel. Person Id',
+                            name: 'relPerson.id',
+                            readOnly: true
+                        },
+                        {
                             xtype: 'displayfield',
                             anchor: '100%',
                             fieldLabel: 'Relative',
-                            name: 'relative'
+                            name: 'relPerson.title'
                         }
                     ]
                 }

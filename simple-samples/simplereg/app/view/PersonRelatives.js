@@ -24,7 +24,7 @@ Ext.define('Simplereg.view.PersonRelatives', {
     frame: true,
     itemId: 'relatives',
     title: 'Relatives',
-    store: 'RelativePeople',
+    store: 'Relatives',
 
     initComponent: function() {
         var me = this;
@@ -83,7 +83,7 @@ Ext.define('Simplereg.view.PersonRelatives', {
                     xtype: 'numbercolumn',
                     hidden: true,
                     sortable: false,
-                    dataIndex: 'personVersion',
+                    dataIndex: 'personId',
                     text: 'Person Id',
                     flex: 1,
                     format: '0'
@@ -105,20 +105,6 @@ Ext.define('Simplereg.view.PersonRelatives', {
                     flex: 1
                 },
                 {
-                    xtype: 'gridcolumn',
-                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                        var person = record.getRelPerson(),
-                            value = Simplereg.getPersonTitle(person);
-                        record.set("relative", value);
-                        record.commit();
-                        return value;
-                    },
-                    sortable: false,
-                    dataIndex: 'relative',
-                    text: 'Relative',
-                    flex: 2
-                },
-                {
                     xtype: 'numbercolumn',
                     hidden: true,
                     sortable: false,
@@ -126,6 +112,20 @@ Ext.define('Simplereg.view.PersonRelatives', {
                     text: 'Rel. Person Id',
                     flex: 1,
                     format: '0'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        var person = record.getRelPerson(),
+                            title = Simplereg.getPersonTitle(person);
+                        record.set("relPerson.title", title);
+                        record.commit();
+                        return title;
+                    },
+                    sortable: false,
+                    dataIndex: 'relPerson.title',
+                    text: 'Relative',
+                    flex: 2
                 },
                 {
                     xtype: 'gridcolumn',

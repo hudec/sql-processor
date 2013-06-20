@@ -4,14 +4,20 @@
     if (request.url) {
         url = request.url;
     }
-    else if (request.remote != undefined) { //default
-        url = "http://simple-backend.cloudfoundry.com/api-debug.js";
+    else if (request.remote != undefined) {
+        url = "http://simple-backend.cloudfoundry.com/api-debug-doc.js?fullRouterUrl=true";
     }
-    else if (true || request.local != undefined) {
-        url = "http://localhost:8080/simple-backend/api-debug.js";
+    else if (true || request.local != undefined) { //default
+        url = "http://localhost:8080/simple-backend/api-debug-doc.js?fullRouterUrl=true";
     }
 
     console.info(url);
+
+    // Do not append _dc parameter...
+    var disableCaching = Ext.Loader.getConfig().disableCaching;
+    Ext.Loader.setConfig({
+        disableCaching: false
+    });
 
     Ext.Loader.loadScript({
         url: url,
@@ -32,6 +38,11 @@
         onError: function(error) {
             console.error(error);
         }
+    });
+
+    // Restore configuration
+    Ext.Loader.setConfig({
+        disableCaching: disableCaching
     });
 
 })(window, Ext);

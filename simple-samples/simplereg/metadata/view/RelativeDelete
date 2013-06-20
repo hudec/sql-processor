@@ -145,6 +145,20 @@
                     "designerId": "638c4259-26e6-497a-9a0f-e9a51f8ebb1c"
                 },
                 {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Type",
+                        "name": "rtype"
+                    },
+                    "designerId": "ecb3433a-caee-49a7-9993-cd1e98706168"
+                },
+                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -169,22 +183,8 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|anchor": "100%",
-                        "fieldLabel": "Type",
-                        "name": "rtype"
-                    },
-                    "designerId": "ecb3433a-caee-49a7-9993-cd1e98706168"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|anchor": "100%",
                         "fieldLabel": "Relative",
-                        "name": "relative"
+                        "name": "relPerson.title"
                     },
                     "designerId": "ffe7aaff-cc3e-445e-9b8f-cb058b45aa33"
                 }

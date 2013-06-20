@@ -9,25 +9,29 @@ Ext.applyIf(Simplereg, {
      * Person title (name, date...)
      */
     getPersonTitle: function(record) {
-        var text = [];
-        text.push(record.data.firstName + " " + record.data.lastName);
-        if (record.data.ssn) {
-            text.push(record.data.ssn);
+        if (record && record.data) {
+            var text = [];
+            text.push(record.data.firstName + " " + record.data.lastName);
+            if (record.data.ssn) {
+                text.push(record.data.ssn);
+            }
+            else if (record.data.dateOfBirth) {
+                text.push(Ext.util.Format.date(record.data.dateOfBirth, "d.m.Y"));
+            }
+            return text.join(", ");
         }
-        else if (record.data.dateOfBirth) {
-            text.push(Ext.util.Format.date(record.data.dateOfBirth, "d.m.Y"));
-        }
-        return text.join(", ");
     },
 
     /**
      * Contact title (address, country...)
      */
     getContactTitle: function(record) {
-        var text = [];
-        text.push(record.data.address);
-        text.push(record.data.countryCode);
-        return text.join(", ");
+        if (record && record.data) {
+            var text = [];
+            text.push(record.data.address);
+            text.push(record.data.countryCode);
+            return text.join(", ");
+        }
     }
 });
 
@@ -217,7 +221,7 @@ Ext.define("Simplereg.controller.override.Common", {
                 click: function(button, e, eOpts) {
                     var dialog = Ext.getCmp("relative-create"),
                             person = button.up("persondetail").record,
-                            record = Ext.create("Simplereg.model.RelativePerson", {
+                            record = Ext.create("Simplereg.model.Relative", {
                                 personId: person.data.id,
                                 version: person.data.version
                             });
@@ -285,10 +289,7 @@ Ext.define("Simplereg.controller.override.Common", {
         var record = button.up("#relatives").getSelectionModel().getSelection()[0];
         if (record) {
             var dialog = Ext.getCmp(d),
-                    version = button.up("persondetail").record.data.version,
                     form = dialog.down("form");
-            record = record.copy();
-            record.set("version", version);
             form.loadRecord(record);
             dialog.show();
         }

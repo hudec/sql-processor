@@ -23,8 +23,9 @@ Ext.application({
     title: 'Simple Reg.',
     stores: [
         'People',
+        'QueryPeople',
         'Genders',
-        'RelativePeople',
+        'Relatives',
         'RelativeTypes',
         'Contacts',
         'ContactTypes',

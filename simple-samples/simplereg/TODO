@@ -1,5 +1,5 @@
-* vyber rel. person (RelativeCreate)
-* po natazeni doplnit relatives (ted vola reload)
+* po natazeni prazdneho relatives zustane prazdny radek (bez hodnot), taky po vymazani posledniho (reload storu pomuze)
+* dialog pro vytvoreni relative nejak divne resetuje invalid a nenechava hodnoty (cancel)
 * doplnit howto...
 
 * sladit id, itemid, alias...
@@ -14,6 +14,8 @@
 ? form submit api + submit (kam dat handler a jak zapsat do api?, to je jen pro direct?)
 ? staticke methody (utility) kam s nima?
 ? lokalni alternativa k remote simpleService
+o po natazeni doplnit relatives (ted vola reload)
+o vyber rel. person (RelativeCreate)
 o zpracovat hlasku ze serveru (record has been in the meantime modified)
 o mask(...) je bez textu, proc?
 o unregister store pri zavreni detailu

@@ -26,27 +26,10 @@ Ext.define("Simplereg.view.override.PersonDetail", {
         };
 
         // Person relatives
-        var relatives = me.down("#relatives");
-
-        relatives.bindStore(Ext.create("Simplereg.store.RelativePeople", {
-            storeId: me.id + "Relatives"
-        }));
-
-//TODO: unlimited...
-        relatives.store.proxy.extraParams = {
-            personId: id
-        };
+        this.initPanel(me.down("#relatives"), "Relatives", id, me.id + "Relatives");
 
         // Person contacts
-        var contacts = me.down("#contacts");
-
-        contacts.bindStore(Ext.create("Simplereg.store.Contacts", {
-            storeId: me.id + "Contacts"
-        }));
-
-        contacts.store.proxy.extraParams = {
-            personId: id
-        };
+        this.initPanel(me.down("#contacts"), "Contacts", id, me.id + "Contacts");
 
         // Fill...
         if (record) {
@@ -90,40 +73,51 @@ Ext.define("Simplereg.view.override.PersonDetail", {
         me.record = record;
 
         // Title
-        me.setTitle(Simplereg.getPersonTitle(record));
+        var title = Simplereg.getPersonTitle(record);
+        me.down("#data").setTitle(title);
+        me.setTitle(title);
 
         // Personal data
         me.down("#data").loadRecord(record);
 
         // Person relatives
-        var relatives = me.down("#relatives"), store = relatives.store,
-                items = record.relatives().data.items;
-
-        if (store.pageSize) {
-            items =  items.slice(0, store.pageSize);
-        }
-
-        relatives.getSelectionModel().deselectAll();
-        store.on("load", function() {
-            relatives.getSelectionModel().deselectAll();
-        });
-
-        //store.loadData(items);
-        store.reload();
+        this.fillPanel(me.down("#relatives"), record.relatives());
 
         // Person contacts
-        var contacts = me.down("#contacts"), store = contacts.store,
-                items = record.contacts().data.items;
+        this.fillPanel(me.down("#contacts"), record.contacts());
+    },
+
+    /**
+     * Prepare grid (store)
+     */
+    initPanel: function(grid, name, id, storeId) {
+        var store = Ext.create("Simplereg.store." + name, {
+            storeId: storeId
+        });
+
+        store.proxy.extraParams = {
+            personId: id
+        };
+
+        store.on("load", function() {
+            grid.getSelectionModel().deselectAll();
+        });
+
+        grid.bindStore(store);
+    },
+
+    /**
+     * Load data into grid (store)
+     */
+    fillPanel: function(grid, source) {
+        var store = grid.store, items = source.data.items;
 
         if (store.pageSize) {
             items =  items.slice(0, store.pageSize);
         }
 
-        contacts.getSelectionModel().deselectAll();
-        store.on("load", function() {
-            contacts.getSelectionModel().deselectAll();
-        });
-
         store.loadData(items);
+
+        store.fireEvent("load", store, items, true);
     }
 });

@@ -15,7 +15,7 @@
         "autoScroll": null,
         "header": null,
         "title": "Relatives",
-        "store": "RelativePeople"
+        "store": "Relatives"
     },
     "designerId": "72b36799-6432-4d89-a679-5e6bf87ed93d",
     "cn": [
@@ -148,7 +148,7 @@
             "userConfig": {
                 "hidden": true,
                 "sortable": false,
-                "dataIndex": "personVersion",
+                "dataIndex": "personId",
                 "text": "Person Id",
                 "flex": 1,
                 "format": "0"
@@ -188,6 +188,23 @@
             "designerId": "afbcdcd3-9fde-4138-a25d-4e811ee6881b"
         },
         {
+            "type": "Ext.grid.column.Number",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "hidden": true,
+                "sortable": false,
+                "dataIndex": "relPerson.id",
+                "text": "Rel. Person Id",
+                "flex": 1,
+                "format": "0"
+            },
+            "designerId": "24387ee1-d02e-4ae9-913f-50e11ca06e2e"
+        },
+        {
             "type": "Ext.grid.column.Column",
             "reference": {
                 "name": "columns",
@@ -196,7 +213,7 @@
             "codeClass": null,
             "userConfig": {
                 "sortable": false,
-                "dataIndex": "relative",
+                "dataIndex": "relPerson.title",
                 "text": "Relative",
                 "flex": 2
             },
@@ -222,32 +239,15 @@
                         ],
                         "implHandler": [
                             "var person = record.getRelPerson(),",
-                            "    value = Simplereg.getPersonTitle(person);",
-                            "record.set(\"relative\", value);",
+                            "    title = Simplereg.getPersonTitle(person);",
+                            "record.set(\"relPerson.title\", title);",
                             "record.commit();",
-                            "return value;"
+                            "return title;"
                         ]
                     },
-                    "designerId": "1a6dee11-0df4-4110-9b6a-35bf3614ce74"
+                    "designerId": "ccf0964c-0835-474e-8645-68d1517a9281"
                 }
             ]
-        },
-        {
-            "type": "Ext.grid.column.Number",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "hidden": true,
-                "sortable": false,
-                "dataIndex": "relPerson.id",
-                "text": "Rel. Person Id",
-                "flex": 1,
-                "format": "0"
-            },
-            "designerId": "24387ee1-d02e-4ae9-913f-50e11ca06e2e"
         },
         {
             "type": "Ext.grid.column.Column",

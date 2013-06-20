@@ -179,40 +179,11 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dataIndex": "contact",
+                "dataIndex": "title",
                 "text": "Contact",
                 "flex": 2
             },
-            "designerId": "0a3cbca5-5b18-4741-944f-23b194528df4",
-            "cn": [
-                {
-                    "type": "fixedfunction",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fn": "renderer",
-                        "designer|params": [
-                            "value",
-                            "metaData",
-                            "record",
-                            "rowIndex",
-                            "colIndex",
-                            "store",
-                            "view"
-                        ],
-                        "implHandler": [
-                            "var value = Simplereg.getContactTitle(record);",
-                            "record.set(\"contact\", value);",
-                            "record.commit();",
-                            "return value;"
-                        ]
-                    },
-                    "designerId": "4cd9fa47-18db-41b1-9980-59f1b0069c66"
-                }
-            ]
+            "designerId": "0a3cbca5-5b18-4741-944f-23b194528df4"
         },
         {
             "type": "Ext.grid.column.Column",

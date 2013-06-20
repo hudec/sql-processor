@@ -100,13 +100,7 @@ Ext.define('Simplereg.view.PersonContacts', {
                 },
                 {
                     xtype: 'gridcolumn',
-                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                        var value = Simplereg.getContactTitle(record);
-                        record.set("contact", value);
-                        record.commit();
-                        return value;
-                    },
-                    dataIndex: 'contact',
+                    dataIndex: 'title',
                     text: 'Contact',
                     flex: 2
                 },
