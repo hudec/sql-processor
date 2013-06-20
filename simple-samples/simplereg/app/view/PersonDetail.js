@@ -88,11 +88,25 @@ Ext.define('Simplereg.view.PersonDetail', {
                             xtype: 'tbfill'
                         },
                         {
-                            xtype: 'button',
-                            disabled: true,
+                            xtype: 'splitbutton',
                             itemId: 'close',
                             iconCls: 'icon-page-close',
-                            text: 'Close Detail'
+                            text: 'Close',
+                            menu: {
+                                xtype: 'menu',
+                                items: [
+                                    {
+                                        xtype: 'menuitem',
+                                        itemId: 'close-all',
+                                        text: 'Close All'
+                                    },
+                                    {
+                                        xtype: 'menuitem',
+                                        itemId: 'close-other',
+                                        text: 'Close All but Active'
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }

@@ -71,6 +71,15 @@ Ext.define('Simplereg.view.PersonSelect', {
                             itemId: 'create-person',
                             iconCls: 'icon-add',
                             text: 'Add'
+                        },
+                        {
+                            xtype: 'tbfill'
+                        },
+                        {
+                            xtype: 'button',
+                            itemId: 'close-all',
+                            iconCls: 'icon-page-close',
+                            text: 'Close All'
                         }
                     ]
                 }

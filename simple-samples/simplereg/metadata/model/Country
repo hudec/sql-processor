@@ -31,6 +31,40 @@
             },
             "codeClass": null,
             "userConfig": {
+                "name": "title",
+                "type": "string"
+            },
+            "designerId": "5d13ffde-d3f7-409d-ae9a-735c6b228716",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "convert",
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "implHandler": [
+                            "return rec.data.name + \"(\" + rec.data.code + \")\";"
+                        ]
+                    },
+                    "designerId": "81c692ca-4208-4258-9cf5-4e3e0cf59a9b"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "name": "code",
                 "type": "string"
             },

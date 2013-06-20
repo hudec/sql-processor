@@ -168,7 +168,7 @@
                     "designerId": "eab34d24-d1e8-43c4-a2a2-572529139258"
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.button.Split",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -176,12 +176,54 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "disabled": true,
                         "itemId": "close",
                         "iconCls": "icon-page-close",
-                        "text": "Close Detail"
+                        "text": "Close"
                     },
-                    "designerId": "afdbcf17-e768-4e9c-aff4-8cfbcc30f65c"
+                    "designerId": "afdbcf17-e768-4e9c-aff4-8cfbcc30f65c",
+                    "cn": [
+                        {
+                            "type": "Ext.menu.Menu",
+                            "reference": {
+                                "name": "menu",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "width": null,
+                                "designer|displayName": "Close..."
+                            },
+                            "designerId": "ae070347-d543-42b8-b888-50c15bbcc18d",
+                            "cn": [
+                                {
+                                    "type": "Ext.menu.Item",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "itemId": "close-all",
+                                        "text": "Close All"
+                                    },
+                                    "designerId": "66827232-4be3-4757-90ae-a888b0bd38b3"
+                                },
+                                {
+                                    "type": "Ext.menu.Item",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "itemId": "close-other",
+                                        "text": "Close All but Active"
+                                    },
+                                    "designerId": "4f5b2045-fd3c-4bb2-8c54-ca459efc983e"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },

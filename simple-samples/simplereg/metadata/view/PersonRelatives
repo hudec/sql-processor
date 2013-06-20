@@ -20,20 +20,6 @@
     "designerId": "72b36799-6432-4d89-a679-5e6bf87ed93d",
     "cn": [
         {
-            "type": "Ext.panel.Tool",
-            "reference": {
-                "name": "tools",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "itemId": "reload",
-                "designer|displayName": "Reload",
-                "type": "refresh"
-            },
-            "designerId": "e6abaf79-972c-4762-a1f5-4211b229f8eb"
-        },
-        {
             "type": "Ext.toolbar.Toolbar",
             "reference": {
                 "name": "dockedItems",
@@ -217,37 +203,7 @@
                 "text": "Relative",
                 "flex": 2
             },
-            "designerId": "563744df-ce0e-4a33-b391-001c672692bf",
-            "cn": [
-                {
-                    "type": "fixedfunction",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fn": "renderer",
-                        "designer|params": [
-                            "value",
-                            "metaData",
-                            "record",
-                            "rowIndex",
-                            "colIndex",
-                            "store",
-                            "view"
-                        ],
-                        "implHandler": [
-                            "var person = record.getRelPerson(),",
-                            "    title = Simplereg.getPersonTitle(person);",
-                            "record.set(\"relPerson.title\", title);",
-                            "record.commit();",
-                            "return title;"
-                        ]
-                    },
-                    "designerId": "ccf0964c-0835-474e-8645-68d1517a9281"
-                }
-            ]
+            "designerId": "563744df-ce0e-4a33-b391-001c672692bf"
         },
         {
             "type": "Ext.grid.column.Column",

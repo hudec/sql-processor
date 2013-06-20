@@ -8,15 +8,16 @@ Ext.applyIf(Simplereg, {
     /**
      * Person title (name, date...)
      */
-    getPersonTitle: function(record) {
+    getPersonTitle: function(record, prefix) {
         if (record && record.data) {
-            var text = [];
-            text.push(record.data.firstName + " " + record.data.lastName);
-            if (record.data.ssn) {
-                text.push(record.data.ssn);
+            var text = [], value;
+            prefix = prefix || "";
+            text.push(record.data[prefix + "firstName"] + " " + record.data[prefix + "lastName"]);
+            if (value = record.data[prefix + "ssn"]) {
+                text.push(value);
             }
-            else if (record.data.dateOfBirth) {
-                text.push(Ext.util.Format.date(record.data.dateOfBirth, "d.m.Y"));
+            else if (value = record.data[prefix + "dateOfBirth"]) {
+                text.push(Ext.util.Format.date(value, "d.m.Y"));
             }
             return text.join(", ");
         }
@@ -159,7 +160,17 @@ Ext.define("Simplereg.controller.override.Common", {
             },
             "#close": {
                 click: function(button, e, eOpts) {
-                    //TODO
+                    Ext.getCmp("page").closeActive();
+                }
+            },
+            "#close-all": {
+                click: function(button, e, eOpts) {
+                    Ext.getCmp("page").closeAll(true);
+                }
+            },
+            "#close-other": {
+                click: function(button, e, eOpts) {
+                    Ext.getCmp("page").closeAll(false);
                 }
             },
             "#search-person": {
@@ -221,7 +232,7 @@ Ext.define("Simplereg.controller.override.Common", {
                 click: function(button, e, eOpts) {
                     var dialog = Ext.getCmp("relative-create"),
                             person = button.up("persondetail").record,
-                            record = Ext.create("Simplereg.model.Relative", {
+                            record = Ext.create("Simplereg.model.PersonIdentity", {
                                 personId: person.data.id,
                                 version: person.data.version
                             });
@@ -251,7 +262,7 @@ Ext.define("Simplereg.controller.override.Common", {
                 click: function(button, e, eOpts) {
                     var dialog = Ext.getCmp("contact-create"),
                             person = button.up("persondetail").record,
-                            record = Ext.create("Simplereg.model.Contact", {
+                            record = Ext.create("Simplereg.model.PersonIdentity", {
                                 personId: person.data.id
                             });
                     dialog.down("form").loadRecord(record);

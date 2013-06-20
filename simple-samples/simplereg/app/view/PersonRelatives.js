@@ -30,13 +30,6 @@ Ext.define('Simplereg.view.PersonRelatives', {
         var me = this;
 
         Ext.applyIf(me, {
-            tools: [
-                {
-                    xtype: 'tool',
-                    itemId: 'reload',
-                    type: 'refresh'
-                }
-            ],
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -115,13 +108,6 @@ Ext.define('Simplereg.view.PersonRelatives', {
                 },
                 {
                     xtype: 'gridcolumn',
-                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                        var person = record.getRelPerson(),
-                            title = Simplereg.getPersonTitle(person);
-                        record.set("relPerson.title", title);
-                        record.commit();
-                        return title;
-                    },
                     sortable: false,
                     dataIndex: 'relPerson.title',
                     text: 'Relative',

@@ -86,7 +86,28 @@
                 "name": "relPerson.title",
                 "type": "string"
             },
-            "designerId": "60be59c5-fbf5-4c2d-94ec-9aac7784cf33"
+            "designerId": "60be59c5-fbf5-4c2d-94ec-9aac7784cf33",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "convert",
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "implHandler": [
+                            "return Simplereg.getPersonTitle(rec, \"relPerson.\");"
+                        ]
+                    },
+                    "designerId": "01047a70-8c4a-4ad5-bcaa-a9fd119c157c"
+                }
+            ]
         },
         {
             "type": "Ext.data.Field",
@@ -182,7 +203,7 @@
                 "model": "Person",
                 "designer|displayName": "hasRelativePerson",
                 "foreignKey": "relPerson.id",
-                "getterName": "getRelPerson",
+                "getterName": null,
                 "setterName": null
             },
             "designerId": "bdeef460-a580-4df9-8418-b89a9e7743a6"

@@ -13,7 +13,7 @@
 
     console.info(url);
 
-    // Do not append _dc parameter...
+    // Enable caching (ommit _dc parameter)
     var disableCaching = Ext.Loader.getConfig().disableCaching;
     Ext.Loader.setConfig({
         disableCaching: false

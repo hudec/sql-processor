@@ -42,6 +42,9 @@ Ext.define('Simplereg.model.Relative', {
             type: 'int'
         },
         {
+            convert: function(v, rec) {
+                return Simplereg.getPersonTitle(rec, "relPerson.");
+            },
             name: 'relPerson.title',
             type: 'string'
         },
@@ -76,7 +79,6 @@ Ext.define('Simplereg.model.Relative', {
     hasOne: {
         associationKey: 'relPerson',
         model: 'Simplereg.model.Person',
-        foreignKey: 'relPerson.id',
-        getterName: 'getRelPerson'
+        foreignKey: 'relPerson.id'
     }
 });

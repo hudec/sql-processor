@@ -281,6 +281,14 @@
                 "app/store/QueryPeople.js"
             ],
             "className": "QueryPeople"
+        },
+        "367b31a4-66e1-4fbf-9755-6fe93bb373c4": {
+            "paths": [
+                "metadata/model/PersonIdentity",
+                "app/model/override/PersonIdentity.js",
+                "app/model/PersonIdentity.js"
+            ],
+            "className": "PersonIdentity"
         }
     },
     "viewOrderMap": {
@@ -319,14 +327,15 @@
         ],
         "model": [
             "1369241559316371388",
+            "367b31a4-66e1-4fbf-9755-6fe93bb373c4",
             "a0481b45-c220-4fb8-a2a3-9794367246af",
             "1369241776750326842",
             "03381d65-597c-4746-8910-13b6576264a7"
         ],
         "resource": [
             "598ab1d2-219c-477c-8a47-6006a2798c97",
-            "bef30b06-3dfd-4d72-9ad7-1c50648249a0",
-            "9ca77b33-13e6-4638-8f71-746993b70b9a"
+            "9ca77b33-13e6-4638-8f71-746993b70b9a",
+            "bef30b06-3dfd-4d72-9ad7-1c50648249a0"
         ],
         "app": [
             "application"

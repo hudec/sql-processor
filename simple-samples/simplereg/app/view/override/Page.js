@@ -116,9 +116,31 @@ Ext.define("Simplereg.view.override.Page", {
     closePersonDetail: function(id) {
         var view = this.findPersonDetail(id),
                 pages = Ext.getCmp("pages");
-
         if (view) {
             pages.remove(view);
+        }
+    },
+
+    /**
+     * Close tab...
+     */
+    closeActive: function() {
+        var pages = Ext.getCmp("pages"),
+                view = pages.getActiveTab();
+        if (view.is("persondetail")) {
+            pages.remove(view);
+        }
+    },
+
+    closeAll: function(active) {
+        var pages = Ext.getCmp("pages"), items = pages.items.getRange(),
+                view = pages.getActiveTab();
+        for (var i in items) {
+            if (items[i].is("persondetail")) {
+                if (active || view != items[i]) {
+                    pages.remove(items[i]);
+                }
+            }
         }
     }
 });
