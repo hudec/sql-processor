@@ -8,10 +8,16 @@ import org.sample.model.Contact;
 import org.sample.model.Country;
 import org.sample.model.Person;
 import org.sample.model.Relative;
+import org.sample.auth.model.Authrole;
+import org.sample.auth.model.Authuser;
+import org.sample.auth.model.Userrole;
 import org.sample.web.app.ContactService;
 import org.sample.web.app.CountryService;
 import org.sample.web.app.PersonService;
 import org.sample.web.app.RelativeService;
+import org.sample.web.auth.app.AuthroleService;
+import org.sample.web.auth.app.AuthuserService;
+import org.sample.web.auth.app.UserroleService;
 import org.sample.web.form.CountHolder;
 import org.sample.web.form.PersonForm;
 import org.sample.web.util.BeanExtJsUtils;
@@ -41,6 +47,9 @@ public class SimpleService {
     protected CountryService countryService;
     protected RelativeService relativeService;
     protected BeanExtJsUtils beanUtils;
+    protected AuthuserService authuserService;
+    protected AuthroleService authroleService;
+    protected UserroleService userroleService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -271,6 +280,205 @@ public class SimpleService {
         return postResult;
     }
     
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "auth")
+    public ExtDirectStoreReadResult<Authuser> loadAuthusers(ExtDirectStoreReadRequest request) throws Exception {
+        logger.info("loadAuthusers -> " + request);
+
+        Authuser form = beanUtils.buildFormFromParams(request.getParams(), Authuser.class);
+        SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
+                : new SqlStandardControl();
+        if (request.getSorters() != null)
+            beanUtils.buildSortFromParams(Authuser.class, sqlControl, request.getSorters());
+        logger.info("loadAuthusers control " + sqlControl);
+
+        CountHolder count = new CountHolder();
+        List<Authuser> authusers = authuserService.listAuthusers(form, sqlControl, count);
+
+        ExtDirectStoreReadResult<Authuser> result = new ExtDirectStoreReadResult<Authuser>(new Long(count.getCount()),
+        		authusers, true);
+        logger.info("loadAuthusers <- " + result);
+        return result;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult createAuthuser(@Valid Authuser authuser, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Authuser resultAuthuser = null;
+        if (!result.hasErrors()) {
+            resultAuthuser = authuserService.insertAuthuser(authuser);
+        }
+        if (resultAuthuser != null) {
+            postResult.addResultProperty("id", resultAuthuser.getId());            
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult updateAuthuser(@Valid Authuser authuser, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Authuser resultAuthuser = null;
+
+        if (!result.hasErrors()) {            
+            resultAuthuser = authuserService.updateAuthuser(authuser);
+
+            if (resultAuthuser == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+
+            postResult.addResultProperty("id", resultAuthuser.getId());
+            postResult.addResultProperty("version", resultAuthuser.getVersion());
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult deleteAuthuser(Authuser authuser, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Authuser resultAuthuser = null;
+        if (!result.hasErrors()) {
+            if (authuser.getId() != null) {
+                resultAuthuser = authuserService.deleteAuthuser(authuser);
+                postResult.addResultProperty("id", resultAuthuser.getId());
+                postResult.addResultProperty("version", resultAuthuser.getVersion());	
+            }
+            if (resultAuthuser == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "auth")
+    public ExtDirectStoreReadResult<Authrole> loadAuthroles(ExtDirectStoreReadRequest request) throws Exception {
+        logger.info("loadAuthroles -> " + request);
+
+        Authrole form = beanUtils.buildFormFromParams(request.getParams(), Authrole.class);
+        SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
+                : new SqlStandardControl();
+        if (request.getSorters() != null)
+            beanUtils.buildSortFromParams(Authrole.class, sqlControl, request.getSorters());
+        logger.info("loadAuthroles control " + sqlControl);
+
+        CountHolder count = new CountHolder();
+        List<Authrole> authroles = authroleService.listAuthroles(form, sqlControl, count);
+
+        ExtDirectStoreReadResult<Authrole> result = new ExtDirectStoreReadResult<Authrole>(new Long(count.getCount()),
+        		authroles, true);
+        logger.info("loadAuthroles <- " + result);
+        return result;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult createAuthrole(@Valid Authrole authrole, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Authrole resultAuthrole = null;
+        if (!result.hasErrors()) {
+            resultAuthrole = authroleService.insertAuthrole(authrole);
+        }
+        if (resultAuthrole != null) {
+            postResult.addResultProperty("id", resultAuthrole.getId());            
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult updateAuthrole(@Valid Authrole authrole, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Authrole resultAuthrole = null;
+
+        if (!result.hasErrors()) {            
+            resultAuthrole = authroleService.updateAuthrole(authrole);
+
+            if (resultAuthrole == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+
+            postResult.addResultProperty("id", resultAuthrole.getId());
+            postResult.addResultProperty("version", resultAuthrole.getVersion());
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult deleteAuthrole(Authrole authrole, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Authrole resultAuthrole = null;
+        if (!result.hasErrors()) {
+            if (authrole.getId() != null) {
+                resultAuthrole = authroleService.deleteAuthrole(authrole);
+                postResult.addResultProperty("id", resultAuthrole.getId());
+                postResult.addResultProperty("version", resultAuthrole.getVersion());	
+            }
+            if (resultAuthrole == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+        }
+        return postResult;
+    }
+ 
+    @ExtDirectMethod(value = ExtDirectMethodType.STORE_READ, group = "auth")
+    public ExtDirectStoreReadResult<Userrole> loadUserroles(ExtDirectStoreReadRequest request) throws Exception {
+        logger.info("loadUserroles -> " + request);
+
+        Userrole form = beanUtils.buildFormFromParams(request.getParams(), Userrole.class);
+        SqlStandardControl sqlControl = (form.getId() == null) ? beanUtils.buildControlFromParams(request)
+                : new SqlStandardControl();
+        if (request.getSorters() != null)
+            beanUtils.buildSortFromParams(Userrole.class, sqlControl, request.getSorters());
+        logger.info("loadUserroles control " + sqlControl);
+
+        CountHolder count = new CountHolder();
+        List<Userrole> userroles = userroleService.listUserroles(form, sqlControl, count);
+
+        ExtDirectStoreReadResult<Userrole> result = new ExtDirectStoreReadResult<Userrole>(new Long(count.getCount()),
+        		userroles, true);
+        logger.info("loadUserroles <- " + result);
+        return result;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult createUserrole(@Valid Userrole userrole, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Userrole resultUserrole = null;
+        if (!result.hasErrors()) {
+            resultUserrole = userroleService.insertUserrole(userrole);
+        }
+        if (resultUserrole != null) {
+            postResult.addResultProperty("id", resultUserrole.getId());            
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult updateUserrole(@Valid Userrole userrole, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Userrole resultUserrole = null;
+
+        if (!result.hasErrors()) {            
+            resultUserrole = userroleService.updateUserrole(userrole);
+
+            if (resultUserrole == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+
+            postResult.addResultProperty("id", resultUserrole.getId());
+            postResult.addResultProperty("version", resultUserrole.getVersion());
+        }
+        return postResult;
+    }
+    
+    @ExtDirectMethod(value = ExtDirectMethodType.FORM_POST, group = "auth")
+    public ExtDirectFormPostResult deleteUserrole(Userrole userrole, BindingResult result) {
+        ExtDirectFormPostResult postResult = new ExtDirectFormPostResult(result);
+        Userrole resultUserrole = null;
+        if (!result.hasErrors()) {
+            if (userrole.getId() != null) {
+                resultUserrole = userroleService.deleteUserrole(userrole);
+                postResult.addResultProperty("id", resultUserrole.getId());
+                postResult.addResultProperty("version", resultUserrole.getVersion());	
+            }
+            if (resultUserrole == null)
+                throw new RuntimeException("The record has been in the meantime modified");
+        }
+        return postResult;
+    }
+    
+    
     @Required
     public void setContactService(ContactService contactService) {
         this.contactService = contactService;
@@ -291,6 +499,21 @@ public class SimpleService {
         this.relativeService = relativeService;
     }
 
+    @Required
+    public void setAuthuserService(AuthuserService authuserService) {
+        this.authuserService = authuserService;
+    }
+    
+    @Required
+    public void setAuthroleService(AuthroleService authroleService) {
+        this.authroleService = authroleService;
+    }
+    
+    @Required
+    public void setUserroleService(UserroleService userroleService) {
+        this.userroleService = userroleService;
+    }
+    
     @Required
     public void setBeanUtils(BeanExtJsUtils beanUtils) {
         this.beanUtils = beanUtils;

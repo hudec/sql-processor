@@ -56,8 +56,12 @@
         <property name="personService" ref="personService" />
         <property name="contactService" ref="contactService" />
         <property name="relativeService" ref="relativeService" />
+        <property name="authuserService" ref="authuserService" />
+        <property name="authroleService" ref="authroleService" />
+        <property name="userroleService" ref="userroleService" />
         <property name="initData" value="${init.data}" />
         <property name="catalog" value="hsqldb.ddl" />
+        <property name="catalogAuth" value="auth/hsqldb.ddl" />
         <property name="people" value="people.csv" />
         <property name="contacts" value="contacts.csv" />
     </bean>
@@ -72,10 +76,16 @@
     <bean id="countryDao" class="org.sample.dao.CountryDao" parent="dao" />
     <bean id="relativeDao" class="org.sample.dao.RelativeDao" parent="dao" />
 
+	<bean id="authuserDao" class="org.sample.auth.dao.AuthuserDao" parent="dao" />
+	<bean id="authroleDao" class="org.sample.auth.dao.AuthroleDao" parent="dao" />
+	<bean id="userroleDao" class="org.sample.auth.dao.UserroleDao" parent="dao" />
+	<bean id="sessionDao" class="org.sample.auth.dao.SessionDao" parent="dao" />
+	
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
         <property name="metaFilesNames">
             <list>
                 <value>statements.qry</value>
+                <value>auth/statements.qry</value>
             </list>
         </property>
         <property name="filter" value="${db.type}" />
@@ -95,12 +105,28 @@
         <property name="relativeDao" ref="relativeDao" />
         <property name="personDao" ref="personDao" />
     </bean>
-
+    
+    <bean id="authuserService" class="org.sample.web.auth.app.AuthuserService">
+        <property name="authuserDao" ref="authuserDao" />
+    </bean>
+	<bean id="authroleService" class="org.sample.web.auth.app.AuthroleService">
+        <property name="authroleDao" ref="authroleDao" />
+    </bean>
+    <bean id="userroleService" class="org.sample.web.auth.app.UserroleService">
+        <property name="userroleDao" ref="userroleDao" />
+    </bean>
+    <bean id="sessionService" class="org.sample.web.auth.app.SessionService">
+        <property name="sessionDao" ref="sessionDao" />
+    </bean>
+    
     <bean id="simpleService" class="org.sample.web.service.SimpleService">
         <property name="personService" ref="personService" />
         <property name="contactService" ref="contactService" />
         <property name="countryService" ref="countryService" />
         <property name="relativeService" ref="relativeService" />
+        <property name="authuserService" ref="authuserService" />
+        <property name="authroleService" ref="authroleService" />
+        <property name="userroleService" ref="userroleService" />
         <property name="beanUtils" ref="beanUtils" />
     </bean>
 

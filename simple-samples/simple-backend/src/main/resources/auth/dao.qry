@@ -1,0 +1,19 @@
+package org.sample.auth.dao {
+
+  dao AuthroleDao :: Authrole {
+    scaffold
+  }
+
+  dao AuthuserDao :: Authuser {
+    scaffold
+  }
+
+  dao SessionDao :: Session {
+    scaffold
+  }
+
+  dao UserroleDao :: Userrole {
+    scaffold
+  }
+
+}

@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.sample.auth.model.Authrole;
+import org.sample.auth.model.Authuser;
+import org.sample.auth.model.Userrole;
 import org.sample.model.Contact;
 import org.sample.model.ContactCtype;
 import org.sample.model.Country;
@@ -16,6 +19,9 @@ import org.sample.model.RelativeRtype;
 import org.sample.web.app.ContactService;
 import org.sample.web.app.PersonService;
 import org.sample.web.app.RelativeService;
+import org.sample.web.auth.app.AuthroleService;
+import org.sample.web.auth.app.AuthuserService;
+import org.sample.web.auth.app.UserroleService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,8 +33,12 @@ public final class TestDataInitializer implements InitializingBean {
     private PersonService personService;
     private ContactService contactService;
     private RelativeService relativeService;
+    private AuthuserService authuserService;
+    private AuthroleService authroleService;
+    private UserroleService userroleService;
     private boolean initData;
     private String catalog;
+    private String catalogAuth;
     private Resource people;
     private Resource contacts;
     private List<String> ddls;
@@ -39,9 +49,9 @@ public final class TestDataInitializer implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
 
         if (initData) {
-
-            ddls = DDLLoader.getDDLs(this.getClass(), catalog);
-
+        	      
+            ddls = DDLLoader.getDDLs(this.getClass(), catalog, catalogAuth);
+                        
             Connection connection = null;
             Statement stmt = null;
 
@@ -56,19 +66,19 @@ public final class TestDataInitializer implements InitializingBean {
                     stmt.addBatch(ddl);
                 }
                 stmt.executeBatch();
-
+                
             } catch (Exception e) {
                 throw new RuntimeException(e);
             } finally {
                 if (connection != null)
                     connection.close();
             }
-
+                        
             try {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(1955, 3, 14);
                 Person person = null;
-                personService.insertPerson(person = newPerson("John", "Smith", calendar.getTime(), "007-16-0000",
+                person = personService.insertPerson(newPerson("John", "Smith", calendar.getTime(), "007-16-0000",
                         PersonGender.MALE));
                 calendar.set(1967, 8, 27);
                 personService.insertPerson(newPerson("Thomas", "Jones", calendar.getTime(), "007-16-0001",
@@ -80,12 +90,36 @@ public final class TestDataInitializer implements InitializingBean {
 
                 Person personRel = null;
                 calendar.set(2000, 7, 3);
-                personService.insertPerson(personRel = newPerson("Jane", "Jones", calendar.getTime(), "000-12-0002",
+                personRel = personService.insertPerson(newPerson("Jane", "Jones", calendar.getTime(), "000-12-0002",
                         PersonGender.FEMALE));
-                relativeService.insertRelative(newRelative(person, personRel, RelativeRtype.SISTER));
+                
+                relativeService.insertRelative(newRelative(person, personRel, RelativeRtype.SISTER));                                
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            }
+            // Insert test data - AuthUser
+            try{
+            	// authuser
+            	Calendar calendar = Calendar.getInstance();
+            	calendar.set(2013, 6, 18, 16, 30, 10);
+            	            	
+            	Authuser authuser1 = authuserService.insertAuthuser(newAuthuser("NOVAK", "12345", "Jan Novák", "novak@novak.com", calendar.getTime()));
+            	Authuser authuser2 = authuserService.insertAuthuser(newAuthuser("NOVAKOVA", "54321", "Františka Nováková", "novakova@novak.com", null ));
+            	
+            	// authrole   
+            	
+            	Authrole authrole1 = authroleService.insertAuthrole(newAuthrole("Vedoucí", "Vedoucí oddělení"));
+            	Authrole authrole2 = authroleService.insertAuthrole(newAuthrole("Ouřada", "Úředník"));
+            	Authrole authrole3 = authroleService.insertAuthrole(newAuthrole("Kontrolor", "Kontrolor úřadu"));
+            	
+            	// userrole
+            	userroleService.insertUserrole(newUserrole(authuser1, authrole2));
+            	userroleService.insertUserrole(newUserrole(authuser2, authrole1));
+            	userroleService.insertUserrole(newUserrole(authuser2, authrole3));
+            	            	            	            	
+            } catch (Exception e) {
+            	throw new RuntimeException(e);
             }
         }
     }
@@ -118,7 +152,33 @@ public final class TestDataInitializer implements InitializingBean {
         relative.setVersion(person.getVersion());
         return relative;
     }
+    
+    private Authuser newAuthuser(String username, String password, String name, String email, Date lastLogin){
+    	Authuser authuser = new Authuser();
+    	authuser.setUsername(username);
+    	authuser.setPassword(password);
+    	authuser.setName(name);
+    	authuser.setEmail(email);
+    	authuser.setLastLogin(lastLogin);
+    	return authuser;
+    }
 
+    private Authrole newAuthrole(String name, String description)
+    {
+    	Authrole authrole = new Authrole();
+    	authrole.setName(name);
+    	authrole.setDescription(description);
+    	return authrole;
+    }
+    
+    private Userrole newUserrole(Authuser authuser, Authrole authrole)
+    {
+    	Userrole userrole = new Userrole();
+    	userrole.setAuthuserId(authuser.getId());
+    	userrole.setAuthrole(authrole) ;
+    	return userrole;
+    }
+    
     // public void readPeople(Resource people) throws IOException {
     // try (InputStream is = people.getInputStream();
     // BufferedReader br = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8.name()));
@@ -144,6 +204,10 @@ public final class TestDataInitializer implements InitializingBean {
     public void setCatalog(String catalog) {
         this.catalog = catalog;
     }
+    
+    public void setCatalogAuth(String catalogAuth) {
+        this.catalogAuth = catalogAuth;
+    }
 
     public void setPersonService(PersonService personService) {
         this.personService = personService;
@@ -163,5 +227,17 @@ public final class TestDataInitializer implements InitializingBean {
 
     public void setRelativeService(RelativeService relativeService) {
         this.relativeService = relativeService;
+    }
+    
+    public void setAuthuserService(AuthuserService authuserService) {
+        this.authuserService = authuserService;
+    }
+    
+    public void setAuthroleService(AuthroleService authroleService) {
+        this.authroleService = authroleService;
+    }
+    
+    public void setUserroleService(UserroleService userroleService) {
+        this.userroleService = userroleService;
     }
 }

@@ -326,11 +326,11 @@
             <version>${version.hsqldb}</version>
         </dependency>
 
-        <dependency>
+        <!-- dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>${version.hsqldb}</version>
-        </dependency>
+        </dependency -->
 
         <dependency>
             <groupId>mysql</groupId>
@@ -338,17 +338,17 @@
             <version>${version.mysql}</version>
         </dependency>
 
-        <dependency>
+        <!-- dependency>
             <groupId>org.sqlproc</groupId>
             <artifactId>sql-processor</artifactId>
             <version>${version.sql-processor}</version>
-        </dependency>
+        </dependency -->
 
-        <dependency>
+        <!-- dependency>
             <groupId>net.sf.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>2.3</version>
-        </dependency>
+        </dependency -->
     </dependencies>
 
     <profiles>

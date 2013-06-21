@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.DateConverter;
+import org.sample.auth.model.Authuser;
 import org.sample.model.Person;
 import org.sample.web.form.PersonForm;
 import org.slf4j.Logger;
@@ -83,6 +84,12 @@ public class BeanExtJsUtils {
                 }
                 if ("relatives".equals(key) && value instanceof Boolean && ((Boolean) value)) {
                     ((Person) form).setInit(Person.Association.relatives);
+                    continue;
+                }
+            }
+            if (formClass == Authuser.class) {
+            	if ("userroles".equals(key) && value instanceof Boolean && ((Boolean) value)) {
+                    ((Authuser) form).setInit(Authuser.Association.userroles);
                     continue;
                 }
             }
