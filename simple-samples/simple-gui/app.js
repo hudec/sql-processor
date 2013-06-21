@@ -21,9 +21,19 @@ Ext.Loader.setConfig({
 Ext.application({
     version: '3.1',
     title: 'Simple Reg.',
+    models: [
+        'Person',
+        'PersonIdentity',
+        'Relative',
+        'Contact',
+        'Country'
+    ],
     stores: [
         'People',
+        'QueryPeople',
         'Genders',
+        'Relatives',
+        'RelativeTypes',
         'Contacts',
         'ContactTypes',
         'Countries'
