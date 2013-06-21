@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "contact-update",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "ContactUpdate",
         "closeAction": "hide",
@@ -27,7 +28,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Data"
+                "title": "Data",
+                "trackResetOnLoad": true
             },
             "designerId": "cca33185-6c4b-4597-8a0a-c7e423eb46cc",
             "cn": [
@@ -166,6 +168,9 @@
                         "allowBlank": false,
                         "editable": false,
                         "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
+                        "queryParam": "name",
                         "store": "ContactTypes",
                         "valueField": "value"
                     },
@@ -179,20 +184,22 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "tpl": null,
+                        "displayTpl": null,
                         "layout|anchor": "100%",
-                        "tpl": "<tpl for=\".\"><div class=\"x-boundlist-item\">{name} ({code})</div></tpl>",
-                        "displayTpl": "<tpl for=\".\">{name} ({code})</tpl>",
                         "itemId": "country",
                         "fieldLabel": "Country",
                         "name": "countryCode",
                         "value": null,
+                        "allowBlank": false,
                         "selectOnFocus": null,
                         "editable": null,
-                        "displayField": "name",
+                        "displayField": "title",
                         "forceSelection": true,
+                        "minChars": null,
                         "queryMode": "local",
+                        "queryParam": "name",
                         "store": "Countries",
-                        "triggerAction": null,
                         "valueField": "code"
                     },
                     "designerId": "655fb1b6-d2a0-474e-85fd-1272ff44b4ee",
@@ -219,7 +226,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Address",
-                        "name": "address"
+                        "name": "address",
+                        "allowBlank": false
                     },
                     "designerId": "b9932dc2-86ad-480f-b977-0d4b42cfc351"
                 },

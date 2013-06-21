@@ -10,7 +10,7 @@
         "model": "Person",
         "remoteFilter": true,
         "remoteSort": true,
-        "storeId": "PeopleStore",
+        "storeId": "People",
         "designer|userClassName": "People",
         "pageSize": 5
     },
@@ -29,7 +29,7 @@
                     "{ read: \"simpleService.loadPeople\" }"
                 ]
             },
-            "designerId": "97ff085c-8199-4f93-b8bb-4585c1913392",
+            "designerId": "d0c0b616-6398-42f6-9209-9732fcfa1fdc",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -47,6 +47,25 @@
             ]
         },
         {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "fitin",
+                "implHandler": [
+                    "if (store.currentPage > 1 && !records.length) {",
+                    "    store.previousPage();",
+                    "}   "
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "ddf7a1fd-4d51-4e68-8fdc-5119187d12ec"
+        },
+        {
             "type": "Ext.util.Sorter",
             "reference": {
                 "name": "sorters",
@@ -58,23 +77,6 @@
                 "designer|displayName": "LastNameSorter"
             },
             "designerId": "23bc44e9-ce91-4982-a6cd-c02c64608202"
-        },
-        {
-            "type": "basiceventbinding",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "fitin",
-                "implHandler": [
-                    ""
-                ],
-                "name": "load",
-                "scope": "me"
-            },
-            "designerId": "057b486b-8f58-40ca-bf19-7a7a0ed6d815"
         }
     ]
 }

@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "person-update",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "PersonUpdate",
         "closeAction": "hide",
@@ -27,7 +28,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Data"
+                "title": "Data",
+                "trackResetOnLoad": true
             },
             "designerId": "0b8eb2fe-a888-49bc-91ec-12fa95e0ce2c",
             "cn": [
@@ -100,7 +102,7 @@
                                 "id": null,
                                 "itemId": "submit",
                                 "iconCls": "icon-edit",
-                                "text": "ModifyPerson"
+                                "text": "Modify Person"
                             },
                             "designerId": "f23ca92c-362f-4f38-bcd4-02c979f92297"
                         }
@@ -163,7 +165,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Last Name",
-                        "name": "lastName"
+                        "name": "lastName",
+                        "allowBlank": false
                     },
                     "designerId": "ef2d9fc7-252a-4e68-b5c7-605a4ee34828"
                 },
@@ -208,8 +211,11 @@
                         "layout|anchor": "100%",
                         "fieldLabel": "Gender",
                         "name": "gender",
+                        "allowBlank": false,
                         "editable": false,
                         "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
                         "store": "Genders",
                         "valueField": "value"
                     },

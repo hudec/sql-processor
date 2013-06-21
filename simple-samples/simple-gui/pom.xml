@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sample</groupId>
     <artifactId>simple-gui</artifactId>
-    <version>2.2.2-SNAPSHOT</version>
+    <version>3.0</version>
     <packaging>war</packaging>
 
     <prerequisites>
         <maven>3.0.0</maven>
     </prerequisites>
 
-    <name>SQL Processor Simple Gui</name>
+    <name>Simple Registry</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

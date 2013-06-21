@@ -61,4 +61,12 @@ public interface SqlControl {
      * @return more result classes used for the return values
      */
     public Map<String, Class<?>> getMoreResultClasses();
+
+    /**
+     * Returns the optional features. These features are defined in the statement execution scope. In the case of
+     * conflict with the optional features defined in sthe statement/global scope, their priority is higher.
+     * 
+     * @return the optional features
+     */
+    public Map<String, Object> getFeatures();
 }

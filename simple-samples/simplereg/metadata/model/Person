@@ -44,6 +44,42 @@
             },
             "codeClass": null,
             "userConfig": {
+                "defaultValue": null,
+                "name": "title",
+                "type": "string"
+            },
+            "designerId": "b2d087d3-d98b-4d21-a686-5984dc2f7766",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "convert",
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "implHandler": [
+                            "return Simplereg.getPersonTitle(rec);"
+                        ]
+                    },
+                    "designerId": "ea42947d-d5e0-4998-b4e4-00af796d6375"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "defaultValue": null,
                 "name": "firstName",
                 "type": "string"
             },
@@ -84,6 +120,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "defaultValue": null,
                 "name": "ssn",
                 "type": "string"
             },
@@ -110,67 +147,29 @@
             },
             "codeClass": null,
             "userConfig": {
+                "associationKey": "relatives",
+                "model": "Relative",
+                "designer|displayName": "hasManyRelatives",
+                "foreignKey": "personId",
+                "name": "relatives"
+            },
+            "designerId": "8447a54e-cea1-41eb-98fa-361858a48f46"
+        },
+        {
+            "type": "Ext.data.association.HasMany",
+            "reference": {
+                "name": "hasMany",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "associationKey": "contacts",
                 "model": "Contact",
                 "designer|displayName": "hasManyContacts",
                 "foreignKey": "personId",
                 "name": "contacts"
             },
             "designerId": "1369241559336473588"
-        },
-        {
-            "type": "presencevalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "firstNamePresenceValidation",
-                "field": "firstName"
-            },
-            "designerId": "1369241559339381021"
-        },
-        {
-            "type": "presencevalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "lastNamePresenceValidation",
-                "field": "lastName"
-            },
-            "designerId": "1369241559341824121"
-        },
-        {
-            "type": "presencevalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "genderPresenceValidation",
-                "field": "genger"
-            },
-            "designerId": "1369241559343060635"
-        },
-        {
-            "type": "inclusionvalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "genderInclusionValidation",
-                "field": "genger",
-                "list": [
-                    "[\"MALE\", \"FEMALE\", \"UNKNOWN\"]"
-                ]
-            },
-            "designerId": "1369241559345282147"
         }
     ]
 }

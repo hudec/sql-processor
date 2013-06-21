@@ -17,7 +17,6 @@ Ext.define('Simplereg.store.People', {
     extend: 'Ext.data.Store',
 
     requires: [
-        'Simplereg.store.override.People',
         'Simplereg.model.Person'
     ],
 
@@ -28,7 +27,7 @@ Ext.define('Simplereg.store.People', {
             model: 'Simplereg.model.Person',
             remoteFilter: true,
             remoteSort: true,
-            storeId: 'PeopleStore',
+            storeId: 'People',
             pageSize: 5,
             proxy: {
                 type: 'direct',
@@ -38,20 +37,22 @@ Ext.define('Simplereg.store.People', {
                     root: 'records'
                 }
             },
-            sorters: {
-                property: 'lastName'
-            },
             listeners: {
                 load: {
                     fn: me.fitin,
                     scope: me
                 }
+            },
+            sorters: {
+                property: 'lastName'
             }
         }, cfg)]);
     },
 
     fitin: function(store, records, successful, eOpts) {
-
+        if (store.currentPage > 1 && !records.length) {
+            store.previousPage();
+        }   
     }
 
 });

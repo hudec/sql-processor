@@ -25,7 +25,10 @@ Ext.define('Simplereg.store.Contacts', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             model: 'Simplereg.model.Contact',
-            storeId: 'ContactsStore',
+            storeId: 'Contacts',
+            sorters: {
+                property: 'address'
+            },
             proxy: {
                 type: 'direct',
                 api: { read: "simpleService.loadContacts" },
@@ -33,9 +36,6 @@ Ext.define('Simplereg.store.Contacts', {
                     type: 'json',
                     root: 'records'
                 }
-            },
-            sorters: {
-                property: 'address'
             }
         }, cfg)]);
     }

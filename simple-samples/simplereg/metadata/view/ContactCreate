@@ -8,6 +8,7 @@
     "userConfig": {
         "height": null,
         "id": "contact-create",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "ContactCreate",
         "closeAction": "hide",
@@ -27,7 +28,8 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "Data"
+                "title": "Data",
+                "trackResetOnLoad": true
             },
             "designerId": "cee92c65-8aea-4183-bbc2-3b2ac7386206",
             "cn": [
@@ -134,7 +136,9 @@
                         "allowBlank": false,
                         "editable": false,
                         "displayField": "name",
-                        "queryMode": null,
+                        "forceSelection": true,
+                        "queryMode": "local",
+                        "queryParam": "name",
                         "store": "ContactTypes",
                         "valueField": "value"
                     },
@@ -148,16 +152,17 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "tpl": null,
+                        "displayTpl": null,
                         "layout|anchor": "100%",
-                        "tpl": "<tpl for=\".\"><div class=\"x-boundlist-item\">{name} ({code})</div></tpl>",
-                        "displayTpl": "<tpl for=\".\">{name} ({code})</tpl>",
                         "itemId": "country",
                         "designer|displayName": "",
                         "fieldLabel": "Country",
                         "name": "countryCode",
                         "value": null,
+                        "allowBlank": false,
                         "editable": null,
-                        "displayField": "name",
+                        "displayField": "title",
                         "forceSelection": true,
                         "minChars": null,
                         "queryMode": "local",
@@ -191,7 +196,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Address",
-                        "name": "address"
+                        "name": "address",
+                        "allowBlank": false
                     },
                     "designerId": "46a77503-0e6c-4d2f-b807-a66f27dea3df"
                 },

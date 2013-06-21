@@ -17,6 +17,7 @@ Ext.define('Simplereg.model.Person', {
     extend: 'Ext.data.Model',
 
     uses: [
+        'Simplereg.model.Relative',
         'Simplereg.model.Contact'
     ],
 
@@ -28,6 +29,13 @@ Ext.define('Simplereg.model.Person', {
         {
             name: 'version',
             type: 'int'
+        },
+        {
+            convert: function(v, rec) {
+                return Simplereg.getPersonTitle(rec);
+            },
+            name: 'title',
+            type: 'string'
         },
         {
             name: 'firstName',
@@ -52,33 +60,18 @@ Ext.define('Simplereg.model.Person', {
         }
     ],
 
-    hasMany: {
-        model: 'Simplereg.model.Contact',
-        foreignKey: 'personId',
-        name: 'contacts'
-    },
-
-    validations: [
+    hasMany: [
         {
-            type: 'presence',
-            field: 'firstName'
+            associationKey: 'relatives',
+            model: 'Simplereg.model.Relative',
+            foreignKey: 'personId',
+            name: 'relatives'
         },
         {
-            type: 'presence',
-            field: 'lastName'
-        },
-        {
-            type: 'presence',
-            field: 'genger'
-        },
-        {
-            type: 'inclusion',
-            field: 'genger',
-            list: [
-                'MALE',
-                'FEMALE',
-                'UNKNOWN'
-            ]
+            associationKey: 'contacts',
+            model: 'Simplereg.model.Contact',
+            foreignKey: 'personId',
+            name: 'contacts'
         }
     ]
 });

@@ -7,13 +7,26 @@
     "codeClass": null,
     "userConfig": {
         "autoLoad": true,
-        "model": "Countriy",
-        "storeId": "CountriesStore",
+        "model": "Country",
+        "storeId": "Countries",
         "designer|userClassName": "Countries",
         "pageSize": null
     },
     "designerId": "b7f5a560-66d4-4faa-95d7-c8fa7b5a074e",
     "cn": [
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "code",
+                "designer|displayName": "CodeSorter"
+            },
+            "designerId": "1b4198df-913e-49d3-9d3a-fc08388e4ef7"
+        },
         {
             "type": "Ext.data.proxy.Direct",
             "reference": {
@@ -27,7 +40,7 @@
                     "{ read: \"simpleService.loadCountries\" }"
                 ]
             },
-            "designerId": "f1f726b3-1f92-45a2-b3d2-061e79d0597a",
+            "designerId": "6bc598b1-8228-4395-b7db-fdc6e2bac435",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -43,19 +56,6 @@
                     "designerId": "7416e538-2a3b-4609-8e93-9b4fcb50108f"
                 }
             ]
-        },
-        {
-            "type": "Ext.util.Sorter",
-            "reference": {
-                "name": "sorters",
-                "type": "object"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "property": "code",
-                "designer|displayName": "CodeSorter"
-            },
-            "designerId": "1b4198df-913e-49d3-9d3a-fc08388e4ef7"
         }
     ]
 }

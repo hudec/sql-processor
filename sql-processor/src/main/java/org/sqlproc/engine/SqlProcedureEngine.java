@@ -302,6 +302,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return callQuery(session, resultClass, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
@@ -341,6 +342,7 @@ public class SqlProcedureEngine extends SqlEngine {
             logger.debug(">> callQuery, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         List<E> result = null;
 
@@ -348,7 +350,8 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            getStaticInputValues(sqlControl), null, features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
@@ -427,6 +430,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public int callUpdate(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return callUpdate(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setMaxTimeout(maxTimeout));
     }
@@ -459,6 +463,7 @@ public class SqlProcedureEngine extends SqlEngine {
             logger.debug(">> callUpdate, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -466,7 +471,8 @@ public class SqlProcedureEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            getStaticInputValues(sqlControl), null, features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
@@ -526,6 +532,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public Object callFunction(final SqlSession session, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return callFunction(session, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
@@ -557,6 +564,7 @@ public class SqlProcedureEngine extends SqlEngine {
             logger.debug(">> callFunction, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Object result = null;
 
@@ -564,7 +572,8 @@ public class SqlProcedureEngine extends SqlEngine {
             result = monitor.run(new SqlMonitor.Runner() {
                 public Object run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            getStaticInputValues(sqlControl), null, features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
@@ -623,10 +632,37 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public String getSql(final Object dynamicInputValues, final Object staticInputValues,
             final SqlMetaStatement.Type statementType) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
+        return getSql(dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues),
+                statementType);
+    }
+
+    /**
+     * Because SQL Processor is Data Driven Query engine, every input parameters can produce in fact different SQL
+     * statement command. This method can help to identify the exact SQL statement command, which is produced in the
+     * background of the SQL Processor execution. The statement is derived from the META SQL statement.
+     * 
+     * @param dynamicInputValues
+     *            The object used for the stored procedure dynamic input values. The class of this object is also named
+     *            as the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL callable statement are picked up using the reflection API. At the same
+     *            time this object can collect the output values from all OUT and INOUT stored procedure parameters.
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @param statementType
+     *            The type of the statement under consideration. For the stored procedures it is CALL.
+     * @return The SQL statement command derived from the META SQL statement based on the input parameters.
+     * @throws org.sqlproc.engine.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public String getSql(final Object dynamicInputValues, final SqlControl sqlControl,
+            final SqlMetaStatement.Type statementType) throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
-            logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", staticInputValues="
-                    + staticInputValues);
+            logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         String sql = null;
 
@@ -635,7 +671,8 @@ public class SqlProcedureEngine extends SqlEngine {
 
                 public String run() {
                     SqlProcessResult processResult = statement.process(statementType, dynamicInputValues,
-                            staticInputValues, null, features, typeFactory, pluginFactory);
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory);
                     return processResult.getSql().toString();
                 }
             }, String.class);

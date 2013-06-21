@@ -187,7 +187,9 @@ public class SqlMetaStatement implements SqlMetaElement {
      * @param order
      *            the list of ordering directives
      * @param features
-     *            the optional SQL Processor features
+     *            the optional features in the statement/global scope
+     * @param runtimeFeatures
+     *            the optional features in the statement's exection scope
      * @param typeFactory
      *            the factory for the META types construction
      * @param pluginFactory
@@ -195,10 +197,10 @@ public class SqlMetaStatement implements SqlMetaElement {
      * @return the crate for ANSI SQL and other attributes, which control the SQL statement itself
      */
     public SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
-            List<SqlOrder> order, Map<String, Object> features, SqlTypeFactory typeFactory,
-            SqlPluginFactory pluginFactory) {
+            List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
         SqlProcessContext ctx = new SqlProcessContext(sqlStatementType, dynamicInputValues, staticInputValues, order,
-                features, typeFactory, pluginFactory);
+                features, runtimeFeatures, typeFactory, pluginFactory);
         SqlProcessResult result = this.process(ctx);
         result.setLogError(SqlProcessContext.isFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION));
         return result;

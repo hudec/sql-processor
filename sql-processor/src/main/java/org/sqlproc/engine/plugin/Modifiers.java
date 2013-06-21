@@ -53,4 +53,26 @@ public interface Modifiers {
      * Tutorials.
      */
     public static final String MODIFIER_ANYSET = "anyset";
+
+    /**
+     * The modifier used to detect the primary key in the SQL command execution output.
+     */
+    static final String MODIFIER_ID = "id";
+
+    /**
+     * The modifier used to detect the generic type of the embedded attribute in a result class. It's used mainly in the
+     * case the embedded attribute is a collection of abstract type.
+     */
+    static final String MODIFIER_GTYPE = "gtype";
+
+    /**
+     * The modifier used to detect the dynamic type of the embedded attribute in a result class. It's used mainly in the
+     * case the embedded attribute is of collection type.
+     */
+    static final String MODIFIER_TYPE = "type";
+
+    /**
+     * The modifier used to detect the discriminator column/attribute. It's used mainly in the inheritance handling.
+     */
+    static final String MODIFIER_DISCRIMINATOR = "discr";
 }

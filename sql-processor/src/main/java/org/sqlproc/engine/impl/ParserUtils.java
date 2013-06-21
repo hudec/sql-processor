@@ -10,6 +10,7 @@ import org.antlr.runtime.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -308,10 +309,10 @@ class ParserUtils {
         }
     }
 
-    static final String SUPPVAL_GTYPE_ = SqlUtils.SUPPVAL_GTYPE + "=";
-    static final String SUPPVAL_TYPE_ = SqlUtils.SUPPVAL_TYPE + "=";
-    static final String SUPPVAL_DTYPE_ = "d" + SqlUtils.SUPPVAL_TYPE + "=";
-    static final String SUPPVAL_DISCRIMINATOR_ = SqlUtils.SUPPVAL_DISCRIMINATOR;
+    static final String SUPPVAL_GTYPE_ = Modifiers.MODIFIER_GTYPE + "=";
+    static final String SUPPVAL_TYPE_ = Modifiers.MODIFIER_TYPE + "=";
+    static final String SUPPVAL_DTYPE_ = "d" + Modifiers.MODIFIER_TYPE + "=";
+    static final String SUPPVAL_DISCRIMINATOR_ = Modifiers.MODIFIER_DISCRIMINATOR;
 
     static void addModifier(Object target, SqlTypeFactory typeFactory, String modifier, String attrName) {
         if (logger.isTraceEnabled()) {
@@ -333,7 +334,7 @@ class ParserUtils {
                 } else if (gtype != null) {
                     ((SqlMappingItem) target).setAttributeValue(attrName, "=" + gtype);
                 } else if (isDisriminator) {
-                    ((SqlMappingItem) target).setAttributeValue(attrName, "=" + SqlUtils.SUPPVAL_DISCRIMINATOR);
+                    ((SqlMappingItem) target).setAttributeValue(attrName, "=" + Modifiers.MODIFIER_DISCRIMINATOR);
                 } else {
                     ((SqlMappingItem) target).setValues(modifier, null);
                 }

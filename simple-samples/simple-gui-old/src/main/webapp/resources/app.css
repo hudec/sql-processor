@@ -1,0 +1,56 @@
+.x-docked-top.line {
+   /* border-bottom-width: 1px !important; */
+   border-bottom: 6px solid #157fcc !important;
+}
+
+.icon-accept {
+   background-image: url("icons/tick.png");
+}
+
+.icon-add {
+   background-image: url("icons/plus-button.png");
+}
+
+.icon-cancel {
+   background-image: url("icons/cross.png");
+}
+
+.icon-delete {
+   background-image: url("icons/cross-button.png");
+}
+
+.icon-detail {
+   background-image: url("icons/document.png");
+}
+
+.icon-edit {
+   background-image: url("icons/pencil-button.png");
+}
+
+.icon-home {
+   background-image: url("icons/home.png");
+}
+
+.icon-minus {
+   background-image: url("icons/minus.png");
+}
+
+.icon-plus {
+   background-image: url("icons/plus.png");
+}
+
+.icon-remove {
+   background-image: url("icons/minus-button.png");
+}
+
+.icon-search {
+   background-image: url("icons/magnifier-left.png");
+}
+
+.icon-warning {
+   background-image: url("icons/exclamation.png");
+}
+
+.icon-refresh {
+   background-image: url("icons/refresh.png");
+}

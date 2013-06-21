@@ -35,7 +35,7 @@ metagen-global-sequence SIMPLE_SEQUENCE;
 //metagen-make-it-final;
 // operators
 metagen-not-like-columns CONTACT PHONE_NUMBER;
-
+//metagen-optimize-insert;
 // can't overwrite existing DAO 
 //daogen-make-it-final; 
 

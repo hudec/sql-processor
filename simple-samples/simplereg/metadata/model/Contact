@@ -70,6 +70,40 @@
             },
             "codeClass": null,
             "userConfig": {
+                "name": "title",
+                "type": "string"
+            },
+            "designerId": "03c033da-3f82-4bad-ae58-c132a252a431",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "convert",
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "implHandler": [
+                            "return Simplereg.getContactTitle(rec);"
+                        ]
+                    },
+                    "designerId": "e71d6a5d-7d27-403a-b4e7-675e1f040299"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "name": "countryCode",
                 "type": "string"
             },
@@ -112,53 +146,11 @@
                 "associationKey": "person",
                 "model": "Person",
                 "designer|displayName": "belongsToPerson",
-                "foreignKey": "person_id",
-                "getterName": "getPerson",
-                "setterName": "setPerson"
+                "foreignKey": "personId",
+                "getterName": null,
+                "setterName": null
             },
             "designerId": "1369241776766175214"
-        },
-        {
-            "type": "presencevalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "typePresenceValidation",
-                "field": "type"
-            },
-            "designerId": "1369241776768800795"
-        },
-        {
-            "type": "presencevalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "addressPresenceValidation",
-                "field": "address"
-            },
-            "designerId": "1369241776771358764"
-        },
-        {
-            "type": "inclusionvalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "typeInclusionValidation",
-                "field": "type",
-                "list": [
-                    "[\"HOME\", \"BUSINESS\", \"ABROAD\"]"
-                ]
-            },
-            "designerId": "1369241776773989501"
         }
     ]
 }

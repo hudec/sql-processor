@@ -1,5 +1,6 @@
 package org.sqlproc.engine;
 
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -102,7 +104,7 @@ public abstract class SqlEngine {
     }
 
     /**
-     * Sets the optional feature in the runtime.
+     * Sets the optional feature in the stament's or global scope.
      * 
      * @param name
      *            the name of the optional feature
@@ -111,25 +113,18 @@ public abstract class SqlEngine {
      */
     public void setFeature(String name, Object value) {
         features.put(name, value);
-        if (SqlFeature.SURROUND_QUERY_LIKE_FULL.equals(name)) {
-            unsetFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
-        } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(name)) {
-            unsetFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL);
-        } else if (SqlFeature.EMPTY_FOR_NULL.equals(name)) {
-            unsetFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
-        } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.equals(name)) {
-            unsetFeature(SqlFeature.EMPTY_FOR_NULL);
-        }
+        unsetFeature(SqlUtils.oppositeFeature(name));
     }
 
     /**
-     * Clears the optional feature in the runtime.
+     * Clears the optional feature in the stament's or global scope.
      * 
      * @param name
      *            the name of the optional feature
      */
     public void unsetFeature(String name) {
-        features.remove(name);
+        if (name != null)
+            features.remove(name);
     }
 
     /**
@@ -214,5 +209,59 @@ public abstract class SqlEngine {
             return null;
         else
             return sqlControl.getMoreResultClasses();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the optiona features
+     */
+    Map<String, Object> getFeatures(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getFeatures();
+    }
+
+    /**
+     * Check the input parameters.
+     * 
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @throws InvalidParameterException
+     *             in the case the incorrect classes used for dynamic input values
+     */
+    void checkDynamicInputValues(final Object dynamicInputValues) {
+        if (dynamicInputValues == null)
+            return;
+        if (dynamicInputValues instanceof SqlOrder)
+            throw new InvalidParameterException("SqlOrder used as dynamic input values");
+        if (dynamicInputValues instanceof SqlControl)
+            throw new InvalidParameterException("SqlControl used as dynamic input values");
+    }
+
+    /**
+     * Check the input parameters.
+     * 
+     * @param staticInputValues
+     *            The object used for the SQL statement static input values. The class of this object is also named as
+     *            the input class or the static parameters class. The exact class type isn't important, all the
+     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
+     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
+     *            prevent SQL injection threat!
+     * @throws InvalidParameterException
+     *             in the case the incorrect classes used for static input values
+     */
+    void checkStaticInputValues(final Object staticInputValues) {
+        if (staticInputValues == null)
+            return;
+        if (staticInputValues instanceof SqlOrder)
+            throw new InvalidParameterException("SqlOrder used as static input values");
+        if (staticInputValues instanceof SqlControl)
+            throw new InvalidParameterException("SqlControl used as static input values");
     }
 }

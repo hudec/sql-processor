@@ -20,6 +20,20 @@
     "designerId": "a2e7af87-bcc4-4629-82c1-18f6e23566bd",
     "cn": [
         {
+            "type": "Ext.panel.Tool",
+            "reference": {
+                "name": "tools",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "reload",
+                "designer|displayName": "Reload",
+                "type": "refresh"
+            },
+            "designerId": "c40ccb64-5982-4825-a2ed-c1e8924431a4"
+        },
+        {
             "type": "Ext.toolbar.Toolbar",
             "reference": {
                 "name": "dockedItems",
@@ -80,22 +94,6 @@
             ]
         },
         {
-            "type": "Ext.toolbar.Paging",
-            "reference": {
-                "name": "dockedItems",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "dock": "bottom",
-                "width": 360,
-                "designer|displayName": "PagingToolbar",
-                "displayInfo": true,
-                "store": "Contacts"
-            },
-            "designerId": "9eda5d02-cf4d-4c7a-ae72-3941915cad69"
-        },
-        {
             "type": "Ext.grid.View",
             "reference": {
                 "name": "viewConfig",
@@ -116,6 +114,7 @@
             "codeClass": null,
             "userConfig": {
                 "hidden": true,
+                "sortable": false,
                 "dataIndex": "id",
                 "text": "Id",
                 "flex": 1,
@@ -132,6 +131,7 @@
             "codeClass": null,
             "userConfig": {
                 "hidden": true,
+                "sortable": false,
                 "dataIndex": "version",
                 "text": "Version",
                 "flex": 1,
@@ -148,8 +148,8 @@
             "codeClass": null,
             "userConfig": {
                 "hidden": true,
+                "sortable": false,
                 "dataIndex": "personId",
-                "hideable": false,
                 "text": "Person Id",
                 "flex": 1,
                 "format": "0"
@@ -164,6 +164,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "sortable": false,
                 "dataIndex": "ctype",
                 "text": "Type",
                 "flex": 1
@@ -178,6 +179,22 @@
             },
             "codeClass": null,
             "userConfig": {
+                "dataIndex": "title",
+                "text": "Contact",
+                "flex": 2
+            },
+            "designerId": "0a3cbca5-5b18-4741-944f-23b194528df4"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "hidden": true,
+                "sortable": false,
                 "dataIndex": "countryCode",
                 "text": "Country",
                 "flex": 1
@@ -192,9 +209,10 @@
             },
             "codeClass": null,
             "userConfig": {
+                "hidden": true,
                 "dataIndex": "address",
                 "text": "Address",
-                "flex": 3
+                "flex": 2
             },
             "designerId": "00b116c0-5966-4779-80e2-747f5f190694"
         },
@@ -206,6 +224,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "sortable": false,
                 "dataIndex": "phoneNumber",
                 "text": "Phone",
                 "flex": 2

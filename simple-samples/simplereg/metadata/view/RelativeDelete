@@ -1,0 +1,194 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": null,
+        "id": "relative-delete",
+        "itemId": "dialog",
+        "width": 400,
+        "designer|userClassName": "RelativeDelete",
+        "closeAction": "hide",
+        "iconCls": "icon-delete",
+        "title": "Remove Relative",
+        "modal": true
+    },
+    "designerId": "6550f69e-9320-4c5e-ad27-f0897defd4c7",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "Data",
+                "trackResetOnLoad": true
+            },
+            "configAlternates": {
+                "buttons": "array"
+            },
+            "designerId": "fa425635-19e5-4334-ab11-f63a28628f2b",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "bottom",
+                        "designer|displayName": "Toolbar"
+                    },
+                    "designerId": "9d597e3f-ccd1-41db-a5e5-f5890c2a810f",
+                    "cn": [
+                        {
+                            "type": "Ext.toolbar.Fill",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "designer|displayName": "Fill"
+                            },
+                            "designerId": "3251d1bb-c715-4f45-b72b-6853acdf8732"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "id": null,
+                                "itemId": "cancel",
+                                "iconCls": "icon-cancel",
+                                "text": "Cancel"
+                            },
+                            "designerId": "aec6a27e-64d7-4df0-9316-ed572a30d880"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "id": null,
+                                "itemId": "submit",
+                                "iconCls": "icon-delete",
+                                "text": "Remove Relative"
+                            },
+                            "designerId": "9ae8693b-316f-4c15-96e1-e63618d058d4"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Id",
+                        "name": "id",
+                        "readOnly": true
+                    },
+                    "designerId": "8bed1be7-4b8f-4056-a58e-95a42512ca59"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Person Id",
+                        "name": "personId",
+                        "readOnly": true
+                    },
+                    "designerId": "d9c58515-65d2-45df-b91c-b9b8cd5c9535"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Version",
+                        "name": "version",
+                        "readOnly": true
+                    },
+                    "designerId": "638c4259-26e6-497a-9a0f-e9a51f8ebb1c"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Type",
+                        "name": "rtype"
+                    },
+                    "designerId": "ecb3433a-caee-49a7-9993-cd1e98706168"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Rel. Person Id",
+                        "name": "relPerson.id",
+                        "readOnly": true
+                    },
+                    "designerId": "4e31cd8f-8ebe-451b-bd6d-8ac94a641a28"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Relative",
+                        "name": "relPerson.title"
+                    },
+                    "designerId": "ffe7aaff-cc3e-445e-9b8f-cb058b45aa33"
+                }
+            ]
+        }
+    ]
+}

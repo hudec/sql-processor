@@ -132,6 +132,34 @@
                         "text": "Add"
                     },
                     "designerId": "5b11bf42-bb03-4000-8c37-31209c65f323"
+                },
+                {
+                    "type": "Ext.toolbar.Fill",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "designer|displayName": "Fill"
+                    },
+                    "designerId": "add5423d-4089-4f4f-b3e3-1de1bf6a5b50"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "itemId": "close-all",
+                        "iconCls": "icon-page-close",
+                        "text": "Close All"
+                    },
+                    "designerId": "8b1d77f2-f73d-4184-b669-35083a9c25a9"
                 }
             ]
         },

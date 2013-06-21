@@ -1,0 +1,61 @@
+{
+    "type": "directstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": null,
+        "model": "RelativePerson",
+        "storeId": "RelativePeople",
+        "designer|userClassName": "RelativePeople",
+        "pageSize": null
+    },
+    "designerId": "2dcb3312-6be7-4dd5-94d8-f4e740c74ee0",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Direct",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy",
+                "api": [
+                    "{ read: \"simpleService.loadRelatives\" }"
+                ]
+            },
+            "designerId": "dfc81ea0-e1dc-43f6-bcab-b39554c7c9c3",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "records",
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "beb06759-60d7-4acb-901f-4634e47418a8"
+                }
+            ]
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "relPerson.lastName",
+                "designer|displayName": "LastNameSorter"
+            },
+            "designerId": "3a50e767-3ff6-4f9d-8471-80bd7b71545f"
+        }
+    ]
+}

@@ -2,6 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
@@ -9,7 +10,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The crate (design pattern) for all input parameters for the
- * {@link SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, List, Map, SqlTypeFactory, SqlPluginFactory)}
+ * {@link SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, List, Map, Map, SqlTypeFactory, SqlPluginFactory)}
  * 
  * Also can work as a context for a dynamic ANSI SQL query generation. This processing is based on the contract
  * {@link SqlMetaElement#process(SqlProcessContext)}.
@@ -67,20 +68,22 @@ public class SqlProcessContext {
      * @param order
      *            the list of ordering directives
      * @param features
-     *            the optional features
+     *            the optional features in the statement/global scope
+     * @param runtimeFeatures
+     *            the optional features in the statement's exection scope
      * @param typeFactory
      *            the factory for the META types construction
      * @param pluginFactory
      *            the factory for the SQL Processor plugins
      */
     SqlProcessContext(SqlMetaStatement.Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
-            List<SqlOrder> order, Map<String, Object> features, SqlTypeFactory typeFactory,
-            SqlPluginFactory pluginFactory) {
+            List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
         this.sqlStatementType = sqlStatementType;
         this.dynamicInputValues = dynamicInputValues;
         this.staticInputValues = staticInputValues;
         this.order = order;
-        setFeatures(features);
+        setFeatures(features, runtimeFeatures);
         setTypeFactory(typeFactory);
         setPluginFactory(pluginFactory);
     }
@@ -198,15 +201,25 @@ public class SqlProcessContext {
      * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT.
      * 
      * @param features
-     *            the current features or null for this thread
+     *            the optional features in the statement/global scope
+     * @param runtimeFeatures
+     *            the optional features in the statement's exection scope
      */
-    static void setFeatures(final Map<String, Object> features) {
+    static void setFeatures(final Map<String, Object> features, Map<String, Object> runtimeFeatures) {
         // if (currentFeatures.get() != null)
         // return;
         if (features == null) {
             throw new IllegalArgumentException("Argument features can not be null");
         }
         currentFeatures.set(features);
+        if (runtimeFeatures == null)
+            return;
+        for (Entry<String, Object> entry : runtimeFeatures.entrySet()) {
+            currentFeatures.get().put(entry.getKey(), entry.getValue());
+            String oppositeName = SqlUtils.oppositeFeature(entry.getKey());
+            if (oppositeName != null)
+                currentFeatures.get().remove(oppositeName);
+        }
     }
 
     /**

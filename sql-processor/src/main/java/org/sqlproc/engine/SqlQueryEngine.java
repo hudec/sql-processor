@@ -371,6 +371,7 @@ public class SqlQueryEngine extends SqlEngine {
             final Object staticInputValues, final SqlOrder order, final int maxTimeout, final int maxResults,
             final int firstResult, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
             SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return query(
                 session,
                 resultClass,
@@ -414,6 +415,7 @@ public class SqlQueryEngine extends SqlEngine {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         List<E> result = null;
 
@@ -421,8 +423,8 @@ public class SqlQueryEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features, typeFactory,
-                            pluginFactory);
+                            getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
+                            getFeatures(sqlControl), typeFactory, pluginFactory);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
@@ -552,6 +554,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public int queryCount(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final SqlOrder order, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
+        checkStaticInputValues(staticInputValues);
         return queryCount(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setOrder(order).setMaxTimeout(maxTimeout));
     }
@@ -583,6 +586,7 @@ public class SqlQueryEngine extends SqlEngine {
             logger.debug(">> queryCount, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -591,7 +595,8 @@ public class SqlQueryEngine extends SqlEngine {
                 public Integer run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
+                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
+                            typeFactory, pluginFactory);
                     SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     queryCount.setLogError(processResult.isLogError());
@@ -673,7 +678,8 @@ public class SqlQueryEngine extends SqlEngine {
                 public String run() {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, typeFactory, pluginFactory);
+                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
+                            typeFactory, pluginFactory);
                     return processResult.getSql().toString();
                 }
             }, String.class);

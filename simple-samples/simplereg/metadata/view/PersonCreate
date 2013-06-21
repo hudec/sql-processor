@@ -9,6 +9,7 @@
         "autoShow": null,
         "height": null,
         "id": "person-create",
+        "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "PersonCreate",
         "closeAction": "hide",
@@ -29,8 +30,8 @@
                 "bodyPadding": 10,
                 "header": false,
                 "title": "Data",
-                "api": null,
-                "standardSubmit": false
+                "standardSubmit": false,
+                "trackResetOnLoad": true
             },
             "designerId": "de1305d7-b0cb-4d22-8be6-e1347ed6f9ea",
             "cn": [
@@ -134,7 +135,8 @@
                     "userConfig": {
                         "layout|anchor": "100%",
                         "fieldLabel": "Last Name",
-                        "name": "lastName"
+                        "name": "lastName",
+                        "allowBlank": false
                     },
                     "designerId": "49c8a663-ee44-4c1e-95eb-7c7ad28577eb"
                 },
@@ -182,6 +184,8 @@
                         "allowBlank": false,
                         "editable": false,
                         "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
                         "store": "Genders",
                         "valueField": "value"
                     },
