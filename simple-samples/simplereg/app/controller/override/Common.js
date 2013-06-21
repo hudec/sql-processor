@@ -300,7 +300,14 @@ Ext.define("Simplereg.controller.override.Common", {
         var record = button.up("#relatives").getSelectionModel().getSelection()[0];
         if (record) {
             var dialog = Ext.getCmp(d),
+                    person = button.up("persondetail").record,
                     form = dialog.down("form");
+
+            // Use master person version
+            record = record.copy();
+            record.set("version", person.data.version);
+            record.commit();
+
             form.loadRecord(record);
             dialog.show();
         }

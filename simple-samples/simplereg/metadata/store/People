@@ -29,7 +29,7 @@
                     "{ read: \"simpleService.loadPeople\" }"
                 ]
             },
-            "designerId": "97ff085c-8199-4f93-b8bb-4585c1913392",
+            "designerId": "d0c0b616-6398-42f6-9209-9732fcfa1fdc",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -45,19 +45,6 @@
                     "designerId": "9e630556-782d-4a1c-8f3d-32a5bb88fe50"
                 }
             ]
-        },
-        {
-            "type": "Ext.util.Sorter",
-            "reference": {
-                "name": "sorters",
-                "type": "object"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "property": "lastName",
-                "designer|displayName": "LastNameSorter"
-            },
-            "designerId": "23bc44e9-ce91-4982-a6cd-c02c64608202"
         },
         {
             "type": "basiceventbinding",
@@ -77,6 +64,19 @@
                 "scope": "me"
             },
             "designerId": "ddf7a1fd-4d51-4e68-8fdc-5119187d12ec"
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "lastName",
+                "designer|displayName": "LastNameSorter"
+            },
+            "designerId": "23bc44e9-ce91-4982-a6cd-c02c64608202"
         }
     ]
 }

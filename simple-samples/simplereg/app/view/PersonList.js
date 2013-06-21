@@ -39,7 +39,7 @@ Ext.define('Simplereg.view.PersonList', {
                             xtype: 'button',
                             itemId: 'open',
                             iconCls: 'icon-page',
-                            text: 'Open Detail'
+                            text: 'Open'
                         }
                     ]
                 },

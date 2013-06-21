@@ -20,6 +20,20 @@
     "designerId": "72b36799-6432-4d89-a679-5e6bf87ed93d",
     "cn": [
         {
+            "type": "Ext.panel.Tool",
+            "reference": {
+                "name": "tools",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "reload",
+                "designer|displayName": "Reload",
+                "type": "refresh"
+            },
+            "designerId": "fdbd3dfd-7406-418d-b7d5-3cf543819b82"
+        },
+        {
             "type": "Ext.toolbar.Toolbar",
             "reference": {
                 "name": "dockedItems",
@@ -88,7 +102,7 @@
                         "layout|flex": null,
                         "itemId": "open",
                         "iconCls": "icon-page",
-                        "text": "Open Detail"
+                        "text": "Open"
                     },
                     "designerId": "8be824c2-9976-402b-afed-5e1920ce56b6"
                 }
@@ -152,6 +166,7 @@
                 "hidden": true,
                 "sortable": false,
                 "dataIndex": "version",
+                "hideable": false,
                 "text": "Version",
                 "flex": 1,
                 "format": "0"

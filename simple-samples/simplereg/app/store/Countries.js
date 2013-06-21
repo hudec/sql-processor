@@ -27,6 +27,9 @@ Ext.define('Simplereg.store.Countries', {
             autoLoad: true,
             model: 'Simplereg.model.Country',
             storeId: 'Countries',
+            sorters: {
+                property: 'code'
+            },
             proxy: {
                 type: 'direct',
                 api: { read: "simpleService.loadCountries" },
@@ -34,9 +37,6 @@ Ext.define('Simplereg.store.Countries', {
                     type: 'json',
                     root: 'records'
                 }
-            },
-            sorters: {
-                property: 'code'
             }
         }, cfg)]);
     }

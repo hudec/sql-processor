@@ -73,29 +73,5 @@ Ext.define('Simplereg.model.Person', {
             foreignKey: 'personId',
             name: 'contacts'
         }
-    ],
-
-    validations: [
-        {
-            type: 'presence',
-            field: 'firstName'
-        },
-        {
-            type: 'presence',
-            field: 'lastName'
-        },
-        {
-            type: 'presence',
-            field: 'genger'
-        },
-        {
-            type: 'inclusion',
-            field: 'genger',
-            list: [
-                'MALE',
-                'FEMALE',
-                'UNKNOWN'
-            ]
-        }
     ]
 });

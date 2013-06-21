@@ -151,48 +151,6 @@
                 "setterName": null
             },
             "designerId": "1369241776766175214"
-        },
-        {
-            "type": "presencevalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "typePresenceValidation",
-                "field": "type"
-            },
-            "designerId": "1369241776768800795"
-        },
-        {
-            "type": "presencevalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "addressPresenceValidation",
-                "field": "address"
-            },
-            "designerId": "1369241776771358764"
-        },
-        {
-            "type": "inclusionvalidation",
-            "reference": {
-                "name": "validations",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|displayName": "typeInclusionValidation",
-                "field": "type",
-                "list": [
-                    "[\"HOME\", \"BUSINESS\", \"ABROAD\"]"
-                ]
-            },
-            "designerId": "1369241776773989501"
         }
     ]
 }

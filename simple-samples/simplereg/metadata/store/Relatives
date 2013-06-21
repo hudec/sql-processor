@@ -28,7 +28,7 @@
                 ],
                 "extraParams": null
             },
-            "designerId": "0dc3a38c-fcea-45c2-994b-36e81a22e57b",
+            "designerId": "9c75a2e5-be03-49b5-8fd0-e7d4bae6eb72",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -44,6 +44,19 @@
                     "designerId": "622b1be5-8295-44bc-849a-670dcf86e601"
                 }
             ]
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "relPerson.lastName",
+                "designer|displayName": "LastNameSorter"
+            },
+            "designerId": "82ae0f2c-8a00-4060-8d74-67bc6bd67ee3"
         }
     ]
 }

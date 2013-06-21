@@ -23,7 +23,7 @@ Ext.define('Simplereg.model.Country', {
         },
         {
             convert: function(v, rec) {
-                return rec.data.name + " (" + rec.data.code + ")";
+                return rec.data.name + "(" + rec.data.code + ")";
             },
             name: 'title',
             type: 'string'

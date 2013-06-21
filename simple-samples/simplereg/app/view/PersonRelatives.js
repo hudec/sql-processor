@@ -30,6 +30,13 @@ Ext.define('Simplereg.view.PersonRelatives', {
         var me = this;
 
         Ext.applyIf(me, {
+            tools: [
+                {
+                    xtype: 'tool',
+                    itemId: 'reload',
+                    type: 'refresh'
+                }
+            ],
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -57,7 +64,7 @@ Ext.define('Simplereg.view.PersonRelatives', {
                             xtype: 'button',
                             itemId: 'open',
                             iconCls: 'icon-page',
-                            text: 'Open Detail'
+                            text: 'Open'
                         }
                     ]
                 }
@@ -86,6 +93,7 @@ Ext.define('Simplereg.view.PersonRelatives', {
                     hidden: true,
                     sortable: false,
                     dataIndex: 'version',
+                    hideable: false,
                     text: 'Version',
                     flex: 1,
                     format: '0'

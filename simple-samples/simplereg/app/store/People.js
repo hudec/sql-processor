@@ -37,14 +37,14 @@ Ext.define('Simplereg.store.People', {
                     root: 'records'
                 }
             },
-            sorters: {
-                property: 'lastName'
-            },
             listeners: {
                 load: {
                     fn: me.fitin,
                     scope: me
                 }
+            },
+            sorters: {
+                property: 'lastName'
             }
         }, cfg)]);
     },

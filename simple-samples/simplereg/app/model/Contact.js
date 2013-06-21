@@ -62,25 +62,5 @@ Ext.define('Simplereg.model.Contact', {
         associationKey: 'person',
         model: 'Simplereg.model.Person',
         foreignKey: 'personId'
-    },
-
-    validations: [
-        {
-            type: 'presence',
-            field: 'type'
-        },
-        {
-            type: 'presence',
-            field: 'address'
-        },
-        {
-            type: 'inclusion',
-            field: 'type',
-            list: [
-                'HOME',
-                'BUSINESS',
-                'ABROAD'
-            ]
-        }
-    ]
+    }
 });

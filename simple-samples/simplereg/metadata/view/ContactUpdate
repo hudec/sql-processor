@@ -200,7 +200,6 @@
                         "queryMode": "local",
                         "queryParam": "name",
                         "store": "Countries",
-                        "triggerAction": null,
                         "valueField": "code"
                     },
                     "designerId": "655fb1b6-d2a0-474e-85fd-1272ff44b4ee",

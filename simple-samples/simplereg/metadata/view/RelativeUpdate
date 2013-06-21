@@ -177,6 +177,7 @@
                         "queryMode": "local",
                         "queryParam": "name",
                         "store": "RelativeTypes",
+                        "triggerAction": null,
                         "valueField": "value"
                     },
                     "designerId": "69f295cc-d650-4c0a-893d-7df430230da2"

@@ -33,6 +33,9 @@ Ext.define('Simplereg.store.Relatives', {
                     type: 'json',
                     root: 'records'
                 }
+            },
+            sorters: {
+                property: 'relPerson.lastName'
             }
         }, cfg)]);
     }

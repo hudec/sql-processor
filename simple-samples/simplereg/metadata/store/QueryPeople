@@ -29,7 +29,7 @@
                     "{ read: \"simpleService.loadPeople\" }"
                 ]
             },
-            "designerId": "7e0b3dc1-c150-4aea-8588-98fa77af5201",
+            "designerId": "dded2a51-5291-4881-af55-01bf3e8464f5",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -42,7 +42,7 @@
                         "root": "records",
                         "designer|displayName": "Reader"
                     },
-                    "designerId": "63d5f37c-c3b1-4bbc-b46b-f8c6a231bd8d"
+                    "designerId": "be10a299-8d18-4680-bc08-500d18fba0a5"
                 }
             ]
         },
