@@ -1,4 +1,4 @@
-package org.sample.auth.dao {
+package org.sample.dao.auth {
 
   dao AuthRoleDao :: AuthRole {
     scaffold

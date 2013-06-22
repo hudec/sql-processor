@@ -1,4 +1,4 @@
-package org.sample.model {
+package org.sample.model.person {
 
   import org.sample.web.util.DMYDateDeserializer
   import javax.validation.constraints.NotNull

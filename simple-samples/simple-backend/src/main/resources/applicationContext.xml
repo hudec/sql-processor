@@ -71,7 +71,7 @@
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
-    <bean id="personDao" class="org.sample.web.dao.PersonExtDao" parent="dao" />
+    <bean id="personDao" class="org.sample.web.dao.person.PersonExtDao" parent="dao" />
     <bean id="contactDao" class="org.sample.dao.ContactDao" parent="dao" />
     <bean id="countryDao" class="org.sample.dao.CountryDao" parent="dao" />
     <bean id="relativeDao" class="org.sample.dao.RelativeDao" parent="dao" />
@@ -92,30 +92,30 @@
     </bean>
 
     <bean id="beanUtils" class="org.sample.web.util.BeanExtJsUtils"/>
-    <bean id="personService" class="org.sample.web.app.PersonService">
+    <bean id="personService" class="org.sample.web.app.person.PersonService">
         <property name="personDao" ref="personDao" />
     </bean>
-    <bean id="contactService" class="org.sample.web.app.ContactService">
+    <bean id="contactService" class="org.sample.web.app.person.ContactService">
         <property name="contactDao" ref="contactDao" />
     </bean>
-    <bean id="countryService" class="org.sample.web.app.CountryService">
+    <bean id="countryService" class="org.sample.web.app.person.CountryService">
         <property name="countryDao" ref="countryDao" />
     </bean>
-    <bean id="relativeService" class="org.sample.web.app.RelativeService">
+    <bean id="relativeService" class="org.sample.web.app.person.RelativeService">
         <property name="relativeDao" ref="relativeDao" />
         <property name="personDao" ref="personDao" />
     </bean>
     
-    <bean id="authUserService" class="org.sample.web.auth.app.AuthUserService">
+    <bean id="authUserService" class="org.sample.web.app.auth.AuthUserService">
         <property name="authUserDao" ref="authUserDao" />
     </bean>
-	<bean id="authRoleService" class="org.sample.web.auth.app.AuthRoleService">
+	<bean id="authRoleService" class="org.sample.web.app.auth.AuthRoleService">
         <property name="authRoleDao" ref="authRoleDao" />
     </bean>
-    <bean id="userRoleService" class="org.sample.web.auth.app.UserRoleService">
+    <bean id="userRoleService" class="org.sample.web.app.auth.UserRoleService">
         <property name="userRoleDao" ref="userRoleDao" />
     </bean>
-    <bean id="userSessionService" class="org.sample.web.auth.app.UserSessionService">
+    <bean id="userSessionService" class="org.sample.web.app.auth.UserSessionService">
         <property name="userSessionDao" ref="userSessionDao" />
     </bean>
     

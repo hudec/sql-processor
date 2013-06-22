@@ -1,8 +1,8 @@
 package org.sample.web.form;
   
 import java.util.Date;
-import org.sample.model.Person;
-import org.sample.model.PersonGender;
+import org.sample.model.person.Person;
+import org.sample.model.person.PersonGender;
 
 import java.io.Serializable;
 import java.util.ArrayList;
