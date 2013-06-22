@@ -141,6 +141,12 @@ Ext.define("Simplereg.controller.override.Common", {
                         form.clearInvalid();
                         form.getFields().each(this.resetComboboxFilter);
                     }
+                },
+                show: function(component, eOpts) {
+                    Ext.getCmp("page").windows.push(component);
+                },
+                hide: function(component, eOpts) {
+                    Ext.getCmp("page").windows.pop();
                 }
             },
             "#reset": {

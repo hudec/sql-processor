@@ -14,6 +14,7 @@
         "designer|userAlias": "personselect",
         "bodyPadding": 5,
         "header": false,
+        "iconCls": null,
         "title": "Person Select"
     },
     "designerId": "8b573659-e8e3-458d-ab3f-f82ee954a47f",

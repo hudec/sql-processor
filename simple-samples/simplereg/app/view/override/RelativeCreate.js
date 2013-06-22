@@ -38,5 +38,31 @@ Ext.define("Simplereg.view.override.RelativeCreate", {
                 form.getForm().markInvalid(result.errors);
             }
         });
+    },
+
+    /**
+     * Filter relative combobox
+     */
+    search: function(params) {
+        var me = this, combobox = me.down("#people"),
+                store = combobox.store;
+
+        me.loadMask.show();
+
+        store.proxy.extraParams = params;
+
+        store.load({
+            page: 1, start: 0,
+
+            callback: function(records, operation, success) {
+                me.loadMask.hide();
+                if (success) {
+                    if (!records.length) {
+                        combobox.reset();
+                    }
+                    combobox.onTriggerClick();
+                }
+            }
+        });
     }
 });

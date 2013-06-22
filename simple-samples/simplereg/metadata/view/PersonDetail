@@ -17,6 +17,7 @@
         "bodyPadding": 5,
         "closable": true,
         "header": false,
+        "iconCls": null,
         "title": "Person Detail"
     },
     "configAlternates": {
