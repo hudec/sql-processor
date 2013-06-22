@@ -11,6 +11,7 @@
         "itemId": "dialog",
         "width": 400,
         "designer|userClassName": "RelativeCreate",
+        "designer|userAlias": null,
         "closeAction": "hide",
         "iconCls": "icon-add",
         "title": "Add Relative",
@@ -166,26 +167,69 @@
                     "designerId": "ae0bb7fc-eabc-4231-9892-0f66ab6a6c55"
                 },
                 {
-                    "type": "Ext.form.field.ComboBox",
+                    "type": "Ext.form.FieldContainer",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|anchor": "100%",
-                        "fieldLabel": "Relative",
-                        "name": "relPerson.id",
-                        "allowBlank": false,
-                        "displayField": "title",
-                        "forceSelection": true,
-                        "minChars": 2,
-                        "queryMode": null,
-                        "queryParam": "lastName",
-                        "store": "QueryPeople",
-                        "valueField": "id"
+                        "container|align": "stretch",
+                        "height": null,
+                        "designer|displayName": "Relative",
+                        "layout": "hbox",
+                        "fieldLabel": "Relative"
                     },
-                    "designerId": "90ca8b7d-8140-4155-9ce0-78d79feacbbb"
+                    "designerId": "cf0047cc-1665-4f28-82d8-9230351c93e1",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": 1,
+                                "itemId": "people",
+                                "fieldLabel": null,
+                                "hideLabel": null,
+                                "name": "relPerson.id",
+                                "allowBlank": false,
+                                "editable": false,
+                                "hideTrigger": null,
+                                "displayField": "title",
+                                "forceSelection": null,
+                                "minChars": null,
+                                "pageSize": 25,
+                                "queryMode": null,
+                                "queryParam": null,
+                                "store": "QueryPeople",
+                                "triggerAction": null,
+                                "valueField": "id"
+                            },
+                            "designerId": "90ca8b7d-8140-4155-9ce0-78d79feacbbb"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "itemId": "search-person",
+                                "margin": null,
+                                "iconCls": "icon-search",
+                                "text": "",
+                                "tooltip": "Find relative person"
+                            },
+                            "configAlternates": {
+                                "tooltip": "string"
+                            },
+                            "designerId": "d48208c1-8c85-4764-9405-9a0de914f61d"
+                        }
+                    ]
                 }
             ]
         }

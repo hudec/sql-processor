@@ -15,8 +15,17 @@ Ext.define("Simplereg.view.override.PersonSearch", {
         //dialog.loadMask...
         me.close();
 
+        var params = form.getValues(),
+                window = Ext.getCmp("page").getWindow();
+
+        // Search new relative
+        if (window == Ext.getCmp("relative-create")) {
+            window.search(params);
+        }
+
         // Person select search
-        var params = form.getValues();
-        Ext.getCmp("person-select").search(params);
+        else {
+            Ext.getCmp("person-select").search(params);
+        }
     }
 });

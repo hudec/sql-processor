@@ -100,17 +100,33 @@ Ext.define('Simplereg.view.RelativeCreate', {
                             valueField: 'value'
                         },
                         {
-                            xtype: 'combobox',
-                            anchor: '100%',
+                            xtype: 'fieldcontainer',
+                            layout: {
+                                align: 'stretch',
+                                type: 'hbox'
+                            },
                             fieldLabel: 'Relative',
-                            name: 'relPerson.id',
-                            allowBlank: false,
-                            displayField: 'title',
-                            forceSelection: true,
-                            minChars: 2,
-                            queryParam: 'lastName',
-                            store: 'QueryPeople',
-                            valueField: 'id'
+                            items: [
+                                {
+                                    xtype: 'combobox',
+                                    flex: 1,
+                                    itemId: 'people',
+                                    name: 'relPerson.id',
+                                    allowBlank: false,
+                                    editable: false,
+                                    displayField: 'title',
+                                    pageSize: 25,
+                                    store: 'QueryPeople',
+                                    valueField: 'id'
+                                },
+                                {
+                                    xtype: 'button',
+                                    itemId: 'search-person',
+                                    iconCls: 'icon-search',
+                                    text: '',
+                                    tooltip: 'Find relative person'
+                                }
+                            ]
                         }
                     ]
                 }

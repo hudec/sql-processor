@@ -12,7 +12,7 @@
         "remoteSort": true,
         "storeId": "QueryPeople",
         "designer|userClassName": "QueryPeople",
-        "pageSize": null
+        "pageSize": 5
     },
     "designerId": "334aab56-bd97-4f9c-961f-451762250e85",
     "cn": [

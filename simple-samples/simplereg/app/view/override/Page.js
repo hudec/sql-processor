@@ -18,28 +18,41 @@ Ext.define("Simplereg.view.override.Page", {
             "Simplereg.view.ContactDelete"
         ]);
 
-        // Requested...
-        //var request = Ext.urlDecode(window.location.search);
+        // Open windows (dialogs)
+        me.windows = [];
 
         // Keyboard control
         new Ext.KeyMap(document, [
             {
                 key: Ext.EventObject.F3,
-                fn: function(a, event) {
+                fn: function(keyCode, event) {
                     event.stopEvent();
-                    Ext.getCmp("person-search").show();
+                    var window = this.getWindow();
+                    if (!window || window == Ext.getCmp("relative-create")) {
+                        Ext.getCmp("person-search").show();
+                    }
                 },
                 scope: me
             },
             {
                 key: Ext.EventObject.F5,
-                fn: function(a, event) {
+                fn: function(keyCode, event) {
                     event.stopEvent();
-                    this.reload();
+                    if (!this.getWindow()) {
+                        this.reload();
+                    }
                 },
                 scope: me
             }
         ]);
+    },
+
+    /**
+     * Get last opened window (dialog)
+     */
+    getWindow: function(selector) {
+        var window = this.windows[this.windows.length - 1];
+        return window && selector ? window.is(selector) : window;
     },
 
     /**
