@@ -3,9 +3,20 @@ package org.sample.auth.model;
 import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
+import ch.ralscha.extdirectspring.generator.ModelField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.Date;
+import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import org.hibernate.validator.constraints.NotBlank;
+import org.sample.web.util.DMYDateTimeDeserializer;
+import org.sample.web.util.DMYDateTimeSerializer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
@@ -13,23 +24,21 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Userrole", paging = true, readMethod = "simpleService.loadUserroles")
-public class Userrole implements Serializable {
+@Model(value = "SimpleWeb.model.AuthUser", paging = true, readMethod = "simpleService.loadAuthUsers")
+public class AuthUser implements Serializable {
   
   private static final long serialVersionUID = 1L;
   @JsonIgnore
   public static final int ORDER_BY_ID = 1;
   @JsonIgnore
-  public static final int ORDER_BY_AUTHUSER_ID = 4;
-  @JsonIgnore
-  public static final int ORDER_BY_AUTHROLE = 5;
+  public static final int ORDER_BY_USERNAME = 2;
 	
-  public Userrole() {
+  public AuthUser() {
   }
   
-  public Userrole(Long authuserId, Authrole authrole) {
-    this.authuserId = authuserId;
-    this.authrole = authrole;
+  public AuthUser(String username, String name) {
+    this.username = username;
+    this.name = name;
   }
   
   private Long id;
@@ -42,42 +51,93 @@ public class Userrole implements Serializable {
     this.id = id;
   }
   
-  public Userrole _setId(Long id) {
+  public AuthUser _setId(Long id) {
     this.id = id;
     return this;
   }
   
-  private Long authuserId;
+  @NotBlank
+  private String username;
   
-  public Long getAuthuserId() {
-    return authuserId;
+  public String getUsername() {
+    return username;
   }
   
-  public void setAuthuserId(Long authuserId) {
-    this.authuserId = authuserId;
+  public void setUsername(String username) {
+    this.username = username;
   }
   
-  public Userrole _setAuthuserId(Long authuserId) {
-    this.authuserId = authuserId;
+  public AuthUser _setUsername(String username) {
+    this.username = username;
     return this;
   }
   
-  @ModelAssociation(value = ModelAssociationType.BELONGS_TO, model = Authrole.class)
-  private Authrole authrole;
+  private String password;
   
-  public Authrole getAuthrole() {
-    return authrole;
+  public String getPassword() {
+    return password;
   }
   
-  public void setAuthrole(Authrole authrole) {
-    this.authrole = authrole;
+  public void setPassword(String password) {
+    this.password = password;
   }
   
-  public Userrole _setAuthrole(Authrole authrole) {
-    this.authrole = authrole;
+  public AuthUser _setPassword(String password) {
+    this.password = password;
     return this;
   }
   
+  @NotBlank
+  private String name;
+  
+  public String getName() {
+    return name;
+  }
+  
+  public void setName(String name) {
+    this.name = name;
+  }
+  
+  public AuthUser _setName(String name) {
+    this.name = name;
+    return this;
+  }
+  
+  private String email;
+  
+  public String getEmail() {
+    return email;
+  }
+  
+  public void setEmail(String email) {
+    this.email = email;
+  }
+  
+  public AuthUser _setEmail(String email) {
+    this.email = email;
+    return this;
+  }
+  
+  @ModelField(dateFormat = "d.m.Y H:i:s")
+  @Past
+  private Date lastLogin;
+  
+  @JsonSerialize(using = DMYDateTimeSerializer.class)
+  public Date getLastLogin() {
+    return lastLogin;
+  }
+  
+  @JsonDeserialize(using = DMYDateTimeDeserializer.class)
+  public void setLastLogin(Date lastLogin) {
+    this.lastLogin = lastLogin;
+  }
+  
+  public AuthUser _setLastLogin(Date lastLogin) {
+    this.lastLogin = lastLogin;
+    return this;
+  }
+  
+  @NotNull
   private Integer version = 0;
   
   public Integer getVersion() {
@@ -88,8 +148,24 @@ public class Userrole implements Serializable {
     this.version = version;
   }
   
-  public Userrole _setVersion(Integer version) {
+  public AuthUser _setVersion(Integer version) {
     this.version = version;
+    return this;
+  }
+  
+  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = UserRole.class)
+  private List<UserRole> userRoles = new ArrayList<UserRole>();
+  
+  public List<UserRole> getUserRoles() {
+    return userRoles;
+  }
+  
+  public void setUserRoles(List<UserRole> userRoles) {
+    this.userRoles = userRoles;
+  }
+  
+  public AuthUser _setUserRoles(List<UserRole> userRoles) {
+    this.userRoles = userRoles;
     return this;
   }
   
@@ -101,7 +177,7 @@ public class Userrole implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Userrole other = (Userrole) obj;
+    AuthUser other = (AuthUser) obj;
     if (id == null || !id.equals(other.id))
       return false;
     return true;
@@ -116,7 +192,7 @@ public class Userrole implements Serializable {
   }  
   
   public enum Association {
-    authrole
+    userRoles
   }
   
   private Set<String> initAssociations = new HashSet<String>();
@@ -162,6 +238,7 @@ public class Userrole implements Serializable {
   }
   
   public enum Attribute {
+    lastLogin, email, password
   }
   
   private Set<String> nullValues = new HashSet<String>();
@@ -241,15 +318,15 @@ public class Userrole implements Serializable {
   
   @Override
   public String toString() {
-    return "Userrole [id=" + id + ", authuserId=" + authuserId + ", version=" + version + "]";
+    return "AuthUser [id=" + id + ", lastLogin=" + lastLogin + ", username=" + username + ", email=" + email + ", name=" + name + ", password=" + password + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Userrole [id=" + id + ", authrole=" + authrole + ", authuserId=" + authuserId + ", version=" + version + "]";
+    return "AuthUser [id=" + id + ", lastLogin=" + lastLogin + ", username=" + username + ", email=" + email + ", name=" + name + ", password=" + password + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
-      id, authuserId, authrole, version
+      id, username, password, name, email, lastLogin, version, userRoles
   }
   
   private Map<String, String> operators = new HashMap<String, String>();

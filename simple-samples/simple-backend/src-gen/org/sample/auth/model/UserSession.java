@@ -1,22 +1,8 @@
 package org.sample.auth.model;
   
-import ch.ralscha.extdirectspring.generator.Model;
-import ch.ralscha.extdirectspring.generator.ModelAssociation;
-import ch.ralscha.extdirectspring.generator.ModelAssociationType;
-import ch.ralscha.extdirectspring.generator.ModelField;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
-import java.util.List;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import org.hibernate.validator.constraints.NotBlank;
-import org.sample.web.util.DMYDateTimeDeserializer;
-import org.sample.web.util.DMYDateTimeSerializer;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
@@ -24,21 +10,18 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Authuser", paging = true, readMethod = "simpleService.loadAuthusers")
-public class Authuser implements Serializable {
+public class UserSession implements Serializable {
   
   private static final long serialVersionUID = 1L;
-  @JsonIgnore
   public static final int ORDER_BY_ID = 1;
-  @JsonIgnore
-  public static final int ORDER_BY_USERNAME = 2;
+  public static final int ORDER_BY_AUTH_USER_ID = 3;
 	
-  public Authuser() {
+  public UserSession() {
   }
   
-  public Authuser(String username, String name) {
-    this.username = username;
-    this.name = name;
+  public UserSession(Long authUserId, Date lastAccess) {
+    this.authUserId = authUserId;
+    this.lastAccess = lastAccess;
   }
   
   private Long id;
@@ -51,121 +34,38 @@ public class Authuser implements Serializable {
     this.id = id;
   }
   
-  public Authuser _setId(Long id) {
+  public UserSession _setId(Long id) {
     this.id = id;
     return this;
   }
   
-  @NotBlank
-  private String username;
+  private Long authUserId;
   
-  public String getUsername() {
-    return username;
+  public Long getAuthUserId() {
+    return authUserId;
   }
   
-  public void setUsername(String username) {
-    this.username = username;
+  public void setAuthUserId(Long authUserId) {
+    this.authUserId = authUserId;
   }
   
-  public Authuser _setUsername(String username) {
-    this.username = username;
+  public UserSession _setAuthUserId(Long authUserId) {
+    this.authUserId = authUserId;
     return this;
   }
   
-  private String password;
+  private Date lastAccess;
   
-  public String getPassword() {
-    return password;
+  public Date getLastAccess() {
+    return lastAccess;
   }
   
-  public void setPassword(String password) {
-    this.password = password;
+  public void setLastAccess(Date lastAccess) {
+    this.lastAccess = lastAccess;
   }
   
-  public Authuser _setPassword(String password) {
-    this.password = password;
-    return this;
-  }
-  
-  @NotBlank
-  private String name;
-  
-  public String getName() {
-    return name;
-  }
-  
-  public void setName(String name) {
-    this.name = name;
-  }
-  
-  public Authuser _setName(String name) {
-    this.name = name;
-    return this;
-  }
-  
-  private String email;
-  
-  public String getEmail() {
-    return email;
-  }
-  
-  public void setEmail(String email) {
-    this.email = email;
-  }
-  
-  public Authuser _setEmail(String email) {
-    this.email = email;
-    return this;
-  }
-  
-  @ModelField(dateFormat = "d.m.Y H:i:s")
-  @Past
-  private Date lastLogin;
-  
-  @JsonSerialize(using = DMYDateTimeSerializer.class)
-  public Date getLastLogin() {
-    return lastLogin;
-  }
-  
-  @JsonDeserialize(using = DMYDateTimeDeserializer.class)
-  public void setLastLogin(Date lastLogin) {
-    this.lastLogin = lastLogin;
-  }
-  
-  public Authuser _setLastLogin(Date lastLogin) {
-    this.lastLogin = lastLogin;
-    return this;
-  }
-  
-  @NotNull
-  private Integer version = 0;
-  
-  public Integer getVersion() {
-    return version;
-  }
-  
-  public void setVersion(Integer version) {
-    this.version = version;
-  }
-  
-  public Authuser _setVersion(Integer version) {
-    this.version = version;
-    return this;
-  }
-  
-  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Userrole.class)
-  private List<Userrole> userroles = new ArrayList<Userrole>();
-  
-  public List<Userrole> getUserroles() {
-    return userroles;
-  }
-  
-  public void setUserroles(List<Userrole> userroles) {
-    this.userroles = userroles;
-  }
-  
-  public Authuser _setUserroles(List<Userrole> userroles) {
-    this.userroles = userroles;
+  public UserSession _setLastAccess(Date lastAccess) {
+    this.lastAccess = lastAccess;
     return this;
   }
   
@@ -177,7 +77,7 @@ public class Authuser implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Authuser other = (Authuser) obj;
+    UserSession other = (UserSession) obj;
     if (id == null || !id.equals(other.id))
       return false;
     return true;
@@ -192,12 +92,10 @@ public class Authuser implements Serializable {
   }  
   
   public enum Association {
-    userroles
   }
   
   private Set<String> initAssociations = new HashSet<String>();
   
-  @JsonIgnore
   public void setInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -205,7 +103,6 @@ public class Authuser implements Serializable {
       initAssociations.add(association.name());
   }
   
-  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -238,12 +135,10 @@ public class Authuser implements Serializable {
   }
   
   public enum Attribute {
-    lastLogin, email, password
   }
   
   private Set<String> nullValues = new HashSet<String>();
   
-  @JsonIgnore
   public void setNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -251,7 +146,6 @@ public class Authuser implements Serializable {
       nullValues.add(attribute.name());
   }
   
-  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -279,7 +173,6 @@ public class Authuser implements Serializable {
     return nullValues.contains(attrName);
   }
   
-  @JsonIgnore
   public Boolean isNull(Attribute attribute) {
     if (attribute == null)
       throw new IllegalArgumentException();
@@ -318,15 +211,15 @@ public class Authuser implements Serializable {
   
   @Override
   public String toString() {
-    return "Authuser [id=" + id + ", lastLogin=" + lastLogin + ", username=" + username + ", email=" + email + ", name=" + name + ", password=" + password + ", version=" + version + "]";
+    return "UserSession [id=" + id + ", authUserId=" + authUserId + ", lastAccess=" + lastAccess + "]";
   }
   
   public String toStringFull() {
-    return "Authuser [id=" + id + ", lastLogin=" + lastLogin + ", username=" + username + ", email=" + email + ", name=" + name + ", password=" + password + ", version=" + version + "]";
+    return "UserSession [id=" + id + ", authUserId=" + authUserId + ", lastAccess=" + lastAccess + "]";
   }
   
   public enum OpAttribute {
-      id, username, password, name, email, lastLogin, version, userroles
+      id, authUserId, lastAccess
   }
   
   private Map<String, String> operators = new HashMap<String, String>();
@@ -335,7 +228,6 @@ public class Authuser implements Serializable {
     return operators;
   }
   
-  @JsonIgnore
   public void setOp(String operator, OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -343,7 +235,6 @@ public class Authuser implements Serializable {
       operators.put(attribute.name(), operator);
   }
   
-  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -365,7 +256,6 @@ public class Authuser implements Serializable {
       operators.remove(attribute);
   }
   
-  @JsonIgnore
   public void setNullOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();

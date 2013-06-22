@@ -1,11 +1,10 @@
 Ext.define("Simplereg.view.override.PersonCreate", {
-    override: "Simplereg.view.PersonCreate",
+    override : "Simplereg.view.PersonCreate",
 
     /**
-     * Handle dialog submit
-     * (create person)
+     * Handle dialog submit (create person)
      */
-    submit: function() {
+    submit : function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -15,7 +14,7 @@ Ext.define("Simplereg.view.override.PersonCreate", {
         me.loadMask.show();
 
         // Create new person
-        simpleService.createPerson(form.getPlainForm(), function(result) {
+        personWeb.createPerson(form.getPlainForm(), function(result) {
             me.loadMask.hide();
 
             if (result.success) {
@@ -31,8 +30,7 @@ Ext.define("Simplereg.view.override.PersonCreate", {
                     var page = Ext.getCmp("page");
                     page.openPersonDetail(result.id);
                 }
-            }
-            else {
+            } else {
                 form.getForm().markInvalid(result.errors);
             }
         });

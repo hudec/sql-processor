@@ -14,32 +14,32 @@
  */
 
 Ext.define('Simplereg.store.QueryPeople', {
-    extend: 'Ext.data.Store',
+    extend : 'Ext.data.Store',
 
-    requires: [
-        'Simplereg.model.Person'
-    ],
+    requires : [ 'Simplereg.model.Person' ],
 
-    constructor: function(cfg) {
+    constructor : function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([Ext.apply({
-            model: 'Simplereg.model.Person',
-            remoteFilter: true,
-            remoteSort: true,
-            storeId: 'QueryPeople',
-            pageSize: 5,
-            proxy: {
-                type: 'direct',
-                api: { read: "simpleService.loadPeople" },
-                reader: {
-                    type: 'json',
-                    root: 'records'
+        me.callParent([ Ext.apply({
+            model : 'Simplereg.model.Person',
+            remoteFilter : true,
+            remoteSort : true,
+            storeId : 'QueryPeople',
+            pageSize : 5,
+            proxy : {
+                type : 'direct',
+                api : {
+                    read : "personWeb.loadPeople"
+                },
+                reader : {
+                    type : 'json',
+                    root : 'records'
                 }
             },
-            sorters: {
-                property: 'lastName'
+            sorters : {
+                property : 'lastName'
             }
-        }, cfg)]);
+        }, cfg) ]);
     }
 });

@@ -1,19 +1,18 @@
 package org.sample.auth.dao {
 
-  dao AuthroleDao :: Authrole {
+  dao AuthRoleDao :: AuthRole {
     scaffold
   }
 
-  dao AuthuserDao :: Authuser {
+  dao AuthUserDao :: AuthUser {
     scaffold
   }
 
-  dao SessionDao :: Session {
+  dao UserRoleDao :: UserRole {
     scaffold
   }
 
-  dao UserroleDao :: Userrole {
+  dao UserSessionDao :: UserSession {
     scaffold
   }
-
 }

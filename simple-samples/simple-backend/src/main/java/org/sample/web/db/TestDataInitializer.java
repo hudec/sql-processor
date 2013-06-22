@@ -6,9 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.sample.auth.model.Authrole;
-import org.sample.auth.model.Authuser;
-import org.sample.auth.model.Userrole;
+import org.sample.auth.model.AuthRole;
+import org.sample.auth.model.AuthUser;
+import org.sample.auth.model.UserRole;
 import org.sample.model.Contact;
 import org.sample.model.ContactCtype;
 import org.sample.model.Country;
@@ -19,9 +19,9 @@ import org.sample.model.RelativeRtype;
 import org.sample.web.app.ContactService;
 import org.sample.web.app.PersonService;
 import org.sample.web.app.RelativeService;
-import org.sample.web.auth.app.AuthroleService;
-import org.sample.web.auth.app.AuthuserService;
-import org.sample.web.auth.app.UserroleService;
+import org.sample.web.auth.app.AuthRoleService;
+import org.sample.web.auth.app.AuthUserService;
+import org.sample.web.auth.app.UserRoleService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,9 +33,9 @@ public final class TestDataInitializer implements InitializingBean {
     private PersonService personService;
     private ContactService contactService;
     private RelativeService relativeService;
-    private AuthuserService authuserService;
-    private AuthroleService authroleService;
-    private UserroleService userroleService;
+    private AuthUserService authuserService;
+    private AuthRoleService authroleService;
+    private UserRoleService userroleService;
     private boolean initData;
     private String catalog;
     private String catalogAuth;
@@ -49,9 +49,9 @@ public final class TestDataInitializer implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
 
         if (initData) {
-        	      
+
             ddls = DDLLoader.getDDLs(this.getClass(), catalog, catalogAuth);
-                        
+
             Connection connection = null;
             Statement stmt = null;
 
@@ -66,14 +66,14 @@ public final class TestDataInitializer implements InitializingBean {
                     stmt.addBatch(ddl);
                 }
                 stmt.executeBatch();
-                
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             } finally {
                 if (connection != null)
                     connection.close();
             }
-                        
+
             try {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(1955, 3, 14);
@@ -92,34 +92,36 @@ public final class TestDataInitializer implements InitializingBean {
                 calendar.set(2000, 7, 3);
                 personRel = personService.insertPerson(newPerson("Jane", "Jones", calendar.getTime(), "000-12-0002",
                         PersonGender.FEMALE));
-                
-                relativeService.insertRelative(newRelative(person, personRel, RelativeRtype.SISTER));                                
+
+                relativeService.insertRelative(newRelative(person, personRel, RelativeRtype.SISTER));
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             // Insert test data - AuthUser
-            try{
-            	// authuser
-            	Calendar calendar = Calendar.getInstance();
-            	calendar.set(2013, 6, 18, 16, 30, 10);
-            	            	
-            	Authuser authuser1 = authuserService.insertAuthuser(newAuthuser("NOVAK", "12345", "Jan Novák", "novak@novak.com", calendar.getTime()));
-            	Authuser authuser2 = authuserService.insertAuthuser(newAuthuser("NOVAKOVA", "54321", "Františka Nováková", "novakova@novak.com", null ));
-            	
-            	// authrole   
-            	
-            	Authrole authrole1 = authroleService.insertAuthrole(newAuthrole("Vedoucí", "Vedoucí oddělení"));
-            	Authrole authrole2 = authroleService.insertAuthrole(newAuthrole("Ouřada", "Úředník"));
-            	Authrole authrole3 = authroleService.insertAuthrole(newAuthrole("Kontrolor", "Kontrolor úřadu"));
-            	
-            	// userrole
-            	userroleService.insertUserrole(newUserrole(authuser1, authrole2));
-            	userroleService.insertUserrole(newUserrole(authuser2, authrole1));
-            	userroleService.insertUserrole(newUserrole(authuser2, authrole3));
-            	            	            	            	
+            try {
+                // authuser
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(2013, 6, 18, 16, 30, 10);
+
+                AuthUser authuser1 = authuserService.insertAuthUser(newAuthUser("NOVAK", "12345", "Jan Novák",
+                        "novak@novak.com", calendar.getTime()));
+                AuthUser authuser2 = authuserService.insertAuthUser(newAuthUser("NOVAKOVA", "54321",
+                        "Františka Nováková", "novakova@novak.com", null));
+
+                // authrole
+
+                AuthRole authrole1 = authroleService.insertAuthRole(newAuthRole("Vedoucí", "Vedoucí oddělení"));
+                AuthRole authrole2 = authroleService.insertAuthRole(newAuthRole("Ouřada", "Úředník"));
+                AuthRole authrole3 = authroleService.insertAuthRole(newAuthRole("Kontrolor", "Kontrolor úřadu"));
+
+                // userrole
+                userroleService.insertUserRole(newUserRole(authuser1, authrole2));
+                userroleService.insertUserRole(newUserRole(authuser2, authrole1));
+                userroleService.insertUserRole(newUserRole(authuser2, authrole3));
+
             } catch (Exception e) {
-            	throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
         }
     }
@@ -152,33 +154,31 @@ public final class TestDataInitializer implements InitializingBean {
         relative.setVersion(person.getVersion());
         return relative;
     }
-    
-    private Authuser newAuthuser(String username, String password, String name, String email, Date lastLogin){
-    	Authuser authuser = new Authuser();
-    	authuser.setUsername(username);
-    	authuser.setPassword(password);
-    	authuser.setName(name);
-    	authuser.setEmail(email);
-    	authuser.setLastLogin(lastLogin);
-    	return authuser;
+
+    private AuthUser newAuthUser(String username, String password, String name, String email, Date lastLogin) {
+        AuthUser authuser = new AuthUser();
+        authuser.setUsername(username);
+        authuser.setPassword(password);
+        authuser.setName(name);
+        authuser.setEmail(email);
+        authuser.setLastLogin(lastLogin);
+        return authuser;
     }
 
-    private Authrole newAuthrole(String name, String description)
-    {
-    	Authrole authrole = new Authrole();
-    	authrole.setName(name);
-    	authrole.setDescription(description);
-    	return authrole;
+    private AuthRole newAuthRole(String name, String description) {
+        AuthRole authrole = new AuthRole();
+        authrole.setName(name);
+        authrole.setDescription(description);
+        return authrole;
     }
-    
-    private Userrole newUserrole(Authuser authuser, Authrole authrole)
-    {
-    	Userrole userrole = new Userrole();
-    	userrole.setAuthuserId(authuser.getId());
-    	userrole.setAuthrole(authrole) ;
-    	return userrole;
+
+    private UserRole newUserRole(AuthUser authuser, AuthRole authrole) {
+        UserRole userrole = new UserRole();
+        userrole.setAuthUserId(authuser.getId());
+        userrole.setAuthRole(authrole);
+        return userrole;
     }
-    
+
     // public void readPeople(Resource people) throws IOException {
     // try (InputStream is = people.getInputStream();
     // BufferedReader br = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8.name()));
@@ -204,7 +204,7 @@ public final class TestDataInitializer implements InitializingBean {
     public void setCatalog(String catalog) {
         this.catalog = catalog;
     }
-    
+
     public void setCatalogAuth(String catalogAuth) {
         this.catalogAuth = catalogAuth;
     }
@@ -228,16 +228,16 @@ public final class TestDataInitializer implements InitializingBean {
     public void setRelativeService(RelativeService relativeService) {
         this.relativeService = relativeService;
     }
-    
-    public void setAuthuserService(AuthuserService authuserService) {
+
+    public void setAuthUserService(AuthUserService authuserService) {
         this.authuserService = authuserService;
     }
-    
-    public void setAuthroleService(AuthroleService authroleService) {
+
+    public void setAuthRoleService(AuthRoleService authroleService) {
         this.authroleService = authroleService;
     }
-    
-    public void setUserroleService(UserroleService userroleService) {
+
+    public void setUserRoleService(UserRoleService userroleService) {
         this.userroleService = userroleService;
     }
 }

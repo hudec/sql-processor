@@ -13,10 +13,10 @@ package org.sample.auth.model {
   import com.fasterxml.jackson.annotation.JsonIgnore
   import ch.ralscha.extdirectspring.generator.ModelAssociationType
 
-  @Model ::: value "SimpleWeb.model.Authrole", paging true, readMethod "simpleService.loadAuthroles"
+  @Model ::: value "SimpleWeb.model.AuthRole", paging true, readMethod "simpleService.loadAuthRoles"
   @@@JsonIgnore
   @@@@JsonIgnore
-  pojo Authrole serializable 1 operators {
+  pojo AuthRole serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     @NotBlank
     name : java.lang.String required
@@ -30,10 +30,10 @@ package org.sample.auth.model {
     toString ::: id description name version
   }
 
-  @Model ::: value "SimpleWeb.model.Authuser", paging true, readMethod "simpleService.loadAuthusers"
+  @Model ::: value "SimpleWeb.model.AuthUser", paging true, readMethod "simpleService.loadAuthUsers"
   @@@JsonIgnore
   @@@@JsonIgnore
-  pojo Authuser serializable 1 operators {
+  pojo AuthUser serializable 1 operators {
     id : java.lang.Long primaryKey index 1
     @NotBlank
     username : java.lang.String required index 2
@@ -48,40 +48,39 @@ package org.sample.auth.model {
     lastLogin : java.util.Date
     @NotNull
     version : java.lang.Integer optLock
-    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Userrole class
-    userroles : java.util.List <:Userrole>
+    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::UserRole class
+    userRoles : java.util.List <:UserRole>
     equals ::: id
     hashCode ::: id
-    toInit ::: userroles
+    toInit ::: userRoles
     isDef ::: lastLogin email password
     toString ::: id lastLogin username email name password version
   }
 
-  pojo Session serializable 1 operators {
+  @Model ::: value "SimpleWeb.model.UserRole", paging true, readMethod "simpleService.loadUserRoles"
+  @@@JsonIgnore
+  @@@@JsonIgnore
+  pojo UserRole serializable 1 operators {
     id : java.lang.Long primaryKey index 1
-    authuserId : java.lang.Long required index 3
+    authUserId : java.lang.Long required index 4
+    @ModelAssociation ::: value :ModelAssociationType HAS_ONE, model ::AuthRole class
+    authRole :: AuthRole required index 5
+    version : java.lang.Integer optLock
+    equals ::: id
+    hashCode ::: id
+    toInit ::: authRole
+    isDef :::
+    toString ::: id authUserId authRole version
+  }
+
+  pojo UserSession serializable 1 operators {
+    id : java.lang.Long primaryKey index 1
+    authUserId : java.lang.Long required index 3
     lastAccess : java.util.Date required
     equals ::: id
     hashCode ::: id
     toInit :::
     isDef :::
-    toString ::: id lastAccess authuserId
+    toString ::: id authUserId lastAccess
   }
-
-  @Model ::: value "SimpleWeb.model.Userrole", paging true, readMethod "simpleService.loadUserroles"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo Userrole serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    authuserId : java.lang.Long required index 4
-    @ModelAssociation ::: value :ModelAssociationType BELONGS_TO, model ::Authrole class
-    authrole :: Authrole required index 5
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit ::: authrole
-    isDef :::
-    toString ::: id authrole authuserId version
-  }
-
 }

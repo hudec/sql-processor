@@ -13,17 +13,17 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-@Model(value = "SimpleWeb.model.Authrole", paging = true, readMethod = "simpleService.loadAuthroles")
-public class Authrole implements Serializable {
+@Model(value = "SimpleWeb.model.AuthRole", paging = true, readMethod = "simpleService.loadAuthRoles")
+public class AuthRole implements Serializable {
   
   private static final long serialVersionUID = 1L;
   @JsonIgnore
   public static final int ORDER_BY_ID = 1;
 	
-  public Authrole() {
+  public AuthRole() {
   }
   
-  public Authrole(String name) {
+  public AuthRole(String name) {
     this.name = name;
   }
   
@@ -37,7 +37,7 @@ public class Authrole implements Serializable {
     this.id = id;
   }
   
-  public Authrole _setId(Long id) {
+  public AuthRole _setId(Long id) {
     this.id = id;
     return this;
   }
@@ -53,7 +53,7 @@ public class Authrole implements Serializable {
     this.name = name;
   }
   
-  public Authrole _setName(String name) {
+  public AuthRole _setName(String name) {
     this.name = name;
     return this;
   }
@@ -68,7 +68,7 @@ public class Authrole implements Serializable {
     this.description = description;
   }
   
-  public Authrole _setDescription(String description) {
+  public AuthRole _setDescription(String description) {
     this.description = description;
     return this;
   }
@@ -84,7 +84,7 @@ public class Authrole implements Serializable {
     this.version = version;
   }
   
-  public Authrole _setVersion(Integer version) {
+  public AuthRole _setVersion(Integer version) {
     this.version = version;
     return this;
   }
@@ -97,7 +97,7 @@ public class Authrole implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Authrole other = (Authrole) obj;
+    AuthRole other = (AuthRole) obj;
     if (id == null || !id.equals(other.id))
       return false;
     return true;
@@ -237,11 +237,11 @@ public class Authrole implements Serializable {
   
   @Override
   public String toString() {
-    return "Authrole [id=" + id + ", description=" + description + ", name=" + name + ", version=" + version + "]";
+    return "AuthRole [id=" + id + ", description=" + description + ", name=" + name + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Authrole [id=" + id + ", description=" + description + ", name=" + name + ", version=" + version + "]";
+    return "AuthRole [id=" + id + ", description=" + description + ", name=" + name + ", version=" + version + "]";
   }
   
   public enum OpAttribute {

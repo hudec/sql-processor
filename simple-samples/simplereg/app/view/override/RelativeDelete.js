@@ -1,11 +1,10 @@
 Ext.define("Simplereg.view.override.RelativeDelete", {
-    override: "Simplereg.view.RelativeDelete",
-    
+    override : "Simplereg.view.RelativeDelete",
+
     /**
-     * Handle dialog submit
-     * (delete relative)
+     * Handle dialog submit (delete relative)
      */
-    submit: function() {
+    submit : function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -17,7 +16,7 @@ Ext.define("Simplereg.view.override.RelativeDelete", {
         var id = form.getForm().findField("personId").getValue();
 
         // Delete relative
-        simpleService.deleteRelative(form.getPlainForm(), function(result) {
+        personWeb.deleteRelative(form.getPlainForm(), function(result) {
             me.loadMask.hide();
 
             if (result.success) {
@@ -32,8 +31,7 @@ Ext.define("Simplereg.view.override.RelativeDelete", {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(id);
                 }
-            }
-            else {
+            } else {
                 form.getForm().markInvalid(result.errors);
             }
         });

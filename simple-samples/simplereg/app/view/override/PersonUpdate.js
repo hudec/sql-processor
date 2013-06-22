@@ -1,11 +1,10 @@
 Ext.define("Simplereg.view.override.PersonUpdate", {
-    override: "Simplereg.view.PersonUpdate",
-    
+    override : "Simplereg.view.PersonUpdate",
+
     /**
-     * Handle dialog submit
-     * (update person)
+     * Handle dialog submit (update person)
      */
-    submit: function() {
+    submit : function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -15,7 +14,7 @@ Ext.define("Simplereg.view.override.PersonUpdate", {
         me.loadMask.show();
 
         // Update person
-        simpleService.updatePerson(form.getPlainForm(), function(result) {
+        personWeb.updatePerson(form.getPlainForm(), function(result) {
             me.loadMask.hide();
 
             if (result.success) {
@@ -31,8 +30,7 @@ Ext.define("Simplereg.view.override.PersonUpdate", {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(result.id);
                 }
-            }
-            else {
+            } else {
                 form.getForm().markInvalid(result.errors);
             }
         });

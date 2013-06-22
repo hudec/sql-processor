@@ -14,30 +14,30 @@
  */
 
 Ext.define('Simplereg.store.Countries', {
-    extend: 'Ext.data.Store',
+    extend : 'Ext.data.Store',
 
-    requires: [
-        'Simplereg.model.Country'
-    ],
+    requires : [ 'Simplereg.model.Country' ],
 
-    constructor: function(cfg) {
+    constructor : function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([Ext.apply({
-            autoLoad: true,
-            model: 'Simplereg.model.Country',
-            storeId: 'Countries',
-            sorters: {
-                property: 'code'
+        me.callParent([ Ext.apply({
+            autoLoad : true,
+            model : 'Simplereg.model.Country',
+            storeId : 'Countries',
+            sorters : {
+                property : 'code'
             },
-            proxy: {
-                type: 'direct',
-                api: { read: "simpleService.loadCountries" },
-                reader: {
-                    type: 'json',
-                    root: 'records'
+            proxy : {
+                type : 'direct',
+                api : {
+                    read : "personWeb.loadCountries"
+                },
+                reader : {
+                    type : 'json',
+                    root : 'records'
                 }
             }
-        }, cfg)]);
+        }, cfg) ]);
     }
 });

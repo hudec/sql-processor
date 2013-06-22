@@ -1,13 +1,11 @@
 Ext.define("Simplereg.view.override.ContactCreate", {
-    override: "Simplereg.view.ContactCreate",
+    override : "Simplereg.view.ContactCreate",
 
     /**
-     * Handle dialog submit
-     * (create contact)
+     * Handle dialog submit (create contact)
      */
-    submit: function() {
-        var me = this, form = me.down("form"),
-                view = Ext.getCmp("pages").getActiveTab();
+    submit : function() {
+        var me = this, form = me.down("form"), view = Ext.getCmp("pages").getActiveTab();
 
         if (!form.isValid()) {
             return false;
@@ -16,7 +14,7 @@ Ext.define("Simplereg.view.override.ContactCreate", {
         me.loadMask.show();
 
         // Create new contact
-        simpleService.createContact(form.getPlainForm(), function(result) {
+        personWeb.createContact(form.getPlainForm(), function(result) {
             me.loadMask.hide();
 
             if (result.success) {
@@ -30,8 +28,7 @@ Ext.define("Simplereg.view.override.ContactCreate", {
                         view.down("#contacts").reload();
                     }
                 }
-            }
-            else {
+            } else {
                 form.getForm().markInvalid(result.errors);
             }
         });

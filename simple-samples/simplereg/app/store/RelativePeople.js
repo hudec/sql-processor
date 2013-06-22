@@ -14,29 +14,29 @@
  */
 
 Ext.define('Simplereg.store.RelativePeople', {
-    extend: 'Ext.data.Store',
+    extend : 'Ext.data.Store',
 
-    requires: [
-        'Simplereg.model.RelativePerson'
-    ],
+    requires : [ 'Simplereg.model.RelativePerson' ],
 
-    constructor: function(cfg) {
+    constructor : function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([Ext.apply({
-            model: 'Simplereg.model.RelativePerson',
-            storeId: 'RelativePeople',
-            proxy: {
-                type: 'direct',
-                api: { read: "simpleService.loadRelatives" },
-                reader: {
-                    type: 'json',
-                    root: 'records'
+        me.callParent([ Ext.apply({
+            model : 'Simplereg.model.RelativePerson',
+            storeId : 'RelativePeople',
+            proxy : {
+                type : 'direct',
+                api : {
+                    read : "personWeb.loadRelatives"
+                },
+                reader : {
+                    type : 'json',
+                    root : 'records'
                 }
             },
-            sorters: {
-                property: 'relPerson.lastName'
+            sorters : {
+                property : 'relPerson.lastName'
             }
-        }, cfg)]);
+        }, cfg) ]);
     }
 });

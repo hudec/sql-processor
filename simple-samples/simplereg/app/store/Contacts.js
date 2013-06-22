@@ -31,7 +31,7 @@ Ext.define('Simplereg.store.Contacts', {
             },
             proxy: {
                 type: 'direct',
-                api: { read: "simpleService.loadContacts" },
+                api: { read: "personWeb.loadContacts" },
                 reader: {
                     type: 'json',
                     root: 'records'

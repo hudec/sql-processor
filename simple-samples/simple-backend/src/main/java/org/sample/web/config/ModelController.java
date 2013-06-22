@@ -5,15 +5,13 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.sample.auth.model.AuthRole;
+import org.sample.auth.model.AuthUser;
+import org.sample.auth.model.UserRole;
 import org.sample.model.Contact;
 import org.sample.model.Country;
 import org.sample.model.Person;
 import org.sample.model.Relative;
-
-import org.sample.auth.model.Authrole;
-import org.sample.auth.model.Authuser;
-import org.sample.auth.model.Userrole;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,19 +42,19 @@ public class ModelController {
     public void relative(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ModelGenerator.writeModel(request, response, Relative.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
     }
-    
-    @RequestMapping("/app/auth/model/Authuser.js")
+
+    @RequestMapping("/app/auth/model/AuthUser.js")
     public void authuser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ModelGenerator.writeModel(request, response, Authuser.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
+        ModelGenerator.writeModel(request, response, AuthUser.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
     }
-     
-    @RequestMapping("/app/auth/model/Authrole.js")
+
+    @RequestMapping("/app/auth/model/AuthRole.js")
     public void authrole(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ModelGenerator.writeModel(request, response, Authrole.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
+        ModelGenerator.writeModel(request, response, AuthRole.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
     }
-    
-    @RequestMapping("/app/auth/model/Userrole.js")
+
+    @RequestMapping("/app/auth/model/UserRole.js")
     public void userrole(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ModelGenerator.writeModel(request, response, Userrole.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
+        ModelGenerator.writeModel(request, response, UserRole.class, OutputFormat.EXTJS4, IncludeValidation.ALL, true);
     }
 }

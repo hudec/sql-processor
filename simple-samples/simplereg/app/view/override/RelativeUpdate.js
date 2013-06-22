@@ -1,11 +1,10 @@
 Ext.define("Simplereg.view.override.RelativeUpdate", {
-    override: "Simplereg.view.RelativeUpdate",
+    override : "Simplereg.view.RelativeUpdate",
 
     /**
-     * Handle dialog submit
-     * (update relative)
+     * Handle dialog submit (update relative)
      */
-    submit: function() {
+    submit : function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -17,7 +16,7 @@ Ext.define("Simplereg.view.override.RelativeUpdate", {
         var id = form.getForm().findField("personId").getValue();
 
         // Update relative
-        simpleService.updateRelative(form.getPlainForm(), function(result) {
+        personWeb.updateRelative(form.getPlainForm(), function(result) {
             me.loadMask.hide();
 
             if (result.success) {
@@ -33,8 +32,7 @@ Ext.define("Simplereg.view.override.RelativeUpdate", {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(id);
                 }
-            }
-            else {
+            } else {
                 form.getForm().markInvalid(result.errors);
             }
         });

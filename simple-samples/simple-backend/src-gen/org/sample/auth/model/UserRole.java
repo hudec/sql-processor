@@ -1,6 +1,9 @@
 package org.sample.auth.model;
   
-import java.util.Date;
+import ch.ralscha.extdirectspring.generator.Model;
+import ch.ralscha.extdirectspring.generator.ModelAssociation;
+import ch.ralscha.extdirectspring.generator.ModelAssociationType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -10,18 +13,23 @@ import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Session implements Serializable {
+@Model(value = "SimpleWeb.model.UserRole", paging = true, readMethod = "simpleService.loadUserRoles")
+public class UserRole implements Serializable {
   
   private static final long serialVersionUID = 1L;
+  @JsonIgnore
   public static final int ORDER_BY_ID = 1;
-  public static final int ORDER_BY_AUTHUSER_ID = 3;
+  @JsonIgnore
+  public static final int ORDER_BY_AUTH_USER_ID = 4;
+  @JsonIgnore
+  public static final int ORDER_BY_AUTH_ROLE = 5;
 	
-  public Session() {
+  public UserRole() {
   }
   
-  public Session(Long authuserId, Date lastAccess) {
-    this.authuserId = authuserId;
-    this.lastAccess = lastAccess;
+  public UserRole(Long authUserId, AuthRole authRole) {
+    this.authUserId = authUserId;
+    this.authRole = authRole;
   }
   
   private Long id;
@@ -34,38 +42,54 @@ public class Session implements Serializable {
     this.id = id;
   }
   
-  public Session _setId(Long id) {
+  public UserRole _setId(Long id) {
     this.id = id;
     return this;
   }
   
-  private Long authuserId;
+  private Long authUserId;
   
-  public Long getAuthuserId() {
-    return authuserId;
+  public Long getAuthUserId() {
+    return authUserId;
   }
   
-  public void setAuthuserId(Long authuserId) {
-    this.authuserId = authuserId;
+  public void setAuthUserId(Long authUserId) {
+    this.authUserId = authUserId;
   }
   
-  public Session _setAuthuserId(Long authuserId) {
-    this.authuserId = authuserId;
+  public UserRole _setAuthUserId(Long authUserId) {
+    this.authUserId = authUserId;
     return this;
   }
   
-  private Date lastAccess;
+  @ModelAssociation(value = ModelAssociationType.HAS_ONE, model = AuthRole.class)
+  private AuthRole authRole;
   
-  public Date getLastAccess() {
-    return lastAccess;
+  public AuthRole getAuthRole() {
+    return authRole;
   }
   
-  public void setLastAccess(Date lastAccess) {
-    this.lastAccess = lastAccess;
+  public void setAuthRole(AuthRole authRole) {
+    this.authRole = authRole;
   }
   
-  public Session _setLastAccess(Date lastAccess) {
-    this.lastAccess = lastAccess;
+  public UserRole _setAuthRole(AuthRole authRole) {
+    this.authRole = authRole;
+    return this;
+  }
+  
+  private Integer version = 0;
+  
+  public Integer getVersion() {
+    return version;
+  }
+  
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+  
+  public UserRole _setVersion(Integer version) {
+    this.version = version;
     return this;
   }
   
@@ -77,7 +101,7 @@ public class Session implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Session other = (Session) obj;
+    UserRole other = (UserRole) obj;
     if (id == null || !id.equals(other.id))
       return false;
     return true;
@@ -92,10 +116,12 @@ public class Session implements Serializable {
   }  
   
   public enum Association {
+    authRole
   }
   
   private Set<String> initAssociations = new HashSet<String>();
   
+  @JsonIgnore
   public void setInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -103,6 +129,7 @@ public class Session implements Serializable {
       initAssociations.add(association.name());
   }
   
+  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
@@ -139,6 +166,7 @@ public class Session implements Serializable {
   
   private Set<String> nullValues = new HashSet<String>();
   
+  @JsonIgnore
   public void setNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -146,6 +174,7 @@ public class Session implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -173,6 +202,7 @@ public class Session implements Serializable {
     return nullValues.contains(attrName);
   }
   
+  @JsonIgnore
   public Boolean isNull(Attribute attribute) {
     if (attribute == null)
       throw new IllegalArgumentException();
@@ -211,15 +241,15 @@ public class Session implements Serializable {
   
   @Override
   public String toString() {
-    return "Session [id=" + id + ", lastAccess=" + lastAccess + ", authuserId=" + authuserId + "]";
+    return "UserRole [id=" + id + ", authUserId=" + authUserId + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Session [id=" + id + ", lastAccess=" + lastAccess + ", authuserId=" + authuserId + "]";
+    return "UserRole [id=" + id + ", authUserId=" + authUserId + ", authRole=" + authRole + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
-      id, authuserId, lastAccess
+      id, authUserId, authRole, version
   }
   
   private Map<String, String> operators = new HashMap<String, String>();
@@ -228,6 +258,7 @@ public class Session implements Serializable {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(String operator, OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -235,6 +266,7 @@ public class Session implements Serializable {
       operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
@@ -256,6 +288,7 @@ public class Session implements Serializable {
       operators.remove(attribute);
   }
   
+  @JsonIgnore
   public void setNullOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();

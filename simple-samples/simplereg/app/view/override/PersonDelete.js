@@ -1,11 +1,10 @@
 Ext.define("Simplereg.view.override.PersonDelete", {
-    override: "Simplereg.view.PersonDelete",
+    override : "Simplereg.view.PersonDelete",
 
     /**
-     * Handle dialog submit
-     * (delete person)
+     * Handle dialog submit (delete person)
      */
-    submit: function() {
+    submit : function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -15,7 +14,7 @@ Ext.define("Simplereg.view.override.PersonDelete", {
         me.loadMask.show();
 
         // Delete person
-        simpleService.deletePerson(form.getPlainForm(), function(result) {
+        personWeb.deletePerson(form.getPlainForm(), function(result) {
             me.loadMask.hide();
 
             if (result.success) {
@@ -30,8 +29,7 @@ Ext.define("Simplereg.view.override.PersonDelete", {
                     var page = Ext.getCmp("page");
                     page.closePersonDetail(result.id);
                 }
-            }
-            else {
+            } else {
                 form.getForm().markInvalid(result.errors);
             }
         });
