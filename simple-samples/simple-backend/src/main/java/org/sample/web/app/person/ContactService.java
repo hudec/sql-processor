@@ -2,8 +2,8 @@ package org.sample.web.app.person;
 
 import java.util.List;
 
-import org.sample.dao.ContactDao;
-import org.sample.model.Contact;
+import org.sample.dao.person.ContactDao;
+import org.sample.model.person.Contact;
 import org.sample.web.form.CountHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

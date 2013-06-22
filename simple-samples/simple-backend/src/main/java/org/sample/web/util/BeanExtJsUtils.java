@@ -9,8 +9,8 @@ import java.util.Map.Entry;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.DateConverter;
-import org.sample.auth.model.AuthUser;
-import org.sample.model.Person;
+import org.sample.model.auth.AuthUser;
+import org.sample.model.person.Person;
 import org.sample.web.form.PersonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,11 +79,11 @@ public class BeanExtJsUtils {
                     + "'");
             if (formClass == PersonForm.class) {
                 if ("contacts".equals(key) && value instanceof Boolean && ((Boolean) value)) {
-                    ((Person) form).setInit(Person.Association.contacts);
+                    ((PersonForm) form).setInit(PersonForm.Association.contacts);
                     continue;
                 }
                 if ("relatives".equals(key) && value instanceof Boolean && ((Boolean) value)) {
-                    ((Person) form).setInit(Person.Association.relatives);
+                    ((PersonForm) form).setInit(PersonForm.Association.relatives);
                     continue;
                 }
             }

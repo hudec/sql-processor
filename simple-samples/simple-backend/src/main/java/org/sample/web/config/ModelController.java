@@ -5,13 +5,13 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.sample.auth.model.AuthRole;
-import org.sample.auth.model.AuthUser;
-import org.sample.auth.model.UserRole;
-import org.sample.model.Contact;
-import org.sample.model.Country;
-import org.sample.model.Person;
-import org.sample.model.Relative;
+import org.sample.model.auth.AuthRole;
+import org.sample.model.auth.AuthUser;
+import org.sample.model.auth.UserRole;
+import org.sample.model.person.Contact;
+import org.sample.model.person.Country;
+import org.sample.model.person.Person;
+import org.sample.model.person.Relative;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

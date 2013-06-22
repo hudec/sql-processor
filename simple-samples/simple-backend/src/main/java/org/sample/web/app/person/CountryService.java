@@ -2,8 +2,8 @@ package org.sample.web.app.person;
 
 import java.util.List;
 
-import org.sample.dao.CountryDao;
-import org.sample.model.Country;
+import org.sample.dao.person.CountryDao;
+import org.sample.model.person.Country;
 import org.sample.web.form.CountHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

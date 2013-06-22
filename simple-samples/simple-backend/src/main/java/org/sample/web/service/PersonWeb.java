@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.sample.model.Contact;
-import org.sample.model.Country;
-import org.sample.model.Person;
-import org.sample.model.Relative;
+import org.sample.model.person.Contact;
+import org.sample.model.person.Country;
+import org.sample.model.person.Person;
+import org.sample.model.person.Relative;
 import org.sample.web.app.person.ContactService;
 import org.sample.web.app.person.CountryService;
 import org.sample.web.app.person.PersonService;

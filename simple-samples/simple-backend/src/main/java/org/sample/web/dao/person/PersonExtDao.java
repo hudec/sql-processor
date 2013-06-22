@@ -2,8 +2,8 @@ package org.sample.web.dao.person;
 
 import java.util.List;
 
-import org.sample.dao.PersonDao;
-import org.sample.model.Person;
+import org.sample.dao.person.PersonDao;
+import org.sample.model.person.Person;
 import org.sample.web.form.PersonForm;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;

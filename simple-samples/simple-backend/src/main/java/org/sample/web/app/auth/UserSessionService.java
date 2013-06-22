@@ -3,8 +3,8 @@ package org.sample.web.app.auth;
 import java.util.Calendar;
 import java.util.List;
 
-import org.sample.auth.dao.UserSessionDao;
-import org.sample.auth.model.UserSession;
+import org.sample.dao.auth.UserSessionDao;
+import org.sample.model.auth.UserSession;
 import org.sample.web.form.CountHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ package org.sample.web.app.person;
 
 import java.util.List;
 
-import org.sample.model.Person;
+import org.sample.model.person.Person;
 import org.sample.web.dao.person.PersonExtDao;
 import org.sample.web.form.CountHolder;
 import org.sample.web.form.PersonForm;
@@ -24,7 +24,7 @@ public class PersonService {
 
         List<Person> people = personDao.list(form, sqlControl);
         form.clearAllInit();
-        int count = personDao.count(form, sqlControl);
+        int count = personDao.count(form, null);
         for (Person p : people) {
             logger.info("listPeople <- " + p);
             logger.info("listPeople <- " + p.getContacts());

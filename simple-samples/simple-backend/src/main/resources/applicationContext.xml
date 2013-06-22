@@ -72,14 +72,14 @@
     </bean>
 
     <bean id="personDao" class="org.sample.web.dao.person.PersonExtDao" parent="dao" />
-    <bean id="contactDao" class="org.sample.dao.ContactDao" parent="dao" />
-    <bean id="countryDao" class="org.sample.dao.CountryDao" parent="dao" />
-    <bean id="relativeDao" class="org.sample.dao.RelativeDao" parent="dao" />
+    <bean id="contactDao" class="org.sample.dao.person.ContactDao" parent="dao" />
+    <bean id="countryDao" class="org.sample.dao.person.CountryDao" parent="dao" />
+    <bean id="relativeDao" class="org.sample.dao.person.RelativeDao" parent="dao" />
 
-	<bean id="authUserDao" class="org.sample.auth.dao.AuthUserDao" parent="dao" />
-	<bean id="authRoleDao" class="org.sample.auth.dao.AuthRoleDao" parent="dao" />
-	<bean id="userRoleDao" class="org.sample.auth.dao.UserRoleDao" parent="dao" />
-	<bean id="userSessionDao" class="org.sample.auth.dao.UserSessionDao" parent="dao" />
+	<bean id="authUserDao" class="org.sample.dao.auth.AuthUserDao" parent="dao" />
+	<bean id="authRoleDao" class="org.sample.dao.auth.AuthRoleDao" parent="dao" />
+	<bean id="userRoleDao" class="org.sample.dao.auth.UserRoleDao" parent="dao" />
+	<bean id="userSessionDao" class="org.sample.dao.auth.UserSessionDao" parent="dao" />
 	
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
         <property name="metaFilesNames">

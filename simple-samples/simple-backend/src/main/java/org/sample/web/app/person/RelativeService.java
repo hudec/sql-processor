@@ -2,10 +2,10 @@ package org.sample.web.app.person;
 
 import java.util.List;
 
-import org.sample.dao.PersonDao;
-import org.sample.dao.RelativeDao;
-import org.sample.model.Person;
-import org.sample.model.Relative;
+import org.sample.dao.person.PersonDao;
+import org.sample.dao.person.RelativeDao;
+import org.sample.model.person.Person;
+import org.sample.model.person.Relative;
 import org.sample.web.form.CountHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

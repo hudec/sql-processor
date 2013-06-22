@@ -2,8 +2,8 @@ package org.sample.web.app.auth;
 
 import java.util.List;
 
-import org.sample.auth.dao.AuthRoleDao;
-import org.sample.auth.model.AuthRole;
+import org.sample.dao.auth.AuthRoleDao;
+import org.sample.model.auth.AuthRole;
 import org.sample.web.form.CountHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

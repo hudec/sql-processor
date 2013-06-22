@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.sample.auth.model.AuthRole;
-import org.sample.auth.model.AuthUser;
-import org.sample.auth.model.UserRole;
+import org.sample.model.auth.AuthRole;
+import org.sample.model.auth.AuthUser;
+import org.sample.model.auth.UserRole;
 import org.sample.web.app.auth.AuthRoleService;
 import org.sample.web.app.auth.AuthUserService;
 import org.sample.web.app.auth.UserRoleService;
