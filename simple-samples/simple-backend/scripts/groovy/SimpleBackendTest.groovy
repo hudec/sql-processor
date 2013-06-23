@@ -34,8 +34,8 @@ class SimpleBackendTest {
             return
         }
 
-        def host = (options.server) ? options.server : 'localhost:8080/simple-backend/router'
-        def action = (options.action) ? options.action : 'simpleService'
+        def host = (options.server) ? options.server : 'simple-backend.cfapps.io/router'
+        def action = (options.action) ? options.action : 'personWeb'
         def method = (options.method) ? options.method : 'loadPeople'
         def data = (options.data) ? options.data : '[{"firstName":"","lastName":"","dateOfBirthFrom":"","dateOfBirthTo":"","ssn":"","gender":"","page":1,"start":0,"limit":5,"sort":[{"property":"lastName","direction":"ASC"}]}]'
         def extDirectMethod = (options.extDirectMethod) ? options.extDirectMethod : 'STORE_READ'
