@@ -22,75 +22,75 @@ public class Contact implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Contact _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private Person person;
-    
+  
   public Person getPerson() {
     return person;
   }
-    
+  
   public void setPerson(Person person) {
     this.person = person;
   }
-    
+  
   public Contact _setPerson(Person person) {
     this.person = person;
     return this;
   }
   
   private ContactCtype ctype;
-    
+  
   public ContactCtype getCtype() {
     return ctype;
   }
-    
+  
   public void setCtype(ContactCtype ctype) {
     this.ctype = ctype;
   }
-    
+  
   public Contact _setCtype(ContactCtype ctype) {
     this.ctype = ctype;
     return this;
   }
   
   private String address;
-    
+  
   public String getAddress() {
     return address;
   }
-    
+  
   public void setAddress(String address) {
     this.address = address;
   }
-    
+  
   public Contact _setAddress(String address) {
     this.address = address;
     return this;
   }
   
   private String phoneNumber;
-    
+  
   public String getPhoneNumber() {
     return phoneNumber;
   }
-    
+  
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
-    
+  
   public Contact _setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
@@ -105,7 +105,7 @@ public class Contact implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Contact other = (Contact) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -114,7 +114,7 @@ public class Contact implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   

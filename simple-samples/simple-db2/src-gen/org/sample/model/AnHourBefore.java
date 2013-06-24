@@ -12,30 +12,30 @@ public class AnHourBefore implements Serializable {
   }
   
   private Timestamp t;
-    
+  
   public Timestamp getT() {
     return t;
   }
-    
+  
   public void setT(Timestamp t) {
     this.t = t;
   }
-    
+  
   public AnHourBefore _setT(Timestamp t) {
     this.t = t;
     return this;
   }
   
   private Timestamp result;
-    
+  
   public Timestamp getResult() {
     return result;
   }
-    
+  
   public void setResult(Timestamp result) {
     this.result = result;
   }
-    
+  
   public AnHourBefore _setResult(Timestamp result) {
     this.result = result;
     return this;

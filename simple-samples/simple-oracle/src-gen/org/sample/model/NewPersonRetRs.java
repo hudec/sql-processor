@@ -12,75 +12,75 @@ public class NewPersonRetRs implements Serializable {
   }
   
   private Timestamp dateOfBirth;
-    
+  
   public Timestamp getDateOfBirth() {
     return dateOfBirth;
   }
-    
+  
   public void setDateOfBirth(Timestamp dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
-    
+  
   public NewPersonRetRs _setDateOfBirth(Timestamp dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
   
   private String ssn;
-    
+  
   public String getSsn() {
     return ssn;
   }
-    
+  
   public void setSsn(String ssn) {
     this.ssn = ssn;
   }
-    
+  
   public NewPersonRetRs _setSsn(String ssn) {
     this.ssn = ssn;
     return this;
   }
   
   private String firstName;
-    
+  
   public String getFirstName() {
     return firstName;
   }
-    
+  
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
-    
+  
   public NewPersonRetRs _setFirstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
   
   private String lastName;
-    
+  
   public String getLastName() {
     return lastName;
   }
-    
+  
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
-    
+  
   public NewPersonRetRs _setLastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
   
   private String gender;
-    
+  
   public String getGender() {
     return gender;
   }
-    
+  
   public void setGender(String gender) {
     this.gender = gender;
   }
-    
+  
   public NewPersonRetRs _setGender(String gender) {
     this.gender = gender;
     return this;
