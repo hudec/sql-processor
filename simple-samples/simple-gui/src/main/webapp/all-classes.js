@@ -140,9 +140,7 @@ Ext.app.REMOTING_API = {
       "len" : 1
     } ]
   }
-};
-
-try {
+};try {
     Ext.require("Ext.direct.*", function() {
         Ext.direct.Manager.addProvider(Ext.app.REMOTING_API);
         Ext.direct.Manager.on("exception", function(exception) {
@@ -154,7 +152,6 @@ try {
 catch (error) {
     console.error(error);
 }
-
 Ext.define('Simplereg.view.override.PersonList', {
     override: 'Simplereg.view.PersonList'
 
