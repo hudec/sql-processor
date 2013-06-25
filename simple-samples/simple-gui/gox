@@ -5,13 +5,33 @@ SRC=/home/hudec/git/sql-processor/simple-samples/simplereg
 DST=src/main/webapp/
 API="http://simple-backend.cfapps.io/api-debug.js?fullRouterUrl=true"
 
+cat ${EXT}/packages/ext-theme-neptune/build/resources/ext-theme-neptune-all.css > ${DST}resources/Simplereg-all.css
+cat ${SRC}/resources/app.css >> ${DST}resources/Simplereg-all.css
+
 cat ${EXT}/ext-all.js > ${DST}all-classes.js
 cat ${EXT}/packages/ext-theme-neptune/build/ext-theme-neptune.js >> ${DST}all-classes.js
-cat ${EXT}/packages/ext-theme-neptune/build/resources/ext-theme-neptune-all.css > ${DST}resources/Simplereg-all.css
 
 curl ${API} >> ${DST}all-classes.js
 cat ${SRC}/resources/direct.js >> ${DST}all-classes.js
-cat ${SRC}/resources/app.css >> ${DST}resources/Simplereg-all.css
+
+cat ${SRC}/app/model/PersonIdentity.js >>  ${DST}all-classes.js
+cat ${SRC}/app/model/Person.js >>  ${DST}all-classes.js
+cat ${SRC}/app/model/Relative.js >>  ${DST}all-classes.js
+cat ${SRC}/app/model/Contact.js >>  ${DST}all-classes.js
+cat ${SRC}/app/model/Country.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/Genders.js >>  ${DST}all-classes.js
+cat ${SRC}/app/model/RelativePerson.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/QueryPeople.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/People.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/Relatives.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/RelativeTypes.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/Contacts.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/ContactTypes.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/Countries.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/Genders.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/Relations.js >>  ${DST}all-classes.js
+cat ${SRC}/app/store/RelativePeople.js >>  ${DST}all-classes.js
+
 cat ${SRC}/app/view/override/PersonList.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/PersonList.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/PersonSelect.js >>  ${DST}all-classes.js
@@ -19,21 +39,6 @@ cat ${SRC}/app/view/PersonSelect.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/Page.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/Page.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/Viewport.js >>  ${DST}all-classes.js
-cat ${SRC}/app/model/PersonIdentity.js >>  ${DST}all-classes.js
-cat ${SRC}/app/model/Person.js >>  ${DST}all-classes.js
-cat ${SRC}/app/model/Relative.js >>  ${DST}all-classes.js
-cat ${SRC}/app/model/Contact.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/Genders.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/QueryPeople.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/People.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/Relatives.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/RelativeTypes.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/Contacts.js >>  ${DST}all-classes.js
-cat ${SRC}/app/model/Country.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/ContactTypes.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/Countries.js >>  ${DST}all-classes.js
-cat ${SRC}/app/controller/override/Common.js >>  ${DST}all-classes.js
-cat ${SRC}/app/controller/Common.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/PersonSearch.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/PersonSearch.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/PersonCreate.js >>  ${DST}all-classes.js
@@ -54,6 +59,17 @@ cat ${SRC}/app/view/override/ContactUpdate.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/ContactUpdate.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/ContactDelete.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/ContactDelete.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/override/PersonContacts.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/PersonContacts.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/override/PersonData.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/PersonData.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/override/PersonRelatives.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/PersonRelatives.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/override/PersonDetail.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/PersonDetail.js >>  ${DST}all-classes.js
+
+cat ${SRC}/app/controller/override/Common.js >>  ${DST}all-classes.js
+cat ${SRC}/app/controller/Common.js >>  ${DST}all-classes.js
 cat ${SRC}/app.js >>  ${DST}all-classes.js
 
 
