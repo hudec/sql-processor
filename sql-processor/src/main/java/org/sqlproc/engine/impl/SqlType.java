@@ -117,21 +117,21 @@ class SqlType {
     public void setValue(String value) {
         this.value = value;
     }
-
-    /**
-     * Returns the indicator the value is the correct one.
-     * 
-     * @param values
-     *            the set of correct values
-     * @return the indicator the value is the correct one
-     */
-    public boolean hasValue(String... values) {
-        if (this.value == null)
-            return false;
-        for (String v : values) {
-            if (this.value.equalsIgnoreCase(v))
-                return true;
-        }
-        return false;
-    }
+    //
+    // /**
+    // * Returns the indicator the value is the correct one.
+    // *
+    // * @param values
+    // * the set of correct values
+    // * @return the indicator the value is the correct one
+    // */
+    // public boolean hasValue(String... values) {
+    // if (this.value == null)
+    // return false;
+    // for (String v : values) {
+    // if (this.value.equalsIgnoreCase(v))
+    // return true;
+    // }
+    // return false;
+    // }
 }

@@ -136,7 +136,10 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             value = value.substring(0, ix);
         }
         if (value2 == null) {
-            sqlType.setValue(value);
+            if (value.equals(Modifiers.MODIFIER_ANYSET))
+                values.put(value, null);
+            else
+                sqlType.setValue(value);
         } else {
             values.put(value, value2);
         }
@@ -252,7 +255,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
         if (obj != null) {
             if (obj instanceof Collection) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
-                if (!notEmpty && sqlType != null && sqlType.hasValue(Modifiers.MODIFIER_ANYSET, Modifiers.MODIFIER_ANY)) {
+                if (!notEmpty && values.containsKey(Modifiers.MODIFIER_ANYSET)) {
                     result.setSql(new StringBuilder("(null)"));
                 } else {
                     StringBuilder s = new StringBuilder(notEmpty ? "(" : "");

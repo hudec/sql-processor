@@ -828,7 +828,7 @@ COLLECTIONS_EMPTY2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
   from PERSON p
   where 1=1
-  {& p.ID in :idSet(any)}
+  {& p.ID in :idSet(anyset,notnull)}
   {& p.LASTUPDATEDBY in :updatedBySet}
   {#1 order by id}
 ;

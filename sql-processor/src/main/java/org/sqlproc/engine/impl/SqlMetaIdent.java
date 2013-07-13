@@ -144,10 +144,12 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             value = value.substring(0, ix);
         }
         if (value2 == null) {
-            if (value.equals(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT))
-                values.put(value, SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
-            else if (value.equals(SqlSequencePlugin.MODIFIER_SEQUENCE))
-                values.put(value, SqlSequencePlugin.MODIFIER_SEQUENCE);
+            if (value.equals(Modifiers.MODIFIER_IDENTITY_SELECT))
+                values.put(value, Modifiers.MODIFIER_IDENTITY_SELECT);
+            else if (value.equals(Modifiers.MODIFIER_SEQUENCE))
+                values.put(value, Modifiers.MODIFIER_SEQUENCE);
+            else if (value.equals(Modifiers.MODIFIER_ANYSET))
+                values.put(value, null);
             else
                 sqlType.setValue(value);
         } else {
@@ -290,7 +292,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
             if (obj != null && obj instanceof Collection<?>) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
-                if (!notEmpty && sqlType != null && sqlType.hasValue(Modifiers.MODIFIER_ANYSET, Modifiers.MODIFIER_ANY)) {
+                if (!notEmpty && values.containsKey(Modifiers.MODIFIER_ANYSET)) {
                     result.setSql(new StringBuilder("(null)"));
                 } else {
                     StringBuilder ss = new StringBuilder(notEmpty ? "(" : "");
