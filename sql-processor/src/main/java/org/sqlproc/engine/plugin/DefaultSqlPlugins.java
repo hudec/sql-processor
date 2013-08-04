@@ -187,24 +187,60 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         }
     }
 
+    boolean debug = false;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String sqlCount(StringBuilder sql) {
+        if (debug)
+            System.out.println("sql " + sql);
         String s = sql.toString().toUpperCase();
         int start = s.indexOf("ID");
         int end = s.indexOf("FROM");
+        if (debug)
+            System.out.println("start " + start);
+        if (debug)
+            System.out.println("end " + end);
         StringBuilder sb = sql;
         if (start < 0 || end < 0 || start > end)
             return "select count(*) as vysledek from (" + sb.toString() + ") derived";
-        String s1 = sb.substring(0, start + 2);
+        int l = start + 2;
+        for (; l < end; l++) {
+            char c = s.charAt(l);
+            if (c == '_')
+                continue;
+            if (c >= 'A' && c <= 'Z')
+                continue;
+            break;
+        }
+        if (debug)
+            System.out.println("l " + l);
+        String s1 = sb.substring(0, l);
         String s2 = sb.substring(end);
+        if (debug)
+            System.out.println("s1 " + s1);
+        if (debug)
+            System.out.println("s2 " + s2);
         start = s1.toUpperCase().indexOf("SELECT");
+        if (debug)
+            System.out.println("start " + start);
         if (start < 0)
             return "select count(*) as vysledek from (" + sb.toString() + ") derived";
         end = (s1.indexOf(",") < 0) ? start + 6 : s1.indexOf(",") + 1;
-        return s1.substring(0, start) + "select count(distinct" + s1.substring(end) + ") as vysledek " + s2;
+        if (debug)
+            System.out.println("end " + end);
+        String s11 = s1.substring(0, start);
+        String s12 = s1.substring(end);
+        if (debug)
+            System.out.println("s11 " + s11);
+        if (debug)
+            System.out.println("s12 " + s12);
+        String result = s11 + "select count(distinct" + s12 + ") as vysledek " + s2;
+        if (debug)
+            System.out.println("result " + result);
+        return result;
     }
 
     /**
