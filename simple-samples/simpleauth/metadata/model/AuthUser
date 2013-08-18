@@ -1,0 +1,121 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AuthUser"
+    },
+    "designerId": "3cd4b154-5b6a-48b6-998f-68bf981f0e6a",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id",
+                "type": "int"
+            },
+            "designerId": "94a4ee16-1c66-46f3-92bb-5479905853b6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "version",
+                "type": "int"
+            },
+            "designerId": "6afb0a6b-009a-4972-91bc-77ed098314fe"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "username",
+                "type": "string"
+            },
+            "designerId": "60c3cbb2-0d7b-416c-ba04-077d9e79b9ae"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "password",
+                "type": "string"
+            },
+            "designerId": "e8c4aa13-3fde-4d82-b579-9a1184c0e3d5"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name",
+                "type": "string"
+            },
+            "designerId": "6f3877fc-372f-4783-ab7a-53ea9f57f049"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "email",
+                "type": "string"
+            },
+            "designerId": "3fa09425-c478-404f-a633-092c15b2ae40"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "lastLogin",
+                "type": "date"
+            },
+            "designerId": "70a5ce13-a427-407c-bd40-bb3591e4d7bf"
+        },
+        {
+            "type": "Ext.data.association.HasMany",
+            "reference": {
+                "name": "hasMany",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "associationKey": "userRoles",
+                "model": "UserRole",
+                "designer|displayName": "hasManyUserRoles",
+                "foreignKey": "authUserId",
+                "name": "userRoles"
+            },
+            "designerId": "de76cefa-ca71-4665-8640-b451c9eaaece"
+        }
+    ]
+}

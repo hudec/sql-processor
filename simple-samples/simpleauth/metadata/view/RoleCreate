@@ -1,0 +1,88 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": null,
+        "id": "RoleCreate",
+        "itemId": "dialog",
+        "width": 400,
+        "designer|userClassName": "RoleCreate",
+        "closeAction": "hide",
+        "iconCls": "icon-add",
+        "title": "Add Role",
+        "modal": true
+    },
+    "designerId": "8874cbcb-c734-4d5d-8fd1-ea1e0070e89f",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "defaults": null,
+                "bodyPadding": 10,
+                "header": false,
+                "title": "Data",
+                "api": [
+                    "{ submit: \"authWeb.createAuthRole\" }"
+                ],
+                "standardSubmit": false,
+                "trackResetOnLoad": true
+            },
+            "designerId": "123406e9-898b-49a4-a61e-123bf1fb903a",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Name",
+                        "name": "name",
+                        "allowBlank": false
+                    },
+                    "designerId": "be134103-7da4-497d-90e3-e5835e221106"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Description",
+                        "name": "description",
+                        "inputType": null,
+                        "vtype": null
+                    },
+                    "designerId": "2b4b688d-7b3a-4469-8925-73d0dad5b00a"
+                }
+            ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "7d2b6bc5-5cbb-4010-9442-8c16c29d9f35",
+            "masterInstanceId": "39500951-445d-44a4-a963-93c0cb969557"
+        }
+    ]
+}
