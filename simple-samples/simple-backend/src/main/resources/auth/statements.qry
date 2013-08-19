@@ -15,6 +15,27 @@ SELECT_AUTH_USER(QRY,inx=AuthUser,outx=AuthUser,tab=authUser=a,tab=userRole=u,ta
   {#2 order by %a.USERNAME }
 ;
 
+
+INSERT_AUTH_ROLE(CRUD,inx=AuthRole,outx=AuthRole,tab=authRole,MYSQL)=
+  insert into %%AUTH_ROLE (%NAME, %DESCRIPTION, %VERSION)
+  {= values (:id(idsel), :name, :description, :version) }
+;
+
+INSERT_AUTH_USER(CRUD,inx=AuthUser,outx=AuthUser,tab=authUser,MYSQL)=
+  insert into %%AUTH_USER (%USERNAME, %PASSWORD, %NAME, %EMAIL, %LAST_LOGIN, %VERSION)
+  {= values (:id(idsel), :username, :password, :name, :email, :lastLogin, :version) }
+;
+
+INSERT_USER_ROLE(CRUD,inx=UserRole,outx=UserRole,tab=userRole,MYSQL)=
+  insert into %%USER_ROLE (%AUTH_USER_ID, %AUTH_ROLE_ID, %VERSION)
+  {= values (:id(idsel), :authUserId, :authRole.id, :version) }
+;
+
+INSERT_USER_SESSION(CRUD,inx=UserSession,outx=UserSession,tab=userSession,MYSQL)=
+  insert into %%USER_SESSION (%AUTH_USER_ID, %LAST_ACCESS)
+  {= values (:id(idsel), :authUserId, :lastAccess) }
+;
+
 // generated type
 
 INSERT_AUTH_ROLE(CRUD,inx=AuthRole,outx=AuthRole,tab=authRole)=
