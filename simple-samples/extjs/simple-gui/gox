@@ -20,7 +20,7 @@ cat ${SRC}/app/model/Relative.js >>  ${DST}all-classes.js
 cat ${SRC}/app/model/Contact.js >>  ${DST}all-classes.js
 cat ${SRC}/app/model/Country.js >>  ${DST}all-classes.js
 cat ${SRC}/app/store/Genders.js >>  ${DST}all-classes.js
-cat ${SRC}/app/model/RelativePerson.js >>  ${DST}all-classes.js
+#cat ${SRC}/app/model/RelativePerson.js >>  ${DST}all-classes.js
 cat ${SRC}/app/store/QueryPeople.js >>  ${DST}all-classes.js
 cat ${SRC}/app/store/People.js >>  ${DST}all-classes.js
 cat ${SRC}/app/store/Relatives.js >>  ${DST}all-classes.js
@@ -30,7 +30,7 @@ cat ${SRC}/app/store/ContactTypes.js >>  ${DST}all-classes.js
 cat ${SRC}/app/store/Countries.js >>  ${DST}all-classes.js
 cat ${SRC}/app/store/Genders.js >>  ${DST}all-classes.js
 cat ${SRC}/app/store/Relations.js >>  ${DST}all-classes.js
-cat ${SRC}/app/store/RelativePeople.js >>  ${DST}all-classes.js
+#cat ${SRC}/app/store/RelativePeople.js >>  ${DST}all-classes.js
 
 cat ${SRC}/app/view/override/PersonList.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/PersonList.js >>  ${DST}all-classes.js
@@ -71,8 +71,8 @@ cat ${SRC}/app/view/PersonRelatives.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/PersonDetail.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/PersonDetail.js >>  ${DST}all-classes.js
 
-cat ${SRC}/app/controller/override/Common.js >>  ${DST}all-classes.js
-cat ${SRC}/app/controller/Common.js >>  ${DST}all-classes.js
+#cat ${SRC}/app/controller/override/Common.js >>  ${DST}all-classes.js
+#cat ${SRC}/app/controller/Common.js >>  ${DST}all-classes.js
 cat ${SRC}/app.js >>  ${DST}all-classes.js
 
 cat ${SRC}/app/view/DialogToolbar.js >>  ${DST}all-classes.js
