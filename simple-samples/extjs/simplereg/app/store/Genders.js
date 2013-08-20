@@ -25,15 +25,15 @@ Ext.define('Simplereg.store.Genders', {
             data: [
                 {
                     value: 'MALE',
-                    name: 'MALE'
+                    name: 'Male'
                 },
                 {
                     value: 'FEMALE',
-                    name: 'FEMALE'
+                    name: 'Female'
                 },
                 {
                     value: 'UNKNOWN',
-                    name: 'UNKNOWN'
+                    name: '---'
                 }
             ],
             fields: [

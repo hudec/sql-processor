@@ -32,18 +32,6 @@ Ext.define('Simplereg.view.PersonList', {
         Ext.applyIf(me, {
             dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            itemId: 'open',
-                            iconCls: 'icon-page',
-                            text: 'Open'
-                        }
-                    ]
-                },
-                {
                     xtype: 'pagingtoolbar',
                     dock: 'bottom',
                     width: 360,
@@ -104,6 +92,22 @@ Ext.define('Simplereg.view.PersonList', {
                     dataIndex: 'gender',
                     text: 'Gender',
                     flex: 1
+                },
+                {
+                    xtype: 'actioncolumn',
+                    hideable: false,
+                    flex: 0.1,
+                    items: [
+                        {
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                var page = Ext.getCmp("page");
+                                page.openPersonDetail(record.data.id, record);
+                            },
+                            action: 'open',
+                            iconCls: 'icon-page',
+                            tooltip: 'Open Person Detail'
+                        }
+                    ]
                 }
             ]
         });

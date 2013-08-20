@@ -1,7 +1,7 @@
 #!/bin/bash
 
 EXT=/home/hudec/soft/ext-4.2.0.663
-SRC=/home/hudec/git/sql-processor/simple-samples/simplereg
+SRC=/home/hudec/git/sql-processor/simple-samples/extjs/simplereg
 DST=src/main/webapp/
 API="http://simple-backend.cfapps.io/api-debug.js?fullRouterUrl=true"
 
@@ -39,6 +39,9 @@ cat ${SRC}/app/view/PersonSelect.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/Page.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/Page.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/Viewport.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/System.js >>  ${DST}all-classes.js
+cat ${SRC}/app/controller/override/Page.js >>  ${DST}all-classes.js
+cat ${SRC}/app/controller/Page.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/PersonSearch.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/PersonSearch.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/override/PersonCreate.js >>  ${DST}all-classes.js
@@ -71,5 +74,9 @@ cat ${SRC}/app/view/PersonDetail.js >>  ${DST}all-classes.js
 cat ${SRC}/app/controller/override/Common.js >>  ${DST}all-classes.js
 cat ${SRC}/app/controller/Common.js >>  ${DST}all-classes.js
 cat ${SRC}/app.js >>  ${DST}all-classes.js
+
+cat ${SRC}/app/view/DialogToolbar.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/DialogToolbar2.js >>  ${DST}all-classes.js
+cat ${SRC}/app/view/ListToolbar.js >>  ${DST}all-classes.js
 
 

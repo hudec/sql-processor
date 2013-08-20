@@ -1,5 +1,7 @@
 //TODO: reset selection on load (reload record)
 
+Ext.state.Manager.setProvider(Ext.create('Ext.state.LocalStorageProvider'));
+
 Ext.define("Ext.grid.column.Text", {
     override: "Ext.grid.column.Column",
     /*
@@ -109,19 +111,19 @@ Ext.define('Simpleauth.controller.override.Page', {
                         return false;
                     }
                     var dialog = action.form.owner.up("#dialog");
-                    dialog.mask("Processing...");
+                    dialog.el.mask("Processing...");
                 },
                 actioncomplete: function(basic, action, eOpts) {
                     var dialog = action.form.owner.up("#dialog");
                     if (dialog.store) { //reload assigned store...
                         dialog.store.reload();
                     }
-                    dialog.unmask();
+                    dialog.el.unmask();
                     dialog.close();
                 },
                 actionfailed: function(basic, action, eOpts) {
                     var dialog = action.form.owner.up("#dialog");
-                    dialog.unmask();
+                    dialog.el.unmask();
                 }
             },
             "#dialog button[action=submit]": {
@@ -177,7 +179,6 @@ Ext.define('Simpleauth.controller.override.Page', {
                         }
                     });
                 },
-                /*
                 load: function(component, eOpts) {
                     if (component.autoSelect !== false) {
                         var model = component.getSelectionModel();
@@ -186,7 +187,6 @@ Ext.define('Simpleauth.controller.override.Page', {
                         }
                     }
                 }
-                */
             },
             "#Users": {
                 create: function(grid, record) {

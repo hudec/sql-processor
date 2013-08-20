@@ -24,7 +24,7 @@
             "userConfig": {
                 "designer|displayName": "Proxy",
                 "api": [
-                    "{ read: \"simpleService.loadRelatives\" }"
+                    "{ read: \"personWeb.loadRelatives\" }"
                 ],
                 "extraParams": null
             },

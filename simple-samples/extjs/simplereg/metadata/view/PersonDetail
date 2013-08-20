@@ -35,10 +35,37 @@
             "userConfig": {
                 "dock": "top",
                 "cls": "thick",
+                "itemId": "main",
                 "designer|displayName": "Toolbar"
             },
             "designerId": "81ba3969-5dba-4adb-a6ea-3e79d0307891",
             "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null
+                    },
+                    "designerId": "d29441bf-5ca9-4db6-8e92-3da1d36bafd8",
+                    "masterInstanceId": "c46988ce-2ef4-4c66-9b8b-69e879839437"
+                },
+                {
+                    "type": "Ext.toolbar.Separator",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "designer|displayName": "Separator"
+                    },
+                    "designerId": "65d6927e-626d-4272-bf14-5748b83a71a7"
+                },
                 {
                     "type": "Ext.button.Split",
                     "reference": {
@@ -47,12 +74,20 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "action": "search",
                         "layout|flex": null,
-                        "itemId": "search-person",
+                        "itemId": null,
                         "iconCls": "icon-search",
                         "text": "Find"
                     },
                     "designerId": "fb6a9b1d-4e5b-42cd-b468-96b7fddfa6ce",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "action",
+                            "type": "string"
+                        }
+                    ],
                     "cn": [
                         {
                             "type": "Ext.menu.Menu",
@@ -75,27 +110,22 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "itemId": "search-all-people",
+                                        "action": "search-all",
+                                        "itemId": null,
                                         "text": "Clear Filter"
                                     },
-                                    "designerId": "f2197ec1-45d4-4f10-8ea9-f40ba70c1e4e"
+                                    "designerId": "f2197ec1-45d4-4f10-8ea9-f40ba70c1e4e",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "action",
+                                            "type": "string"
+                                        }
+                                    ]
                                 }
                             ]
                         }
                     ]
-                },
-                {
-                    "type": "Ext.toolbar.Separator",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "designer|displayName": "Separator"
-                    },
-                    "designerId": "cb3df2dc-3f57-4e77-928b-a49ea763c8c7"
                 },
                 {
                     "type": "Ext.button.Button",
@@ -105,12 +135,20 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "action": "reload",
                         "layout|flex": null,
-                        "itemId": "reload",
+                        "itemId": null,
                         "iconCls": "icon-refresh",
                         "text": "Refresh"
                     },
-                    "designerId": "a6b14d6a-3100-4397-86b7-211f23a85756"
+                    "designerId": "a6b14d6a-3100-4397-86b7-211f23a85756",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "action",
+                            "type": "string"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.toolbar.Separator",
@@ -133,12 +171,20 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "action": "create",
                         "layout|flex": null,
-                        "itemId": "create-person",
+                        "itemId": null,
                         "iconCls": "icon-add",
                         "text": "Add"
                     },
-                    "designerId": "96450b79-685f-445b-898c-6bc61970070c"
+                    "designerId": "96450b79-685f-445b-898c-6bc61970070c",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "action",
+                            "type": "string"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.button.Button",
@@ -148,12 +194,20 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "action": "delete",
                         "layout|flex": null,
-                        "itemId": "delete-person",
+                        "itemId": null,
                         "iconCls": "icon-delete",
                         "text": "Remove"
                     },
-                    "designerId": "634e4da0-9de4-4579-9daf-1e49a37e6adf"
+                    "designerId": "634e4da0-9de4-4579-9daf-1e49a37e6adf",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "action",
+                            "type": "string"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.toolbar.Fill",
@@ -176,12 +230,20 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "action": "close",
                         "layout|flex": null,
-                        "itemId": "close",
+                        "itemId": null,
                         "iconCls": "icon-page-close",
                         "text": "Close"
                     },
                     "designerId": "afdbcf17-e768-4e9c-aff4-8cfbcc30f65c",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "action",
+                            "type": "string"
+                        }
+                    ],
                     "cn": [
                         {
                             "type": "Ext.menu.Menu",
@@ -204,10 +266,18 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "itemId": "close-all",
+                                        "action": "close-all",
+                                        "itemId": null,
                                         "text": "Close All"
                                     },
-                                    "designerId": "66827232-4be3-4757-90ae-a888b0bd38b3"
+                                    "designerId": "66827232-4be3-4757-90ae-a888b0bd38b3",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "action",
+                                            "type": "string"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.menu.Item",
@@ -217,10 +287,18 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "itemId": "close-other",
+                                        "action": "close-other",
+                                        "itemId": null,
                                         "text": "Close All but Active"
                                     },
-                                    "designerId": "4f5b2045-fd3c-4bb2-8c54-ca459efc983e"
+                                    "designerId": "4f5b2045-fd3c-4bb2-8c54-ca459efc983e",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "action",
+                                            "type": "string"
+                                        }
+                                    ]
                                 }
                             ]
                         }
@@ -236,6 +314,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "disabled": null,
                 "margin": 5,
                 "layout|flex": 1
             },

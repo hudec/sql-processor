@@ -17,6 +17,7 @@ Ext.define('Simplereg.view.RelativeUpdate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.RelativeUpdate'
     ],
 
@@ -39,35 +40,6 @@ Ext.define('Simplereg.view.RelativeUpdate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-edit',
-                                    text: 'Modify Relative'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -122,6 +94,9 @@ Ext.define('Simplereg.view.RelativeUpdate', {
                             name: 'relPerson.title'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });

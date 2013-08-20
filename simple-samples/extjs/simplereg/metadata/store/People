@@ -26,7 +26,7 @@
             "userConfig": {
                 "designer|displayName": "Proxy",
                 "api": [
-                    "{ read: \"simpleService.loadPeople\" }"
+                    "{ read: \"personWeb.loadPeople\" }"
                 ]
             },
             "designerId": "d0c0b616-6398-42f6-9209-9732fcfa1fdc",

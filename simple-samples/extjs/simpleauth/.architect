@@ -7,6 +7,7 @@
         "resource": true,
         "249e1f27-517c-4645-98b6-241a0c721dc4": {
             "id": "249e1f27-517c-4645-98b6-241a0c721dc4",
+            "expanded": false,
             "cn": [
                 {
                     "id": "474b0596-4303-4167-a178-bb54f2bd58d0",
@@ -32,7 +33,6 @@
                         },
                         {
                             "id": "ded2b7e8-f6d6-40c5-ae3f-232bd97ced23",
-                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "f74b9e68-88bb-49e0-93e3-f1ad43989227"
@@ -592,7 +592,7 @@
         "selectedInstance": "application"
     },
     "codeState": {
-        "topInstance": "5c2a8106-884f-4f0d-9af1-1ec63e959e20"
+        "topInstance": "6298b33d-bfda-4823-83ea-8ab71330138c"
     },
     "editMode": "design"
 }

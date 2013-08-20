@@ -17,6 +17,7 @@ Ext.define('Simplereg.view.RelativeDelete', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar2',
         'Simplereg.view.override.RelativeDelete'
     ],
 
@@ -39,29 +40,6 @@ Ext.define('Simplereg.view.RelativeDelete', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-delete',
-                                    text: 'Remove Relative'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -108,6 +86,9 @@ Ext.define('Simplereg.view.RelativeDelete', {
                             name: 'relPerson.title'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar2'
                 }
             ]
         });

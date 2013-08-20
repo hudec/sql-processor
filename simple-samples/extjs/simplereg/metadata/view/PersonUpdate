@@ -34,81 +34,6 @@
             "designerId": "0b8eb2fe-a888-49bc-91ec-12fa95e0ce2c",
             "cn": [
                 {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom",
-                        "designer|displayName": "Toolbar"
-                    },
-                    "designerId": "bc67a4c6-44ee-4df5-88d8-5bc4f01a0da7",
-                    "cn": [
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "reset",
-                                "iconCls": "icon-reset",
-                                "text": "Reset"
-                            },
-                            "designerId": "19b6d840-e734-45be-82e9-c39bc7d8c601"
-                        },
-                        {
-                            "type": "Ext.toolbar.Fill",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "designer|displayName": "Fill"
-                            },
-                            "designerId": "7b292957-3451-4659-9e2b-72a0d19422cc"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "id": null,
-                                "itemId": "cancel",
-                                "iconCls": "icon-cancel",
-                                "text": "Cancel"
-                            },
-                            "designerId": "b7adaeb2-65b4-4fb1-a29b-7d48a56b3cbe"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "id": null,
-                                "itemId": "submit",
-                                "iconCls": "icon-edit",
-                                "text": "Modify Person"
-                            },
-                            "designerId": "f23ca92c-362f-4f38-bcd4-02c979f92297"
-                        }
-                    ]
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -222,6 +147,19 @@
                     "designerId": "bcf92e76-2279-4012-9df1-7419aca2ff64"
                 }
             ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "bc6822b0-52a9-44f6-81ca-8f7a220efc8c",
+            "masterInstanceId": "39500951-445d-44a4-a963-93c0cb969557"
         }
     ]
 }

@@ -1,0 +1,91 @@
+{
+    "type": "Ext.toolbar.Toolbar",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "hidden": null,
+        "ui": "footer",
+        "designer|userClassName": "DialogToolbar",
+        "designer|userAlias": "dialogtoolbar"
+    },
+    "designerId": "39500951-445d-44a4-a963-93c0cb969557",
+    "cn": [
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "action": "accept",
+                "layout|flex": null,
+                "itemId": null,
+                "minWidth": null,
+                "ui": null,
+                "width": 70,
+                "iconCls": null,
+                "text": "OK"
+            },
+            "designerId": "1406fce3-2651-40ec-b3ea-6fc2bccd3123",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "action": "cancel",
+                "layout|flex": null,
+                "itemId": null,
+                "width": 70,
+                "iconCls": null,
+                "text": "Cancel"
+            },
+            "designerId": "64d3117b-c244-4c32-bb8c-4de36c7c5062",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "action": "reset",
+                "layout|flex": null,
+                "itemId": null,
+                "width": 70,
+                "iconCls": null,
+                "text": "Reset"
+            },
+            "designerId": "e44905c2-194a-4514-abcb-e1a99c9e4911",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
+        }
+    ]
+}

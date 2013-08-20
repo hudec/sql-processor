@@ -17,6 +17,7 @@ Ext.define('Simplereg.view.PersonDelete', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar2',
         'Simplereg.view.override.PersonDelete'
     ],
 
@@ -39,29 +40,6 @@ Ext.define('Simplereg.view.PersonDelete', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-delete',
-                                    text: 'Remove Person'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -111,6 +89,9 @@ Ext.define('Simplereg.view.PersonDelete', {
                             name: 'gender'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar2'
                 }
             ]
         });

@@ -6,10 +6,10 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": null,
+        "autoLoad": true,
         "model": "Person",
         "remoteFilter": true,
-        "remoteSort": true,
+        "remoteSort": null,
         "storeId": "QueryPeople",
         "designer|userClassName": "QueryPeople",
         "pageSize": 5
@@ -26,7 +26,7 @@
             "userConfig": {
                 "designer|displayName": "Proxy",
                 "api": [
-                    "{ read: \"simpleService.loadPeople\" }"
+                    "{ read: \"personWeb.loadPeople\" }"
                 ]
             },
             "designerId": "dded2a51-5291-4881-af55-01bf3e8464f5",

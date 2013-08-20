@@ -17,6 +17,7 @@ Ext.define('Simplereg.view.RelativeCreate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.RelativeCreate'
     ],
 
@@ -39,35 +40,6 @@ Ext.define('Simplereg.view.RelativeCreate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-add',
-                                    text: 'Add Relative'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -123,12 +95,14 @@ Ext.define('Simplereg.view.RelativeCreate', {
                                     xtype: 'button',
                                     itemId: 'search-person',
                                     iconCls: 'icon-search',
-                                    text: '',
-                                    tooltip: 'Find relative person'
+                                    text: ''
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });

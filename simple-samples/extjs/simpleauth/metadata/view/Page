@@ -25,6 +25,7 @@
                 "id": "pages",
                 "headerPosition": null,
                 "activeTab": 0,
+                "deferredRender": false,
                 "plain": true,
                 "tabPosition": null
             },
@@ -136,6 +137,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "autoRender": null,
                                 "designer|displayName": "TabConfig"
                             },
                             "designerId": "f74b9e68-88bb-49e0-93e3-f1ad43989227"

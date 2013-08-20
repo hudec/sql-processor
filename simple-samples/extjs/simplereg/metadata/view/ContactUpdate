@@ -34,79 +34,6 @@
             "designerId": "cca33185-6c4b-4597-8a0a-c7e423eb46cc",
             "cn": [
                 {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom",
-                        "designer|displayName": "Toolbar"
-                    },
-                    "designerId": "0d0d1c4e-5823-4536-8a54-3b98dac57ce1",
-                    "cn": [
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "reset",
-                                "iconCls": "icon-reset",
-                                "text": "Reset"
-                            },
-                            "designerId": "c0806be8-575a-4e8e-a65a-c6f61ed21ad8"
-                        },
-                        {
-                            "type": "Ext.toolbar.Fill",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "designer|displayName": "Fill"
-                            },
-                            "designerId": "40bd7d3f-09bc-46a7-8969-d249e2ae7cb6"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "cancel",
-                                "iconCls": "icon-cancel",
-                                "text": "Cancel"
-                            },
-                            "designerId": "505246d1-3c98-4275-a743-c4ad25942d85"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "submit",
-                                "iconCls": "icon-edit",
-                                "text": "Modify Contact"
-                            },
-                            "designerId": "e985e6a5-59f5-4ad5-ba88-280bdb1491ef"
-                        }
-                    ]
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -246,6 +173,19 @@
                     "designerId": "df7473a5-4a2b-4220-9e3e-d6488d385523"
                 }
             ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "3a062f89-4ada-41e9-bec6-3a19b03570bf",
+            "masterInstanceId": "39500951-445d-44a4-a963-93c0cb969557"
         }
     ]
 }

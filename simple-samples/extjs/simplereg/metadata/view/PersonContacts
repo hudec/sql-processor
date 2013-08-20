@@ -27,14 +27,22 @@
             },
             "codeClass": null,
             "userConfig": {
-                "itemId": "reload",
+                "action": "reload",
+                "itemId": null,
                 "designer|displayName": "Reload",
                 "type": "refresh"
             },
-            "designerId": "c40ccb64-5982-4825-a2ed-c1e8924431a4"
+            "designerId": "c40ccb64-5982-4825-a2ed-c1e8924431a4",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
         },
         {
-            "type": "Ext.toolbar.Toolbar",
+            "type": "linkedinstance",
             "reference": {
                 "name": "dockedItems",
                 "type": "array"
@@ -44,54 +52,8 @@
                 "dock": "top",
                 "designer|displayName": "Toolbar"
             },
-            "designerId": "507d0496-1a3d-48a1-81dc-dbf1e9a5ad08",
-            "cn": [
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "itemId": "create-contact",
-                        "iconCls": "icon-add",
-                        "text": "Add"
-                    },
-                    "designerId": "49efd91d-6d75-449d-830b-111260939d6e"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "itemId": "delete-contact",
-                        "iconCls": "icon-delete",
-                        "text": "Remove"
-                    },
-                    "designerId": "ea8afc72-023c-4f50-b12c-abcaec389fd8"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "itemId": "update-contact",
-                        "iconCls": "icon-edit",
-                        "text": "Modify"
-                    },
-                    "designerId": "573c1b70-baf1-4d43-946d-f2bfcf5c7375"
-                }
-            ]
+            "designerId": "bc8002ea-f645-4f96-829b-ca7886e610cb",
+            "masterInstanceId": "8bdfeb77-92a1-422b-97ba-9aea4cd8870e"
         },
         {
             "type": "Ext.grid.View",

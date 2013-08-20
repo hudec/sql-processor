@@ -37,66 +37,6 @@
             "designerId": "fa425635-19e5-4334-ab11-f63a28628f2b",
             "cn": [
                 {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom",
-                        "designer|displayName": "Toolbar"
-                    },
-                    "designerId": "9d597e3f-ccd1-41db-a5e5-f5890c2a810f",
-                    "cn": [
-                        {
-                            "type": "Ext.toolbar.Fill",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "designer|displayName": "Fill"
-                            },
-                            "designerId": "3251d1bb-c715-4f45-b72b-6853acdf8732"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "id": null,
-                                "itemId": "cancel",
-                                "iconCls": "icon-cancel",
-                                "text": "Cancel"
-                            },
-                            "designerId": "aec6a27e-64d7-4df0-9316-ed572a30d880"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "id": null,
-                                "itemId": "submit",
-                                "iconCls": "icon-delete",
-                                "text": "Remove Relative"
-                            },
-                            "designerId": "9ae8693b-316f-4c15-96e1-e63618d058d4"
-                        }
-                    ]
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -189,6 +129,19 @@
                     "designerId": "ffe7aaff-cc3e-445e-9b8f-cb058b45aa33"
                 }
             ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "5dc50aee-ddb2-410a-923c-516a27ae2664",
+            "masterInstanceId": "48677c89-8429-4318-8f02-ee03bf56b5f0"
         }
     ]
 }

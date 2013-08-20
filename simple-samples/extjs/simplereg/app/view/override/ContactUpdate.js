@@ -1,11 +1,13 @@
 Ext.define("Simplereg.view.override.ContactUpdate", {
-    override : "Simplereg.view.ContactUpdate",
-
+    override: "Simplereg.view.ContactUpdate",
+    
     /**
-     * Handle dialog submit (update contact)
+     * Handle dialog submit
+     * (update contact)
      */
-    submit : function() {
-        var me = this, form = me.down("form"), view = Ext.getCmp("pages").getActiveTab();
+    submit: function() {
+        var me = this, form = me.down("form"),
+                view = Ext.getCmp("pages").getActiveTab();
 
         if (!form.isValid()) {
             return false;
@@ -28,7 +30,8 @@ Ext.define("Simplereg.view.override.ContactUpdate", {
                         view.down("#contacts").reload();
                     }
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });

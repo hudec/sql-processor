@@ -17,6 +17,7 @@ Ext.define('Simplereg.view.ContactDelete', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar2',
         'Simplereg.view.override.ContactDelete'
     ],
 
@@ -39,29 +40,6 @@ Ext.define('Simplereg.view.ContactDelete', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-delete',
-                                    text: 'Remove Contact'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -112,6 +90,9 @@ Ext.define('Simplereg.view.ContactDelete', {
                             name: 'phoneNumber'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar2'
                 }
             ]
         });

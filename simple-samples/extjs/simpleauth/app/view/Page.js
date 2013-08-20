@@ -36,6 +36,7 @@ Ext.define('Simpleauth.view.Page', {
                     xtype: 'tabpanel',
                     id: 'pages',
                     activeTab: 0,
+                    deferredRender: false,
                     plain: true,
                     items: [
                         {

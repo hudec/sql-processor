@@ -17,6 +17,7 @@ Ext.define('Simplereg.view.PersonSearch', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.PersonSearch'
     ],
 
@@ -39,35 +40,6 @@ Ext.define('Simplereg.view.PersonSearch', {
                     bodyPadding: 10,
                     header: false,
                     title: 'Data',
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-search',
-                                    text: 'Find Person'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'textfield',
@@ -136,6 +108,9 @@ Ext.define('Simplereg.view.PersonSearch', {
                             valueField: 'value'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });

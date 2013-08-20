@@ -50,6 +50,9 @@
                                 "type": "object"
                             },
                             "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "TabConfig"
+                            },
                             "designerId": "9d1431f5-4ef3-426b-8672-88563518e13a"
                         }
                     ]

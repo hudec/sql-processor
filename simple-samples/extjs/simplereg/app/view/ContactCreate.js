@@ -17,6 +17,7 @@ Ext.define('Simplereg.view.ContactCreate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.ContactCreate'
     ],
 
@@ -39,35 +40,6 @@ Ext.define('Simplereg.view.ContactCreate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-add',
-                                    text: 'Add Contact'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -119,6 +91,9 @@ Ext.define('Simplereg.view.ContactCreate', {
                             name: 'phoneNumber'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });

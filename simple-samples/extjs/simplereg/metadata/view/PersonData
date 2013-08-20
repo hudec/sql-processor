@@ -40,12 +40,20 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "action": "update",
                         "layout|flex": null,
-                        "itemId": "update-person",
+                        "itemId": null,
                         "iconCls": "icon-edit",
                         "text": "Modify"
                     },
-                    "designerId": "969b49b3-7cab-4a5f-af4d-47eef498e211"
+                    "designerId": "969b49b3-7cab-4a5f-af4d-47eef498e211",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "action",
+                            "type": "string"
+                        }
+                    ]
                 }
             ]
         },

@@ -100,6 +100,7 @@ Ext.define("Simplereg.view.override.PersonDetail", {
         };
 
         store.on("load", function() {
+            //grid.getView().refresh();
             grid.getSelectionModel().deselectAll();
         });
 

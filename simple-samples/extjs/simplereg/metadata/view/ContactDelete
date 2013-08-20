@@ -34,64 +34,6 @@
             "designerId": "403af547-0ceb-47e8-a8b0-d3649d55a8d7",
             "cn": [
                 {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom",
-                        "designer|displayName": "Toolbar"
-                    },
-                    "designerId": "7cdeab5f-b05c-4e96-921d-b00c4a24b8a3",
-                    "cn": [
-                        {
-                            "type": "Ext.toolbar.Fill",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "designer|displayName": "Fill"
-                            },
-                            "designerId": "9043873e-f0e8-4da6-932a-a1ac34c14c82"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "cancel",
-                                "iconCls": "icon-cancel",
-                                "text": "Cancel"
-                            },
-                            "designerId": "bacbb394-a0ff-44e2-b718-058bc6bd06b8"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "submit",
-                                "iconCls": "icon-delete",
-                                "text": "Remove Contact"
-                            },
-                            "designerId": "fc5a7cd6-b930-444b-b151-d7ccb7dbaa0d"
-                        }
-                    ]
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -196,6 +138,19 @@
                     "designerId": "3bfbdaa7-8260-42c2-b658-14033ebf6597"
                 }
             ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "8d1e0369-9df9-4b27-8eab-1d3013b059ea",
+            "masterInstanceId": "48677c89-8429-4318-8f02-ee03bf56b5f0"
         }
     ]
 }

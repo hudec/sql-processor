@@ -470,15 +470,15 @@ Ext.define('Simplereg.store.Genders', {
             data: [
                 {
                     value: 'MALE',
-                    name: 'MALE'
+                    name: 'Male'
                 },
                 {
                     value: 'FEMALE',
-                    name: 'FEMALE'
+                    name: 'Female'
                 },
                 {
                     value: 'UNKNOWN',
-                    name: 'UNKNOWN'
+                    name: '---'
                 }
             ],
             fields: [
@@ -592,33 +592,33 @@ Ext.define('Simplereg.model.RelativePerson', {
  */
 
 Ext.define('Simplereg.store.QueryPeople', {
-    extend : 'Ext.data.Store',
+    extend: 'Ext.data.Store',
 
-    requires : [ 'Simplereg.model.Person' ],
+    requires: [
+        'Simplereg.model.Person'
+    ],
 
-    constructor : function(cfg) {
+    constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([ Ext.apply({
-            model : 'Simplereg.model.Person',
-            remoteFilter : true,
-            remoteSort : true,
-            storeId : 'QueryPeople',
-            pageSize : 5,
-            proxy : {
-                type : 'direct',
-                api : {
-                    read : "personWeb.loadPeople"
-                },
-                reader : {
-                    type : 'json',
-                    root : 'records'
+        me.callParent([Ext.apply({
+            autoLoad: true,
+            model: 'Simplereg.model.Person',
+            remoteFilter: true,
+            storeId: 'QueryPeople',
+            pageSize: 5,
+            proxy: {
+                type: 'direct',
+                api: { read: "personWeb.loadPeople" },
+                reader: {
+                    type: 'json',
+                    root: 'records'
                 }
             },
-            sorters : {
-                property : 'lastName'
+            sorters: {
+                property: 'lastName'
             }
-        }, cfg) ]);
+        }, cfg)]);
     }
 });/*
  * File: app/store/People.js
@@ -636,45 +636,45 @@ Ext.define('Simplereg.store.QueryPeople', {
  */
 
 Ext.define('Simplereg.store.People', {
-    extend : 'Ext.data.Store',
+    extend: 'Ext.data.Store',
 
-    requires : [ 'Simplereg.model.Person' ],
+    requires: [
+        'Simplereg.model.Person'
+    ],
 
-    constructor : function(cfg) {
+    constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([ Ext.apply({
-            model : 'Simplereg.model.Person',
-            remoteFilter : true,
-            remoteSort : true,
-            storeId : 'People',
-            pageSize : 5,
-            proxy : {
-                type : 'direct',
-                api : {
-                    read : "personWeb.loadPeople"
-                },
-                reader : {
-                    type : 'json',
-                    root : 'records'
+        me.callParent([Ext.apply({
+            model: 'Simplereg.model.Person',
+            remoteFilter: true,
+            remoteSort: true,
+            storeId: 'People',
+            pageSize: 5,
+            proxy: {
+                type: 'direct',
+                api: { read: "personWeb.loadPeople" },
+                reader: {
+                    type: 'json',
+                    root: 'records'
                 }
             },
-            listeners : {
-                load : {
-                    fn : me.fitin,
-                    scope : me
+            listeners: {
+                load: {
+                    fn: me.fitin,
+                    scope: me
                 }
             },
-            sorters : {
-                property : 'lastName'
+            sorters: {
+                property: 'lastName'
             }
-        }, cfg) ]);
+        }, cfg)]);
     },
 
-    fitin : function(store, records, successful, eOpts) {
+    fitin: function(store, records, successful, eOpts) {
         if (store.currentPage > 1 && !records.length) {
             store.previousPage();
-        }
+        }   
     }
 
 });/*
@@ -693,30 +693,30 @@ Ext.define('Simplereg.store.People', {
  */
 
 Ext.define('Simplereg.store.Relatives', {
-    extend : 'Ext.data.Store',
+    extend: 'Ext.data.Store',
 
-    requires : [ 'Simplereg.model.Relative' ],
+    requires: [
+        'Simplereg.model.Relative'
+    ],
 
-    constructor : function(cfg) {
+    constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([ Ext.apply({
-            model : 'Simplereg.model.Relative',
-            storeId : 'Relatives',
-            proxy : {
-                type : 'direct',
-                api : {
-                    read : "personWeb.loadRelatives"
-                },
-                reader : {
-                    type : 'json',
-                    root : 'records'
+        me.callParent([Ext.apply({
+            model: 'Simplereg.model.Relative',
+            storeId: 'Relatives',
+            proxy: {
+                type: 'direct',
+                api: { read: "personWeb.loadRelatives" },
+                reader: {
+                    type: 'json',
+                    root: 'records'
                 }
             },
-            sorters : {
-                property : 'relPerson.lastName'
+            sorters: {
+                property: 'relPerson.lastName'
             }
-        }, cfg) ]);
+        }, cfg)]);
     }
 });/*
  * File: app/store/RelativeTypes.js
@@ -891,31 +891,31 @@ Ext.define('Simplereg.store.ContactTypes', {
  */
 
 Ext.define('Simplereg.store.Countries', {
-    extend : 'Ext.data.Store',
+    extend: 'Ext.data.Store',
 
-    requires : [ 'Simplereg.model.Country' ],
+    requires: [
+        'Simplereg.model.Country'
+    ],
 
-    constructor : function(cfg) {
+    constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
-        me.callParent([ Ext.apply({
-            autoLoad : true,
-            model : 'Simplereg.model.Country',
-            storeId : 'Countries',
-            sorters : {
-                property : 'code'
+        me.callParent([Ext.apply({
+            autoLoad: true,
+            model: 'Simplereg.model.Country',
+            storeId: 'Countries',
+            sorters: {
+                property: 'code'
             },
-            proxy : {
-                type : 'direct',
-                api : {
-                    read : "personWeb.loadCountries"
-                },
-                reader : {
-                    type : 'json',
-                    root : 'records'
+            proxy: {
+                type: 'direct',
+                api: { read: "personWeb.loadCountries" },
+                reader: {
+                    type: 'json',
+                    root: 'records'
                 }
             }
-        }, cfg) ]);
+        }, cfg)]);
     }
 });/*
  * File: app/store/Genders.js
@@ -944,15 +944,15 @@ Ext.define('Simplereg.store.Genders', {
             data: [
                 {
                     value: 'MALE',
-                    name: 'MALE'
+                    name: 'Male'
                 },
                 {
                     value: 'FEMALE',
-                    name: 'FEMALE'
+                    name: 'Female'
                 },
                 {
                     value: 'UNKNOWN',
-                    name: 'UNKNOWN'
+                    name: '---'
                 }
             ],
             fields: [
@@ -1096,18 +1096,6 @@ Ext.define('Simplereg.view.PersonList', {
         Ext.applyIf(me, {
             dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            itemId: 'open',
-                            iconCls: 'icon-page',
-                            text: 'Open'
-                        }
-                    ]
-                },
-                {
                     xtype: 'pagingtoolbar',
                     dock: 'bottom',
                     width: 360,
@@ -1168,6 +1156,22 @@ Ext.define('Simplereg.view.PersonList', {
                     dataIndex: 'gender',
                     text: 'Gender',
                     flex: 1
+                },
+                {
+                    xtype: 'actioncolumn',
+                    hideable: false,
+                    flex: 0.1,
+                    items: [
+                        {
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                var page = Ext.getCmp("page");
+                                page.openPersonDetail(record.data.id, record);
+                            },
+                            action: 'open',
+                            iconCls: 'icon-page',
+                            tooltip: 'Open Person Detail'
+                        }
+                    ]
                 }
             ]
         });
@@ -1258,6 +1262,7 @@ Ext.define('Simplereg.view.PersonSelect', {
     alias: 'widget.personselect',
 
     requires: [
+        'Simplereg.view.System',
         'Simplereg.view.PersonList',
         'Simplereg.view.override.PersonSelect'
     ],
@@ -1276,10 +1281,17 @@ Ext.define('Simplereg.view.PersonSelect', {
                     xtype: 'toolbar',
                     dock: 'top',
                     cls: 'thick',
+                    itemId: 'main',
                     items: [
                         {
+                            xtype: 'system'
+                        },
+                        {
+                            xtype: 'tbseparator'
+                        },
+                        {
                             xtype: 'splitbutton',
-                            itemId: 'search-person',
+                            action: 'search',
                             iconCls: 'icon-search',
                             text: 'Find',
                             menu: {
@@ -1288,18 +1300,15 @@ Ext.define('Simplereg.view.PersonSelect', {
                                 items: [
                                     {
                                         xtype: 'menuitem',
-                                        itemId: 'search-all-people',
+                                        action: 'search-all',
                                         text: 'Clear Filter'
                                     }
                                 ]
                             }
                         },
                         {
-                            xtype: 'tbseparator'
-                        },
-                        {
                             xtype: 'button',
-                            itemId: 'reload',
+                            action: 'reload',
                             iconCls: 'icon-refresh',
                             text: 'Refresh'
                         },
@@ -1308,7 +1317,7 @@ Ext.define('Simplereg.view.PersonSelect', {
                         },
                         {
                             xtype: 'button',
-                            itemId: 'create-person',
+                            action: 'create',
                             iconCls: 'icon-add',
                             text: 'Add'
                         },
@@ -1317,7 +1326,7 @@ Ext.define('Simplereg.view.PersonSelect', {
                         },
                         {
                             xtype: 'button',
-                            itemId: 'close-all',
+                            action: 'close-all',
                             iconCls: 'icon-page-close',
                             text: 'Close All'
                         }
@@ -1564,7 +1573,415 @@ Ext.define('Simplereg.view.Page', {
 Ext.define('Simplereg.view.Viewport', {
     extend: 'Simplereg.view.Page',
     renderTo: Ext.getBody()
-});Ext.define("Simplereg.view.override.PersonSearch", {
+});/*
+ * File: app/view/System.js
+ *
+ * This file was generated by Sencha Architect version 2.2.2.
+ * http://www.sencha.com/products/architect/
+ *
+ * This file requires use of the Ext JS 4.2.x library, under independent license.
+ * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
+ * details see http://www.sencha.com/license or contact license@sencha.com.
+ *
+ * This file will be auto-generated each and everytime you save your project.
+ *
+ * Do NOT hand edit this file.
+ */
+
+Ext.define('Simplereg.view.System', {
+    extend: 'Ext.button.Button',
+    alias: 'widget.system',
+
+    text: 'System',
+
+    initComponent: function() {
+        var me = this;
+
+        Ext.applyIf(me, {
+            menu: {
+                xtype: 'menu',
+                items: [
+                    {
+                        xtype: 'menuitem',
+                        action: 'simpleauth',
+                        hrefTarget: 'simpleauth',
+                        text: 'Users and Roles'
+                    },
+                    {
+                        xtype: 'menuseparator'
+                    },
+                    {
+                        xtype: 'menuitem',
+                        action: 'quit',
+                        text: 'Quit'
+                    }
+                ]
+            }
+        });
+
+        me.callParent(arguments);
+    }
+
+});/**
+ * Static application methods
+ */
+Ext.ns("Simplereg");
+
+Ext.applyIf(Simplereg, {
+
+    /**
+     * Person title (name, date...)
+     */
+    getPersonTitle: function(record, prefix) {
+        if (record && record.data) {
+            var text = [], value;
+            prefix = prefix || "";
+            value = record.data[prefix + "firstName"] + " " + record.data[prefix + "lastName"];
+            text.push(value);
+            if (value = record.data[prefix + "ssn"]) {
+                text.push(value);
+            }
+            else if (value = record.data[prefix + "dateOfBirth"]) {
+                text.push(Ext.util.Format.date(value, "d.m.Y"));
+            }
+            return text.join(", ");
+        }
+    },
+
+    /**
+     * Contact title (address, country...)
+     */
+    getContactTitle: function(record) {
+        if (record && record.data) {
+            var text = [];
+            text.push(record.data.address);
+            text.push(record.data.countryCode);
+            return text.join(", ");
+        }
+    }
+});
+
+/**
+ * Get plain HTML form...
+ */
+Ext.override(Ext.form.Panel, {
+    getPlainForm: function() {
+        var values = this.getValues(), name, field,
+                form = document.createElement("form");
+        for (name in values) {
+            field = document.createElement("input");
+            field.name = name;
+            field.value = values[name];
+            form.appendChild(field);
+        }
+        return form;
+    }
+});
+
+Ext.define("Simplereg.controller.override.Page", {
+    override: "Simplereg.controller.Page",
+
+//TODO: better/right way?
+    resetComboboxFilter: function() {
+        if (this.is("combobox")) {
+            var value = this.getValue();
+            this.reset();
+            this.setValue(value);
+        }
+    },
+
+    init: function(application) {
+
+        // Document title
+        document.defaultTitle = application.title + " " + application.version;
+        document.title = document.defaultTitle;
+
+        this.control({
+            "#page": {
+                beforerender: function(component, eOpts) {
+                    component.init();
+                }
+            },
+            "personselect": {
+                beforerender: function(component, eOpts) {
+                    component.init();
+                }
+            },
+            "persondetail": {
+                beforerender: function(component, eOpts) {
+                    //component.init();
+                },
+                afterrender: function(component, eOpts) {
+                    component.reload();
+                },
+                removed: function(component, ownerCmp, eOpts) {
+                    var manager = Ext.data.StoreManager;
+                    manager.unregister(component.id);
+                    manager.unregister(component.id + "Relatives");
+                    manager.unregister(component.id + "Contacts");
+                }
+            },
+            "#date": {
+//TODO: mixin formating date display field
+                beforerender: function(component, eOpts) {
+                    component.renderer = function(value) {
+                        return Ext.util.Format.date(value, "d.m.Y");
+                    };
+                }
+            },
+            "combobox": {
+                blur: function(component, e, eOpts) {
+                    this.resetComboboxFilter.call(component);
+                }
+            },
+            "#pages": {
+                beforetabchange: function(tabPanel, newCard, oldCard, eOpts) {
+                    if (newCard.is("persondetail")) {
+                        document.title = newCard.title;
+                    }
+                    else {
+                        document.title = document.defaultTitle;
+                    }
+                }
+            },
+            "tool[action=reload]": {
+                click: function(tool, e, eOpts) {
+                    var panel = tool.up("panel");
+                    if (panel.reload) {
+                        panel.reload();
+                    }
+                    return false;
+                }
+            },
+            "#page button[action=reload]": {
+                click: function(target, e, eOpts) {
+                    Ext.getCmp("page").reload();
+                }
+            },
+            "#dialog": {
+                beforehide: function(component, eOpts) {
+                    var form = component.down("form");
+                    if (form) {
+                        form = form.getForm();
+                        form.clearInvalid();
+                        form.getFields().each(this.resetComboboxFilter);
+                    }
+                },
+                show: function(component, eOpts) {
+                    Ext.getCmp("page").windows.push(component);
+                },
+                hide: function(component, eOpts) {
+                    Ext.getCmp("page").windows.pop();
+                }
+            },
+            "#dialog button[action=reset]": {
+                click: function(target, e, eOpts) {
+                    target.up("window").down("form").getForm().reset();
+                }
+            },
+            "#dialog button[action=cancel]": {
+                click: function(target, e, eOpts) {
+                    target.up("window").close();
+                }
+            },
+            "#dialog button[action=accept]": {
+                click: function(target, e, eOpts) {
+                    target.up("window").submit(); //submit dialog window
+                }
+            },
+            "menuitem[action=simpleauth]": {
+                click: function(item, e, eOpts) {
+                    var url = item.href || window.location.href.replace(/simplereg/, "simpleauth");
+                    window.open(url, item.hrefTarget);
+                }
+            },
+            "menuitem[action=quit]": {
+                click: function(item, e, eOpts) {
+                    var msg = "Do you really want to quit " + application.title + " application?";
+                    Ext.MessageBox.confirm("Quit Application", msg, function(response) {
+                        if (response == "yes") {
+                            Ext.getCmp("page").destroy();
+                            document.title = "";
+                            window.close();
+                        }
+                    });
+                }
+            },
+            "button[action=close]": {
+                click: function(target, e, eOpts) {
+                    Ext.getCmp("page").closeActive();
+                }
+            },
+            "button[action=close-all], menuitem[action=close-all]": {
+                click: function(target, e, eOpts) {
+                    Ext.getCmp("page").closeAll(true);
+                }
+            },
+            "menuitem[action=close-other]": {
+                click: function(target, e, eOpts) {
+                    Ext.getCmp("page").closeAll(false);
+                }
+            },
+            "button[action=search]": {
+                click: function(target, e, eOpts) {
+                    Ext.getCmp("person-search").show();
+                }
+            },
+            "menuitem[action=search-all]": {
+                click: function(target, e, eOpts) {
+                    Ext.getCmp("person-select").search();
+                }
+            },
+            "#people": {
+                itemdblclick: function(dataview, record, item, index, e, eOpts) {
+                    var page = Ext.getCmp("page");
+                    page.openPersonDetail(record.data.id, record);
+                }
+            },
+            "#main button[action=create]": {
+                click: function(target, e, eOpts) {
+                    Ext.getCmp("person-create").show();
+                }
+            },
+            "#data button[action=update]": {
+                click: function(target, e, eOpts) {
+                    return this.managePerson("person-update", target, e, eOpts);
+                }
+            },
+            "#main button[action=delete]": {
+                click: function(target, e, eOpts) {
+                    return this.managePerson("person-delete", target, e, eOpts);
+                }
+            },
+            "#relatives": {
+                itemdblclick: function(dataview, record, item, index, e, eOpts) {
+                    var page = Ext.getCmp("page");
+                    page.openPersonDetail(record.data["relPerson.id"]);
+                }
+            },
+            "#relatives button[action=create]": {
+                click: function(target, e, eOpts) {
+                    var dialog = Ext.getCmp("relative-create"),
+                            person = target.up("persondetail").record,
+                            record = Ext.create("Simplereg.model.PersonIdentity", {
+                                personId: person.data.id,
+                                version: person.data.version
+                            });
+                    dialog.down("form").loadRecord(record);
+                    dialog.show();
+                }
+            },
+            "#relatives button[action=update]": {
+                click: function(target, e, eOpts) {
+                    return this.manageRelative("relative-update", target, e, eOpts);
+                }
+            },
+            "#relatives button[action=delete]": {
+                click: function(target, e, eOpts) {
+                    return this.manageRelative("relative-delete", target, e, eOpts);
+                }
+            },
+            /*
+            "#contacts": {
+                itemdblclick: function(dataview, record, item, index, e, eOpts) {
+                    var dialog = Ext.getCmp("contact-update"),
+                            form = dialog.down("form");
+                    form.loadRecord(record);
+                    dialog.show();
+                }
+            },
+            */
+            "#contacts button[action=create]": {
+                click: function(target, e, eOpts) {
+                    var dialog = Ext.getCmp("contact-create"),
+                            person = target.up("persondetail").record,
+                            record = Ext.create("Simplereg.model.PersonIdentity", {
+                                personId: person.data.id
+                            });
+                    dialog.down("form").loadRecord(record);
+                    dialog.show();
+                }
+            },
+            "#contacts button[action=update]": {
+                click: function(target, e, eOpts) {
+                    return this.manageContact("contact-update", target, e, eOpts);
+                }
+            },
+            "#contacts button[action=delete]": {
+                click: function(target, e, eOpts) {
+                    return this.manageContact("contact-delete", target, e, eOpts);
+                }
+            }
+        });
+    },
+
+    /**
+     * Update/delete person
+     */
+    managePerson: function(d, target, e, eOpts) {
+        var dialog = Ext.getCmp(d),
+                record = target.up("persondetail").record,
+                form = dialog.down("form");
+        form.loadRecord(record);
+        dialog.show();
+    },
+
+    /**
+     * Update/delete relative
+     */
+    manageRelative: function(d, target, e, eOpts) {
+        var record = target.up("#relatives").getSelectionModel().getSelection()[0];
+        if (record) {
+            var dialog = Ext.getCmp(d),
+                    person = target.up("persondetail").record,
+                    form = dialog.down("form");
+
+            // Use master person version
+            record = record.copy();
+            record.set("version", person.data.version);
+            record.commit();
+
+            form.loadRecord(record);
+            dialog.show();
+        }
+    },
+
+    /**
+     * Update/delete contact
+     */
+    manageContact: function(d, target, e, eOpts) {
+        var record = target.up("#contacts").getSelectionModel().getSelection()[0];
+        if (record) {
+            var dialog = Ext.getCmp(d),
+                    form = dialog.down("form");
+            form.loadRecord(record);
+            dialog.show();
+        }
+    }
+});
+/*
+ * File: app/controller/Page.js
+ *
+ * This file was generated by Sencha Architect version 2.2.2.
+ * http://www.sencha.com/products/architect/
+ *
+ * This file requires use of the Ext JS 4.2.x library, under independent license.
+ * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
+ * details see http://www.sencha.com/license or contact license@sencha.com.
+ *
+ * This file will be auto-generated each and everytime you save your project.
+ *
+ * Do NOT hand edit this file.
+ */
+
+Ext.define('Simplereg.controller.Page', {
+    extend: 'Ext.app.Controller',
+
+    requires: [
+        'Simplereg.controller.override.Page'
+    ]
+});
+Ext.define("Simplereg.view.override.PersonSearch", {
     override: "Simplereg.view.PersonSearch",
 
     /**
@@ -1614,6 +2031,7 @@ Ext.define('Simplereg.view.PersonSearch', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.PersonSearch'
     ],
 
@@ -1636,35 +2054,6 @@ Ext.define('Simplereg.view.PersonSearch', {
                     bodyPadding: 10,
                     header: false,
                     title: 'Data',
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-search',
-                                    text: 'Find Person'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'textfield',
@@ -1733,6 +2122,9 @@ Ext.define('Simplereg.view.PersonSearch', {
                             valueField: 'value'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });
@@ -1741,12 +2133,13 @@ Ext.define('Simplereg.view.PersonSearch', {
     }
 
 });Ext.define("Simplereg.view.override.PersonCreate", {
-    override : "Simplereg.view.PersonCreate",
+    override: "Simplereg.view.PersonCreate",
 
     /**
-     * Handle dialog submit (create person)
+     * Handle dialog submit
+     * (create person)
      */
-    submit : function() {
+    submit: function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -1772,7 +2165,8 @@ Ext.define('Simplereg.view.PersonSearch', {
                     var page = Ext.getCmp("page");
                     page.openPersonDetail(result.id);
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -1797,6 +2191,7 @@ Ext.define('Simplereg.view.PersonCreate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.PersonCreate'
     ],
 
@@ -1820,35 +2215,6 @@ Ext.define('Simplereg.view.PersonCreate', {
                     title: 'Data',
                     standardSubmit: false,
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-add',
-                                    text: 'Add Person'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'textfield',
@@ -1892,6 +2258,9 @@ Ext.define('Simplereg.view.PersonCreate', {
                             valueField: 'value'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });
@@ -1900,12 +2269,13 @@ Ext.define('Simplereg.view.PersonCreate', {
     }
 
 });Ext.define("Simplereg.view.override.PersonUpdate", {
-    override : "Simplereg.view.PersonUpdate",
-
+    override: "Simplereg.view.PersonUpdate",
+    
     /**
-     * Handle dialog submit (update person)
+     * Handle dialog submit
+     * (update person)
      */
-    submit : function() {
+    submit: function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -1931,7 +2301,8 @@ Ext.define('Simplereg.view.PersonCreate', {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(result.id);
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -1956,6 +2327,7 @@ Ext.define('Simplereg.view.PersonUpdate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.PersonUpdate'
     ],
 
@@ -1978,35 +2350,6 @@ Ext.define('Simplereg.view.PersonUpdate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-edit',
-                                    text: 'Modify Person'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -2066,6 +2409,9 @@ Ext.define('Simplereg.view.PersonUpdate', {
                             valueField: 'value'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });
@@ -2074,12 +2420,13 @@ Ext.define('Simplereg.view.PersonUpdate', {
     }
 
 });Ext.define("Simplereg.view.override.PersonDelete", {
-    override : "Simplereg.view.PersonDelete",
+    override: "Simplereg.view.PersonDelete",
 
     /**
-     * Handle dialog submit (delete person)
+     * Handle dialog submit
+     * (delete person)
      */
-    submit : function() {
+    submit: function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -2104,7 +2451,8 @@ Ext.define('Simplereg.view.PersonUpdate', {
                     var page = Ext.getCmp("page");
                     page.closePersonDetail(result.id);
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -2129,6 +2477,7 @@ Ext.define('Simplereg.view.PersonDelete', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar2',
         'Simplereg.view.override.PersonDelete'
     ],
 
@@ -2151,29 +2500,6 @@ Ext.define('Simplereg.view.PersonDelete', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-delete',
-                                    text: 'Remove Person'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -2223,6 +2549,9 @@ Ext.define('Simplereg.view.PersonDelete', {
                             name: 'gender'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar2'
                 }
             ]
         });
@@ -2231,12 +2560,13 @@ Ext.define('Simplereg.view.PersonDelete', {
     }
 
 });Ext.define("Simplereg.view.override.RelativeCreate", {
-    override : "Simplereg.view.RelativeCreate",
+    override: "Simplereg.view.RelativeCreate",
 
     /**
-     * Handle dialog submit (create relative)
+     * Handle dialog submit
+     * (create relative)
      */
-    submit : function() {
+    submit: function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -2264,7 +2594,8 @@ Ext.define('Simplereg.view.PersonDelete', {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(id);
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -2273,18 +2604,18 @@ Ext.define('Simplereg.view.PersonDelete', {
     /**
      * Filter relative combobox
      */
-    search : function(params) {
-        var me = this, combobox = me.down("#people"), store = combobox.store;
+    search: function(params) {
+        var me = this, combobox = me.down("#people"),
+                store = combobox.store;
 
         me.loadMask.show();
 
         store.proxy.extraParams = params;
 
         store.load({
-            page : 1,
-            start : 0,
+            page: 1, start: 0,
 
-            callback : function(records, operation, success) {
+            callback: function(records, operation, success) {
                 me.loadMask.hide();
                 if (success) {
                     if (!records.length) {
@@ -2315,6 +2646,7 @@ Ext.define('Simplereg.view.RelativeCreate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.RelativeCreate'
     ],
 
@@ -2337,35 +2669,6 @@ Ext.define('Simplereg.view.RelativeCreate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-add',
-                                    text: 'Add Relative'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -2421,12 +2724,14 @@ Ext.define('Simplereg.view.RelativeCreate', {
                                     xtype: 'button',
                                     itemId: 'search-person',
                                     iconCls: 'icon-search',
-                                    text: '',
-                                    tooltip: 'Find relative person'
+                                    text: ''
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });
@@ -2435,12 +2740,13 @@ Ext.define('Simplereg.view.RelativeCreate', {
     }
 
 });Ext.define("Simplereg.view.override.RelativeUpdate", {
-    override : "Simplereg.view.RelativeUpdate",
+    override: "Simplereg.view.RelativeUpdate",
 
     /**
-     * Handle dialog submit (update relative)
+     * Handle dialog submit
+     * (update relative)
      */
-    submit : function() {
+    submit: function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -2468,7 +2774,8 @@ Ext.define('Simplereg.view.RelativeCreate', {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(id);
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -2493,6 +2800,7 @@ Ext.define('Simplereg.view.RelativeUpdate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.RelativeUpdate'
     ],
 
@@ -2515,35 +2823,6 @@ Ext.define('Simplereg.view.RelativeUpdate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-edit',
-                                    text: 'Modify Relative'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -2598,6 +2877,9 @@ Ext.define('Simplereg.view.RelativeUpdate', {
                             name: 'relPerson.title'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });
@@ -2606,12 +2888,13 @@ Ext.define('Simplereg.view.RelativeUpdate', {
     }
 
 });Ext.define("Simplereg.view.override.RelativeDelete", {
-    override : "Simplereg.view.RelativeDelete",
-
+    override: "Simplereg.view.RelativeDelete",
+    
     /**
-     * Handle dialog submit (delete relative)
+     * Handle dialog submit
+     * (delete relative)
      */
-    submit : function() {
+    submit: function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -2638,7 +2921,8 @@ Ext.define('Simplereg.view.RelativeUpdate', {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(id);
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -2663,6 +2947,7 @@ Ext.define('Simplereg.view.RelativeDelete', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar2',
         'Simplereg.view.override.RelativeDelete'
     ],
 
@@ -2685,29 +2970,6 @@ Ext.define('Simplereg.view.RelativeDelete', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-delete',
-                                    text: 'Remove Relative'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -2754,6 +3016,9 @@ Ext.define('Simplereg.view.RelativeDelete', {
                             name: 'relPerson.title'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar2'
                 }
             ]
         });
@@ -2762,13 +3027,15 @@ Ext.define('Simplereg.view.RelativeDelete', {
     }
 
 });Ext.define("Simplereg.view.override.ContactCreate", {
-    override : "Simplereg.view.ContactCreate",
+    override: "Simplereg.view.ContactCreate",
 
     /**
-     * Handle dialog submit (create contact)
+     * Handle dialog submit
+     * (create contact)
      */
-    submit : function() {
-        var me = this, form = me.down("form"), view = Ext.getCmp("pages").getActiveTab();
+    submit: function() {
+        var me = this, form = me.down("form"),
+                view = Ext.getCmp("pages").getActiveTab();
 
         if (!form.isValid()) {
             return false;
@@ -2791,7 +3058,8 @@ Ext.define('Simplereg.view.RelativeDelete', {
                         view.down("#contacts").reload();
                     }
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -2816,6 +3084,7 @@ Ext.define('Simplereg.view.ContactCreate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.ContactCreate'
     ],
 
@@ -2838,35 +3107,6 @@ Ext.define('Simplereg.view.ContactCreate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-add',
-                                    text: 'Add Contact'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -2918,6 +3158,9 @@ Ext.define('Simplereg.view.ContactCreate', {
                             name: 'phoneNumber'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });
@@ -2926,13 +3169,15 @@ Ext.define('Simplereg.view.ContactCreate', {
     }
 
 });Ext.define("Simplereg.view.override.ContactUpdate", {
-    override : "Simplereg.view.ContactUpdate",
-
+    override: "Simplereg.view.ContactUpdate",
+    
     /**
-     * Handle dialog submit (update contact)
+     * Handle dialog submit
+     * (update contact)
      */
-    submit : function() {
-        var me = this, form = me.down("form"), view = Ext.getCmp("pages").getActiveTab();
+    submit: function() {
+        var me = this, form = me.down("form"),
+                view = Ext.getCmp("pages").getActiveTab();
 
         if (!form.isValid()) {
             return false;
@@ -2955,7 +3200,8 @@ Ext.define('Simplereg.view.ContactCreate', {
                         view.down("#contacts").reload();
                     }
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -2980,6 +3226,7 @@ Ext.define('Simplereg.view.ContactUpdate', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar',
         'Simplereg.view.override.ContactUpdate'
     ],
 
@@ -3002,35 +3249,6 @@ Ext.define('Simplereg.view.ContactUpdate', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    itemId: 'reset',
-                                    iconCls: 'icon-reset',
-                                    text: 'Reset'
-                                },
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-edit',
-                                    text: 'Modify Contact'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -3098,6 +3316,9 @@ Ext.define('Simplereg.view.ContactUpdate', {
                             name: 'phoneNumber'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar'
                 }
             ]
         });
@@ -3106,14 +3327,16 @@ Ext.define('Simplereg.view.ContactUpdate', {
     }
 
 });Ext.define("Simplereg.view.override.ContactDelete", {
-    override : "Simplereg.view.ContactDelete",
-    // TODO: render country name (code)
+    override: "Simplereg.view.ContactDelete",
+//TODO: render country name (code)
 
     /**
-     * Handle dialog submit (delete contact)
+     * Handle dialog submit
+     * (delete contact)
      */
-    submit : function() {
-        var me = this, form = me.down("form"), view = Ext.getCmp("pages").getActiveTab();
+    submit: function() {
+        var me = this, form = me.down("form"),
+                view = Ext.getCmp("pages").getActiveTab();
 
         if (!form.isValid()) {
             return false;
@@ -3135,7 +3358,8 @@ Ext.define('Simplereg.view.ContactUpdate', {
                         view.down("#contacts").reload();
                     }
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -3160,6 +3384,7 @@ Ext.define('Simplereg.view.ContactDelete', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Simplereg.view.DialogToolbar2',
         'Simplereg.view.override.ContactDelete'
     ],
 
@@ -3182,29 +3407,6 @@ Ext.define('Simplereg.view.ContactDelete', {
                     header: false,
                     title: 'Data',
                     trackResetOnLoad: true,
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'tbfill'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'cancel',
-                                    iconCls: 'icon-cancel',
-                                    text: 'Cancel'
-                                },
-                                {
-                                    xtype: 'button',
-                                    itemId: 'submit',
-                                    iconCls: 'icon-delete',
-                                    text: 'Remove Contact'
-                                }
-                            ]
-                        }
-                    ],
                     items: [
                         {
                             xtype: 'numberfield',
@@ -3255,6 +3457,9 @@ Ext.define('Simplereg.view.ContactDelete', {
                             name: 'phoneNumber'
                         }
                     ]
+                },
+                {
+                    xtype: 'dialogtoolbar2'
                 }
             ]
         });
@@ -3293,6 +3498,7 @@ Ext.define('Simplereg.view.PersonContacts', {
     alias: 'widget.personcontacts',
 
     requires: [
+        'Simplereg.view.ListToolbar',
         'Simplereg.view.override.PersonContacts'
     ],
 
@@ -3308,34 +3514,14 @@ Ext.define('Simplereg.view.PersonContacts', {
             tools: [
                 {
                     xtype: 'tool',
-                    itemId: 'reload',
+                    action: 'reload',
                     type: 'refresh'
                 }
             ],
             dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            itemId: 'create-contact',
-                            iconCls: 'icon-add',
-                            text: 'Add'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'delete-contact',
-                            iconCls: 'icon-delete',
-                            text: 'Remove'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'update-contact',
-                            iconCls: 'icon-edit',
-                            text: 'Modify'
-                        }
-                    ]
+                    xtype: 'listtoolbar',
+                    dock: 'top'
                 }
             ],
             columns: [
@@ -3446,7 +3632,7 @@ Ext.define('Simplereg.view.PersonData', {
                     items: [
                         {
                             xtype: 'button',
-                            itemId: 'update-person',
+                            action: 'update',
                             iconCls: 'icon-edit',
                             text: 'Modify'
                         }
@@ -3538,6 +3724,7 @@ Ext.define('Simplereg.view.PersonRelatives', {
     alias: 'widget.personrelatives',
 
     requires: [
+        'Simplereg.view.ListToolbar',
         'Simplereg.view.override.PersonRelatives'
     ],
 
@@ -3553,40 +3740,14 @@ Ext.define('Simplereg.view.PersonRelatives', {
             tools: [
                 {
                     xtype: 'tool',
-                    itemId: 'reload',
+                    action: 'reload',
                     type: 'refresh'
                 }
             ],
             dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            itemId: 'create-relative',
-                            iconCls: 'icon-add',
-                            text: 'Add'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'delete-relative',
-                            iconCls: 'icon-delete',
-                            text: 'Remove'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'update-relative',
-                            iconCls: 'icon-edit',
-                            text: 'Modify'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'open',
-                            iconCls: 'icon-page',
-                            text: 'Open'
-                        }
-                    ]
+                    xtype: 'listtoolbar',
+                    dock: 'top'
                 }
             ],
             columns: [
@@ -3680,6 +3841,22 @@ Ext.define('Simplereg.view.PersonRelatives', {
                     dataIndex: 'relPerson.gender',
                     text: 'Gender',
                     flex: 1
+                },
+                {
+                    xtype: 'actioncolumn',
+                    hideable: false,
+                    flex: 0.1,
+                    items: [
+                        {
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                var page = Ext.getCmp("page");
+                                page.openPersonDetail(record.data["relPerson.id"]);
+                            },
+                            action: 'open',
+                            iconCls: 'icon-page',
+                            tooltip: 'Open Person Detail'
+                        }
+                    ]
                 }
             ]
         });
@@ -3789,6 +3966,7 @@ Ext.define('Simplereg.view.PersonRelatives', {
         };
 
         store.on("load", function() {
+            //grid.getView().refresh();
             grid.getSelectionModel().deselectAll();
         });
 
@@ -3830,6 +4008,7 @@ Ext.define('Simplereg.view.PersonDetail', {
     alias: 'widget.persondetail',
 
     requires: [
+        'Simplereg.view.System',
         'Simplereg.view.PersonData',
         'Simplereg.view.PersonRelatives',
         'Simplereg.view.PersonContacts',
@@ -3854,10 +4033,17 @@ Ext.define('Simplereg.view.PersonDetail', {
                     xtype: 'toolbar',
                     dock: 'top',
                     cls: 'thick',
+                    itemId: 'main',
                     items: [
                         {
+                            xtype: 'system'
+                        },
+                        {
+                            xtype: 'tbseparator'
+                        },
+                        {
                             xtype: 'splitbutton',
-                            itemId: 'search-person',
+                            action: 'search',
                             iconCls: 'icon-search',
                             text: 'Find',
                             menu: {
@@ -3866,18 +4052,15 @@ Ext.define('Simplereg.view.PersonDetail', {
                                 items: [
                                     {
                                         xtype: 'menuitem',
-                                        itemId: 'search-all-people',
+                                        action: 'search-all',
                                         text: 'Clear Filter'
                                     }
                                 ]
                             }
                         },
                         {
-                            xtype: 'tbseparator'
-                        },
-                        {
                             xtype: 'button',
-                            itemId: 'reload',
+                            action: 'reload',
                             iconCls: 'icon-refresh',
                             text: 'Refresh'
                         },
@@ -3886,13 +4069,13 @@ Ext.define('Simplereg.view.PersonDetail', {
                         },
                         {
                             xtype: 'button',
-                            itemId: 'create-person',
+                            action: 'create',
                             iconCls: 'icon-add',
                             text: 'Add'
                         },
                         {
                             xtype: 'button',
-                            itemId: 'delete-person',
+                            action: 'delete',
                             iconCls: 'icon-delete',
                             text: 'Remove'
                         },
@@ -3901,7 +4084,7 @@ Ext.define('Simplereg.view.PersonDetail', {
                         },
                         {
                             xtype: 'splitbutton',
-                            itemId: 'close',
+                            action: 'close',
                             iconCls: 'icon-page-close',
                             text: 'Close',
                             menu: {
@@ -3909,12 +4092,12 @@ Ext.define('Simplereg.view.PersonDetail', {
                                 items: [
                                     {
                                         xtype: 'menuitem',
-                                        itemId: 'close-all',
+                                        action: 'close-all',
                                         text: 'Close All'
                                     },
                                     {
                                         xtype: 'menuitem',
-                                        itemId: 'close-other',
+                                        action: 'close-other',
                                         text: 'Close All but Active'
                                     }
                                 ]
@@ -4322,7 +4505,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    version: '3.1',
+    version: '3.3',
     title: 'Simple Reg.',
     models: [
         'Person',
@@ -4346,7 +4529,150 @@ Ext.application({
     ],
     autoCreateViewport: true,
     controllers: [
-        'Common'
+        'Page'
     ],
     name: 'Simplereg'
+});
+/*
+ * File: app/view/DialogToolbar.js
+ *
+ * This file was generated by Sencha Architect version 2.2.2.
+ * http://www.sencha.com/products/architect/
+ *
+ * This file requires use of the Ext JS 4.2.x library, under independent license.
+ * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
+ * details see http://www.sencha.com/license or contact license@sencha.com.
+ *
+ * This file will be auto-generated each and everytime you save your project.
+ *
+ * Do NOT hand edit this file.
+ */
+
+Ext.define('Simplereg.view.DialogToolbar', {
+    extend: 'Ext.toolbar.Toolbar',
+    alias: 'widget.dialogtoolbar',
+
+    ui: 'footer',
+
+    initComponent: function() {
+        var me = this;
+
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'button',
+                    action: 'accept',
+                    width: 70,
+                    text: 'OK'
+                },
+                {
+                    xtype: 'button',
+                    action: 'cancel',
+                    width: 70,
+                    text: 'Cancel'
+                },
+                {
+                    xtype: 'button',
+                    action: 'reset',
+                    width: 70,
+                    text: 'Reset'
+                }
+            ]
+        });
+
+        me.callParent(arguments);
+    }
+
+});/*
+ * File: app/view/DialogToolbar2.js
+ *
+ * This file was generated by Sencha Architect version 2.2.2.
+ * http://www.sencha.com/products/architect/
+ *
+ * This file requires use of the Ext JS 4.2.x library, under independent license.
+ * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
+ * details see http://www.sencha.com/license or contact license@sencha.com.
+ *
+ * This file will be auto-generated each and everytime you save your project.
+ *
+ * Do NOT hand edit this file.
+ */
+
+Ext.define('Simplereg.view.DialogToolbar2', {
+    extend: 'Ext.toolbar.Toolbar',
+    alias: 'widget.dialogtoolbar2',
+
+    ui: 'footer',
+
+    initComponent: function() {
+        var me = this;
+
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'button',
+                    action: 'accept',
+                    width: 70,
+                    text: 'OK'
+                },
+                {
+                    xtype: 'button',
+                    action: 'cancel',
+                    width: 70,
+                    text: 'Cancel'
+                }
+            ]
+        });
+
+        me.callParent(arguments);
+    }
+
+});/*
+ * File: app/view/ListToolbar.js
+ *
+ * This file was generated by Sencha Architect version 2.2.2.
+ * http://www.sencha.com/products/architect/
+ *
+ * This file requires use of the Ext JS 4.2.x library, under independent license.
+ * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
+ * details see http://www.sencha.com/license or contact license@sencha.com.
+ *
+ * This file will be auto-generated each and everytime you save your project.
+ *
+ * Do NOT hand edit this file.
+ */
+
+Ext.define('Simplereg.view.ListToolbar', {
+    extend: 'Ext.toolbar.Toolbar',
+    alias: 'widget.listtoolbar',
+
+    initComponent: function() {
+        var me = this;
+
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'button',
+                    action: 'create',
+                    iconCls: 'icon-add',
+                    text: 'Add'
+                },
+                {
+                    xtype: 'button',
+                    action: 'delete',
+                    iconCls: 'icon-delete',
+                    text: 'Remove'
+                },
+                {
+                    xtype: 'button',
+                    action: 'update',
+                    iconCls: 'icon-edit',
+                    text: 'Modify'
+                }
+            ]
+        });
+
+        me.callParent(arguments);
+    }
+
 });

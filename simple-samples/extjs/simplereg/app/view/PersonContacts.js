@@ -18,6 +18,7 @@ Ext.define('Simplereg.view.PersonContacts', {
     alias: 'widget.personcontacts',
 
     requires: [
+        'Simplereg.view.ListToolbar',
         'Simplereg.view.override.PersonContacts'
     ],
 
@@ -33,34 +34,14 @@ Ext.define('Simplereg.view.PersonContacts', {
             tools: [
                 {
                     xtype: 'tool',
-                    itemId: 'reload',
+                    action: 'reload',
                     type: 'refresh'
                 }
             ],
             dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            itemId: 'create-contact',
-                            iconCls: 'icon-add',
-                            text: 'Add'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'delete-contact',
-                            iconCls: 'icon-delete',
-                            text: 'Remove'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'update-contact',
-                            iconCls: 'icon-edit',
-                            text: 'Modify'
-                        }
-                    ]
+                    xtype: 'listtoolbar',
+                    dock: 'top'
                 }
             ],
             columns: [

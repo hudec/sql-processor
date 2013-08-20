@@ -38,81 +38,6 @@
             "designerId": "38f77cbf-a2ad-46bd-88d5-2712efbcc2f3",
             "cn": [
                 {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom",
-                        "designer|displayName": "Toolbar"
-                    },
-                    "designerId": "37a1e22c-5a49-454e-b8f6-b2abc8dee125",
-                    "cn": [
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "reset",
-                                "iconCls": "icon-reset",
-                                "text": "Reset"
-                            },
-                            "designerId": "afbe689f-3bd6-4d45-8bf0-ec8d15be906e"
-                        },
-                        {
-                            "type": "Ext.toolbar.Fill",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "designer|displayName": "Fill"
-                            },
-                            "designerId": "a337de91-9bcf-490f-9fdc-811f9e0e0a74"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "id": null,
-                                "itemId": "cancel",
-                                "iconCls": "icon-cancel",
-                                "text": "Cancel"
-                            },
-                            "designerId": "1c582b4b-d82e-43ea-861d-7ec006b77ed0"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "id": null,
-                                "itemId": "submit",
-                                "iconCls": "icon-add",
-                                "text": "Add Relative"
-                            },
-                            "designerId": "bfc99be8-1b6a-47fa-a55e-51f3f6d4d4cd"
-                        }
-                    ]
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -218,20 +143,29 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "layout|flex": null,
                                 "itemId": "search-person",
-                                "margin": null,
                                 "iconCls": "icon-search",
-                                "text": "",
-                                "tooltip": "Find relative person"
+                                "text": ""
                             },
-                            "configAlternates": {
-                                "tooltip": "string"
-                            },
-                            "designerId": "d48208c1-8c85-4764-9405-9a0de914f61d"
+                            "designerId": "6eceb511-5eaa-407c-8a22-fa8876aa843c"
                         }
                     ]
                 }
             ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "f071c735-d506-4e14-9b4d-b5637ce1c1f3",
+            "masterInstanceId": "39500951-445d-44a4-a963-93c0cb969557"
         }
     ]
 }

@@ -11,9 +11,9 @@
         "designer|userClassName": "Genders",
         "data": [
             "[",
-            "    { value: \"MALE\", name: \"MALE\" },",
-            "    { value: \"FEMALE\", name: \"FEMALE\" },",
-            "    { value: \"UNKNOWN\", name: \"UNKNOWN\" }",
+            "    { value: \"MALE\", name: \"Male\" },",
+            "    { value: \"FEMALE\", name: \"Female\" },",
+            "    { value: \"UNKNOWN\", name: \"---\" }",
             "]"
         ]
     },

@@ -34,7 +34,7 @@ Ext.define('Simplereg.view.PersonData', {
                     items: [
                         {
                             xtype: 'button',
-                            itemId: 'update-person',
+                            action: 'update',
                             iconCls: 'icon-edit',
                             text: 'Modify'
                         }

@@ -27,86 +27,33 @@
             },
             "codeClass": null,
             "userConfig": {
-                "itemId": "reload",
+                "action": "reload",
+                "itemId": null,
                 "designer|displayName": "Reload",
                 "type": "refresh"
             },
-            "designerId": "fdbd3dfd-7406-418d-b7d5-3cf543819b82"
+            "designerId": "fdbd3dfd-7406-418d-b7d5-3cf543819b82",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
         },
         {
-            "type": "Ext.toolbar.Toolbar",
+            "type": "linkedinstance",
             "reference": {
                 "name": "dockedItems",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "dock": "top",
-                "designer|displayName": "Toolbar"
+                "designer|displayName": "Toolbar",
+                "dock": "top"
             },
-            "designerId": "e3da6be9-bf83-4146-885f-2f34143b1a0b",
-            "cn": [
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "itemId": "create-relative",
-                        "iconCls": "icon-add",
-                        "text": "Add"
-                    },
-                    "designerId": "7371c9b8-3393-4299-a8aa-09e7bfc803c8"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "itemId": "delete-relative",
-                        "iconCls": "icon-delete",
-                        "text": "Remove"
-                    },
-                    "designerId": "912a958d-db1b-4f66-a5f6-47769454feb8"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "itemId": "update-relative",
-                        "iconCls": "icon-edit",
-                        "text": "Modify"
-                    },
-                    "designerId": "7366e2dd-0251-4e8a-bd5e-73f4240515d8"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "itemId": "open",
-                        "iconCls": "icon-page",
-                        "text": "Open"
-                    },
-                    "designerId": "8be824c2-9976-402b-afed-5e1920ce56b6"
-                }
-            ]
+            "designerId": "8fbfdf11-ff79-4284-a929-7bf1c9dd79f3",
+            "masterInstanceId": "8bdfeb77-92a1-422b-97ba-9aea4cd8870e"
         },
         {
             "type": "Ext.grid.View",
@@ -299,6 +246,71 @@
                 "flex": 1
             },
             "designerId": "7f5106a4-d0c4-4a43-990d-463c5a736c11"
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Actions",
+                "hideable": false,
+                "flex": 0.1
+            },
+            "designerId": "375b365e-d853-4b2b-86d7-d03e9d212469",
+            "cn": [
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "action": "open",
+                        "designer|displayName": "Open",
+                        "iconCls": "icon-page",
+                        "tooltip": "Open Person Detail"
+                    },
+                    "designerId": "846e3871-8f7c-403a-beaa-b3c2e3147710",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "action",
+                            "type": "string"
+                        }
+                    ],
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "handler",
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "implHandler": [
+                                    "var page = Ext.getCmp(\"page\");",
+                                    "page.openPersonDetail(record.data[\"relPerson.id\"]);"
+                                ]
+                            },
+                            "designerId": "2fa1f3e7-08be-4fcb-8671-864e75afbc9c"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

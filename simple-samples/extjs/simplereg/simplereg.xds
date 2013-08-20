@@ -180,11 +180,11 @@
         },
         "5b42240f-08da-474c-b3c8-4ef44280ee49": {
             "paths": [
-                "metadata/controller/Common",
-                "app/controller/override/Common.js",
-                "app/controller/Common.js"
+                "metadata/controller/Page",
+                "app/controller/override/Page.js",
+                "app/controller/Page.js"
             ],
-            "className": "Common"
+            "className": "Page"
         },
         "2bd1c73c-98bf-4cd1-857c-bd3acb916b45": {
             "paths": [
@@ -295,11 +295,47 @@
                 "metadata/resource/js1"
             ],
             "className": "js1"
+        },
+        "c46988ce-2ef4-4c66-9b8b-69e879839437": {
+            "paths": [
+                "metadata/view/System",
+                "app/view/override/System.js",
+                "app/view/System.js"
+            ],
+            "className": "System"
+        },
+        "39500951-445d-44a4-a963-93c0cb969557": {
+            "paths": [
+                "metadata/view/DialogToolbar",
+                "app/view/override/DialogToolbar.js",
+                "app/view/DialogToolbar.js"
+            ],
+            "className": "DialogToolbar"
+        },
+        "48677c89-8429-4318-8f02-ee03bf56b5f0": {
+            "paths": [
+                "metadata/view/DialogToolbar2",
+                "app/view/override/DialogToolbar2.js",
+                "app/view/DialogToolbar2.js"
+            ],
+            "className": "DialogToolbar2"
+        },
+        "8bdfeb77-92a1-422b-97ba-9aea4cd8870e": {
+            "paths": [
+                "metadata/view/ListToolbar",
+                "app/view/override/ListToolbar.js",
+                "app/view/ListToolbar.js"
+            ],
+            "className": "ListToolbar"
         }
     },
     "viewOrderMap": {
         "view": [
             "f600383f-a1f8-44d9-a078-d04e6c6133f3",
+            "c46988ce-2ef4-4c66-9b8b-69e879839437",
+            "8bdfeb77-92a1-422b-97ba-9aea4cd8870e",
+            "39500951-445d-44a4-a963-93c0cb969557",
+            "48677c89-8429-4318-8f02-ee03bf56b5f0",
             "8b573659-e8e3-458d-ab3f-f82ee954a47f",
             "d97c0e80-841d-4417-acdf-a0eb8bc9e694",
             "2bd1c73c-98bf-4cd1-857c-bd3acb916b45",

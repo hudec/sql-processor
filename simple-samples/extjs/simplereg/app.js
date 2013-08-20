@@ -19,7 +19,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.application({
-    version: '3.1',
+    version: '3.3',
     title: 'Simple Reg.',
     models: [
         'Person',
@@ -43,7 +43,7 @@ Ext.application({
     ],
     autoCreateViewport: true,
     controllers: [
-        'Common'
+        'Page'
     ],
     name: 'Simplereg'
 });

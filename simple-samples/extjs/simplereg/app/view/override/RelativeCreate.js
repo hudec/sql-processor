@@ -1,10 +1,11 @@
 Ext.define("Simplereg.view.override.RelativeCreate", {
-    override : "Simplereg.view.RelativeCreate",
+    override: "Simplereg.view.RelativeCreate",
 
     /**
-     * Handle dialog submit (create relative)
+     * Handle dialog submit
+     * (create relative)
      */
-    submit : function() {
+    submit: function() {
         var me = this, form = me.down("form");
 
         if (!form.isValid()) {
@@ -32,7 +33,8 @@ Ext.define("Simplereg.view.override.RelativeCreate", {
                     var page = Ext.getCmp("page");
                     page.reloadPersonDetail(id);
                 }
-            } else {
+            }
+            else {
                 form.getForm().markInvalid(result.errors);
             }
         });
@@ -41,18 +43,18 @@ Ext.define("Simplereg.view.override.RelativeCreate", {
     /**
      * Filter relative combobox
      */
-    search : function(params) {
-        var me = this, combobox = me.down("#people"), store = combobox.store;
+    search: function(params) {
+        var me = this, combobox = me.down("#people"),
+                store = combobox.store;
 
         me.loadMask.show();
 
         store.proxy.extraParams = params;
 
         store.load({
-            page : 1,
-            start : 0,
+            page: 1, start: 0,
 
-            callback : function(records, operation, success) {
+            callback: function(records, operation, success) {
                 me.loadMask.hide();
                 if (success) {
                     if (!records.length) {

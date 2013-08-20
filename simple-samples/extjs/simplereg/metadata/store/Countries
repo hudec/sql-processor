@@ -37,7 +37,7 @@
             "userConfig": {
                 "designer|displayName": "Proxy",
                 "api": [
-                    "{ read: \"simpleService.loadCountries\" }"
+                    "{ read: \"personWeb.loadCountries\" }"
                 ]
             },
             "designerId": "6bc598b1-8228-4395-b7db-fdc6e2bac435",

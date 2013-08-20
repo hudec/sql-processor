@@ -34,64 +34,6 @@
             "designerId": "6d070b86-296b-4080-88ba-32aac0a07141",
             "cn": [
                 {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom",
-                        "designer|displayName": "Toolbar"
-                    },
-                    "designerId": "f6c3fa11-1258-4e94-8d64-ab9aba5f7cce",
-                    "cn": [
-                        {
-                            "type": "Ext.toolbar.Fill",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "designer|displayName": "Fill"
-                            },
-                            "designerId": "d5505849-2af9-47b0-83ec-88a12e9e84ab"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "cancel",
-                                "iconCls": "icon-cancel",
-                                "text": "Cancel"
-                            },
-                            "designerId": "1264b123-1ea6-4b57-8a45-0bfbd92b581b"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null,
-                                "itemId": "submit",
-                                "iconCls": "icon-delete",
-                                "text": "Remove Person"
-                            },
-                            "designerId": "9f37efc6-768d-44c2-a756-ace61c1c8eae"
-                        }
-                    ]
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -195,6 +137,19 @@
                     "designerId": "040b270a-559f-435e-8e21-95addc65e723"
                 }
             ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "4bf4399b-768a-47b9-9324-51d1412b8f0c",
+            "masterInstanceId": "48677c89-8429-4318-8f02-ee03bf56b5f0"
         }
     ]
 }

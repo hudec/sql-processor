@@ -18,6 +18,7 @@ Ext.define('Simplereg.view.PersonDetail', {
     alias: 'widget.persondetail',
 
     requires: [
+        'Simplereg.view.System',
         'Simplereg.view.PersonData',
         'Simplereg.view.PersonRelatives',
         'Simplereg.view.PersonContacts',
@@ -42,10 +43,17 @@ Ext.define('Simplereg.view.PersonDetail', {
                     xtype: 'toolbar',
                     dock: 'top',
                     cls: 'thick',
+                    itemId: 'main',
                     items: [
                         {
+                            xtype: 'system'
+                        },
+                        {
+                            xtype: 'tbseparator'
+                        },
+                        {
                             xtype: 'splitbutton',
-                            itemId: 'search-person',
+                            action: 'search',
                             iconCls: 'icon-search',
                             text: 'Find',
                             menu: {
@@ -54,18 +62,15 @@ Ext.define('Simplereg.view.PersonDetail', {
                                 items: [
                                     {
                                         xtype: 'menuitem',
-                                        itemId: 'search-all-people',
+                                        action: 'search-all',
                                         text: 'Clear Filter'
                                     }
                                 ]
                             }
                         },
                         {
-                            xtype: 'tbseparator'
-                        },
-                        {
                             xtype: 'button',
-                            itemId: 'reload',
+                            action: 'reload',
                             iconCls: 'icon-refresh',
                             text: 'Refresh'
                         },
@@ -74,13 +79,13 @@ Ext.define('Simplereg.view.PersonDetail', {
                         },
                         {
                             xtype: 'button',
-                            itemId: 'create-person',
+                            action: 'create',
                             iconCls: 'icon-add',
                             text: 'Add'
                         },
                         {
                             xtype: 'button',
-                            itemId: 'delete-person',
+                            action: 'delete',
                             iconCls: 'icon-delete',
                             text: 'Remove'
                         },
@@ -89,7 +94,7 @@ Ext.define('Simplereg.view.PersonDetail', {
                         },
                         {
                             xtype: 'splitbutton',
-                            itemId: 'close',
+                            action: 'close',
                             iconCls: 'icon-page-close',
                             text: 'Close',
                             menu: {
@@ -97,12 +102,12 @@ Ext.define('Simplereg.view.PersonDetail', {
                                 items: [
                                     {
                                         xtype: 'menuitem',
-                                        itemId: 'close-all',
+                                        action: 'close-all',
                                         text: 'Close All'
                                     },
                                     {
                                         xtype: 'menuitem',
-                                        itemId: 'close-other',
+                                        action: 'close-other',
                                         text: 'Close All but Active'
                                     }
                                 ]

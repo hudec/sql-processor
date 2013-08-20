@@ -25,6 +25,9 @@ Ext.define('Simpleauth.view.UserList', {
     title: 'Users',
     store: 'AuthUsers',
 
+    stateful: true,
+    stateId: "userlist_state",
+
     initComponent: function() {
         var me = this;
 

@@ -37,7 +37,7 @@
             "userConfig": {
                 "designer|displayName": "Proxy",
                 "api": [
-                    "{ read: \"simpleService.loadContacts\" }"
+                    "{ read: \"personWeb.loadContacts\" }"
                 ]
             },
             "designerId": "08dda53d-8553-476b-8da8-d3991430f151",

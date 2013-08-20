@@ -18,6 +18,7 @@ Ext.define('Simplereg.view.PersonRelatives', {
     alias: 'widget.personrelatives',
 
     requires: [
+        'Simplereg.view.ListToolbar',
         'Simplereg.view.override.PersonRelatives'
     ],
 
@@ -33,40 +34,14 @@ Ext.define('Simplereg.view.PersonRelatives', {
             tools: [
                 {
                     xtype: 'tool',
-                    itemId: 'reload',
+                    action: 'reload',
                     type: 'refresh'
                 }
             ],
             dockedItems: [
                 {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            itemId: 'create-relative',
-                            iconCls: 'icon-add',
-                            text: 'Add'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'delete-relative',
-                            iconCls: 'icon-delete',
-                            text: 'Remove'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'update-relative',
-                            iconCls: 'icon-edit',
-                            text: 'Modify'
-                        },
-                        {
-                            xtype: 'button',
-                            itemId: 'open',
-                            iconCls: 'icon-page',
-                            text: 'Open'
-                        }
-                    ]
+                    xtype: 'listtoolbar',
+                    dock: 'top'
                 }
             ],
             columns: [
@@ -160,6 +135,22 @@ Ext.define('Simplereg.view.PersonRelatives', {
                     dataIndex: 'relPerson.gender',
                     text: 'Gender',
                     flex: 1
+                },
+                {
+                    xtype: 'actioncolumn',
+                    hideable: false,
+                    flex: 0.1,
+                    items: [
+                        {
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                var page = Ext.getCmp("page");
+                                page.openPersonDetail(record.data["relPerson.id"]);
+                            },
+                            action: 'open',
+                            iconCls: 'icon-page',
+                            tooltip: 'Open Person Detail'
+                        }
+                    ]
                 }
             ]
         });
