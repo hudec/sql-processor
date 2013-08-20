@@ -167,7 +167,7 @@ Ext.define("Simplereg.controller.override.Page", {
             },
             "menuitem[action=simpleauth]": {
                 click: function(item, e, eOpts) {
-                    var url = item.href || window.location.href.replace(/simplereg/, "simpleauth");
+                    var url = item.href || window.location.href.replace(/simple-gui/, "simple-auth");
                     window.open(url, item.hrefTarget);
                 }
             },
