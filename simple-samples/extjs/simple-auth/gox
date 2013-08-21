@@ -41,7 +41,6 @@ cat ${SRC}/app/view/RoleDelete.js >>  ${DST}all-classes.js
 cat ${SRC}/app/view/RoleUpdate.js >>  ${DST}all-classes.js
 
 cat ${SRC}/app/controller/override/Page.js >>  ${DST}all-classes.js
-cat ${SRC}/app/controller/override/Page-updateroles.js >>  ${DST}all-classes.js
 cat ${SRC}/app/controller/Page.js >>  ${DST}all-classes.js
 cat ${SRC}/app.js >>  ${DST}all-classes.js
 
