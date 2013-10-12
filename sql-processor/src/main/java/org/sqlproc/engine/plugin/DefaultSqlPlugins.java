@@ -277,6 +277,10 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
+        int ix = attributeName.indexOf(".");
+        if (ix >= 0) {
+            attributeName = attributeName.substring(0, ix);
+        }
         Object result = null;
         try {
             result = MethodUtils.invokeMethod(parentObj, methodName, attributeName);

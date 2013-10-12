@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.model.Country;
+import org.sqlproc.engine.model.Engagement;
 import org.sqlproc.engine.model.Gender;
 import org.sqlproc.engine.model.Person;
 import org.sqlproc.engine.model.PersonName;
@@ -321,6 +322,22 @@ public class TestCrud extends TestDatabase {
 
         list = sqlEngine.query(session, Person.class, p);
         assertEquals(0, list.size());
+    }
+
+    @Test
+    public void testUpdate3() {
+        Engagement e = new Engagement();
+        e.setId(1L);
+        e.setRole("Writes");
+        SqlCrudEngine crudEngine = getCrudEngine("UPDATE_ENGAGEMENT_3");
+
+        String sql = crudEngine.getUpdateSql(e, null);
+        logger.info(sql);
+        assertContains(sql, "update ENGAGEMENT");
+        assertContains(sql, "SET");
+        assertContains(sql, "p.ROLE = :role", "p.ROLE = ?");
+        assertDoNotContain(sql, "UUID = ");
+        assertDoNotContain(sql, "PERSON = ");
     }
 
     @Test

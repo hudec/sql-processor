@@ -219,10 +219,14 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
         String attributeName = null;
+        String fullAttributeName = "";
         Class<?> attributeType = (obj != null) ? obj.getClass() : null;
 
         for (String item : this.elements) {
             attributeName = item;
+            if (fullAttributeName.length() > 0)
+                fullAttributeName = fullAttributeName + ".";
+            fullAttributeName = fullAttributeName + attributeName;
             if (Character.isDigit(attributeName.charAt(0))) {
                 s.append(attributeName);
                 if (obj != null) {
@@ -283,7 +287,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 result.add(SqlProcessContext
                         .getPluginFactory()
                         .getIsEmptyPlugin()
-                        .isNotEmpty(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
+                        .isNotEmpty(fullAttributeName, obj, parentObj,
+                                (sqlType == null) ? null : sqlType.getMetaType(),
                                 (sqlType == null) ? null : sqlType.getValue(),
                                 ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL, values,
                                 SqlProcessContext.getFeatures()));

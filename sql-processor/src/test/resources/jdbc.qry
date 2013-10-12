@@ -1634,6 +1634,15 @@ UPDATE_PERSON(CRUD,DB2)=
   {= where ID = :id }
 ;
 
+UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true)=
+  update ENGAGEMENT p
+  {= set 
+  	{ ,p.ROLE = :role }
+    { ,p.UUID = :uuid }
+    { ,p.PERSON = :person.id }
+  }
+  {= where p.ID = :id }
+;
 UPDATE_PERSON_2(CRUD)=
   update PERSON p
   {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate(type=date)}
