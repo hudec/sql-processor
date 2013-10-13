@@ -335,7 +335,7 @@ public class TestCrud extends TestDatabase {
         logger.info(sql);
         assertContains(sql, "update ENGAGEMENT");
         assertContains(sql, "SET");
-        assertContains(sql, "p.ROLE = :role", "p.ROLE = ?");
+        assertContains(sql, "ROLE = :role", "ROLE = ?");
         assertDoNotContain(sql, "UUID = ");
         assertDoNotContain(sql, "PERSON = ");
 
@@ -344,7 +344,7 @@ public class TestCrud extends TestDatabase {
         logger.info(sql);
         assertContains(sql, "update ENGAGEMENT");
         assertContains(sql, "SET");
-        assertContains(sql, "p.ROLE = :role", "p.ROLE = ?");
+        assertContains(sql, "ROLE = :role", "ROLE = ?");
         assertDoNotContain(sql, "UUID = ");
         assertDoNotContain(sql, "PERSON = ");
 
