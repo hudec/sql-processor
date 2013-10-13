@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.beanutils.MethodUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
@@ -19,12 +21,21 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         SqlSequencePlugin, SqlIdentityPlugin {
 
     /**
+     * The internal slf4j logger.
+     */
+    final Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
             String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
             throws IllegalArgumentException {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">>> isNotEmpty attributeName=" + attributeName + ", obj=" + obj + ", parentObj=" + parentObj
+                    + ", inSqlSetOrInsert=" + inSqlSetOrInsert);
+        }
 
         Boolean delegatedResult = callMethod(attributeName, parentObj, values);
         if (delegatedResult != null) {
@@ -272,15 +283,16 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     }
 
     private Boolean callMethod(String attributeName, Object parentObj, Map<String, String> values) {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">>> callMethod attributeName=" + attributeName + ", parentObj=" + parentObj + ", values="
+                    + values);
+        }
+
         if (attributeName == null || parentObj == null || values == null)
             return null;
         String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
-        int ix = attributeName.indexOf(".");
-        if (ix >= 0) {
-            attributeName = attributeName.substring(0, ix);
-        }
         Object result = null;
         try {
             result = MethodUtils.invokeMethod(parentObj, methodName, attributeName);

@@ -219,14 +219,11 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
         String attributeName = null;
-        String fullAttributeName = "";
+        String lastAttributeName = null;
         Class<?> attributeType = (obj != null) ? obj.getClass() : null;
 
         for (String item : this.elements) {
             attributeName = item;
-            if (fullAttributeName.length() > 0)
-                fullAttributeName = fullAttributeName + ".";
-            fullAttributeName = fullAttributeName + attributeName;
             if (Character.isDigit(attributeName.charAt(0))) {
                 s.append(attributeName);
                 if (obj != null) {
@@ -256,8 +253,12 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 parentObj = obj;
                 obj = BeanUtils.getProperty(obj, item);
             }
+            if (obj == null && lastAttributeName == null)
+                lastAttributeName = attributeName;
             count++;
         }
+        if (lastAttributeName == null)
+            lastAttributeName = attributeName;
 
         if (sequenceName != null) {
             String sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(sequenceName);
@@ -287,7 +288,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 result.add(SqlProcessContext
                         .getPluginFactory()
                         .getIsEmptyPlugin()
-                        .isNotEmpty(fullAttributeName, obj, parentObj,
+                        .isNotEmpty(lastAttributeName, obj, parentObj,
                                 (sqlType == null) ? null : sqlType.getMetaType(),
                                 (sqlType == null) ? null : sqlType.getValue(),
                                 ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL, values,

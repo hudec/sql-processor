@@ -1634,15 +1634,6 @@ UPDATE_PERSON(CRUD,DB2)=
   {= where ID = :id }
 ;
 
-UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true)=
-  update ENGAGEMENT p
-  {= set 
-  	{ ,p.ROLE = :role }
-    { ,p.UUID = :uuid }
-    { ,p.PERSON = :person.id }
-  }
-  {= where p.ID = :id }
-;
 UPDATE_PERSON_2(CRUD)=
   update PERSON p
   {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate(type=date)}
@@ -1656,6 +1647,25 @@ UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
 UPDATE_PERSON_2(CRUD,DB2)=
   update PERSON
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=stamp)}
+  {= where ID = :id }
+;
+
+UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true)=
+  update ENGAGEMENT p
+  {= set 
+  	{ ,p.ROLE = :role }
+    { ,p.UUID = :uuid }
+    { ,p.PERSON = :person.id }
+  }
+  {= where p.ID = :id }
+;
+UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true,INFORMIX,MSSQL,DB2)=
+  update ENGAGEMENT
+  {= set 
+  	{ ,ROLE = :role }
+    { ,UUID = :uuid }
+    { ,PERSON = :person.id }
+  }
   {= where ID = :id }
 ;
 

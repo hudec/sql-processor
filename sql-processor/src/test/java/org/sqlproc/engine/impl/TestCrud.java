@@ -338,6 +338,18 @@ public class TestCrud extends TestDatabase {
         assertContains(sql, "p.ROLE = :role", "p.ROLE = ?");
         assertDoNotContain(sql, "UUID = ");
         assertDoNotContain(sql, "PERSON = ");
+
+        e.setPerson(new Person());
+        crudEngine.getUpdateSql(e, null);
+        logger.info(sql);
+        assertContains(sql, "update ENGAGEMENT");
+        assertContains(sql, "SET");
+        assertContains(sql, "p.ROLE = :role", "p.ROLE = ?");
+        assertDoNotContain(sql, "UUID = ");
+        assertDoNotContain(sql, "PERSON = ");
+
+        int count = crudEngine.update(session, e);
+        assertEquals(1, count);
     }
 
     @Test

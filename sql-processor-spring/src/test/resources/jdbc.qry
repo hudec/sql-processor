@@ -1650,6 +1650,25 @@ UPDATE_PERSON_2(CRUD,DB2)=
   {= where ID = :id }
 ;
 
+UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true)=
+  update ENGAGEMENT p
+  {= set 
+  	{ ,p.ROLE = :role }
+    { ,p.UUID = :uuid }
+    { ,p.PERSON = :person.id }
+  }
+  {= where p.ID = :id }
+;
+UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true,INFORMIX,MSSQL,DB2)=
+  update ENGAGEMENT
+  {= set 
+  	{ ,ROLE = :role }
+    { ,UUID = :uuid }
+    { ,PERSON = :person.id }
+  }
+  {= where ID = :id }
+;
+
 DELETE_PERSON(CRUD)=
   delete from PERSON
   {= where ID = :id }
