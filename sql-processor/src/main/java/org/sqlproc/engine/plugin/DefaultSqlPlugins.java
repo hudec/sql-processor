@@ -107,7 +107,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 return true;
             }
             boolean isEmptyForNull = isEmptyUseMethodIsNull;
-            if (obj == null) {
+            if (isEmpty(obj, values)) {
                 Object o = features.get(SqlFeature.EMPTY_FOR_NULL);
                 if (o != null && o instanceof Boolean && ((Boolean) o))
                     isEmptyForNull = true;
@@ -124,20 +124,24 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             else
                 return false;
         } else {
-            if (obj == null) {
-                return false;
-            } else if (obj instanceof Collection<?>) {
-                if (((Collection<?>) obj).isEmpty()) {
-                    if (values.containsKey(MODIFIER_ANYSET))
-                        return true;
-                    else
-                        return false;
-                }
-            } else if (obj.toString().length() <= 0) {
-                return false;
+            return !isEmpty(obj, values);
+        }
+    }
+
+    protected boolean isEmpty(Object obj, Map<String, String> values) {
+        if (obj == null) {
+            return true;
+        } else if (obj instanceof Collection<?>) {
+            if (((Collection<?>) obj).isEmpty()) {
+                if (values.containsKey(MODIFIER_ANYSET))
+                    return false;
+                else
+                    return true;
             }
+        } else if (obj.toString().length() <= 0) {
             return true;
         }
+        return false;
     }
 
     /**

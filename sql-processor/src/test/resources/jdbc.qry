@@ -1606,6 +1606,11 @@ INSERT_PERSON_7(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   {= values (:id(type=long,seq), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
+
+INSERT_PERSON_8(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id, :ssn.number(type=string), :ssn.country, :name.first(type=string), :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+;
   
 CRUD_PERSON_SELECT(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
