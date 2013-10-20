@@ -67,7 +67,7 @@
         <property name="monitorName" value="catalog" />
     </bean>
 
-    <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
+    <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">
         <property name="metaFilesNames">
             <list>
                 <value>statements.qry</value>
