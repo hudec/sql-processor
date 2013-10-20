@@ -22,6 +22,9 @@ public class CountryDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public CountryDao() {
+  }
+    	
   public CountryDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

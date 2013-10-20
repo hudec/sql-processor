@@ -233,6 +233,7 @@ public class Country implements Serializable {
       id, code, name
   }
   
+  @JsonIgnore
   private Map<String, String> operators = new HashMap<String, String>();
   
   public Map<String, String> getOperators() {

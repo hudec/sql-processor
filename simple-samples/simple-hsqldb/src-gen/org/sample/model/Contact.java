@@ -1,4 +1,7 @@
 package org.sample.model;
+  
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -38,6 +41,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @NotNull
   private Person person;
   
   public Person getPerson() {
@@ -53,6 +57,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @NotNull
   private ContactType type;
   
   public ContactType getType() {
@@ -68,6 +73,8 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @NotNull
+  @Size(max = 100)
   private String address;
   
   public String getAddress() {
@@ -83,6 +90,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @Size(max = 100)
   private String phoneNumber;
   
   public String getPhoneNumber() {

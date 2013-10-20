@@ -351,6 +351,7 @@ public class Person implements Serializable {
       id, firstName, lastName, dateOfBirth, gender, ssn, version, relatives, contacts
   }
   
+  @JsonIgnore
   private Map<String, String> operators = new HashMap<String, String>();
   
   public Map<String, String> getOperators() {

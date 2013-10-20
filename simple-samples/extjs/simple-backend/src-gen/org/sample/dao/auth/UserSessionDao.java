@@ -22,6 +22,9 @@ public class UserSessionDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public UserSessionDao() {
+  }
+    	
   public UserSessionDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

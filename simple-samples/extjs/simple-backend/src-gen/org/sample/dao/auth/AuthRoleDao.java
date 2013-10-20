@@ -22,6 +22,9 @@ public class AuthRoleDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public AuthRoleDao() {
+  }
+    	
   public AuthRoleDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

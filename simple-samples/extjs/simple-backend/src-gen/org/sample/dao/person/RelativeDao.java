@@ -22,6 +22,9 @@ public class RelativeDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public RelativeDao() {
+  }
+    	
   public RelativeDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

@@ -248,6 +248,7 @@ public class AuthRole implements Serializable {
       id, name, description, version
   }
   
+  @JsonIgnore
   private Map<String, String> operators = new HashMap<String, String>();
   
   public Map<String, String> getOperators() {

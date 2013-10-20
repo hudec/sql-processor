@@ -329,6 +329,7 @@ public class AuthUser implements Serializable {
       id, username, password, name, email, lastLogin, version, userRoles
   }
   
+  @JsonIgnore
   private Map<String, String> operators = new HashMap<String, String>();
   
   public Map<String, String> getOperators() {

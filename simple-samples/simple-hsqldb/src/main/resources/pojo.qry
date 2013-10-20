@@ -1,5 +1,7 @@
 package org.sample.model {
 
+  import javax.validation.constraints.NotNull
+  import javax.validation.constraints.Size
 
   enum ContactType serializable 1  {
     value : java.lang.Integer
@@ -15,11 +17,22 @@ package org.sample.model {
     UNKNOWN ::: "0"
   }
 
+  // The contact information
   pojo Contact serializable 1 operators {
+    // The technical primary key
     id : java.lang.Long primaryKey index 1
+    // The owner of this contact
+    @NotNull
     person :: Person required index 2
+    // The contact type: 0=home, 1=business, 2=abroad
+    @NotNull
     type :: ContactType required
+    // The address: city, street...
+    @NotNull
+    @Size ::: max 100
     address : java.lang.String required
+    // The phone number
+    @Size ::: max 100
     phoneNumber : java.lang.String
     equals ::: id
     hashCode ::: id
@@ -28,12 +41,25 @@ package org.sample.model {
     toString ::: id person phoneNumber address type
   }
 
+  // The personal information
   pojo Person serializable 1 operators {
+    // The technical primary key
     id : java.lang.Long primaryKey index 1
+    // The first name
+    @NotNull
+    @Size ::: max 100
     firstName : java.lang.String required
+    // The surname
+    @NotNull
+    @Size ::: max 100
     lastName : java.lang.String required index 2
+    // The date of birth
     dateOfBirth : java.util.Date
+    // The gender: M=male, F=female, 0=other
+    @NotNull
     gender :: PersonGender required
+    // The social security number
+    @Size ::: max 100
     ssn : java.lang.String
     contacts : java.util.List <:Contact>
     equals ::: id

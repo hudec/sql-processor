@@ -275,6 +275,7 @@ public class Relative implements Serializable {
       id, personId, relPerson, rtype, version
   }
   
+  @JsonIgnore
   private Map<String, String> operators = new HashMap<String, String>();
   
   public Map<String, String> getOperators() {

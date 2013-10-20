@@ -330,6 +330,7 @@ public class Contact implements Serializable {
       id, personId, ctype, address, phoneNumber, version, country, countryCode
   }
   
+  @JsonIgnore
   private Map<String, String> operators = new HashMap<String, String>();
   
   public Map<String, String> getOperators() {

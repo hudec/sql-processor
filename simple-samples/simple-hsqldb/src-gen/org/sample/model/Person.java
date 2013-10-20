@@ -2,6 +2,8 @@ package org.sample.model;
   
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,6 +44,8 @@ public class Person implements Serializable {
     return this;
   }
   
+  @NotNull
+  @Size(max = 100)
   private String firstName;
   
   public String getFirstName() {
@@ -57,6 +61,8 @@ public class Person implements Serializable {
     return this;
   }
   
+  @NotNull
+  @Size(max = 100)
   private String lastName;
   
   public String getLastName() {
@@ -87,6 +93,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @NotNull
   private PersonGender gender;
   
   public PersonGender getGender() {
@@ -102,6 +109,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @Size(max = 100)
   private String ssn;
   
   public String getSsn() {
