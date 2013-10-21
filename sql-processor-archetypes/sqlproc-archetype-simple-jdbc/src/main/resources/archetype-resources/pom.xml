@@ -8,7 +8,7 @@
     <name>SQL Processor Sample, Simple JDBC</name>
 
     <properties>
-        <version.sql-processor>2.2.4</version.sql-processor>
+        <version.sql-processor>2.2.5-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.2</version.slf4j>
