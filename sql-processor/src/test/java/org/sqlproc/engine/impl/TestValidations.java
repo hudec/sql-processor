@@ -48,7 +48,6 @@ public class TestValidations extends TestDatabase {
         p.setClothesSize(Size.MIDDLE);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_OPT");
-        crudEngine.setValidator(new SampleValidator());
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
@@ -95,7 +94,6 @@ public class TestValidations extends TestDatabase {
         p.setClothesSize(Size.MIDDLE);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_OPT");
-        crudEngine.setValidator(new SampleValidator());
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
@@ -139,7 +137,6 @@ public class TestValidations extends TestDatabase {
         p.setClothesSize(Size.MIDDLE);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_OPT");
-        crudEngine.setValidator(new SampleValidator());
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);

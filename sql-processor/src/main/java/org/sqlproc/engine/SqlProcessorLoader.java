@@ -18,6 +18,8 @@ import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlComposedTypeFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidator;
+import org.sqlproc.engine.validation.SqlValidatorFactory;
 
 /**
  * The helper class for the META SQL statements and mapping rules parsing. These statements and rules are taken from the
@@ -275,10 +277,46 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes,
             String... onlyStatements) throws SqlEngineException {
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, null, null, onlyStatements);
+    }
+
+    /**
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL
+     * Engine is accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these
+     * monitors the SQL Monitor Factory can be used.
+     * 
+     * @param sbStatements
+     *            the String representation of the META SQL queries/statements/output mappings
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     * @param filter
+     *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
+     * @param monitorFactory
+     *            the monitor factory used in the process of the SQL Monitor instances creation
+     * @param validatorFactory
+     *            the validator factory used in the process of the SQL Monitor instances creation
+     * @param customTypes
+     *            the custom META types
+     * @param onlyStatements
+     *            only statements and rules with the names in this container are picked up from the properties
+     *            repository
+     * @throws SqlEngineException
+     *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
+     */
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
+            List<SqlInternalType> customTypes, String... onlyStatements) throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> SqlProcessorLoader, sbStatements=" + sbStatements + ", typeFactory=" + typeFactory
-                    + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", filter=" + filter
-                    + ", customTypes=" + customTypes + ", onlyStatements=" + onlyStatements);
+                    + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", validatorFactory="
+                    + validatorFactory + ", filter=" + filter + ", customTypes=" + customTypes + ", onlyStatements="
+                    + onlyStatements);
         }
 
         if (sbStatements == null)
@@ -349,6 +387,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             }
 
             for (String name : cruds.keySet()) {
+                SqlValidator validator = (validatorFactory != null) ? validatorFactory.getSqlValidator() : null;
                 SqlMetaStatement stmt = cruds.get(name);
                 SqlMappingRule mapping = null;
                 if (outs.containsKey(name)) {
@@ -358,6 +397,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                 if (stmt != null) {
                     engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
                             this.composedTypeFactory, this.pluginFactory));
+                    engines.get(name).setValidator(validator);
                     loadStatementFeatures(name);
                 }
             }

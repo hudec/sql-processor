@@ -9,6 +9,7 @@ import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidatorFactory;
 
 /**
  * The simple implementation of the {@link SqlEngineFactory}.
@@ -101,6 +102,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * based files.
      */
     private SqlProcessorLoader processorLoader;
+    /**
+     * The validator factory used in the process of the SQL Monitor instances creation.
+     */
+    private SqlValidatorFactory validatorFactory;
 
     /**
      * Creates a new instance with no default values.
@@ -414,5 +419,24 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public SqlEngineFactory getLoader() {
         return processorLoader;
+    }
+
+    /**
+     * Returns the validator factory used in the process of the SQL Monitor instances creation.
+     * 
+     * @return the validator factory used in the process of the SQL Monitor instances creation
+     */
+    public SqlValidatorFactory getValidatorFactory() {
+        return validatorFactory;
+    }
+
+    /**
+     * Sets the validator factory used in the process of the SQL Monitor instances creation.
+     * 
+     * @param validatorFactory
+     *            the validator factory used in the process of the SQL Monitor instances creation
+     */
+    public void setValidatorFactory(SqlValidatorFactory validatorFactory) {
+        this.validatorFactory = validatorFactory;
     }
 }

@@ -9,8 +9,11 @@ import javax.validation.ValidatorFactory;
 
 public class SampleValidator implements SqlValidator {
 
-    // TODO ? SqlValidatorFactory
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    Validator validator;
+
+    public SampleValidator(Validator validator) {
+        this.validator = validator;
+    }
 
     @Override
     public <T> void validate(SqlValidationContext<T> context, Class<T> parentType, String propertyName, Object value) {
@@ -24,7 +27,6 @@ public class SampleValidator implements SqlValidator {
 
     @Override
     public <T> SqlValidationContext<T> start(Class<T> parentType) {
-        Validator validator = factory.getValidator();
         return new SampleValidationContext<T>(validator);
     }
 
@@ -78,5 +80,22 @@ public class SampleValidator implements SqlValidator {
             return "Validation failure";
         }
 
+    }
+
+    public static class SampleValidatorFactory implements SqlValidatorFactory {
+
+        static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        static SampleValidator validator;
+
+        @Override
+        public SqlValidator getSqlValidator() {
+            if (validator == null) {
+                synchronized (this) {
+                    if (validator == null)
+                        validator = new SampleValidator(factory.getValidator());
+                }
+            }
+            return validator;
+        }
     }
 }
