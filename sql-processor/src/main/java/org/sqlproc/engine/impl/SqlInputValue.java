@@ -97,6 +97,10 @@ class SqlInputValue {
      */
     private Object inputValue;
     /**
+     * A input attribute name.
+     */
+    private String inputName;
+    /**
      * A parent of a dynamic input value.
      */
     private Object parentInputValue;
@@ -155,7 +159,7 @@ class SqlInputValue {
      *            a dynamic input value META type
      */
     SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
-            Code caseConversion, Mode inOutMode, SqlType type) {
+            Code caseConversion, Mode inOutMode, SqlType type, String inputName) {
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
@@ -163,6 +167,7 @@ class SqlInputValue {
         this.caseConversion = caseConversion;
         this.inOutMode = inOutMode;
         this.type = type;
+        this.inputName = inputName;
     }
 
     /**
@@ -349,6 +354,18 @@ class SqlInputValue {
             }
         }
         return param;
+    }
+
+    Object getInputValue() {
+        return inputValue;
+    }
+
+    String getInputName() {
+        return inputName;
+    }
+
+    Object getParentInputValue() {
+        return parentInputValue;
     }
 
     /**

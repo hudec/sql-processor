@@ -13,6 +13,7 @@ import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidationException;
 
 /**
  * The primary SQL Processor class for the META SQL CRUD statement execution.
@@ -101,10 +102,10 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlCrudEngine from one META SQL statement string. Constructor will call the
      * internal ANTLR parser for the CRUD statement instances construction. Compared to the previous constructor, an
-     * external SQL Monitor for the runtime statistics gathering is engaged and the optional features can be involved.
-     * This constructor is devoted to manual META SQL statements construction. More obvious is to put the META SQL
-     * statements definitions into the meta statements file and engage the {@link SqlProcessorLoader} for the
-     * SqlCrudEngine instances construction.
+     * external SQL Monitor for the runtime sSqlValidationExceptiontatistics gathering is engaged and the optional
+     * features can be involved. This constructor is devoted to manual META SQL statements construction. More obvious is
+     * to put the META SQL statements definitions into the meta statements file and engage the
+     * {@link SqlProcessorLoader} for the SqlCrudEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -277,9 +278,11 @@ public class SqlCrudEngine extends SqlEngine {
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlValidationException
+     *             in the case the validation of the input values isn't successfull
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
-            throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> insert, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
@@ -294,6 +297,7 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
+                    processResult.validate(validator);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
@@ -577,9 +581,11 @@ public class SqlCrudEngine extends SqlEngine {
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlValidationException
+     *             in the case the validation of the input values isn't successfull
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
-            throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> update, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
@@ -594,6 +600,7 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.UPDATE,
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
+                    processResult.validate(validator);
                     SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)

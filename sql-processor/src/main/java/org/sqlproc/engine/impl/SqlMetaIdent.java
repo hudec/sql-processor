@@ -312,7 +312,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                             ss.append(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
                             result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(
                                     SqlInputValue.Type.PROVIDED, objItem, parentObj, objItem.getClass(),
-                                    caseConversion, inOutMode, sqlType));
+                                    caseConversion, inOutMode, sqlType, null));
                         } else
                             ss.append("null");
 
@@ -325,7 +325,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 }
             } else {
                 SqlInputValue sqlInputValue = new SqlInputValue(SqlInputValue.Type.PROVIDED, obj, parentObj,
-                        attributeType, caseConversion, inOutMode, sqlType);
+                        attributeType, caseConversion, inOutMode, sqlType, lastAttributeName);
                 result.addInputValue(s.substring(lIDENT_PREFIX), sqlInputValue);
                 if (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT) {
                     result.addOutValue(attributeName, sqlInputValue);

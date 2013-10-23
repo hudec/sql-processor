@@ -13,6 +13,7 @@ import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidator;
 
 /**
  * Common ancestor for {@link SqlQueryEngine} and {@link SqlCrudEngine}.
@@ -55,6 +56,11 @@ public abstract class SqlEngine {
      * Monitor for the runtime statistics gathering.
      */
     protected SqlMonitor monitor;
+
+    /**
+     * The injected validator. It validates dynamic input values.
+     */
+    protected SqlValidator validator;
 
     /**
      * The factory for the META types construction. The META type defines the mapping between a Java class type and a

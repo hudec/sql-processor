@@ -9,6 +9,10 @@ import java.util.Map;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.engine.validation.SqlValidationContext;
+import org.sqlproc.engine.validation.SqlValidationException;
+import org.sqlproc.engine.validation.SqlValidationResult;
+import org.sqlproc.engine.validation.SqlValidator;
 
 /**
  * Holds the results of ANSI SQL query generation.
@@ -438,5 +442,30 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         if (getOrderIndex() == null || o.getOrderIndex() == null)
             throw new RuntimeException("Compared non-order processing results");
         return getOrderIndex().compareTo(o.getOrderIndex());
+    }
+
+    /**
+     * Validates the processed input attributes and their values.
+     * 
+     * @param validator
+     *            the injected validator
+     * @throws SqlValidationException
+     *             in the case the validation isn't successfull
+     */
+    public void validate(SqlValidator validator) throws SqlValidationException {
+        if (validator == null)
+            return;
+        SqlValidationContext validatorContext = null;
+        for (String paramName : this.allInputValues) {
+            SqlInputValue inputValue = this.inputValues.get(paramName);
+            if (validatorContext == null)
+                validatorContext = validator.start(inputValue.getParentInputValue().getClass());
+            if (inputValue.getParentInputValue() != null && inputValue.getInputName() != null)
+                validator.validate(validatorContext, inputValue.getParentInputValue().getClass(),
+                        inputValue.getInputName(), inputValue.getInputValue());
+        }
+        SqlValidationResult result = validator.finish(validatorContext);
+        if (result != null)
+            throw new SqlValidationException(result);
     }
 }
