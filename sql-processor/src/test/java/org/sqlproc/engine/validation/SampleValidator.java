@@ -9,6 +9,9 @@ import javax.validation.ValidatorFactory;
 
 public class SampleValidator implements SqlValidator {
 
+    // TODO ? SqlValidatorFactory
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
     @Override
     public <T> void validate(SqlValidationContext<T> context, Class<T> parentType, String propertyName, Object value) {
         if (parentType == null || propertyName == null)
@@ -21,7 +24,6 @@ public class SampleValidator implements SqlValidator {
 
     @Override
     public <T> SqlValidationContext<T> start(Class<T> parentType) {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         return new SampleValidationContext<T>(validator);
     }
@@ -30,6 +32,8 @@ public class SampleValidator implements SqlValidator {
     public <T> SqlValidationResult finish(SqlValidationContext<T> context) {
         SampleValidationContext<T> sampleContext = ((SampleValidationContext<T>) context);
         Set<ConstraintViolation<T>> constraintViolations = sampleContext.getConstraintViolations();
+        if (constraintViolations == null || constraintViolations.isEmpty())
+            return null;
         return new SampleValidationResult<T>(constraintViolations);
     }
 
@@ -65,9 +69,13 @@ public class SampleValidator implements SqlValidator {
             this.constraintViolations = constraintViolations;
         }
 
+        public Set<ConstraintViolation<T>> getConstraintViolations() {
+            return constraintViolations;
+        }
+
         @Override
         public String getMessage() {
-            return null;
+            return "Validation failure";
         }
 
     }

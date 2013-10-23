@@ -110,6 +110,16 @@ public abstract class SqlEngine {
     }
 
     /**
+     * Injects a validator. It validates dynamic input values.
+     * 
+     * @param validator
+     *            a generir validator instance
+     */
+    public void setValidator(SqlValidator validator) {
+        this.validator = validator;
+    }
+
+    /**
      * Sets the optional feature in the stament's or global scope.
      * 
      * @param name
