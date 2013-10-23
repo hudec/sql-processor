@@ -277,7 +277,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes,
             String... onlyStatements) throws SqlEngineException {
-        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, null, null, onlyStatements);
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, null, customTypes, onlyStatements);
     }
 
     /**
