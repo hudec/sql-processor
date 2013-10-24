@@ -123,8 +123,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         if (jdbc)
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
-                        processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, customTypes, onlyStatements);
+						processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
+								monitorFactory, validatorFactory, customTypes,  onlyStatements);
                     }
                 }
             }
