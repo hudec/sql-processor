@@ -1,5 +1,5 @@
 package org.sqlproc.engine.validation;
 
-public interface SqlValidationResult {
-    String getMessage();
+public interface SqlValidationResult<T> {
+    T getResult();
 }

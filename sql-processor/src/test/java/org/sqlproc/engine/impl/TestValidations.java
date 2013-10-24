@@ -15,7 +15,6 @@ import org.sqlproc.engine.model.Person;
 import org.sqlproc.engine.model.PersonName;
 import org.sqlproc.engine.model.Size;
 import org.sqlproc.engine.model.Ssn;
-import org.sqlproc.engine.validation.SampleValidator;
 import org.sqlproc.engine.validation.SqlValidationException;
 import org.sqlproc.engine.validation.SqlValidationResult;
 
@@ -60,11 +59,8 @@ public class TestValidations extends TestDatabase {
             list = sqlEngine.query(session, Person.class);
             assertEquals(3, list.size());
         } catch (SqlValidationException e) {
-            SqlValidationResult result = e.getResult();
-            @SuppressWarnings("unchecked")
-            SampleValidator.SampleValidationResult<Person> sampleResult = (SampleValidator.SampleValidationResult<Person>) result;
-            Set<ConstraintViolation<Person>> violations = sampleResult.getConstraintViolations();
-            for (ConstraintViolation<Person> violation : violations) {
+            SqlValidationResult<Set<ConstraintViolation<Person>>> result = e.getResult();
+            for (ConstraintViolation<Person> violation : result.getResult()) {
                 logger.info(violation.toString());
             }
             fail(e.getMessage());
@@ -102,11 +98,8 @@ public class TestValidations extends TestDatabase {
             crudEngine.insert(session, p);
             fail("Must be violation exception for attribute first in pojo person");
         } catch (SqlValidationException e) {
-            SqlValidationResult result = e.getResult();
-            @SuppressWarnings("unchecked")
-            SampleValidator.SampleValidationResult<Person> sampleResult = (SampleValidator.SampleValidationResult<Person>) result;
-            Set<ConstraintViolation<Person>> violations = sampleResult.getConstraintViolations();
-            for (ConstraintViolation<Person> violation : violations) {
+            SqlValidationResult<Set<ConstraintViolation<Person>>> result = e.getResult();
+            for (ConstraintViolation<Person> violation : result.getResult()) {
                 logger.info(violation.toString());
             }
         }
@@ -145,11 +138,8 @@ public class TestValidations extends TestDatabase {
             crudEngine.insert(session, p);
             fail("Must be violation exception for attribute first in pojo person");
         } catch (SqlValidationException e) {
-            SqlValidationResult result = e.getResult();
-            @SuppressWarnings("unchecked")
-            SampleValidator.SampleValidationResult<Person> sampleResult = (SampleValidator.SampleValidationResult<Person>) result;
-            Set<ConstraintViolation<Person>> violations = sampleResult.getConstraintViolations();
-            for (ConstraintViolation<Person> violation : violations) {
+            SqlValidationResult<Set<ConstraintViolation<Person>>> result = e.getResult();
+            for (ConstraintViolation<Person> violation : result.getResult()) {
                 logger.info(violation.toString());
             }
         }

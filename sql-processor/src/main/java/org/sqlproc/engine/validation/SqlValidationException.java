@@ -19,7 +19,7 @@ public class SqlValidationException extends RuntimeException {
     /**
      * The result of the validation.
      */
-    private SqlValidationResult result;
+    private SqlValidationResult<?> result;
 
     /**
      * Creates a new instance of the exception.
@@ -68,8 +68,8 @@ public class SqlValidationException extends RuntimeException {
      * @param result
      *            the validation result
      */
-    public <T> SqlValidationException(SqlValidationResult result) {
-        super(result.getMessage());
+    public <T> SqlValidationException(SqlValidationResult<T> result) {
+        super();
         this.result = result;
     }
 
@@ -81,7 +81,7 @@ public class SqlValidationException extends RuntimeException {
      * @param result
      *            the validation result
      */
-    public SqlValidationException(String message, SqlValidationResult result) {
+    public <T> SqlValidationException(String message, SqlValidationResult<T> result) {
         super(message);
         this.result = result;
     }
@@ -91,7 +91,8 @@ public class SqlValidationException extends RuntimeException {
      * 
      * @return the validation result
      */
-    public SqlValidationResult getResult() {
-        return result;
+    @SuppressWarnings("unchecked")
+    public <T> SqlValidationResult<T> getResult() {
+        return (SqlValidationResult<T>) result;
     }
 }

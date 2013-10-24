@@ -5,5 +5,5 @@ public interface SqlValidator {
 
     <T> SqlValidationContext<T> start(Class<T> parentType);
 
-    <T> SqlValidationResult finish(SqlValidationContext<T> context);
+    <T> SqlValidationResult<?> finish(SqlValidationContext<T> context);
 }

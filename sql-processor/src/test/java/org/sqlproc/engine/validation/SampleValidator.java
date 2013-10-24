@@ -31,12 +31,12 @@ public class SampleValidator implements SqlValidator {
     }
 
     @Override
-    public <T> SqlValidationResult finish(SqlValidationContext<T> context) {
+    public <T> SqlValidationResult<Set<ConstraintViolation<T>>> finish(SqlValidationContext<T> context) {
         SampleValidationContext<T> sampleContext = ((SampleValidationContext<T>) context);
         Set<ConstraintViolation<T>> constraintViolations = sampleContext.getConstraintViolations();
         if (constraintViolations == null || constraintViolations.isEmpty())
             return null;
-        return new SampleValidationResult<T>(constraintViolations);
+        return new SampleValidationResult<Set<ConstraintViolation<T>>>(constraintViolations);
     }
 
     public static class SampleValidationContext<T> implements SqlValidationContext<T> {
@@ -63,21 +63,17 @@ public class SampleValidator implements SqlValidator {
         }
     }
 
-    public static class SampleValidationResult<T> implements SqlValidationResult {
+    public static class SampleValidationResult<T> implements SqlValidationResult<T> {
 
-        Set<ConstraintViolation<T>> constraintViolations;
+        T constraintViolations;
 
-        public SampleValidationResult(Set<ConstraintViolation<T>> constraintViolations) {
+        public SampleValidationResult(T constraintViolations) {
             this.constraintViolations = constraintViolations;
         }
 
-        public Set<ConstraintViolation<T>> getConstraintViolations() {
-            return constraintViolations;
-        }
-
         @Override
-        public String getMessage() {
-            return "Validation failure";
+        public T getResult() {
+            return constraintViolations;
         }
 
     }

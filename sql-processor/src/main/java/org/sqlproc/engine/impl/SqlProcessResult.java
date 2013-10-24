@@ -452,8 +452,9 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * @throws SqlValidationException
      *             in the case the validation isn't successfull
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void validate(SqlValidator validator) throws SqlValidationException {
-        if (validator == null)
+        if (validator == null || this.allInputValues.isEmpty() || this.inputValues.isEmpty())
             return;
         SqlValidationContext validatorContext = null;
         for (String paramName : this.allInputValues) {
