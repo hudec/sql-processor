@@ -1,11 +1,18 @@
 package org.sqlproc.engine.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
 public class PersonName {
 
+    @NotNull
+    @Size(max = 100)
     private String first;
+    @NotNull
+    @Size(max = 100)
     private String last;
 
     public PersonName() {

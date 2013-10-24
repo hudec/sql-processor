@@ -1654,6 +1654,21 @@ UPDATE_PERSON_2(CRUD,DB2)=
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=stamp)}
   {= where ID = :id }
 ;
+UPDATE_PERSON_3(CRUD)=
+  update PERSON p
+  {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate(type=date,any), p.BIRTHDATE = :birthDate}
+  {= where p.ID = :id }
+;
+UPDATE_PERSON_3(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
+  update PERSON
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=date,any), BIRTHDATE = :birthDate}
+  {= where ID = :id }
+;
+UPDATE_PERSON_3(CRUD,DB2)=
+  update PERSON
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=stamp,any), BIRTHDATE = :birthDate}
+  {= where ID = :id }
+;
 
 UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true)=
   update ENGAGEMENT p

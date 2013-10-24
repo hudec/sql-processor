@@ -3,17 +3,24 @@ package org.sqlproc.engine.model;
 import java.math.BigInteger;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public abstract class PersonBase {
 
     private Long id;
+    @NotNull
     private java.sql.Date birthDate;
     private Date createdDate;
     private String createdBy;
     private Date lastUpdated;
     private String lastUpdatedBy;
+    @NotNull
     private Long version;
+    @NotNull
     private Gender sex;
+    @NotNull
     private Ssn ssn;
+    @NotNull
     private PersonName name;
     private Contact contact;
     private Size clothesSize;
