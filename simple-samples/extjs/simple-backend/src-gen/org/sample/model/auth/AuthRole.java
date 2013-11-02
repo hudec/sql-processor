@@ -125,11 +125,23 @@ public class AuthRole implements Serializable {
   }
   
   @JsonIgnore
+  public AuthRole  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  @JsonIgnore
+  public AuthRole _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -139,11 +151,21 @@ public class AuthRole implements Serializable {
       initAssociations.add(association);
   }
   
+  public AuthRole _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public AuthRole _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -171,11 +193,23 @@ public class AuthRole implements Serializable {
   }
   
   @JsonIgnore
+  public AuthRole _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public AuthRole _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -185,11 +219,21 @@ public class AuthRole implements Serializable {
       nullValues.add(attribute);
   }
   
+  public AuthRole _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public AuthRole _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -241,7 +285,7 @@ public class AuthRole implements Serializable {
   }
   
   public String toStringFull() {
-    return "AuthRole [id=" + id + ", description=" + description + ", name=" + name + ", version=" + version + "]";
+    return "AuthRole [id=" + id + ", name=" + name + ", description=" + description + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
@@ -264,11 +308,23 @@ public class AuthRole implements Serializable {
   }
   
   @JsonIgnore
+  public AuthRole _setOp(String operator, OpAttribute... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
       operators.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public AuthRole _clearOp(OpAttribute... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setOp(String operator, String... attributes) {
@@ -278,11 +334,21 @@ public class AuthRole implements Serializable {
       operators.put(attribute, operator);
   }
   
+  public AuthRole _setOp(String operator, String... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.remove(attribute);
+  }
+  
+  public AuthRole _clearOp(String... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   @JsonIgnore
@@ -293,11 +359,22 @@ public class AuthRole implements Serializable {
       operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
+  public AuthRole _setNullOp(OpAttribute... attributes) {
+    setNullOp(attributes);
+    return this;
+  }
+  
   public void setNullOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.put(attribute, "is null");
+  }
+  
+  public AuthRole _setNullOp(String... attributes) {
+    setNullOp(attributes);
+    return this;
   }
   
   public void clearAllOps() {

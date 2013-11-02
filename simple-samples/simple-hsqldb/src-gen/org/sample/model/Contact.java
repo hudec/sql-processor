@@ -141,11 +141,21 @@ public class Contact implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Contact  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Contact _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -155,11 +165,21 @@ public class Contact implements Serializable {
       initAssociations.add(association);
   }
   
+  public Contact _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Contact _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -185,11 +205,21 @@ public class Contact implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Contact _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Contact _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -199,11 +229,21 @@ public class Contact implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Contact _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Contact _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -250,11 +290,11 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
   }
   
   public enum OpAttribute {
@@ -274,11 +314,21 @@ public class Contact implements Serializable {
       operators.put(attribute.name(), operator);
   }
   
+  public Contact _setOp(String operator, OpAttribute... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
       operators.remove(attribute.name());
+  }
+  
+  public Contact _clearOp(OpAttribute... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setOp(String operator, String... attributes) {
@@ -288,11 +338,21 @@ public class Contact implements Serializable {
       operators.put(attribute, operator);
   }
   
+  public Contact _setOp(String operator, String... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.remove(attribute);
+  }
+  
+  public Contact _clearOp(String... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setNullOp(OpAttribute... attributes) {
@@ -302,11 +362,21 @@ public class Contact implements Serializable {
       operators.put(attribute.name(), "is null");
   }
   
+  public Contact _setNullOp(OpAttribute... attributes) {
+    setNullOp(attributes);
+    return this;
+  }
+  
   public void setNullOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.put(attribute, "is null");
+  }
+  
+  public Contact _setNullOp(String... attributes) {
+    setNullOp(attributes);
+    return this;
   }
   
   public void clearAllOps() {

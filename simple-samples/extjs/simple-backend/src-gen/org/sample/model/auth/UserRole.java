@@ -130,11 +130,23 @@ public class UserRole implements Serializable {
   }
   
   @JsonIgnore
+  public UserRole  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  @JsonIgnore
+  public UserRole _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -144,11 +156,21 @@ public class UserRole implements Serializable {
       initAssociations.add(association);
   }
   
+  public UserRole _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public UserRole _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -175,11 +197,23 @@ public class UserRole implements Serializable {
   }
   
   @JsonIgnore
+  public UserRole _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public UserRole _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -189,11 +223,21 @@ public class UserRole implements Serializable {
       nullValues.add(attribute);
   }
   
+  public UserRole _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public UserRole _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -241,7 +285,7 @@ public class UserRole implements Serializable {
   
   @Override
   public String toString() {
-    return "UserRole [id=" + id + ", authUserId=" + authUserId + ", version=" + version + "]";
+    return "UserRole [id=" + id + ", authUserId=" + authUserId + ", authRole=" + authRole + ", version=" + version + "]";
   }
   
   public String toStringFull() {
@@ -268,11 +312,23 @@ public class UserRole implements Serializable {
   }
   
   @JsonIgnore
+  public UserRole _setOp(String operator, OpAttribute... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
       operators.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public UserRole _clearOp(OpAttribute... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setOp(String operator, String... attributes) {
@@ -282,11 +338,21 @@ public class UserRole implements Serializable {
       operators.put(attribute, operator);
   }
   
+  public UserRole _setOp(String operator, String... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.remove(attribute);
+  }
+  
+  public UserRole _clearOp(String... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   @JsonIgnore
@@ -297,11 +363,22 @@ public class UserRole implements Serializable {
       operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
+  public UserRole _setNullOp(OpAttribute... attributes) {
+    setNullOp(attributes);
+    return this;
+  }
+  
   public void setNullOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.put(attribute, "is null");
+  }
+  
+  public UserRole _setNullOp(String... attributes) {
+    setNullOp(attributes);
+    return this;
   }
   
   public void clearAllOps() {

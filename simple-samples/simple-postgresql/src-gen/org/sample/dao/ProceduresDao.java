@@ -26,6 +26,9 @@ public class ProceduresDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public ProceduresDao() {
+  }
+    	
   public ProceduresDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

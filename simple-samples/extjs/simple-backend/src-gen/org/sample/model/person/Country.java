@@ -110,11 +110,23 @@ public class Country implements Serializable {
   }
   
   @JsonIgnore
+  public Country  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  @JsonIgnore
+  public Country _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -124,11 +136,21 @@ public class Country implements Serializable {
       initAssociations.add(association);
   }
   
+  public Country _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Country _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -156,11 +178,23 @@ public class Country implements Serializable {
   }
   
   @JsonIgnore
+  public Country _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public Country _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -170,11 +204,21 @@ public class Country implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Country _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Country _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -226,7 +270,7 @@ public class Country implements Serializable {
   }
   
   public String toStringFull() {
-    return "Country [id=" + id + ", name=" + name + ", code=" + code + "]";
+    return "Country [id=" + id + ", code=" + code + ", name=" + name + "]";
   }
   
   public enum OpAttribute {
@@ -249,11 +293,23 @@ public class Country implements Serializable {
   }
   
   @JsonIgnore
+  public Country _setOp(String operator, OpAttribute... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
       operators.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public Country _clearOp(OpAttribute... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setOp(String operator, String... attributes) {
@@ -263,11 +319,21 @@ public class Country implements Serializable {
       operators.put(attribute, operator);
   }
   
+  public Country _setOp(String operator, String... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.remove(attribute);
+  }
+  
+  public Country _clearOp(String... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   @JsonIgnore
@@ -278,11 +344,22 @@ public class Country implements Serializable {
       operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
+  public Country _setNullOp(OpAttribute... attributes) {
+    setNullOp(attributes);
+    return this;
+  }
+  
   public void setNullOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.put(attribute, "is null");
+  }
+  
+  public Country _setNullOp(String... attributes) {
+    setNullOp(attributes);
+    return this;
   }
   
   public void clearAllOps() {

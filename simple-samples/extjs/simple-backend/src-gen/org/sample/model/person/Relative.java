@@ -152,11 +152,23 @@ public class Relative implements Serializable {
   }
   
   @JsonIgnore
+  public Relative  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  @JsonIgnore
+  public Relative _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -166,11 +178,21 @@ public class Relative implements Serializable {
       initAssociations.add(association);
   }
   
+  public Relative _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Relative _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -198,11 +220,23 @@ public class Relative implements Serializable {
   }
   
   @JsonIgnore
+  public Relative _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public Relative _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -212,11 +246,21 @@ public class Relative implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Relative _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Relative _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -264,11 +308,11 @@ public class Relative implements Serializable {
   
   @Override
   public String toString() {
-    return "Relative [id=" + id + ", personId=" + personId + ", version=" + version + "]";
+    return "Relative [id=" + id + ", rtype=" + rtype + ", personId=" + personId + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Relative [id=" + id + ", rtype=" + rtype + ", personId=" + personId + ", relPerson=" + relPerson + ", version=" + version + "]";
+    return "Relative [id=" + id + ", personId=" + personId + ", relPerson=" + relPerson + ", rtype=" + rtype + ", version=" + version + "]";
   }
   
   public enum OpAttribute {
@@ -291,11 +335,23 @@ public class Relative implements Serializable {
   }
   
   @JsonIgnore
+  public Relative _setOp(String operator, OpAttribute... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
+  @JsonIgnore
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
       operators.remove(attribute.name());
+  }
+  
+  @JsonIgnore
+  public Relative _clearOp(OpAttribute... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setOp(String operator, String... attributes) {
@@ -305,11 +361,21 @@ public class Relative implements Serializable {
       operators.put(attribute, operator);
   }
   
+  public Relative _setOp(String operator, String... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.remove(attribute);
+  }
+  
+  public Relative _clearOp(String... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   @JsonIgnore
@@ -320,11 +386,22 @@ public class Relative implements Serializable {
       operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
+  public Relative _setNullOp(OpAttribute... attributes) {
+    setNullOp(attributes);
+    return this;
+  }
+  
   public void setNullOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.put(attribute, "is null");
+  }
+  
+  public Relative _setNullOp(String... attributes) {
+    setNullOp(attributes);
+    return this;
   }
   
   public void clearAllOps() {

@@ -38,7 +38,7 @@ package org.sample.model {
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address type
+    toString ::: id phoneNumber address type
   }
 
   // The personal information

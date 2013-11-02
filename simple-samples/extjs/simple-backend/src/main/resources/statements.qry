@@ -19,8 +19,6 @@ SELECT_PERSON(QRY,inx=PersonForm,outx=Person,tab=person=p,tab=relative=r,tab=con
   {#2 order by %p.LAST_NAME }
 ;
 
-
-
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact,MYSQL)=
   insert into %%CONTACT (%PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %COUNTRY_CODE)
   {= values (:id(idsel), :personId, :ctype, :address, :phoneNumber, :version, :country.code) }

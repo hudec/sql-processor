@@ -1,6 +1,5 @@
 package org.sample.dao.person {
 
-
   dao ContactDao :: Contact {
     scaffold
   }
@@ -16,5 +15,4 @@ package org.sample.dao.person {
   dao RelativeDao :: Relative {
     scaffold
   }
-
 }
