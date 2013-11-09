@@ -167,11 +167,21 @@ public class Person implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Person  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Person _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -181,11 +191,21 @@ public class Person implements Serializable {
       initAssociations.add(association);
   }
   
+  public Person _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Person _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -211,11 +231,21 @@ public class Person implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Person _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Person _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -225,11 +255,21 @@ public class Person implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Person _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Person _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -276,11 +316,11 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
   }
   
   public String toStringFull() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
+    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", contacts=" + contacts + "]";
   }
   
   public enum OpAttribute {
@@ -300,11 +340,21 @@ public class Person implements Serializable {
       operators.put(attribute.name(), operator);
   }
   
+  public Person _setOp(String operator, OpAttribute... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(OpAttribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
       operators.remove(attribute.name());
+  }
+  
+  public Person _clearOp(OpAttribute... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setOp(String operator, String... attributes) {
@@ -314,11 +364,21 @@ public class Person implements Serializable {
       operators.put(attribute, operator);
   }
   
+  public Person _setOp(String operator, String... attributes) {
+    setOp(operator, attributes);
+    return this;
+  }
+  
   public void clearOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.remove(attribute);
+  }
+  
+  public Person _clearOp(String... attributes) {
+    clearOp(attributes);
+    return this;
   }
   
   public void setNullOp(OpAttribute... attributes) {
@@ -328,11 +388,21 @@ public class Person implements Serializable {
       operators.put(attribute.name(), "is null");
   }
   
+  public Person _setNullOp(OpAttribute... attributes) {
+    setNullOp(attributes);
+    return this;
+  }
+  
   public void setNullOp(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       operators.put(attribute, "is null");
+  }
+  
+  public Person _setNullOp(String... attributes) {
+    setNullOp(attributes);
+    return this;
   }
   
   public void clearAllOps() {

@@ -24,6 +24,9 @@ public class FunctionsDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public FunctionsDao() {
+  }
+    	
   public FunctionsDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
