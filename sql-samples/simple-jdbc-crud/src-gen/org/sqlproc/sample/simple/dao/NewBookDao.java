@@ -22,6 +22,9 @@ public class NewBookDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public NewBookDao() {
+  }
+    	
   public NewBookDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

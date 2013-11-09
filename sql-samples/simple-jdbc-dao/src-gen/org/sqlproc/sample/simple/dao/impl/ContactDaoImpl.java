@@ -27,6 +27,9 @@ public class ContactDaoImpl extends BaseDaoImpl implements BaseDao, ContactDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public ContactDaoImpl() {
+  }
+    	
   public ContactDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

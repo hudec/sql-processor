@@ -14,15 +14,15 @@ public class CreditCard extends BillingDetails implements Serializable {
   }
   
   private Long ccNumber;
-    
+  
   public Long getCcNumber() {
     return ccNumber;
   }
-    
+  
   public void setCcNumber(Long ccNumber) {
     this.ccNumber = ccNumber;
   }
-    
+  
   public CreditCard _setCcNumber(Long ccNumber) {
     this.ccNumber = ccNumber;
     return this;

@@ -29,6 +29,9 @@ public class PaymentDaoImpl extends BaseDaoImpl implements BaseDao, PaymentDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public PaymentDaoImpl() {
+  }
+    	
   public PaymentDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

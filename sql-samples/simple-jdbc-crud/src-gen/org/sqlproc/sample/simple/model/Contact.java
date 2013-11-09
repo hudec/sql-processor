@@ -25,60 +25,60 @@ public class Contact implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Contact _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private Person person;
-    
+  
   public Person getPerson() {
     return person;
   }
-    
+  
   public void setPerson(Person person) {
     this.person = person;
   }
-    
+  
   public Contact _setPerson(Person person) {
     this.person = person;
     return this;
   }
   
   private String address;
-    
+  
   public String getAddress() {
     return address;
   }
-    
+  
   public void setAddress(String address) {
     this.address = address;
   }
-    
+  
   public Contact _setAddress(String address) {
     this.address = address;
     return this;
   }
   
   private PhoneNumber phoneNumber;
-    
+  
   public PhoneNumber getPhoneNumber() {
     return phoneNumber;
   }
-    
+  
   public void setPhoneNumber(PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
-    
+  
   public Contact _setPhoneNumber(PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
@@ -93,7 +93,7 @@ public class Contact implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Contact other = (Contact) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -102,7 +102,7 @@ public class Contact implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -119,11 +119,21 @@ public class Contact implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Contact  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Contact _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -133,11 +143,21 @@ public class Contact implements Serializable {
       initAssociations.add(association);
   }
   
+  public Contact _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Contact _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -163,11 +183,21 @@ public class Contact implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Contact _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Contact _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -177,11 +207,21 @@ public class Contact implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Contact _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Contact _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -232,6 +272,6 @@ public class Contact implements Serializable {
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + "]";
+    return "Contact [id=" + id + ", person=" + person + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
   }
 }

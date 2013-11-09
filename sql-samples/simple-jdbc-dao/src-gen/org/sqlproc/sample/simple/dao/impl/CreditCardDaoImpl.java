@@ -27,6 +27,9 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public CreditCardDaoImpl() {
+  }
+    	
   public CreditCardDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

@@ -22,6 +22,9 @@ public class PersonLibraryDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public PersonLibraryDao() {
+  }
+    	
   public PersonLibraryDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

@@ -1,4 +1,6 @@
 package org.sqlproc.sample.simple.model;
+  
+import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -18,15 +20,15 @@ public class CreditCard extends BillingDetails implements Serializable {
   }
   
   private Long ccNumber;
-    
+  
   public Long getCcNumber() {
     return ccNumber;
   }
-    
+  
   public void setCcNumber(Long ccNumber) {
     this.ccNumber = ccNumber;
   }
-    
+  
   public CreditCard _setCcNumber(Long ccNumber) {
     this.ccNumber = ccNumber;
     return this;
@@ -45,11 +47,21 @@ public class CreditCard extends BillingDetails implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public CreditCard  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public CreditCard _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -59,11 +71,21 @@ public class CreditCard extends BillingDetails implements Serializable {
       initAssociations.add(association);
   }
   
+  public CreditCard _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public CreditCard _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -89,11 +111,21 @@ public class CreditCard extends BillingDetails implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public CreditCard _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public CreditCard _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -103,11 +135,21 @@ public class CreditCard extends BillingDetails implements Serializable {
       nullValues.add(attribute);
   }
   
+  public CreditCard _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public CreditCard _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {

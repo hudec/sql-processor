@@ -27,6 +27,9 @@ public class MediaDaoImpl extends BaseDaoImpl implements BaseDao, MediaDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public MediaDaoImpl() {
+  }
+    	
   public MediaDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

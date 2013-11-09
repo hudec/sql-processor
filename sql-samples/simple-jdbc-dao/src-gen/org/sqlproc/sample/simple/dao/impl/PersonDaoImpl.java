@@ -29,6 +29,9 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public PersonDaoImpl() {
+  }
+    	
   public PersonDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

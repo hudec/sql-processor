@@ -16,7 +16,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toInit ::: subscriber
     isDef :::
-    toString ::: id type subscriber
+    toString ::: id type
     index=1 ::: id
     index=2 ::: subscriber
   }
@@ -38,7 +38,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address
+    toString ::: id phoneNumber address
     index=1 ::: id
     index=2 ::: person
     index=3 ::: address person
@@ -73,7 +73,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toInit ::: author
     isDef ::: author
-    toString ::: id author title
+    toString ::: id title
     index=1 ::: id
     index=2 ::: author
   }
@@ -95,7 +95,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toInit ::: billingDetails
     isDef :::
-    toString ::: id paid billingDetails
+    toString ::: id paid
     index=1 ::: id
     index=2 ::: billingDetails
   }
@@ -108,7 +108,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toInit ::: work person
     isDef :::
-    toString ::: id person
+    toString ::: id
     index=1 ::: id
     index=2 ::: person
   }
@@ -155,7 +155,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toInit ::: library media
     isDef :::
-    toString ::: id location library media
+    toString ::: id location
     index=1 ::: id
   }
 
@@ -169,7 +169,7 @@ package org.sqlproc.sample.simple.model {
     hashCode ::: id
     toInit ::: library billingDetails contact
     isDef ::: contact
-    toString ::: id name library contact
+    toString ::: id name
     index=1 ::: id
     index=2 ::: library
   }

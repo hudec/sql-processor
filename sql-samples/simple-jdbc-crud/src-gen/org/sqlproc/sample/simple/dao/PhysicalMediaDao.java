@@ -24,6 +24,9 @@ public class PhysicalMediaDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public PhysicalMediaDao() {
+  }
+    	
   public PhysicalMediaDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

@@ -29,6 +29,9 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements BaseDao, Subscribe
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public SubscriberDaoImpl() {
+  }
+    	
   public SubscriberDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

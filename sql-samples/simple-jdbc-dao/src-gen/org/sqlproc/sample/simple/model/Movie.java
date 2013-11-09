@@ -1,4 +1,6 @@
 package org.sqlproc.sample.simple.model;
+  
+import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -20,30 +22,30 @@ public class Movie extends Media implements Serializable {
   }
   
   private String urlimdb;
-    
+  
   public String getUrlimdb() {
     return urlimdb;
   }
-    
+  
   public void setUrlimdb(String urlimdb) {
     this.urlimdb = urlimdb;
   }
-    
+  
   public Movie _setUrlimdb(String urlimdb) {
     this.urlimdb = urlimdb;
     return this;
   }
   
   private Integer playlength;
-    
+  
   public Integer getPlaylength() {
     return playlength;
   }
-    
+  
   public void setPlaylength(Integer playlength) {
     this.playlength = playlength;
   }
-    
+  
   public Movie _setPlaylength(Integer playlength) {
     this.playlength = playlength;
     return this;
@@ -62,11 +64,21 @@ public class Movie extends Media implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Movie  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Movie _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -76,11 +88,21 @@ public class Movie extends Media implements Serializable {
       initAssociations.add(association);
   }
   
+  public Movie _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Movie _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -106,11 +128,21 @@ public class Movie extends Media implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Movie _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Movie _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -120,11 +152,21 @@ public class Movie extends Media implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Movie _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Movie _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -175,6 +217,6 @@ public class Movie extends Media implements Serializable {
   }
   
   public String toStringFull() {
-    return "Movie [playlength=" + playlength + ", urlimdb=" + urlimdb + super.toString() + "]";
+    return "Movie [urlimdb=" + urlimdb + ", playlength=" + playlength + super.toString() + "]";
   }
 }

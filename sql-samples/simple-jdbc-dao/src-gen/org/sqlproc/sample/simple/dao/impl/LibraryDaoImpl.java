@@ -27,6 +27,9 @@ public class LibraryDaoImpl extends BaseDaoImpl implements BaseDao, LibraryDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public LibraryDaoImpl() {
+  }
+    	
   public LibraryDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

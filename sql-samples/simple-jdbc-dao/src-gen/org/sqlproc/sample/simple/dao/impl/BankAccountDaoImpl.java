@@ -27,6 +27,9 @@ public class BankAccountDaoImpl extends BaseDaoImpl implements BaseDao, BankAcco
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public BankAccountDaoImpl() {
+  }
+    	
   public BankAccountDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

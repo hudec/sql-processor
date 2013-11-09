@@ -137,6 +137,6 @@ public class ItemForm implements Serializable {
   }
   
   public String toStringFull() {
-    return "ItemForm [itemid=" + itemid + ", name=" + name + ", description=" + description + ", priceFrom=" + priceFrom + ", priceTo=" + priceTo + "]";
+    return "ItemForm [itemid=" + itemid + ", name=" + name + ", description=" + description + ", priceFrom=" + priceFrom + ", priceTo=" + priceTo + ", first=" + first + ", count=" + count + ", order=" + order + "]";
   }
 }

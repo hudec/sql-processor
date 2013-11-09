@@ -182,6 +182,6 @@ public class Item implements Serializable {
   }
   
   public String toStringFull() {
-    return "Item [price=" + price + ", productid=" + productid + ", description=" + description + ", name=" + name + ", image=" + image + ", imagethumburl=" + imagethumburl + ", itemid=" + itemid + ", imageurl=" + imageurl + ", imagethumb=" + imagethumb + "]";
+    return "Item [itemid=" + itemid + ", productid=" + productid + ", name=" + name + ", description=" + description + ", imageurl=" + imageurl + ", imagethumburl=" + imagethumburl + ", image=" + image + ", imagethumb=" + imagethumb + ", price=" + price + "]";
   }
 }

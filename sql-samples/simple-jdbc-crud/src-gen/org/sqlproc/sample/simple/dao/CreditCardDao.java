@@ -22,6 +22,9 @@ public class CreditCardDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public CreditCardDao() {
+  }
+    	
   public CreditCardDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

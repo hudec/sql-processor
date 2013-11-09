@@ -29,6 +29,9 @@ public class PhysicalMediaDaoImpl extends BaseDaoImpl implements BaseDao, Physic
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public PhysicalMediaDaoImpl() {
+  }
+    	
   public PhysicalMediaDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

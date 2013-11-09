@@ -24,6 +24,9 @@ public class SubscriberDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public SubscriberDao() {
+  }
+    	
   public SubscriberDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

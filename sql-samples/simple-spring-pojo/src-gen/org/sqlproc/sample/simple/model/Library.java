@@ -18,45 +18,45 @@ public class Library implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Library _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private String name;
-    
+  
   public String getName() {
     return name;
   }
-    
+  
   public void setName(String name) {
     this.name = name;
   }
-    
+  
   public Library _setName(String name) {
     this.name = name;
     return this;
   }
   
   private List<Subscriber> subscribers = new ArrayList<Subscriber>();
-    
+  
   public List<Subscriber> getSubscribers() {
     return subscribers;
   }
-    
+  
   public void setSubscribers(List<Subscriber> subscribers) {
     this.subscribers = subscribers;
   }
-    
+  
   public Library _setSubscribers(List<Subscriber> subscribers) {
     this.subscribers = subscribers;
     return this;
@@ -71,7 +71,7 @@ public class Library implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Library other = (Library) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -80,7 +80,7 @@ public class Library implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -90,6 +90,6 @@ public class Library implements Serializable {
   }
   
   public String toStringFull() {
-    return "Library [id=" + id + ", name=" + name + "]";
+    return "Library [id=" + id + ", name=" + name + ", subscribers=" + subscribers + "]";
   }
 }

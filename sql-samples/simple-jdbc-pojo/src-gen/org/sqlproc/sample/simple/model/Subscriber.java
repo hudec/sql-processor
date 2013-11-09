@@ -20,75 +20,75 @@ public class Subscriber implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Subscriber _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private Library library;
-    
+  
   public Library getLibrary() {
     return library;
   }
-    
+  
   public void setLibrary(Library library) {
     this.library = library;
   }
-    
+  
   public Subscriber _setLibrary(Library library) {
     this.library = library;
     return this;
   }
   
   private Long contact;
-    
+  
   public Long getContact() {
     return contact;
   }
-    
+  
   public void setContact(Long contact) {
     this.contact = contact;
   }
-    
+  
   public Subscriber _setContact(Long contact) {
     this.contact = contact;
     return this;
   }
   
   private String name;
-    
+  
   public String getName() {
     return name;
   }
-    
+  
   public void setName(String name) {
     this.name = name;
   }
-    
+  
   public Subscriber _setName(String name) {
     this.name = name;
     return this;
   }
   
   private List<BillingDetails> billingDetails = new ArrayList<BillingDetails>();
-    
+  
   public List<BillingDetails> getBillingDetails() {
     return billingDetails;
   }
-    
+  
   public void setBillingDetails(List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
   }
-    
+  
   public Subscriber _setBillingDetails(List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
     return this;
@@ -103,7 +103,7 @@ public class Subscriber implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Subscriber other = (Subscriber) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -112,16 +112,16 @@ public class Subscriber implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
   @Override
   public String toString() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
+    return "Subscriber [id=" + id + ", name=" + name + ", contact=" + contact + "]";
   }
   
   public String toStringFull() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
+    return "Subscriber [id=" + id + ", library=" + library + ", contact=" + contact + ", name=" + name + ", billingDetails=" + billingDetails + "]";
   }
 }

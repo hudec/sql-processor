@@ -24,75 +24,75 @@ public class Subscriber implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Subscriber _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private Library library;
-    
+  
   public Library getLibrary() {
     return library;
   }
-    
+  
   public void setLibrary(Library library) {
     this.library = library;
   }
-    
+  
   public Subscriber _setLibrary(Library library) {
     this.library = library;
     return this;
   }
   
   private Contact contact;
-    
+  
   public Contact getContact() {
     return contact;
   }
-    
+  
   public void setContact(Contact contact) {
     this.contact = contact;
   }
-    
+  
   public Subscriber _setContact(Contact contact) {
     this.contact = contact;
     return this;
   }
   
   private String name;
-    
+  
   public String getName() {
     return name;
   }
-    
+  
   public void setName(String name) {
     this.name = name;
   }
-    
+  
   public Subscriber _setName(String name) {
     this.name = name;
     return this;
   }
   
   private List<BillingDetails> billingDetails = new ArrayList<BillingDetails>();
-    
+  
   public List<BillingDetails> getBillingDetails() {
     return billingDetails;
   }
-    
+  
   public void setBillingDetails(List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
   }
-    
+  
   public Subscriber _setBillingDetails(List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
     return this;
@@ -107,7 +107,7 @@ public class Subscriber implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Subscriber other = (Subscriber) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -116,7 +116,7 @@ public class Subscriber implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -133,11 +133,21 @@ public class Subscriber implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Subscriber  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Subscriber _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -147,11 +157,21 @@ public class Subscriber implements Serializable {
       initAssociations.add(association);
   }
   
+  public Subscriber _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Subscriber _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -177,11 +197,21 @@ public class Subscriber implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Subscriber _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Subscriber _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -191,11 +221,21 @@ public class Subscriber implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Subscriber _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Subscriber _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -242,10 +282,10 @@ public class Subscriber implements Serializable {
   
   @Override
   public String toString() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + "]";
+    return "Subscriber [id=" + id + ", name=" + name + "]";
   }
   
   public String toStringFull() {
-    return "Subscriber [id=" + id + ", name=" + name + ", library=" + library + ", contact=" + contact + "]";
+    return "Subscriber [id=" + id + ", library=" + library + ", contact=" + contact + ", name=" + name + ", billingDetails=" + billingDetails + "]";
   }
 }

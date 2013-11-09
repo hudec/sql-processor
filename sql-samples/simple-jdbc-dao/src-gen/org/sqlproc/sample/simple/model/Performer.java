@@ -1,6 +1,7 @@
 package org.sqlproc.sample.simple.model;
   
 import java.util.List;
+import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.MethodUtils;
 
-public class Performer implements Serializable {
+public class Performer extends BaseModelImpl implements Serializable {
   
   private static final long serialVersionUID = 1L;
   public static final int ORDER_BY_ID = 1;
@@ -23,60 +24,60 @@ public class Performer implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Performer _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private Person person;
-    
+  
   public Person getPerson() {
     return person;
   }
-    
+  
   public void setPerson(Person person) {
     this.person = person;
   }
-    
+  
   public Performer _setPerson(Person person) {
     this.person = person;
     return this;
   }
   
   private Integer ver = 0;
-    
+  
   public Integer getVer() {
     return ver;
   }
-    
+  
   public void setVer(Integer ver) {
     this.ver = ver;
   }
-    
+  
   public Performer _setVer(Integer ver) {
     this.ver = ver;
     return this;
   }
   
   private List<Media> work = new ArrayList<Media>();
-    
+  
   public List<Media> getWork() {
     return work;
   }
-    
+  
   public void setWork(List<Media> work) {
     this.work = work;
   }
-    
+  
   public Performer _setWork(List<Media> work) {
     this.work = work;
     return this;
@@ -91,7 +92,7 @@ public class Performer implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Performer other = (Performer) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -100,7 +101,7 @@ public class Performer implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -117,11 +118,21 @@ public class Performer implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Performer  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Performer _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -131,11 +142,21 @@ public class Performer implements Serializable {
       initAssociations.add(association);
   }
   
+  public Performer _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Performer _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -160,11 +181,21 @@ public class Performer implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Performer _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Performer _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -174,11 +205,21 @@ public class Performer implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Performer _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Performer _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -229,6 +270,6 @@ public class Performer implements Serializable {
   }
   
   public String toStringFull() {
-    return "Performer [id=" + id + ", person=" + person + ", ver=" + ver + "]";
+    return "Performer [id=" + id + ", person=" + person + ", ver=" + ver + ", work=" + work + "]";
   }
 }

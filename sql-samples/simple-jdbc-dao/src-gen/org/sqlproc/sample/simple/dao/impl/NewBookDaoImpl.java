@@ -27,6 +27,9 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public NewBookDaoImpl() {
+  }
+    	
   public NewBookDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

@@ -27,6 +27,9 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public MovieDaoImpl() {
+  }
+    	
   public MovieDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }

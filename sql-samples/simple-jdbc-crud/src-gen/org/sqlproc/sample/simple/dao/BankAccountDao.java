@@ -22,6 +22,9 @@ public class BankAccountDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public BankAccountDao() {
+  }
+    	
   public BankAccountDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
