@@ -1,14 +1,13 @@
 package org.sqlproc.engine.validation;
 
 /**
- * the general runtime exception class for the SQL Processor engine.
+ * The general runtime exception class for the SQL Processor engine.
  * 
- * This exception can be raised in the process of a META SQL query or a statement execution as the result of the input
- * values validation.
- * 
+ * This exception can be raised in the process of a CRUD statement execution as the result of the input values
+ * validation. This is just a container for the validation result.
  * 
  * <p>
- * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * For more information please see {@link SqlValidator}.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
@@ -63,8 +62,6 @@ public class SqlValidationException extends RuntimeException {
     /**
      * Creates a new instance of the exception.
      * 
-     * @param cause
-     *            the error cause
      * @param result
      *            the validation result
      */
