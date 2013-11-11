@@ -15,7 +15,7 @@
     </parent>
 
     <properties>
-        <version.sql-processor>2.2.3</version.sql-processor>
+        <version.sql-processor>2.2.5-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
         <version.hibernate>4.1.7.Final</version.hibernate>
         <version.hibernate.validator>4.2.0.Final</version.hibernate.validator>

@@ -30,6 +30,7 @@ import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
+import org.sqlproc.engine.validation.SqlValidationException;
 
 public class Main {
 
@@ -60,6 +61,7 @@ public class Main {
         JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.qry");
         factory.setFilter(DB_TYPE);
+        factory.setValidatorFactory(new SampleValidator.SampleValidatorFactory());
         this.sqlFactory = factory;
 
         ddls = DDLLoader.getDDLs(this.getClass(), DB_DDL);
@@ -198,6 +200,19 @@ public class Main {
         contact.setNullOp(Contact.OpAttribute.phoneNumber);
         count = main.getContactDao().count(contact);
         Assert.assertEquals(3, count);
+
+        // validation
+        contact = new Contact();
+        contact.setPhoneNumber("444-555-6666");
+        listc = main.getContactDao().list(contact);
+        c = listc.get(0);
+        c.setPhoneNumber("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901");
+        try {
+            main.contactDao.update(c);
+            Assert.fail();
+        } catch (SqlValidationException ex) {
+            main.logger.warn(ex.getMessage());
+        }
 
         // delete
         count = main.getPersonDao().delete(jan);
