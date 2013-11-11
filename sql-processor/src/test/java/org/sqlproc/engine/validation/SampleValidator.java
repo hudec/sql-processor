@@ -36,7 +36,16 @@ public class SampleValidator implements SqlValidator {
         Set<ConstraintViolation<T>> constraintViolations = sampleContext.getConstraintViolations();
         if (constraintViolations == null || constraintViolations.isEmpty())
             return null;
-        return new SampleValidationResult<Set<ConstraintViolation<T>>>(constraintViolations);
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (ConstraintViolation<T> cv : constraintViolations) {
+            if (first)
+                first = false;
+            else
+                sb.append("\n");
+            sb.append(cv.getMessage());
+        }
+        return new SampleValidationResult<Set<ConstraintViolation<T>>>(constraintViolations, sb.toString());
     }
 
     public static class SampleValidationContext<T> implements SqlValidationContext<T> {
@@ -66,9 +75,11 @@ public class SampleValidator implements SqlValidator {
     public static class SampleValidationResult<T> implements SqlValidationResult<T> {
 
         T constraintViolations;
+        String message;
 
-        public SampleValidationResult(T constraintViolations) {
+        public SampleValidationResult(T constraintViolations, String message) {
             this.constraintViolations = constraintViolations;
+            this.message = message;
         }
 
         @Override
@@ -76,6 +87,10 @@ public class SampleValidator implements SqlValidator {
             return constraintViolations;
         }
 
+        @Override
+        public String getMessage() {
+            return message;
+        }
     }
 
     public static class SampleValidatorFactory implements SqlValidatorFactory {

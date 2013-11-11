@@ -15,4 +15,11 @@ public interface SqlValidationResult<T> {
      * @return the validation result
      */
     T getResult();
+
+    /**
+     * Returns the message for the validation result specific for the selected validator implementation.
+     * 
+     * @return the validation message result
+     */
+    String getMessage();
 }

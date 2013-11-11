@@ -66,7 +66,7 @@ public class SqlValidationException extends RuntimeException {
      *            the validation result
      */
     public <T> SqlValidationException(SqlValidationResult<T> result) {
-        super();
+        super(result.getMessage());
         this.result = result;
     }
 
@@ -79,7 +79,7 @@ public class SqlValidationException extends RuntimeException {
      *            the validation result
      */
     public <T> SqlValidationException(String message, SqlValidationResult<T> result) {
-        super(message);
+        super(message + "\n" + result.getMessage());
         this.result = result;
     }
 

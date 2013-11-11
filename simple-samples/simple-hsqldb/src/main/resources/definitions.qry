@@ -54,13 +54,3 @@ metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
 //pojogen-debug-level DEBUG;
 
-
-
-
-
-
-
-
-
-
-
