@@ -159,6 +159,13 @@ public interface SqlFeature {
      */
     public static final String DEFAULT_LIKE_STRING = "like";
     /**
+     * <code>REPLACE_LIKE_CHARS</code> is the key for the special SQL Processor behavior related to the SQL command
+     * <code>like</code>. The feature pattern is <code>"ccc->rrr"</code>, where <code>ccc</code> is a set of characters
+     * to be replaced with the characters <code>rrr</code>. For example to use the wildcard characters <code>*</code>
+     * and <code>?</code> instead of <code>%</code> <code>_</code>, use <code>"*?->%_"</code>.
+     */
+    public static final String REPLACE_LIKE_CHARS = "REPLACE_LIKE_CHARS";
+    /**
      * <code>METHODS_ENUM_IN</code> lists the methods used in the translation from a Java type to a JDBC datatype for
      * enumerations based input values.
      */
