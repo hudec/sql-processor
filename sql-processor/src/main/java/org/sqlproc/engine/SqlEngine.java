@@ -3,6 +3,7 @@ package org.sqlproc.engine;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,18 +130,20 @@ public abstract class SqlEngine {
      */
     public void setFeature(String name, Object value) {
         features.put(name, value);
-        unsetFeature(SqlUtils.oppositeFeature(name));
+        unsetFeatures(SqlUtils.oppositeFeatures(name));
     }
 
     /**
-     * Clears the optional feature in the stament's or global scope.
+     * Clears the optional features in the stament's or global scope.
      * 
-     * @param name
-     *            the name of the optional feature
+     * @param names
+     *            the names of the optional features
      */
-    public void unsetFeature(String name) {
-        if (name != null)
-            features.remove(name);
+    public void unsetFeatures(Set<String> names) {
+        if (names != null) {
+            for (String name : names)
+                features.remove(name);
+        }
     }
 
     /**

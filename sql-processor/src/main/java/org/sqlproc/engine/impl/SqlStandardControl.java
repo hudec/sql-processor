@@ -2,6 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlOrder;
@@ -256,18 +257,20 @@ public class SqlStandardControl implements SqlControl {
      */
     public void setFeature(String name, Object value) {
         features.put(name, value);
-        unsetFeature(SqlUtils.oppositeFeature(name));
+        unsetFeatures(SqlUtils.oppositeFeatures(name));
     }
 
     /**
-     * Clears the optional feature in the stament's execution scope.
+     * Clears the optional features in the stament's or execution scope.
      * 
-     * @param name
-     *            the name of the optional feature
+     * @param names
+     *            the names of the optional features
      */
-    public void unsetFeature(String name) {
-        if (name != null)
-            features.remove(name);
+    public void unsetFeatures(Set<String> names) {
+        if (names != null) {
+            for (String name : names)
+                features.remove(name);
+        }
     }
 
     /**

@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
@@ -263,16 +265,22 @@ public class SqlUtils {
         return s.substring(0, 1).toLowerCase() + s.substring(1);
     }
 
-    public static String oppositeFeature(String featureName) {
+    public static Set<String> oppositeFeatures(String featureName) {
+        Set<String> oppositeFeatures = new HashSet<String>();
         if (SqlFeature.SURROUND_QUERY_LIKE_FULL.equals(featureName)) {
-            return SqlFeature.SURROUND_QUERY_LIKE_PARTIAL;
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
+            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS);
         } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(featureName)) {
-            return SqlFeature.SURROUND_QUERY_LIKE_FULL;
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL);
+            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS);
+        } else if (SqlFeature.REPLACE_LIKE_CHARS.equals(featureName)) {
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL);
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
         } else if (SqlFeature.EMPTY_FOR_NULL.equals(featureName)) {
-            return SqlFeature.EMPTY_USE_METHOD_IS_NULL;
+            oppositeFeatures.add(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
         } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.equals(featureName)) {
-            return SqlFeature.EMPTY_FOR_NULL;
+            oppositeFeatures.add(SqlFeature.EMPTY_FOR_NULL);
         }
-        return null;
+        return oppositeFeatures;
     }
 }

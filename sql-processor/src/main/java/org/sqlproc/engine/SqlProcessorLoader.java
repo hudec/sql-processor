@@ -445,9 +445,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         }
         Set<String> statementFeaturesUnset = statementsFeaturesUnset.get(name);
         if (statementFeaturesUnset != null) {
-            for (String feature : statementFeaturesUnset) {
-                sqlEngine.unsetFeature(feature);
-            }
+            sqlEngine.unsetFeatures(statementFeaturesUnset);
         }
     }
 

@@ -3,6 +3,7 @@ package org.sqlproc.engine.impl;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
@@ -216,9 +217,11 @@ public class SqlProcessContext {
             return;
         for (Entry<String, Object> entry : runtimeFeatures.entrySet()) {
             currentFeatures.get().put(entry.getKey(), entry.getValue());
-            String oppositeName = SqlUtils.oppositeFeature(entry.getKey());
-            if (oppositeName != null)
-                currentFeatures.get().remove(oppositeName);
+            Set<String> oppositeNames = SqlUtils.oppositeFeatures(entry.getKey());
+            if (oppositeNames != null) {
+                for (String name : oppositeNames)
+                    currentFeatures.get().remove(name);
+            }
         }
     }
 
