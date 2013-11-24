@@ -154,6 +154,20 @@ public class SqlProcessContext {
     }
 
     /**
+     * Convenient method to obtain an Object feature based on the name.
+     * 
+     * @param name
+     *            name of the feature
+     * @return value of the feature
+     */
+    public static Object getFeatureAsObject(String name) {
+        Object o = getFeatures().get(name);
+        if (o == null)
+            o = getFeatures().get("DEFAULT_" + name);
+        return o;
+    }
+
+    /**
      * Convenient method to obtain the index of the ordering directive.
      * 
      * @param orderId

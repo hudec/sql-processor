@@ -2,6 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,6 +103,13 @@ class SqlMetaIfItem implements SqlMetaElement {
                                 SqlProcessContext.getFeature(SqlFeature.WILDCARD_CHARACTER),
                                 SqlProcessContext.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN),
                                 SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL));
+                    }
+                } else if (SqlProcessContext.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null
+                        && item instanceof SqlMetaIdent && like) {
+                    for (String ident : itemResult.getInputValues()) {
+                        itemResult.getInputValue(ident).setReplaceChars(
+                                (Map<Character, Character>) SqlProcessContext
+                                        .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS));
                     }
                 } else if (item instanceof SqlMetaText
                         && (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || SqlProcessContext

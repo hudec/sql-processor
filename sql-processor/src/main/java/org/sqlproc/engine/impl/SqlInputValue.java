@@ -1,6 +1,8 @@
 package org.sqlproc.engine.impl;
 
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -141,6 +143,10 @@ class SqlInputValue {
      * A dynamic input value can be also an output value.
      */
     private Object outValue;
+    /**
+     * A map of characters to be replaced in input value;
+     */
+    private Map<Character, Character> replaceChars;
 
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
@@ -236,11 +242,11 @@ class SqlInputValue {
             Object o = this.inputValue;
             if (inputValue instanceof String) {
                 if (caseConversion == Code.NONE) {
-                    o = processLike(this.inputValue);
+                    o = processReplaceChars(processLike(this.inputValue));
                 } else if (caseConversion == Code.LOWER) {
-                    o = inputValue != null ? processLike(inputValue).toLowerCase() : (String) null;
+                    o = inputValue != null ? processReplaceChars(processLike(inputValue)).toLowerCase() : (String) null;
                 } else if (caseConversion == Code.UPPER) {
-                    o = inputValue != null ? processLike(inputValue).toUpperCase() : (String) null;
+                    o = inputValue != null ? processReplaceChars(processLike(inputValue)).toUpperCase() : (String) null;
                 }
             }
             type.setParameter(query, paramName, o, inputValueType);
@@ -289,7 +295,7 @@ class SqlInputValue {
     }
 
     /**
-     * Sets a special treatment of dynamic input value.
+     * Sets a special treatment of a dynamic input value.
      * 
      * @param likeChar
      *            a wildcard character
@@ -305,7 +311,17 @@ class SqlInputValue {
     }
 
     /**
-     * A special treatment of dynamic input value for SQL comman <code>LIKE</code>.
+     * Sets a special treatment of a dynamic input value.
+     * 
+     * @param replaceChars
+     *            a map of characters to be replaced in input value
+     */
+    void setReplaceChars(Map<Character, Character> replaceChars) {
+        this.replaceChars = replaceChars;
+    }
+
+    /**
+     * A special treatment of dynamic input value for SQL command <code>LIKE</code>.
      * 
      * @param val
      *            a dynamic input value
@@ -352,6 +368,23 @@ class SqlInputValue {
                         return param;
                 }
             }
+        }
+        return param;
+    }
+
+    /**
+     * A special treatment of dynamic input value for SQL command <code>LIKE</code>.
+     * 
+     * @param val
+     *            a dynamic input value
+     * @return a dynamic input value with replaced characters
+     */
+    private String processReplaceChars(Object val) {
+        String param = (String) val;
+        if (replaceChars == null || replaceChars.isEmpty())
+            return param;
+        for (Entry<Character, Character> entry : replaceChars.entrySet()) {
+            param = param.replace(entry.getKey(), entry.getValue());
         }
         return param;
     }
