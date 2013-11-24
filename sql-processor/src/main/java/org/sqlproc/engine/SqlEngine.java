@@ -3,6 +3,7 @@ package org.sqlproc.engine;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -103,7 +104,8 @@ public abstract class SqlEngine {
         this.statement = statement;
         this.mapping = mapping;
         if (features != null) {
-            this.features.putAll(features);
+            for (Entry<String, Object> feature : features.entrySet())
+                setFeature(feature.getKey(), feature.getValue());
         }
         this.monitor = (monitor != null) ? monitor : new SqlEmptyMonitor();
         this.typeFactory = typeFactory;
