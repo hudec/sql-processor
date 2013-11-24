@@ -695,7 +695,19 @@ LIKE_BASIC_2_PARTIAL(QRY,BOPT=SURROUND_QUERY_LIKE_PARTIAL=true)=
   {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
   {#1 order by id}
 ;
- 
+LIKE_BASIC_REPLACE_CHARS(QRY,OPT=REPLACE_LIKE_CHARS=42_37_63_95)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& UPPER(p.NAME_FIRST) like :+name.first}
+  {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
+  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
+  {#1 order by id}
+;
+
  
 ORDER(QRY)=
   select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,

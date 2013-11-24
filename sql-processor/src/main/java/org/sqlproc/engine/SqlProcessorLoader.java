@@ -525,6 +525,17 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
+     * Special characters, which can be used for REPLACE_LIKE_CHARS feature.
+     */
+    private static Map<String, Character> CHARS = new HashMap<String, Character>();
+    static {
+        CHARS.put("42", '*');
+        CHARS.put("63", '?');
+        CHARS.put("37", '%');
+        CHARS.put("95", '_');
+    }
+
+    /**
      * Handle special features, like REPLACE_LIKE_CHARS.
      * 
      * @param features
@@ -536,13 +547,19 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         for (Entry<String, Object> entry : features.entrySet()) {
             boolean handled = false;
             if (entry.getKey().equals(SqlFeature.REPLACE_LIKE_CHARS)) {
-                String[] ss = ((String) entry.getValue()).split("->");
-                if (ss.length == 2 && ss[0].length() == ss[1].length()) {
+                String[] ss = ((String) entry.getValue()).split("_");
+                if (ss.length > 0 && ss.length % 2 == 0) {
                     Map<Character, Character> value = new HashMap<Character, Character>();
-                    for (int i = 0; i < ss[0].length(); i++)
-                        value.put(ss[0].charAt(i), ss[1].charAt(i));
-                    newFeatures.put(entry.getKey(), value);
-                    handled = true;
+                    for (int i = 0; i < ss.length; i += 2) {
+                        Character c1 = CHARS.get(ss[i]);
+                        Character c2 = CHARS.get(ss[i + 1]);
+                        if (c1 != null && c2 != null) {
+                            value.put(c1, c2);
+                            handled = true;
+                        }
+                    }
+                    if (handled)
+                        newFeatures.put(entry.getKey(), value);
                 }
             }
             if (!handled)

@@ -96,24 +96,27 @@ class SqlMetaIfItem implements SqlMetaElement {
                 result.addOutputValues(itemResult.getOutputValues());
                 result.addIdentities(itemResult.getIdentities());
                 result.addOutValues(itemResult.getOutValues());
-                if ((SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || SqlProcessContext
-                        .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL)) && item instanceof SqlMetaIdent && like) {
+                if (item instanceof SqlMetaIdent
+                        && like
+                        && (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || SqlProcessContext
+                                .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL))) {
                     for (String ident : itemResult.getInputValues()) {
                         itemResult.getInputValue(ident).setLike(
                                 SqlProcessContext.getFeature(SqlFeature.WILDCARD_CHARACTER),
                                 SqlProcessContext.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN),
                                 SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL));
                     }
-                } else if (SqlProcessContext.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null
-                        && item instanceof SqlMetaIdent && like) {
+                } else if (item instanceof SqlMetaIdent && like
+                        && SqlProcessContext.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null) {
                     for (String ident : itemResult.getInputValues()) {
                         itemResult.getInputValue(ident).setReplaceChars(
                                 (Map<Character, Character>) SqlProcessContext
                                         .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS));
                     }
                 } else if (item instanceof SqlMetaText
-                        && (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || SqlProcessContext
-                                .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL))
+                        && (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL)
+                                || SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL) || SqlProcessContext
+                                .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null)
                         && itemResult.getSql().toString().trim().toLowerCase()
                                 .endsWith(SqlProcessContext.getFeature(SqlFeature.LIKE_STRING))) {
                     like = true;
