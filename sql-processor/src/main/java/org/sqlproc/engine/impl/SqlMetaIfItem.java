@@ -110,7 +110,7 @@ class SqlMetaIfItem implements SqlMetaElement {
                         && SqlProcessContext.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null) {
                     for (String ident : itemResult.getInputValues()) {
                         itemResult.getInputValue(ident).setReplaceChars(
-                                (Map<Character, Character>) SqlProcessContext
+                                (Map<String, String>) SqlProcessContext
                                         .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS));
                     }
                 } else if (item instanceof SqlMetaText

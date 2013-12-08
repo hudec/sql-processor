@@ -494,7 +494,7 @@ option [String name] returns [StringBuilder text]
 	
 STATEMENT: 'QRY'|'CRUD'|'CALL';
 MAPPING: 'OUT';
-OPTION: 'OPT' | 'LOPT' | 'IOPT' | 'SOPT' | 'BOPT';
+OPTION: 'OPT' | 'LOPT' | 'IOPT' | 'SOPT' | 'BOPT' | 'MOPT';
 	
 IDENT_DOT: IDENT (DOT IDENT)+;
 IDENT: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_' | '=')*;

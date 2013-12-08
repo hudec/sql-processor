@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -356,8 +355,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             cruds = processor.getMetaStatements(SqlProcessor.StatementType.CRUD);
             calls = processor.getMetaStatements(SqlProcessor.StatementType.CALL);
             outs = processor.getMappingRules(SqlProcessor.MappingType.OUT);
-            features = handleFeatures(processor.getFeatures());
-            statementsFeatures = handleStatementFeatures(processor.getStatementsFeatures());
+            features = processor.getFeatures();
+            statementsFeatures = processor.getStatementsFeatures();
             statementsFeaturesUnset = processor.getStatementsFeaturesUnset();
 
             for (String name : outs.keySet()) {
@@ -522,64 +521,5 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         if (procedureEngine == null)
             throw new SqlEngineException("Missing SqlQueryEngine " + name);
         return procedureEngine;
-    }
-
-    /**
-     * Special characters, which can be used for REPLACE_LIKE_CHARS feature.
-     */
-    private static Map<String, Character> CHARS = new HashMap<String, Character>();
-    static {
-        CHARS.put("42", '*');
-        CHARS.put("63", '?');
-        CHARS.put("37", '%');
-        CHARS.put("95", '_');
-    }
-
-    /**
-     * Handle special features, like REPLACE_LIKE_CHARS.
-     * 
-     * @param features
-     *            original features
-     * @return processed features
-     */
-    private Map<String, Object> handleFeatures(Map<String, Object> features) {
-        Map<String, Object> newFeatures = new HashMap<String, Object>();
-        for (Entry<String, Object> entry : features.entrySet()) {
-            boolean handled = false;
-            if (entry.getKey().equals(SqlFeature.REPLACE_LIKE_CHARS)) {
-                String[] ss = ((String) entry.getValue()).split("_");
-                if (ss.length > 0 && ss.length % 2 == 0) {
-                    Map<Character, Character> value = new HashMap<Character, Character>();
-                    for (int i = 0; i < ss.length; i += 2) {
-                        Character c1 = CHARS.get(ss[i]);
-                        Character c2 = CHARS.get(ss[i + 1]);
-                        if (c1 != null && c2 != null) {
-                            value.put(c1, c2);
-                            handled = true;
-                        }
-                    }
-                    if (handled)
-                        newFeatures.put(entry.getKey(), value);
-                }
-            }
-            if (!handled)
-                newFeatures.put(entry.getKey(), entry.getValue());
-        }
-        return newFeatures;
-    }
-
-    /**
-     * Handle special features, like REPLACE_LIKE_CHARS.
-     * 
-     * @param features
-     *            original features
-     * @return processed features
-     */
-    private Map<String, Map<String, Object>> handleStatementFeatures(Map<String, Map<String, Object>> features) {
-        Map<String, Map<String, Object>> newFeatures = new HashMap<String, Map<String, Object>>();
-        for (Entry<String, Map<String, Object>> entry : features.entrySet()) {
-            newFeatures.put(entry.getKey(), handleFeatures(entry.getValue()));
-        }
-        return newFeatures;
     }
 }

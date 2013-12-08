@@ -146,7 +146,7 @@ class SqlInputValue {
     /**
      * A map of characters to be replaced in input value;
      */
-    private Map<Character, Character> replaceChars;
+    private Map<String, String> replaceChars;
 
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
@@ -316,7 +316,7 @@ class SqlInputValue {
      * @param replaceChars
      *            a map of characters to be replaced in input value
      */
-    void setReplaceChars(Map<Character, Character> replaceChars) {
+    void setReplaceChars(Map<String, String> replaceChars) {
         this.replaceChars = replaceChars;
     }
 
@@ -383,7 +383,7 @@ class SqlInputValue {
         String param = (String) val;
         if (replaceChars == null || replaceChars.isEmpty())
             return param;
-        for (Entry<Character, Character> entry : replaceChars.entrySet()) {
+        for (Entry<String, String> entry : replaceChars.entrySet()) {
             param = param.replace(entry.getKey(), entry.getValue());
         }
         return param;

@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -88,8 +90,17 @@ public class SqlProcessor {
         /**
          * Boolean option
          */
-        BOPT
+        BOPT,
+        /**
+         * Map option
+         */
+        MOPT
     }
+
+    /**
+     * Pattern for MOPT
+     */
+    private Pattern mapPattern = Pattern.compile("\\s*\\[\\s*(.*)\\s*]\\s*");
 
     /**
      * The collection of the META SQL statements.
@@ -409,6 +420,25 @@ public class SqlProcessor {
             return Boolean.parseBoolean(feature);
         } else if (ftype == FeatureType.OPT) {
             return feature;
+        } else if (ftype == FeatureType.MOPT) {
+            Matcher matcher = mapPattern.matcher(feature);
+            if (!matcher.matches())
+                return null;
+            Map<String, String> map = new HashMap<String, String>();
+            String[] ss = matcher.group(1).split("'");
+            String key = null;
+            for (int i = 0; i < ss.length; i++) {
+                int phase = i % 4;
+                switch (phase) {
+                case 1:
+                    key = ss[i];
+                    break;
+                case 3:
+                    map.put(key, ss[i]);
+                    break;
+                }
+            }
+            return map;
         }
         return null;
     }
@@ -652,11 +682,23 @@ public class SqlProcessor {
                 continue;
             }
             String featureName = filter.substring(0, ix2);
-            Object value = getFeature(type, filter.substring(ix2 + 1));
-            if (value != null) {
-                if (!getStatementsFeatures().containsKey(name))
-                    getStatementsFeatures().put(name, new HashMap<String, Object>());
-                getStatementsFeatures().get(name).put(featureName, value);
+            String sValue = filter.substring(ix2 + 1);
+            boolean isRef = sValue.startsWith("REF=");
+            if (!isRef) {
+                Object value = getFeature(type, sValue);
+                if (value != null) {
+                    if (!getStatementsFeatures().containsKey(name))
+                        getStatementsFeatures().put(name, new HashMap<String, Object>());
+                    getStatementsFeatures().get(name).put(featureName, value);
+                }
+            } else {
+                String refName = sValue.substring(4);
+                Object refValue = getFeatures().get(refName);
+                if (refValue != null) {
+                    if (!getStatementsFeatures().containsKey(name))
+                        getStatementsFeatures().put(name, new HashMap<String, Object>());
+                    getStatementsFeatures().get(name).put(featureName, refValue);
+                }
             }
         }
     }
