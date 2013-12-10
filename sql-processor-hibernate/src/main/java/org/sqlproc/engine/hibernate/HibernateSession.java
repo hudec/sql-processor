@@ -40,6 +40,11 @@ public class HibernateSession implements InvocationHandler {
     private final Session session;
 
     /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
+
+    /**
      * Creates a new instance of this dynamic proxy.
      * 
      * @param session
@@ -47,6 +52,19 @@ public class HibernateSession implements InvocationHandler {
      */
     private HibernateSession(Session session) {
         this.session = session;
+    }
+
+    /**
+     * Creates a new instance of this dynamic proxy.
+     * 
+     * @param session
+     *            the Hibernate Session instance
+     * @param name
+     *            the name of the database
+     */
+    public HibernateSession(Session session, String name) {
+        this(session);
+        this.name = name;
     }
 
     /**
@@ -69,6 +87,10 @@ public class HibernateSession implements InvocationHandler {
             return hibernateQuery.executeBatch(statements);
         }
 
+        if ("getName".equals(method.getName())) {
+            return name;
+        }
+
         try {
             return method.invoke(session, args);
         } catch (InvocationTargetException e) {
@@ -85,6 +107,20 @@ public class HibernateSession implements InvocationHandler {
      */
     public static SqlSession generateProxy(Session session) {
         HibernateSession handler = new HibernateSession(session);
+        return (SqlSession) Proxy.newProxyInstance(getProxyClassLoader(), PROXY_INTERFACES, handler);
+    }
+
+    /**
+     * The factory method to obtain this dynamic proxy.
+     * 
+     * @param session
+     *            the Hibernate Session instance
+     * @param name
+     *            the name of the database
+     * @return the Hibernate stack implementation of the SQL Engine session contract
+     */
+    public static SqlSession generateProxy(Session session, String name) {
+        HibernateSession handler = new HibernateSession(session, name);
         return (SqlSession) Proxy.newProxyInstance(getProxyClassLoader(), PROXY_INTERFACES, handler);
     }
 

@@ -29,6 +29,11 @@ public class SpringSimpleSession implements SqlSession {
     JdbcTemplate jdbcTemplate;
 
     /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
+
+    /**
      * Creates a new instance.
      * 
      * @param jdbcTemplate
@@ -36,6 +41,19 @@ public class SpringSimpleSession implements SqlSession {
      */
     public SpringSimpleSession(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    /**
+     * Creates a new instance.
+     * 
+     * @param jdbcTemplate
+     *            the Spring JdbcTemplate instance
+     * @param name
+     *            the name of the database
+     */
+    public SpringSimpleSession(JdbcTemplate jdbcTemplate, String name) {
+        this(jdbcTemplate);
+        this.name = name;
     }
 
     /**
@@ -64,4 +82,10 @@ public class SpringSimpleSession implements SqlSession {
         return sqlQuery.executeBatch(statements);
     }
 
+    /**
+     * @return the name of the database related to this session. It's usage is implementation specific.
+     */
+    public String getName() {
+        return name;
+    }
 }

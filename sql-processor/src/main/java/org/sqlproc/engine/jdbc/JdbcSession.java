@@ -40,6 +40,11 @@ public class JdbcSession implements InvocationHandler {
     private final Connection connection;
 
     /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
+
+    /**
      * Creates a new instance of this dynamic proxy.
      * 
      * @param connection
@@ -47,6 +52,19 @@ public class JdbcSession implements InvocationHandler {
      */
     private JdbcSession(Connection connection) {
         this.connection = connection;
+    }
+
+    /**
+     * Creates a new instance of this dynamic proxy.
+     * 
+     * @param connection
+     *            the connection to the database
+     * @param name
+     *            the name of the database
+     */
+    public JdbcSession(Connection connection, String name) {
+        this(connection);
+        this.name = name;
     }
 
     /**
@@ -69,6 +87,10 @@ public class JdbcSession implements InvocationHandler {
             return jdbcQuery.executeBatch(statements);
         }
 
+        if ("getName".equals(method.getName())) {
+            return name;
+        }
+
         try {
             return method.invoke(connection, args);
         } catch (InvocationTargetException e) {
@@ -85,6 +107,20 @@ public class JdbcSession implements InvocationHandler {
      */
     public static SqlSession generateProxy(Connection connection) {
         JdbcSession handler = new JdbcSession(connection);
+        return (SqlSession) Proxy.newProxyInstance(getProxyClassLoader(), PROXY_INTERFACES, handler);
+    }
+
+    /**
+     * The factory method to obtain this dynamic proxy.
+     * 
+     * @param connection
+     *            the connection to the database
+     * @param name
+     *            the name of the database
+     * @return the JDBC stack implementation of the SQL Engine session contract
+     */
+    public static SqlSession generateProxy(Connection connection, String name) {
+        JdbcSession handler = new JdbcSession(connection, name);
         return (SqlSession) Proxy.newProxyInstance(getProxyClassLoader(), PROXY_INTERFACES, handler);
     }
 

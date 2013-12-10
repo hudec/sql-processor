@@ -29,6 +29,11 @@ public class HibernateSimpleSession implements SqlSession {
     private final Session session;
 
     /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
+
+    /**
      * Creates a new instance of this dynamic proxy.
      * 
      * @param session
@@ -36,6 +41,19 @@ public class HibernateSimpleSession implements SqlSession {
      */
     public HibernateSimpleSession(Session session) {
         this.session = session;
+    }
+
+    /**
+     * Creates a new instance of this dynamic proxy.
+     * 
+     * @param session
+     *            the Hibernate Session instance
+     * @param name
+     *            the name of the database
+     */
+    public HibernateSimpleSession(Session session, String name) {
+        this(session);
+        this.name = name;
     }
 
     /**
@@ -62,5 +80,12 @@ public class HibernateSimpleSession implements SqlSession {
     public int[] executeBatch(String[] statements) throws SqlProcessorException {
         SqlQuery sqlQuery = createSqlQuery(null);
         return sqlQuery.executeBatch(statements);
+    }
+
+    /**
+     * @return the name of the database related to this session. It's usage is implementation specific.
+     */
+    public String getName() {
+        return name;
     }
 }

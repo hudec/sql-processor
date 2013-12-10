@@ -55,4 +55,11 @@ public interface SqlSession {
      *             in the case of any problem in ORM or JDBC stack
      */
     int[] executeBatch(String[] statements) throws SqlProcessorException;
+
+    /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     * 
+     * @return the name of the database related to this session
+     */
+    String getName();
 }
