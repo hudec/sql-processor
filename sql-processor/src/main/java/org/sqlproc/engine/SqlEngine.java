@@ -285,4 +285,8 @@ public abstract class SqlEngine {
         if (staticInputValues instanceof SqlControl)
             throw new InvalidParameterException("SqlControl used as static input values");
     }
+
+    public Map<String, Object> getFeatures() {
+        return features;
+    }
 }

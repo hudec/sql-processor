@@ -159,10 +159,16 @@ public interface SqlFeature {
      */
     public static final String DEFAULT_LIKE_STRING = "like";
     /**
+     * <code>REPLACE_LIKE_STRING</code> is the key for the special SQL Processor behavior related to the SQL command
+     * <code>like</code>. The supplied value is going to be used as the final LIKE_STRING.
+     */
+    public static final String REPLACE_LIKE_STRING = "REPLACE_LIKE_STRING";
+    /**
      * <code>REPLACE_LIKE_CHARS</code> is the key for the special SQL Processor behavior related to the SQL command
-     * <code>like</code>. The feature pattern is <code>"ccc->rrr"</code>, where <code>ccc</code> is a set of characters
-     * to be replaced with the characters <code>rrr</code>. For example to use the wildcard characters <code>*</code>
-     * and <code>?</code> instead of <code>%</code> <code>_</code>, use <code>"*?->%_"</code>.
+     * <code>like</code>. The feature pattern is <code>['c1':'r1', 'c2':'r2', ...]</code>, where <code>c1,c2,...</code>
+     * is a set of characters to be replaced with the characters <code>r1,r2,...</code>. For example to use the wildcard
+     * characters <code>*</code> and <code>?</code> instead of <code>%</code> <code>_</code>, use
+     * <code>['*':'%', '?':'_']</code>.
      */
     public static final String REPLACE_LIKE_CHARS = "REPLACE_LIKE_CHARS";
     /**

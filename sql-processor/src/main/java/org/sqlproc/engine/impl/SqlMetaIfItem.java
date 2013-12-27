@@ -90,7 +90,6 @@ class SqlMetaIfItem implements SqlMetaElement {
                         && !(item instanceof SqlMetaOperator)) {
                     result.addTrue();
                 }
-                result.getSql().append(itemResult.getSql());
                 result.addInputValues(itemResult.getInputValues());
                 result.addMappedInputValues(itemResult.getMappedInputValues());
                 result.addOutputValues(itemResult.getOutputValues());
@@ -119,11 +118,17 @@ class SqlMetaIfItem implements SqlMetaElement {
                                 .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null)
                         && itemResult.getSql().toString().trim().toLowerCase()
                                 .endsWith(SqlProcessContext.getFeature(SqlFeature.LIKE_STRING))) {
+                    String replaceLike = SqlProcessContext.getFeature(SqlFeature.REPLACE_LIKE_STRING);
+                    if (replaceLike != null) {
+                        itemResult.setSql(new StringBuilder(itemResult.getSql().toString().toLowerCase()
+                                .replace(SqlProcessContext.getFeature(SqlFeature.LIKE_STRING), replaceLike)));
+                    }
                     like = true;
                 } else {
                     if (!like || !(item instanceof SqlMetaText) || !((SqlMetaText) item).isWhite())
                         like = false;
                 }
+                result.getSql().append(itemResult.getSql());
                 skipNextText = result.isSkipNextText();
             }
         }
