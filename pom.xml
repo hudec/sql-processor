@@ -30,7 +30,7 @@
         <version.slf4j>1.7.2</version.slf4j>
         <version.junit>4.10</version.junit>
         <version.dbunit>2.4.9</version.dbunit>
-        <version.hsqldb>2.2.8</version.hsqldb>
+        <version.hsqldb>2.2.9</version.hsqldb>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>10.2.0.4</version.oracle>
         <version.mysql>5.1.18</version.mysql>
