@@ -34,11 +34,14 @@ package org.sample.model {
     // The phone number
     @Size ::: max 100
     phoneNumber : java.lang.String
+    // Any notes and remarks
+    @Size ::: max 100
+    XNote : java.lang.String
     equals ::: id
     hashCode ::: id
     toInit ::: person
-    isDef ::: phoneNumber
-    toString ::: id phoneNumber address type
+    isDef ::: phoneNumber XNote
+    toString ::: id phoneNumber address XNote type
   }
 
   // The personal information

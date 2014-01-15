@@ -106,6 +106,22 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @Size(max = 100)
+  private String XNote;
+  
+  public String getXNote() {
+    return XNote;
+  }
+  
+  public void setXNote(String XNote) {
+    this.XNote = XNote;
+  }
+  
+  public Contact _setXNote(String XNote) {
+    this.XNote = XNote;
+    return this;
+  }
+  
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -193,7 +209,7 @@ public class Contact implements Serializable {
   }
   
   public enum Attribute {
-    phoneNumber
+    phoneNumber, XNote
   }
   
   private Set<String> nullValues = new HashSet<String>();
@@ -290,15 +306,15 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", XNote=" + XNote + ", type=" + type + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
+    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", XNote=" + XNote + "]";
   }
   
   public enum OpAttribute {
-      id, person, type, address, phoneNumber
+      id, person, type, address, phoneNumber, XNote
   }
   
   private Map<String, String> operators = new HashMap<String, String>();
