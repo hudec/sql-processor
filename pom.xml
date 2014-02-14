@@ -407,13 +407,36 @@
             </dependencies>
         </profile>
         <profile>
+            <id>mssql</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
+                <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
+                <db.url>jdbc:sqlserver://banur:1433;databaseName=sqlproc;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>MSSQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.mssql.MsSqlDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.microsoft.sqlserver</groupId>
+                    <artifactId>sqljdbc4</artifactId>
+                    <version>${version.mssql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>mssql-bamboo</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
                 <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
-                <db.url>jdbc:sqlserver://mrkev:1433;databaseName=sql;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
+                <db.url>jdbc:sqlserver://banur:1433;databaseName=sqlproc;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />

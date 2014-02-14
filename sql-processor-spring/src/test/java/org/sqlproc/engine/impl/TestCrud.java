@@ -22,7 +22,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsertEmpty2() {
-        if ("oracle".equalsIgnoreCase(dbType))
+        if ("oracle".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
