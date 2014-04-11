@@ -36,12 +36,12 @@ package org.sample.model {
     phoneNumber : java.lang.String
     // Any notes and remarks
     @Size ::: max 100
-    XNote : java.lang.String
+    xNote : java.lang.String
     equals ::: id
     hashCode ::: id
     toInit ::: person
-    isDef ::: phoneNumber XNote
-    toString ::: id phoneNumber address XNote type
+    isDef ::: xNote phoneNumber
+    toString ::: id xNote phoneNumber address type
   }
 
   // The personal information
