@@ -50,15 +50,12 @@ public class ProceduresDao {
     }
     return count;
   }
-  
   public int newPerson(NewPerson newPerson, SqlControl sqlControl) {
   	return newPerson(sqlSessionFactory.getSqlSession(), newPerson, sqlControl);
   }
-  
   public int newPerson(SqlSession sqlSession, NewPerson newPerson) {
     return newPerson(sqlSession, newPerson, null);
   }
-  
   public int newPerson(NewPerson newPerson) {
     return newPerson(newPerson, null);
   }
@@ -74,15 +71,12 @@ public class ProceduresDao {
     }
     return list;
   }
-  
   public List<Person> newPersonRetRs(NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
   	return newPersonRetRs(sqlSessionFactory.getSqlSession(), newPersonRetRs, sqlControl);
   }
-  
   public List<Person> newPersonRetRs(SqlSession sqlSession, NewPersonRetRs newPersonRetRs) {
     return newPersonRetRs(sqlSession, newPersonRetRs, null);
   }
-  
   public List<Person> newPersonRetRs(NewPersonRetRs newPersonRetRs) {
     return newPersonRetRs(newPersonRetRs, null);
   }
