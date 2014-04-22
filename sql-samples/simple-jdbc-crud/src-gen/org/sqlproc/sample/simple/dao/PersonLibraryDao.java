@@ -46,15 +46,12 @@ public class PersonLibraryDao {
     }
     return (count > 0) ? personLibrary : null;
   }
-  
   public PersonLibrary insert(PersonLibrary personLibrary, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl);
   }
-  
   public PersonLibrary insert(SqlSession sqlSession, PersonLibrary personLibrary) {
     return insert(sqlSession, personLibrary, null);
   }
-  
   public PersonLibrary insert(PersonLibrary personLibrary) {
     return insert(personLibrary, null);
   }
@@ -71,15 +68,12 @@ public class PersonLibraryDao {
     }
     return personLibraryGot;
   }
-  	
   public PersonLibrary get(PersonLibrary personLibrary, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl);
   }
-  
   public PersonLibrary get(SqlSession sqlSession, PersonLibrary personLibrary) {
     return get(sqlSession, personLibrary, null);
   }
-  
   public PersonLibrary get(PersonLibrary personLibrary) {
     return get(personLibrary, null);
   }
@@ -95,15 +89,12 @@ public class PersonLibraryDao {
     }
     return count;
   }
-  
   public int update(PersonLibrary personLibrary, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, PersonLibrary personLibrary) {
     return update(sqlSession, personLibrary, null);
   }
-  
   public int update(PersonLibrary personLibrary) {
     return update(personLibrary, null);
   }
@@ -119,15 +110,12 @@ public class PersonLibraryDao {
     }
     return count;
   }
-  
   public int delete(PersonLibrary personLibrary, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, PersonLibrary personLibrary) {
     return delete(sqlSession, personLibrary, null);
   }
-  
   public int delete(PersonLibrary personLibrary) {
     return delete(personLibrary, null);
   }
@@ -144,15 +132,12 @@ public class PersonLibraryDao {
     }
     return personLibraryList;
   }
-  
   public List<PersonLibrary> list(PersonLibrary personLibrary, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl);
   }
-  
-  public List<PersonLibrary> list(SqlSession sqlSession, PersonLibrary personLibrary) {
+      public List<PersonLibrary> list(SqlSession sqlSession, PersonLibrary personLibrary) {
     return list(sqlSession, personLibrary, null);
   }
-  
   public List<PersonLibrary> list(PersonLibrary personLibrary) {
     return list(personLibrary, null);
   }
@@ -169,15 +154,12 @@ public class PersonLibraryDao {
     }
     return count;
   }
-  
   public int count(PersonLibrary personLibrary, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, PersonLibrary personLibrary) {
+      public int count(SqlSession sqlSession, PersonLibrary personLibrary) {
     return count(sqlSession, personLibrary, null);
   }
-  
   public int count(PersonLibrary personLibrary) {
     return count(personLibrary, null);
   }

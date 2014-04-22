@@ -48,15 +48,12 @@ public class PaymentDao {
     }
     return (count > 0) ? payment : null;
   }
-  
   public Payment insert(Payment payment, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), payment, sqlControl);
   }
-  
   public Payment insert(SqlSession sqlSession, Payment payment) {
     return insert(sqlSession, payment, null);
   }
-  
   public Payment insert(Payment payment) {
     return insert(payment, null);
   }
@@ -73,15 +70,12 @@ public class PaymentDao {
     }
     return paymentGot;
   }
-  	
   public Payment get(Payment payment, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), payment, sqlControl);
   }
-  
   public Payment get(SqlSession sqlSession, Payment payment) {
     return get(sqlSession, payment, null);
   }
-  
   public Payment get(Payment payment) {
     return get(payment, null);
   }
@@ -97,15 +91,12 @@ public class PaymentDao {
     }
     return count;
   }
-  
   public int update(Payment payment, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), payment, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, Payment payment) {
     return update(sqlSession, payment, null);
   }
-  
   public int update(Payment payment) {
     return update(payment, null);
   }
@@ -121,15 +112,12 @@ public class PaymentDao {
     }
     return count;
   }
-  
   public int delete(Payment payment, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), payment, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, Payment payment) {
     return delete(sqlSession, payment, null);
   }
-  
   public int delete(Payment payment) {
     return delete(payment, null);
   }
@@ -146,15 +134,12 @@ public class PaymentDao {
     }
     return paymentList;
   }
-  
   public List<Payment> list(Payment payment, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), payment, sqlControl);
   }
-  
-  public List<Payment> list(SqlSession sqlSession, Payment payment) {
+      public List<Payment> list(SqlSession sqlSession, Payment payment) {
     return list(sqlSession, payment, null);
   }
-  
   public List<Payment> list(Payment payment) {
     return list(payment, null);
   }
@@ -171,15 +156,12 @@ public class PaymentDao {
     }
     return count;
   }
-  
   public int count(Payment payment, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), payment, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, Payment payment) {
+      public int count(SqlSession sqlSession, Payment payment) {
     return count(sqlSession, payment, null);
   }
-  
   public int count(Payment payment) {
     return count(payment, null);
   }

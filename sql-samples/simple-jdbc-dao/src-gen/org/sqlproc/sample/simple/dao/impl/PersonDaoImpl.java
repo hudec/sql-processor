@@ -53,15 +53,12 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     return (count > 0) ? person : null;
   }
-  
   public Person insert(Person person, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
   public Person insert(SqlSession sqlSession, Person person) {
     return insert(sqlSession, person, null);
   }
-  
   public Person insert(Person person) {
     return insert(person, null);
   }
@@ -78,15 +75,12 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     return personGot;
   }
-  	
   public Person get(Person person, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
   public Person get(SqlSession sqlSession, Person person) {
     return get(sqlSession, person, null);
   }
-  
   public Person get(Person person) {
     return get(person, null);
   }
@@ -105,15 +99,12 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     return count;
   }
-  
   public int update(Person person, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, Person person) {
     return update(sqlSession, person, null);
   }
-  
   public int update(Person person) {
     return update(person, null);
   }
@@ -132,15 +123,12 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     return count;
   }
-  
   public int delete(Person person, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, Person person) {
     return delete(sqlSession, person, null);
   }
-  
   public int delete(Person person) {
     return delete(person, null);
   }
@@ -157,15 +145,12 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     return personList;
   }
-  
   public List<Person> list(Person person, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
-  public List<Person> list(SqlSession sqlSession, Person person) {
+      public List<Person> list(SqlSession sqlSession, Person person) {
     return list(sqlSession, person, null);
   }
-  
   public List<Person> list(Person person) {
     return list(person, null);
   }
@@ -182,15 +167,12 @@ public class PersonDaoImpl extends BaseDaoImpl implements BaseDao, PersonDao {
     }
     return count;
   }
-  
   public int count(Person person, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, Person person) {
+      public int count(SqlSession sqlSession, Person person) {
     return count(sqlSession, person, null);
   }
-  
   public int count(Person person) {
     return count(person, null);
   }

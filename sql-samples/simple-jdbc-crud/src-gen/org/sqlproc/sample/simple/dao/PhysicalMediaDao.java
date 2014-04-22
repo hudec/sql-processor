@@ -48,15 +48,12 @@ public class PhysicalMediaDao {
     }
     return (count > 0) ? physicalMedia : null;
   }
-  
   public PhysicalMedia insert(PhysicalMedia physicalMedia, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl);
   }
-  
   public PhysicalMedia insert(SqlSession sqlSession, PhysicalMedia physicalMedia) {
     return insert(sqlSession, physicalMedia, null);
   }
-  
   public PhysicalMedia insert(PhysicalMedia physicalMedia) {
     return insert(physicalMedia, null);
   }
@@ -73,15 +70,12 @@ public class PhysicalMediaDao {
     }
     return physicalMediaGot;
   }
-  	
   public PhysicalMedia get(PhysicalMedia physicalMedia, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl);
   }
-  
   public PhysicalMedia get(SqlSession sqlSession, PhysicalMedia physicalMedia) {
     return get(sqlSession, physicalMedia, null);
   }
-  
   public PhysicalMedia get(PhysicalMedia physicalMedia) {
     return get(physicalMedia, null);
   }
@@ -97,15 +91,12 @@ public class PhysicalMediaDao {
     }
     return count;
   }
-  
   public int update(PhysicalMedia physicalMedia, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, PhysicalMedia physicalMedia) {
     return update(sqlSession, physicalMedia, null);
   }
-  
   public int update(PhysicalMedia physicalMedia) {
     return update(physicalMedia, null);
   }
@@ -121,15 +112,12 @@ public class PhysicalMediaDao {
     }
     return count;
   }
-  
   public int delete(PhysicalMedia physicalMedia, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, PhysicalMedia physicalMedia) {
     return delete(sqlSession, physicalMedia, null);
   }
-  
   public int delete(PhysicalMedia physicalMedia) {
     return delete(physicalMedia, null);
   }
@@ -146,15 +134,12 @@ public class PhysicalMediaDao {
     }
     return physicalMediaList;
   }
-  
   public List<PhysicalMedia> list(PhysicalMedia physicalMedia, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl);
   }
-  
-  public List<PhysicalMedia> list(SqlSession sqlSession, PhysicalMedia physicalMedia) {
+      public List<PhysicalMedia> list(SqlSession sqlSession, PhysicalMedia physicalMedia) {
     return list(sqlSession, physicalMedia, null);
   }
-  
   public List<PhysicalMedia> list(PhysicalMedia physicalMedia) {
     return list(physicalMedia, null);
   }
@@ -171,15 +156,12 @@ public class PhysicalMediaDao {
     }
     return count;
   }
-  
   public int count(PhysicalMedia physicalMedia, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, PhysicalMedia physicalMedia) {
+      public int count(SqlSession sqlSession, PhysicalMedia physicalMedia) {
     return count(sqlSession, physicalMedia, null);
   }
-  
   public int count(PhysicalMedia physicalMedia) {
     return count(physicalMedia, null);
   }

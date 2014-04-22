@@ -46,15 +46,12 @@ public class LibraryDao {
     }
     return (count > 0) ? library : null;
   }
-  
   public Library insert(Library library, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), library, sqlControl);
   }
-  
   public Library insert(SqlSession sqlSession, Library library) {
     return insert(sqlSession, library, null);
   }
-  
   public Library insert(Library library) {
     return insert(library, null);
   }
@@ -71,15 +68,12 @@ public class LibraryDao {
     }
     return libraryGot;
   }
-  	
   public Library get(Library library, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), library, sqlControl);
   }
-  
   public Library get(SqlSession sqlSession, Library library) {
     return get(sqlSession, library, null);
   }
-  
   public Library get(Library library) {
     return get(library, null);
   }
@@ -95,15 +89,12 @@ public class LibraryDao {
     }
     return count;
   }
-  
   public int update(Library library, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), library, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, Library library) {
     return update(sqlSession, library, null);
   }
-  
   public int update(Library library) {
     return update(library, null);
   }
@@ -119,15 +110,12 @@ public class LibraryDao {
     }
     return count;
   }
-  
   public int delete(Library library, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), library, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, Library library) {
     return delete(sqlSession, library, null);
   }
-  
   public int delete(Library library) {
     return delete(library, null);
   }
@@ -144,15 +132,12 @@ public class LibraryDao {
     }
     return libraryList;
   }
-  
   public List<Library> list(Library library, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), library, sqlControl);
   }
-  
-  public List<Library> list(SqlSession sqlSession, Library library) {
+      public List<Library> list(SqlSession sqlSession, Library library) {
     return list(sqlSession, library, null);
   }
-  
   public List<Library> list(Library library) {
     return list(library, null);
   }
@@ -169,15 +154,12 @@ public class LibraryDao {
     }
     return count;
   }
-  
   public int count(Library library, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), library, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, Library library) {
+      public int count(SqlSession sqlSession, Library library) {
     return count(sqlSession, library, null);
   }
-  
   public int count(Library library) {
     return count(library, null);
   }

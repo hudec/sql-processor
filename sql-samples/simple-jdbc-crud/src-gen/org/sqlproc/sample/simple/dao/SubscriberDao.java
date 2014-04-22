@@ -48,15 +48,12 @@ public class SubscriberDao {
     }
     return (count > 0) ? subscriber : null;
   }
-  
   public Subscriber insert(Subscriber subscriber, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
   }
-  
   public Subscriber insert(SqlSession sqlSession, Subscriber subscriber) {
     return insert(sqlSession, subscriber, null);
   }
-  
   public Subscriber insert(Subscriber subscriber) {
     return insert(subscriber, null);
   }
@@ -73,15 +70,12 @@ public class SubscriberDao {
     }
     return subscriberGot;
   }
-  	
   public Subscriber get(Subscriber subscriber, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
   }
-  
   public Subscriber get(SqlSession sqlSession, Subscriber subscriber) {
     return get(sqlSession, subscriber, null);
   }
-  
   public Subscriber get(Subscriber subscriber) {
     return get(subscriber, null);
   }
@@ -97,15 +91,12 @@ public class SubscriberDao {
     }
     return count;
   }
-  
   public int update(Subscriber subscriber, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, Subscriber subscriber) {
     return update(sqlSession, subscriber, null);
   }
-  
   public int update(Subscriber subscriber) {
     return update(subscriber, null);
   }
@@ -121,15 +112,12 @@ public class SubscriberDao {
     }
     return count;
   }
-  
   public int delete(Subscriber subscriber, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, Subscriber subscriber) {
     return delete(sqlSession, subscriber, null);
   }
-  
   public int delete(Subscriber subscriber) {
     return delete(subscriber, null);
   }
@@ -146,15 +134,12 @@ public class SubscriberDao {
     }
     return subscriberList;
   }
-  
   public List<Subscriber> list(Subscriber subscriber, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
   }
-  
-  public List<Subscriber> list(SqlSession sqlSession, Subscriber subscriber) {
+      public List<Subscriber> list(SqlSession sqlSession, Subscriber subscriber) {
     return list(sqlSession, subscriber, null);
   }
-  
   public List<Subscriber> list(Subscriber subscriber) {
     return list(subscriber, null);
   }
@@ -171,15 +156,12 @@ public class SubscriberDao {
     }
     return count;
   }
-  
   public int count(Subscriber subscriber, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), subscriber, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, Subscriber subscriber) {
+      public int count(SqlSession sqlSession, Subscriber subscriber) {
     return count(sqlSession, subscriber, null);
   }
-  
   public int count(Subscriber subscriber) {
     return count(subscriber, null);
   }
