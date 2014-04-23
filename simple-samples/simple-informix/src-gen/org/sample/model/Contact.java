@@ -22,17 +22,17 @@ public class Contact implements Serializable {
     this.address = address;
   }
   
-  private Long id;
+  private Integer id;
   
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
   
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
   
-  public Contact _setId(Long id) {
+  public Contact _setId(Integer id) {
     this.id = id;
     return this;
   }
@@ -281,7 +281,7 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", person=" + person + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
   }
   
   public String toStringFull() {

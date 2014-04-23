@@ -129,7 +129,7 @@ class SqlMetaIfItem implements SqlMetaElement {
                         like = false;
                 }
                 result.getSql().append(itemResult.getSql());
-                skipNextText = result.isSkipNextText();
+                skipNextText = itemResult.isSkipNextText();
             }
         }
         if (onlyText && !SqlUtils.isEmpty(result.getSql()))

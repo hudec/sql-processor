@@ -47,15 +47,12 @@ public class ProceduresDao {
     }
     return count;
   }
-  
   public int newPerson(NewPerson newPerson, SqlControl sqlControl) {
   	return newPerson(sqlSessionFactory.getSqlSession(), newPerson, sqlControl);
   }
-  
   public int newPerson(SqlSession sqlSession, NewPerson newPerson) {
     return newPerson(sqlSession, newPerson, null);
   }
-  
   public int newPerson(NewPerson newPerson) {
     return newPerson(newPerson, null);
   }

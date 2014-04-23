@@ -25,7 +25,9 @@ public interface SqlIdentityPlugin extends Modifiers {
      *            the table name. Right now it's not supplied.
      * @param columnName
      *            the column name. Right now it's not supplied.
+     * @param inputValueType
+     *            a dynamic input value Java type
      * @return the final identity SELECT SQL
      */
-    public String identitySelect(String identitySelectName, String tableName, String columnName);
+    public String identitySelect(String identitySelectName, String tableName, String columnName, Class<?> inputValueType);
 }

@@ -273,7 +273,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
         } else if (identitySelectName != null) {
             String identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
-                    .identitySelect(identitySelectName, null, null);
+                    .identitySelect(identitySelectName, null, null, attributeType);
             if (identitySelect == null) {
                 throw new SqlRuntimeException("Missing identity select " + identitySelectName);
             }

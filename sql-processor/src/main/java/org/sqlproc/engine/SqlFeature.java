@@ -426,6 +426,18 @@ public interface SqlFeature {
      */
     public static final String INFORMIX_DEFAULT_IDSEL = "SELECT FIRST 1 dbinfo('bigserial') FROM systables";
     /**
+     * <code>INFORMIX_DEFAULT_IDSEL_Long</code> is the default value related to the key <code>IDSEL</code> in the case
+     * the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
+     */
+    // public static final String INFORMIX_DEFAULT_IDSEL_Long =
+    // "select dbinfo('serial8') from informix.systables where tabid=1";
+    public static final String INFORMIX_DEFAULT_IDSEL_Long = "select dbinfo('bigserial') from informix.systables where tabid=1";
+    /**
+     * <code>INFORMIX_DEFAULT_IDSEL_Integer</code> is the default value related to the key <code>IDSEL</code> in the
+     * case the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
+     */
+    public static final String INFORMIX_DEFAULT_IDSEL_Integer = "select dbinfo('sqlca.sqlerrd1') from informix.systables where tabid=1";
+    /**
      * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
      * filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
      * <p/>
