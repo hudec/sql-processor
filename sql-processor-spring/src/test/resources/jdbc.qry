@@ -21,7 +21,7 @@ SEQ1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
  * Default select command to obtain a new created identity
  */
 SEL1(OPT,HSQLDB)=call identity();
-SEL1(OPT,ORACLE)=select last_insert_id();
+SEL1(OPT,MYSQL)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
