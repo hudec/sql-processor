@@ -51,15 +51,12 @@ public class FunctionsDao {
     }
     return (Timestamp) result;
   }
-  
   public Timestamp anHourBefore(AnHourBefore anHourBefore, SqlControl sqlControl) {
   	return anHourBefore(sqlSessionFactory.getSqlSession(), anHourBefore, sqlControl);
   }
-  
   public Timestamp anHourBefore(SqlSession sqlSession, AnHourBefore anHourBefore) {
     return anHourBefore(sqlSession, anHourBefore, null);
   }
-  
   public Timestamp anHourBefore(AnHourBefore anHourBefore) {
     return anHourBefore(anHourBefore, null);
   }
@@ -75,15 +72,12 @@ public class FunctionsDao {
     }
     return list;
   }
-  
   public List<Person> newPersonRetRs(NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
   	return newPersonRetRs(sqlSessionFactory.getSqlSession(), newPersonRetRs, sqlControl);
   }
-  
   public List<Person> newPersonRetRs(SqlSession sqlSession, NewPersonRetRs newPersonRetRs) {
     return newPersonRetRs(sqlSession, newPersonRetRs, null);
   }
-  
   public List<Person> newPersonRetRs(NewPersonRetRs newPersonRetRs) {
     return newPersonRetRs(newPersonRetRs, null);
   }

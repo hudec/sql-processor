@@ -1,7 +1,8 @@
+SEQ_CONTACT(OPT)=select nextval('contact_id_seq');
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%contact (%id, %person_id, %ctype, %address, %phone_number)
-  {= values (:id(idgen=contact_id_seq,id=ID), :person.id, :ctype, :address, :phoneNumber) }
+  {= values (:id(idgen=CONTACT,id=ID), :person.id, :ctype, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
