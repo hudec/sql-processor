@@ -1,7 +1,7 @@
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%contact (%id, %person_id, %ctype, %address, %phone_number)
-  {= values (:id(seq=contact_id_seq), :person.id, :ctype, :address, :phoneNumber) }
+  {= values (:id(idgen=contact_id_seq,id=ID), :person.id, :ctype, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=

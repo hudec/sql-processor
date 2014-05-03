@@ -399,20 +399,18 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     @Override
     public String sequenceSelect(String sequenceName) {
         String sequence = SqlProcessContext.getFeature(sequenceName);
-        if (sequence != null)
-            return sequence;
-        sequence = SqlProcessContext.getFeature(SqlFeature.SEQ + "_" + sequenceName);
-        if (sequence != null)
-            return sequence;
-        String sequencePattern = SqlProcessContext.getFeature(SqlFeature.SEQ);
-        if (sequencePattern == null)
+        if (sequence == null)
+            sequence = SqlProcessContext.getFeature(SqlFeature.SEQ + "_" + sequenceName);
+        if (sequence == null)
+            sequence = SqlProcessContext.getFeature(SqlFeature.SEQ);
+        if (sequence == null)
             return null;
-        int ix = sequencePattern.indexOf("$n");
+        int ix = sequence.indexOf("$n");
         if (ix < 0)
-            return sequencePattern;
+            return sequence;
         if (SqlSequencePlugin.MODIFIER_SEQUENCE.equals(sequenceName))
-            return sequencePattern.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + sequencePattern.substring(ix + 2);
+            return sequence.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + sequence.substring(ix + 2);
         else
-            return sequencePattern.substring(0, ix) + sequenceName + sequencePattern.substring(ix + 2);
+            return sequence.substring(0, ix) + sequenceName + sequence.substring(ix + 2);
     }
 }

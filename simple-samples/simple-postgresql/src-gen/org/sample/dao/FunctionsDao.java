@@ -48,15 +48,12 @@ public class FunctionsDao {
     }
     return (Timestamp) result;
   }
-  
   public Timestamp anHourBefore(AnHourBefore anHourBefore, SqlControl sqlControl) {
   	return anHourBefore(sqlSessionFactory.getSqlSession(), anHourBefore, sqlControl);
   }
-  
   public Timestamp anHourBefore(SqlSession sqlSession, AnHourBefore anHourBefore) {
     return anHourBefore(sqlSession, anHourBefore, null);
   }
-  
   public Timestamp anHourBefore(AnHourBefore anHourBefore) {
     return anHourBefore(anHourBefore, null);
   }
