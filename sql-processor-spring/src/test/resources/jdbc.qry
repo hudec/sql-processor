@@ -1610,8 +1610,18 @@ INSERT_PERSON_5(CRUD)=
   {= values (:id(type=long,idsel), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
+INSERT_PERSON_5A(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(type=long,idsel,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+;
+  
 INSERT_PERSON_6(CRUD)=
   insert into PERSON (SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(type=long,idsel=SEL1), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+;
+  
+INSERT_PERSON_6A(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   {= values (:id(type=long,idsel=SEL1), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   

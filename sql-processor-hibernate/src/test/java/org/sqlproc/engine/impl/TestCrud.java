@@ -575,6 +575,50 @@ public class TestCrud extends TestDatabase {
     }
 
     @Test
+    public void testInsert6A() {
+        if ("ORACLE".equalsIgnoreCase(dbType))
+            return;
+
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        // p.setId(3L);
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+        p.setSex(Gender.MALE);
+        // p.setCreatedDate(new Date());
+        p.setCreatedBy("wlado");
+        p.setVersion(1L);
+        p.setClothesSize(Size.MIDDLE);
+
+        SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_6A");
+
+        String sql = crudEngine.getInsertSql(p, null);
+        logger.info(sql);
+        assertContains(sql, "VALUES");
+        assertContains(
+                sql,
+                ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        int count = crudEngine.insert(session, p);
+        assertEquals(1, count);
+        logger.info("new id: " + p.getId());
+        assertNotNull(p.getId());
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(3, list.size());
+    }
+
+    @Test
     public void testInsert5() {
         if ("ORACLE".equalsIgnoreCase(dbType) || "POSTGRESQL".equalsIgnoreCase(dbType)
                 || "MSSQL".equalsIgnoreCase(dbType))
@@ -601,6 +645,50 @@ public class TestCrud extends TestDatabase {
         p.setClothesSize(Size.MIDDLE);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_5");
+
+        String sql = crudEngine.getInsertSql(p, null);
+        logger.info(sql);
+        assertContains(sql, "VALUES");
+        assertContains(
+                sql,
+                ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        int count = crudEngine.insert(session, p);
+        assertEquals(1, count);
+        logger.info("new id: " + p.getId());
+        assertNotNull(p.getId());
+
+        list = sqlEngine.query(session, Person.class);
+        assertEquals(3, list.size());
+    }
+
+    @Test
+    public void testInsert5A() {
+        if ("ORACLE".equalsIgnoreCase(dbType) || "POSTGRESQL".equalsIgnoreCase(dbType))
+            return;
+
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        List<Person> list = sqlEngine.query(session, Person.class);
+        assertEquals(2, list.size());
+
+        Person p = new Person();
+        // p.setId(3L);
+        p.setSsn(new Ssn());
+        p.getSsn().setNumber("345678");
+        p.getSsn().setCountry(Country.UNITED_STATES);
+        p.setName(new PersonName());
+        p.getName().setFirst("Toby");
+        p.getName().setLast("Stephens");
+        p.setAge(1969, 4, 21);
+        p.setSex(Gender.MALE);
+        // p.setCreatedDate(new Date());
+        p.setCreatedBy("wlado");
+        p.setVersion(1L);
+        p.setClothesSize(Size.MIDDLE);
+
+        SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_5A");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
