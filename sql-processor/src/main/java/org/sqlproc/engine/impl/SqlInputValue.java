@@ -147,6 +147,10 @@ class SqlInputValue {
      * A map of characters to be replaced in input value;
      */
     private Map<String, String> replaceChars;
+    /**
+     * A database identity column name
+     */
+    private String dbIdentityName;
 
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
@@ -191,7 +195,7 @@ class SqlInputValue {
      *            a dynamic input value META type
      */
     SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
-            String sequenceOrIdentitySelect, SqlType type) {
+            String sequenceOrIdentitySelect, SqlType type, String dbIdentityName) {
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
@@ -201,6 +205,7 @@ class SqlInputValue {
         else
             this.identitySelect = sequenceOrIdentitySelect;
         this.type = type;
+        this.dbIdentityName = dbIdentityName;
     }
 
     /**
@@ -423,6 +428,15 @@ class SqlInputValue {
      */
     public Type getValueType() {
         return valueType;
+    }
+
+    /**
+     * Returns a database identity column name.
+     * 
+     * @return a database identity column name
+     */
+    public String getDbIdentityName() {
+        return dbIdentityName;
     }
 
     /**

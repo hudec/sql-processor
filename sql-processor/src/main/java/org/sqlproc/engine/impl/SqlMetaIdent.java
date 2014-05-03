@@ -267,7 +267,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.SEQUENCE_BASED, obj, parentObj,
-                    attributeType, sequence, this.sqlType);
+                    attributeType, sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID));
             result.addInputValue(s.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
@@ -279,7 +279,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.IDENTITY_SELECT, obj, parentObj,
-                    attributeType, identitySelect, this.sqlType);
+                    attributeType, identitySelect, this.sqlType, values.get(Modifiers.MODIFIER_ID));
             result.addInputValue(s.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSkipNextText(true);

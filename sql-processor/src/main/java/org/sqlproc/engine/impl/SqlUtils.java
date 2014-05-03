@@ -256,12 +256,17 @@ public class SqlUtils {
     public static String handleInsertSql(Map<String, SqlInputValue> identities, String sql) {
         if (identities == null || identities.isEmpty())
             return sql;
-        Map<String, SqlInputValue> ids = new HashMap<String, SqlInputValue>();
+        Map<String, SqlInputValue> ids1 = new HashMap<String, SqlInputValue>();
+        Map<String, SqlInputValue> ids2 = new HashMap<String, SqlInputValue>();
         for (Entry<String, SqlInputValue> e : identities.entrySet()) {
-            if (e.getValue().getValueType() == SqlInputValue.Type.IDENTITY_SELECT)
-                ids.put(e.getKey(), e.getValue());
+            if (e.getValue().getValueType() == SqlInputValue.Type.IDENTITY_SELECT) {
+                ids1.put(e.getKey(), e.getValue());
+                if (e.getValue().getDbIdentityName() != null) {
+                    ids2.put(e.getValue().getDbIdentityName(), e.getValue());
+                }
+            }
         }
-        if (ids.isEmpty())
+        if (ids1.isEmpty())
             return sql;
         Matcher matcher = patternInsert.matcher(sql);
         if (!matcher.matches())
@@ -273,11 +278,17 @@ public class SqlUtils {
             String c = cols[i].trim();
             if (c.startsWith("%"))
                 c = c.substring(1);
-            if (ids.containsKey(c))
+            if (ids2.containsKey(c)) {
                 icol = i;
-            else if (ids.containsKey(c.toLowerCase()))
+            } else if (ids2.containsKey(c.toLowerCase()))
                 icol = i;
-            else if (ids.containsKey(c.toUpperCase()))
+            else if (ids2.containsKey(c.toUpperCase()))
+                icol = i;
+            else if (ids1.containsKey(c))
+                icol = i;
+            else if (ids1.containsKey(c.toLowerCase()))
+                icol = i;
+            else if (ids1.containsKey(c.toUpperCase()))
                 icol = i;
             if (icol >= 0)
                 break;
@@ -287,10 +298,10 @@ public class SqlUtils {
         int ix = sql.indexOf(cols[icol]);
         if (ix < 0)
             return sql;
-        System.out.println("XXXXXXXXXX " + ix + " '" + sql + "'");
+        // System.out.println("XXXXXXXXXX " + ix + " '" + sql + "'");
         String sql1 = sql.substring(0, ix);
         String sql2 = sql.substring(ix + cols[icol].length());
-        System.out.println("YYYYYYYYYY '" + sql1 + "'" + sql2 + "'");
+        // System.out.println("YYYYYYYYYY '" + sql1 + "'" + sql2 + "'");
         if (sql1.trim().endsWith(",")) {
             ix = sql1.lastIndexOf(",");
             sql = sql.substring(0, ix) + sql2;
@@ -300,7 +311,7 @@ public class SqlUtils {
         } else {
             sql = sql1 + sql2;
         }
-        System.out.println("ZZZZZZZZZZ '" + sql + "'");
+        // System.out.println("ZZZZZZZZZZ '" + sql + "'");
         return sql;
     }
 

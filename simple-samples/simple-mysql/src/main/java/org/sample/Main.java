@@ -92,17 +92,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        // String sql = "insert into PERSON (FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, SSN)  VALUES(?, ?, ?, ?, ?)";
-        // Pattern patternInsert = Pattern.compile("[^\\(]*\\(\\s*([^\\)]*)\\s*\\).*");
-        // Matcher matcher = patternInsert.matcher(sql);
-        // if (matcher.matches()) {
-        // System.out.println("00000 " + matcher.groupCount());
-        // System.out.println("00000 " + matcher.group(0));
-        // String fragment = matcher.group(1);
-        // System.out.println("00000 " + fragment);
-        // }
-        // System.exit(1);
-
         Person person, p;
         Contact contact, c;
         int count;
