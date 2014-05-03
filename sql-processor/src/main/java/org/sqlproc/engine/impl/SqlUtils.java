@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -255,6 +256,13 @@ public class SqlUtils {
     public static String handleInsertSql(Map<String, SqlInputValue> identities, String sql) {
         if (identities == null || identities.isEmpty())
             return sql;
+        Map<String, SqlInputValue> ids = new HashMap<String, SqlInputValue>();
+        for (Entry<String, SqlInputValue> e : identities.entrySet()) {
+            if (e.getValue().getValueType() == SqlInputValue.Type.IDENTITY_SELECT)
+                ids.put(e.getKey(), e.getValue());
+        }
+        if (ids.isEmpty())
+            return sql;
         Matcher matcher = patternInsert.matcher(sql);
         if (!matcher.matches())
             return sql;
@@ -265,11 +273,11 @@ public class SqlUtils {
             String c = cols[i].trim();
             if (c.startsWith("%"))
                 c = c.substring(1);
-            if (identities.containsKey(c))
+            if (ids.containsKey(c))
                 icol = i;
-            else if (identities.containsKey(c.toLowerCase()))
+            else if (ids.containsKey(c.toLowerCase()))
                 icol = i;
-            else if (identities.containsKey(c.toUpperCase()))
+            else if (ids.containsKey(c.toUpperCase()))
                 icol = i;
             if (icol >= 0)
                 break;

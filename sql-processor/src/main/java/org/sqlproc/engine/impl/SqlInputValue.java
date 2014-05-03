@@ -389,16 +389,40 @@ class SqlInputValue {
         return param;
     }
 
+    /**
+     * Returns a dynamic input value.
+     * 
+     * @return a dynamic input value
+     */
     Object getInputValue() {
         return inputValue;
     }
 
+    /**
+     * Returns a input attribute name.
+     * 
+     * @return a input attribute name
+     */
     String getInputName() {
         return inputName;
     }
 
+    /**
+     * Returns a parent of a dynamic input value.
+     * 
+     * @return a parent of a dynamic input value
+     */
     Object getParentInputValue() {
         return parentInputValue;
+    }
+
+    /**
+     * Returns the type of the input value, please see {@link Type}.
+     * 
+     * @return the type of the input value, please see {@link Type}
+     */
+    public Type getValueType() {
+        return valueType;
     }
 
     /**
