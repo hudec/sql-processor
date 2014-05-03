@@ -1,7 +1,8 @@
+IDSEL_S1(OPT,MYSQL)=select last_insert_id();
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id(idsel,id=ID), :person.id, :ctype, :address, :phoneNumber) }
+  {= values (:id(idgen=S1,id=ID), :person.id, :ctype, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=

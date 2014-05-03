@@ -218,6 +218,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         int count = 1;
         String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
+        String identityGenerator = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_GENERATOR);
         String attributeName = null;
         String lastAttributeName = null;
         Class<?> attributeType = (obj != null) ? obj.getClass() : null;
@@ -260,23 +261,37 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         if (lastAttributeName == null)
             lastAttributeName = attributeName;
 
-        if (sequenceName != null) {
-            String sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(sequenceName);
+        String sequence = null;
+        String identitySelect = null;
+        if (identityGenerator != null) {
+            sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(identityGenerator);
+            if (sequence == null)
+                identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
+                        .identitySelect(identityGenerator, null, null, attributeType);
+            if (sequence == null && identitySelect == null) {
+                throw new SqlRuntimeException("Missing identity generator " + identityGenerator);
+            }
+        } else if (sequenceName != null) {
+            sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(sequenceName);
             if (sequence == null) {
                 throw new SqlRuntimeException("Missing sequence " + sequenceName);
             }
+        } else if (identitySelectName != null) {
+            identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
+                    .identitySelect(identitySelectName, null, null, attributeType);
+            if (identitySelect == null) {
+                throw new SqlRuntimeException("Missing identity select " + identitySelectName);
+            }
+        }
+
+        if (sequence != null) {
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.SEQUENCE_BASED, obj, parentObj,
                     attributeType, sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID));
             result.addInputValue(s.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
-        } else if (identitySelectName != null) {
-            String identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
-                    .identitySelect(identitySelectName, null, null, attributeType);
-            if (identitySelect == null) {
-                throw new SqlRuntimeException("Missing identity select " + identitySelectName);
-            }
+        } else if (identitySelect != null) {
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.IDENTITY_SELECT, obj, parentObj,
                     attributeType, identitySelect, this.sqlType, values.get(Modifiers.MODIFIER_ID));

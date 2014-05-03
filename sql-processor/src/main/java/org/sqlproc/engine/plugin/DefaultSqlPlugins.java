@@ -382,7 +382,15 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             identitySelect = SqlProcessContext.getFeature(identityName + "_" + inputValueType.getSimpleName());
         if (identitySelect != null)
             return identitySelect;
-        return SqlProcessContext.getFeature(identityName);
+        if (inputValueType != null)
+            identitySelect = SqlProcessContext.getFeature(SqlFeature.IDSEL + "_" + identityName + "_"
+                    + inputValueType.getSimpleName());
+        if (identitySelect != null)
+            return identitySelect;
+        identitySelect = SqlProcessContext.getFeature(identityName);
+        if (identitySelect != null)
+            return identitySelect;
+        return SqlProcessContext.getFeature(SqlFeature.IDSEL + "_" + identityName);
     }
 
     /**
@@ -391,6 +399,9 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     @Override
     public String sequenceSelect(String sequenceName) {
         String sequence = SqlProcessContext.getFeature(sequenceName);
+        if (sequence != null)
+            return sequence;
+        sequence = SqlProcessContext.getFeature(SqlFeature.SEQ + "_" + sequenceName);
         if (sequence != null)
             return sequence;
         String sequencePattern = SqlProcessContext.getFeature(SqlFeature.SEQ);
