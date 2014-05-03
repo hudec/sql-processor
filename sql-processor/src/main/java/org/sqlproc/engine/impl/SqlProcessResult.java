@@ -262,7 +262,7 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * 
      * @return the collection of identities
      */
-    Map<String, SqlInputValue> getIdentities() {
+    public Map<String, SqlInputValue> getIdentities() {
         return identities;
     }
 

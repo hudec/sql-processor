@@ -13,6 +13,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
@@ -246,6 +248,52 @@ public class SqlUtils {
     public static String getIdsKey(Object[] resultValues, Integer mainIdentityIndex) {
         String idsKey = "" + mainIdentityIndex + "-" + resultValues[mainIdentityIndex];
         return idsKey;
+    }
+
+    static final Pattern patternInsert = Pattern.compile(".*\\(\\s*(.*)\\s*\\)\\s*");
+
+    public static String handleInsertSql(Map<String, SqlInputValue> identities, String sql) {
+        if (identities == null || identities.isEmpty())
+            return sql;
+        Matcher matcher = patternInsert.matcher(sql);
+        if (!matcher.matches())
+            return sql;
+        String fragment = matcher.group(1);
+        String[] cols = fragment.split(",");
+        int icol = -1;
+        for (int i = 0; i < cols.length; i++) {
+            String c = cols[i].trim();
+            if (c.startsWith("%"))
+                c = c.substring(1);
+            if (identities.containsKey(c))
+                icol = i;
+            else if (identities.containsKey(c.toLowerCase()))
+                icol = i;
+            else if (identities.containsKey(c.toUpperCase()))
+                icol = i;
+            if (icol >= 0)
+                break;
+        }
+        if (icol < 0)
+            return sql;
+        int ix = sql.indexOf(cols[icol]);
+        if (ix < 0)
+            return sql;
+        System.out.println("XXXXXXXXXX " + ix + " '" + sql + "'");
+        String sql1 = sql.substring(0, ix);
+        String sql2 = sql.substring(ix + cols[icol].length());
+        System.out.println("YYYYYYYYYY '" + sql1 + "'" + sql2 + "'");
+        if (sql1.trim().endsWith(",")) {
+            ix = sql1.lastIndexOf(",");
+            sql = sql.substring(0, ix) + sql2;
+        } else if (sql2.trim().startsWith(",")) {
+            ix = sql2.indexOf(",");
+            sql = sql1 + sql2.substring(ix + 1);
+        } else {
+            sql = sql1 + sql2;
+        }
+        System.out.println("ZZZZZZZZZZ '" + sql + "'");
+        return sql;
     }
 
     public static List<Integer> asList(int[] array) {

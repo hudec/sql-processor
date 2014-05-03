@@ -1,6 +1,6 @@
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
-  insert into %%CONTACT (%PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER)
+  insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER)
   {= values (:id(idsel), :person.id, :ctype, :address, :phoneNumber) }
 ;
 

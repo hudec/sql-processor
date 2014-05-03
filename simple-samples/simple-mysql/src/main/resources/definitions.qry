@@ -1,5 +1,5 @@
 resolve-pojo-on;
-database-is-online;
+database-is-offline;
 database-jdbc-driver :com.mysql.jdbc.Driver;
 database-has-url jdbc:mysql:\//127.0.0.1:3306/simple?zeroDateTimeBehavior=convertToNull;
 database-login-username simple;
