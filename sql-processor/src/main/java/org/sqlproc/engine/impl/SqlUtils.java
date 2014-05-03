@@ -250,7 +250,7 @@ public class SqlUtils {
         return idsKey;
     }
 
-    static final Pattern patternInsert = Pattern.compile(".*\\(\\s*(.*)\\s*\\)\\s*");
+    static final Pattern patternInsert = Pattern.compile("[^\\(]*\\(\\s*([^\\)]*)\\s*\\).*");
 
     public static String handleInsertSql(Map<String, SqlInputValue> identities, String sql) {
         if (identities == null || identities.isEmpty())
