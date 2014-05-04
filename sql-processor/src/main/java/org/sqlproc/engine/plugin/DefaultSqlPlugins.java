@@ -374,7 +374,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public String identitySelect(String identitySelectName, String tableName, String columnName, Class<?> inputValueType) {
+    public String identitySelect(String identitySelectName, Class<?> inputValueType) {
         String identityName = (SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT.equals(identitySelectName)) ? SqlFeature.IDSEL
                 : identitySelectName;
         String identitySelect = null;

@@ -215,10 +215,34 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         StringBuilder s = new StringBuilder(elements.size() * 32);
         s.append(IDENT_PREFIX);
 
-        int count = 1;
         String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
         String identityGenerator = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_GENERATOR);
+        String identityGeneratorValue = (identityGenerator != null) ? SqlProcessContext.getFeature("IDGEN_"
+                + identityGenerator) : null;
+        if (identityGeneratorValue != null) {
+            int ix = identityGeneratorValue.indexOf("=");
+            if (ix >= 0) {
+                String value = identityGeneratorValue.substring(0, ix);
+                if (value.equals(Modifiers.MODIFIER_SEQUENCE)) {
+                    sequenceName = identityGeneratorValue.substring(ix + 1);
+                    identityGenerator = null;
+                } else if (value.equals(Modifiers.MODIFIER_IDENTITY_SELECT)) {
+                    identitySelectName = identityGeneratorValue.substring(ix + 1);
+                    identityGenerator = null;
+                }
+            } else {
+                if (identityGeneratorValue.equals(Modifiers.MODIFIER_SEQUENCE)) {
+                    sequenceName = Modifiers.MODIFIER_SEQUENCE;
+                    identityGenerator = null;
+                } else if (identityGeneratorValue.equals(Modifiers.MODIFIER_IDENTITY_SELECT)) {
+                    identitySelectName = Modifiers.MODIFIER_IDENTITY_SELECT;
+                    identityGenerator = null;
+                }
+            }
+        }
+
+        int count = 1;
         String attributeName = null;
         String lastAttributeName = null;
         Class<?> attributeType = (obj != null) ? obj.getClass() : null;
@@ -267,7 +291,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(identityGenerator);
             if (sequence == null)
                 identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
-                        .identitySelect(identityGenerator, null, null, attributeType);
+                        .identitySelect(identityGenerator, attributeType);
             if (sequence == null && identitySelect == null) {
                 throw new SqlRuntimeException("Missing identity generator " + identityGenerator);
             }
@@ -278,7 +302,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
         } else if (identitySelectName != null) {
             identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
-                    .identitySelect(identitySelectName, null, null, attributeType);
+                    .identitySelect(identitySelectName, attributeType);
             if (identitySelect == null) {
                 throw new SqlRuntimeException("Missing identity select " + identitySelectName);
             }
