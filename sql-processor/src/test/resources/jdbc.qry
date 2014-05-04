@@ -33,7 +33,6 @@ SEL1(OPT,DB2)=select identity_val_local() from sysibm.dual;
 SEL1(OPT,IDSEL_JDBC_TRUE)=JDBC;
 SEL1(OPT,IDSEL_JDBC_FALSE)=generates test exception;
 
-
 // META SQL query
 ANSI_BASIC(QRY)=
   select %p.ID, %p.NAME_FIRST as first, %p.NAME_LAST as last, %p.SSN_NUMBER ssn, %p.SSN_COUNTRY country,
@@ -1895,4 +1894,42 @@ PLUGIN_IS_TRUE(QRY)=
     {? :id(type=long,null) | AND p.ID is null | AND p.ID = :id}
     {? :createdBy(type=string,zero) | AND p.CREATED_BY is null | AND p.CREATED_BY = :createdBy}
   }
+;
+
+SEQ_GEN1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE; 
+SEQ_GEN1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
+SEQ_GEN1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
+SEQ_GEN1(OPT,INFORMIX)=SELECT FIRST 1 SQLPROC_SEQUENCE.NEXTVAL FROM systables;
+SEQ_GEN1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
+
+IDSEL_GEN1(OPT,HSQLDB)=call identity();
+IDSEL_GEN1(OPT,MYSQL)=select last_insert_id();
+IDSEL_GEN1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
+IDSEL_GEN1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
+IDSEL_GEN1(OPT,MSSQL)=JDBC;
+IDSEL_GEN1(OPT,DB2)=select identity_val_local() from sysibm.dual;
+IDSEL_GEN1(OPT,IDSEL_JDBC_TRUE)=JDBC;
+
+IDGEN_GEN2(OPT,HSQLDB)=seq=SQLPROC_SEQUENCE; 
+IDGEN_GEN2(OPT,ORACLE)=seq=SQLPROC_SEQUENCE;
+IDGEN_GEN2(OPT,POSTGRESQL)=seq=person_id_seq;
+IDGEN_GEN2(OPT,DB2)=seq=SQLPROC_SEQUENCE;
+IDGEN_GEN2(OPT,MYSQL)=idsel;
+IDGEN_GEN2(OPT,INFORMIX)=idsel;
+IDSEL_GEN2(OPT,MSSQL)=idsel;
+
+
+INSERT_PERSON_101(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  values (:id(seq=GEN1,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)
+;
+  
+INSERT_PERSON_102(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(idsel=GEN1,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize) }
+;
+
+INSERT_PERSON_103(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(idgen=GEN2,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize) }
 ;

@@ -34,7 +34,7 @@ import org.sqlproc.engine.util.DDLLoader;
 public class Main {
 
     private static final Driver JDBC_DRIVER = new com.informix.jdbc.IfxDriver();
-    private static final String DB_URL = "jdbc:informix-sqli://popel:1551/simple:informixserver=popel_11;DB_LOCALE=en_US.57372";
+    private static final String DB_URL = "jdbc:informix-sqli://localhost:9090/simple:informixserver=ol_informix1210";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
     private static final String DB_TYPE = SqlFeature.INFORMIX;

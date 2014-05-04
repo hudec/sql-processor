@@ -1,4 +1,4 @@
-IDSEL_COMMON(OPT)=select last_insert_id();
+IDSEL_COMMON(OPT)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
 IDGEN_COMMON(OPT)=idsel;
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
