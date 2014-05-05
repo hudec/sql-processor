@@ -979,6 +979,9 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert103() {
+        if ("mssql".equalsIgnoreCase(dbType))
+            return;
+
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
