@@ -905,7 +905,7 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert101() {
-        if ("MYSQL".equalsIgnoreCase(dbType))
+        if ("MYSQL".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             return;
 
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
@@ -923,7 +923,7 @@ public class TestCrud extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
+        p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
@@ -942,6 +942,9 @@ public class TestCrud extends TestDatabase {
 
     @Test
     public void testInsert102() {
+        if ("oracle".equalsIgnoreCase(dbType))
+            return;
+
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -957,7 +960,7 @@ public class TestCrud extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
+        p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
@@ -991,7 +994,7 @@ public class TestCrud extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
+        p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
