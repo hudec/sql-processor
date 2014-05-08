@@ -7,13 +7,13 @@ database-login-password simple;
 database-in-catalog simple;
 //database-active-schema simple;
 //database-ddl-create informix.ddl; // should be located in the same directory as definitions.qry
-//database-show-database-info Informix Dynamic Server,11.50.FC5,11,50;
-//database-show-driver-info IBM Informix JDBC Driver for IBM Informix Dynamic Server,3.50.JC9,3,50;
+database-show-database-info Informix Dynamic Server,12.10.FC3DE,12,10;
+database-show-driver-info IBM Informix JDBC Driver for IBM Informix Dynamic Server,4.10.JC1DE,4,10;
 //database-is-of-type Informix;
-database-show-driver-output getNumericFunctions->abs,mod,pow,root,round,sqrt,exp,logn,log10,cos,sin,tan,asin,acos,atan,atan2;
-database-show-driver-output getStringFunctions->trunc,length;
-database-show-driver-output getSystemFunctions->avg,max,min,sum,count,range,stdev,variance,trim,hex,filetoblob,filetoclob,lotofile,lotocopy;
-database-show-driver-output getTimeDateFunctions->date,day,month,weekday,year,extend,mdy;
+//database-show-driver-output getNumericFunctions->abs,mod,pow,root,round,sqrt,exp,logn,log10,cos,sin,tan,asin,acos,atan,atan2;
+//database-show-driver-output getStringFunctions->trunc,length;
+//database-show-driver-output getSystemFunctions->avg,max,min,sum,count,range,stdev,variance,trim,hex,filetoblob,filetoclob,lotofile,lotocopy;
+//database-show-driver-output getTimeDateFunctions->date,day,month,weekday,year,extend,mdy;
 
 // native types
 pojogen-generate-wrappers;
@@ -52,6 +52,6 @@ procedure newPersonRetRs new_person_ret_rs;
 function anHourBefore an_hour_before;
 function newPersonRetRs new_person_ret_rs;
 
-//metagen-function-result an_hour_before stamp;
+metagen-function-result an_hour_before stamp;
 metagen-function-result-set new_person_ret_rs person;
-//pojogen-debug-level DEBUG;
+//database-debug-level DEBUG;
