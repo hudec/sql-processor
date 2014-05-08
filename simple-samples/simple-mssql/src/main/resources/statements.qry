@@ -1,0 +1,127 @@
+
+INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+  insert into %%CONTACT (%PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER)
+  {= values (:id(idsel), :person.id, :type, :address, :phoneNumber) }
+;
+
+GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
+         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
+  from %%CONTACT c
+  {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
+  {= where
+    {& %c.ID ::= :id }
+    {& %c.PERSON_ID ::= :person.id }
+    {& %c.TYPE ::= :type }
+    {& %c.ADDRESS ::= :address }
+    {& %c.PHONE_NUMBER ::= :phoneNumber }
+  }
+;
+
+UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+  update %%CONTACT
+  {= set
+    { ,%PERSON_ID = :person.id(call=isDef) }
+    { ,%TYPE = :type(call=isDef) }
+    { ,%ADDRESS = :address(call=isDef) }
+    { ,%PHONE_NUMBER = :phoneNumber(call=isDef) }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+  delete from %%CONTACT
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
+         {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
+  from %%CONTACT c
+  {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
+  {= where
+    {& %c.ID ::= :id }
+    {& %c.PERSON_ID ::= :person.id }
+    {& %c.TYPE ::= :type }
+    {& UPPER(%c.ADDRESS) like :+address }
+    {& %c.PHONE_NUMBER ::= :phoneNumber }
+  }
+  {#1 order by %c.ID }
+;
+
+INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+  insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
+  {= values (:id(idsel), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
+;
+
+GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
+  from %%PERSON p
+  {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {= where
+    {& %p.ID ::= :id }
+    {& %p.FIRST_NAME ::= :firstName }
+    {& %p.LAST_NAME ::= :lastName }
+    {& %p.DATE_OF_BIRTH ::= :dateOfBirth }
+    {& %p.GENDER ::= :gender }
+    {& %p.SSN ::= :ssn }
+  }
+;
+
+UPDATE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+  update %%PERSON
+  {= set
+    { ,%FIRST_NAME = :firstName(call=isDef) }
+    { ,%LAST_NAME = :lastName(call=isDef) }
+    { ,%DATE_OF_BIRTH = :dateOfBirth(call=isDef) }
+    { ,%GENDER = :gender(call=isDef) }
+    { ,%SSN = :ssn(call=isDef) }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+  delete from %%PERSON
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
+  from %%PERSON p
+  {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {= where
+    {& %p.ID ::= :id }
+    {& UPPER(%p.FIRST_NAME) like :+firstName }
+    {& UPPER(%p.LAST_NAME) like :+lastName }
+    {& %p.DATE_OF_BIRTH ::= :dateOfBirth }
+    {& UPPER(%p.GENDER) like :+gender }
+    {& UPPER(%p.SSN) like :+ssn }
+  }
+  {#1 order by %p.ID }
+  {#2 order by %p.LAST_NAME }
+;
+
+FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
+  :<1(type=stamp) = call an_hour_before(:t)
+;
+
+PROC_NEW_PERSON(CALL,inx=NewPerson)=
+  call new_person(:newid, :dateOfBirth, :ssn, :firstName, :lastName, :gender)
+;
+
+PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
+  call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName, :gender)
+;
+PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
+  ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth GENDER$gender SSN$ssn
+;

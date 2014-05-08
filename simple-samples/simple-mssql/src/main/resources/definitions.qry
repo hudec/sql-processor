@@ -1,0 +1,53 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver :com.microsoft.sqlserver.jdbc.SQLServerDriver;
+database-has-url jdbc:sqlserver:\//localhost:1433\;databaseName=simple\;selectMethod=direct\;sendTimeAsDatetime=true\;sendStringParametersAsUnicode=true;
+database-login-username HUDEC;
+database-login-password passwd;
+database-in-catalog simple;
+//database-active-schema simple;
+//database-ddl-create mysql.ddl; // should be located in the same directory as definitions.qry
+database-show-database-info Microsoft SQL Server,10.50.2500,10,50;
+database-show-driver-info Microsoft SQL Server JDBC Driver 3.0,3.0.1301.101,3,0;
+//database-show-driver-output ;
+//database-show-driver-output ;
+//database-show-driver-output ;
+database-is-of-type MSSQL;
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces java.io.Serializable;
+// can't overwrite existing POJO 
+//pojogen-make-it-final;
+// rename enums
+pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSINESS I2->ABROAD; 
+pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE I0->UNKNOWN; 
+// operators
+pojogen-generate-operators;
+
+// use identity for primary keys
+metagen-global-identity;
+//metagen-table-sequence CONTACT SEQ_CONTACT;
+//metagen-table-sequence/PERSON SEQ_PERSON;
+// can't overwrite existing META SQL 
+//metagen-make-it-final;
+// operators
+metagen-not-like-columns CONTACT PHONE_NUMBER;
+
+// can't overwrite existing DAO 
+//daogen-make-it-final;
+table person PERSON;
+table contact CONTACT;
+procedure anHourBefore an_hour_before;
+procedure newPerson new_person;
+procedure newPersonRetRs new_person_ret_rs;
+function anHourBefore an_hour_before;
+//function newPerson new_person;
+//function newPersonRetRs new_person_ret_rs;
+
+//metagen-function-result an_hour_before stamp;
+metagen-procedure-result-set new_person_ret_rs PERSON;
+pojogen-debug-level DEBUG;
