@@ -288,10 +288,11 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         String sequence = null;
         String identitySelect = null;
         if (identityGenerator != null) {
-            sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(identityGenerator);
-            if (sequence == null)
-                identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
-                        .identitySelect(identityGenerator, attributeType);
+            identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
+                    .identitySelect(identityGenerator, attributeType);
+            if (identitySelect == null)
+                sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin()
+                        .sequenceSelect(identityGenerator);
             if (sequence == null && identitySelect == null) {
                 throw new SqlRuntimeException("Missing identity generator " + identityGenerator);
             }

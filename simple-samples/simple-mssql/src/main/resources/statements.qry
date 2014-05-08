@@ -2,7 +2,7 @@ IDSEL_COMMON0(OPT)=JDBC;
 IDGEN_COMMON(OPT)=idsel;
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
-  insert into %%CONTACT (%PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER)
+  insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER)
   {= values (:id(idgen=COMMON0,id=ID), :person.id, :type, :address, :phoneNumber) }
 ;
 
@@ -56,7 +56,7 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 ;
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
-  insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
+  insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
 ;
 

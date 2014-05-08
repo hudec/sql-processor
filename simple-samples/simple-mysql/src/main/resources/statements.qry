@@ -57,7 +57,7 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 ;
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
-  insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
+  insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
 ;
 
