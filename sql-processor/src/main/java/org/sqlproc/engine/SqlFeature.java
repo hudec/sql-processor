@@ -325,14 +325,12 @@ public interface SqlFeature {
      * the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
      */
     public static final String INFORMIX_DEFAULT_LIMIT_TO = "select first $M $s";
-    /*
-     * Unsupported now.
-     * 
-     * <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
-     * the case the filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
+    /**
+     * Version for MS SQL Server 2012: <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
+     * <code>LIMIT_FROM_TO</code> in the case the filter value <code>MSSQL</code> is used for the
+     * {@link SqlProcessorLoader} instance creation.
      */
-    // version for MS SQL Server 2012:
-    // public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY";
+    public static final String MSSQL_DEFAULT_LIMIT_FROM_TO = "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY";
     /**
      * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case the
      * filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
