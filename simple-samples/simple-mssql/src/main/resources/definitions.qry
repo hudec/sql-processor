@@ -1,5 +1,5 @@
 resolve-pojo-on;
-database-is-online;
+database-is-offline;
 database-jdbc-driver :com.microsoft.sqlserver.jdbc.SQLServerDriver;
 database-has-url jdbc:sqlserver:\//localhost:1433\;databaseName=simple\;selectMethod=direct\;sendTimeAsDatetime=true\;sendStringParametersAsUnicode=true;
 database-login-username HUDEC;
@@ -50,4 +50,4 @@ function anHourBefore an_hour_before;
 
 //metagen-function-result an_hour_before stamp;
 metagen-procedure-result-set new_person_ret_rs PERSON;
-pojogen-debug-level DEBUG;
+//pojogen-debug-level DEBUG;

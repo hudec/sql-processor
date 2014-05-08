@@ -116,7 +116,7 @@ FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
 ;
 
 PROC_NEW_PERSON(CALL,inx=NewPerson)=
-  call new_person(:newid, :dateOfBirth, :ssn, :firstName, :lastName, :gender)
+  call new_person(:=newid, :dateOfBirth, :ssn, :firstName, :lastName, :gender)
 ;
 
 PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
