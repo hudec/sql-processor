@@ -23,7 +23,7 @@ package org.sample.model {
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber
-    toString ::: id person phoneNumber address type
+    toString ::: id phoneNumber address type
   }
 
   pojo Person serializable 1 operators {
