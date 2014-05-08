@@ -1,8 +1,8 @@
-IDSEL_COMMON(OPT)=select last_insert_id();
+IDSEL_COMMON0(OPT)=select dbinfo('bigserial') from informix.systables where tabid=1
 IDGEN_COMMON(OPT)=idsel;
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
-  insert into %%contact (%person_id, %address, %type, %phone_number)
+  insert into %%contact (%id, %person_id, %address, %type, %phone_number)
   {= values (:id(idgen=COMMON,id=ID), :person.id, :address, :type, :phoneNumber) }
 ;
 
@@ -57,7 +57,7 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 ;
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
-  insert into %%person (%first_name, %last_name, %date_of_birth, %gender, %ssn)
+  insert into %%person (%id, %first_name, %last_name, %date_of_birth, %gender, %ssn)
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
 ;
 

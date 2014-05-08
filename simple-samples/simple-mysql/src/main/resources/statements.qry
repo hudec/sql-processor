@@ -1,9 +1,9 @@
-IDSEL_COMMON(OPT)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
+IDSEL_COMMON0(OPT)=select last_insert_id();
 IDGEN_COMMON(OPT)=idsel;
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id(idgen=COMMON,id=ID), :person.id, :ctype, :address, :phoneNumber) }
+  {= values (:id(idgen=COMMON0,id=ID), :person.id, :ctype, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=

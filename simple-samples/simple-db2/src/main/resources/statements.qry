@@ -1,9 +1,9 @@
-SEQ_COMMON(OPT)=select SIMPLE_SEQUENCE.nextval from dual;
+SEQ_COMMON0(OPT)=values nextval for SIMPLE_SEQUENCE;
 IDGEN_COMMON(OPT)=seq=SIMPLE_SEQUENCE;
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id(idgen=COMMON,id=ID), :person.id, :type, :address, :phoneNumber) }
+  {= values (:id(idgen=COMMON0,id=ID), :person.id, :type, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
