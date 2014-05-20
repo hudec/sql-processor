@@ -44,6 +44,16 @@ package org.sample.model {
     toString ::: id xNote phoneNumber address type
   }
 
+  pojo Contact1960 serializable 1 operators {
+    @NotNull
+    id : java.lang.Long required
+    @Size ::: max 100
+    phoneNumber : java.lang.String
+    toInit :::
+    isDef ::: phoneNumber
+    toString ::: id phoneNumber
+  }
+
   // The personal information
   pojo Person serializable 1 operators {
     // The technical primary key

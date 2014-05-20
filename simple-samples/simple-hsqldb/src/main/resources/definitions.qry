@@ -33,9 +33,11 @@ pojogen-generate-operators;
 pojogen-generate-validation-annotations;
 
 // use indetity for primary keys
-metagen-global-sequence SIMPLE_SEQUENCE;
-metagen-generate-sequences;
+metagen-global-identity COMMON;
+//metagen-global-sequence SIMPLE_SEQUENCE;
+metagen-table-sequence CONTACT SIMPLE_SEQUENCE;
 metagen-generate-idgenerators;
+//metagen-generate-default-idgenerators;
 // can't overwrite existing META SQL 
 //metagen-make-it-final;
 // operators
@@ -54,5 +56,5 @@ function anHourBefore AN_HOUR_BEFORE;
 
 metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
-//pojogen-debug-level DEBUG;
+//metagen-debug-level DEBUG;
 

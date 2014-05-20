@@ -1,10 +1,10 @@
 resolve-pojo-on;
-database-is-offline;
-database-jdbc-driver :com.informix.jdbc.IfxDriver;
-database-has-url jdbc:informix-sqli:\//localhost:9090/simple:informixserver=ol_informix1210\;;
+database-is-online;
+database-jdbc-driver :com.informix.jdbc.IfxDriver; 
+database-has-url jdbc:informix-sqli:\//localhost:9090/simple2:informixserver=ol_informix1210\;;
 database-login-username simple;
 database-login-password simple;
-database-in-catalog simple;
+database-in-catalog simple2;
 //database-active-schema simple;
 //database-ddl-create informix.ddl; // should be located in the same directory as definitions.qry
 database-show-database-info Informix Dynamic Server,12.10.FC3DE,12,10;
@@ -14,6 +14,7 @@ database-show-driver-info IBM Informix JDBC Driver for IBM Informix Dynamic Serv
 //database-show-driver-output getStringFunctions->trunc,length;
 //database-show-driver-output getSystemFunctions->avg,max,min,sum,count,range,stdev,variance,trim,hex,filetoblob,filetoclob,lotofile,lotocopy;
 //database-show-driver-output getTimeDateFunctions->date,day,month,weekday,year,extend,mdy;
+//database-show-driver-output getT
 
 // native types
 pojogen-generate-wrappers;
@@ -33,7 +34,11 @@ pojogen-generate-operators;
 
 // use indetity for primary keys
 //metagen-global-sequence SIMPLE_SEQUENCE;
-metagen-global-identity;
+//metagen-generate-sequences;
+metagen-global-identity COMMON;
+metagen-generate-identities;
+metagen-generate-idgenerators;
+//metagen-generate-indirect-idgenerators;
 // can't overwrite existing META SQL 
 //metagen-make-it-final;
 // operators
@@ -54,4 +59,4 @@ function newPersonRetRs new_person_ret_rs;
 
 metagen-function-result an_hour_before stamp;
 metagen-function-result-set new_person_ret_rs person;
-//database-debug-level DEBUG;
+//pojogen-debug-level DEBUG;

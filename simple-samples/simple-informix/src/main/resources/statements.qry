@@ -1,9 +1,9 @@
-IDSEL_COMMON0(OPT)=select dbinfo('sqlca.sqlerrd1') from informix.systables where tabid=1;
-IDGEN_COMMON(OPT)=idsel;
+IDSEL_COMMON_Long(OPT)=select dbinfo('bigserial') from informix.systables where tabid=1;
+IDSEL_COMMON_Integer(OPT)=select dbinfo('sqlca.sqlerrd1') from informix.systables where tabid=1;
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%contact (%id, %person_id, %address, %type, %phone_number)
-  {= values (:id(idgen=COMMON0,id=ID), :person.id, :address, :type, :phoneNumber) }
+  {= values (:id(idgen=COMMON,id=id), :person.id, :address, :type, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
@@ -58,7 +58,7 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   insert into %%person (%id, %first_name, %last_name, %date_of_birth, %gender, %ssn)
-  {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
+  {= values (:id(idgen=COMMON,id=id), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
 ;
 
 GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=

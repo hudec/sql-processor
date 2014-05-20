@@ -1,5 +1,5 @@
 resolve-pojo-on;
-database-is-offline;
+database-is-online;
 database-jdbc-driver :org.postgresql.Driver;
 database-has-url jdbc:postgresql:\//127.0.0.1:5432/simple;
 database-login-username simple;
@@ -28,8 +28,11 @@ pojogen-rename-columns person_gender M->MALE F->FEMALE I0->UNKNOWN;
 pojogen-generate-operators;
 
 // use identity for primary keys
-metagen-table-sequence contact contact_id_seq;
+metagen-table-identity contact CONTACT;
+//metagen-table-sequence contact contact_id_seq;
 metagen-table-sequence person person_id_seq;
+metagen-generate-idgenerators;
+//metagen-generate-default-idgenerators;
 // can't overwrite existing META SQL 
 //metagen-make-it-final;
 // operators
@@ -47,4 +50,4 @@ function anHourBefore an_hour_before;
 
 //metagen-function-result an_hour_before stamp;
 metagen-procedure-result-set new_person_ret_rs person;
-//pojogen-debug-level DEBUG;
+//metagen-debug-level DEBUG;
