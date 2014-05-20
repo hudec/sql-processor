@@ -33,10 +33,8 @@ pojogen-rename-columns person_gender M->MALE F->FEMALE;
 pojogen-generate-operators;
 
 // use indetity for primary keys
-//metagen-global-sequence SIMPLE_SEQUENCE;
-//metagen-generate-sequences;
-metagen-global-identity COMMON;
-metagen-generate-identities;
+metagen-table-sequence person simple_sequence;
+metagen-global-identity common;
 metagen-generate-idgenerators;
 //metagen-generate-indirect-idgenerators;
 // can't overwrite existing META SQL 
