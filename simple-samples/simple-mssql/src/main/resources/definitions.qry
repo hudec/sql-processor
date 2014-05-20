@@ -30,8 +30,7 @@ pojogen-generate-operators;
 
 // use identity for primary keys
 metagen-global-identity;
-//metagen-table-sequence CONTACT SEQ_CONTACT;
-//metagen-table-sequence/PERSON SEQ_PERSON;
+metagen-generate-idgenerators;
 // can't overwrite existing META SQL 
 //metagen-make-it-final;
 // operators
