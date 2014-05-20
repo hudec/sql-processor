@@ -4,10 +4,6 @@ package org.sample.dao {
     scaffold
   }
 
-  dao Contact1960Dao :: Contact1960 {
-    scaffold
-  }
-
   dao PersonDao :: Person {
     scaffold
   }
