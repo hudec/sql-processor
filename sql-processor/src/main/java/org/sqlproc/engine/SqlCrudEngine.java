@@ -299,7 +299,7 @@ public class SqlCrudEngine extends SqlEngine {
                             getFeatures(sqlControl), typeFactory, pluginFactory);
                     processResult.validate(validator);
                     String sql = SqlUtils.handleInsertSql(processResult.getIdentities(), processResult.getSql()
-                            .toString());
+                            .toString().trim());
                     SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
@@ -452,7 +452,7 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString().trim());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -604,7 +604,7 @@ public class SqlCrudEngine extends SqlEngine {
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
                     processResult.validate(validator);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString().trim());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -711,7 +711,7 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.DELETE,
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString().trim());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -830,7 +830,7 @@ public class SqlCrudEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(statementType, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
                             pluginFactory);
-                    return processResult.getSql().toString();
+                    return processResult.getSql().toString().toString();
                 }
             }, String.class);
             return sql;

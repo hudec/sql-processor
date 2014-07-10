@@ -425,7 +425,7 @@ public class SqlQueryEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString().trim());
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -680,7 +680,7 @@ public class SqlQueryEngine extends SqlEngine {
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
                             typeFactory, pluginFactory);
-                    return processResult.getSql().toString();
+                    return processResult.getSql().toString().trim();
                 }
             }, String.class);
             return sql;
