@@ -52,4 +52,16 @@ public class HibernateEngineFactory extends SqlSimpleFactory {
         setJdbc(false);
         setTypeFactory(HibernateTypeFactory.getInstance());
     }
+
+    /**
+     * Creates a new instance with default values for the Hibernate stack.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     */
+    public HibernateEngineFactory(boolean lazyInit) {
+        super(lazyInit);
+        setJdbc(false);
+        setTypeFactory(HibernateTypeFactory.getInstance());
+    }
 }

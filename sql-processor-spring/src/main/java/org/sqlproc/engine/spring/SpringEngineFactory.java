@@ -48,7 +48,17 @@ public class SpringEngineFactory extends SqlSimpleFactory {
      * Creates a new instance with default values for the Spring stack.
      */
     public SpringEngineFactory() {
-        super();
+        this(false);
+    }
+
+    /**
+     * Creates a new instance with default values for the Spring stack.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     */
+    public SpringEngineFactory(boolean lazyInit) {
+        super(lazyInit);
         setJdbc(true);
         setTypeFactory(JdbcTypeFactory.getInstance());
     }

@@ -106,11 +106,24 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * The validator factory used in the process of the SQL Monitor instances creation.
      */
     private SqlValidatorFactory validatorFactory;
+    /**
+     * This flag indicates to speed up the initialization process.
+     */
+    private boolean lazyInit;
 
     /**
      * Creates a new instance with no default values.
      */
     public SqlSimpleFactory() {
+    }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     */
+    public SqlSimpleFactory(boolean lazyInit) {
     }
 
     /**
@@ -129,7 +142,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, validatorFactory, customTypes, onlyStatements);
+                                monitorFactory, validatorFactory, customTypes, lazyInit, onlyStatements);
                     }
                 }
             }
@@ -410,6 +423,25 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setJdbc(boolean jdbc) {
         this.jdbc = jdbc;
+    }
+
+    /**
+     * Returns the indicator to speed up the initialization process
+     * 
+     * @return the indicator to speed up the initialization process
+     */
+    public boolean isLazyInit() {
+        return lazyInit;
+    }
+
+    /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
+    public void setLazyInit(boolean lazyInit) {
+        this.lazyInit = lazyInit;
     }
 
     /**
