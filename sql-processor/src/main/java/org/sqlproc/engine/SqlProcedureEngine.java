@@ -352,7 +352,9 @@ public class SqlProcedureEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
                             pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString().trim());
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -473,7 +475,9 @@ public class SqlProcedureEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
                             pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString().trim());
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -574,7 +578,9 @@ public class SqlProcedureEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
                             pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString().trim());
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -673,7 +679,9 @@ public class SqlProcedureEngine extends SqlEngine {
                     SqlProcessResult processResult = statement.process(statementType, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
                             pluginFactory);
-                    return processResult.getSql().toString().trim();
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    return sql;
                 }
             }, String.class);
             return sql;

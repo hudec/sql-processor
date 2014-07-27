@@ -18,7 +18,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountPlugin, SqlFromToPlugin,
-        SqlSequencePlugin, SqlIdentityPlugin {
+        SqlSequencePlugin, SqlIdentityPlugin, SqlExecutionPlugin {
 
     /**
      * The internal slf4j logger.
@@ -412,5 +412,15 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             return sequence.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + sequence.substring(ix + 2);
         else
             return sequence.substring(0, ix) + sequenceName + sequence.substring(ix + 2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String beforeSqlExecution(String name, String queryString) {
+        if (queryString == null)
+            return null;
+        return queryString.trim();
     }
 }
