@@ -1,4 +1,4 @@
-grammar SqlProcessorOpt;
+grammar SqlProcessorLazy;
 
 //options {
 //    k=2;                                // needed for "&&" and "||"

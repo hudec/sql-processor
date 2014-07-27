@@ -154,9 +154,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     private Map<String, Set<String>> statementsFeaturesUnset;
     /**
-     * Thus flag indicates to speed up the initialization process.
+     * This flag indicates to speed up the initialization process.
      */
-    private boolean optimized;
+    private boolean lazyInit;
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -324,11 +324,49 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
             List<SqlInternalType> customTypes, String... onlyStatements) throws SqlEngineException {
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, validatorFactory, customTypes, false,
+                onlyStatements);
+    }
+
+    /**
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL
+     * Engine is accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these
+     * monitors the SQL Monitor Factory can be used.
+     * 
+     * @param sbStatements
+     *            the String representation of the META SQL queries/statements/output mappings
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     * @param filter
+     *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
+     * @param monitorFactory
+     *            the monitor factory used in the process of the SQL Monitor instances creation
+     * @param validatorFactory
+     *            the validator factory used in the process of the SQL Monitor instances creation
+     * @param customTypes
+     *            the custom META types
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     * @param onlyStatements
+     *            only statements and rules with the names in this container are picked up from the properties
+     *            repository
+     * @throws SqlEngineException
+     *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
+     */
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
+            List<SqlInternalType> customTypes, boolean lazyInit, String... onlyStatements) throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> SqlProcessorLoader, sbStatements=" + sbStatements + ", typeFactory=" + typeFactory
                     + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", validatorFactory="
-                    + validatorFactory + ", filter=" + filter + ", customTypes=" + customTypes + ", onlyStatements="
-                    + onlyStatements);
+                    + validatorFactory + ", filter=" + filter + ", customTypes=" + customTypes + ", lazyInit="
+                    + lazyInit + ", onlyStatements=" + onlyStatements);
         }
 
         if (sbStatements == null)
@@ -340,6 +378,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         this.pluginFactory = pluginFactory;
         this.validatorFactory = validatorFactory;
         this.monitorFactory = monitorFactory;
+        this.lazyInit = lazyInit;
 
         try {
             Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
@@ -352,7 +391,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             SqlProcessor processor = null;
 
             try {
-                processor = (optimized) ? SqlProcessor.getRawInstance(sbStatements, composedTypeFactory,
+                processor = (lazyInit) ? SqlProcessor.getLazyInstance(sbStatements, composedTypeFactory,
                         defaultFeatures, setSelectQueries, filter) : SqlProcessor.getInstance(sbStatements,
                         composedTypeFactory, defaultFeatures, setSelectQueries, filter);
             } catch (SqlEngineException see) {
@@ -382,7 +421,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             if (errors.length() > 0)
                 throw new SqlEngineException(errors.toString());
 
-            if (!optimized) {
+            if (!lazyInit) {
                 for (String name : sqls.keySet()) {
                     getQueryEngine(name, errors);
                 }
@@ -435,6 +474,15 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return engines.keySet();
     }
 
+    /**
+     * Returns the named SQL Query Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine instance
+     * @param errors
+     *            the container for the error messages
+     * @return the SQL Engine instance or null value in the case the related statement is missing
+     */
     private SqlQueryEngine getQueryEngine(String name, StringBuilder errors) {
         SqlEngine o = engines.get(name);
         if (o == null && sqls.containsKey(name)) {
@@ -443,7 +491,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             synchronized (stmt) {
                 o = engines.get(name);
                 if (o == null) {
-                    if (optimized)
+                    if (lazyInit)
                         stmt.compile(name, composedTypeFactory);
                     SqlMappingRule mapping = null;
                     if (!stmt.isHasOutputMapping() && !outs.containsKey(name)) {
@@ -451,7 +499,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                             errors.append("For the QRY there's no OUT: ").append(name).append("\n");
                     } else if (outs.containsKey(name)) {
                         mapping = outs.get(name);
-                        if (optimized)
+                        if (lazyInit)
                             mapping.compile(name, composedTypeFactory);
                     } else {
                         mapping = new SqlMappingRule();
@@ -478,6 +526,15 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return getQueryEngine(name, null);
     }
 
+    /**
+     * Returns the named SQL CRUD Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine instance
+     * @param errors
+     *            the container for the error messages
+     * @return the SQL Engine instance or null value in the case the related statement is missing
+     */
     private SqlCrudEngine getCrudEngine(String name, StringBuilder errors) {
         SqlEngine o = engines.get(name);
         if (o == null && cruds.containsKey(name)) {
@@ -486,7 +543,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             synchronized (stmt) {
                 o = engines.get(name);
                 if (o == null) {
-                    if (optimized)
+                    if (lazyInit)
                         stmt.compile(name, composedTypeFactory);
                     SqlValidator validator = (validatorFactory != null) ? validatorFactory.getSqlValidator() : null;
                     SqlMappingRule mapping = null;
@@ -516,6 +573,15 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return getCrudEngine(name, null);
     }
 
+    /**
+     * Returns the named SQL Procedure Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param errors
+     *            the container for the error messages
+     * @return the SQL Engine instance or null value in the case the related statement is missing
+     */
     private SqlProcedureEngine getProcedureEngine(String name, StringBuilder errors) {
         SqlEngine o = engines.get(name);
         if (o == null && calls.containsKey(name)) {
@@ -524,12 +590,12 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             synchronized (stmt) {
                 o = engines.get(name);
                 if (o == null) {
-                    if (optimized)
+                    if (lazyInit)
                         stmt.compile(name, composedTypeFactory);
                     SqlMappingRule mapping = null;
                     if (outs.containsKey(name)) {
                         mapping = outs.get(name);
-                        if (optimized)
+                        if (lazyInit)
                             mapping.compile(name, composedTypeFactory);
                     } else {
                         mapping = new SqlMappingRule();

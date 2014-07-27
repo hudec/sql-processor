@@ -214,7 +214,7 @@ public class SqlProcessor {
      * @throws SqlEngineException
      *             in the case of ANTLR parsing exception
      */
-    public static SqlProcessor getRawInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory,
+    public static SqlProcessor getLazyInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory,
             Map<String, Object> defaultFeatures, Set<String> onlyStatements, String... filters)
             throws SqlEngineException {
         if (logger.isTraceEnabled()) {
@@ -222,9 +222,9 @@ public class SqlProcessor {
         }
         SqlProcessor processor = null;
         try {
-            SqlProcessorOptLexer lexer = new SqlProcessorOptLexer(new ANTLRStringStream(sbStatements.toString()));
+            SqlProcessorLazyLexer lexer = new SqlProcessorLazyLexer(new ANTLRStringStream(sbStatements.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            SqlProcessorOptParser parser = new SqlProcessorOptParser(tokens);
+            SqlProcessorLazyParser parser = new SqlProcessorLazyParser(tokens);
             try {
                 processor = parser.parse2(typeFactory, defaultFeatures, onlyStatements, filters);
             } catch (RecognitionException ex) {
