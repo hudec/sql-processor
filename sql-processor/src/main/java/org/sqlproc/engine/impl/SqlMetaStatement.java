@@ -79,6 +79,11 @@ public class SqlMetaStatement implements SqlMetaElement {
     }
 
     /**
+     * A raw representation this META SQL statement
+     */
+    String raw;
+
+    /**
      * All sub-elements based on ANTLR grammar defined in SqlStatement.g.
      */
     List<SqlMetaElement> elements;
@@ -135,6 +140,25 @@ public class SqlMetaStatement implements SqlMetaElement {
      */
     SqlMetaStatement() {
         this.elements = new ArrayList<SqlMetaElement>();
+    }
+
+    /**
+     * Creates a new instance. It's used from inside ANTLR parser.
+     */
+    SqlMetaStatement(String raw) {
+        this.raw = raw;
+    }
+
+    public void compile(String name, SqlTypeFactory typeFactory) {
+        if (this.elements != null)
+            return;
+        // synchronized (this) {
+        // if (this.elements != null)
+        // return;
+        SqlMetaStatement stmt = getInstance(name, raw, typeFactory);
+        this.elements = stmt.elements;
+        this.hasOutputMapping = stmt.hasOutputMapping;
+        // }
     }
 
     /**

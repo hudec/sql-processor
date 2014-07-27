@@ -197,6 +197,59 @@ public class SqlProcessor {
     }
 
     /**
+     * Simple factory method (design pattern). The new instance is created from the String input by the ANTLR parser.
+     * 
+     * @param sbStatements
+     *            String representation of the META SQL queries/statements/output mappings
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param defaultFeatures
+     *            the default features based on {@link SqlFeature}
+     * @param onlyStatements
+     *            only the statements and rules with the names in this set are picked up from the statements' repository
+     * @param filters
+     *            only the artifacts without active filters and the artifacts with the active filter from this
+     *            collections are picked up from the statements' repository
+     * @return new container of raw (not pre-compiled) META SQL queries/statements/output mappings
+     * @throws SqlEngineException
+     *             in the case of ANTLR parsing exception
+     */
+    public static SqlProcessor getRawInstance(StringBuilder sbStatements, SqlTypeFactory typeFactory,
+            Map<String, Object> defaultFeatures, Set<String> onlyStatements, String... filters)
+            throws SqlEngineException {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> getRawInstance, sStatements=" + sbStatements);
+        }
+        SqlProcessor processor = null;
+        try {
+            SqlProcessorOptLexer lexer = new SqlProcessorOptLexer(new ANTLRStringStream(sbStatements.toString()));
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            SqlProcessorOptParser parser = new SqlProcessorOptParser(tokens);
+            try {
+                processor = parser.parse2(typeFactory, defaultFeatures, onlyStatements, filters);
+            } catch (RecognitionException ex) {
+                ex.printStackTrace();
+            }
+            if (!lexer.getErrors().isEmpty() || !parser.getErrors().isEmpty() || !processor.getErrors().isEmpty()) {
+                throw new SqlEngineException("Statement error for '" + sbStatements + "'", lexer.getErrors(),
+                        parser.getErrors(), processor.getErrors());
+            }
+            return processor;
+        } finally {
+            if (logger.isTraceEnabled()) {
+                if (processor != null) {
+                    logger.trace("<< getInstance, queries=" + processor.getMetaStatements(StatementType.QRY));
+                    logger.trace("<< getInstance, cruds=" + processor.getMetaStatements(StatementType.CRUD));
+                    logger.trace("<< getInstance, calls=" + processor.getMetaStatements(StatementType.CALL));
+                    logger.trace("<< getInstance, input mappings=" + processor.getMappingRules(MappingType.IN));
+                    logger.trace("<< getInstance, output mappings=" + processor.getMappingRules(MappingType.OUT));
+                    logger.trace("<< getInstance, features=" + processor.getFeatures());
+                }
+            }
+        }
+    }
+
+    /**
      * Creates a new instance.
      */
     SqlProcessor(Map<String, Object> defaultFeatures, Set<String> onlyStatements) {
@@ -250,6 +303,8 @@ public class SqlProcessor {
      *            the String representation of the META SQL statement type
      * @param name
      *            the name of the META SQL statement
+     * @param raw
+     *            the raw (not pre-compiled) representation of the META SQL statement
      * @param statement
      *            the META SQL statement
      * @param errors
@@ -261,8 +316,10 @@ public class SqlProcessor {
      *            collections are taken into this instance of the SQL Processor
      * @return the indicator this statement was taken into this instance of the SQL Processor
      */
-    boolean addMetaStatement(String type, String name, SqlMetaStatement statement, List<ErrorMsg> errors,
+    boolean addMetaStatement(String type, String name, String raw, SqlMetaStatement statement, List<ErrorMsg> errors,
             List<String> activeFilters, String... filters) {
+        if (statement == null)
+            statement = new SqlMetaStatement(raw);
         StatementType.valueOf(type);
         if (nameControl(onlyStatements, name)) {
             addWarnings(errors);
@@ -328,6 +385,8 @@ public class SqlProcessor {
      *            the String representation of the output value mapping type
      * @param name
      *            the name of the output value mapping
+     * @param raw
+     *            the raw (not pre-compiled) representation of the output value mapping
      * @param mapping
      *            the output value mapping
      * @param errors
@@ -339,8 +398,10 @@ public class SqlProcessor {
      *            collections are taken into this instance of the SQL Processor
      * @return the indicator this output value mapping was taken into this instance of the SQL Processor
      */
-    public boolean addMappingRule(String type, String name, SqlMappingRule mapping, List<ErrorMsg> errors,
+    public boolean addMappingRule(String type, String name, String raw, SqlMappingRule mapping, List<ErrorMsg> errors,
             List<String> activeFilters, String... filters) {
+        if (mapping == null)
+            mapping = new SqlMappingRule(raw);
         MappingType.valueOf(type);
         if (nameControl(onlyStatements, name)) {
             addWarnings(errors);

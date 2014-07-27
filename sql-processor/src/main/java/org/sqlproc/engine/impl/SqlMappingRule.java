@@ -36,6 +36,11 @@ public class SqlMappingRule {
     protected static Logger logger = LoggerFactory.getLogger(SqlMappingRule.class);
 
     /**
+     * A raw representation this output value mapping
+     */
+    String raw;
+
+    /**
      * All sub-elements based on ANTLR grammar defined in SqlMapping.g. Every sub-element is one mapping item.
      */
     private Map<String, SqlMappingItem> mappings;
@@ -87,6 +92,24 @@ public class SqlMappingRule {
      */
     public SqlMappingRule() {
         mappings = new LinkedHashMap<String, SqlMappingItem>();
+    }
+
+    /**
+     * Creates a new instance. It's used from inside ANTLR parser.
+     */
+    public SqlMappingRule(String raw) {
+        this.raw = raw;
+    }
+
+    public void compile(String name, SqlTypeFactory typeFactory) {
+        if (this.mappings != null)
+            return;
+        synchronized (this) {
+            if (this.mappings != null)
+                return;
+            SqlMappingRule mapping = getInstance(name, raw, typeFactory);
+            this.mappings = mapping.mappings;
+        }
     }
 
     /**

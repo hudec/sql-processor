@@ -193,13 +193,13 @@ import org.sqlproc.engine.type.SqlMetaType;
   
   boolean add(SqlProcessor processor, String type, String name, SqlMetaStatement statement, List<String> activeFilters, String... filters) {
     List<ErrorMsg> errorsList = getPartialErrors();
-    processor.addMetaStatement(type, name, statement, errorsList, activeFilters, filters);
+    processor.addMetaStatement(type, name, null, statement, errorsList, activeFilters, filters);
     return errorsList == null;
   }
   
   boolean add(SqlProcessor processor, String type, String name, SqlMappingRule mapping, List<String> activeFilters, String... filters) {
     List<ErrorMsg> errorsList = getPartialErrors();
-    processor.addMappingRule(type, name, mapping, errorsList, activeFilters, filters);
+    processor.addMappingRule(type, name, null, mapping, errorsList, activeFilters, filters);
     return errorsList == null;
   }
   

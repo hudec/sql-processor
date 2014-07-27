@@ -114,6 +114,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     private SqlPluginFactory pluginFactory;
     /**
+     * The monitor factory used in the process of the SQL Monitor instances creation
+     */
+    private SqlMonitorFactory monitorFactory;
+    /**
+     * The validator factory used in the process of the SQL Monitor instances creation
+     */
+    private SqlValidatorFactory validatorFactory;
+    /**
      * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
     private Map<String, SqlEngine> engines = new HashMap<String, SqlEngine>();
@@ -145,6 +153,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * The collection of the SQL Processor optional features to be cleared in the statement context.
      */
     private Map<String, Set<String>> statementsFeaturesUnset;
+    /**
+     * Thus flag indicates to speed up the initialization process.
+     */
+    private boolean optimized;
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -326,6 +338,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
 
         this.composedTypeFactory = new SqlComposedTypeFactory(typeFactory, customTypes);
         this.pluginFactory = pluginFactory;
+        this.validatorFactory = validatorFactory;
+        this.monitorFactory = monitorFactory;
 
         try {
             Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
@@ -338,8 +352,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             SqlProcessor processor = null;
 
             try {
-                processor = SqlProcessor.getInstance(sbStatements, composedTypeFactory, defaultFeatures,
-                        setSelectQueries, filter);
+                processor = (optimized) ? SqlProcessor.getRawInstance(sbStatements, composedTypeFactory,
+                        defaultFeatures, setSelectQueries, filter) : SqlProcessor.getInstance(sbStatements,
+                        composedTypeFactory, defaultFeatures, setSelectQueries, filter);
             } catch (SqlEngineException see) {
                 errors.append(see.getMessage());
             }
@@ -367,59 +382,22 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             if (errors.length() > 0)
                 throw new SqlEngineException(errors.toString());
 
-            for (String name : sqls.keySet()) {
-                SqlMetaStatement stmt = sqls.get(name);
+            if (!optimized) {
+                for (String name : sqls.keySet()) {
+                    getQueryEngine(name, errors);
+                }
 
-                SqlMappingRule mapping = null;
-                if (!stmt.isHasOutputMapping() && !outs.containsKey(name)) {
-                    errors.append("For the QRY there's no OUT: ").append(name).append("\n");
-                } else if (outs.containsKey(name)) {
-                    mapping = outs.get(name);
-                } else {
-                    mapping = new SqlMappingRule();
+                for (String name : cruds.keySet()) {
+                    getCrudEngine(name, errors);
                 }
-                SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                if (stmt != null) {
-                    engines.put(name, new SqlQueryEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    loadStatementFeatures(name);
+
+                for (String name : calls.keySet()) {
+                    getProcedureEngine(name, errors);
                 }
+
+                if (errors.length() > 0)
+                    throw new SqlEngineException(errors.toString());
             }
-
-            for (String name : cruds.keySet()) {
-                SqlValidator validator = (validatorFactory != null) ? validatorFactory.getSqlValidator() : null;
-                SqlMetaStatement stmt = cruds.get(name);
-                SqlMappingRule mapping = null;
-                if (outs.containsKey(name)) {
-                    mapping = outs.get(name);
-                }
-                SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                if (stmt != null) {
-                    engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    engines.get(name).setValidator(validator);
-                    loadStatementFeatures(name);
-                }
-            }
-
-            for (String name : calls.keySet()) {
-                SqlMetaStatement stmt = calls.get(name);
-                SqlMappingRule mapping = null;
-                if (outs.containsKey(name)) {
-                    mapping = outs.get(name);
-                } else {
-                    mapping = new SqlMappingRule();
-                }
-                SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                if (stmt != null) {
-                    engines.put(name, new SqlProcedureEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    loadStatementFeatures(name);
-                }
-            }
-
-            if (errors.length() > 0)
-                throw new SqlEngineException(errors.toString());
         } finally {
             if (logger.isDebugEnabled()) {
                 logger.debug("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
@@ -457,12 +435,36 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return engines.keySet();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQueryEngine getQueryEngine(String name) {
-        Object o = engines.get(name);
+    private SqlQueryEngine getQueryEngine(String name, StringBuilder errors) {
+        SqlEngine o = engines.get(name);
+        if (o == null && sqls.containsKey(name)) {
+            SqlMetaStatement stmt = sqls.get(name);
+
+            synchronized (stmt) {
+                o = engines.get(name);
+                if (o == null) {
+                    if (optimized)
+                        stmt.compile(name, composedTypeFactory);
+                    SqlMappingRule mapping = null;
+                    if (!stmt.isHasOutputMapping() && !outs.containsKey(name)) {
+                        if (errors != null)
+                            errors.append("For the QRY there's no OUT: ").append(name).append("\n");
+                    } else if (outs.containsKey(name)) {
+                        mapping = outs.get(name);
+                        if (optimized)
+                            mapping.compile(name, composedTypeFactory);
+                    } else {
+                        mapping = new SqlMappingRule();
+                    }
+                    SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
+                    if (stmt != null) {
+                        engines.put(name, new SqlQueryEngine(name, stmt, mapping, monitor, features,
+                                this.composedTypeFactory, this.pluginFactory));
+                        loadStatementFeatures(name);
+                    }
+                }
+            }
+        }
         if (o != null && o instanceof SqlQueryEngine)
             return (SqlQueryEngine) o;
         return null;
@@ -472,8 +474,35 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
-    public SqlCrudEngine getCrudEngine(String name) {
-        Object o = engines.get(name);
+    public SqlQueryEngine getQueryEngine(String name) {
+        return getQueryEngine(name, null);
+    }
+
+    private SqlCrudEngine getCrudEngine(String name, StringBuilder errors) {
+        SqlEngine o = engines.get(name);
+        if (o == null && cruds.containsKey(name)) {
+            SqlMetaStatement stmt = cruds.get(name);
+
+            synchronized (stmt) {
+                o = engines.get(name);
+                if (o == null) {
+                    if (optimized)
+                        stmt.compile(name, composedTypeFactory);
+                    SqlValidator validator = (validatorFactory != null) ? validatorFactory.getSqlValidator() : null;
+                    SqlMappingRule mapping = null;
+                    if (outs.containsKey(name)) {
+                        mapping = outs.get(name);
+                    }
+                    SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
+                    if (stmt != null) {
+                        engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
+                                this.composedTypeFactory, this.pluginFactory));
+                        engines.get(name).setValidator(validator);
+                        loadStatementFeatures(name);
+                    }
+                }
+            }
+        }
         if (o != null && o instanceof SqlCrudEngine)
             return (SqlCrudEngine) o;
         return null;
@@ -483,11 +512,48 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
-    public SqlProcedureEngine getProcedureEngine(String name) {
-        Object o = engines.get(name);
+    public SqlCrudEngine getCrudEngine(String name) {
+        return getCrudEngine(name, null);
+    }
+
+    private SqlProcedureEngine getProcedureEngine(String name, StringBuilder errors) {
+        SqlEngine o = engines.get(name);
+        if (o == null && calls.containsKey(name)) {
+            SqlMetaStatement stmt = calls.get(name);
+
+            synchronized (stmt) {
+                o = engines.get(name);
+                if (o == null) {
+                    if (optimized)
+                        stmt.compile(name, composedTypeFactory);
+                    SqlMappingRule mapping = null;
+                    if (outs.containsKey(name)) {
+                        mapping = outs.get(name);
+                        if (optimized)
+                            mapping.compile(name, composedTypeFactory);
+                    } else {
+                        mapping = new SqlMappingRule();
+                    }
+                    SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
+                    if (stmt != null) {
+                        engines.put(name, new SqlProcedureEngine(name, stmt, mapping, monitor, features,
+                                this.composedTypeFactory, this.pluginFactory));
+                        loadStatementFeatures(name);
+                    }
+                }
+            }
+        }
         if (o != null && o instanceof SqlProcedureEngine)
             return (SqlProcedureEngine) o;
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getProcedureEngine(String name) {
+        return getProcedureEngine(name, null);
     }
 
     /**
