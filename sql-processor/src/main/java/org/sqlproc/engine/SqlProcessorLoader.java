@@ -369,6 +369,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     + lazyInit + ", onlyStatements=" + onlyStatements);
         }
 
+        long start = System.currentTimeMillis();
+
         if (sbStatements == null)
             throw new SqlEngineException("Missing SQL META queries/statements/output mappings");
         if (typeFactory == null)
@@ -438,6 +440,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     throw new SqlEngineException(errors.toString());
             }
         } finally {
+            long end = System.currentTimeMillis();
+            logger.warn("== SqlProcessorLoader, lazyInit=" + lazyInit + ", duration in ms=" + (end - start));
+
             if (logger.isDebugEnabled()) {
                 logger.debug("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
                         + ", fields=" + outs + ", features=" + features);
@@ -505,11 +510,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                         mapping = new SqlMappingRule();
                     }
                     SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    if (stmt != null) {
-                        engines.put(name, new SqlQueryEngine(name, stmt, mapping, monitor, features,
-                                this.composedTypeFactory, this.pluginFactory));
-                        loadStatementFeatures(name);
-                    }
+                    engines.put(name, o = new SqlQueryEngine(name, stmt, mapping, monitor, features,
+                            this.composedTypeFactory, this.pluginFactory));
+                    loadStatementFeatures(name);
                 }
             }
         }
@@ -551,12 +554,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                         mapping = outs.get(name);
                     }
                     SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    if (stmt != null) {
-                        engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
-                                this.composedTypeFactory, this.pluginFactory));
-                        engines.get(name).setValidator(validator);
-                        loadStatementFeatures(name);
-                    }
+                    engines.put(name, o = new SqlCrudEngine(name, stmt, mapping, monitor, features,
+                            this.composedTypeFactory, this.pluginFactory));
+                    engines.get(name).setValidator(validator);
+                    loadStatementFeatures(name);
                 }
             }
         }
@@ -601,11 +602,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                         mapping = new SqlMappingRule();
                     }
                     SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    if (stmt != null) {
-                        engines.put(name, new SqlProcedureEngine(name, stmt, mapping, monitor, features,
-                                this.composedTypeFactory, this.pluginFactory));
-                        loadStatementFeatures(name);
-                    }
+                    engines.put(name, o = new SqlProcedureEngine(name, stmt, mapping, monitor, features,
+                            this.composedTypeFactory, this.pluginFactory));
+                    loadStatementFeatures(name);
                 }
             }
         }

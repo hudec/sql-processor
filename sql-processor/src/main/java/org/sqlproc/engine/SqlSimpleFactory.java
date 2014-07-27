@@ -124,6 +124,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      *            this flag indicates to speed up the initialization process.
      */
     public SqlSimpleFactory(boolean lazyInit) {
+        this.lazyInit = lazyInit;
     }
 
     /**
