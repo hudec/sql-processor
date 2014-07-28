@@ -150,19 +150,12 @@ public class SqlMetaStatement implements SqlMetaElement {
     }
 
     /**
-     * Pre-compile this meta statement from the raw representation.
+     * Returns raw representation this META SQL statement
      * 
-     * @param name
-     *            name of the META SQL query or statement, which uniquely identifies this instance
-     * @param typeFactory
-     *            the factory for the META types construction
+     * @return raw representation this META SQL statement
      */
-    public void compile(String name, SqlTypeFactory typeFactory) {
-        if (this.elements != null)
-            return;
-        SqlMetaStatement stmt = getInstance(name, raw, typeFactory);
-        this.elements = stmt.elements;
-        this.hasOutputMapping = stmt.hasOutputMapping;
+    public String getRaw() {
+        return raw;
     }
 
     /**

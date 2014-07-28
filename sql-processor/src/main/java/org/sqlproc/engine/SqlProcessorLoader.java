@@ -496,21 +496,21 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             synchronized (stmt) {
                 o = engines.get(name);
                 if (o == null) {
-                    if (lazyInit)
-                        stmt.compile(name, composedTypeFactory);
+                    SqlMetaStatement stmt2 = (lazyInit) ? SqlMetaStatement.getInstance(name, stmt.getRaw(),
+                            composedTypeFactory) : stmt;
                     SqlMappingRule mapping = null;
-                    if (!stmt.isHasOutputMapping() && !outs.containsKey(name)) {
+                    if (!stmt2.isHasOutputMapping() && !outs.containsKey(name)) {
                         if (errors != null)
                             errors.append("For the QRY there's no OUT: ").append(name).append("\n");
                     } else if (outs.containsKey(name)) {
                         mapping = outs.get(name);
                         if (lazyInit)
-                            mapping.compile(name, composedTypeFactory);
+                            mapping = SqlMappingRule.getInstance(name, mapping.getRaw(), composedTypeFactory);
                     } else {
                         mapping = new SqlMappingRule();
                     }
                     SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    engines.put(name, o = new SqlQueryEngine(name, stmt, mapping, monitor, features,
+                    engines.put(name, o = new SqlQueryEngine(name, stmt2, mapping, monitor, features,
                             this.composedTypeFactory, this.pluginFactory));
                     loadStatementFeatures(name);
                 }
@@ -546,15 +546,17 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             synchronized (stmt) {
                 o = engines.get(name);
                 if (o == null) {
-                    if (lazyInit)
-                        stmt.compile(name, composedTypeFactory);
+                    SqlMetaStatement stmt2 = (lazyInit) ? SqlMetaStatement.getInstance(name, stmt.getRaw(),
+                            composedTypeFactory) : stmt;
                     SqlValidator validator = (validatorFactory != null) ? validatorFactory.getSqlValidator() : null;
                     SqlMappingRule mapping = null;
                     if (outs.containsKey(name)) {
                         mapping = outs.get(name);
+                        if (lazyInit)
+                            mapping = SqlMappingRule.getInstance(name, mapping.getRaw(), composedTypeFactory);
                     }
                     SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    engines.put(name, o = new SqlCrudEngine(name, stmt, mapping, monitor, features,
+                    engines.put(name, o = new SqlCrudEngine(name, stmt2, mapping, monitor, features,
                             this.composedTypeFactory, this.pluginFactory));
                     engines.get(name).setValidator(validator);
                     loadStatementFeatures(name);
@@ -591,18 +593,18 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             synchronized (stmt) {
                 o = engines.get(name);
                 if (o == null) {
-                    if (lazyInit)
-                        stmt.compile(name, composedTypeFactory);
+                    SqlMetaStatement stmt2 = (lazyInit) ? SqlMetaStatement.getInstance(name, stmt.getRaw(),
+                            composedTypeFactory) : stmt;
                     SqlMappingRule mapping = null;
                     if (outs.containsKey(name)) {
                         mapping = outs.get(name);
                         if (lazyInit)
-                            mapping.compile(name, composedTypeFactory);
+                            mapping = SqlMappingRule.getInstance(name, mapping.getRaw(), composedTypeFactory);
                     } else {
                         mapping = new SqlMappingRule();
                     }
                     SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    engines.put(name, o = new SqlProcedureEngine(name, stmt, mapping, monitor, features,
+                    engines.put(name, o = new SqlProcedureEngine(name, stmt2, mapping, monitor, features,
                             this.composedTypeFactory, this.pluginFactory));
                     loadStatementFeatures(name);
                 }

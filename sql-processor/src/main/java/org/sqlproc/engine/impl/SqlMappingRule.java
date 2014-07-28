@@ -102,18 +102,12 @@ public class SqlMappingRule {
     }
 
     /**
-     * Pre-compile this mapping rule from the raw representation.
+     * Returns raw representation this output value mapping
      * 
-     * @param name
-     *            name of the META SQL mapping rule, which uniquely identifies this instance
-     * @param typeFactory
-     *            the factory for the META types construction
+     * @return raw representation this output value mapping
      */
-    public void compile(String name, SqlTypeFactory typeFactory) {
-        if (this.mappings != null)
-            return;
-        SqlMappingRule mapping = getInstance(name, raw, typeFactory);
-        this.mappings = mapping.mappings;
+    public String getRaw() {
+        return raw;
     }
 
     /**
