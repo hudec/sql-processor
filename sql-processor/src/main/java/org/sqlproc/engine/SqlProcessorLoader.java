@@ -440,10 +440,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     throw new SqlEngineException(errors.toString());
             }
         } finally {
-            long end = System.currentTimeMillis();
-            logger.warn("== SqlProcessorLoader, lazyInit=" + lazyInit + ", duration in ms=" + (end - start));
 
             if (logger.isDebugEnabled()) {
+                long end = System.currentTimeMillis();
+                logger.debug("== SqlProcessorLoader, lazyInit=" + lazyInit + ", duration in ms=" + (end - start));
                 logger.debug("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
                         + ", fields=" + outs + ", features=" + features);
             }
