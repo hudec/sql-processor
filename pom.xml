@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <name>SQL Processor, Parent Module</name>
     <description>SQL Processor, Parent Module</description>
-    <url>https://github.com/hudec/sql-processor</url>
+    <url>https://github.com/hudec/sql-processor/wiki</url>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>

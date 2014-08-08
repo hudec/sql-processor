@@ -7,7 +7,6 @@
     <packaging>pom</packaging>
     <name>SQL Processor Samples, Parent Module</name>
     <description>SQL Processor Samples, Parent Module</description>
-    <url>http://code.google.com/p/sql-processor/</url>
 
     <modules>
         <module>simple-jdbc</module>

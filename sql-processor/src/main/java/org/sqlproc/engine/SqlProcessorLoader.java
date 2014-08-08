@@ -641,7 +641,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     public SqlCrudEngine getCheckedCrudEngine(String name) {
         SqlCrudEngine queryEngine = getCrudEngine(name);
         if (queryEngine == null)
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
+            throw new SqlEngineException("Missing SqlCrudEngine " + name);
         return queryEngine;
     }
 
@@ -652,7 +652,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     public SqlProcedureEngine getCheckedProcedureEngine(String name) {
         SqlProcedureEngine procedureEngine = getProcedureEngine(name);
         if (procedureEngine == null)
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
+            throw new SqlEngineException("Missing SqlProcedureEngine " + name);
         return procedureEngine;
     }
 }

@@ -4,7 +4,6 @@
     <packaging>jar</packaging>
     <name>SQL Processor, Core Module</name>
     <description>SQL Processor, Core Module</description>
-    <url>http://code.google.com/p/sql-processor/</url>
 
     <parent>
         <groupId>org.sqlproc</groupId>

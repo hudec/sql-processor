@@ -4,7 +4,6 @@
     <packaging>jar</packaging>
     <name>SQL Processor, Hibernate Module</name>
     <description>SQL Processor, Hibernate Module</description>
-    <url>http://code.google.com/p/sql-processor/</url>
 
     <parent>
         <groupId>org.sqlproc</groupId>
