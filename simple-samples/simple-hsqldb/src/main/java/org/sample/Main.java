@@ -93,7 +93,7 @@ public class Main {
         return p;
     }
 
-    public void run() throws Exception {
+    public void run(boolean dynamic) throws Exception {
         setupDb();
 
         Person person, p;
@@ -120,8 +120,15 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejik");
+        Date age = getAge(1962, 5, 19);
+        person.setDateOfBirth(age);
         count = personDao.update(person);
         Assert.assertEquals(1, count);
+        p = personDao.get(new Person()._setId(andrej.getId()));
+        if (dynamic)
+            Assert.assertNull(p.getDateOfBirth());
+        else
+            Assert.assertEquals(age, p.getDateOfBirth());
 
         // get & update person with null values
         person = new Person();
@@ -257,8 +264,9 @@ public class Main {
     }
 
     private String SQL_UPDATE_PERSON = "update %%PERSON " + "{= set " + "{ ,%FIRST_NAME = :firstName(call=isDef) } "
-            + "{ ,%LAST_NAME = :lastName(call=isDef) } " + "{ ,%GENDER = :gender(call=isDef) } "
-            + "{ ,%SSN = :ssn(call=isDef) } " + "} " + "{= where " + "{& %ID = :id(!empty) } " + "}";
+            + "{ ,%LAST_NAME = :lastName(call=isDef) } " + "{ ,%DATE_OF_BIRTH = NULL }"
+            + "{ ,%GENDER = :gender(call=isDef) } " + "{ ,%SSN = :ssn(call=isDef) } " + "} " + "{= where "
+            + "{& %ID = :id(!empty) } " + "}";
 
     private SqlCrudEngine updatePersonEngine;
 
@@ -283,13 +291,13 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Main main = new Main();
         main.modifyPersonUpdate(false);
-        main.run();
+        main.run(false);
         main.modifyPersonUpdate(true);
-        main.run();
+        main.run(true);
         main.sqlFactory.setLazyInit(true);
         main.modifyPersonUpdate(false);
-        main.run();
+        main.run(false);
         main.modifyPersonUpdate(true);
-        main.run();
+        main.run(true);
     }
 }
