@@ -18,7 +18,6 @@ import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlComposedTypeFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
-import org.sqlproc.engine.validation.SqlValidator;
 import org.sqlproc.engine.validation.SqlValidatorFactory;
 
 /**
@@ -425,15 +424,27 @@ public class SqlProcessorLoader implements SqlEngineFactory {
 
             if (!lazyInit) {
                 for (String name : sqls.keySet()) {
-                    getQueryEngine(name, errors);
+                    try {
+                        getQueryEngine(name);
+                    } catch (SqlEngineException ex) {
+                        errors.append(ex.getMessage()).append("\n");
+                    }
                 }
 
                 for (String name : cruds.keySet()) {
-                    getCrudEngine(name, errors);
+                    try {
+                        getCrudEngine(name);
+                    } catch (SqlEngineException ex) {
+                        errors.append(ex.getMessage()).append("\n");
+                    }
                 }
 
                 for (String name : calls.keySet()) {
-                    getProcedureEngine(name, errors);
+                    try {
+                        getProcedureEngine(name);
+                    } catch (SqlEngineException ex) {
+                        errors.append(ex.getMessage()).append("\n");
+                    }
                 }
 
                 if (errors.length() > 0)
@@ -480,92 +491,11 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * Returns the named SQL Query Engine instance (the primary SQL Processor class).
-     * 
-     * @param name
-     *            the name of the required SQL Query Engine instance
-     * @param errors
-     *            the container for the error messages
-     * @return the SQL Engine instance or null value in the case the related statement is missing
-     */
-    private SqlQueryEngine getQueryEngine(String name, StringBuilder errors) {
-        SqlEngine o = engines.get(name);
-        if (o == null && sqls.containsKey(name)) {
-            SqlMetaStatement stmt = sqls.get(name);
-
-            synchronized (stmt) {
-                o = engines.get(name);
-                if (o == null) {
-                    SqlMetaStatement stmt2 = (lazyInit) ? SqlMetaStatement.getInstance(name, stmt.getRaw(),
-                            composedTypeFactory) : stmt;
-                    SqlMappingRule mapping = null;
-                    if (!stmt2.isHasOutputMapping() && !outs.containsKey(name)) {
-                        if (errors != null)
-                            errors.append("For the QRY there's no OUT: ").append(name).append("\n");
-                    } else if (outs.containsKey(name)) {
-                        mapping = outs.get(name);
-                        if (lazyInit)
-                            mapping = SqlMappingRule.getInstance(name, mapping.getRaw(), composedTypeFactory);
-                    } else {
-                        mapping = new SqlMappingRule();
-                    }
-                    SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    engines.put(name, o = new SqlQueryEngine(name, stmt2, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    loadStatementFeatures(name);
-                }
-            }
-        }
-        if (o != null && o instanceof SqlQueryEngine)
-            return (SqlQueryEngine) o;
-        return null;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public SqlQueryEngine getQueryEngine(String name) {
-        return getQueryEngine(name, null);
-    }
-
-    /**
-     * Returns the named SQL CRUD Engine instance (the primary SQL Processor class).
-     * 
-     * @param name
-     *            the name of the required SQL CRUD Engine instance
-     * @param errors
-     *            the container for the error messages
-     * @return the SQL Engine instance or null value in the case the related statement is missing
-     */
-    private SqlCrudEngine getCrudEngine(String name, StringBuilder errors) {
-        SqlEngine o = engines.get(name);
-        if (o == null && cruds.containsKey(name)) {
-            SqlMetaStatement stmt = cruds.get(name);
-
-            synchronized (stmt) {
-                o = engines.get(name);
-                if (o == null) {
-                    SqlMetaStatement stmt2 = (lazyInit) ? SqlMetaStatement.getInstance(name, stmt.getRaw(),
-                            composedTypeFactory) : stmt;
-                    SqlValidator validator = (validatorFactory != null) ? validatorFactory.getSqlValidator() : null;
-                    SqlMappingRule mapping = null;
-                    if (outs.containsKey(name)) {
-                        mapping = outs.get(name);
-                        if (lazyInit)
-                            mapping = SqlMappingRule.getInstance(name, mapping.getRaw(), composedTypeFactory);
-                    }
-                    SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    engines.put(name, o = new SqlCrudEngine(name, stmt2, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    engines.get(name).setValidator(validator);
-                    loadStatementFeatures(name);
-                }
-            }
-        }
-        if (o != null && o instanceof SqlCrudEngine)
-            return (SqlCrudEngine) o;
-        return null;
+        return (SqlQueryEngine) getEngine(name, EngineType.Query, null);
     }
 
     /**
@@ -573,28 +503,39 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCrudEngine(String name) {
-        return getCrudEngine(name, null);
+        return (SqlCrudEngine) getEngine(name, EngineType.Crud, null);
     }
 
     /**
-     * Returns the named SQL Procedure Engine instance (the primary SQL Processor class).
-     * 
-     * @param name
-     *            the name of the required SQL Procedure Engine instance
-     * @param errors
-     *            the container for the error messages
-     * @return the SQL Engine instance or null value in the case the related statement is missing
+     * {@inheritDoc}
      */
-    private SqlProcedureEngine getProcedureEngine(String name, StringBuilder errors) {
-        SqlEngine o = engines.get(name);
-        if (o == null && calls.containsKey(name)) {
-            SqlMetaStatement stmt = calls.get(name);
+    @Override
+    public SqlProcedureEngine getProcedureEngine(String name) {
+        return (SqlProcedureEngine) getEngine(name, EngineType.Procedure, null);
+    }
+
+    enum EngineType {
+        Query, Crud, Procedure
+    }
+
+    private SqlEngine getEngine(String name, EngineType engineType, String sqlStatement) {
+        SqlEngine sqlEngine = engines.get(name);
+        Map<String, SqlMetaStatement> stmts = getStatements(engineType);
+
+        if (sqlEngine == null && stmts.containsKey(name)) {
+            SqlMetaStatement stmt = (sqlStatement != null) ? new SqlMetaStatement(sqlStatement) : stmts.get(name);
 
             synchronized (stmt) {
-                o = engines.get(name);
-                if (o == null) {
-                    SqlMetaStatement stmt2 = (lazyInit) ? SqlMetaStatement.getInstance(name, stmt.getRaw(),
-                            composedTypeFactory) : stmt;
+                sqlEngine = engines.get(name);
+                if (sqlEngine == null) {
+                    SqlMetaStatement stmt2 = null;
+                    if (sqlStatement != null || lazyInit)
+                        stmt2 = SqlMetaStatement.getInstance(name, stmt.getRaw(), composedTypeFactory);
+                    else
+                        stmt2 = stmt;
+
+                    if (engineType == EngineType.Query && !stmt2.isHasOutputMapping() && !outs.containsKey(name))
+                        throw new SqlEngineException("For the QRY there's no OUT: " + name);
                     SqlMappingRule mapping = null;
                     if (outs.containsKey(name)) {
                         mapping = outs.get(name);
@@ -603,24 +544,55 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     } else {
                         mapping = new SqlMappingRule();
                     }
+
                     SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                    engines.put(name, o = new SqlProcedureEngine(name, stmt2, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
+                    if (engineType == EngineType.Query)
+                        sqlEngine = new SqlQueryEngine(name, stmt2, mapping, monitor, features,
+                                this.composedTypeFactory, this.pluginFactory);
+                    else if (engineType == EngineType.Crud)
+                        sqlEngine = new SqlCrudEngine(name, stmt2, mapping, monitor, features,
+                                this.composedTypeFactory, this.pluginFactory);
+                    else
+                        sqlEngine = new SqlProcedureEngine(name, stmt2, mapping, monitor, features,
+                                this.composedTypeFactory, this.pluginFactory);
+
+                    sqlEngine.setValidator((validatorFactory != null) ? validatorFactory.getSqlValidator() : null);
+                    engines.put(name, sqlEngine);
                     loadStatementFeatures(name);
                 }
             }
         }
-        if (o != null && o instanceof SqlProcedureEngine)
-            return (SqlProcedureEngine) o;
-        return null;
+        return sqlEngine;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlProcedureEngine getProcedureEngine(String name) {
-        return getProcedureEngine(name, null);
+    public SqlQueryEngine setQueryEngine(String name, String sqlStatement) {
+        return (SqlQueryEngine) setEngine(name, EngineType.Query, sqlStatement);
+    }
+
+    public SqlCrudEngine setCrudEngine(String name, String sqlStatement) {
+        return (SqlCrudEngine) setEngine(name, EngineType.Crud, sqlStatement);
+    }
+
+    public SqlProcedureEngine setProcedureEngine(String name, String sqlStatement) {
+        return (SqlProcedureEngine) setEngine(name, EngineType.Procedure, sqlStatement);
+    }
+
+    private SqlEngine setEngine(String name, EngineType engineType, String sqlStatement) {
+        Map<String, SqlMetaStatement> stmts = getStatements(engineType);
+        if (!stmts.containsKey(name))
+            throw new SqlEngineException("Missing SqlQueryEngine " + name);
+        if (sqlStatement == null)
+            throw new SqlEngineException("SQL statement for SqlEngine " + name + " is null");
+        return getEngine(name, engineType, sqlStatement);
+    }
+
+    private Map<String, SqlMetaStatement> getStatements(EngineType engineType) {
+        if (engineType == EngineType.Query)
+            return sqls;
+        else if (engineType == EngineType.Crud)
+            return cruds;
+        else
+            return calls;
     }
 
     /**

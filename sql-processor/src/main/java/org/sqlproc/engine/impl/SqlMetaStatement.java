@@ -145,7 +145,7 @@ public class SqlMetaStatement implements SqlMetaElement {
     /**
      * Creates a new instance. It's used from inside ANTLR parser.
      */
-    SqlMetaStatement(String raw) {
+    public SqlMetaStatement(String raw) {
         this.raw = raw;
     }
 
