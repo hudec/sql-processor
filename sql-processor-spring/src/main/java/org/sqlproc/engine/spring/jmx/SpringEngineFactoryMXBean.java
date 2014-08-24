@@ -1,8 +1,8 @@
-package org.sqlproc.engine.jmx;
+package org.sqlproc.engine.spring.jmx;
 
 import org.sqlproc.engine.SqlEngineException;
-import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.jmx.SqlSimpleFactoryMXBean;
+import org.sqlproc.engine.spring.SpringEngineFactory;
 
 /**
  * The implementation of the simplified JMX interface for the SQL Engine factory.
@@ -15,22 +15,22 @@ import org.sqlproc.engine.jdbc.jmx.SqlSimpleFactoryMXBean;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcEngineFactoryMXBean extends JdbcEngineFactory implements SqlSimpleFactoryMXBean {
+public class SpringEngineFactoryMXBean extends SpringEngineFactory implements SqlSimpleFactoryMXBean {
 
     /**
-     * Creates a new instance with default values for the JDBC stack.
+     * Creates a new instance with default values for the Spring stack.
      */
-    public JdbcEngineFactoryMXBean() {
+    public SpringEngineFactoryMXBean() {
         super();
     }
 
     /**
-     * Creates a new instance with default values for the JDBC stack.
+     * Creates a new instance with default values for the Spring stack.
      * 
      * @param lazyInit
      *            this flag indicates to speed up the initialization process.
      */
-    public JdbcEngineFactoryMXBean(boolean lazyInit) {
+    public SpringEngineFactoryMXBean(boolean lazyInit) {
         super(lazyInit);
     }
 

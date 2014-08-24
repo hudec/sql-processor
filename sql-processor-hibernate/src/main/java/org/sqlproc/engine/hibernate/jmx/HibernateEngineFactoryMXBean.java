@@ -1,7 +1,7 @@
-package org.sqlproc.engine.jmx;
+package org.sqlproc.engine.hibernate.jmx;
 
 import org.sqlproc.engine.SqlEngineException;
-import org.sqlproc.engine.jdbc.JdbcEngineFactory;
+import org.sqlproc.engine.hibernate.HibernateEngineFactory;
 import org.sqlproc.engine.jdbc.jmx.SqlSimpleFactoryMXBean;
 
 /**
@@ -15,22 +15,22 @@ import org.sqlproc.engine.jdbc.jmx.SqlSimpleFactoryMXBean;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcEngineFactoryMXBean extends JdbcEngineFactory implements SqlSimpleFactoryMXBean {
+public class HibernateEngineFactoryMXBean extends HibernateEngineFactory implements SqlSimpleFactoryMXBean {
 
     /**
-     * Creates a new instance with default values for the JDBC stack.
+     * Creates a new instance with default values for the Hibernate stack.
      */
-    public JdbcEngineFactoryMXBean() {
+    public HibernateEngineFactoryMXBean() {
         super();
     }
 
     /**
-     * Creates a new instance with default values for the JDBC stack.
+     * Creates a new instance with default values for the Hibernate stack.
      * 
      * @param lazyInit
      *            this flag indicates to speed up the initialization process.
      */
-    public JdbcEngineFactoryMXBean(boolean lazyInit) {
+    public HibernateEngineFactoryMXBean(boolean lazyInit) {
         super(lazyInit);
     }
 

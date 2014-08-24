@@ -11,7 +11,7 @@ package org.sqlproc.engine.jdbc.jmx;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface SqlEngineFactoryMXBean {
+public interface SqlSimpleFactoryMXBean {
 
     /**
      * In the case the SQL Query Engines are not initialized, a new static instances are established in the cache.
