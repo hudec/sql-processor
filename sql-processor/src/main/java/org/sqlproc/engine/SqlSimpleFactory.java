@@ -151,13 +151,20 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * Conditional dynamic initialization, called mainly from the Spring configuration initialization.
+     */
+    public void init0() {
+        if (getLoader() == null) {
+            init();
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public SqlQueryEngine getQueryEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getQueryEngine(name);
     }
 
@@ -166,9 +173,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCrudEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCrudEngine(name);
     }
 
@@ -177,9 +182,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getProcedureEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getProcedureEngine(name);
     }
 
@@ -188,9 +191,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getStaticQueryEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getStaticQueryEngine(name);
     }
 
@@ -199,9 +200,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getStaticCrudEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getStaticCrudEngine(name);
     }
 
@@ -210,9 +209,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getStaticProcedureEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getStaticProcedureEngine(name);
     }
 
@@ -221,9 +218,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedQueryEngine(name);
     }
 
@@ -232,9 +227,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCheckedCrudEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedCrudEngine(name);
     }
 
@@ -243,9 +236,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getCheckedProcedureEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedProcedureEngine(name);
     }
 
@@ -254,9 +245,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getCheckedStaticQueryEngine(String name) throws SqlEngineException {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedStaticQueryEngine(name);
     }
 
@@ -265,9 +254,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCheckedStaticCrudEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedStaticCrudEngine(name);
     }
 
@@ -276,9 +263,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getCheckedStaticProcedureEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedStaticProcedureEngine(name);
     }
 
@@ -287,9 +272,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement) throws SqlEngineException {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getDynamicQueryEngine(name, sqlStatement);
     }
 
@@ -298,9 +281,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getDynamicCrudEngine(String name, String sqlStatement) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getDynamicCrudEngine(name, sqlStatement);
     }
 
@@ -309,9 +290,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getDynamicProcedureEngine(name, sqlStatement);
     }
 

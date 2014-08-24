@@ -2,6 +2,7 @@ package org.sqlproc.engine;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +124,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     /**
      * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
-    private Map<String, SqlEngine> engines = new ConcurrentHashMap<String, SqlEngine>();
+    private Map<String, SqlEngine> engines = new HashMap<String, SqlEngine>();
     /**
      * The collection of named dynamic SQL Engines (the primary SQL Processor class) instances.
      */
@@ -485,12 +486,21 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * Returns the collection of names of all initialized/constructed SQL Engine instances.
+     * Returns the collection of names of all initialized/constructed static SQL Engine instances.
      * 
-     * @return The collection of all initialized SQL Engine instances' names
+     * @return The collection of all initialized static SQL Engine instances' names
      */
     public Collection<String> getNames() {
         return engines.keySet();
+    }
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
+     * 
+     * @return The collection of all initialized dynamic SQL Engine instances' names
+     */
+    public Collection<String> getDynamicNames() {
+        return dynamicEngines.keySet();
     }
 
     /**
