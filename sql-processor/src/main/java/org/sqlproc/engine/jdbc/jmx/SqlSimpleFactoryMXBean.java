@@ -17,7 +17,7 @@ public interface SqlSimpleFactoryMXBean {
      * In the case the SQL Query Engines are not initialized, a new static instances are established in the cache.
      * 
      * @param names
-     *            the names of the required SQL Query Engines' instances
+     *            the names of the required SQL Query Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String initQueryEngines(String... names);
@@ -26,7 +26,7 @@ public interface SqlSimpleFactoryMXBean {
      * In the case the SQL CRUD Engines are not initialized, a new static instances are established in the cache.
      * 
      * @param names
-     *            the names of the required SQL CRUD Engines' instances
+     *            the names of the required SQL CRUD Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String initCrudEngines(String... names);
@@ -35,7 +35,7 @@ public interface SqlSimpleFactoryMXBean {
      * In the case the SQL Procedure Engines are not initialized, a new static instances are established in the cache.
      * 
      * @param names
-     *            the names of the required SQL Procedure Engines' instances
+     *            the names of the required SQL Procedure Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String initProcedureEngines(String... names);
@@ -44,7 +44,7 @@ public interface SqlSimpleFactoryMXBean {
      * In the case any dynamic SQL Query Engine is in the cache, the static one is re-established.
      * 
      * @param names
-     *            the names of the required SQL Query Engines' instances
+     *            the names of the required SQL Query Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String resetQueryEngines(String... names);
@@ -53,7 +53,7 @@ public interface SqlSimpleFactoryMXBean {
      * In the case any dynamic SQL CRUD Engine is in the cache, the static one is re-established.
      * 
      * @param names
-     *            the names of the required SQL CRUD Engines' instances
+     *            the names of the required SQL CRUD Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String resetCrudEngines(String... names);
@@ -62,7 +62,7 @@ public interface SqlSimpleFactoryMXBean {
      * In the case a dynamic SQL Procedure Engine is in the cache, the static one is re-established.
      * 
      * @param names
-     *            the names of the required SQL Procedure Engines' instances
+     *            the names of the required SQL Procedure Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String resetProcedureEngines(String... names);
@@ -72,6 +72,8 @@ public interface SqlSimpleFactoryMXBean {
      * 
      * @param name
      *            the name of the required SQL Query Engine instance
+     * @param sqlStatement
+     *            the new SQL statement, which is going to replace the original one
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String newQueryEngine(String name, String sqlStatement);
@@ -81,6 +83,8 @@ public interface SqlSimpleFactoryMXBean {
      * 
      * @param name
      *            the name of the required SQL CRUD Engine instance
+     * @param sqlStatement
+     *            the new SQL statement, which is going to replace the original one
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String newCrudEngine(String name, String sqlStatement);
@@ -90,6 +94,8 @@ public interface SqlSimpleFactoryMXBean {
      * 
      * @param name
      *            the name of the required SQL Procedure Engine instance
+     * @param sqlStatement
+     *            the new SQL statement, which is going to replace the original one
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String newProcedureEngine(String name, String sqlStatement);
