@@ -217,6 +217,39 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement) throws SqlEngineException {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getDynamicQueryEngine(name, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getDynamicCrudEngine(String name, String sqlStatement) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getDynamicCrudEngine(name, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getDynamicProcedureEngine(name, sqlStatement);
+    }
+
+    /**
      * Returns the names of files, which holds a collection of META SQL statements, mapping rules and optional features.
      * 
      * @return the names of files, which holds a collection of META SQL statements, mapping rules and optional features

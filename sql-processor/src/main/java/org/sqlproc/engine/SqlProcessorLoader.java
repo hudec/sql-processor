@@ -490,39 +490,15 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return engines.keySet();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQueryEngine getQueryEngine(String name) {
-        return (SqlQueryEngine) getEngine(name, EngineType.Query, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlCrudEngine getCrudEngine(String name) {
-        return (SqlCrudEngine) getEngine(name, EngineType.Crud, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlProcedureEngine getProcedureEngine(String name) {
-        return (SqlProcedureEngine) getEngine(name, EngineType.Procedure, null);
-    }
-
     enum EngineType {
         Query, Crud, Procedure
     }
 
     private SqlEngine getEngine(String name, EngineType engineType, String sqlStatement) {
-        SqlEngine sqlEngine = engines.get(name);
+        SqlEngine sqlEngine = (sqlStatement == null) ? engines.get(name) : null;
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
 
-        if (sqlEngine == null && stmts.containsKey(name)) {
+        if (sqlEngine == null && (sqlStatement != null || stmts.containsKey(name))) {
             SqlMetaStatement stmt = (sqlStatement != null) ? new SqlMetaStatement(sqlStatement) : stmts.get(name);
 
             synchronized (stmt) {
@@ -565,19 +541,55 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return sqlEngine;
     }
 
-    public SqlQueryEngine setQueryEngine(String name, String sqlStatement) {
-        return (SqlQueryEngine) setEngine(name, EngineType.Query, sqlStatement);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getQueryEngine(String name) {
+        return (SqlQueryEngine) getEngine(name, EngineType.Query, null);
     }
 
-    public SqlCrudEngine setCrudEngine(String name, String sqlStatement) {
-        return (SqlCrudEngine) setEngine(name, EngineType.Crud, sqlStatement);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getCrudEngine(String name) {
+        return (SqlCrudEngine) getEngine(name, EngineType.Crud, null);
     }
 
-    public SqlProcedureEngine setProcedureEngine(String name, String sqlStatement) {
-        return (SqlProcedureEngine) setEngine(name, EngineType.Procedure, sqlStatement);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getProcedureEngine(String name) {
+        return (SqlProcedureEngine) getEngine(name, EngineType.Procedure, null);
     }
 
-    private SqlEngine setEngine(String name, EngineType engineType, String sqlStatement) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement) {
+        return (SqlQueryEngine) getDynamicEngine(name, EngineType.Query, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getDynamicCrudEngine(String name, String sqlStatement) {
+        return (SqlCrudEngine) getDynamicEngine(name, EngineType.Crud, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement) {
+        return (SqlProcedureEngine) getDynamicEngine(name, EngineType.Procedure, sqlStatement);
+    }
+
+    private SqlEngine getDynamicEngine(String name, EngineType engineType, String sqlStatement) {
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
         if (!stmts.containsKey(name))
             throw new SqlEngineException("Missing SqlQueryEngine " + name);
