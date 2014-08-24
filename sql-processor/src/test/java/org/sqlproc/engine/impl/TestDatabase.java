@@ -255,6 +255,24 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
+    SqlQueryEngine getDefaultQueryEngine(String name, SqlEngineFactory factory) {
+        SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement, SqlEngineFactory factory) {
+        SqlQueryEngine sqlEngine = factory.getDynamicQueryEngine(name, sqlStatement);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    SqlQueryEngine getStaticQueryEngine(String name, SqlEngineFactory factory) {
+        SqlQueryEngine sqlEngine = factory.getStaticQueryEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
     SqlQueryEngine getSqlEngine(String name) {
         return getQueryEngine(name);
     }
