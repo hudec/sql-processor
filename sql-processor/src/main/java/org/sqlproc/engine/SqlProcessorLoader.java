@@ -490,10 +490,26 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return engines.keySet();
     }
 
+    /**
+     * The SQL Engine types
+     */
     enum EngineType {
         Query, Crud, Procedure
     }
 
+    /**
+     * Returns the named static or dynamic SQL Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param engineType
+     *            the required SQL Engine type
+     * @param sqlStatement
+     *            the new SQL statement
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the instance can't be created
+     */
     private SqlEngine getEngine(String name, EngineType engineType, String sqlStatement) {
         SqlEngine sqlEngine = (sqlStatement == null) ? engines.get(name) : null;
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
@@ -589,6 +605,19 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return (SqlProcedureEngine) getDynamicEngine(name, EngineType.Procedure, sqlStatement);
     }
 
+    /**
+     * Returns the named dynamic SQL Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param engineType
+     *            the required SQL Engine type
+     * @param sqlStatement
+     *            the new SQL statement
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the instance can't be created
+     */
     private SqlEngine getDynamicEngine(String name, EngineType engineType, String sqlStatement) {
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
         if (!stmts.containsKey(name))
@@ -598,6 +627,13 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return getEngine(name, engineType, sqlStatement);
     }
 
+    /**
+     * Returns the static statements container based on required SQL Engine type
+     * 
+     * @param engineType
+     *            the required SQL Engine type
+     * @return the static statements container
+     */
     private Map<String, SqlMetaStatement> getStatements(EngineType engineType) {
         if (engineType == EngineType.Query)
             return sqls;
