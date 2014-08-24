@@ -4,6 +4,17 @@ import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.jmx.SqlEngineFactoryMXBean;
 
+/**
+ * The implementation of the simplified JMX interface for the SQL Engine factory.
+ * 
+ * <p>
+ * The factory can be based on Spring DI framework for example.
+ * 
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
+ */
 public class JdbcEngineFactoryMXBean extends JdbcEngineFactory implements SqlEngineFactoryMXBean {
 
     public JdbcEngineFactoryMXBean() {
@@ -20,78 +31,96 @@ public class JdbcEngineFactoryMXBean extends JdbcEngineFactory implements SqlEng
      * {@inheritDoc}
      */
     @Override
-    public String initQueryEngine(String name) {
-        try {
-            getCheckedQueryEngine(name);
-        } catch (SqlEngineException ex) {
-            return ex.getMessage();
+    public String initQueryEngines(String... names) {
+        StringBuilder errors = new StringBuilder();
+        for (String name : names) {
+            try {
+                getCheckedQueryEngine(name);
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
         }
-        return OK;
+        return errors.length() == 0 ? OK : errors.toString();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String initCrudEngine(String name) {
-        try {
-            getCheckedCrudEngine(name);
-        } catch (SqlEngineException ex) {
-            return ex.getMessage();
+    public String initCrudEngines(String... names) {
+        StringBuilder errors = new StringBuilder();
+        for (String name : names) {
+            try {
+                getCheckedCrudEngine(name);
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
         }
-        return OK;
+        return errors.length() == 0 ? OK : errors.toString();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String initProcedureEngine(String name) {
-        try {
-            getCheckedProcedureEngine(name);
-        } catch (SqlEngineException ex) {
-            return ex.getMessage();
+    public String initProcedureEngines(String... names) {
+        StringBuilder errors = new StringBuilder();
+        for (String name : names) {
+            try {
+                getCheckedProcedureEngine(name);
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
         }
-        return OK;
+        return errors.length() == 0 ? OK : errors.toString();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String resetQueryEngine(String name) {
-        try {
-            getCheckedStaticQueryEngine(name);
-        } catch (SqlEngineException ex) {
-            return ex.getMessage();
+    public String resetQueryEngines(String... names) {
+        StringBuilder errors = new StringBuilder();
+        for (String name : names) {
+            try {
+                getCheckedStaticQueryEngine(name);
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
         }
-        return OK;
+        return errors.length() == 0 ? OK : errors.toString();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String resetCrudEngine(String name) {
-        try {
-            getCheckedStaticCrudEngine(name);
-        } catch (SqlEngineException ex) {
-            return ex.getMessage();
+    public String resetCrudEngines(String... names) {
+        StringBuilder errors = new StringBuilder();
+        for (String name : names) {
+            try {
+                getCheckedStaticCrudEngine(name);
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
         }
-        return OK;
+        return errors.length() == 0 ? OK : errors.toString();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String resetProcedureEngine(String name) {
-        try {
-            getCheckedStaticProcedureEngine(name);
-        } catch (SqlEngineException ex) {
-            return ex.getMessage();
+    public String resetProcedureEngines(String... names) {
+        StringBuilder errors = new StringBuilder();
+        for (String name : names) {
+            try {
+                getCheckedStaticProcedureEngine(name);
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
         }
-        return OK;
+        return errors.length() == 0 ? OK : errors.toString();
     }
 
     /**
