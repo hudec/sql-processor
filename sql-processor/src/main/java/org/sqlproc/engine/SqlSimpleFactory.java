@@ -187,6 +187,39 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
+    public SqlQueryEngine getStaticQueryEngine(String name) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getStaticQueryEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getStaticCrudEngine(String name) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getStaticCrudEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getStaticProcedureEngine(String name) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getStaticProcedureEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
         if (getLoader() == null) {
             init();
@@ -214,6 +247,39 @@ public class SqlSimpleFactory implements SqlEngineFactory {
             init();
         }
         return getLoader().getCheckedProcedureEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getCheckedStaticQueryEngine(String name) throws SqlEngineException {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getCheckedStaticQueryEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getCheckedStaticCrudEngine(String name) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getCheckedStaticCrudEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getCheckedStaticProcedureEngine(String name) {
+        if (getLoader() == null) {
+            init();
+        }
+        return getLoader().getCheckedStaticProcedureEngine(name);
     }
 
     /**

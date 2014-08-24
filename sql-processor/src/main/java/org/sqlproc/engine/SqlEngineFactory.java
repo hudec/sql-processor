@@ -14,7 +14,9 @@ package org.sqlproc.engine;
 public interface SqlEngineFactory {
 
     /**
-     * Returns the named SQL Query Engine instance (the primary SQL Processor class).
+     * Returns the named static or dynamic SQL Query Engine instance (the primary SQL Processor class). In fact it
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
+     * new static instance.
      * 
      * @param name
      *            the name of the required SQL Query Engine instance
@@ -23,7 +25,9 @@ public interface SqlEngineFactory {
     SqlQueryEngine getQueryEngine(String name);
 
     /**
-     * Returns the named SQL CRUD Engine instance (the primary SQL Processor class).
+     * Returns the named static or dynamic SQL CRUD Engine instance (the primary SQL Processor class). In fact it
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
+     * new static instance.
      * 
      * @param name
      *            the name of the required SQL CRUD Engine instance
@@ -32,46 +36,15 @@ public interface SqlEngineFactory {
     SqlCrudEngine getCrudEngine(String name);
 
     /**
-     * Returns the named SQL Procedure Engine instance (the primary SQL Processor class).
+     * Returns the named static or dynamic SQL Procedure Engine instance (the primary SQL Processor class). In fact it
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
+     * new static instance.
      * 
      * @param name
      *            the name of the required SQL Procedure Engine instance
      * @return the SQL Engine instance or null value in the case the related statement is missing
      */
     SqlProcedureEngine getProcedureEngine(String name);
-
-    /**
-     * Returns the named SQL Query Engine instance (the primary SQL Processor class).
-     * 
-     * @param name
-     *            the name of the required SQL Query Engine instance
-     * @return the SQL Engine instance
-     * @throws SqlEngineException
-     *             in the case the related statement is missing
-     */
-    SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException;
-
-    /**
-     * Returns the named SQL CRUD Engine instance (the primary SQL Processor class).
-     * 
-     * @param name
-     *            the name of the required SQL CRUD Engine instance
-     * @return the SQL Engine instance
-     * @throws SqlEngineException
-     *             in the case the related statement is missing
-     */
-    SqlCrudEngine getCheckedCrudEngine(String name);
-
-    /**
-     * Returns the named SQL Procedure Engine instance (the primary SQL Processor class).
-     * 
-     * @param name
-     *            the name of the required SQL Procedure Engine instance
-     * @return the SQL Engine instance
-     * @throws SqlEngineException
-     *             in the case the related statement is missing
-     */
-    SqlProcedureEngine getCheckedProcedureEngine(String name);
 
     /**
      * Returns the named dynamic SQL Query Engine instance (the primary SQL Processor class).
@@ -111,4 +84,103 @@ public interface SqlEngineFactory {
      *             in the case the original statement is missing
      */
     SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement);
+
+    /**
+     * Returns the named static SQL Query Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine instance
+     * @return the SQL Engine instance or null value in the case the related statement is missing
+     */
+    SqlQueryEngine getStaticQueryEngine(String name);
+
+    /**
+     * Returns the named static SQL CRUD Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine instance
+     * @return the SQL Engine instance or null value in the case the related statement is missing
+     */
+    SqlCrudEngine getStaticCrudEngine(String name);
+
+    /**
+     * Returns the named static SQL Procedure Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @return the SQL Engine instance or null value in the case the related statement is missing
+     */
+    SqlProcedureEngine getStaticProcedureEngine(String name);
+
+    /**
+     * Returns the named static or dynamic SQL Query Engine instance (the primary SQL Processor class). In fact it
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
+     * new static instance.
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException;
+
+    /**
+     * Returns the named static or dynamic SQL CRUD Engine instance (the primary SQL Processor class). In fact it
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
+     * new static instance.
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlCrudEngine getCheckedCrudEngine(String name);
+
+    /**
+     * Returns the named static or dynamic SQL Procedure Engine instance (the primary SQL Processor class). In fact it
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
+     * new static instance.
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlProcedureEngine getCheckedProcedureEngine(String name);
+
+    /**
+     * Returns the named static SQL Query Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlQueryEngine getCheckedStaticQueryEngine(String name) throws SqlEngineException;
+
+    /**
+     * Returns the named static SQL CRUD Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlCrudEngine getCheckedStaticCrudEngine(String name);
+
+    /**
+     * Returns the named static SQL Procedure Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the related statement is missing
+     */
+    SqlProcedureEngine getCheckedStaticProcedureEngine(String name);
 }
