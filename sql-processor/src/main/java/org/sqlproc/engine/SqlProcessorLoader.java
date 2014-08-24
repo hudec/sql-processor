@@ -563,6 +563,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *             in the case the instance can't be created
      */
     private SqlEngine getStaticEngine(String name, EngineType engineType) {
+        dynamicEngines.remove(name);
         SqlEngine sqlEngine = engines.get(name);
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
 
@@ -662,9 +663,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     private SqlEngine getDynamicEngine(String name, EngineType engineType, String sqlStatement) {
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
         if (!stmts.containsKey(name))
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
+            throw new SqlEngineException("Missing SQL Engine " + name);
         if (sqlStatement == null)
-            throw new SqlEngineException("SQL statement for SqlEngine " + name + " is null");
+            throw new SqlEngineException("SQL statement for SQL Engine " + name + " is null");
         SqlEngine sqlEngine = createEngine(name, engineType, null, sqlStatement);
         dynamicEngines.put(name, sqlEngine);
         return sqlEngine;
@@ -715,10 +716,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
-        SqlQueryEngine queryEngine = getQueryEngine(name);
-        if (queryEngine == null)
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
-        return queryEngine;
+        SqlQueryEngine sqlEngine = getQueryEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
 
     /**
@@ -726,10 +726,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCheckedCrudEngine(String name) {
-        SqlCrudEngine queryEngine = getCrudEngine(name);
-        if (queryEngine == null)
-            throw new SqlEngineException("Missing SqlCrudEngine " + name);
-        return queryEngine;
+        SqlCrudEngine sqlEngine = getCrudEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
 
     /**
@@ -737,10 +736,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getCheckedProcedureEngine(String name) {
-        SqlProcedureEngine procedureEngine = getProcedureEngine(name);
-        if (procedureEngine == null)
-            throw new SqlEngineException("Missing SqlProcedureEngine " + name);
-        return procedureEngine;
+        SqlProcedureEngine sqlEngine = getProcedureEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
 
     /**
@@ -748,10 +746,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getCheckedStaticQueryEngine(String name) throws SqlEngineException {
-        SqlQueryEngine queryEngine = getStaticQueryEngine(name);
-        if (queryEngine == null)
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
-        return queryEngine;
+        SqlQueryEngine sqlEngine = getStaticQueryEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
 
     /**
@@ -759,10 +756,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCheckedStaticCrudEngine(String name) {
-        SqlCrudEngine queryEngine = getStaticCrudEngine(name);
-        if (queryEngine == null)
-            throw new SqlEngineException("Missing SqlCrudEngine " + name);
-        return queryEngine;
+        SqlCrudEngine sqlEngine = getStaticCrudEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
 
     /**
@@ -770,9 +766,23 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getCheckedStaticProcedureEngine(String name) {
-        SqlProcedureEngine procedureEngine = getStaticProcedureEngine(name);
-        if (procedureEngine == null)
-            throw new SqlEngineException("Missing SqlProcedureEngine " + name);
-        return procedureEngine;
+        SqlProcedureEngine sqlEngine = getStaticProcedureEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
+    }
+
+    /**
+     * Check the SQL Engine instance is not null
+     * 
+     * @param name
+     *            the name of the required SQL Engine instance
+     * @param sqlEngine
+     *            the checked SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the the SQL Engine instance is null
+     */
+    private void check(String name, SqlEngine sqlEngine) {
+        if (sqlEngine == null)
+            throw new SqlEngineException("Missing SqlEngine " + name);
     }
 }

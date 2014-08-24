@@ -22,6 +22,7 @@ import org.sample.model.Person;
 import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
@@ -243,7 +244,7 @@ public class Main {
         Assert.assertNotNull(list.get(0).getId());
     }
 
-    public static java.sql.Timestamp getAge(int year, int month, int day) {
+    public java.sql.Timestamp getAge(int year, int month, int day) {
         Calendar birthDay = Calendar.getInstance();
         birthDay.set(Calendar.YEAR, year);
         birthDay.set(Calendar.MONTH, month);
@@ -255,10 +256,40 @@ public class Main {
         return new java.sql.Timestamp(birthDay.getTime().getTime());
     }
 
+    private String SQL_UPDATE_PERSON = "update %%PERSON " + "{= set " + "{ ,%FIRST_NAME = :firstName(call=isDef) } "
+            + "{ ,%LAST_NAME = :lastName(call=isDef) } " + "{ ,%GENDER = :gender(call=isDef) } "
+            + "{ ,%SSN = :ssn(call=isDef) } " + "} " + "{= where " + "{& %ID = :id(!empty) } " + "}";
+
+    private SqlCrudEngine updatePersonEngine;
+
+    public void modifyPersonUpdate(boolean dynamic) {
+        if (this.updatePersonEngine == null) {
+            this.updatePersonEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
+            logger.info("DEFAULT SQL ENGINE " + this.updatePersonEngine);
+        }
+        if (dynamic) {
+            SqlCrudEngine updatePersonEngine = sqlFactory.getDynamicCrudEngine("UPDATE_PERSON", SQL_UPDATE_PERSON);
+            logger.info("DYNAMIC SQL ENGINE " + updatePersonEngine);
+            Assert.assertNotSame(this.updatePersonEngine, updatePersonEngine);
+            Assert.assertSame(updatePersonEngine, sqlFactory.getCrudEngine("UPDATE_PERSON"));
+        } else {
+            SqlCrudEngine updatePersonEngine = sqlFactory.getStaticCrudEngine("UPDATE_PERSON");
+            logger.info("STATIC SQL ENGINE " + this.updatePersonEngine);
+            Assert.assertSame(this.updatePersonEngine, updatePersonEngine);
+            Assert.assertSame(updatePersonEngine, sqlFactory.getCrudEngine("UPDATE_PERSON"));
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         Main main = new Main();
+        main.modifyPersonUpdate(false);
+        main.run();
+        main.modifyPersonUpdate(true);
         main.run();
         main.sqlFactory.setLazyInit(true);
+        main.modifyPersonUpdate(false);
+        main.run();
+        main.modifyPersonUpdate(true);
         main.run();
     }
 }
