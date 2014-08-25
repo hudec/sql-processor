@@ -28,7 +28,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
     @Override
     @ManagedOperation(description = "In the case the SQL Query Engines are not initialized, a new static instances are established in the cache.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
-    public String initQueryEngines(String... names) {
+    public String initQueryEngines(String names) {
         return super.initQueryEngines(names);
     }
 
@@ -38,7 +38,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
     @Override
     @ManagedOperation(description = "In the case the SQL CRUD Engines are not initialized, a new static instances are established in the cache.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
-    public String initCrudEngines(String... names) {
+    public String initCrudEngines(String names) {
         return super.initCrudEngines(names);
     }
 
@@ -48,7 +48,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
     @Override
     @ManagedOperation(description = "In the case the SQL Procedure Engines are not initialized, a new static instances are established in the cache.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
-    public String initProcedureEngines(String... names) {
+    public String initProcedureEngines(String names) {
         return super.initProcedureEngines(names);
     }
 
@@ -58,7 +58,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL Query Engine is in the cache, the static one is re-established.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
-    public String resetQueryEngines(String... names) {
+    public String resetQueryEngines(String names) {
         return super.resetQueryEngines(names);
     }
 
@@ -68,7 +68,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL CRUD Engine is in the cache, the static one is re-established.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
-    public String resetCrudEngines(String... names) {
+    public String resetCrudEngines(String names) {
         return super.resetCrudEngines(names);
     }
 
@@ -78,7 +78,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL Procedure Engine is in the cache, the static one is re-established.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
-    public String resetProcedureEngines(String... names) {
+    public String resetProcedureEngines(String names) {
         return super.resetProcedureEngines(names);
     }
 

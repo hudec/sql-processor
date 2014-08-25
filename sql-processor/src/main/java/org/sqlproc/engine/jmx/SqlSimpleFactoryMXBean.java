@@ -20,7 +20,7 @@ public interface SqlSimpleFactoryMXBean {
      *            the names of the required SQL Query Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String initQueryEngines(String... names);
+    public String initQueryEngines(String names);
 
     /**
      * In the case the SQL CRUD Engines are not initialized, a new static instances are established in the cache.
@@ -29,7 +29,7 @@ public interface SqlSimpleFactoryMXBean {
      *            the names of the required SQL CRUD Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String initCrudEngines(String... names);
+    public String initCrudEngines(String names);
 
     /**
      * In the case the SQL Procedure Engines are not initialized, a new static instances are established in the cache.
@@ -38,7 +38,7 @@ public interface SqlSimpleFactoryMXBean {
      *            the names of the required SQL Procedure Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String initProcedureEngines(String... names);
+    public String initProcedureEngines(String names);
 
     /**
      * In the case any dynamic SQL Query Engine is in the cache, the static one is re-established.
@@ -47,7 +47,7 @@ public interface SqlSimpleFactoryMXBean {
      *            the names of the required SQL Query Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String resetQueryEngines(String... names);
+    public String resetQueryEngines(String names);
 
     /**
      * In the case any dynamic SQL CRUD Engine is in the cache, the static one is re-established.
@@ -56,7 +56,7 @@ public interface SqlSimpleFactoryMXBean {
      *            the names of the required SQL CRUD Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String resetCrudEngines(String... names);
+    public String resetCrudEngines(String names);
 
     /**
      * In the case a dynamic SQL Procedure Engine is in the cache, the static one is re-established.
@@ -65,7 +65,7 @@ public interface SqlSimpleFactoryMXBean {
      *            the names of the required SQL Procedure Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String resetProcedureEngines(String... names);
+    public String resetProcedureEngines(String names);
 
     /**
      * A new dynamic SQL Query Engine instance is established in the cache. The static one is suppressed.

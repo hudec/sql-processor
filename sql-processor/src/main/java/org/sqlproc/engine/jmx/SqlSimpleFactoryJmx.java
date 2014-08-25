@@ -27,9 +27,9 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
-    public String initQueryEngines(String... names) {
+    public String initQueryEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names) {
+        for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedQueryEngine(name);
             } catch (SqlEngineException ex) {
@@ -43,9 +43,9 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
-    public String initCrudEngines(String... names) {
+    public String initCrudEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names) {
+        for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedCrudEngine(name);
             } catch (SqlEngineException ex) {
@@ -59,9 +59,9 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
-    public String initProcedureEngines(String... names) {
+    public String initProcedureEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names) {
+        for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedProcedureEngine(name);
             } catch (SqlEngineException ex) {
@@ -75,9 +75,9 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
-    public String resetQueryEngines(String... names) {
+    public String resetQueryEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names) {
+        for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedStaticQueryEngine(name);
             } catch (SqlEngineException ex) {
@@ -91,9 +91,9 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
-    public String resetCrudEngines(String... names) {
+    public String resetCrudEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names) {
+        for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedStaticCrudEngine(name);
             } catch (SqlEngineException ex) {
@@ -107,9 +107,9 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
-    public String resetProcedureEngines(String... names) {
+    public String resetProcedureEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names) {
+        for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedStaticProcedureEngine(name);
             } catch (SqlEngineException ex) {
