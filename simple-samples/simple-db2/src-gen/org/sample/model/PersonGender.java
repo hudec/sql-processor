@@ -6,37 +6,37 @@ import java.util.Map;
 
 public enum PersonGender implements Serializable {
 
-  MALE("M"), FEMALE("F");
-  
-  private static final long serialVersionUID = 1L;
-  
-  private static Map<String, PersonGender> identifierMap = new HashMap<String, PersonGender>();
+	MALE("M"), FEMALE("F");
+		
+	private static final long serialVersionUID = 1L;
+	
+	private static Map<String, PersonGender> identifierMap = new HashMap<String, PersonGender>();
 
-    static {
-        for (PersonGender value : PersonGender.values()) {
-            identifierMap.put(value.getValue(), value);
-        }
-    }
+	static {
+		for (PersonGender value : PersonGender.values()) {
+			identifierMap.put(value.getValue(), value);
+		}
+	}
 
-    private String value;
+	private String value;
 
-    private PersonGender(String value) {
-        this.value = value;
-    }
+	private PersonGender(String value) {
+		this.value = value;
+	}
 
-    public static PersonGender fromValue(String value) {
-        PersonGender result = identifierMap.get(value);
-        if (result == null) {
-            throw new IllegalArgumentException("No PersonGender for value: " + value);
-        }
-        return result;
-    }
+	public static PersonGender fromValue(String value) {
+		PersonGender result = identifierMap.get(value);
+		if (result == null) {
+			throw new IllegalArgumentException("No PersonGender for value: " + value);
+		}
+		return result;
+	}
 
-    public String getValue() {
-        return value;
-    }
+	public String getValue() {
+		return value;
+	}
 
-    public String getName() {
-        return name();
-    }
+	public String getName() {
+		return name();
+	}
 }

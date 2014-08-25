@@ -1,5 +1,5 @@
 resolve-pojo-on;
-database-is-online;
+database-is-offline;
 database-jdbc-driver :com.informix.jdbc.IfxDriver; 
 database-has-url jdbc:informix-sqli:\//localhost:9090/simple2:informixserver=ol_informix1210\;;
 database-login-username simple;
