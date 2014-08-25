@@ -2,6 +2,7 @@ package org.sqlproc.engine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -549,5 +550,21 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setValidatorFactory(SqlValidatorFactory validatorFactory) {
         this.validatorFactory = validatorFactory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getNames() {
+        return getLoader().getNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getDynamicNames() {
+        return getLoader().getDynamicNames();
     }
 }

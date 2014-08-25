@@ -795,4 +795,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         if (sqlEngine == null)
             throw new SqlEngineException("Missing SqlEngine " + name);
     }
+
+    /**
+     * Returns a flag which indicates the lazy initialization mode.
+     * 
+     * @return a flag which indicates the lazy initialization mode.
+     */
+    public boolean isLazyInit() {
+        return lazyInit;
+    }
+
 }

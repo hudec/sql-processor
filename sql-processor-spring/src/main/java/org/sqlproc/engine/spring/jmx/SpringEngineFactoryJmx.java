@@ -1,12 +1,14 @@
 package org.sqlproc.engine.spring.jmx;
 
+import java.util.Collection;
+
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.jmx.export.annotation.ManagedOperationParameters;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.sqlproc.engine.SqlEngineException;
-import org.sqlproc.engine.jmx.SqlSimpleFactoryMXBean;
 import org.sqlproc.engine.jmx.SqlSimpleFactoryJmx;
+import org.sqlproc.engine.jmx.SqlSimpleFactoryMXBean;
 
 /**
  * The implementation of the simplified JMX interface for the SQL Engine factory.
@@ -116,5 +118,32 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
             @ManagedOperationParameter(name = "sqlStatement", description = "The new SQL statement, which is going to replace the original one") })
     public String newProcedureEngine(String name, String sqlStatement) {
         return super.newProcedureEngine(name, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Engine instances.")
+    public Collection<String> getNames() {
+        return super.getNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.")
+    public Collection<String> getDynamicNames() {
+        return super.getDynamicNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Engine instances.")
+    public boolean isLazyInit() {
+        return super.isLazyInit();
     }
 }

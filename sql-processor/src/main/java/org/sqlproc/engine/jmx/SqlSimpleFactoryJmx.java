@@ -1,5 +1,7 @@
 package org.sqlproc.engine.jmx;
 
+import java.util.Collection;
+
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
 
@@ -156,6 +158,30 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
             return ex.getMessage();
         }
         return OK;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getNames() {
+        return sqlEngineFactory.getNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getDynamicNames() {
+        return sqlEngineFactory.getDynamicNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isLazyInit() {
+        return sqlEngineFactory.isLazyInit();
     }
 
     /**

@@ -1,5 +1,7 @@
 package org.sqlproc.engine.jmx;
 
+import java.util.Collection;
+
 /**
  * The simplified JMX interface for the SQL Engine factory.
  * 
@@ -99,4 +101,25 @@ public interface SqlSimpleFactoryMXBean {
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public String newProcedureEngine(String name, String sqlStatement);
+
+    /**
+     * Returns the collection of names of all initialized/constructed static SQL Engine instances.
+     * 
+     * @return The collection of all initialized static SQL Engine instances' names
+     */
+    public Collection<String> getNames();
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
+     * 
+     * @return The collection of all initialized dynamic SQL Engine instances' names
+     */
+    public Collection<String> getDynamicNames();
+
+    /**
+     * Returns the indicator to speed up the initialization process
+     * 
+     * @return the indicator to speed up the initialization process
+     */
+    public boolean isLazyInit();
 }

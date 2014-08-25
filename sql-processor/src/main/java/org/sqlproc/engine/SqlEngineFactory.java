@@ -1,5 +1,7 @@
 package org.sqlproc.engine;
 
+import java.util.Collection;
+
 /**
  * The factory definition, which can be used to construct the {@link SqlEngine} instances.
  * 
@@ -183,4 +185,25 @@ public interface SqlEngineFactory {
      *             in the case the related statement is missing
      */
     SqlProcedureEngine getCheckedStaticProcedureEngine(String name);
+
+    /**
+     * Returns the collection of names of all initialized/constructed static SQL Engine instances.
+     * 
+     * @return The collection of all initialized static SQL Engine instances' names
+     */
+    public Collection<String> getNames();
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
+     * 
+     * @return The collection of all initialized dynamic SQL Engine instances' names
+     */
+    public Collection<String> getDynamicNames();
+
+    /**
+     * Returns the indicator to speed up the initialization process
+     * 
+     * @return the indicator to speed up the initialization process
+     */
+    public boolean isLazyInit();
 }
