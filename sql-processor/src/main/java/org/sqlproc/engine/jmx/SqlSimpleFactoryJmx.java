@@ -1,8 +1,7 @@
-package org.sqlproc.engine.hibernate.jmx;
+package org.sqlproc.engine.jmx;
 
 import org.sqlproc.engine.SqlEngineException;
-import org.sqlproc.engine.hibernate.HibernateEngineFactory;
-import org.sqlproc.engine.jdbc.jmx.SqlSimpleFactoryMXBean;
+import org.sqlproc.engine.SqlEngineFactory;
 
 /**
  * The implementation of the simplified JMX interface for the SQL Engine factory.
@@ -15,24 +14,12 @@ import org.sqlproc.engine.jdbc.jmx.SqlSimpleFactoryMXBean;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class HibernateEngineFactoryMXBean extends HibernateEngineFactory implements SqlSimpleFactoryMXBean {
+public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
 
     /**
-     * Creates a new instance with default values for the Hibernate stack.
+     * The SQL Engine factory instance
      */
-    public HibernateEngineFactoryMXBean() {
-        super();
-    }
-
-    /**
-     * Creates a new instance with default values for the Hibernate stack.
-     * 
-     * @param lazyInit
-     *            this flag indicates to speed up the initialization process.
-     */
-    public HibernateEngineFactoryMXBean(boolean lazyInit) {
-        super(lazyInit);
-    }
+    private SqlEngineFactory sqlEngineFactory;
 
     public static final String OK = "OK";
 
@@ -44,7 +31,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
         StringBuilder errors = new StringBuilder();
         for (String name : names) {
             try {
-                getCheckedQueryEngine(name);
+                sqlEngineFactory.getCheckedQueryEngine(name);
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
@@ -60,7 +47,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
         StringBuilder errors = new StringBuilder();
         for (String name : names) {
             try {
-                getCheckedCrudEngine(name);
+                sqlEngineFactory.getCheckedCrudEngine(name);
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
@@ -76,7 +63,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
         StringBuilder errors = new StringBuilder();
         for (String name : names) {
             try {
-                getCheckedProcedureEngine(name);
+                sqlEngineFactory.getCheckedProcedureEngine(name);
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
@@ -92,7 +79,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
         StringBuilder errors = new StringBuilder();
         for (String name : names) {
             try {
-                getCheckedStaticQueryEngine(name);
+                sqlEngineFactory.getCheckedStaticQueryEngine(name);
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
@@ -108,7 +95,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
         StringBuilder errors = new StringBuilder();
         for (String name : names) {
             try {
-                getCheckedStaticCrudEngine(name);
+                sqlEngineFactory.getCheckedStaticCrudEngine(name);
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
@@ -124,7 +111,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
         StringBuilder errors = new StringBuilder();
         for (String name : names) {
             try {
-                getCheckedStaticProcedureEngine(name);
+                sqlEngineFactory.getCheckedStaticProcedureEngine(name);
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
@@ -138,7 +125,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
     @Override
     public String newQueryEngine(String name, String sqlStatement) throws SqlEngineException {
         try {
-            getDynamicQueryEngine(name, sqlStatement);
+            sqlEngineFactory.getDynamicQueryEngine(name, sqlStatement);
         } catch (SqlEngineException ex) {
             return ex.getMessage();
         }
@@ -151,7 +138,7 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
     @Override
     public String newCrudEngine(String name, String sqlStatement) {
         try {
-            getDynamicCrudEngine(name, sqlStatement);
+            sqlEngineFactory.getDynamicCrudEngine(name, sqlStatement);
         } catch (SqlEngineException ex) {
             return ex.getMessage();
         }
@@ -164,10 +151,20 @@ public class HibernateEngineFactoryMXBean extends HibernateEngineFactory impleme
     @Override
     public String newProcedureEngine(String name, String sqlStatement) {
         try {
-            getDynamicProcedureEngine(name, sqlStatement);
+            sqlEngineFactory.getDynamicProcedureEngine(name, sqlStatement);
         } catch (SqlEngineException ex) {
             return ex.getMessage();
         }
         return OK;
+    }
+
+    /**
+     * Sets the SQL Engine factory instance
+     * 
+     * @param sqlEngineFactory
+     *            the SQL Engine factory instance
+     */
+    public void setSqlEngineFactory(SqlEngineFactory sqlEngineFactory) {
+        this.sqlEngineFactory = sqlEngineFactory;
     }
 }

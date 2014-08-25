@@ -8,6 +8,7 @@
                       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
 
     <context:annotation-config />
+    <context:mbean-export/>
 
     <!-- define cache annotation driver - for DAO class proxy target class = true, for DAO interface false (default) -->
     <cache:annotation-driven proxy-target-class="true"/>
@@ -75,6 +76,11 @@
         </property>
         <property name="filter" value="${db.type}" />
         <property name="monitorFactory" ref="sqlMonitorFactory"/>
+    </bean>
+
+
+    <bean id="jmxFactory" class="org.sqlproc.engine.spring.jmx.SpringEngineFactoryJmx">
+        <property name="sqlEngineFactory" ref="sqlFactory"/>
     </bean>
 
     <bean id="itemService" class="org.sqlproc.sample.catalog.service.ItemService" >

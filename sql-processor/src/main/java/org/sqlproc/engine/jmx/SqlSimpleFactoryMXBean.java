@@ -1,4 +1,4 @@
-package org.sqlproc.engine.jdbc.jmx;
+package org.sqlproc.engine.jmx;
 
 /**
  * The simplified JMX interface for the SQL Engine factory.
