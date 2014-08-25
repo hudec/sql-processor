@@ -1,7 +1,5 @@
 package org.sqlproc.engine.spring.jmx;
 
-import java.util.Collection;
-
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.jmx.export.annotation.ManagedOperationParameters;
@@ -125,7 +123,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
      */
     @Override
     @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Engine instances.")
-    public Collection<String> getNames() {
+    public String getNames() {
         return super.getNames();
     }
 
@@ -134,7 +132,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
      */
     @Override
     @ManagedOperation(description = "Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.")
-    public Collection<String> getDynamicNames() {
+    public String getDynamicNames() {
         return super.getDynamicNames();
     }
 
