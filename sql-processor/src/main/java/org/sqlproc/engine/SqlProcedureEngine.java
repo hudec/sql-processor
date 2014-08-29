@@ -354,7 +354,7 @@ public class SqlProcedureEngine extends SqlEngine {
                             pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -363,7 +363,11 @@ public class SqlProcedureEngine extends SqlEngine {
                     mappingResult.setQueryResultMapping(resultClass, null, query);
 
                     @SuppressWarnings("rawtypes")
-                    List list = query.callList();
+                    List list = monitor.runListSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.callList();
+                        }
+                    }, Object.class);
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
                     Object[] resultValue = null;
@@ -477,13 +481,17 @@ public class SqlProcedureEngine extends SqlEngine {
                             pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    Integer count = query.callUpdate();
+                    Integer count = monitor.runSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.callUpdate();
+                        }
+                    }, Integer.class);
                     processResult.postProcess();
                     return count;
                 }
@@ -580,7 +588,7 @@ public class SqlProcedureEngine extends SqlEngine {
                             pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -590,7 +598,11 @@ public class SqlProcedureEngine extends SqlEngine {
                         mappingResult.setQueryResultMapping(Object.class, null, query);
                     }
 
-                    Object result = query.callFunction();
+                    Object result = monitor.runSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.callFunction();
+                        }
+                    }, Object.class);
                     processResult.postProcess();
                     return result;
                 }

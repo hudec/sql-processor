@@ -46,6 +46,30 @@ public interface SqlMonitor {
     public <E> E run(Runner runner, Class<E> resultClass);
 
     /**
+     * The SQLMonitor visitor method called from inside the main execution methods in {@link SqlQueryEngine} devoted
+     * only to SQL statement execution.
+     * 
+     * @param runner
+     *            the anonymous instance of {@link SqlMonitor.Runner}, which encapsulates the query execution
+     * @param resultClass
+     *            the class used for the return values of the query execution output
+     * @return the list of the resultClass instances
+     */
+    public <E> List<E> runListSql(Runner runner, Class<E> resultClass);
+
+    /**
+     * The SQLMonitor visitor method called from inside the main execution methods in {@link SqlCrudEngine} and
+     * {@link SqlCrudEngine} devoted only to SQL statement execution..
+     * 
+     * @param runner
+     *            the anonymous instance of {@link SqlMonitor.Runner}, which encapsulates the query execution
+     * @param resultClass
+     *            the class used for the return value of the query execution output
+     * @return the instance of the resultClass
+     */
+    public <E> E runSql(Runner runner, Class<E> resultClass);
+
+    /**
      * This interface is implemented in {@link SqlQueryEngine} and {@link SqlCrudEngine} main public methods. An
      * anonymous instance of this interface is used to encapsulate the SQL Processor application logic, and as a
      * parameter is propagated to the SQLMonitor instance. This gives the SQLMonitor the opportunity to surround the SQL

@@ -427,7 +427,7 @@ public class SqlQueryEngine extends SqlEngine {
                             getFeatures(sqlControl), typeFactory, pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -444,7 +444,11 @@ public class SqlQueryEngine extends SqlEngine {
                     }
 
                     @SuppressWarnings("rawtypes")
-                    List list = query.list();
+                    List list = monitor.runListSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.list();
+                        }
+                    }, Object.class);
                     List<E> result = new ArrayList<E>();
                     E resultInstance = null;
                     Object[] resultValue = null;
@@ -599,7 +603,7 @@ public class SqlQueryEngine extends SqlEngine {
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
                             typeFactory, pluginFactory);
-                    SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
+                    final SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     queryCount.setLogError(processResult.isLogError());
                     SqlProcessContext.getTypeFactory().getDefaultType()
@@ -608,7 +612,11 @@ public class SqlQueryEngine extends SqlEngine {
                         queryCount.setTimeout(getMaxTimeout(sqlControl));
                     queryCount.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
                     processResult.setQueryParams(session, queryCount);
-                    return (Integer) queryCount.unique();
+                    return monitor.runSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return (Integer) queryCount.unique();
+                        }
+                    }, Integer.class);
                 }
             }, Integer.class);
             return count;

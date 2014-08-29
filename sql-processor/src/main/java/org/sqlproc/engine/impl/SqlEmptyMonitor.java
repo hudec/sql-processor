@@ -29,4 +29,23 @@ public class SqlEmptyMonitor implements SqlMonitor {
     public <E> E run(Runner runner, Class<E> resultClass) {
         return (E) runner.run();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public <E> List<E> runListSql(Runner runner, Class<E> resultClass) {
+
+        return (List<E>) runner.run();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public <E> E runSql(Runner runner, Class<E> resultClass) {
+        return (E) runner.run();
+    }
 }

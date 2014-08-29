@@ -301,13 +301,17 @@ public class SqlCrudEngine extends SqlEngine {
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     sql = SqlUtils.handleInsertSql(processResult.getIdentities(), sql);
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    Integer count = query.update();
+                    Integer count = monitor.runSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.update();
+                        }
+                    }, Integer.class);
                     processResult.postProcess();
                     return count;
                 }
@@ -455,7 +459,7 @@ public class SqlCrudEngine extends SqlEngine {
                             getFeatures(sqlControl), typeFactory, pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
@@ -464,7 +468,11 @@ public class SqlCrudEngine extends SqlEngine {
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
                     @SuppressWarnings("rawtypes")
-                    List list = query.list();
+                    List list = monitor.runListSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.list();
+                        }
+                    }, Object.class);
                     E resultInstance = null;
                     Object[] resultValue = null;
                     Map<String, Object> ids = mappingResult.getIds();
@@ -609,13 +617,17 @@ public class SqlCrudEngine extends SqlEngine {
                     processResult.validate(validator);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return query.update();
+                    return monitor.runSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.update();
+                        }
+                    }, Integer.class);
                 }
             }, Integer.class);
             return count;
@@ -718,13 +730,17 @@ public class SqlCrudEngine extends SqlEngine {
                             getFeatures(sqlControl), typeFactory, pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    SqlQuery query = session.createSqlQuery(sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return query.update();
+                    return monitor.runSql(new SqlMonitor.Runner() {
+                        public Object run() {
+                            return query.update();
+                        }
+                    }, Integer.class);
                 }
             }, Integer.class);
             return count;
