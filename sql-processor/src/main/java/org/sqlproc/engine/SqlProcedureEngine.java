@@ -359,32 +359,31 @@ public class SqlProcedureEngine extends SqlEngine {
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
-                    SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
+                    final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, null, query);
 
-                    @SuppressWarnings("rawtypes")
-                    List list = monitor.runListSql(new SqlMonitor.Runner() {
+                    return monitor.runListSql(new SqlMonitor.Runner() {
                         public Object run() {
-                            return query.callList();
-                        }
-                    }, Object.class);
-                    List<E> result = new ArrayList<E>();
-                    E resultInstance = null;
-                    Object[] resultValue = null;
+                            List list = query.callList();
+                            List<E> result = new ArrayList<E>();
+                            E resultInstance = null;
+                            Object[] resultValue = null;
 
-                    for (@SuppressWarnings("rawtypes")
-                    Iterator i$ = list.iterator(); i$.hasNext();) {
-                        Object resultRow = i$.next();
-                        resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                                : (new Object[] { resultRow });
-                        resultInstance = BeanUtils.getInstance(resultClass);
-                        if (resultInstance == null) {
-                            throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                            for (@SuppressWarnings("rawtypes")
+                            Iterator i$ = list.iterator(); i$.hasNext();) {
+                                Object resultRow = i$.next();
+                                resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
+                                        : (new Object[] { resultRow });
+                                resultInstance = BeanUtils.getInstance(resultClass);
+                                if (resultInstance == null) {
+                                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                                }
+                                mappingResult.setQueryResultData(resultInstance, resultValue, null, null);
+                                result.add(resultInstance);
+                            }
+                            return result;
                         }
-                        mappingResult.setQueryResultData(resultInstance, resultValue, null, null);
-                        result.add(resultInstance);
-                    }
-                    return result;
+                    }, resultClass);
                 }
             }, resultClass);
             return result;
@@ -476,9 +475,9 @@ public class SqlProcedureEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory);
+                    final SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL,
+                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
+                            getFeatures(sqlControl), typeFactory, pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -487,13 +486,13 @@ public class SqlProcedureEngine extends SqlEngine {
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    Integer count = monitor.runSql(new SqlMonitor.Runner() {
+                    return monitor.runSql(new SqlMonitor.Runner() {
                         public Object run() {
-                            return query.callUpdate();
+                            Integer count = query.callUpdate();
+                            processResult.postProcess();
+                            return count;
                         }
                     }, Integer.class);
-                    processResult.postProcess();
-                    return count;
                 }
             }, Integer.class);
             return count;
@@ -583,9 +582,9 @@ public class SqlProcedureEngine extends SqlEngine {
         try {
             result = monitor.run(new SqlMonitor.Runner() {
                 public Object run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL, dynamicInputValues,
-                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory);
+                    final SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CALL,
+                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
+                            getFeatures(sqlControl), typeFactory, pluginFactory);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -598,13 +597,13 @@ public class SqlProcedureEngine extends SqlEngine {
                         mappingResult.setQueryResultMapping(Object.class, null, query);
                     }
 
-                    Object result = monitor.runSql(new SqlMonitor.Runner() {
+                    return monitor.runSql(new SqlMonitor.Runner() {
                         public Object run() {
-                            return query.callFunction();
+                            Object result = query.callFunction();
+                            processResult.postProcess();
+                            return result;
                         }
                     }, Object.class);
-                    processResult.postProcess();
-                    return result;
                 }
             }, Object.class);
             return result;

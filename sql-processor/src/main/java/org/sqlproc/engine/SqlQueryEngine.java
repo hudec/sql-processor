@@ -433,7 +433,7 @@ public class SqlQueryEngine extends SqlEngine {
                         query.setTimeout(getMaxTimeout(sqlControl));
                     query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
                     processResult.setQueryParams(session, query);
-                    SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
+                    final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
                     if (getFirstResult(sqlControl) > 0) {
@@ -443,51 +443,52 @@ public class SqlQueryEngine extends SqlEngine {
                         query.setMaxResults(getMaxResults(sqlControl));
                     }
 
-                    @SuppressWarnings("rawtypes")
-                    List list = monitor.runListSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            return query.list();
-                        }
-                    }, Object.class);
-                    List<E> result = new ArrayList<E>();
-                    E resultInstance = null;
-                    Object[] resultValue = null;
-                    Map<String, Object> ids = mappingResult.getIds();
+                    return monitor.runListSql(new SqlMonitor.Runner() {
+                        public List<E> run() {
+                            List list = query.list();
+                            List<E> result = new ArrayList<E>();
+                            E resultInstance = null;
+                            Object[] resultValue = null;
+                            Map<String, Object> ids = mappingResult.getIds();
 
-                    for (@SuppressWarnings("rawtypes")
-                    Iterator i$ = list.iterator(); i$.hasNext();) {
-                        Object resultRow = i$.next();
-                        resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                                : (new Object[] { resultRow });
+                            for (@SuppressWarnings("rawtypes")
+                            Iterator i$ = list.iterator(); i$.hasNext();) {
+                                Object resultRow = i$.next();
+                                resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
+                                        : (new Object[] { resultRow });
 
-                        boolean changedIdentity = true;
-                        if (ids != null) {
-                            String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                            if (ids.containsKey(idsKey)) {
-                                resultInstance = (E) ids.get(idsKey);
-                                changedIdentity = false;
+                                boolean changedIdentity = true;
+                                if (ids != null) {
+                                    String idsKey = SqlUtils.getIdsKey(resultValue,
+                                            mappingResult.getMainIdentityIndex());
+                                    if (ids.containsKey(idsKey)) {
+                                        resultInstance = (E) ids.get(idsKey);
+                                        changedIdentity = false;
+                                    }
+                                }
+
+                                if (changedIdentity) {
+                                    resultInstance = BeanUtils.getInstance(resultClass);
+                                    if (resultInstance == null) {
+                                        throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                                    }
+                                }
+
+                                mappingResult.setQueryResultData(resultInstance, resultValue, ids,
+                                        getMoreResultClasses(sqlControl));
+
+                                if (changedIdentity) {
+                                    result.add(resultInstance);
+                                    if (ids != null) {
+                                        String idsKey = SqlUtils.getIdsKey(resultValue,
+                                                mappingResult.getMainIdentityIndex());
+                                        ids.put(idsKey, resultInstance);
+                                    }
+                                }
                             }
+                            return result;
                         }
-
-                        if (changedIdentity) {
-                            resultInstance = BeanUtils.getInstance(resultClass);
-                            if (resultInstance == null) {
-                                throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                            }
-                        }
-
-                        mappingResult.setQueryResultData(resultInstance, resultValue, ids,
-                                getMoreResultClasses(sqlControl));
-
-                        if (changedIdentity) {
-                            result.add(resultInstance);
-                            if (ids != null) {
-                                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                                ids.put(idsKey, resultInstance);
-                            }
-                        }
-                    }
-                    return result;
+                    }, resultClass);
                 }
             }, resultClass);
             return result;

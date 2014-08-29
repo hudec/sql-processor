@@ -294,7 +294,7 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
+                    final SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
                     processResult.validate(validator);
@@ -307,13 +307,13 @@ public class SqlCrudEngine extends SqlEngine {
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    Integer count = monitor.runSql(new SqlMonitor.Runner() {
+                    return monitor.runSql(new SqlMonitor.Runner() {
                         public Object run() {
-                            return query.update();
+                            Integer count = query.update();
+                            processResult.postProcess();
+                            return count;
                         }
                     }, Integer.class);
-                    processResult.postProcess();
-                    return count;
                 }
 
             }, Integer.class);
@@ -464,52 +464,53 @@ public class SqlCrudEngine extends SqlEngine {
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
-                    SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
+                    final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
-                    @SuppressWarnings("rawtypes")
-                    List list = monitor.runListSql(new SqlMonitor.Runner() {
+                    return monitor.runSql(new SqlMonitor.Runner() {
                         public Object run() {
-                            return query.list();
-                        }
-                    }, Object.class);
-                    E resultInstance = null;
-                    Object[] resultValue = null;
-                    Map<String, Object> ids = mappingResult.getIds();
+                            List list = query.list();
+                            E resultInstance = null;
+                            Object[] resultValue = null;
+                            Map<String, Object> ids = mappingResult.getIds();
 
-                    for (@SuppressWarnings("rawtypes")
-                    Iterator i$ = list.iterator(); i$.hasNext();) {
-                        Object resultRow = i$.next();
-                        resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                                : (new Object[] { resultRow });
+                            for (@SuppressWarnings("rawtypes")
+                            Iterator i$ = list.iterator(); i$.hasNext();) {
+                                Object resultRow = i$.next();
+                                resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
+                                        : (new Object[] { resultRow });
 
-                        boolean changedIdentity = true;
-                        if (ids != null) {
-                            String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                            if (ids.containsKey(idsKey))
-                                changedIdentity = false;
-                        }
+                                boolean changedIdentity = true;
+                                if (ids != null) {
+                                    String idsKey = SqlUtils.getIdsKey(resultValue,
+                                            mappingResult.getMainIdentityIndex());
+                                    if (ids.containsKey(idsKey))
+                                        changedIdentity = false;
+                                }
 
-                        if (changedIdentity) {
-                            if (resultInstance != null) {
-                                throw new SqlProcessorException("There's no unique result");
+                                if (changedIdentity) {
+                                    if (resultInstance != null) {
+                                        throw new SqlProcessorException("There's no unique result");
+                                    }
+                                    resultInstance = BeanUtils.getInstance(resultClass);
+                                    if (resultInstance == null) {
+                                        throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                                    }
+                                }
+
+                                mappingResult.setQueryResultData(resultInstance, resultValue, ids,
+                                        getMoreResultClasses(sqlControl));
+                                if (changedIdentity) {
+                                    if (ids != null) {
+                                        String idsKey = SqlUtils.getIdsKey(resultValue,
+                                                mappingResult.getMainIdentityIndex());
+                                        ids.put(idsKey, resultInstance);
+                                    }
+                                }
                             }
-                            resultInstance = BeanUtils.getInstance(resultClass);
-                            if (resultInstance == null) {
-                                throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                            }
+                            return resultInstance;
                         }
-
-                        mappingResult.setQueryResultData(resultInstance, resultValue, ids,
-                                getMoreResultClasses(sqlControl));
-                        if (changedIdentity) {
-                            if (ids != null) {
-                                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                                ids.put(idsKey, resultInstance);
-                            }
-                        }
-                    }
-                    return resultInstance;
+                    }, resultClass);
                 }
             }, resultClass);
             return result;
