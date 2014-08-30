@@ -443,8 +443,9 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
-        final long now = System.currentTimeMillis();
-        logger.info(name + " YYYYYYYYYYY1 " + now);
+        final Trace now = new Trace();
+        if (trace)
+            trace("1 ", now);
         if (logger.isDebugEnabled()) {
             logger.debug(">> get, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
@@ -453,41 +454,54 @@ public class SqlCrudEngine extends SqlEngine {
 
         E result = null;
 
-        logger.info(name + " YYYYYYYYYYY2 " + (System.currentTimeMillis() - now));
+        if (trace)
+            trace("2 ", now);
         try {
             result = monitor.run(new SqlMonitor.Runner() {
                 public E run() {
-                    logger.info(name + " YYYYYYYYYYY3 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("3 ", now);
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    logger.info(name + " YYYYYYYYYYY4 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("4 ", now);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    logger.info(name + " YYYYYYYYYYY5 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("5 ", now);
                     final SqlQuery query = session.createSqlQuery(sql);
-                    logger.info(name + " YYYYYYYYYYY6 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("6 ", now);
                     query.setLogError(processResult.isLogError());
-                    logger.info(name + " YYYYYYYYYYY7 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("7 ", now);
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    logger.info(name + " YYYYYYYYYYY8 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("8 ", now);
                     processResult.setQueryParams(session, query);
-                    logger.info(name + " YYYYYYYYYYY9 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("9 ", now);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    logger.info(name + " YYYYYYYYYYYA " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("A ", now);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
-                    logger.info(name + " YYYYYYYYYYYB " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("B ", now);
 
                     return monitor.runSql(new SqlMonitor.Runner() {
                         public Object run() {
-                            logger.info(name + " YYYYYYYYYYYC " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("C ", now);
                             List list = query.list();
-                            logger.info(name + " YYYYYYYYYYYD " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("D ", now);
                             E resultInstance = null;
                             Object[] resultValue = null;
                             Map<String, Object> ids = mappingResult.getIds();
-                            logger.info(name + " YYYYYYYYYYYE " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("E ", now);
 
                             for (@SuppressWarnings("rawtypes")
                             Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -502,7 +516,8 @@ public class SqlCrudEngine extends SqlEngine {
                                     if (ids.containsKey(idsKey))
                                         changedIdentity = false;
                                 }
-                                logger.info(name + " YYYYYYYYYYYF " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("F ", now);
 
                                 if (changedIdentity) {
                                     if (resultInstance != null) {
@@ -513,11 +528,13 @@ public class SqlCrudEngine extends SqlEngine {
                                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                                     }
                                 }
-                                logger.info(name + " YYYYYYYYYYYG " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("G ", now);
 
                                 mappingResult.setQueryResultData(resultInstance, resultValue, ids,
                                         getMoreResultClasses(sqlControl));
-                                logger.info(name + " YYYYYYYYYYYH " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("H ", now);
                                 if (changedIdentity) {
                                     if (ids != null) {
                                         String idsKey = SqlUtils.getIdsKey(resultValue,
@@ -525,19 +542,23 @@ public class SqlCrudEngine extends SqlEngine {
                                         ids.put(idsKey, resultInstance);
                                     }
                                 }
-                                logger.info(name + " YYYYYYYYYYYI " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("I ", now);
                             }
-                            logger.info(name + " YYYYYYYYYYYJ " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("J ", now);
                             return resultInstance;
                         }
                     }, resultClass);
                 }
             }, resultClass);
-            logger.info(name + " YYYYYYYYYYYK " + (System.currentTimeMillis() - now));
+            if (trace)
+                trace("K ", now);
             return result;
         } finally {
             if (logger.isDebugEnabled()) {
-                logger.info(name + " YYYYYYYYYYYL " + (System.currentTimeMillis() - now));
+                if (trace)
+                    trace("L ", now);
                 logger.debug("<< get, result=" + result);
             }
         }

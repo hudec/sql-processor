@@ -77,6 +77,11 @@ public abstract class SqlEngine {
     protected SqlPluginFactory pluginFactory;
 
     /**
+     * Trace output for long running steps.
+     */
+    protected boolean trace = true;
+
+    /**
      * Creates a new instance of the SqlEngine from one META SQL statement and one SQL Mapping rule instance. Both
      * parameters are already pre-compiled instances using the ANTLR parsers. This is the recommended usage for the
      * runtime performance optimization. This constructor is devoted to be used from the {@link SqlProcessorLoader},
@@ -286,7 +291,48 @@ public abstract class SqlEngine {
             throw new InvalidParameterException("SqlControl used as static input values");
     }
 
+    /**
+     * Returns the optional features, which can alter the SQL Processor runtime behavior.
+     * 
+     * @return the optional features, which can alter the SQL Processor runtime behavior
+     */
     public Map<String, Object> getFeatures() {
         return features;
+    }
+
+    /**
+     * Sets the indicator for trace output for long running steps
+     * 
+     * @param trace
+     *            the indicator for trace output for long running steps
+     */
+    public void setTrace(boolean trace) {
+        this.trace = trace;
+    }
+
+    /**
+     * Holder for trace timestamp
+     */
+    protected static class Trace {
+        /**
+         * the last/current timestamp
+         */
+        long now = System.currentTimeMillis();
+    }
+
+    /**
+     * Trace the long running steps
+     * 
+     * @param step
+     *            the name of the step
+     * @param last
+     *            the last timestamp
+     * @return the current timestamp
+     */
+    protected void trace(String step, Trace trace) {
+        final long now = System.currentTimeMillis();
+        if (now - trace.now > 10)
+            logger.info("SQLTRACE " + name + " " + step + " " + (now - trace.now));
+        trace.now = now;
     }
 }

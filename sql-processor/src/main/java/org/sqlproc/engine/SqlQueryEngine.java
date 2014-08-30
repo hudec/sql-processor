@@ -411,8 +411,9 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
-        final long now = System.currentTimeMillis();
-        logger.info(name + " XXXXXXXXXXX1 " + now);
+        final Trace now = new Trace();
+        if (trace)
+            trace("1 ", now);
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
@@ -421,33 +422,44 @@ public class SqlQueryEngine extends SqlEngine {
 
         List<E> result = null;
 
-        logger.info(name + " XXXXXXXXXXX2 " + (System.currentTimeMillis() - now));
+        if (trace)
+            trace("2 ", now);
         try {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
-                    logger.info(name + " XXXXXXXXXXX3 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("3 ", now);
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    logger.info(name + " XXXXXXXXXXX4 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("4 ", now);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    logger.info(name + " XXXXXXXXXXX5 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("5 ", now);
                     final SqlQuery query = session.createSqlQuery(sql);
-                    logger.info(name + " XXXXXXXXXXX6 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("6 ", now);
                     query.setLogError(processResult.isLogError());
-                    logger.info(name + " XXXXXXXXXXX7 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("7 ", now);
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    logger.info(name + " XXXXXXXXXXX8 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("8 ", now);
                     query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
-                    logger.info(name + " XXXXXXXXXXX9 " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("9 ", now);
                     processResult.setQueryParams(session, query);
-                    logger.info(name + " XXXXXXXXXXXA " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("A ", now);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    logger.info(name + " XXXXXXXXXXXB " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("B ", now);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
-                    logger.info(name + " XXXXXXXXXXXC " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("C ", now);
 
                     if (getFirstResult(sqlControl) > 0) {
                         query.setFirstResult(getFirstResult(sqlControl));
@@ -455,18 +467,22 @@ public class SqlQueryEngine extends SqlEngine {
                     } else if (getMaxResults(sqlControl) > 0) {
                         query.setMaxResults(getMaxResults(sqlControl));
                     }
-                    logger.info(name + " XXXXXXXXXXXD " + (System.currentTimeMillis() - now));
+                    if (trace)
+                        trace("D ", now);
 
                     return monitor.runListSql(new SqlMonitor.Runner() {
                         public List<E> run() {
-                            logger.info(name + " XXXXXXXXXXXE " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("E ", now);
                             List list = query.list();
-                            logger.info(name + " XXXXXXXXXXXF " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("F ", now);
                             List<E> result = new ArrayList<E>();
                             E resultInstance = null;
                             Object[] resultValue = null;
                             Map<String, Object> ids = mappingResult.getIds();
-                            logger.info(name + " XXXXXXXXXXXG " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("G ", now);
 
                             for (@SuppressWarnings("rawtypes")
                             Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -483,7 +499,8 @@ public class SqlQueryEngine extends SqlEngine {
                                         changedIdentity = false;
                                     }
                                 }
-                                logger.info(name + " XXXXXXXXXXXH " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("H ", now);
 
                                 if (changedIdentity) {
                                     resultInstance = BeanUtils.getInstance(resultClass);
@@ -491,11 +508,13 @@ public class SqlQueryEngine extends SqlEngine {
                                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                                     }
                                 }
-                                logger.info(name + " XXXXXXXXXXXI " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("I ", now);
 
                                 mappingResult.setQueryResultData(resultInstance, resultValue, ids,
                                         getMoreResultClasses(sqlControl));
-                                logger.info(name + " XXXXXXXXXXXJ " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("J ", now);
 
                                 if (changedIdentity) {
                                     result.add(resultInstance);
@@ -505,21 +524,25 @@ public class SqlQueryEngine extends SqlEngine {
                                         ids.put(idsKey, resultInstance);
                                     }
                                 }
-                                logger.info(name + " XXXXXXXXXXXK " + (System.currentTimeMillis() - now));
+                                if (trace)
+                                    trace("K ", now);
                             }
-                            logger.info(name + " XXXXXXXXXXXL " + (System.currentTimeMillis() - now));
+                            if (trace)
+                                trace("L ", now);
                             return result;
                         }
                     }, resultClass);
                 }
             }, resultClass);
-            logger.info(name + " XXXXXXXXXXXM " + (System.currentTimeMillis() - now));
+            if (trace)
+                trace("M ", now);
             return result;
         } finally {
             if (logger.isDebugEnabled()) {
                 logger.debug("<< query, result=" + result);
             }
-            logger.info(name + " XXXXXXXXXXXN " + (System.currentTimeMillis() - now));
+            if (trace)
+                trace("N ", now);
         }
     }
 
