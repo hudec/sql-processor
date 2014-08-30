@@ -120,4 +120,16 @@ public interface SqlSimpleFactoryMXBean {
      * @return the indicator to speed up the initialization process
      */
     public boolean isLazyInit();
+
+    /**
+     * Sets the time interval in milliseconds. In the case it's not zero, this value is the maximum interval, which
+     * doens't trigger the trace output.
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engines instance
+     * @param trace
+     *            the time interval in milliseconds
+     * @return the indicator the engine is instantiated and the trace value is set
+     */
+    public boolean setTrace(String name, Integer trace);
 }

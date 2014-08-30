@@ -1,6 +1,7 @@
 package org.sqlproc.engine;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * The factory definition, which can be used to construct the {@link SqlEngine} instances.
@@ -199,6 +200,20 @@ public interface SqlEngineFactory {
      * @return The collection of all initialized dynamic SQL Engine instances' names
      */
     public Collection<String> getDynamicNames();
+
+    /**
+     * Returns the collection of named dynamic SQL Engines (the primary SQL Processor class) instances.
+     * 
+     * @return The collection of named dynamic SQL Engines (the primary SQL Processor class) instances
+     */
+    public Map<String, SqlEngine> getEngines();
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
+     * 
+     * @return The collection of all initialized dynamic SQL Engine instances' names
+     */
+    public Map<String, SqlEngine> getDynamicEngines();
 
     /**
      * Returns the indicator to speed up the initialization process

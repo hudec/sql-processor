@@ -411,9 +411,9 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
-        final Trace now = new Trace();
-        if (trace)
-            trace("1 ", now);
+        final Trace trace = (this.trace != null && this.trace > 0) ? new Trace() : null;
+        if (trace != null)
+            trace("1 ", trace);
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
@@ -422,44 +422,44 @@ public class SqlQueryEngine extends SqlEngine {
 
         List<E> result = null;
 
-        if (trace)
-            trace("2 ", now);
+        if (trace != null)
+            trace("2 ", trace);
         try {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
-                    if (trace)
-                        trace("3 ", now);
+                    if (trace != null)
+                        trace("3 ", trace);
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    if (trace)
-                        trace("4 ", now);
+                    if (trace != null)
+                        trace("4 ", trace);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    if (trace)
-                        trace("5 ", now);
+                    if (trace != null)
+                        trace("5 ", trace);
                     final SqlQuery query = session.createSqlQuery(sql);
-                    if (trace)
-                        trace("6 ", now);
+                    if (trace != null)
+                        trace("6 ", trace);
                     query.setLogError(processResult.isLogError());
-                    if (trace)
-                        trace("7 ", now);
+                    if (trace != null)
+                        trace("7 ", trace);
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    if (trace)
-                        trace("8 ", now);
+                    if (trace != null)
+                        trace("8 ", trace);
                     query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
-                    if (trace)
-                        trace("9 ", now);
+                    if (trace != null)
+                        trace("9 ", trace);
                     processResult.setQueryParams(session, query);
-                    if (trace)
-                        trace("A ", now);
+                    if (trace != null)
+                        trace("A ", trace);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    if (trace)
-                        trace("B ", now);
+                    if (trace != null)
+                        trace("B ", trace);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
-                    if (trace)
-                        trace("C ", now);
+                    if (trace != null)
+                        trace("C ", trace);
 
                     if (getFirstResult(sqlControl) > 0) {
                         query.setFirstResult(getFirstResult(sqlControl));
@@ -467,22 +467,22 @@ public class SqlQueryEngine extends SqlEngine {
                     } else if (getMaxResults(sqlControl) > 0) {
                         query.setMaxResults(getMaxResults(sqlControl));
                     }
-                    if (trace)
-                        trace("D ", now);
+                    if (trace != null)
+                        trace("D ", trace);
 
                     return monitor.runListSql(new SqlMonitor.Runner() {
                         public List<E> run() {
-                            if (trace)
-                                trace("E ", now);
+                            if (trace != null)
+                                trace("E ", trace);
                             List list = query.list();
-                            if (trace)
-                                trace("F ", now);
+                            if (trace != null)
+                                trace("F ", trace);
                             List<E> result = new ArrayList<E>();
                             E resultInstance = null;
                             Object[] resultValue = null;
                             Map<String, Object> ids = mappingResult.getIds();
-                            if (trace)
-                                trace("G ", now);
+                            if (trace != null)
+                                trace("G ", trace);
 
                             for (@SuppressWarnings("rawtypes")
                             Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -499,8 +499,8 @@ public class SqlQueryEngine extends SqlEngine {
                                         changedIdentity = false;
                                     }
                                 }
-                                if (trace)
-                                    trace("H ", now);
+                                if (trace != null)
+                                    trace("H ", trace);
 
                                 if (changedIdentity) {
                                     resultInstance = BeanUtils.getInstance(resultClass);
@@ -508,13 +508,13 @@ public class SqlQueryEngine extends SqlEngine {
                                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                                     }
                                 }
-                                if (trace)
-                                    trace("I ", now);
+                                if (trace != null)
+                                    trace("I ", trace);
 
                                 mappingResult.setQueryResultData(resultInstance, resultValue, ids,
                                         getMoreResultClasses(sqlControl));
-                                if (trace)
-                                    trace("J ", now);
+                                if (trace != null)
+                                    trace("J ", trace);
 
                                 if (changedIdentity) {
                                     result.add(resultInstance);
@@ -524,25 +524,25 @@ public class SqlQueryEngine extends SqlEngine {
                                         ids.put(idsKey, resultInstance);
                                     }
                                 }
-                                if (trace)
-                                    trace("K ", now);
+                                if (trace != null)
+                                    trace("K ", trace);
                             }
-                            if (trace)
-                                trace("L ", now);
+                            if (trace != null)
+                                trace("L ", trace);
                             return result;
                         }
                     }, resultClass);
                 }
             }, resultClass);
-            if (trace)
-                trace("M ", now);
+            if (trace != null)
+                trace("M ", trace);
             return result;
         } finally {
             if (logger.isDebugEnabled()) {
                 logger.debug("<< query, result=" + result);
             }
-            if (trace)
-                trace("N ", now);
+            if (trace != null)
+                trace("N ", trace);
         }
     }
 

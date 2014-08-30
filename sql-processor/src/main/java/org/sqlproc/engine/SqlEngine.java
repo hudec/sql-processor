@@ -77,9 +77,10 @@ public abstract class SqlEngine {
     protected SqlPluginFactory pluginFactory;
 
     /**
-     * Trace output for long running steps.
+     * The time interval in milliseconds. In the case it's not zero, this value is the maximum interval, which doens't
+     * trigger the trace output.
      */
-    protected boolean trace = true;
+    protected Integer trace = 0;
 
     /**
      * Creates a new instance of the SqlEngine from one META SQL statement and one SQL Mapping rule instance. Both
@@ -301,12 +302,13 @@ public abstract class SqlEngine {
     }
 
     /**
-     * Sets the indicator for trace output for long running steps
+     * Sets the time interval in milliseconds. In the case it's not zero, this value is the maximum interval, which
+     * doens't trigger the trace output.
      * 
      * @param trace
-     *            the indicator for trace output for long running steps
+     *            the time interval in milliseconds
      */
-    public void setTrace(boolean trace) {
+    public void setTrace(Integer trace) {
         this.trace = trace;
     }
 
@@ -330,8 +332,10 @@ public abstract class SqlEngine {
      * @return the current timestamp
      */
     protected void trace(String step, Trace trace) {
+        if (this.trace == null)
+            return;
         final long now = System.currentTimeMillis();
-        if (now - trace.now > 10)
+        if (now - trace.now > this.trace)
             logger.info("SQLTRACE " + name + " " + step + " " + (now - trace.now));
         trace.now = now;
     }

@@ -443,9 +443,9 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
-        final Trace now = new Trace();
-        if (trace)
-            trace("1 ", now);
+        final Trace trace = (this.trace != null && this.trace > 0) ? new Trace() : null;
+        if (trace != null)
+            trace("1 ", trace);
         if (logger.isDebugEnabled()) {
             logger.debug(">> get, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
@@ -454,54 +454,54 @@ public class SqlCrudEngine extends SqlEngine {
 
         E result = null;
 
-        if (trace)
-            trace("2 ", now);
+        if (trace != null)
+            trace("2 ", trace);
         try {
             result = monitor.run(new SqlMonitor.Runner() {
                 public E run() {
-                    if (trace)
-                        trace("3 ", now);
+                    if (trace != null)
+                        trace("3 ", trace);
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
                             dynamicInputValues, getStaticInputValues(sqlControl), null, features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    if (trace)
-                        trace("4 ", now);
+                    if (trace != null)
+                        trace("4 ", trace);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    if (trace)
-                        trace("5 ", now);
+                    if (trace != null)
+                        trace("5 ", trace);
                     final SqlQuery query = session.createSqlQuery(sql);
-                    if (trace)
-                        trace("6 ", now);
+                    if (trace != null)
+                        trace("6 ", trace);
                     query.setLogError(processResult.isLogError());
-                    if (trace)
-                        trace("7 ", now);
+                    if (trace != null)
+                        trace("7 ", trace);
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    if (trace)
-                        trace("8 ", now);
+                    if (trace != null)
+                        trace("8 ", trace);
                     processResult.setQueryParams(session, query);
-                    if (trace)
-                        trace("9 ", now);
+                    if (trace != null)
+                        trace("9 ", trace);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    if (trace)
-                        trace("A ", now);
+                    if (trace != null)
+                        trace("A ", trace);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
-                    if (trace)
-                        trace("B ", now);
+                    if (trace != null)
+                        trace("B ", trace);
 
                     return monitor.runSql(new SqlMonitor.Runner() {
                         public Object run() {
-                            if (trace)
-                                trace("C ", now);
+                            if (trace != null)
+                                trace("C ", trace);
                             List list = query.list();
-                            if (trace)
-                                trace("D ", now);
+                            if (trace != null)
+                                trace("D ", trace);
                             E resultInstance = null;
                             Object[] resultValue = null;
                             Map<String, Object> ids = mappingResult.getIds();
-                            if (trace)
-                                trace("E ", now);
+                            if (trace != null)
+                                trace("E ", trace);
 
                             for (@SuppressWarnings("rawtypes")
                             Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -516,8 +516,8 @@ public class SqlCrudEngine extends SqlEngine {
                                     if (ids.containsKey(idsKey))
                                         changedIdentity = false;
                                 }
-                                if (trace)
-                                    trace("F ", now);
+                                if (trace != null)
+                                    trace("F ", trace);
 
                                 if (changedIdentity) {
                                     if (resultInstance != null) {
@@ -528,13 +528,13 @@ public class SqlCrudEngine extends SqlEngine {
                                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                                     }
                                 }
-                                if (trace)
-                                    trace("G ", now);
+                                if (trace != null)
+                                    trace("G ", trace);
 
                                 mappingResult.setQueryResultData(resultInstance, resultValue, ids,
                                         getMoreResultClasses(sqlControl));
-                                if (trace)
-                                    trace("H ", now);
+                                if (trace != null)
+                                    trace("H ", trace);
                                 if (changedIdentity) {
                                     if (ids != null) {
                                         String idsKey = SqlUtils.getIdsKey(resultValue,
@@ -542,23 +542,23 @@ public class SqlCrudEngine extends SqlEngine {
                                         ids.put(idsKey, resultInstance);
                                     }
                                 }
-                                if (trace)
-                                    trace("I ", now);
+                                if (trace != null)
+                                    trace("I ", trace);
                             }
-                            if (trace)
-                                trace("J ", now);
+                            if (trace != null)
+                                trace("J ", trace);
                             return resultInstance;
                         }
                     }, resultClass);
                 }
             }, resultClass);
-            if (trace)
-                trace("K ", now);
+            if (trace != null)
+                trace("K ", trace);
             return result;
         } finally {
             if (logger.isDebugEnabled()) {
-                if (trace)
-                    trace("L ", now);
+                if (trace != null)
+                    trace("L ", trace);
                 logger.debug("<< get, result=" + result);
             }
         }

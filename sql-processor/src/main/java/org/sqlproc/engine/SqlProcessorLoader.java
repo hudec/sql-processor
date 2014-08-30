@@ -486,21 +486,35 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * Returns the collection of names of all initialized/constructed static SQL Engine instances.
-     * 
-     * @return The collection of all initialized static SQL Engine instances' names
+     * {@inheritDoc}
      */
+    @Override
     public Collection<String> getNames() {
         return engines.keySet();
     }
 
     /**
-     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
-     * 
-     * @return The collection of all initialized dynamic SQL Engine instances' names
+     * {@inheritDoc}
      */
+    @Override
     public Collection<String> getDynamicNames() {
         return dynamicEngines.keySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getEngines() {
+        return engines;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getDynamicEngines() {
+        return dynamicEngines;
     }
 
     /**

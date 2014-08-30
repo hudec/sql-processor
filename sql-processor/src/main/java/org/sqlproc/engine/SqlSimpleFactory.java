@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
@@ -566,5 +567,21 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     @Override
     public Collection<String> getDynamicNames() {
         return getLoader().getDynamicNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getEngines() {
+        return getLoader().getEngines();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getDynamicEngines() {
+        return getLoader().getDynamicEngines();
     }
 }
