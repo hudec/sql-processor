@@ -42,7 +42,8 @@ metagen-generate-idgenerators;
 // can't overwrite existing META SQL 
 //metagen-make-it-final;
 // operators
-metagen-not-like-columns CONTACT PHONE_NUMBER;
+metagen-like-columns PERSON FIRST_NAME LAST_NAME;
+metagen-not-like-columns;
 //metagen-optimize-insert;
 // can't overwrite existing DAO 
 //daogen-make-it-final; 

@@ -333,7 +333,8 @@ public class SqlMetaStatement implements SqlMetaElement {
             return;
         final long now = System.currentTimeMillis();
         if (now - trace.now > this.trace)
-            logger.info("METATRACE " + ((item != null) ? item.toString() : "") + " " + step + " " + (now - trace.now));
+            logger.info("METATRACE " + ((item != null) ? item.toString() : "") + " " + step + " " + (now - trace.now)
+                    + " " + ((itemResult != null) ? itemResult.getSql() : ""));
         trace.now = now;
     }
 }
