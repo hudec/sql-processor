@@ -412,8 +412,7 @@ public class SqlQueryEngine extends SqlEngine {
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
         final long now = System.currentTimeMillis();
-        if (name.equals("GET_OBYVATEL"))
-            logger.info("XXXXXXXXXXX1 " + now);
+        logger.info(name + " XXXXXXXXXXX1 " + now);
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
@@ -422,44 +421,33 @@ public class SqlQueryEngine extends SqlEngine {
 
         List<E> result = null;
 
-        if (name.equals("GET_OBYVATEL"))
-            logger.info("XXXXXXXXXXX2 " + (System.currentTimeMillis() - now));
+        logger.info(name + " XXXXXXXXXXX2 " + (System.currentTimeMillis() - now));
         try {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXX3 " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXX3 " + (System.currentTimeMillis() - now));
                     SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
                             getFeatures(sqlControl), typeFactory, pluginFactory);
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXX4 " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXX4 " + (System.currentTimeMillis() - now));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXX5 " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXX5 " + (System.currentTimeMillis() - now));
                     final SqlQuery query = session.createSqlQuery(sql);
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXX6 " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXX6 " + (System.currentTimeMillis() - now));
                     query.setLogError(processResult.isLogError());
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXX7 " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXX7 " + (System.currentTimeMillis() - now));
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXX8 " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXX8 " + (System.currentTimeMillis() - now));
                     query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXX9 " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXX9 " + (System.currentTimeMillis() - now));
                     processResult.setQueryParams(session, query);
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXXA " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXXA " + (System.currentTimeMillis() - now));
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXXB " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXXB " + (System.currentTimeMillis() - now));
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXXC " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXXC " + (System.currentTimeMillis() - now));
 
                     if (getFirstResult(sqlControl) > 0) {
                         query.setFirstResult(getFirstResult(sqlControl));
@@ -467,22 +455,18 @@ public class SqlQueryEngine extends SqlEngine {
                     } else if (getMaxResults(sqlControl) > 0) {
                         query.setMaxResults(getMaxResults(sqlControl));
                     }
-                    if (name.equals("GET_OBYVATEL"))
-                        logger.info("XXXXXXXXXXXD " + (System.currentTimeMillis() - now));
+                    logger.info(name + " XXXXXXXXXXXD " + (System.currentTimeMillis() - now));
 
                     return monitor.runListSql(new SqlMonitor.Runner() {
                         public List<E> run() {
-                            if (name.equals("GET_OBYVATEL"))
-                                logger.info("XXXXXXXXXXXE " + (System.currentTimeMillis() - now));
+                            logger.info(name + " XXXXXXXXXXXE " + (System.currentTimeMillis() - now));
                             List list = query.list();
-                            if (name.equals("GET_OBYVATEL"))
-                                logger.info("XXXXXXXXXXXF " + (System.currentTimeMillis() - now));
+                            logger.info(name + " XXXXXXXXXXXF " + (System.currentTimeMillis() - now));
                             List<E> result = new ArrayList<E>();
                             E resultInstance = null;
                             Object[] resultValue = null;
                             Map<String, Object> ids = mappingResult.getIds();
-                            if (name.equals("GET_OBYVATEL"))
-                                logger.info("XXXXXXXXXXXG " + (System.currentTimeMillis() - now));
+                            logger.info(name + " XXXXXXXXXXXG " + (System.currentTimeMillis() - now));
 
                             for (@SuppressWarnings("rawtypes")
                             Iterator i$ = list.iterator(); i$.hasNext();) {
@@ -499,8 +483,7 @@ public class SqlQueryEngine extends SqlEngine {
                                         changedIdentity = false;
                                     }
                                 }
-                                if (name.equals("GET_OBYVATEL"))
-                                    logger.info("XXXXXXXXXXXH " + (System.currentTimeMillis() - now));
+                                logger.info(name + " XXXXXXXXXXXH " + (System.currentTimeMillis() - now));
 
                                 if (changedIdentity) {
                                     resultInstance = BeanUtils.getInstance(resultClass);
@@ -508,13 +491,11 @@ public class SqlQueryEngine extends SqlEngine {
                                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                                     }
                                 }
-                                if (name.equals("GET_OBYVATEL"))
-                                    logger.info("XXXXXXXXXXXI " + (System.currentTimeMillis() - now));
+                                logger.info(name + " XXXXXXXXXXXI " + (System.currentTimeMillis() - now));
 
                                 mappingResult.setQueryResultData(resultInstance, resultValue, ids,
                                         getMoreResultClasses(sqlControl));
-                                if (name.equals("GET_OBYVATEL"))
-                                    logger.info("XXXXXXXXXXXJ " + (System.currentTimeMillis() - now));
+                                logger.info(name + " XXXXXXXXXXXJ " + (System.currentTimeMillis() - now));
 
                                 if (changedIdentity) {
                                     result.add(resultInstance);
@@ -524,25 +505,21 @@ public class SqlQueryEngine extends SqlEngine {
                                         ids.put(idsKey, resultInstance);
                                     }
                                 }
-                                if (name.equals("GET_OBYVATEL"))
-                                    logger.info("XXXXXXXXXXXK " + (System.currentTimeMillis() - now));
+                                logger.info(name + " XXXXXXXXXXXK " + (System.currentTimeMillis() - now));
                             }
-                            if (name.equals("GET_OBYVATEL"))
-                                logger.info("XXXXXXXXXXXL " + (System.currentTimeMillis() - now));
+                            logger.info(name + " XXXXXXXXXXXL " + (System.currentTimeMillis() - now));
                             return result;
                         }
                     }, resultClass);
                 }
             }, resultClass);
-            if (name.equals("GET_OBYVATEL"))
-                logger.info("XXXXXXXXXXXM " + (System.currentTimeMillis() - now));
+            logger.info(name + " XXXXXXXXXXXM " + (System.currentTimeMillis() - now));
             return result;
         } finally {
             if (logger.isDebugEnabled()) {
                 logger.debug("<< query, result=" + result);
             }
-            if (name.equals("GET_OBYVATEL"))
-                logger.info("XXXXXXXXXXXN " + (System.currentTimeMillis() - now));
+            logger.info(name + " XXXXXXXXXXXN " + (System.currentTimeMillis() - now));
         }
     }
 
