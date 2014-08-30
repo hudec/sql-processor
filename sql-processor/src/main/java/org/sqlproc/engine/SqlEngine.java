@@ -310,6 +310,7 @@ public abstract class SqlEngine {
      */
     public void setTrace(Integer trace) {
         this.trace = trace;
+        this.statement.setTrace((trace != null) ? trace / 3 : null);
     }
 
     /**
@@ -317,9 +318,25 @@ public abstract class SqlEngine {
      */
     protected static class Trace {
         /**
+         * The time interval in milliseconds. In the case it's not zero, this value is the maximum interval, which
+         * doens't trigger the trace output.
+         */
+        public Integer trace = 0;
+
+        /**
          * the last/current timestamp
          */
         long now = System.currentTimeMillis();
+
+        /**
+         * Constructor
+         * 
+         * @param trace
+         *            trace time interval in milliseconds
+         */
+        public Trace(Integer trace) {
+            this.trace = trace;
+        }
     }
 
     /**

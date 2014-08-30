@@ -443,7 +443,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
-        final Trace trace = (this.trace != null && this.trace > 0) ? new Trace() : null;
+        final Trace trace = (this.trace != null && this.trace > 0) ? new Trace(this.trace) : null;
         if (trace != null)
             trace("1 ", trace);
         if (logger.isDebugEnabled()) {
