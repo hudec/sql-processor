@@ -333,7 +333,6 @@ public abstract class SqlEngine {
      */
     public void setTrace(Integer trace) {
         this.trace = trace;
-        this.statement.setTrace((trace != null) ? trace / 3 : null);
     }
 
     /**

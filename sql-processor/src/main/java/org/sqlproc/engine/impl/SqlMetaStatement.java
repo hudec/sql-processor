@@ -94,12 +94,6 @@ public class SqlMetaStatement implements SqlMetaElement {
     boolean hasOutputMapping;
 
     /**
-     * The time interval in milliseconds. In the case it's not zero, this value is the maximum interval, which doens't
-     * trigger the trace output.
-     */
-    protected Integer trace = 0;
-
-    /**
      * Simple factory method (design pattern). The new instance of precompiled META SQL is created from the String input
      * by the ANTLR parser.
      * 
@@ -226,17 +220,10 @@ public class SqlMetaStatement implements SqlMetaElement {
     public SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
             List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
             SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
-        final Trace trace = (this.trace != null && this.trace > 0) ? new Trace() : null;
-        if (trace != null)
-            trace("1 ", trace, null, null);
         SqlProcessContext ctx = new SqlProcessContext(sqlStatementType, dynamicInputValues, staticInputValues, order,
                 features, runtimeFeatures, typeFactory, pluginFactory);
-        if (trace != null)
-            trace("3 ", trace, null, null);
         SqlProcessResult result = this.process(ctx);
         result.setLogError(SqlProcessContext.isFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION));
-        if (trace != null)
-            trace("4 ", trace, null, null);
         return result;
     }
 
@@ -245,19 +232,12 @@ public class SqlMetaStatement implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        final Trace trace = (this.trace != null && this.trace > 0) ? new Trace() : null;
-        if (trace != null)
-            trace("5 ", trace, null, null);
         SqlProcessResult result = new SqlProcessResult();
         StringBuilder s = new StringBuilder();
         result.setSql(s);
         List<SqlProcessResult> orderByResult = new ArrayList<SqlProcessResult>();
         for (SqlMetaElement item : this.elements) {
-            if (trace != null)
-                trace("6 ", trace, item, null);
             SqlProcessResult itemResult = item.process(ctx);
-            if (trace != null)
-                trace("7 ", trace, item, itemResult);
             if (itemResult.isAdd()) {
                 if (itemResult.getOrderIndex() != null) {
                     orderByResult.add(itemResult);
@@ -272,15 +252,9 @@ public class SqlMetaStatement implements SqlMetaElement {
             } else {
                 result.addFalse();
             }
-            if (trace != null)
-                trace("8 ", trace, item, itemResult);
         }
-        if (trace != null)
-            trace("9 ", trace, null, null);
         if (!orderByResult.isEmpty()) {
             Collections.sort(orderByResult);
-            if (trace != null)
-                trace("A ", trace, null, null);
             s.append("order by ");
             boolean first = true;
             for (SqlProcessResult itemResult : orderByResult) {
@@ -292,49 +266,7 @@ public class SqlMetaStatement implements SqlMetaElement {
                 result.addInputValues(itemResult.getInputValues());
                 result.addMappedInputValues(itemResult.getMappedInputValues());
             }
-            if (trace != null)
-                trace("B ", trace, null, null);
         }
         return result;
-    }
-
-    /**
-     * Sets the time interval in milliseconds. In the case it's not zero, this value is the maximum interval, which
-     * doens't trigger the trace output.
-     * 
-     * @param trace
-     *            the time interval in milliseconds
-     */
-    public void setTrace(Integer trace) {
-        this.trace = trace;
-    }
-
-    /**
-     * Holder for trace timestamp
-     */
-    protected static class Trace {
-        /**
-         * the last/current timestamp
-         */
-        long now = System.currentTimeMillis();
-    }
-
-    /**
-     * Trace the long running steps
-     * 
-     * @param step
-     *            the name of the step
-     * @param last
-     *            the last timestamp
-     * @return the current timestamp
-     */
-    protected void trace(String step, Trace trace, SqlMetaElement item, SqlProcessResult itemResult) {
-        if (this.trace == null)
-            return;
-        final long now = System.currentTimeMillis();
-        if (now - trace.now > this.trace)
-            logger.info("METATRACE " + ((item != null) ? item.toString() : "") + " " + step + " " + (now - trace.now)
-                    + " " + ((itemResult != null) ? itemResult.getSql() : ""));
-        trace.now = now;
     }
 }
