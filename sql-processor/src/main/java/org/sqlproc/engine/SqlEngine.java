@@ -427,8 +427,10 @@ public abstract class SqlEngine {
         SqlProcessResult processResult = null;
         if (cacheId != null)
             processResult = processingCache.get(cacheId);
-        if (processResult != null)
+        if (processResult != null) {
+            logger.info("BINGO!!!!!!!! " + cacheId);
             return processResult;
+        }
         processResult = statement.process(sqlStatementType, dynamicInputValues, staticInputValues, order, features,
                 runtimeFeatures, typeFactory, pluginFactory);
         if (cacheId != null)
