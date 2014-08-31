@@ -165,7 +165,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     /**
      * The processing cache used for {@link SqlProcessResult} instances.
      */
-    private Map<String, SqlProcessResult> processingCache = new ConcurrentHashMap<String, SqlProcessResult>();
+    private Map<String, Map<String, SqlProcessResult>> commonProcessingCache = new ConcurrentHashMap<String, Map<String, SqlProcessResult>>();
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -577,7 +577,6 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     this.pluginFactory);
         sqlEngine.setValidator((validatorFactory != null) ? validatorFactory.getSqlValidator() : null);
         loadStatementFeatures(name, sqlEngine);
-        sqlEngine.setProcessingCache(processingCache);
         return sqlEngine;
     }
 
@@ -606,6 +605,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     sqlEngine = createEngine(name, engineType, stmt, null);
                     engines.put(name, sqlEngine);
                 }
+                commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
+                sqlEngine.setProcessingCache(commonProcessingCache.get(name));
             }
         }
         return sqlEngine;
@@ -698,6 +699,8 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             throw new SqlEngineException("SQL statement for SQL Engine " + name + " is null");
         SqlEngine sqlEngine = createEngine(name, engineType, null, sqlStatement);
         dynamicEngines.put(name, sqlEngine);
+        commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
+        sqlEngine.setProcessingCache(commonProcessingCache.get(name));
         return sqlEngine;
     }
 
