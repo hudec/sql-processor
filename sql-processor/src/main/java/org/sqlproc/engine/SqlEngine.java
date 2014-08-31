@@ -2,15 +2,19 @@ package org.sqlproc.engine;
 
 import java.security.InvalidParameterException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.impl.SqlMetaStatement.Type;
+import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
@@ -81,6 +85,11 @@ public abstract class SqlEngine {
      * trigger the trace output.
      */
     protected Integer trace = 0;
+
+    /**
+     * The processing cache used for {@link SqlProcessResult} instances.
+     */
+    protected Map<String, SqlProcessResult> processingCache = new ConcurrentHashMap<String, SqlProcessResult>();
 
     /**
      * Creates a new instance of the SqlEngine from one META SQL statement and one SQL Mapping rule instance. Both
@@ -253,6 +262,20 @@ public abstract class SqlEngine {
     }
 
     /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the unique ID of the executed statement based on the input values
+     */
+    String getCacheId(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getCacheId();
+    }
+
+    /**
      * Check the input parameters.
      * 
      * @param dynamicInputValues
@@ -355,5 +378,63 @@ public abstract class SqlEngine {
         if (now - trace.now > this.trace)
             logger.info("SQLTRACE " + name + " " + step + " " + (now - trace.now));
         trace.now = now;
+    }
+
+    /**
+     * Sets the processing cache used for {@link SqlProcessResult} instances.
+     * 
+     * @param processingCache
+     *            the processing cache used for {@link SqlProcessResult} instances.
+     */
+    public void setProcessingCache(Map<String, SqlProcessResult> processingCache) {
+        this.processingCache = processingCache;
+    }
+
+    /**
+     * The main contract for a dynamic ANSI SQL Query generation.
+     * 
+     * The ANSI SQL Query creation is based on
+     * <ul>
+     * <li>META SQL
+     * <li>dynamic input values
+     * <li>static input values
+     * <li>ordering list directive
+     * <li>optional features
+     * <ul>
+     * 
+     * @param sqlStatementType
+     *            the SQL command type
+     * @param dynamicInputValues
+     *            the SQL statement dynamic parameters (input values)
+     * @param staticInputValues
+     *            the SQL statement static parameters (input values)
+     * @param order
+     *            the list of ordering directives
+     * @param features
+     *            the optional features in the statement/global scope
+     * @param runtimeFeatures
+     *            the optional features in the statement's exection scope
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     * @param cacheId
+     *            the optional unique ID of the executed statement based on the input values
+     * @return the crate for ANSI SQL and other attributes, which control the SQL statement itself
+     */
+    protected SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
+            List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory, String cacheId) {
+        SqlProcessResult processResult = null;
+        if (cacheId != null)
+            processResult = processingCache.get(cacheId);
+        if (processResult != null)
+            return processResult;
+        processResult = statement.process(sqlStatementType, dynamicInputValues, staticInputValues, order, features,
+                runtimeFeatures, typeFactory, pluginFactory);
+        if (cacheId != null)
+            processingCache.put(cacheId, processResult);
+        return processResult;
+
     }
 }

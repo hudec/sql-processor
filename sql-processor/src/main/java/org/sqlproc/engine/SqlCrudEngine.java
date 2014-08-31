@@ -294,9 +294,9 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    final SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.CREATE, dynamicInputValues,
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory, getCacheId(sqlControl));
                     processResult.validate(validator);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
@@ -461,9 +461,9 @@ public class SqlCrudEngine extends SqlEngine {
                 public E run() {
                     if (trace != null)
                         trace("3 ", trace);
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
+                    SqlProcessResult processResult = process(SqlMetaStatement.Type.RETRIEVE, dynamicInputValues,
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory, getCacheId(sqlControl));
                     if (trace != null)
                         trace("4 ", trace);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
@@ -655,9 +655,9 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.UPDATE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
+                    SqlProcessResult processResult = process(SqlMetaStatement.Type.UPDATE, dynamicInputValues,
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory, getCacheId(sqlControl));
                     processResult.validate(validator);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
@@ -769,9 +769,9 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.DELETE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
+                    SqlProcessResult processResult = process(SqlMetaStatement.Type.DELETE, dynamicInputValues,
+                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
+                            pluginFactory, getCacheId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -894,9 +894,9 @@ public class SqlCrudEngine extends SqlEngine {
             sql = monitor.run(new SqlMonitor.Runner() {
 
                 public String run() {
-                    SqlProcessResult processResult = statement.process(statementType, dynamicInputValues,
+                    SqlProcessResult processResult = process(statementType, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory);
+                            pluginFactory, getCacheId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     return sql;

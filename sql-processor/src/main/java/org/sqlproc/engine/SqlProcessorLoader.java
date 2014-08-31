@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlProcessor;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
@@ -161,6 +162,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * This flag indicates to speed up the initialization process.
      */
     private boolean lazyInit;
+    /**
+     * The processing cache used for {@link SqlProcessResult} instances.
+     */
+    private Map<String, SqlProcessResult> processingCache = new ConcurrentHashMap<String, SqlProcessResult>();
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -572,6 +577,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
                     this.pluginFactory);
         sqlEngine.setValidator((validatorFactory != null) ? validatorFactory.getSqlValidator() : null);
         loadStatementFeatures(name, sqlEngine);
+        sqlEngine.setProcessingCache(processingCache);
         return sqlEngine;
     }
 

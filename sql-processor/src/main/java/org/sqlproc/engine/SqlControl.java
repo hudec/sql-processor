@@ -69,4 +69,13 @@ public interface SqlControl {
      * @return the optional features
      */
     public Map<String, Object> getFeatures();
+
+    /**
+     * Returns the unique ID of the executed statement based on the input values. This ID can be used for the caching
+     * purposes to optimize the
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory, String)}
+     * 
+     * @return the unique ID of the executed statement based on the input values
+     */
+    public String getCacheId();
 }

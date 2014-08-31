@@ -429,9 +429,9 @@ public class SqlQueryEngine extends SqlEngine {
                 public List<E> run() {
                     if (trace != null)
                         trace("3 ", trace);
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
+                    SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
+                            getFeatures(sqlControl), typeFactory, pluginFactory, getCacheId(sqlControl));
                     if (trace != null)
                         trace("4 ", trace);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
@@ -647,10 +647,10 @@ public class SqlQueryEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
+                    SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory);
+                            typeFactory, pluginFactory, getCacheId(sqlControl));
                     final SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     queryCount.setLogError(processResult.isLogError());
@@ -734,10 +734,10 @@ public class SqlQueryEngine extends SqlEngine {
             sql = monitor.run(new SqlMonitor.Runner() {
 
                 public String run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
+                    SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory);
+                            typeFactory, pluginFactory, getCacheId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     return sql;

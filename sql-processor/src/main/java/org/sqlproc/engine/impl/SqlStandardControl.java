@@ -56,6 +56,13 @@ public class SqlStandardControl implements SqlControl {
     private Map<String, Object> features = new HashMap<String, Object>();
 
     /**
+     * The unique ID of the executed statement based on input values. This ID can be used for the caching purposes to
+     * optimize the
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory, String)}
+     */
+    private String cacheId;
+
+    /**
      * Standard constructor.
      */
     public SqlStandardControl() {
@@ -274,12 +281,35 @@ public class SqlStandardControl implements SqlControl {
     }
 
     /**
+     * Returns the unique ID of the executed statement based on input values. This ID can be used for the caching
+     * purposes to optimize the
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory, String)}
+     * 
+     * @return the unique ID of the executed statement based on input values
+     */
+    public String getCacheId() {
+        return cacheId;
+    }
+
+    /**
+     * Sets the unique ID of the executed statement based on input values. This ID can be used for the caching purposes
+     * to optimize the
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory, String)}
+     * 
+     * @param cacheId
+     *            the unique ID of the executed statement based on input values
+     */
+    public void setCacheId(String cacheId) {
+        this.cacheId = cacheId;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
         return "SqlStandardControl [staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
                 + ", firstResult=" + firstResult + ", maxResults=" + maxResults + ", order=" + order
-                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + "]";
+                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + ", cacheId=" + cacheId + "]";
     }
 }
