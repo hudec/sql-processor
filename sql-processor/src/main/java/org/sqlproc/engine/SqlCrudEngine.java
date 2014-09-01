@@ -307,13 +307,16 @@ public class SqlCrudEngine extends SqlEngine {
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return monitor.runSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            Integer count = query.update();
-                            processResult.postProcess();
-                            return count;
-                        }
-                    }, Integer.class);
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return insert(query, processResult);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return insert(query, processResult);
+                    }
                 }
 
             }, Integer.class);
@@ -323,6 +326,21 @@ public class SqlCrudEngine extends SqlEngine {
                 logger.debug("<< insert, result=" + count);
             }
         }
+    }
+
+    /**
+     * Internal insert implementation
+     * 
+     * @param query
+     *            query
+     * @param processResult
+     *            processResult
+     * @return the result
+     */
+    private Integer insert(final SqlQuery query, final SqlProcessResult processResult) {
+        Integer count = query.update();
+        processResult.postProcess();
+        return count;
     }
 
     /**
@@ -467,50 +485,16 @@ public class SqlCrudEngine extends SqlEngine {
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
-                    return monitor.runSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            List list = query.list();
-                            E resultInstance = null;
-                            Object[] resultValue = null;
-                            Map<String, Object> ids = mappingResult.getIds();
-
-                            for (@SuppressWarnings("rawtypes")
-                            Iterator i$ = list.iterator(); i$.hasNext();) {
-                                Object resultRow = i$.next();
-                                resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                                        : (new Object[] { resultRow });
-
-                                boolean changedIdentity = true;
-                                if (ids != null) {
-                                    String idsKey = SqlUtils.getIdsKey(resultValue,
-                                            mappingResult.getMainIdentityIndex());
-                                    if (ids.containsKey(idsKey))
-                                        changedIdentity = false;
-                                }
-
-                                if (changedIdentity) {
-                                    if (resultInstance != null) {
-                                        throw new SqlProcessorException("There's no unique result");
-                                    }
-                                    resultInstance = BeanUtils.getInstance(resultClass);
-                                    if (resultInstance == null) {
-                                        throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                                    }
-                                }
-
-                                mappingResult.setQueryResultData(resultInstance, resultValue, ids,
-                                        getMoreResultClasses(sqlControl));
-                                if (changedIdentity) {
-                                    if (ids != null) {
-                                        String idsKey = SqlUtils.getIdsKey(resultValue,
-                                                mappingResult.getMainIdentityIndex());
-                                        ids.put(idsKey, resultInstance);
-                                    }
-                                }
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public E run() {
+                                return get(query, mappingResult, resultClass, sqlControl);
                             }
-                            return resultInstance;
-                        }
-                    }, resultClass);
+                        }, resultClass);
+                    } else {
+                        return get(query, mappingResult, resultClass, sqlControl);
+                    }
                 }
             }, resultClass);
             return result;
@@ -519,6 +503,59 @@ public class SqlCrudEngine extends SqlEngine {
                 logger.debug("<< get, result=" + result);
             }
         }
+    }
+
+    /**
+     * Internal get implementation
+     * 
+     * @param query
+     *            query
+     * @param mappingResult
+     *            mappingResult
+     * @param resultClass
+     *            resultClass
+     * @param sqlControl
+     *            sqlCOntrol
+     * @return the result
+     */
+    private <E> E get(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
+            final SqlControl sqlControl) {
+        List list = query.list();
+        E resultInstance = null;
+        Object[] resultValue = null;
+        Map<String, Object> ids = mappingResult.getIds();
+
+        for (@SuppressWarnings("rawtypes")
+        Iterator i$ = list.iterator(); i$.hasNext();) {
+            Object resultRow = i$.next();
+            resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
+
+            boolean changedIdentity = true;
+            if (ids != null) {
+                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                if (ids.containsKey(idsKey))
+                    changedIdentity = false;
+            }
+
+            if (changedIdentity) {
+                if (resultInstance != null) {
+                    throw new SqlProcessorException("There's no unique result");
+                }
+                resultInstance = BeanUtils.getInstance(resultClass);
+                if (resultInstance == null) {
+                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                }
+            }
+
+            mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
+            if (changedIdentity) {
+                if (ids != null) {
+                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                    ids.put(idsKey, resultInstance);
+                }
+            }
+        }
+        return resultInstance;
     }
 
     /**
@@ -624,11 +661,16 @@ public class SqlCrudEngine extends SqlEngine {
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return monitor.runSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            return query.update();
-                        }
-                    }, Integer.class);
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return update(query);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return update(query);
+                    }
                 }
             }, Integer.class);
             return count;
@@ -637,6 +679,17 @@ public class SqlCrudEngine extends SqlEngine {
                 logger.debug("<< update, result=" + count);
             }
         }
+    }
+
+    /**
+     * Internal update implementation
+     * 
+     * @param query
+     *            query
+     * @return the result
+     */
+    private Integer update(final SqlQuery query) {
+        return query.update();
     }
 
     /**
@@ -737,11 +790,16 @@ public class SqlCrudEngine extends SqlEngine {
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return monitor.runSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            return query.update();
-                        }
-                    }, Integer.class);
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return delete(query);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return delete(query);
+                    }
                 }
             }, Integer.class);
             return count;
@@ -750,6 +808,17 @@ public class SqlCrudEngine extends SqlEngine {
                 logger.debug("<< delete, result=" + count);
             }
         }
+    }
+
+    /**
+     * Internal delete implementation
+     * 
+     * @param query
+     *            query
+     * @return the result
+     */
+    private Integer delete(final SqlQuery query) {
+        return query.update();
     }
 
     /**

@@ -2,14 +2,14 @@ package org.sqlproc.engine.impl;
 
 import java.util.List;
 
-import org.sqlproc.engine.SqlMonitor;
+import org.sqlproc.engine.SqlExtendedMonitor;
 
 /**
  * The empty implementation of {@link org.sqlproc.engine.SqlMonitor} interface.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlEmptyMonitor implements SqlMonitor {
+public class SqlEmptyMonitor implements SqlExtendedMonitor {
 
     /**
      * {@inheritDoc}

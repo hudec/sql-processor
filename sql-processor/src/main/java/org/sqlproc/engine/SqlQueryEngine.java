@@ -443,52 +443,16 @@ public class SqlQueryEngine extends SqlEngine {
                         query.setMaxResults(getMaxResults(sqlControl));
                     }
 
-                    return monitor.runListSql(new SqlMonitor.Runner() {
-                        public List<E> run() {
-                            List list = query.list();
-                            List<E> result = new ArrayList<E>();
-                            E resultInstance = null;
-                            Object[] resultValue = null;
-                            Map<String, Object> ids = mappingResult.getIds();
-
-                            for (@SuppressWarnings("rawtypes")
-                            Iterator i$ = list.iterator(); i$.hasNext();) {
-                                Object resultRow = i$.next();
-                                resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                                        : (new Object[] { resultRow });
-
-                                boolean changedIdentity = true;
-                                if (ids != null) {
-                                    String idsKey = SqlUtils.getIdsKey(resultValue,
-                                            mappingResult.getMainIdentityIndex());
-                                    if (ids.containsKey(idsKey)) {
-                                        resultInstance = (E) ids.get(idsKey);
-                                        changedIdentity = false;
-                                    }
-                                }
-
-                                if (changedIdentity) {
-                                    resultInstance = BeanUtils.getInstance(resultClass);
-                                    if (resultInstance == null) {
-                                        throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                                    }
-                                }
-
-                                mappingResult.setQueryResultData(resultInstance, resultValue, ids,
-                                        getMoreResultClasses(sqlControl));
-
-                                if (changedIdentity) {
-                                    result.add(resultInstance);
-                                    if (ids != null) {
-                                        String idsKey = SqlUtils.getIdsKey(resultValue,
-                                                mappingResult.getMainIdentityIndex());
-                                        ids.put(idsKey, resultInstance);
-                                    }
-                                }
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runListSql(new SqlMonitor.Runner() {
+                            public List<E> run() {
+                                return query(query, mappingResult, resultClass, sqlControl);
                             }
-                            return result;
-                        }
-                    }, resultClass);
+                        }, resultClass);
+                    } else {
+                        return query(query, mappingResult, resultClass, sqlControl);
+                    }
                 }
             }, resultClass);
             return result;
@@ -497,6 +461,61 @@ public class SqlQueryEngine extends SqlEngine {
                 logger.debug("<< query, result=" + result);
             }
         }
+    }
+
+    /**
+     * Internal query implementation
+     * 
+     * @param query
+     *            query
+     * @param mappingResult
+     *            mappingResult
+     * @param resultClass
+     *            resultClass
+     * @param sqlControl
+     *            sqlCOntrol
+     * @return the result
+     */
+    private <E> List<E> query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
+            final SqlControl sqlControl) {
+        List list = query.list();
+        List<E> result = new ArrayList<E>();
+        E resultInstance = null;
+        Object[] resultValue = null;
+        Map<String, Object> ids = mappingResult.getIds();
+
+        for (@SuppressWarnings("rawtypes")
+        Iterator i$ = list.iterator(); i$.hasNext();) {
+            Object resultRow = i$.next();
+            resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
+
+            boolean changedIdentity = true;
+            if (ids != null) {
+                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                if (ids.containsKey(idsKey)) {
+                    resultInstance = (E) ids.get(idsKey);
+                    changedIdentity = false;
+                }
+            }
+
+            if (changedIdentity) {
+                resultInstance = BeanUtils.getInstance(resultClass);
+                if (resultInstance == null) {
+                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                }
+            }
+
+            mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
+
+            if (changedIdentity) {
+                result.add(resultInstance);
+                if (ids != null) {
+                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                    ids.put(idsKey, resultInstance);
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -613,11 +632,17 @@ public class SqlQueryEngine extends SqlEngine {
                         queryCount.setTimeout(getMaxTimeout(sqlControl));
                     queryCount.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
                     processResult.setQueryParams(session, queryCount);
-                    return monitor.runSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            return (Integer) queryCount.unique();
-                        }
-                    }, Integer.class);
+
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return queryCount(queryCount);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return queryCount(queryCount);
+                    }
                 }
             }, Integer.class);
             return count;
@@ -626,6 +651,17 @@ public class SqlQueryEngine extends SqlEngine {
                 logger.debug("<< queryCount, count=" + count);
             }
         }
+    }
+
+    /**
+     * Internal delete implementation
+     * 
+     * @param queryCount
+     *            query
+     * @return the result
+     */
+    private Integer queryCount(final SqlQuery queryCount) {
+        return (Integer) queryCount.unique();
     }
 
     /**

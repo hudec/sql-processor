@@ -362,28 +362,16 @@ public class SqlProcedureEngine extends SqlEngine {
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, null, query);
 
-                    return monitor.runListSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            List list = query.callList();
-                            List<E> result = new ArrayList<E>();
-                            E resultInstance = null;
-                            Object[] resultValue = null;
-
-                            for (@SuppressWarnings("rawtypes")
-                            Iterator i$ = list.iterator(); i$.hasNext();) {
-                                Object resultRow = i$.next();
-                                resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                                        : (new Object[] { resultRow });
-                                resultInstance = BeanUtils.getInstance(resultClass);
-                                if (resultInstance == null) {
-                                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                                }
-                                mappingResult.setQueryResultData(resultInstance, resultValue, null, null);
-                                result.add(resultInstance);
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runListSql(new SqlMonitor.Runner() {
+                            public List<E> run() {
+                                return callQuery(query, mappingResult, resultClass);
                             }
-                            return result;
-                        }
-                    }, resultClass);
+                        }, resultClass);
+                    } else {
+                        return callQuery(query, mappingResult, resultClass);
+                    }
                 }
             }, resultClass);
             return result;
@@ -392,6 +380,37 @@ public class SqlProcedureEngine extends SqlEngine {
                 logger.debug("<< callQuery, result=" + result);
             }
         }
+    }
+
+    /**
+     * Internal callQuery implementation
+     * 
+     * @param query
+     *            query
+     * @param mappingResult
+     *            mappingResult
+     * @param resultClass
+     *            resultClass
+     * @return the result
+     */
+    private <E> List<E> callQuery(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass) {
+        List list = query.callList();
+        List<E> result = new ArrayList<E>();
+        E resultInstance = null;
+        Object[] resultValue = null;
+
+        for (@SuppressWarnings("rawtypes")
+        Iterator i$ = list.iterator(); i$.hasNext();) {
+            Object resultRow = i$.next();
+            resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
+            resultInstance = BeanUtils.getInstance(resultClass);
+            if (resultInstance == null) {
+                throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+            }
+            mappingResult.setQueryResultData(resultInstance, resultValue, null, null);
+            result.add(resultInstance);
+        }
+        return result;
     }
 
     /**
@@ -486,13 +505,16 @@ public class SqlProcedureEngine extends SqlEngine {
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return monitor.runSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            Integer count = query.callUpdate();
-                            processResult.postProcess();
-                            return count;
-                        }
-                    }, Integer.class);
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return callUpdate(query, processResult);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return callUpdate(query, processResult);
+                    }
                 }
             }, Integer.class);
             return count;
@@ -501,6 +523,21 @@ public class SqlProcedureEngine extends SqlEngine {
                 logger.debug("<< callUpdate, result=" + count);
             }
         }
+    }
+
+    /**
+     * Internal callUpdate implementation
+     * 
+     * @param query
+     *            query
+     * @param processResult
+     *            processResult
+     * @return the result
+     */
+    private Integer callUpdate(final SqlQuery query, final SqlProcessResult processResult) {
+        Integer count = query.callUpdate();
+        processResult.postProcess();
+        return count;
     }
 
     /**
@@ -597,13 +634,16 @@ public class SqlProcedureEngine extends SqlEngine {
                         mappingResult.setQueryResultMapping(Object.class, null, query);
                     }
 
-                    return monitor.runSql(new SqlMonitor.Runner() {
-                        public Object run() {
-                            Object result = query.callFunction();
-                            processResult.postProcess();
-                            return result;
-                        }
-                    }, Object.class);
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Object run() {
+                                return callFunction(query, processResult);
+                            }
+                        }, Object.class);
+                    } else {
+                        return callFunction(query, processResult);
+                    }
                 }
             }, Object.class);
             return result;
@@ -612,6 +652,21 @@ public class SqlProcedureEngine extends SqlEngine {
                 logger.debug("<< callFunction, result=" + result);
             }
         }
+    }
+
+    /**
+     * Internal callFunction implementation
+     * 
+     * @param query
+     *            query
+     * @param processResult
+     *            processResult
+     * @return the result
+     */
+    private Object callFunction(final SqlQuery query, final SqlProcessResult processResult) {
+        Object result = query.callFunction();
+        processResult.postProcess();
+        return result;
     }
 
     /**
