@@ -253,8 +253,9 @@ public class SqlStandardControl implements SqlControl {
      * @param features
      *            the optional features
      */
-    public void setFeatures(Map<String, Object> features) {
+    public SqlStandardControl setFeatures(Map<String, Object> features) {
         this.features = features;
+        return this;
     }
 
     /**
@@ -265,9 +266,10 @@ public class SqlStandardControl implements SqlControl {
      * @param value
      *            the value of the optional feature
      */
-    public void setFeature(String name, Object value) {
+    public SqlStandardControl setFeature(String name, Object value) {
         features.put(name, value);
         unsetFeatures(SqlUtils.oppositeFeatures(name));
+        return this;
     }
 
     /**
@@ -276,11 +278,12 @@ public class SqlStandardControl implements SqlControl {
      * @param names
      *            the names of the optional features
      */
-    public void unsetFeatures(Set<String> names) {
+    public SqlStandardControl unsetFeatures(Set<String> names) {
         if (names != null) {
             for (String name : names)
                 features.remove(name);
         }
+        return this;
     }
 
     /**
@@ -308,8 +311,9 @@ public class SqlStandardControl implements SqlControl {
      * @param sqlStatementId
      *            the unique ID of the executed statement based on input values
      */
-    public void setSqlStatementId(String sqlStatementId) {
+    public SqlStandardControl setSqlStatementId(String sqlStatementId) {
         this.sqlStatementId = sqlStatementId;
+        return this;
     }
 
     /**
