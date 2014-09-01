@@ -27,7 +27,7 @@ public interface SqlExtendedMonitor extends SqlMonitor {
      * only to SQL statement execution.
      * 
      * @param runner
-     *            the anonymous instance of {@link SqlExtendedMonitor.Runner}, which encapsulates the query execution
+     *            the anonymous instance of {@link SqlMonitor.Runner}, which encapsulates the query execution
      * @param resultClass
      *            the class used for the return values of the query execution output
      * @return the list of the resultClass instances
@@ -39,7 +39,7 @@ public interface SqlExtendedMonitor extends SqlMonitor {
      * {@link SqlCrudEngine} devoted only to SQL statement execution..
      * 
      * @param runner
-     *            the anonymous instance of {@link SqlExtendedMonitor.Runner}, which encapsulates the query execution
+     *            the anonymous instance of {@link SqlMonitor.Runner}, which encapsulates the query execution
      * @param resultClass
      *            the class used for the return value of the query execution output
      * @return the instance of the resultClass

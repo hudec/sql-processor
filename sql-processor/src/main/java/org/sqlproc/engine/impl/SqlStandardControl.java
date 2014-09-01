@@ -58,9 +58,12 @@ public class SqlStandardControl implements SqlControl {
     /**
      * The unique ID of the executed statement based on input values. This ID can be used for the caching purposes to
      * optimize the
-     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory, String)}
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
+     * 
+     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
+     * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
      */
-    private String cacheId;
+    private String sqlStatementId;
 
     /**
      * Standard constructor.
@@ -283,24 +286,30 @@ public class SqlStandardControl implements SqlControl {
     /**
      * Returns the unique ID of the executed statement based on input values. This ID can be used for the caching
      * purposes to optimize the
-     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory, String)}
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
+     * 
+     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
+     * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
      * 
      * @return the unique ID of the executed statement based on input values
      */
-    public String getCacheId() {
-        return cacheId;
+    public String getSqlStatementId() {
+        return sqlStatementId;
     }
 
     /**
      * Sets the unique ID of the executed statement based on input values. This ID can be used for the caching purposes
      * to optimize the
-     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory, String)}
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
      * 
-     * @param cacheId
+     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
+     * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
+     * 
+     * @param sqlStatementId
      *            the unique ID of the executed statement based on input values
      */
-    public void setCacheId(String cacheId) {
-        this.cacheId = cacheId;
+    public void setSqlStatementId(String sqlStatementId) {
+        this.sqlStatementId = sqlStatementId;
     }
 
     /**
@@ -310,6 +319,7 @@ public class SqlStandardControl implements SqlControl {
     public String toString() {
         return "SqlStandardControl [staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
                 + ", firstResult=" + firstResult + ", maxResults=" + maxResults + ", order=" + order
-                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + ", cacheId=" + cacheId + "]";
+                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + ", sqlStatementId="
+                + sqlStatementId + "]";
     }
 }

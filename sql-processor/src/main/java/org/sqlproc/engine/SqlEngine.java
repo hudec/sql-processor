@@ -266,7 +266,7 @@ public abstract class SqlEngine {
         if (sqlControl == null)
             return null;
         else
-            return sqlControl.getCacheId();
+            return sqlControl.getSqlStatementId();
     }
 
     /**
