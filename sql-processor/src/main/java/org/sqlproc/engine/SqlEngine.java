@@ -364,7 +364,7 @@ public abstract class SqlEngine {
             List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
             SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory, String cacheId) {
         SqlProcessResult processResult = null;
-        if (cacheId != null)
+        if (cacheId != null && staticInputValues == null)
             processResult = processingCache.get(cacheId);
         if (processResult != null)
             return processResult;

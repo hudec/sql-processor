@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -100,6 +101,34 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
             this.sql = null;
             this.add = false;
         }
+    }
+
+    /**
+     * Creates a new instance with a SQL fragment from SqlMetaText.
+     * 
+     * @param result
+     *            SqlProcessResult instance to clone
+     * @param dynamicInputValues
+     *            the SQL statement dynamic parameters (input values)
+     * @param staticInputValues
+     *            the SQL statement static parameters (input values)
+     */
+    SqlProcessResult(SqlProcessResult result, Object dynamicInputValues) {
+        add = result.add;
+        allInputValues = result.allInputValues;
+        if (result.inputValues != null) {
+            inputValues = new HashMap<String, SqlInputValue>();
+            for (Entry<String, SqlInputValue> e : result.inputValues.entrySet()) {
+                inputValues.put(e.getKey(), new SqlInputValue(e.getKey(), e.getValue(), dynamicInputValues));
+            }
+        }
+        outputValues = result.outputValues;
+        identities = result.identities;
+        outValues = result.outValues;
+        sql = result.sql;
+        orderIndex = result.orderIndex;
+        skipNextText = result.skipNextText;
+        logError = result.logError;
     }
 
     /**
@@ -421,10 +450,30 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
     public String toString() {
         StringBuilder sb = new StringBuilder("SqlProcessResult:");
         sb.append(" add=").append(add);
+        if (allInputValues != null)
+            sb.append(", all=").append(allInputValues.toString());
         if (inputValues != null) {
             for (String paramName : this.inputValues.keySet()) {
                 SqlInputValue value = this.inputValues.get(paramName);
-                sb.append(", ident=").append(paramName).append(", value=").append(value);
+                sb.append(", input=").append(paramName).append(", value=").append(value);
+            }
+        }
+        if (outputValues != null) {
+            for (String paramName : this.outputValues.keySet()) {
+                SqlMappingItem value = this.outputValues.get(paramName);
+                sb.append(", output=").append(paramName).append(", value=").append(value);
+            }
+        }
+        if (identities != null) {
+            for (String paramName : this.identities.keySet()) {
+                SqlInputValue value = this.identities.get(paramName);
+                sb.append(", identity=").append(paramName).append(", value=").append(value);
+            }
+        }
+        if (outValues != null) {
+            for (String paramName : this.outValues.keySet()) {
+                SqlInputValue value = this.outValues.get(paramName);
+                sb.append(", outval=").append(paramName).append(", value=").append(value);
             }
         }
         sb.append(" s='").append(sql).append("'");

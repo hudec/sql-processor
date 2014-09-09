@@ -209,6 +209,36 @@ class SqlInputValue {
     }
 
     /**
+     * Creates a new instance of this entity.
+     * 
+     * @param name
+     *            the name og the attribute
+     * @param sqlInputValue
+     *            SqlInputValue instance to clone
+     * @param dynamicInputValues
+     *            the SQL statement dynamic parameters (input values)
+     */
+    SqlInputValue(String name, SqlInputValue sqlInputValue, Object dynamicInputValues) {
+        this.valueType = sqlInputValue.valueType;
+        this.caseConversion = sqlInputValue.caseConversion;
+        this.inOutMode = sqlInputValue.inOutMode;
+        this.inputValue = BeanUtils.getProperty(dynamicInputValues, name);
+        this.inputName = sqlInputValue.inputName;
+        this.parentInputValue = sqlInputValue.parentInputValue;
+        this.inputValueType = sqlInputValue.inputValueType;
+        this.likeChar = sqlInputValue.likeChar;
+        this.minLikeLength = sqlInputValue.minLikeLength;
+        this.partialLike = sqlInputValue.partialLike;
+        this.type = sqlInputValue.type;
+        this.sequence = sqlInputValue.sequence;
+        this.identitySelect = sqlInputValue.identitySelect;
+        this.identity = sqlInputValue.identity;
+        this.outValue = sqlInputValue.outValue;
+        this.replaceChars = sqlInputValue.replaceChars;
+        this.dbIdentityName = sqlInputValue.dbIdentityName;
+    }
+
+    /**
      * Bind a dynamic input value to a named query parameter.
      * 
      * @param session

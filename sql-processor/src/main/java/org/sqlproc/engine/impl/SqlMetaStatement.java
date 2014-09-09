@@ -267,6 +267,7 @@ public class SqlMetaStatement implements SqlMetaElement {
                 result.addMappedInputValues(itemResult.getMappedInputValues());
             }
         }
+        // System.out.println("\n\n" + result.toString());
         return result;
     }
 }
