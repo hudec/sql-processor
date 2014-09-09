@@ -261,7 +261,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public <E> List<E> callQuery(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return callQuery(session, resultClass, dynamicInputValues, null, 0);
+        return callQuery(session, resultClass, dynamicInputValues, new SqlStandardControl());
     }
 
     /**
@@ -420,7 +420,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public int callUpdate(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return callUpdate(session, dynamicInputValues, null, 0);
+        return callUpdate(session, dynamicInputValues, new SqlStandardControl());
     }
 
     /**
@@ -547,7 +547,7 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     public Object callFunction(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return callFunction(session, dynamicInputValues, null, 0);
+        return callFunction(session, dynamicInputValues, new SqlStandardControl());
     }
 
     /**

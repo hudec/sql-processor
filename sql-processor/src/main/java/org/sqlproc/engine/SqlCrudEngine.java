@@ -211,7 +211,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int insert(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return insert(session, dynamicInputValues, null, 0);
+        return insert(session, dynamicInputValues, new SqlStandardControl());
     }
 
     /**
@@ -221,7 +221,8 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return insert(session, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return insert(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -256,7 +257,6 @@ public class SqlCrudEngine extends SqlEngine {
         checkStaticInputValues(staticInputValues);
         return insert(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setMaxTimeout(maxTimeout));
-
     }
 
     /**
@@ -350,7 +350,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, null, 0);
+        return get(session, resultClass, dynamicInputValues, new SqlStandardControl());
     }
 
     /**
@@ -360,7 +360,9 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues) throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return get(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -371,7 +373,10 @@ public class SqlCrudEngine extends SqlEngine {
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final Map<String, Class<?>> moreResultClasses)
             throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, staticInputValues, 0, moreResultClasses);
+        checkStaticInputValues(staticInputValues);
+        return get(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues)
+                        .setMoreResultClasses(moreResultClasses));
     }
 
     /**
@@ -381,7 +386,9 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, staticInputValues, maxTimeout, null);
+        checkStaticInputValues(staticInputValues);
+        return get(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -565,7 +572,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int update(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return update(session, dynamicInputValues, null, 0);
+        return update(session, dynamicInputValues, new SqlStandardControl());
     }
 
     /**
@@ -575,7 +582,8 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return update(session, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return update(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -699,7 +707,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int delete(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return delete(session, dynamicInputValues, null, 0);
+        return delete(session, dynamicInputValues, new SqlStandardControl());
     }
 
     /**
@@ -709,7 +717,8 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return delete(session, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return delete(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
