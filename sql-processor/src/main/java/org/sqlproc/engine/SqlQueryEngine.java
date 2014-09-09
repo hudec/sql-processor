@@ -222,7 +222,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass) throws SqlProcessorException,
             SqlRuntimeException {
-        return query(session, resultClass, null, new SqlStandardControl());
+        return query(session, resultClass, null, (SqlStandardControl) null);
     }
 
     /**
@@ -232,7 +232,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return query(session, resultClass, dynamicInputValues, new SqlStandardControl());
+        return query(session, resultClass, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -546,7 +546,7 @@ public class SqlQueryEngine extends SqlEngine {
      * {@link #queryCount(SqlSession, Object, Object, SqlOrder, int)} .
      */
     public int queryCount(SqlSession session) throws SqlProcessorException, SqlRuntimeException {
-        return queryCount(session, null, new SqlStandardControl());
+        return queryCount(session, null, (SqlStandardControl) null);
     }
 
     /**
@@ -556,7 +556,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public int queryCount(SqlSession session, Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return queryCount(session, dynamicInputValues, new SqlStandardControl());
+        return queryCount(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**

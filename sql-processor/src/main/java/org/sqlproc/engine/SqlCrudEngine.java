@@ -211,7 +211,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int insert(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return insert(session, dynamicInputValues, new SqlStandardControl());
+        return insert(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -350,7 +350,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, new SqlStandardControl());
+        return get(session, resultClass, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -572,7 +572,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int update(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return update(session, dynamicInputValues, new SqlStandardControl());
+        return update(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -707,7 +707,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int delete(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return delete(session, dynamicInputValues, new SqlStandardControl());
+        return delete(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
