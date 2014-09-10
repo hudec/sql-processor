@@ -113,7 +113,7 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * @param staticInputValues
      *            the SQL statement static parameters (input values)
      */
-    SqlProcessResult(SqlProcessResult result, Object dynamicInputValues) {
+    public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues) {
         add = result.add;
         allInputValues = result.allInputValues;
         if (result.inputValues != null) {
