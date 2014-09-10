@@ -489,18 +489,18 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         StringBuilder sb = new StringBuilder("SqlProcessResult[");
         sb.append(" add=").append(add);
         if (allInputValues != null && !allInputValues.isEmpty()) {
-            sb.append(", all=").append(allInputValues.toString());
+            sb.append(", allInputValue=").append(allInputValues.toString());
         }
         if (inputValues != null && inputValues.isEmpty()) {
             for (String paramName : this.inputValues.keySet()) {
                 SqlInputValue value = this.inputValues.get(paramName);
-                sb.append(", input=").append(paramName).append(", value=").append(value);
+                sb.append(", inputValue=").append(paramName).append(", value=").append(value);
             }
         }
         if (outputValues != null) {
             for (String paramName : this.outputValues.keySet()) {
                 SqlMappingItem value = this.outputValues.get(paramName);
-                sb.append(", output=").append(paramName).append(", value=").append(value);
+                sb.append(", outputValue=").append(paramName).append(", value=").append(value);
             }
         }
         if (identities != null) {
@@ -512,12 +512,12 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         if (outValues != null) {
             for (String paramName : this.outValues.keySet()) {
                 SqlInputValue value = this.outValues.get(paramName);
-                sb.append(", outval=").append(paramName).append(", value=").append(value);
+                sb.append(", outValue=").append(paramName).append(", value=").append(value);
             }
         }
         sb.append(", sql='").append(sql).append("'");
-        sb.append(", order=").append(orderIndex);
-        sb.append(", skip=").append(skipNextText);
+        sb.append(", orderIndex=").append(orderIndex);
+        sb.append(", skipNextText=").append(skipNextText);
         sb.append(", logError=").append(logError);
         return sb.append("]").toString();
     }

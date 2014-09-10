@@ -1933,3 +1933,52 @@ INSERT_PERSON_103(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   {= values (:id(idgen=GEN2,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize) }
 ;
+
+FORM_BASIC_CACHE(QRY)=
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  {= where
+    {& p.id = :id}
+    {& p.NAME_FIRST = :name.first}
+    {& p.NAME_LAST = :name.last}
+    {& p.SSN_NUMBER = :ssn.number}
+    {& p.SSN_COUNTRY = :ssn.country}
+    {& p.BIRTHDATE = :birthDate}
+    {& p.SEX = :sex.value}
+    {& p.CREATEDDATE = :createdDate}
+    {& p.LASTUPDATEDBY = :lastUpdatedBy}
+    {& p.LASTUPDATED = :lastUpdated}
+    {& p.CREATEDBY = :createdBy}
+    {& p.VERSION = :version}
+  }
+  {#1 order by id}
+;
+FORM_BASIC_CACHE(OUT)=
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
+;
+
+FORM_BASIC_2_CACHE(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p
+  {= where
+    {& p.id = :id}
+    {& p.NAME_FIRST = :name.first}
+    {& p.NAME_LAST = :name.last}
+    {& p.SSN_NUMBER = :ssn.number}
+    {& p.SSN_COUNTRY = :ssn.country}
+    {& p.BIRTHDATE = :birthDate}
+    {& p.SEX = :sex.value}
+    {& p.CREATEDDATE = :createdDate}
+    {& p.LASTUPDATEDBY = :lastUpdatedBy}
+    {& p.LASTUPDATED = :lastUpdated}
+    {& p.CREATEDBY = :createdBy}
+    {& p.VERSION = :version}
+  }
+  {#1 order by id}
+;

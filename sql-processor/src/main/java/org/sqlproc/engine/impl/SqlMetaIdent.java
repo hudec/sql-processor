@@ -212,8 +212,9 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         SqlProcessResult result = new SqlProcessResult();
         Object obj = ctx.dynamicInputValues;
         Object parentObj = null;
-        StringBuilder s = new StringBuilder(elements.size() * 32);
-        s.append(IDENT_PREFIX);
+        StringBuilder sname = new StringBuilder(elements.size() * 32);
+        StringBuilder fname = new StringBuilder(elements.size() * 32);
+        sname.append(IDENT_PREFIX);
 
         String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
@@ -250,7 +251,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         for (String item : this.elements) {
             attributeName = item;
             if (Character.isDigit(attributeName.charAt(0))) {
-                s.append(attributeName);
+                sname.append(attributeName);
+                fname.append(attributeName);
                 if (obj != null) {
                     parentObj = obj;
                     obj = null;
@@ -269,21 +271,26 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     }
                 }
             }
-            if (count > 1)
-                s.append(IDENT_SEPARATOR);
-            s.append(attributeName);
+            if (count > 1) {
+                sname.append(IDENT_SEPARATOR);
+                fname.append(",");
+            }
+            sname.append(attributeName);
+            fname.append(attributeName);
             // if ((sequenceName != null || identitySelectName != null) && count == size)
             // break;
             if (obj != null) {
                 parentObj = obj;
                 obj = BeanUtils.getProperty(obj, item);
             }
-            if (obj == null && lastAttributeName == null)
+            if (obj == null && lastAttributeName == null) {
                 lastAttributeName = attributeName;
+            }
             count++;
         }
-        if (lastAttributeName == null)
+        if (lastAttributeName == null) {
             lastAttributeName = attributeName;
+        }
 
         String sequence = null;
         String identitySelect = null;
@@ -313,14 +320,14 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.SEQUENCE_BASED, obj, parentObj,
                     attributeType, sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID));
-            result.addInputValue(s.substring(lIDENT_PREFIX), identityInputValue);
+            result.addInputValue(sname.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
-            result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
+            result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
         } else if (identitySelect != null) {
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.IDENTITY_SELECT, obj, parentObj,
                     attributeType, identitySelect, this.sqlType, values.get(Modifiers.MODIFIER_ID));
-            result.addInputValue(s.substring(lIDENT_PREFIX), identityInputValue);
+            result.addInputValue(sname.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSkipNextText(true);
         } else {
@@ -348,11 +355,11 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                         Object objItem = iter.next();
 
                         if (objItem != null) {
-                            String attributeNameItem = s.toString() + "_" + (i++);
+                            String attributeNameItem = sname.toString() + "_" + (i++);
                             ss.append(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
                             result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(
                                     SqlInputValue.Type.PROVIDED, objItem, parentObj, objItem.getClass(),
-                                    caseConversion, inOutMode, sqlType, null));
+                                    caseConversion, inOutMode, sqlType, null, null));
                         } else
                             ss.append("null");
 
@@ -365,12 +372,12 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 }
             } else {
                 SqlInputValue sqlInputValue = new SqlInputValue(SqlInputValue.Type.PROVIDED, obj, parentObj,
-                        attributeType, caseConversion, inOutMode, sqlType, lastAttributeName);
-                result.addInputValue(s.substring(lIDENT_PREFIX), sqlInputValue);
+                        attributeType, caseConversion, inOutMode, sqlType, lastAttributeName, fname.toString());
+                result.addInputValue(sname.substring(lIDENT_PREFIX), sqlInputValue);
                 if (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT) {
                     result.addOutValue(attributeName, sqlInputValue);
                 }
-                result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : s.toString()));
+                result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
             }
         }
 

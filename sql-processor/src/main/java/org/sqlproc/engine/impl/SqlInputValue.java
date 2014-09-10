@@ -103,6 +103,10 @@ class SqlInputValue {
      */
     private String inputName;
     /**
+     * A input attribute full name.
+     */
+    private String fullInputName;
+    /**
      * A parent of a dynamic input value.
      */
     private Object parentInputValue;
@@ -169,7 +173,7 @@ class SqlInputValue {
      *            a dynamic input value META type
      */
     SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
-            Code caseConversion, Mode inOutMode, SqlType type, String inputName) {
+            Code caseConversion, Mode inOutMode, SqlType type, String inputName, String fullInputName) {
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
@@ -178,6 +182,7 @@ class SqlInputValue {
         this.inOutMode = inOutMode;
         this.type = type;
         this.inputName = inputName;
+        this.fullInputName = fullInputName;
     }
 
     /**
@@ -222,9 +227,13 @@ class SqlInputValue {
         this.valueType = sqlInputValue.valueType;
         this.caseConversion = sqlInputValue.caseConversion;
         this.inOutMode = sqlInputValue.inOutMode;
-        this.inputValue = BeanUtils.getProperty(dynamicInputValues, name);
+        String[] ss = (sqlInputValue.fullInputName != null) ? sqlInputValue.fullInputName.split(",")
+                : new String[] { sqlInputValue.inputName };
+        for (int i = 0; i < ss.length; i++) {
+            this.inputValue = BeanUtils.getProperty((i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
+        }
         this.inputName = sqlInputValue.inputName;
-        this.parentInputValue = sqlInputValue.parentInputValue;
+        this.fullInputName = sqlInputValue.fullInputName;
         this.inputValueType = sqlInputValue.inputValueType;
         this.likeChar = sqlInputValue.likeChar;
         this.minLikeLength = sqlInputValue.minLikeLength;
@@ -475,10 +484,25 @@ class SqlInputValue {
      * @return a String representation for a debug output
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder("SqlInputValue:");
-        sb.append(" caseConversion=").append(caseConversion);
-        sb.append(" value='").append(inputValue).append("'");
-
-        return sb.toString();
+        StringBuilder sb = new StringBuilder("SqlInputValue[");
+        sb.append(" valueType=").append(valueType);
+        sb.append(", caseConversion=").append(caseConversion);
+        sb.append(", inOutMode=").append(inOutMode);
+        sb.append(", inputValue=").append(inputValue);
+        sb.append(", inputName=").append(inputName);
+        sb.append(", fullInputName=").append(fullInputName);
+        sb.append(", parentInputValue=").append(parentInputValue);
+        sb.append(", inputValueType=").append(inputValueType);
+        sb.append(", likeChar=").append(likeChar);
+        sb.append(", minLikeLength=").append(minLikeLength);
+        sb.append(", partialLike=").append(partialLike);
+        sb.append(", type=").append(type);
+        sb.append(", sequence=").append(sequence);
+        sb.append(", identitySelect=").append(identitySelect);
+        sb.append(", identity=").append(identity);
+        sb.append(", outValue=").append(outValue);
+        sb.append(", replaceChars=").append((replaceChars != null) ? replaceChars : null);
+        sb.append(", dbIdentityName=").append(dbIdentityName);
+        return sb.append("]").toString();
     }
 }

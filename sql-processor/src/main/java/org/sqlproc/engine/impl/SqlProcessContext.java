@@ -334,11 +334,11 @@ public class SqlProcessContext {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder("SqlProcessContext[");
-        sb.append(" type=").append(sqlStatementType);
-        sb.append(", input=").append(dynamicInputValues);
-        sb.append(", static=").append(staticInputValues);
+        sb.append(" sqlStatementType=").append(sqlStatementType);
+        sb.append(", dynamicInputValues=").append(dynamicInputValues);
+        sb.append(", staticInputValues=").append(staticInputValues);
         sb.append(", order=").append((order != null) ? order.toString() : null);
-        sb.append(", set/insert=").append(inSqlSetOrInsert);
+        sb.append(", inSqlSetOrInsert=").append(inSqlSetOrInsert);
         return sb.append("]").toString();
     }
 }
