@@ -82,6 +82,8 @@ public class SqlStandardControl implements SqlControl {
             setMaxTimeout(sqlControl.getMaxTimeout());
             setMoreResultClasses(sqlControl.getMoreResultClasses());
             setOrder(sqlControl.getOrder());
+            setFeatures(sqlControl.getFeatures());
+            setSqlStatementId(sqlControl.getSqlStatementId());
         }
     }
 
