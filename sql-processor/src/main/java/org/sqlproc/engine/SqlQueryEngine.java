@@ -446,7 +446,7 @@ public class SqlQueryEngine extends SqlEngine {
                 public List<E> run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory, getCacheId(sqlControl));
+                            getFeatures(sqlControl), typeFactory, pluginFactory, getProcessingId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -645,7 +645,7 @@ public class SqlQueryEngine extends SqlEngine {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory, getCacheId(sqlControl));
+                            typeFactory, pluginFactory, getProcessingId(sqlControl));
                     final SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     queryCount.setLogError(processResult.isLogError());
@@ -749,7 +749,7 @@ public class SqlQueryEngine extends SqlEngine {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
                             getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
                                     .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory, getCacheId(sqlControl));
+                            typeFactory, pluginFactory, getProcessingId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     return sql;

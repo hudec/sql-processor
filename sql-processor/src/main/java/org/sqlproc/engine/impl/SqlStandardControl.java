@@ -56,14 +56,15 @@ public class SqlStandardControl implements SqlControl {
     private Map<String, Object> features = new HashMap<String, Object>();
 
     /**
-     * The unique ID of the executed statement based on input values. This ID can be used for the caching purposes to
-     * optimize the
+     * The unique ID of the executed statement based on input values combination. This ID can be used for the caching
+     * purposes to optimize the
      * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
      * 
-     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
-     * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
+     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values
+     * combination. This ID is an indicator of the uniqueness these input values. For more info please see the
+     * tutorials.
      */
-    private String sqlStatementId;
+    private String processingId;
 
     /**
      * Standard constructor.
@@ -83,7 +84,7 @@ public class SqlStandardControl implements SqlControl {
             setMoreResultClasses(sqlControl.getMoreResultClasses());
             setOrder(sqlControl.getOrder());
             setFeatures(sqlControl.getFeatures());
-            setSqlStatementId(sqlControl.getSqlStatementId());
+            setProcessingId(sqlControl.getProcessingId());
         }
     }
 
@@ -289,32 +290,26 @@ public class SqlStandardControl implements SqlControl {
     }
 
     /**
-     * Returns the unique ID of the executed statement based on input values. This ID can be used for the caching
-     * purposes to optimize the
-     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
-     * 
-     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
-     * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
-     * 
-     * @return the unique ID of the executed statement based on input values
+     * {@inheritDoc}
      */
-    public String getSqlStatementId() {
-        return sqlStatementId;
+    @Override
+    public String getProcessingId() {
+        return processingId;
     }
 
     /**
-     * Sets the unique ID of the executed statement based on input values. This ID can be used for the caching purposes
-     * to optimize the
+     * Sets the unique ID of the executed statement based on input values combination. This ID can be used for the
+     * caching purposes to optimize the
      * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
      * 
      * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
      * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
      * 
      * @param sqlStatementId
-     *            the unique ID of the executed statement based on input values
+     *            the unique ID of the executed statement based on input values combination
      */
-    public SqlStandardControl setSqlStatementId(String sqlStatementId) {
-        this.sqlStatementId = sqlStatementId;
+    public SqlStandardControl setProcessingId(String processingId) {
+        this.processingId = processingId;
         return this;
     }
 
@@ -325,7 +320,7 @@ public class SqlStandardControl implements SqlControl {
     public String toString() {
         return "SqlStandardControl [staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
                 + ", firstResult=" + firstResult + ", maxResults=" + maxResults + ", order=" + order
-                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + ", sqlStatementId="
-                + sqlStatementId + "]";
+                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + ", processingId="
+                + processingId + "]";
     }
 }

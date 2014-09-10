@@ -296,7 +296,7 @@ public class SqlCrudEngine extends SqlEngine {
                 public Integer run() {
                     final SqlProcessResult processResult = process(SqlMetaStatement.Type.CREATE, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory, getCacheId(sqlControl));
+                            pluginFactory, getProcessingId(sqlControl));
                     processResult.validate(validator);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
@@ -481,7 +481,7 @@ public class SqlCrudEngine extends SqlEngine {
                 public E run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.RETRIEVE, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory, getCacheId(sqlControl));
+                            pluginFactory, getProcessingId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -659,7 +659,7 @@ public class SqlCrudEngine extends SqlEngine {
                 public Integer run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.UPDATE, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory, getCacheId(sqlControl));
+                            pluginFactory, getProcessingId(sqlControl));
                     processResult.validate(validator);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
@@ -790,7 +790,7 @@ public class SqlCrudEngine extends SqlEngine {
                 public Integer run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.DELETE, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory, getCacheId(sqlControl));
+                            pluginFactory, getProcessingId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -931,7 +931,7 @@ public class SqlCrudEngine extends SqlEngine {
                 public String run() {
                     SqlProcessResult processResult = process(statementType, dynamicInputValues,
                             getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory, getCacheId(sqlControl));
+                            pluginFactory, getProcessingId(sqlControl));
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     return sql;

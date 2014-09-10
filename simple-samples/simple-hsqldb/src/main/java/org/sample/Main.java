@@ -124,8 +124,7 @@ public class Main {
         person.setDateOfBirth(age);
         count = personDao.update(person);
         Assert.assertEquals(1, count);
-        p = personDao.get(new Person()._setId(andrej.getId()),
-                new SqlStandardControl().setSqlStatementId("PersonGetId"));
+        p = personDao.get(new Person()._setId(andrej.getId()), new SqlStandardControl().setProcessingId("PersonGetId"));
         if (dynamic)
             Assert.assertNull(p.getDateOfBirth());
         else
@@ -134,7 +133,7 @@ public class Main {
         // get & update person with null values
         person = new Person();
         person.setId(andrej.getId());
-        p = personDao.get(person, new SqlStandardControl().setSqlStatementId("PersonGetId"));
+        p = personDao.get(person, new SqlStandardControl().setProcessingId("PersonGetId"));
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
@@ -153,7 +152,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setInit(Person.Association.contacts);
-        p = personDao.get(person, new SqlStandardControl().setSqlStatementId("PersonGetIdAndContacts"));
+        p = personDao.get(person, new SqlStandardControl().setProcessingId("PersonGetIdAndContacts"));
         Assert.assertNotNull(p);
         Assert.assertEquals("Andriosa", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());

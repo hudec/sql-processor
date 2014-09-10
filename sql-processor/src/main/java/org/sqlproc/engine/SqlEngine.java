@@ -260,13 +260,13 @@ public abstract class SqlEngine {
      * 
      * @param sqlControl
      *            the compound parameters controlling the META SQL execution
-     * @return the unique ID of the executed statement based on the input values
+     * @return the unique ID of the executed statement based on the input values combination
      */
-    String getCacheId(SqlControl sqlControl) {
+    String getProcessingId(SqlControl sqlControl) {
         if (sqlControl == null)
             return null;
         else
-            return sqlControl.getSqlStatementId();
+            return sqlControl.getProcessingId();
     }
 
     /**
@@ -356,22 +356,22 @@ public abstract class SqlEngine {
      *            the factory for the META types construction
      * @param pluginFactory
      *            the factory for the SQL Processor plugins
-     * @param cacheId
-     *            the optional unique ID of the executed statement based on the input values
+     * @param processingId
+     *            the optional unique ID of the executed statement based on the input values combination
      * @return the crate for ANSI SQL and other attributes, which control the SQL statement itself
      */
     protected SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
             List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
-            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory, String cacheId) {
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory, String processingId) {
         SqlProcessResult processResult = null;
-        if (cacheId != null && staticInputValues == null)
-            processResult = processingCache.get(cacheId);
+        if (processingId != null && staticInputValues == null)
+            processResult = processingCache.get(processingId);
         if (processResult != null)
             return new SqlProcessResult(processResult, dynamicInputValues);
         processResult = statement.process(sqlStatementType, dynamicInputValues, staticInputValues, order, features,
                 runtimeFeatures, typeFactory, pluginFactory);
-        if (cacheId != null)
-            processingCache.put(cacheId, processResult);
+        if (processingId != null)
+            processingCache.put(processingId, processResult);
         return processResult;
 
     }

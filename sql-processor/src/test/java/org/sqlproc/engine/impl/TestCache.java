@@ -40,8 +40,10 @@ public class TestCache extends TestDatabase {
         }
         pf.setVersion(1L);
 
-        String sql = sqlEngine.getSql(pf, new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER)
-                .setSqlStatementId(ID_FIRST_NAME_SEX_LAST_UPDATED_VERSION));
+        String sql = sqlEngine.getSql(
+                pf,
+                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setProcessingId(
+                        ID_FIRST_NAME_SEX_LAST_UPDATED_VERSION));
         logger.info(sql);
         assertContains(sql, "p.id =");
         assertContains(sql, "AND  p.NAME_FIRST =");
@@ -54,7 +56,7 @@ public class TestCache extends TestDatabase {
                 session,
                 Person.class,
                 pf,
-                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setSqlStatementId(
+                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setProcessingId(
                         ID_FIRST_NAME_SEX_LAST_UPDATED_VERSION));
 
         assertEquals(1, list.size());
@@ -92,7 +94,7 @@ public class TestCache extends TestDatabase {
 
         sql = sqlEngine.getSql(
                 pf,
-                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setSqlStatementId(
+                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setProcessingId(
                         ID_FIRST_LAST_SSN_NAME_SEX_LAST_UPDATED_VERSION));
         logger.info(sql);
         assertContains(sql, "p.id =");
@@ -105,7 +107,7 @@ public class TestCache extends TestDatabase {
         assertContains(sql, "order by id ASC");
 
         list = sqlEngine.query(session, Person.class, pf, new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER)
-                .setSqlStatementId(ID_FIRST_LAST_SSN_NAME_SEX_LAST_UPDATED_VERSION));
+                .setProcessingId(ID_FIRST_LAST_SSN_NAME_SEX_LAST_UPDATED_VERSION));
 
         assertEquals(1, list.size());
         p = list.get(0);
@@ -143,8 +145,10 @@ public class TestCache extends TestDatabase {
         }
         pf.setVersion(1L);
 
-        String sql = sqlEngine.getSql(pf, new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER)
-                .setSqlStatementId(ID_FIRST_NAME_SEX_LAST_UPDATED_VERSION));
+        String sql = sqlEngine.getSql(
+                pf,
+                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setProcessingId(
+                        ID_FIRST_NAME_SEX_LAST_UPDATED_VERSION));
         logger.info(sql);
         assertContains(sql, "p.id =");
         assertContains(sql, "AND  p.NAME_FIRST =");
@@ -157,7 +161,7 @@ public class TestCache extends TestDatabase {
                 session,
                 Person.class,
                 pf,
-                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setSqlStatementId(
+                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setProcessingId(
                         ID_FIRST_NAME_SEX_LAST_UPDATED_VERSION));
 
         assertEquals(1, list.size());
@@ -195,7 +199,7 @@ public class TestCache extends TestDatabase {
 
         sql = sqlEngine.getSql(
                 pf,
-                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setSqlStatementId(
+                new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER).setProcessingId(
                         ID_FIRST_LAST_SSN_NAME_SEX_LAST_UPDATED_VERSION));
         logger.info(sql);
         assertContains(sql, "p.id =");
@@ -208,7 +212,7 @@ public class TestCache extends TestDatabase {
         assertContains(sql, "order by id ASC");
 
         list = sqlEngine.query(session, Person.class, pf, new SqlStandardControl().setOrder(SqlQueryEngine.ASC_ORDER)
-                .setSqlStatementId(ID_FIRST_LAST_SSN_NAME_SEX_LAST_UPDATED_VERSION));
+                .setProcessingId(ID_FIRST_LAST_SSN_NAME_SEX_LAST_UPDATED_VERSION));
 
         assertEquals(1, list.size());
         p = list.get(0);
