@@ -218,4 +218,17 @@ public class SqlOrder {
     public List<SqlOrder> getOrders() {
         return orders;
     }
+
+    /**
+     * For debug purposes.
+     * 
+     * @return a String representation for a debug output
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder("SqlOrder[");
+        sb.append("id=").append(orderId);
+        sb.append(", direction=").append(orderDirection);
+        sb.append(", orders=").append((orders != null) ? orders.toString() : null);
+        return sb.append("]").toString();
+    }
 }

@@ -168,6 +168,15 @@ public class SqlProcessContext {
     }
 
     /**
+     * Returns the list of ordering directives.
+     * 
+     * @return the list of ordering directives
+     */
+    public List<SqlOrder> getOrder() {
+        return order;
+    }
+
+    /**
      * Convenient method to obtain the index of the ordering directive.
      * 
      * @param orderId
@@ -316,5 +325,20 @@ public class SqlProcessContext {
      */
     static void nullPluginFactory() {
         currentPluginFactory.set(null);
+    }
+
+    /**
+     * For debug purposes.
+     * 
+     * @return a String representation for a debug output
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder("SqlProcessContext[");
+        sb.append(" type=").append(sqlStatementType);
+        sb.append(", input=").append(dynamicInputValues);
+        sb.append(", static=").append(staticInputValues);
+        sb.append(", order=").append((order != null) ? order.toString() : null);
+        sb.append(", set/insert=").append(inSqlSetOrInsert);
+        return sb.append("]").toString();
     }
 }

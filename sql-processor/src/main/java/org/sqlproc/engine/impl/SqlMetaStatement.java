@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlOrder;
+import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -251,6 +252,13 @@ public class SqlMetaStatement implements SqlMetaElement {
                 }
             } else {
                 result.addFalse();
+            }
+        }
+        if (ctx.getOrder() != null && !ctx.getOrder().isEmpty() && orderByResult.isEmpty()) {
+            if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
+                logger.error("There's no order statement for " + ctx.getOrder().toString());
+            } else {
+                throw new SqlRuntimeException("There's no order statement for " + ctx.getOrder().toString());
             }
         }
         if (!orderByResult.isEmpty()) {

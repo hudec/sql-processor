@@ -443,45 +443,6 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
     }
 
     /**
-     * For debug purposes.
-     * 
-     * @return a String representation for a debug output
-     */
-    public String toString() {
-        StringBuilder sb = new StringBuilder("SqlProcessResult:");
-        sb.append(" add=").append(add);
-        if (allInputValues != null)
-            sb.append(", all=").append(allInputValues.toString());
-        if (inputValues != null) {
-            for (String paramName : this.inputValues.keySet()) {
-                SqlInputValue value = this.inputValues.get(paramName);
-                sb.append(", input=").append(paramName).append(", value=").append(value);
-            }
-        }
-        if (outputValues != null) {
-            for (String paramName : this.outputValues.keySet()) {
-                SqlMappingItem value = this.outputValues.get(paramName);
-                sb.append(", output=").append(paramName).append(", value=").append(value);
-            }
-        }
-        if (identities != null) {
-            for (String paramName : this.identities.keySet()) {
-                SqlInputValue value = this.identities.get(paramName);
-                sb.append(", identity=").append(paramName).append(", value=").append(value);
-            }
-        }
-        if (outValues != null) {
-            for (String paramName : this.outValues.keySet()) {
-                SqlInputValue value = this.outValues.get(paramName);
-                sb.append(", outval=").append(paramName).append(", value=").append(value);
-            }
-        }
-        sb.append(" s='").append(sql).append("'");
-
-        return sb.toString();
-    }
-
-    /**
      * In case there're several ordering rules in the final generated ANSI SQL, they should be ordered.
      * 
      * {@inheritDoc}
@@ -517,5 +478,47 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         SqlValidationResult result = validator.finish(validatorContext);
         if (result != null)
             throw new SqlValidationException(result);
+    }
+
+    /**
+     * For debug purposes.
+     * 
+     * @return a String representation for a debug output
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder("SqlProcessResult[");
+        sb.append(" add=").append(add);
+        if (allInputValues != null && !allInputValues.isEmpty()) {
+            sb.append(", all=").append(allInputValues.toString());
+        }
+        if (inputValues != null && inputValues.isEmpty()) {
+            for (String paramName : this.inputValues.keySet()) {
+                SqlInputValue value = this.inputValues.get(paramName);
+                sb.append(", input=").append(paramName).append(", value=").append(value);
+            }
+        }
+        if (outputValues != null) {
+            for (String paramName : this.outputValues.keySet()) {
+                SqlMappingItem value = this.outputValues.get(paramName);
+                sb.append(", output=").append(paramName).append(", value=").append(value);
+            }
+        }
+        if (identities != null) {
+            for (String paramName : this.identities.keySet()) {
+                SqlInputValue value = this.identities.get(paramName);
+                sb.append(", identity=").append(paramName).append(", value=").append(value);
+            }
+        }
+        if (outValues != null) {
+            for (String paramName : this.outValues.keySet()) {
+                SqlInputValue value = this.outValues.get(paramName);
+                sb.append(", outval=").append(paramName).append(", value=").append(value);
+            }
+        }
+        sb.append(", sql='").append(sql).append("'");
+        sb.append(", order=").append(orderIndex);
+        sb.append(", skip=").append(skipNextText);
+        sb.append(", logError=").append(logError);
+        return sb.append("]").toString();
     }
 }
