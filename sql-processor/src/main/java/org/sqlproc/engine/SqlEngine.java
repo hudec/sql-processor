@@ -14,6 +14,7 @@ import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlMetaStatement.Type;
+import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
@@ -366,8 +367,10 @@ public abstract class SqlEngine {
         SqlProcessResult processResult = null;
         if (processingId != null && staticInputValues == null)
             processResult = processingCache.get(processingId);
-        if (processResult != null)
+        if (processResult != null) {
+            SqlProcessContext.ctxLocalThread(features, runtimeFeatures, typeFactory, pluginFactory);
             return new SqlProcessResult(processResult, dynamicInputValues);
+        }
         processResult = statement.process(sqlStatementType, dynamicInputValues, staticInputValues, order, features,
                 runtimeFeatures, typeFactory, pluginFactory);
         if (processingId != null)

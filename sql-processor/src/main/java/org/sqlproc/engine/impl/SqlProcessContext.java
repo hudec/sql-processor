@@ -84,6 +84,23 @@ public class SqlProcessContext {
         this.dynamicInputValues = dynamicInputValues;
         this.staticInputValues = staticInputValues;
         this.order = order;
+        ctxLocalThread(features, runtimeFeatures, typeFactory, pluginFactory);
+    }
+
+    /**
+     * Initializes context local thread variables.
+     * 
+     * @param features
+     *            the optional features in the statement/global scope
+     * @param runtimeFeatures
+     *            the optional features in the statement's exection scope
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     */
+    public static void ctxLocalThread(Map<String, Object> features, Map<String, Object> runtimeFeatures,
+            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
         setFeatures(features, runtimeFeatures);
         setTypeFactory(typeFactory);
         setPluginFactory(pluginFactory);
