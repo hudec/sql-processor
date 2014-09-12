@@ -137,8 +137,6 @@ public interface SqlQuery {
      * Executes the statements in the stored function, which return value of any type but the result set. It's based on
      * the CallableStatement invocation.
      * 
-     * @param runtime
-     *            the public runtime context
      * @return the result of the stored function invocation
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack

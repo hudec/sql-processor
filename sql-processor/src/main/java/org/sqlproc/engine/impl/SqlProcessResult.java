@@ -121,8 +121,10 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * 
      * @param result
      *            SqlProcessResult instance to clone
-     * @param ctx
-     *            the crate for all input parameters and the context of processing
+     * @param dynamicInputValues
+     *            the SQL statement dynamic parameters (input values)
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
      */
     public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues, SqlControl sqlControl) {
         this.ctx = new SqlProcessContext(result.ctx, dynamicInputValues, sqlControl);

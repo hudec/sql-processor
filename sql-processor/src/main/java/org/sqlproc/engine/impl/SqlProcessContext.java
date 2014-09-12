@@ -15,7 +15,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The crate (design pattern) for all input parameters for the
- * {@link SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, List, Map, Map, SqlTypeFactory, SqlPluginFactory)}
+ * {@link SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, SqlControl, SqlEngine)}
  * 
  * Also can work as a context for a dynamic ANSI SQL query generation. This processing is based on the contract
  * {@link SqlMetaElement#process(SqlProcessContext)}.

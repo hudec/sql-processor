@@ -129,9 +129,6 @@ public class SqlMappingResult {
     /**
      * Calculates all identities related information. They are used to prevent the repeated rows in the output result
      * set. This is used for the associations (one-to-one, one-to-many and many-to-many).
-     * 
-     * @param ctx
-     *            the crate for all input parameters and the context of processing
      */
     void calculateIdentities() {
         int identityIndex = 0;
@@ -286,8 +283,6 @@ public class SqlMappingResult {
      * Merge mapping rule for one META SQL query based on SqlMapping.g and SqlStatement.g. The external mapping rule has
      * the higher priority. The internal mapping rule holds the list of real output values.
      * 
-     * @param ctx
-     *            the crate for all input parameters and the context of processing
      * @param mapping
      *            mapping rule based on SqlMapping.g or the empty one
      * @param outputMappings

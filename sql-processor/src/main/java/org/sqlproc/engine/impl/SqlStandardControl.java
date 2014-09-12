@@ -58,7 +58,7 @@ public class SqlStandardControl implements SqlControl {
     /**
      * The unique ID of the executed statement based on input values combination. This ID can be used for the caching
      * purposes to optimize the
-     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, SqlControl, org.sqlproc.engine.SqlEngine)}
      * 
      * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values
      * combination. This ID is an indicator of the uniqueness these input values. For more info please see the
@@ -300,7 +300,7 @@ public class SqlStandardControl implements SqlControl {
     /**
      * Sets the unique ID of the executed statement based on input values combination. This ID can be used for the
      * caching purposes to optimize the
-     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, Object, java.util.List, Map, Map, org.sqlproc.engine.type.SqlTypeFactory, org.sqlproc.engine.plugin.SqlPluginFactory)}
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, SqlControl, org.sqlproc.engine.SqlEngine)}
      * 
      * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
      * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
