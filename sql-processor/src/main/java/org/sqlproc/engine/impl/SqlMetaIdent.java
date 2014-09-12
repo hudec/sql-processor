@@ -209,7 +209,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     + sqlType);
         }
 
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         Object obj = ctx.dynamicInputValues;
         Object parentObj = null;
         StringBuilder sname = new StringBuilder(elements.size() * 32);
@@ -219,8 +219,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
         String identityGenerator = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_GENERATOR);
-        String identityGeneratorValue = (identityGenerator != null) ? SqlProcessContext.getFeature("IDGEN_"
-                + identityGenerator) : null;
+        String identityGeneratorValue = (identityGenerator != null) ? ctx.getFeature("IDGEN_" + identityGenerator)
+                : null;
         if (identityGeneratorValue != null) {
             int ix = identityGeneratorValue.indexOf("=");
             if (ix >= 0) {
@@ -263,7 +263,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 Class<?> origAttributeType = attributeType;
                 attributeType = BeanUtils.getFieldType(attributeType, attributeName);
                 if (attributeType == null) {
-                    if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
+                    if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
                         logger.error("There's no attribute '" + attributeName + "' for " + origAttributeType);
                     } else {
                         throw new SqlRuntimeException("There's no attribute '" + attributeName + "' for "
@@ -295,22 +295,21 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         String sequence = null;
         String identitySelect = null;
         if (identityGenerator != null) {
-            identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
-                    .identitySelect(identityGenerator, attributeType);
+            identitySelect = ctx.getPluginFactory().getSqlIdentityPlugin()
+                    .identitySelect(ctx, identityGenerator, attributeType);
             if (identitySelect == null)
-                sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin()
-                        .sequenceSelect(identityGenerator);
+                sequence = ctx.getPluginFactory().getSqlSequencePlugin().sequenceSelect(ctx, identityGenerator);
             if (sequence == null && identitySelect == null) {
                 throw new SqlRuntimeException("Missing identity generator " + identityGenerator);
             }
         } else if (sequenceName != null) {
-            sequence = SqlProcessContext.getPluginFactory().getSqlSequencePlugin().sequenceSelect(sequenceName);
+            sequence = ctx.getPluginFactory().getSqlSequencePlugin().sequenceSelect(ctx, sequenceName);
             if (sequence == null) {
                 throw new SqlRuntimeException("Missing sequence " + sequenceName);
             }
         } else if (identitySelectName != null) {
-            identitySelect = SqlProcessContext.getPluginFactory().getSqlIdentityPlugin()
-                    .identitySelect(identitySelectName, attributeType);
+            identitySelect = ctx.getPluginFactory().getSqlIdentityPlugin()
+                    .identitySelect(ctx, identitySelectName, attributeType);
             if (identitySelect == null) {
                 throw new SqlRuntimeException("Missing identity select " + identitySelectName);
             }
@@ -318,28 +317,27 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
 
         if (sequence != null) {
             result.add(true);
-            SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.SEQUENCE_BASED, obj, parentObj,
-                    attributeType, sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID));
+            SqlInputValue identityInputValue = new SqlInputValue(ctx, SqlInputValue.Type.SEQUENCE_BASED, obj,
+                    parentObj, attributeType, sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID));
             result.addInputValue(sname.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
-            result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
+            result.setSql(new StringBuilder(ctx.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
         } else if (identitySelect != null) {
             result.add(true);
-            SqlInputValue identityInputValue = new SqlInputValue(SqlInputValue.Type.IDENTITY_SELECT, obj, parentObj,
-                    attributeType, identitySelect, this.sqlType, values.get(Modifiers.MODIFIER_ID));
+            SqlInputValue identityInputValue = new SqlInputValue(ctx, SqlInputValue.Type.IDENTITY_SELECT, obj,
+                    parentObj, attributeType, identitySelect, this.sqlType, values.get(Modifiers.MODIFIER_ID));
             result.addInputValue(sname.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSkipNextText(true);
         } else {
             try {
-                result.add(SqlProcessContext
+                result.add(ctx
                         .getPluginFactory()
                         .getIsEmptyPlugin()
-                        .isNotEmpty(lastAttributeName, obj, parentObj,
-                                (sqlType == null) ? null : sqlType.getMetaType(),
+                        .isNotEmpty(ctx, lastAttributeName, obj, parentObj,
+                                (sqlType == null) ? null : sqlType.getMetaType(ctx),
                                 (sqlType == null) ? null : sqlType.getValue(),
-                                ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL, values,
-                                SqlProcessContext.getFeatures()));
+                                ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL, values));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
             }
@@ -356,8 +354,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
 
                         if (objItem != null) {
                             String attributeNameItem = sname.toString() + "_" + (i++);
-                            ss.append(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
-                            result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(
+                            ss.append(ctx.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
+                            result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(ctx,
                                     SqlInputValue.Type.PROVIDED, objItem, parentObj, objItem.getClass(),
                                     caseConversion, inOutMode, sqlType, null, null));
                         } else
@@ -371,13 +369,13 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     result.setSql(ss);
                 }
             } else {
-                SqlInputValue sqlInputValue = new SqlInputValue(SqlInputValue.Type.PROVIDED, obj, parentObj,
+                SqlInputValue sqlInputValue = new SqlInputValue(ctx, SqlInputValue.Type.PROVIDED, obj, parentObj,
                         attributeType, caseConversion, inOutMode, sqlType, lastAttributeName, fname.toString());
                 result.addInputValue(sname.substring(lIDENT_PREFIX), sqlInputValue);
                 if (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT) {
                     result.addOutValue(attributeName, sqlInputValue);
                 }
-                result.setSql(new StringBuilder(SqlProcessContext.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
+                result.setSql(new StringBuilder(ctx.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
             }
         }
 
@@ -407,11 +405,11 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             }
         }
 
-        boolean result = SqlProcessContext
+        boolean result = ctx
                 .getPluginFactory()
                 .getIsTruePlugin()
-                .isTrue(attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(),
-                        (sqlType == null) ? null : sqlType.getValue(), values, SqlProcessContext.getFeatures());
+                .isTrue(ctx, attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(ctx),
+                        (sqlType == null) ? null : sqlType.getValue(), values);
         return (this.not ? !result : result);
     }
 }

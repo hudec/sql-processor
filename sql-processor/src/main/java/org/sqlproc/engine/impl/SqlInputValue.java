@@ -83,6 +83,10 @@ class SqlInputValue {
     };
 
     /**
+     * the crate for all input parameters and the context of processing.
+     */
+    private SqlProcessContext ctx;
+    /**
      * The type of the input value, please see {@link Type}.
      */
     private Type valueType;
@@ -159,6 +163,8 @@ class SqlInputValue {
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param valueType
      *            a value type
      * @param inputValue
@@ -172,8 +178,10 @@ class SqlInputValue {
      * @param type
      *            a dynamic input value META type
      */
-    SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
-            Code caseConversion, Mode inOutMode, SqlType type, String inputName, String fullInputName) {
+    SqlInputValue(SqlProcessContext ctx, Type valueType, Object inputValue, Object parentInputValue,
+            Class<?> inputValueType, Code caseConversion, Mode inOutMode, SqlType type, String inputName,
+            String fullInputName) {
+        this.ctx = ctx;
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
@@ -188,6 +196,8 @@ class SqlInputValue {
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param valueType
      *            a value type
      * @param inputValue
@@ -199,8 +209,9 @@ class SqlInputValue {
      * @param type
      *            a dynamic input value META type
      */
-    SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
-            String sequenceOrIdentitySelect, SqlType type, String dbIdentityName) {
+    SqlInputValue(SqlProcessContext ctx, Type valueType, Object inputValue, Object parentInputValue,
+            Class<?> inputValueType, String sequenceOrIdentitySelect, SqlType type, String dbIdentityName) {
+        this.ctx = ctx;
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
@@ -216,6 +227,8 @@ class SqlInputValue {
     /**
      * Creates a new instance of this entity.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param name
      *            the name og the attribute
      * @param sqlInputValue
@@ -223,7 +236,8 @@ class SqlInputValue {
      * @param dynamicInputValues
      *            the SQL statement dynamic parameters (input values)
      */
-    SqlInputValue(String name, SqlInputValue sqlInputValue, Object dynamicInputValues) {
+    SqlInputValue(SqlProcessContext ctx, String name, SqlInputValue sqlInputValue, Object dynamicInputValues) {
+        this.ctx = ctx;
         this.valueType = sqlInputValue.valueType;
         this.caseConversion = sqlInputValue.caseConversion;
         this.inOutMode = sqlInputValue.inOutMode;
@@ -262,11 +276,11 @@ class SqlInputValue {
     void setQueryParam(final SqlSession session, SqlQuery query, String paramName) throws SqlRuntimeException {
         if (sequence != null) {
             SqlQuery seqQuery = session.createSqlQuery(sequence);
-            SqlProcessContext.getTypeFactory().getDefaultType().addScalar(seqQuery, "1", inputValueType);
+            ctx.getTypeFactory().getDefaultType().addScalar(seqQuery, "1", inputValueType);
             identity = seqQuery.unique();
-            type.setParameter(query, paramName, identity, inputValueType);
+            type.setParameter(ctx, query, paramName, identity, inputValueType);
         } else if (identitySelect != null) {
-            SqlProcessContext.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {
+            ctx.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {
                 @Override
                 public void setIdentity(Object identity) {
                     if (identity != null && identity instanceof BigDecimal)
@@ -281,7 +295,7 @@ class SqlInputValue {
                 public String getIdentitySelect() {
                     return SqlInputValue.this.identitySelect;
                 }
-            }, inputValueType, SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN));
+            }, inputValueType, ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN));
         } else if (inOutMode == Mode.IN || inOutMode == Mode.INOUT) {
             Object o = this.inputValue;
             if (inputValue instanceof String) {
@@ -293,9 +307,9 @@ class SqlInputValue {
                     o = inputValue != null ? processReplaceChars(processLike(inputValue)).toUpperCase() : (String) null;
                 }
             }
-            type.setParameter(query, paramName, o, inputValueType);
+            type.setParameter(ctx, query, paramName, o, inputValueType);
             if (inOutMode == Mode.INOUT) {
-                type.setParameter(query, paramName, new OutValueSetter() {
+                type.setParameter(ctx, query, paramName, new OutValueSetter() {
                     @Override
                     public void setOutValue(Object outValue) {
                         SqlInputValue.this.outValue = outValue;
@@ -303,7 +317,7 @@ class SqlInputValue {
                 }, inputValueType);
             }
         } else if (inOutMode == Mode.OUT) {
-            type.setParameter(query, paramName, new OutValueSetter() {
+            type.setParameter(ctx, query, paramName, new OutValueSetter() {
                 @Override
                 public void setOutValue(Object outValue) {
                     SqlInputValue.this.outValue = outValue;
@@ -321,7 +335,7 @@ class SqlInputValue {
      *             in the case of any problem with output values handling
      */
     void setIdentityResult(String paramName) throws SqlRuntimeException {
-        type.setResult(parentInputValue, paramName, identity);
+        type.setResult(ctx, parentInputValue, paramName, identity);
     }
 
     /**
@@ -335,7 +349,7 @@ class SqlInputValue {
     void setOutValueResult(String paramName) throws SqlRuntimeException {
         if (Character.isDigit(paramName.charAt(0)))
             return;
-        type.setResult(parentInputValue, paramName, outValue);
+        type.setResult(ctx, parentInputValue, paramName, outValue);
     }
 
     /**

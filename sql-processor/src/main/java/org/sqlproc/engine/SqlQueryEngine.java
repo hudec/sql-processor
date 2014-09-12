@@ -9,7 +9,6 @@ import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
-import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.impl.SqlUtils;
@@ -445,8 +444,7 @@ public class SqlQueryEngine extends SqlEngine {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory, getProcessingId(sqlControl));
+                            sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -643,14 +641,11 @@ public class SqlQueryEngine extends SqlEngine {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory, getProcessingId(sqlControl));
+                            sqlControl);
                     final SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     queryCount.setLogError(processResult.isLogError());
-                    SqlProcessContext.getTypeFactory().getDefaultType()
-                            .addScalar(queryCount, "vysledek", Integer.class);
+                    typeFactory.getDefaultType().addScalar(queryCount, "vysledek", Integer.class);
                     if (getMaxTimeout(sqlControl) > 0)
                         queryCount.setTimeout(getMaxTimeout(sqlControl));
                     queryCount.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
@@ -747,9 +742,7 @@ public class SqlQueryEngine extends SqlEngine {
 
                 public String run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory, getProcessingId(sqlControl));
+                            sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     return sql;

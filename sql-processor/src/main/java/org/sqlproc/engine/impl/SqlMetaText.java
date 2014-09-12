@@ -46,6 +46,6 @@ class SqlMetaText implements SqlMetaSimple {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        return new SqlProcessResult(sql);
+        return new SqlProcessResult(ctx, sql);
     }
 }

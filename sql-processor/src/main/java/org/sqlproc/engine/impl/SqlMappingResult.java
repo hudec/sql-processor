@@ -34,11 +34,14 @@ public class SqlMappingResult {
     final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
+     * The crate for all input parameters and the context of processing.
+     */
+    private SqlProcessContext ctx;
+    /**
      * All sub-elements based on ANTLR grammar defined in SqlMapping.g or SqlStatement.g. Every sub-element is one
      * Mapping item.
      */
     private Map<String, SqlMappingItem> mappings;
-
     /**
      * The collection of identities related to all output columns.
      */
@@ -55,12 +58,15 @@ public class SqlMappingResult {
     /**
      * Creates a new instance. This instances is based on the merging of an explicit and an implicit mapping rules.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param mapping
      *            mapping rule based on SqlMapping.g or the empty one
      * @param outputMappings
      *            mapping rule items based on SqlStatement.g
      */
-    SqlMappingResult(SqlMappingRule mapping, Map<String, SqlMappingItem> outputMappings) {
+    SqlMappingResult(SqlProcessContext ctx, SqlMappingRule mapping, Map<String, SqlMappingItem> outputMappings) {
+        this.ctx = ctx;
         mappings = new LinkedHashMap<String, SqlMappingItem>();
         identities = new LinkedHashMap<String, SqlMappingIdentity>();
         identitiesIndexes = new ArrayList<Integer>();
@@ -113,11 +119,14 @@ public class SqlMappingResult {
     /**
      * Calculates all identities related information. They are used to prevent the repeated rows in the output result
      * set. This is used for the associations (one-to-one, one-to-many and many-to-many).
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      */
     void calculateIdentities() {
         int identityIndex = 0;
         for (SqlMappingItem item : mappings.values()) {
-            if (item.isIdentity()) {
+            if (item.isIdentity(ctx)) {
                 identitiesIndexes.add(identityIndex);
                 if (item.getName().equals(item.getFullName())) {
                     SqlMappingIdentity ident = identities.get(item.getName());
@@ -150,7 +159,7 @@ public class SqlMappingResult {
         if (identitiesIndexes.isEmpty())
             return;
         for (SqlMappingItem item : mappings.values()) {
-            if (!item.isIdentity()) {
+            if (!item.isIdentity(ctx)) {
                 if (item.getAttributes().isEmpty()) {
                     SqlMappingIdentity ident = identities.get(item.getName());
                     ident.addIdentityIndex(mainIdentityIndex, true);
@@ -226,7 +235,7 @@ public class SqlMappingResult {
     public void setQueryResultMapping(Class<?> resultClass, Map<String, Class<?>> moreResultClasses, SqlQuery query)
             throws SqlRuntimeException {
         for (SqlMappingItem item : mappings.values()) {
-            item.setQueryResultMapping(resultClass, moreResultClasses, query);
+            item.setQueryResultMapping(ctx, resultClass, moreResultClasses, query);
         }
     }
 
@@ -251,7 +260,8 @@ public class SqlMappingResult {
         Map<String, Object> idsProcessed = new HashMap<String, Object>();
 
         for (SqlMappingItem item : mappings.values()) {
-            item.setQueryResultData(resultInstance, i, resultValues, ids, idsProcessed, identities, moreResultClasses);
+            item.setQueryResultData(ctx, resultInstance, i, resultValues, ids, idsProcessed, identities,
+                    moreResultClasses);
             i++;
         }
 
@@ -266,6 +276,8 @@ public class SqlMappingResult {
      * Merge mapping rule for one META SQL query based on SqlMapping.g and SqlStatement.g. The external mapping rule has
      * the higher priority. The internal mapping rule holds the list of real output values.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param mapping
      *            mapping rule based on SqlMapping.g or the empty one
      * @param outputMappings
