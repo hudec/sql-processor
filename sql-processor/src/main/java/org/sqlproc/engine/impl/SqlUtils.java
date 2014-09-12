@@ -30,10 +30,10 @@ public class SqlUtils {
 
     // enums
 
-    public static Object getEnumToValue(SqlRuntimeContext runtime, Object obj) {
+    public static Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object obj) {
         if (obj == null)
             return null;
-        for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
             try {
                 return MethodUtils.invokeMethod(obj, methodName, null);
             } catch (NoSuchMethodException e) {
@@ -48,10 +48,10 @@ public class SqlUtils {
     }
 
     @SuppressWarnings("rawtypes")
-    public static Class getEnumToClass(SqlRuntimeContext runtime, Class clazz) {
+    public static Class getEnumToClass(SqlRuntimeContext runtimeCtx, Class clazz) {
         if (clazz == null)
             return null;
-        for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
             Method m = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, new Class[] {});
             if (m != null)
                 return m.getReturnType();
@@ -59,10 +59,10 @@ public class SqlUtils {
         return null;
     }
 
-    public static Object getValueToEnum(SqlRuntimeContext runtime, Class<?> objClass, Object val) {
+    public static Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
         if (val == null)
             return null;
-        for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
             try {
                 return MethodUtils.invokeStaticMethod(objClass, methodName, val);
             } catch (NoSuchMethodException e) {

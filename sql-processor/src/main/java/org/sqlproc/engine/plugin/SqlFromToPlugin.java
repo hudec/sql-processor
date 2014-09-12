@@ -38,7 +38,7 @@ public interface SqlFromToPlugin extends Modifiers {
     /**
      * Used to construct the FROM-TO SQL.
      * 
-     * @param runtime
+     * @param runtimeCtx
      *            the public runtime context
      * @param queryString
      *            the original ANSI SQL
@@ -54,6 +54,6 @@ public interface SqlFromToPlugin extends Modifiers {
      *            the SQL output is sorted
      * @return the characteristic of FROM and TO restrictions used in {@link SqlQuery#list(SqlRuntimeContext)}
      */
-    public LimitType limitQuery(SqlRuntimeContext runtime, String queryString, StringBuilder queryResult,
+    public LimitType limitQuery(SqlRuntimeContext runtimeCtx, String queryString, StringBuilder queryResult,
             Integer firstResult, Integer maxResults, boolean ordered);
 }

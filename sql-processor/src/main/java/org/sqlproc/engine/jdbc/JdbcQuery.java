@@ -178,11 +178,11 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list(final SqlRuntimeContext runtime) throws SqlProcessorException {
+    public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
-        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtime.getPluginFactory()
-                .getSqlFromToPlugin().limitQuery(runtime, queryString, queryResult, firstResult, maxResults, ordered)
-                : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
+                .getSqlFromToPlugin()
+                .limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered) : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
@@ -223,8 +223,8 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique(final SqlRuntimeContext runtime) throws SqlProcessorException {
-        List list = list(runtime);
+    public Object unique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List list = list(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
@@ -242,7 +242,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int update(final SqlRuntimeContext runtime) throws SqlProcessorException {
+    public int update(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
@@ -397,7 +397,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList(final SqlRuntimeContext runtime) throws SqlProcessorException {
+    public List callList(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
@@ -453,8 +453,8 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique(final SqlRuntimeContext runtime) throws SqlProcessorException {
-        List list = callList(runtime);
+    public Object callUnique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List list = callList(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
@@ -472,7 +472,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int callUpdate(final SqlRuntimeContext runtime) throws SqlProcessorException {
+    public int callUpdate(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callUpdate, query=" + queryString);
         }

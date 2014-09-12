@@ -29,7 +29,7 @@ public interface IsEmptyPlugin extends Modifiers {
     /**
      * Used for the evaluation of the emptiness in the META SQL fragments.
      * 
-     * @param runtime
+     * @param runtimeCtx
      *            the public runtime context
      * @param attributeName
      *            the name of the input value
@@ -47,7 +47,7 @@ public interface IsEmptyPlugin extends Modifiers {
      *            values for a special identifier handling, for example a sequence for an identity
      * @return the non-emptiness of the input value
      */
-    public boolean isNotEmpty(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isNotEmpty(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException;
 }

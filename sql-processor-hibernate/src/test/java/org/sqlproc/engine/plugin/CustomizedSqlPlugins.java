@@ -22,7 +22,7 @@ public class CustomizedSqlPlugins extends DefaultSqlPlugins {
      * {@inheritDoc}
      */
     @Override
-    public boolean isNotEmpty(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isNotEmpty(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException {
 
@@ -47,7 +47,7 @@ public class CustomizedSqlPlugins extends DefaultSqlPlugins {
             }
         }
 
-        return super.isNotEmpty(runtime, attributeName, obj, parentObj, sqlMetaType, inOutModifier, inSqlSetOrInsert,
+        return super.isNotEmpty(runtimeCtx, attributeName, obj, parentObj, sqlMetaType, inOutModifier, inSqlSetOrInsert,
                 values);
     }
 
@@ -55,7 +55,7 @@ public class CustomizedSqlPlugins extends DefaultSqlPlugins {
      * {@inheritDoc}
      */
     @Override
-    public boolean isTrue(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isTrue(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values) {
 
         if (MODIFIER_ZERO.equalsIgnoreCase(inOutModifier)) {
@@ -79,6 +79,6 @@ public class CustomizedSqlPlugins extends DefaultSqlPlugins {
             }
         }
 
-        return super.isTrue(runtime, attributeName, obj, parentObj, sqlMetaType, inOutModifier, values);
+        return super.isTrue(runtimeCtx, attributeName, obj, parentObj, sqlMetaType, inOutModifier, values);
     }
 }

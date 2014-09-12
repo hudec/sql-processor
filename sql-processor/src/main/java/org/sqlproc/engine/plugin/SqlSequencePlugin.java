@@ -19,11 +19,11 @@ public interface SqlSequencePlugin extends Modifiers {
     /**
      * Used to construct the sequence SELECT SQL.
      * 
-     * @param runtime
+     * @param runtimeCtx
      *            the public runtime context
      * @param sequenceName
      *            the sequence name
      * @return the final sequence SELECT SQL
      */
-    public String sequenceSelect(SqlRuntimeContext runtime, String sequenceName);
+    public String sequenceSelect(SqlRuntimeContext runtimeCtx, String sequenceName);
 }

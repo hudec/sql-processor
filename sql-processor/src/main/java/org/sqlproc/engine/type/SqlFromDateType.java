@@ -41,7 +41,8 @@ public abstract class SqlFromDateType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtime, Object pojo, String attributeName, Object resultValue, boolean ingoreError) {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object pojo, String attributeName, Object resultValue,
+            boolean ingoreError) {
         throw new UnsupportedOperationException();
     }
 
@@ -49,7 +50,7 @@ public abstract class SqlFromDateType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlRuntimeContext runtime, SqlQuery query, String paramName, Object inputValue,
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="

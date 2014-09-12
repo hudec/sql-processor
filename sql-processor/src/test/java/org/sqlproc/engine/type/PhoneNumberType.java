@@ -37,8 +37,8 @@ public class PhoneNumberType extends SqlInternalType {
     }
 
     @Override
-    public void setResult(SqlRuntimeContext runtime, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
 
         Method m = BeanUtils.getSetter(resultInstance, attributeName, PhoneNumber.class);
         if (m == null) {
@@ -84,7 +84,7 @@ public class PhoneNumberType extends SqlInternalType {
     }
 
     @Override
-    public void setParameter(SqlRuntimeContext runtime, SqlQuery query, String paramName, Object inputValue,
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
 
         if (inputValue == null) {

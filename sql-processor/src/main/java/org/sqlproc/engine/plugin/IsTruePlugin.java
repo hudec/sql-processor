@@ -37,7 +37,7 @@ public interface IsTruePlugin extends Modifiers {
     /**
      * Used for the evaluation of the logical expression in the conditional META SQL fragments.
      * 
-     * @param runtime
+     * @param runtimeCtx
      *            the public runtime context
      * @param attributeName
      *            the name of the input value
@@ -53,6 +53,6 @@ public interface IsTruePlugin extends Modifiers {
      *            values for a special identifier handling, for example a sequence for an identity
      * @return the boolean value of the logical expression
      */
-    public boolean isTrue(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isTrue(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values);
 }

@@ -29,7 +29,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public boolean isNotEmpty(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isNotEmpty(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException {
         if (logger.isTraceEnabled()) {
@@ -44,7 +44,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
 
         String value = (inOutModifier != null) ? inOutModifier.toLowerCase() : null;
 
-        boolean result = isNotEmptyInternal(runtime, attributeName, obj, parentObj, sqlMetaType, value,
+        boolean result = isNotEmptyInternal(runtimeCtx, attributeName, obj, parentObj, sqlMetaType, value,
                 inSqlSetOrInsert, values);
         if (result)
             return result;
@@ -57,7 +57,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     /**
      * Used for the evaluation of the emptiness in the META SQL fragments.
      * 
-     * @param runtime
+     * @param runtimeCtx
      *            the public runtime context
      * @param attributeName
      *            the name of the input value
@@ -75,7 +75,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      *            values for a special identifier handling, for example a sequence for an identity
      * @return the non-emptiness of the input value
      */
-    protected boolean isNotEmptyInternal(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+    protected boolean isNotEmptyInternal(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException {
 
@@ -87,7 +87,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (inSqlSetOrInsert) {
             boolean isEmptyUseMethodIsNull = false;
             if (obj == null && attributeName != null && parentObj != null) {
-                Object o = runtime.getRawFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
                 if (o != null && o instanceof Boolean && ((Boolean) o))
                     isEmptyUseMethodIsNull = true;
             }
@@ -108,7 +108,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             boolean isEmptyForNull = isEmptyUseMethodIsNull;
             if (isEmpty(obj, values)) {
-                Object o = runtime.getRawFeature(SqlFeature.EMPTY_FOR_NULL);
+                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_FOR_NULL);
                 if (o != null && o instanceof Boolean && ((Boolean) o))
                     isEmptyForNull = true;
                 if (!isEmptyForNull)
@@ -148,7 +148,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public boolean isTrue(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isTrue(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values) {
 
         Boolean delegatedResult = callMethod(attributeName, parentObj, values);
@@ -182,12 +182,12 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 if (obj.getClass().isEnum()) {
                     if (obj.toString().equals(inOutModifier)) {
                         return true;
-                    } else if (sqlMetaType == runtime.getTypeFactory().getEnumStringType()) {
-                        return inOutModifier.equals(SqlUtils.getEnumToValue(runtime, obj));
-                    } else if (sqlMetaType == runtime.getTypeFactory().getEnumIntegerType()) {
-                        return inOutModifier.equals(SqlUtils.getEnumToValue(runtime, obj).toString());
+                    } else if (sqlMetaType == runtimeCtx.getTypeFactory().getEnumStringType()) {
+                        return inOutModifier.equals(SqlUtils.getEnumToValue(runtimeCtx, obj));
+                    } else if (sqlMetaType == runtimeCtx.getTypeFactory().getEnumIntegerType()) {
+                        return inOutModifier.equals(SqlUtils.getEnumToValue(runtimeCtx, obj).toString());
                     } else {
-                        Object enumVal = SqlUtils.getEnumToValue(runtime, obj);
+                        Object enumVal = SqlUtils.getEnumToValue(runtimeCtx, obj);
                         if (enumVal.toString().equals(inOutModifier))
                             return true;
                         return false;
@@ -262,7 +262,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public LimitType limitQuery(SqlRuntimeContext runtime, String queryString, StringBuilder queryResult, Integer firstResult,
+    public LimitType limitQuery(SqlRuntimeContext runtimeCtx, String queryString, StringBuilder queryResult, Integer firstResult,
             Integer maxResults, boolean ordered) {
         LimitType limitType = new LimitType();
 
@@ -270,17 +270,17 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             return null;
         if (firstResult != null && firstResult > 0) {
             limitType.alsoFirst = true;
-            String limitPattern = (ordered) ? runtime.getFeature(SqlFeature.LIMIT_FROM_TO_ORDERED) : runtime
+            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO_ORDERED) : runtimeCtx
                     .getFeature(SqlFeature.LIMIT_FROM_TO);
             if (limitPattern == null && ordered)
-                limitPattern = runtime.getFeature(SqlFeature.LIMIT_FROM_TO);
+                limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO);
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         } else {
-            String limitPattern = (ordered) ? runtime.getFeature(SqlFeature.LIMIT_TO_ORDERED) : runtime
+            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_TO_ORDERED) : runtimeCtx
                     .getFeature(SqlFeature.LIMIT_TO);
             if (limitPattern == null && ordered)
-                limitPattern = runtime.getFeature(SqlFeature.LIMIT_TO);
+                limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_TO);
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         }
@@ -374,35 +374,35 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public String identitySelect(SqlRuntimeContext runtime, String identitySelectName, Class<?> inputValueType) {
+    public String identitySelect(SqlRuntimeContext runtimeCtx, String identitySelectName, Class<?> inputValueType) {
         String identityName = (SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT.equals(identitySelectName)) ? SqlFeature.IDSEL
                 : identitySelectName;
         String identitySelect = null;
         if (inputValueType != null)
-            identitySelect = runtime.getFeature(identityName + "_" + inputValueType.getSimpleName());
+            identitySelect = runtimeCtx.getFeature(identityName + "_" + inputValueType.getSimpleName());
         if (identitySelect != null)
             return identitySelect;
         if (inputValueType != null)
-            identitySelect = runtime.getFeature(SqlFeature.IDSEL + "_" + identityName + "_"
+            identitySelect = runtimeCtx.getFeature(SqlFeature.IDSEL + "_" + identityName + "_"
                     + inputValueType.getSimpleName());
         if (identitySelect != null)
             return identitySelect;
-        identitySelect = runtime.getFeature(identityName);
+        identitySelect = runtimeCtx.getFeature(identityName);
         if (identitySelect != null)
             return identitySelect;
-        return runtime.getFeature(SqlFeature.IDSEL + "_" + identityName);
+        return runtimeCtx.getFeature(SqlFeature.IDSEL + "_" + identityName);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String sequenceSelect(SqlRuntimeContext runtime, String sequenceName) {
-        String sequence = runtime.getFeature(sequenceName);
+    public String sequenceSelect(SqlRuntimeContext runtimeCtx, String sequenceName) {
+        String sequence = runtimeCtx.getFeature(sequenceName);
         if (sequence == null)
-            sequence = runtime.getFeature(SqlFeature.SEQ + "_" + sequenceName);
+            sequence = runtimeCtx.getFeature(SqlFeature.SEQ + "_" + sequenceName);
         if (sequence == null)
-            sequence = runtime.getFeature(SqlFeature.SEQ);
+            sequence = runtimeCtx.getFeature(SqlFeature.SEQ);
         if (sequence == null)
             return null;
         int ix = sequence.indexOf("$n");

@@ -34,8 +34,8 @@ public abstract class SqlMetaType {
     /**
      * Initializes the attribute of the result class with output value from the SQL query execution.
      * 
-     * @param runtime
-     *            the public runtime context
+     * @param runtimeCtxCtx
+     *            the public runtimeCtx context
      * @param resultInstance
      *            the instance of the result class
      * @param attributeName
@@ -47,14 +47,14 @@ public abstract class SqlMetaType {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the output values handling
      */
-    public abstract void setResult(SqlRuntimeContext runtime, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException;
+    public abstract void setResult(SqlRuntimeContext runtimeCtxCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException;
 
     /**
      * Binds an input value to a named query parameter.
      * 
-     * @param runtime
-     *            the public runtime context
+     * @param runtimeCtxCtx
+     *            the public runtimeCtx context
      * @param query
      *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
      * @param paramName
@@ -66,6 +66,6 @@ public abstract class SqlMetaType {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input values handling
      */
-    public abstract void setParameter(SqlRuntimeContext runtime, SqlQuery query, String paramName, Object inputValue,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException;
+    public abstract void setParameter(SqlRuntimeContext runtimeCtxCtx, SqlQuery query, String paramName,
+            Object inputValue, Class<?> inputType, boolean ingoreError) throws SqlRuntimeException;
 }

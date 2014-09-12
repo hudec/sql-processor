@@ -46,8 +46,8 @@ public abstract class SqlEnumStringType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtime, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
@@ -55,7 +55,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
         Class<?> attributeType = BeanUtils.getFieldType(resultInstance.getClass(), attributeName);
         Method m = BeanUtils.getSetter(resultInstance, attributeName, attributeType);
         if (m != null) {
-            Object enumInstance = SqlUtils.getValueToEnum(runtime, attributeType, resultValue);
+            Object enumInstance = SqlUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
             BeanUtils.simpleInvokeMethod(m, resultInstance, enumInstance);
         } else if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
@@ -70,7 +70,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlRuntimeContext runtime, SqlQuery query, String paramName, final Object inputValue,
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, final Object inputValue,
             final Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
@@ -99,7 +99,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                                     + paramName);
                         }
                     } else {
-                        Object o = SqlUtils.getEnumToValue(runtime, val);
+                        Object o = SqlUtils.getEnumToValue(runtimeCtx, val);
                         if (o != null && o instanceof String) {
                             vals.add((String) o);
                         } else {
@@ -115,7 +115,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                 query.setParameterList(paramName, vals.toArray());
             }
         } else {
-            Object o = SqlUtils.getEnumToValue(runtime, inputValue);
+            Object o = SqlUtils.getEnumToValue(runtimeCtx, inputValue);
             if (o != null && o instanceof String) {
                 query.setParameter(paramName, (String) o, getProviderSqlType());
             } else

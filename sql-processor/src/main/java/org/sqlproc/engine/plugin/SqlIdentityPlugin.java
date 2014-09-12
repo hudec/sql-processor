@@ -20,7 +20,7 @@ public interface SqlIdentityPlugin extends Modifiers {
     /**
      * Used to construct the identity SELECT SQL.
      * 
-     * @param runtime
+     * @param runtimeCtx
      *            the public runtime context
      * @param identitySelectName
      *            the identity SELECT SQL name
@@ -28,5 +28,5 @@ public interface SqlIdentityPlugin extends Modifiers {
      *            a dynamic input value Java type
      * @return the final identity SELECT SQL
      */
-    public String identitySelect(SqlRuntimeContext runtime, String identitySelectName, Class<?> inputValueType);
+    public String identitySelect(SqlRuntimeContext runtimeCtx, String identitySelectName, Class<?> inputValueType);
 }
