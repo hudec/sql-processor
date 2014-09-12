@@ -374,7 +374,7 @@ public abstract class SqlEngine {
         if (processingId != null && getStaticInputValues(sqlControl) == null)
             processResult = processingCache.get(processingId);
         if (processResult != null) {
-            return new SqlProcessResult(processResult, dynamicInputValues);
+            return new SqlProcessResult(processResult, dynamicInputValues, sqlControl);
         }
         processResult = statement.process(sqlStatementType, dynamicInputValues, sqlControl, this);
         if (processingId != null)

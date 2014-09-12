@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -122,22 +124,23 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * @param ctx
      *            the crate for all input parameters and the context of processing
      */
-    public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues) {
-        // add = result.add;
-        // allInputValues = result.allInputValues;
-        // if (result.inputValues != null) {
-        // inputValues = new HashMap<String, SqlInputValue>();
-        // for (Entry<String, SqlInputValue> e : result.inputValues.entrySet()) {
-        // inputValues.put(e.getKey(), new SqlInputValue(e.getKey(), e.getValue(), dynamicInputValues));
-        // }
-        // }
-        // outputValues = result.outputValues;
-        // identities = result.identities;
-        // outValues = result.outValues;
-        // sql = result.sql;
-        // orderIndex = result.orderIndex;
-        // skipNextText = result.skipNextText;
-        // logError = result.logError;
+    public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues, SqlControl sqlControl) {
+        this.ctx = new SqlProcessContext(result.ctx, dynamicInputValues, sqlControl);
+        this.add = result.add;
+        this.allInputValues = result.allInputValues;
+        if (result.inputValues != null) {
+            this.inputValues = new HashMap<String, SqlInputValue>();
+            for (Entry<String, SqlInputValue> e : result.inputValues.entrySet()) {
+                this.inputValues.put(e.getKey(), new SqlInputValue(ctx, e.getKey(), e.getValue(), dynamicInputValues));
+            }
+        }
+        this.outputValues = result.outputValues;
+        this.identities = result.identities;
+        this.outValues = result.outValues;
+        this.sql = result.sql;
+        this.orderIndex = result.orderIndex;
+        this.skipNextText = result.skipNextText;
+        this.logError = result.logError;
     }
 
     /**

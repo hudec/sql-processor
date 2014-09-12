@@ -2,6 +2,7 @@ package org.sqlproc.engine.plugin;
 
 import java.util.Map;
 
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -21,8 +22,8 @@ public class CustomizedSqlPlugins extends DefaultSqlPlugins {
      * {@inheritDoc}
      */
     @Override
-    public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
+    public boolean isNotEmpty(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+            SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException {
 
         if (MODIFIER_ZERO.equalsIgnoreCase(inOutModifier)) {
@@ -46,16 +47,16 @@ public class CustomizedSqlPlugins extends DefaultSqlPlugins {
             }
         }
 
-        return super.isNotEmpty(attributeName, obj, parentObj, sqlMetaType, inOutModifier, inSqlSetOrInsert, values,
-                features);
+        return super.isNotEmpty(runtime, attributeName, obj, parentObj, sqlMetaType, inOutModifier, inSqlSetOrInsert,
+                values);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String inOutModifier, Map<String, String> values, Map<String, Object> features) {
+    public boolean isTrue(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+            SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values) {
 
         if (MODIFIER_ZERO.equalsIgnoreCase(inOutModifier)) {
             if (obj != null) {
@@ -78,6 +79,6 @@ public class CustomizedSqlPlugins extends DefaultSqlPlugins {
             }
         }
 
-        return super.isTrue(attributeName, obj, parentObj, sqlMetaType, inOutModifier, values, features);
+        return super.isTrue(runtime, attributeName, obj, parentObj, sqlMetaType, inOutModifier, values);
     }
 }

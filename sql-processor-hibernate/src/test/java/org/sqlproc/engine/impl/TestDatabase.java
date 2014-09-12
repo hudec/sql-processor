@@ -258,8 +258,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     protected SqlEngineFactory getEngineFactory(String name, SqlPluginFactory sqlPluginFactory) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
         factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(), sqlPluginFactory, dbType, null,
                 customTypes, name);
@@ -293,8 +291,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     protected SqlEngineFactory getEngineFactory(String name, String filter) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
         factory = new SqlProcessorLoader(metaStatements, HibernateTypeFactory.getInstance(),
                 SimpleSqlPluginFactory.getInstance(), filter, null, customTypes, name);
@@ -311,8 +307,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     SqlEngineFactory getEngineFactory(String name) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
         factory = new SqlProcessorLoader(metaStatements, HibernateTypeFactory.getInstance(),
                 SimpleSqlPluginFactory.getInstance(), dbType, null, customTypes, name);

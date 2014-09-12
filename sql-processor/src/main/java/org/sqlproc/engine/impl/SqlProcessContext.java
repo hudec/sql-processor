@@ -67,7 +67,31 @@ public class SqlProcessContext implements SqlRuntimeContext {
         this.dynamicInputValues = dynamicInputValues;
         this.sqlControl = sqlControl;
         this.sqlEngine = sqlEngine;
+        initFeatures();
+    }
 
+    /**
+     * Creates a new instance.
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
+     * @param dynamicInputValues
+     *            the dynamic input parameters
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     */
+    SqlProcessContext(SqlProcessContext ctx, Object dynamicInputValues, SqlControl sqlControl) {
+        this.sqlStatementType = ctx.sqlStatementType;
+        this.dynamicInputValues = dynamicInputValues;
+        this.sqlControl = sqlControl;
+        this.sqlEngine = ctx.sqlEngine;
+        initFeatures();
+    }
+
+    /**
+     * Initialize the optional features.
+     */
+    private void initFeatures() {
         final Map<String, Object> runtimeFeatures = SqlEngine.getFeatures(sqlControl);
         if (runtimeFeatures != null) {
             for (Entry<String, Object> entry : runtimeFeatures.entrySet()) {
