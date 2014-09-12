@@ -2,7 +2,7 @@ package org.sqlproc.engine.plugin;
 
 import java.util.Map;
 
-import org.sqlproc.engine.SqlRuntime;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -53,6 +53,6 @@ public interface IsTruePlugin extends Modifiers {
      *            values for a special identifier handling, for example a sequence for an identity
      * @return the boolean value of the logical expression
      */
-    public boolean isTrue(SqlRuntime runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isTrue(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values);
 }

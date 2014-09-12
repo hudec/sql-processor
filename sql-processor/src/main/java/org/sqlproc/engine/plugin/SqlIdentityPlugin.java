@@ -1,7 +1,7 @@
 package org.sqlproc.engine.plugin;
 
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlRuntime;
+import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * The SQL Processor plugin devoted to the identity or sequence SELECT SQL construction.
@@ -28,5 +28,5 @@ public interface SqlIdentityPlugin extends Modifiers {
      *            a dynamic input value Java type
      * @return the final identity SELECT SQL
      */
-    public String identitySelect(SqlRuntime runtime, String identitySelectName, Class<?> inputValueType);
+    public String identitySelect(SqlRuntimeContext runtime, String identitySelectName, Class<?> inputValueType);
 }

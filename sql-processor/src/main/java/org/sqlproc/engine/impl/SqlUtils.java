@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlRuntime;
+import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * SQL Processor utilities.
@@ -30,7 +30,7 @@ public class SqlUtils {
 
     // enums
 
-    public static Object getEnumToValue(SqlRuntime runtime, Object obj) {
+    public static Object getEnumToValue(SqlRuntimeContext runtime, Object obj) {
         if (obj == null)
             return null;
         for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
@@ -48,7 +48,7 @@ public class SqlUtils {
     }
 
     @SuppressWarnings("rawtypes")
-    public static Class getEnumToClass(SqlRuntime runtime, Class clazz) {
+    public static Class getEnumToClass(SqlRuntimeContext runtime, Class clazz) {
         if (clazz == null)
             return null;
         for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
@@ -59,7 +59,7 @@ public class SqlUtils {
         return null;
     }
 
-    public static Object getValueToEnum(SqlRuntime runtime, Class<?> objClass, Object val) {
+    public static Object getValueToEnum(SqlRuntimeContext runtime, Class<?> objClass, Object val) {
         if (val == null)
             return null;
         for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {

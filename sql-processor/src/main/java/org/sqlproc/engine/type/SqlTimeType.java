@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
 
@@ -41,8 +42,8 @@ public abstract class SqlTimeType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(Object resultInstance, String attributeName, Object resultValue, boolean ingoreError)
-            throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtime, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
@@ -64,8 +65,8 @@ public abstract class SqlTimeType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlQuery query, String paramName, Object inputValue, Class<?> inputType,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setParameter(SqlRuntimeContext runtime, SqlQuery query, String paramName, Object inputValue,
+            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);

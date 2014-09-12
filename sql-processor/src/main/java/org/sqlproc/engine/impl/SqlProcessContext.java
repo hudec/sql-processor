@@ -9,7 +9,7 @@ import java.util.Set;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlOrder;
-import org.sqlproc.engine.SqlRuntime;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -22,7 +22,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlProcessContext implements SqlRuntime {
+public class SqlProcessContext implements SqlRuntimeContext {
 
     /**
      * The SQL command type.

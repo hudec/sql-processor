@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 
 /**
@@ -90,6 +91,15 @@ public class SqlMappingResult {
      */
     public List<Integer> getIdentitiesIndexes() {
         return identitiesIndexes;
+    }
+
+    /**
+     * Returns the public runtime context
+     * 
+     * @return the public runtime context
+     */
+    public SqlRuntimeContext getRuntimeContext() {
+        return ctx;
     }
 
     /**

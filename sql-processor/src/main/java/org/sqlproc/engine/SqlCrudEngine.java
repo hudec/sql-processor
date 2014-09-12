@@ -337,7 +337,7 @@ public class SqlCrudEngine extends SqlEngine {
      * @return the result
      */
     private Integer insert(final SqlQuery query, final SqlProcessResult processResult) {
-        Integer count = query.update();
+        Integer count = query.update(processResult.getRuntimeContext());
         processResult.postProcess();
         return count;
     }
@@ -478,7 +478,7 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             result = monitor.run(new SqlMonitor.Runner() {
                 public E run() {
-                    SqlProcessResult processResult = process(SqlMetaStatement.Type.RETRIEVE, dynamicInputValues,
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.RETRIEVE, dynamicInputValues,
                             sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
@@ -525,7 +525,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     private <E> E get(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
             final SqlControl sqlControl) {
-        List list = query.list();
+        List list = query.list(mappingResult.getRuntimeContext());
         E resultInstance = null;
         Object[] resultValue = null;
         Map<String, Object> ids = mappingResult.getIds();
@@ -655,7 +655,7 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = process(SqlMetaStatement.Type.UPDATE, dynamicInputValues,
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.UPDATE, dynamicInputValues,
                             sqlControl);
                     processResult.validate(validator);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
@@ -670,11 +670,11 @@ public class SqlCrudEngine extends SqlEngine {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
                             public Integer run() {
-                                return update(query);
+                                return update(query, processResult);
                             }
                         }, Integer.class);
                     } else {
-                        return update(query);
+                        return update(query, processResult);
                     }
                 }
             }, Integer.class);
@@ -693,8 +693,8 @@ public class SqlCrudEngine extends SqlEngine {
      *            query
      * @return the result
      */
-    private Integer update(final SqlQuery query) {
-        return query.update();
+    private Integer update(final SqlQuery query, final SqlProcessResult processResult) {
+        return query.update(processResult.getRuntimeContext());
     }
 
     /**
@@ -785,7 +785,7 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = process(SqlMetaStatement.Type.DELETE, dynamicInputValues,
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.DELETE, dynamicInputValues,
                             sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
@@ -799,11 +799,11 @@ public class SqlCrudEngine extends SqlEngine {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
                             public Integer run() {
-                                return delete(query);
+                                return delete(query, processResult);
                             }
                         }, Integer.class);
                     } else {
-                        return delete(query);
+                        return delete(query, processResult);
                     }
                 }
             }, Integer.class);
@@ -822,8 +822,8 @@ public class SqlCrudEngine extends SqlEngine {
      *            query
      * @return the result
      */
-    private Integer delete(final SqlQuery query) {
-        return query.update();
+    private Integer delete(final SqlQuery query, final SqlProcessResult processResult) {
+        return query.update(processResult.getRuntimeContext());
     }
 
     /**

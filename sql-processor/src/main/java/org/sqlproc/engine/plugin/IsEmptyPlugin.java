@@ -2,7 +2,7 @@ package org.sqlproc.engine.plugin;
 
 import java.util.Map;
 
-import org.sqlproc.engine.SqlRuntime;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -47,7 +47,7 @@ public interface IsEmptyPlugin extends Modifiers {
      *            values for a special identifier handling, for example a sequence for an identity
      * @return the non-emptiness of the input value
      */
-    public boolean isNotEmpty(SqlRuntime runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isNotEmpty(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException;
 }

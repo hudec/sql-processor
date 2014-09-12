@@ -10,7 +10,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface SqlRuntime {
+public interface SqlRuntimeContext {
 
     /**
      * Convenient method to obtain a String feature based on the name.

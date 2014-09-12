@@ -8,7 +8,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlRuntime;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
 
@@ -29,7 +29,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public boolean isNotEmpty(SqlRuntime runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isNotEmpty(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException {
         if (logger.isTraceEnabled()) {
@@ -75,7 +75,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      *            values for a special identifier handling, for example a sequence for an identity
      * @return the non-emptiness of the input value
      */
-    protected boolean isNotEmptyInternal(SqlRuntime runtime, String attributeName, Object obj, Object parentObj,
+    protected boolean isNotEmptyInternal(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException {
 
@@ -148,7 +148,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public boolean isTrue(SqlRuntime runtime, String attributeName, Object obj, Object parentObj,
+    public boolean isTrue(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values) {
 
         Boolean delegatedResult = callMethod(attributeName, parentObj, values);
@@ -262,7 +262,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public LimitType limitQuery(SqlRuntime runtime, String queryString, StringBuilder queryResult, Integer firstResult,
+    public LimitType limitQuery(SqlRuntimeContext runtime, String queryString, StringBuilder queryResult, Integer firstResult,
             Integer maxResults, boolean ordered) {
         LimitType limitType = new LimitType();
 
@@ -374,7 +374,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public String identitySelect(SqlRuntime runtime, String identitySelectName, Class<?> inputValueType) {
+    public String identitySelect(SqlRuntimeContext runtime, String identitySelectName, Class<?> inputValueType) {
         String identityName = (SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT.equals(identitySelectName)) ? SqlFeature.IDSEL
                 : identitySelectName;
         String identitySelect = null;
@@ -397,7 +397,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public String sequenceSelect(SqlRuntime runtime, String sequenceName) {
+    public String sequenceSelect(SqlRuntimeContext runtime, String sequenceName) {
         String sequence = runtime.getFeature(sequenceName);
         if (sequence == null)
             sequence = runtime.getFeature(SqlFeature.SEQ + "_" + sequenceName);

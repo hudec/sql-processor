@@ -277,10 +277,10 @@ class SqlInputValue {
         if (sequence != null) {
             SqlQuery seqQuery = session.createSqlQuery(sequence);
             ctx.getTypeFactory().getDefaultType().addScalar(seqQuery, "1", inputValueType);
-            identity = seqQuery.unique();
+            identity = seqQuery.unique(ctx);
             type.setParameter(ctx, query, paramName, identity, inputValueType);
         } else if (identitySelect != null) {
-            ctx.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {
+            ctx.getTypeFactory().getIdentityType().setParameter(ctx, query, paramName, new IdentitySetter() {
                 @Override
                 public void setIdentity(Object identity) {
                     if (identity != null && identity instanceof BigDecimal)

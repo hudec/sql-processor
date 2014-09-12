@@ -349,7 +349,8 @@ public class SqlProcedureEngine extends SqlEngine {
         try {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
-                    SqlProcessResult processResult = process(SqlMetaStatement.Type.CALL, dynamicInputValues, sqlControl);
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.CALL, dynamicInputValues,
+                            sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -392,7 +393,7 @@ public class SqlProcedureEngine extends SqlEngine {
      * @return the result
      */
     private <E> List<E> callQuery(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass) {
-        List list = query.callList();
+        List list = query.callList(mappingResult.getRuntimeContext());
         List<E> result = new ArrayList<E>();
         E resultInstance = null;
         Object[] resultValue = null;
@@ -532,7 +533,7 @@ public class SqlProcedureEngine extends SqlEngine {
      * @return the result
      */
     private Integer callUpdate(final SqlQuery query, final SqlProcessResult processResult) {
-        Integer count = query.callUpdate();
+        Integer count = query.callUpdate(processResult.getRuntimeContext());
         processResult.postProcess();
         return count;
     }
@@ -738,7 +739,7 @@ public class SqlProcedureEngine extends SqlEngine {
             sql = monitor.run(new SqlMonitor.Runner() {
 
                 public String run() {
-                    SqlProcessResult processResult = process(statementType, dynamicInputValues, sqlControl);
+                    final SqlProcessResult processResult = process(statementType, dynamicInputValues, sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     return sql;

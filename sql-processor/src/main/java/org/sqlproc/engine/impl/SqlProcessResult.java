@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.validation.SqlValidationContext;
@@ -144,7 +145,16 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * 
      * @return the crate for all input parameters and the context of processing
      */
-    public SqlProcessContext getCtx() {
+    SqlProcessContext getCtx() {
+        return ctx;
+    }
+
+    /**
+     * Returns the public runtime context
+     * 
+     * @return the public runtime context
+     */
+    public SqlRuntimeContext getRuntimeContext() {
         return ctx;
     }
 
