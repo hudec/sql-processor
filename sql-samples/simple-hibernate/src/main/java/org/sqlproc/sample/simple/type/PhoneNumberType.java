@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import org.hibernate.type.StringType;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.type.SqlInternalType;
@@ -37,8 +38,8 @@ public class PhoneNumberType extends SqlInternalType {
     }
 
     @Override
-    public void setResult(Object resultInstance, String attributeName, Object resultValue, boolean ingoreError)
-            throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
 
         Method m = BeanUtils.getSetter(resultInstance, attributeName, PhoneNumber.class);
         if (m == null) {
@@ -84,8 +85,8 @@ public class PhoneNumberType extends SqlInternalType {
     }
 
     @Override
-    public void setParameter(SqlQuery query, String paramName, Object inputValue, Class<?> inputType,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
+            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
 
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, StringType.INSTANCE);
