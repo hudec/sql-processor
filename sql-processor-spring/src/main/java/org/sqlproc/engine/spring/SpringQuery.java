@@ -30,7 +30,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.impl.SqlProcessContext;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
@@ -188,10 +188,11 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list() throws SqlProcessorException {
+    public List list(SqlRuntimeContext runtime) throws SqlProcessorException {
         final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
-        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? SqlProcessContext.getPluginFactory()
-                .getSqlFromToPlugin().limitQuery(queryString, queryResult, firstResult, maxResults, ordered) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtime.getPluginFactory()
+                .getSqlFromToPlugin().limitQuery(runtime, queryString, queryResult, firstResult, maxResults, ordered)
+                : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
@@ -234,8 +235,8 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique() throws SqlProcessorException {
-        List list = list();
+    public Object unique(SqlRuntimeContext runtime) throws SqlProcessorException {
+        List list = list(runtime);
         int size = list.size();
         if (size == 0)
             return null;
@@ -253,7 +254,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int update() throws SqlProcessorException {
+    public int update(SqlRuntimeContext runtime) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
@@ -471,7 +472,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList() throws SqlProcessorException {
+    public List callList(SqlRuntimeContext runtime) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
@@ -538,8 +539,8 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique() throws SqlProcessorException {
-        List list = callList();
+    public Object callUnique(SqlRuntimeContext runtime) throws SqlProcessorException {
+        List list = callList(runtime);
         int size = list.size();
         if (size == 0)
             return null;
@@ -557,7 +558,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int callUpdate() throws SqlProcessorException {
+    public int callUpdate(SqlRuntimeContext runtime) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callUpdate, query=" + queryString);
         }

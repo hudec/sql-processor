@@ -1,11 +1,15 @@
 package org.sqlproc.engine.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlOrder;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -18,7 +22,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlProcessContext {
+public class SqlProcessContext implements SqlRuntimeContext {
 
     /**
      * The SQL command type.
@@ -29,33 +33,21 @@ public class SqlProcessContext {
      */
     Object dynamicInputValues;
     /**
-     * The SQL statement static parameters.
+     * The compound parameters controlling the META SQL execution.
      */
-    Object staticInputValues;
+    SqlControl sqlControl;
     /**
-     * The list of ordering directives.
+     * The primary SQL Processor class for the META SQL execution.
      */
-    List<SqlOrder> order;
+    SqlEngine sqlEngine;
     /**
      * An indicator, that the processing is inside of the special SQL fragment - SET or VALUES.
      */
     boolean inSqlSetOrInsert;
-
     /**
-     * The thread local holder for the configuration object.
+     * Unset features in the runtime.
      */
-    private static final ThreadLocal<Map<String, Object>> currentFeatures = new ThreadLocal<Map<String, Object>>();
-
-    /**
-     * The thread local holder for the factory responsible for the META types construction.
-     */
-    private static final ThreadLocal<SqlTypeFactory> currentTypeFactory = new ThreadLocal<SqlTypeFactory>();
-
-    /**
-     * The thread local holder for the factory for the SQL Processor plugins. This is the basic facility to alter the
-     * SQL Processor processing.
-     */
-    private static final ThreadLocal<SqlPluginFactory> currentPluginFactory = new ThreadLocal<SqlPluginFactory>();
+    Set<String> oppositeNames = new HashSet<String>();
 
     /**
      * Creates a new instance.
@@ -64,73 +56,94 @@ public class SqlProcessContext {
      *            the type of the SQL command
      * @param dynamicInputValues
      *            the dynamic input parameters
-     * @param staticInputValues
-     *            the static input parameters
-     * @param order
-     *            the list of ordering directives
-     * @param features
-     *            the optional features in the statement/global scope
-     * @param runtimeFeatures
-     *            the optional features in the statement's exection scope
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @param sqlEngine
+     *            the primary SQL Processor class for the META SQL execution
      */
-    SqlProcessContext(SqlMetaStatement.Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
-            List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
-            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
+    SqlProcessContext(SqlMetaStatement.Type sqlStatementType, Object dynamicInputValues, SqlControl sqlControl,
+            SqlEngine sqlEngine) {
         this.sqlStatementType = sqlStatementType;
         this.dynamicInputValues = dynamicInputValues;
-        this.staticInputValues = staticInputValues;
-        this.order = order;
-        ctxLocalThread(features, runtimeFeatures, typeFactory, pluginFactory);
+        this.sqlControl = sqlControl;
+        this.sqlEngine = sqlEngine;
+        initFeatures();
     }
 
     /**
-     * Initializes context local thread variables.
+     * Creates a new instance.
      * 
-     * @param features
-     *            the optional features in the statement/global scope
-     * @param runtimeFeatures
-     *            the optional features in the statement's exection scope
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
+     * @param dynamicInputValues
+     *            the dynamic input parameters
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
      */
-    public static void ctxLocalThread(Map<String, Object> features, Map<String, Object> runtimeFeatures,
-            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
-        setFeatures(features, runtimeFeatures);
-        setTypeFactory(typeFactory);
-        setPluginFactory(pluginFactory);
+    SqlProcessContext(SqlProcessContext ctx, Object dynamicInputValues, SqlControl sqlControl) {
+        this.sqlStatementType = ctx.sqlStatementType;
+        this.dynamicInputValues = dynamicInputValues;
+        this.sqlControl = sqlControl;
+        this.sqlEngine = ctx.sqlEngine;
+        initFeatures();
     }
 
-    public SqlMetaStatement.Type getSqlStatementType() {
+    /**
+     * Initialize the optional features.
+     */
+    private void initFeatures() {
+        final Map<String, Object> runtimeFeatures = SqlEngine.getFeatures(sqlControl);
+        if (runtimeFeatures != null) {
+            for (Entry<String, Object> entry : runtimeFeatures.entrySet()) {
+                Set<String> oppositeNames = SqlUtils.oppositeFeatures(entry.getKey());
+                if (oppositeNames != null)
+                    this.oppositeNames.addAll(oppositeNames);
+            }
+        }
+    }
+
+    /**
+     * Returns the SQL command type.
+     * 
+     * @return the SQL command type
+     */
+    SqlMetaStatement.Type getSqlStatementType() {
         return sqlStatementType;
     }
 
     /**
-     * Convenient method to obtain a String feature based on the name.
+     * Returns the SQL statement dynamic parameters.
      * 
-     * @param name
-     *            name of the feature
-     * @return value of the feature
+     * @return the SQL statement dynamic parameters
      */
-    public static String getFeature(String name) {
-        Object o = getFeatures().get(name);
+    public Object getDynamicInputValues() {
+        return dynamicInputValues;
+    }
+
+    /**
+     * Returns the SQL statement static parameters.
+     * 
+     * @return the SQL statement static parameters
+     */
+    public Object getStaticInputValues() {
+        return sqlEngine.getStaticInputValues(sqlControl);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getFeature(String name) {
+        Object o = getRawFeature(name);
         return (o != null && o instanceof String) ? (String) o : null;
     }
 
     /**
-     * Convenient method to obtain a String array features based on the name.
-     * 
-     * @param name
-     *            name of the feature
-     * @return the array of the feature values
+     * {@inheritDoc}
      */
-    public static String[] getFeatures(String name) {
-        Object o = getFeatures().get(name);
+    @Override
+    public String[] getFeatures(String name) {
+        Object o = getRawFeature(name);
         if (o != null && o instanceof String[])
             return (String[]) o;
         if (o != null && o instanceof String)
@@ -139,28 +152,22 @@ public class SqlProcessContext {
     }
 
     /**
-     * Convenient method to obtain a boolean feature based on the name.
-     * 
-     * @param name
-     *            name of the feature
-     * @return value of the feature
+     * {@inheritDoc}
      */
-    public static boolean isFeature(String name) {
-        Object o = getFeatures().get(name);
+    @Override
+    public boolean isFeature(String name) {
+        Object o = getRawFeature(name);
         return (o != null && o instanceof Boolean && ((Boolean) o)) ? true : false;
     }
 
     /**
-     * Convenient method to obtain an Integer feature based on the name.
-     * 
-     * @param name
-     *            name of the feature
-     * @return value of the feature
+     * {@inheritDoc}
      */
-    public static Integer getFeatureAsInt(String name) {
-        Object o = getFeatures().get(name);
+    @Override
+    public Integer getFeatureAsInt(String name) {
+        Object o = getRawFeature(name);
         if (o == null)
-            o = getFeatures().get("DEFAULT_" + name);
+            o = getRawFeature("DEFAULT_" + name);
         if (o == null || !(o instanceof String))
             return null;
         try {
@@ -171,17 +178,27 @@ public class SqlProcessContext {
     }
 
     /**
-     * Convenient method to obtain an Object feature based on the name.
-     * 
-     * @param name
-     *            name of the feature
-     * @return value of the feature
+     * {@inheritDoc}
      */
-    public static Object getFeatureAsObject(String name) {
-        Object o = getFeatures().get(name);
+    @Override
+    public Object getFeatureAsObject(String name) {
+        Object o = getRawFeature(name);
         if (o == null)
-            o = getFeatures().get("DEFAULT_" + name);
+            o = getRawFeature("DEFAULT_" + name);
         return o;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getRawFeature(String name) {
+        Map<String, Object> runtimeFeatures = SqlEngine.getFeatures(sqlControl);
+        if (runtimeFeatures != null && runtimeFeatures.containsKey(name))
+            return runtimeFeatures.get(name);
+        if (oppositeNames.contains(name))
+            return null;
+        return sqlEngine.getFeatures().get(name);
     }
 
     /**
@@ -189,8 +206,8 @@ public class SqlProcessContext {
      * 
      * @return the list of ordering directives
      */
-    public List<SqlOrder> getOrder() {
-        return order;
+    List<SqlOrder> getOrder() {
+        return SqlEngine.getOrder(sqlControl).getOrders();
     }
 
     /**
@@ -201,6 +218,7 @@ public class SqlProcessContext {
      * @return the index of the ordering directive
      */
     int getOrderIndex(int orderId) {
+        List<SqlOrder> order = getOrder();
         if (order == null || order.isEmpty())
             return -1;
         for (int i = 0; i < order.size(); i++) {
@@ -219,129 +237,24 @@ public class SqlProcessContext {
      * @return the ordering directive
      */
     SqlOrder.Order getOrder(int orderIndex) {
+        List<SqlOrder> order = getOrder();
         if (orderIndex < 0 || orderIndex >= order.size())
             return SqlOrder.Order.NONE;
         return order.get(orderIndex).getOrderDirection();
     }
 
     /**
-     * Returns the features for the current thread.
-     * 
-     * @return the current thread's features
+     * {@inheritDoc}
      */
-    static Map<String, Object> getFeatures() {
-        final Map<String, Object> features = currentFeatures.get();
-        if (features == null) {
-            throw new RuntimeException("There are no features attached to current thread "
-                    + Thread.currentThread().getName());
-        }
-        return features;
+    public SqlTypeFactory getTypeFactory() {
+        return sqlEngine.getTypeFactory();
     }
 
     /**
-     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT.
-     * 
-     * @param features
-     *            the optional features in the statement/global scope
-     * @param runtimeFeatures
-     *            the optional features in the statement's exection scope
+     * {@inheritDoc}
      */
-    static void setFeatures(final Map<String, Object> features, Map<String, Object> runtimeFeatures) {
-        // if (currentFeatures.get() != null)
-        // return;
-        if (features == null) {
-            throw new IllegalArgumentException("Argument features can not be null");
-        }
-        currentFeatures.set(features);
-        if (runtimeFeatures == null)
-            return;
-        for (Entry<String, Object> entry : runtimeFeatures.entrySet()) {
-            currentFeatures.get().put(entry.getKey(), entry.getValue());
-            Set<String> oppositeNames = SqlUtils.oppositeFeatures(entry.getKey());
-            if (oppositeNames != null) {
-                for (String name : oppositeNames)
-                    currentFeatures.get().remove(name);
-            }
-        }
-    }
-
-    /**
-     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT. IT'S USED ONLY FROM JUNIT TESTS.
-     */
-    static void nullFeatures() {
-        currentFeatures.set(null);
-    }
-
-    /**
-     * Returns the factory for the current thread responsible for the META types construction.
-     * 
-     * @return the current thread's factory for the META types construction
-     */
-    public static SqlTypeFactory getTypeFactory() {
-        final SqlTypeFactory typeFactory = currentTypeFactory.get();
-        if (typeFactory == null) {
-            throw new RuntimeException("There is no typeFactory attached to current thread "
-                    + Thread.currentThread().getName());
-        }
-        return typeFactory;
-    }
-
-    /**
-     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT.
-     * 
-     * @param typeFactory
-     *            the factory for the META types construction
-     */
-    static void setTypeFactory(final SqlTypeFactory typeFactory) {
-        // if (currentTypeFactory.get() != null)
-        // return;
-        if (typeFactory == null) {
-            throw new IllegalArgumentException("Argument typeFactory can not be null");
-        }
-        currentTypeFactory.set(typeFactory);
-    }
-
-    /**
-     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT. IT'S USED ONLY FROM JUNIT TESTS.
-     */
-    static void nullTypeFactory() {
-        currentTypeFactory.set(null);
-    }
-
-    /**
-     * Returns the factory for the current thread responsible for the SQL Processor plugins.
-     * 
-     * @return the current thread's factory for the SQL Processor plugins
-     */
-    public static SqlPluginFactory getPluginFactory() {
-        final SqlPluginFactory pluginFactory = currentPluginFactory.get();
-        if (pluginFactory == null) {
-            throw new RuntimeException("There is no pluginFactory attached to current thread "
-                    + Thread.currentThread().getName());
-        }
-        return pluginFactory;
-    }
-
-    /**
-     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT.
-     * 
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
-     */
-    static void setPluginFactory(final SqlPluginFactory pluginFactory) {
-        // if (currentPluginFactory.get() != null)
-        // return;
-        if (pluginFactory == null) {
-            throw new IllegalArgumentException("Argument pluginFactory can not be null");
-        }
-        currentPluginFactory.set(pluginFactory);
-    }
-
-    /**
-     * THIS METHOD IS NOT PART OF THE SQL PROCESSOR PUBLIC API. DO NOT USE IT. IT'S USED ONLY FROM JUNIT TESTS.
-     */
-    static void nullPluginFactory() {
-        currentPluginFactory.set(null);
+    public SqlPluginFactory getPluginFactory() {
+        return sqlEngine.getPluginFactory();
     }
 
     /**
@@ -353,9 +266,8 @@ public class SqlProcessContext {
         StringBuilder sb = new StringBuilder("SqlProcessContext[");
         sb.append(" sqlStatementType=").append(sqlStatementType);
         sb.append(", dynamicInputValues=").append(dynamicInputValues);
-        sb.append(", staticInputValues=").append(staticInputValues);
-        sb.append(", order=").append((order != null) ? order.toString() : null);
-        sb.append(", inSqlSetOrInsert=").append(inSqlSetOrInsert);
+        sb.append(", sqlControl=").append((sqlControl != null) ? sqlControl.toString() : null);
+        sb.append(", sqlEngine=").append(sqlEngine);
         return sb.append("]").toString();
     }
 }

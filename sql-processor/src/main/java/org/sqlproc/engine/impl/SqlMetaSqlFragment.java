@@ -151,7 +151,7 @@ class SqlMetaSqlFragment implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         result.setSql(new StringBuilder());
         if (type == Type.SET || type == Type.VALUES)
             ctx.inSqlSetOrInsert = true;

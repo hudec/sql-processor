@@ -2,6 +2,7 @@ package org.sqlproc.engine.plugin;
 
 import java.util.Map;
 
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -28,6 +29,8 @@ public interface IsEmptyPlugin extends Modifiers {
     /**
      * Used for the evaluation of the emptiness in the META SQL fragments.
      * 
+     * @param runtime
+     *            the public runtime context
      * @param attributeName
      *            the name of the input value
      * @param obj
@@ -42,11 +45,9 @@ public interface IsEmptyPlugin extends Modifiers {
      *            an indicator the input value is evaluated in the CRUD statement (INSERT or SET)
      * @param values
      *            values for a special identifier handling, for example a sequence for an identity
-     * @param features
-     *            the optional features in the statement coontext
      * @return the non-emptiness of the input value
      */
-    public boolean isNotEmpty(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values, Map<String, Object> features)
+    public boolean isNotEmpty(SqlRuntimeContext runtime, String attributeName, Object obj, Object parentObj,
+            SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
             throws IllegalArgumentException;
 }

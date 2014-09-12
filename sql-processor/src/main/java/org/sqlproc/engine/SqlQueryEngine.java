@@ -9,7 +9,6 @@ import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
-import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.impl.SqlUtils;
@@ -444,9 +443,8 @@ public class SqlQueryEngine extends SqlEngine {
         try {
             result = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
-                    SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), getOrder(sqlControl).getOrders(), features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory, getProcessingId(sqlControl));
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
+                            sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
@@ -500,7 +498,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     private <E> List<E> query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
             final SqlControl sqlControl) {
-        List list = query.list();
+        List list = query.list(mappingResult.getRuntimeContext());
         List<E> result = new ArrayList<E>();
         E resultInstance = null;
         Object[] resultValue = null;
@@ -642,15 +640,12 @@ public class SqlQueryEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory, getProcessingId(sqlControl));
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
+                            sqlControl);
                     final SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
                             processResult.getSql()));
                     queryCount.setLogError(processResult.isLogError());
-                    SqlProcessContext.getTypeFactory().getDefaultType()
-                            .addScalar(queryCount, "vysledek", Integer.class);
+                    typeFactory.getDefaultType().addScalar(queryCount, "vysledek", Integer.class);
                     if (getMaxTimeout(sqlControl) > 0)
                         queryCount.setTimeout(getMaxTimeout(sqlControl));
                     queryCount.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
@@ -660,11 +655,11 @@ public class SqlQueryEngine extends SqlEngine {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
                             public Integer run() {
-                                return queryCount(queryCount);
+                                return queryCount(queryCount, processResult);
                             }
                         }, Integer.class);
                     } else {
-                        return queryCount(queryCount);
+                        return queryCount(queryCount, processResult);
                     }
                 }
             }, Integer.class);
@@ -683,8 +678,8 @@ public class SqlQueryEngine extends SqlEngine {
      *            query
      * @return the result
      */
-    private Integer queryCount(final SqlQuery queryCount) {
-        return (Integer) queryCount.unique();
+    private Integer queryCount(final SqlQuery queryCount, final SqlProcessResult processResult) {
+        return (Integer) queryCount.unique(processResult.getRuntimeContext());
     }
 
     /**
@@ -747,9 +742,7 @@ public class SqlQueryEngine extends SqlEngine {
 
                 public String run() {
                     SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            getStaticInputValues(sqlControl), (getOrder(sqlControl) != null) ? getOrder(sqlControl)
-                                    .getOrders() : NO_ORDER.getOrders(), features, getFeatures(sqlControl),
-                            typeFactory, pluginFactory, getProcessingId(sqlControl));
+                            sqlControl);
                     String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
                             processResult.getSql().toString());
                     return sql;

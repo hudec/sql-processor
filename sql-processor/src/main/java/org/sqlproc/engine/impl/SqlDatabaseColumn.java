@@ -36,6 +36,6 @@ class SqlDatabaseColumn implements SqlMetaSimple {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        return new SqlProcessResult(name);
+        return new SqlProcessResult(ctx, name);
     }
 }

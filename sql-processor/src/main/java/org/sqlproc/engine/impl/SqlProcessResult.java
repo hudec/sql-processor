@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.validation.SqlValidationContext;
@@ -27,6 +29,10 @@ import org.sqlproc.engine.validation.SqlValidator;
  */
 public class SqlProcessResult implements Comparable<SqlProcessResult> {
 
+    /**
+     * The crate for all input parameters and the context of processing.
+     */
+    private SqlProcessContext ctx;
     /**
      * The indicator that a partial processing result (of ANSI SQL Query generation) is going to be part of a final ANSI
      * SQL.
@@ -72,28 +78,35 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
 
     /**
      * Creates a new instance.
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      */
-    SqlProcessResult() {
-        allInputValues = new ArrayList<String>();
-        inputValues = new LinkedHashMap<String, SqlInputValue>();
-        outputValues = new LinkedHashMap<String, SqlMappingItem>();
-        identities = new HashMap<String, SqlInputValue>();
-        outValues = new HashMap<String, SqlInputValue>();
-        sql = new StringBuilder();
+    SqlProcessResult(SqlProcessContext ctx) {
+        this.ctx = ctx;
+        this.allInputValues = new ArrayList<String>();
+        this.inputValues = new LinkedHashMap<String, SqlInputValue>();
+        this.outputValues = new LinkedHashMap<String, SqlMappingItem>();
+        this.identities = new HashMap<String, SqlInputValue>();
+        this.outValues = new HashMap<String, SqlInputValue>();
+        this.sql = new StringBuilder();
     }
 
     /**
      * Creates a new instance with a SQL fragment from SqlMetaText.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param sql
      *            a SQL fragment
      */
-    SqlProcessResult(String sql) {
-        allInputValues = new ArrayList<String>();
-        inputValues = new HashMap<String, SqlInputValue>();
-        outputValues = new LinkedHashMap<String, SqlMappingItem>();
-        identities = new HashMap<String, SqlInputValue>();
-        outValues = new HashMap<String, SqlInputValue>();
+    SqlProcessResult(SqlProcessContext ctx, String sql) {
+        this.ctx = ctx;
+        this.allInputValues = new ArrayList<String>();
+        this.inputValues = new HashMap<String, SqlInputValue>();
+        this.outputValues = new LinkedHashMap<String, SqlMappingItem>();
+        this.identities = new HashMap<String, SqlInputValue>();
+        this.outValues = new HashMap<String, SqlInputValue>();
         if (sql != null) {
             this.sql = new StringBuilder(sql);
             this.add = true;
@@ -108,25 +121,44 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * 
      * @param result
      *            SqlProcessResult instance to clone
-     * @param dynamicInputValues
-     *            the SQL statement dynamic parameters (input values)
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      */
-    public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues) {
-        add = result.add;
-        allInputValues = result.allInputValues;
+    public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues, SqlControl sqlControl) {
+        this.ctx = new SqlProcessContext(result.ctx, dynamicInputValues, sqlControl);
+        this.add = result.add;
+        this.allInputValues = result.allInputValues;
         if (result.inputValues != null) {
-            inputValues = new HashMap<String, SqlInputValue>();
+            this.inputValues = new HashMap<String, SqlInputValue>();
             for (Entry<String, SqlInputValue> e : result.inputValues.entrySet()) {
-                inputValues.put(e.getKey(), new SqlInputValue(e.getKey(), e.getValue(), dynamicInputValues));
+                this.inputValues.put(e.getKey(), new SqlInputValue(ctx, e.getKey(), e.getValue(), dynamicInputValues));
             }
         }
-        outputValues = result.outputValues;
-        identities = result.identities;
-        outValues = result.outValues;
-        sql = result.sql;
-        orderIndex = result.orderIndex;
-        skipNextText = result.skipNextText;
-        logError = result.logError;
+        this.outputValues = result.outputValues;
+        this.identities = result.identities;
+        this.outValues = result.outValues;
+        this.sql = result.sql;
+        this.orderIndex = result.orderIndex;
+        this.skipNextText = result.skipNextText;
+        this.logError = result.logError;
+    }
+
+    /**
+     * Returns the crate for all input parameters and the context of processing.
+     * 
+     * @return the crate for all input parameters and the context of processing
+     */
+    SqlProcessContext getCtx() {
+        return ctx;
+    }
+
+    /**
+     * Returns the public runtime context
+     * 
+     * @return the public runtime context
+     */
+    public SqlRuntimeContext getRuntimeContext() {
+        return ctx;
     }
 
     /**

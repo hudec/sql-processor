@@ -87,7 +87,7 @@ class SqlMetaOrd implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         int orderIndex = ctx.getOrderIndex(this.id);
         if (orderIndex >= 0) {
             result.addTrue();

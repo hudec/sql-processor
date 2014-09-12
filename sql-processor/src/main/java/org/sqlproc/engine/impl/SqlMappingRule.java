@@ -141,6 +141,6 @@ public class SqlMappingRule {
      * @return the crate for output mapping rule and database row identities
      */
     public static SqlMappingResult merge(SqlMappingRule mapping, SqlProcessResult processResult) {
-        return new SqlMappingResult(mapping, processResult.getOutputValues());
+        return new SqlMappingResult(processResult.getCtx(), mapping, processResult.getOutputValues());
     }
 }

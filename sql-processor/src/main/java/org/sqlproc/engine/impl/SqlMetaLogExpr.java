@@ -125,7 +125,7 @@ class SqlMetaLogExpr implements SqlMetaElement, SqlMetaLogOperand {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         if (this.processExpression(ctx))
             result.addTrue();
         else

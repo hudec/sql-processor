@@ -13,6 +13,7 @@ import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -87,8 +88,8 @@ public class HibernateType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(Object resultInstance, String attributeName, Object resultValue, boolean ingoreError)
-            throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtime, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult HIBERNATE: resultInstance=" + resultInstance + ", attributeName="
                     + attributeName + ", resultValue=" + resultValue + ", resultType"
@@ -114,8 +115,8 @@ public class HibernateType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlQuery query, String paramName, Object inputValue, Class<?> inputType,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setParameter(SqlRuntimeContext runtime, SqlQuery query, String paramName, Object inputValue,
+            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter HIBERNATE: paramName=" + paramName + ", inputValue=" + inputValue
                     + ", inputType=" + inputType + ", hibernateType=" + hibernateType);

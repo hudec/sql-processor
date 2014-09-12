@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * SQL Processor utilities.
@@ -29,10 +30,10 @@ public class SqlUtils {
 
     // enums
 
-    public static Object getEnumToValue(Object obj) {
+    public static Object getEnumToValue(SqlRuntimeContext runtime, Object obj) {
         if (obj == null)
             return null;
-        for (String methodName : SqlProcessContext.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
             try {
                 return MethodUtils.invokeMethod(obj, methodName, null);
             } catch (NoSuchMethodException e) {
@@ -47,10 +48,10 @@ public class SqlUtils {
     }
 
     @SuppressWarnings("rawtypes")
-    public static Class getEnumToClass(Class clazz) {
+    public static Class getEnumToClass(SqlRuntimeContext runtime, Class clazz) {
         if (clazz == null)
             return null;
-        for (String methodName : SqlProcessContext.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
             Method m = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, new Class[] {});
             if (m != null)
                 return m.getReturnType();
@@ -58,10 +59,10 @@ public class SqlUtils {
         return null;
     }
 
-    public static Object getValueToEnum(Class<?> objClass, Object val) {
+    public static Object getValueToEnum(SqlRuntimeContext runtime, Class<?> objClass, Object val) {
         if (val == null)
             return null;
-        for (String methodName : SqlProcessContext.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
+        for (String methodName : runtime.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
             try {
                 return MethodUtils.invokeStaticMethod(objClass, methodName, val);
             } catch (NoSuchMethodException e) {
