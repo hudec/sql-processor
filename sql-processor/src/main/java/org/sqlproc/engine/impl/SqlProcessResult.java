@@ -110,8 +110,6 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      *            SqlProcessResult instance to clone
      * @param dynamicInputValues
      *            the SQL statement dynamic parameters (input values)
-     * @param staticInputValues
-     *            the SQL statement static parameters (input values)
      */
     public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues) {
         add = result.add;

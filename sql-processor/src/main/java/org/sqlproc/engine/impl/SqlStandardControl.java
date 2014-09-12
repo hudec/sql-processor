@@ -305,7 +305,7 @@ public class SqlStandardControl implements SqlControl {
      * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
      * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
      * 
-     * @param sqlStatementId
+     * @param processingId
      *            the unique ID of the executed statement based on input values combination
      */
     public SqlStandardControl setProcessingId(String processingId) {
