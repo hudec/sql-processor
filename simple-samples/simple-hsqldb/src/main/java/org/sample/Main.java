@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.Assert;
 import org.sample.dao.ContactDao;
@@ -85,12 +87,29 @@ public class Main {
     private ProceduresDao proceduresDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
-        Person p = personDao.insert(person);
+        Person p = personDao.insert(person, new SqlStandardControl().setProcessingId("insertPerson"));
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact._setPerson(p));
+            Contact c = contactDao.insert(contact._setPerson(p),
+                    new SqlStandardControl().setProcessingId("insertContact"));
             p.getContacts().add(c);
         }
         return p;
+    }
+
+    public Person getPerson(Long id, Person.Association... associations) {
+        Person person = new Person()._setId(id)._setInit(associations);
+        SqlStandardControl ssc = new SqlStandardControl();
+        if (associations != null) {
+            Set<String> set = new TreeSet<String>();
+            for (Person.Association association : associations)
+                set.add(association.name());
+            int hashCode = set.hashCode();
+            if (hashCode < 0)
+                ssc.setProcessingId("getPersonId__" + (-set.hashCode()));
+            else
+                ssc.setProcessingId("getPersonId_" + set.hashCode());
+        }
+        return personDao.get(person, ssc);
     }
 
     public void run(boolean dynamic) throws Exception {
@@ -105,16 +124,35 @@ public class Main {
         // insert
         Person jan = insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE),
                 new Contact()._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME));
+        p = getPerson(jan.getId(), Person.Association.contacts);
+        Assert.assertEquals("Jan", p.getFirstName());
+        Assert.assertEquals("Jan address 1", p.getContacts().get(0).getAddress());
+
         Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
                 ._setAddress("Janik address 1")._setType(ContactType.BUSINESS));
+        p = getPerson(janik.getId(), Person.Association.contacts);
+        Assert.assertEquals("Janik", p.getFirstName());
+        Assert.assertEquals("Janik address 1", p.getContacts().get(0).getAddress());
+
         Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
                 ._setAddress("Honza address 1")._setType(ContactType.HOME), new Contact()
                 ._setAddress("Honza address 2")._setType(ContactType.BUSINESS));
+        p = getPerson(honza.getId(), Person.Association.contacts);
+        Assert.assertEquals("Honza", p.getFirstName());
+        Assert.assertEquals("Honza address 2", p.getContacts().get(1).getAddress());
+
         Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
+        p = getPerson(honzik.getId(), Person.Association.contacts);
+        Assert.assertEquals("Honzik", p.getFirstName());
+        Assert.assertEquals(0, p.getContacts().size());
+
         Person andrej = insertPersonContacts(
                 new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
                         ._setType(ContactType.BUSINESS));
+        p = getPerson(andrej.getId(), Person.Association.contacts);
+        Assert.assertEquals("Andrej", p.getFirstName());
+        Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
 
         // update
         person = new Person();
@@ -124,16 +162,14 @@ public class Main {
         person.setDateOfBirth(age);
         count = personDao.update(person);
         Assert.assertEquals(1, count);
-        p = personDao.get(new Person()._setId(andrej.getId()), new SqlStandardControl().setProcessingId("PersonGetId"));
+        p = getPerson(andrej.getId());
         if (dynamic)
             Assert.assertNull(p.getDateOfBirth());
         else
             Assert.assertEquals(age, p.getDateOfBirth());
 
         // get & update person with null values
-        person = new Person();
-        person.setId(andrej.getId());
-        p = personDao.get(person, new SqlStandardControl().setProcessingId("PersonGetId"));
+        p = getPerson(andrej.getId());
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
@@ -149,10 +185,7 @@ public class Main {
         Assert.assertEquals(1, count);
 
         // get person with associations
-        person = new Person();
-        person.setId(andrej.getId());
-        person.setInit(Person.Association.contacts);
-        p = personDao.get(person, new SqlStandardControl().setProcessingId("PersonGetIdAndContacts"));
+        p = getPerson(andrej.getId(), Person.Association.contacts);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andriosa", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());

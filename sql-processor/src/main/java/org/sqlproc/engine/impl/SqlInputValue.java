@@ -241,11 +241,18 @@ class SqlInputValue {
         this.valueType = sqlInputValue.valueType;
         this.caseConversion = sqlInputValue.caseConversion;
         this.inOutMode = sqlInputValue.inOutMode;
-        String[] ss = (sqlInputValue.fullInputName != null) ? sqlInputValue.fullInputName.split(",")
-                : new String[] { sqlInputValue.inputName };
-        for (int i = 0; i < ss.length; i++) {
-            this.inputValue = BeanUtils.getProperty((i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
+        this.parentInputValue = dynamicInputValues;
+        if (sqlInputValue.fullInputName != null || sqlInputValue.inputName != null) {
+            String[] ss = (sqlInputValue.fullInputName != null) ? sqlInputValue.fullInputName.split(",")
+                    : new String[] { sqlInputValue.inputName };
+            for (int i = 0; i < ss.length; i++) {
+                this.inputValue = BeanUtils.getProperty((i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
+                if (i < ss.length - 1)
+                    this.parentInputValue = this.inputValue;
+            }
         }
+        // if (this.valueType == Type.IDENTITY_SELECT)
+        // this.parentInputValue = dynamicInputValues;
         this.inputName = sqlInputValue.inputName;
         this.fullInputName = sqlInputValue.fullInputName;
         this.inputValueType = sqlInputValue.inputValueType;

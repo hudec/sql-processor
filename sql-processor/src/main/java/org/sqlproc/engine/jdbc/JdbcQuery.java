@@ -667,6 +667,9 @@ public class JdbcQuery implements SqlQuery {
                     if (type instanceof JdbcSqlType) {
                         JdbcSqlType sqlType = (JdbcSqlType) type;
                         try {
+                            if (logger.isTraceEnabled()) {
+                                logger.trace("setParameters, ix=" + (ix + i) + ", value=" + value);
+                            }
                             sqlType.set(ps, ix + i, value);
                         } catch (ClassCastException cce) {
                             StringBuilder sb = new StringBuilder("Not compatible input value of type ")
@@ -677,11 +680,20 @@ public class JdbcQuery implements SqlQuery {
                             throw new SqlProcessorException(sb.toString(), cce);
                         }
                     } else if (value == null) {
+                        if (logger.isTraceEnabled()) {
+                            logger.trace("setNull, ix=" + (ix + i) + ", type=" + type);
+                        }
                         ps.setNull(ix + i, (Integer) type);
                     } else {
+                        if (logger.isTraceEnabled()) {
+                            logger.trace("setNull, ix=" + (ix + i) + ", type=" + type);
+                        }
                         ps.setObject(ix + i, value, (Integer) type);
                     }
                 } else {
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("setObject, ix=" + (ix + i) + ", type=" + type);
+                    }
                     ps.setObject(ix + i, value);
                 }
             }

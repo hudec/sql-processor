@@ -122,6 +122,7 @@ class SqlType {
     public void setValue(String value) {
         this.value = value;
     }
+
     //
     // /**
     // * Returns the indicator the value is the correct one.
@@ -139,4 +140,18 @@ class SqlType {
     // }
     // return false;
     // }
+
+    /**
+     * For debug purposes.
+     * 
+     * @return a String representation for a debug output
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder("SqlType[");
+        if (metaType != null) {
+            sb.append(" metaType=").append(metaType.toString());
+        }
+        sb.append(", value=").append(value);
+        return sb.append("]").toString();
+    }
 }

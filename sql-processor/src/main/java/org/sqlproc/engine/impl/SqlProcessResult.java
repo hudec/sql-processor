@@ -103,7 +103,7 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
     SqlProcessResult(SqlProcessContext ctx, String sql) {
         this.ctx = ctx;
         this.allInputValues = new ArrayList<String>();
-        this.inputValues = new HashMap<String, SqlInputValue>();
+        this.inputValues = new LinkedHashMap<String, SqlInputValue>();
         this.outputValues = new LinkedHashMap<String, SqlMappingItem>();
         this.identities = new HashMap<String, SqlInputValue>();
         this.outValues = new HashMap<String, SqlInputValue>();
@@ -131,14 +131,24 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         this.add = result.add;
         this.allInputValues = result.allInputValues;
         if (result.inputValues != null) {
-            this.inputValues = new HashMap<String, SqlInputValue>();
+            this.inputValues = new LinkedHashMap<String, SqlInputValue>();
             for (Entry<String, SqlInputValue> e : result.inputValues.entrySet()) {
                 this.inputValues.put(e.getKey(), new SqlInputValue(ctx, e.getKey(), e.getValue(), dynamicInputValues));
             }
         }
         this.outputValues = result.outputValues;
-        this.identities = result.identities;
-        this.outValues = result.outValues;
+        if (result.identities != null) {
+            this.identities = new HashMap<String, SqlInputValue>();
+            for (Entry<String, SqlInputValue> e : result.identities.entrySet()) {
+                this.identities.put(e.getKey(), this.inputValues.get(e.getKey()));
+            }
+        }
+        if (result.outValues != null) {
+            this.outValues = new HashMap<String, SqlInputValue>();
+            for (Entry<String, SqlInputValue> e : result.outValues.entrySet()) {
+                this.outValues.put(e.getKey(), this.inputValues.get(e.getKey()));
+            }
+        }
         this.sql = result.sql;
         this.orderIndex = result.orderIndex;
         this.skipNextText = result.skipNextText;
@@ -523,29 +533,17 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         if (allInputValues != null && !allInputValues.isEmpty()) {
             sb.append(", allInputValue=").append(allInputValues.toString());
         }
-        if (inputValues != null && inputValues.isEmpty()) {
-            for (String paramName : this.inputValues.keySet()) {
-                SqlInputValue value = this.inputValues.get(paramName);
-                sb.append(", inputValue=").append(paramName).append(", value=").append(value);
-            }
+        if (inputValues != null && !inputValues.isEmpty()) {
+            sb.append(", inputValues=").append(inputValues.toString());
         }
-        if (outputValues != null) {
-            for (String paramName : this.outputValues.keySet()) {
-                SqlMappingItem value = this.outputValues.get(paramName);
-                sb.append(", outputValue=").append(paramName).append(", value=").append(value);
-            }
+        if (outputValues != null && !outputValues.isEmpty()) {
+            sb.append(", outputValues=").append(outputValues.toString());
         }
-        if (identities != null) {
-            for (String paramName : this.identities.keySet()) {
-                SqlInputValue value = this.identities.get(paramName);
-                sb.append(", identity=").append(paramName).append(", value=").append(value);
-            }
+        if (identities != null && !identities.isEmpty()) {
+            sb.append(", identities=").append(identities.toString());
         }
-        if (outValues != null) {
-            for (String paramName : this.outValues.keySet()) {
-                SqlInputValue value = this.outValues.get(paramName);
-                sb.append(", outValue=").append(paramName).append(", value=").append(value);
-            }
+        if (outValues != null && !outValues.isEmpty()) {
+            sb.append(", outValues=").append(outValues.toString());
         }
         sb.append(", sql='").append(sql).append("'");
         sb.append(", orderIndex=").append(orderIndex);
