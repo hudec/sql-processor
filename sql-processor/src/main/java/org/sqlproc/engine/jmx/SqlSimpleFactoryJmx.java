@@ -1,5 +1,8 @@
 package org.sqlproc.engine.jmx;
 
+import java.util.Collection;
+
+import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
 
@@ -163,16 +166,7 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      */
     @Override
     public String getNames() {
-        StringBuilder sb = new StringBuilder();
-        boolean first = true;
-        for (String name : sqlEngineFactory.getNames()) {
-            if (first)
-                first = false;
-            else
-                sb.append(",");
-            sb.append(name);
-        }
-        return sb.toString();
+        return collectionToString(sqlEngineFactory.getNames());
     }
 
     /**
@@ -180,9 +174,13 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      */
     @Override
     public String getDynamicNames() {
+        return collectionToString(sqlEngineFactory.getDynamicNames());
+    }
+
+    private String collectionToString(Collection<String> collection) {
         StringBuilder sb = new StringBuilder();
         boolean first = true;
-        for (String name : sqlEngineFactory.getDynamicNames()) {
+        for (String name : collection) {
             if (first)
                 first = false;
             else
@@ -208,5 +206,101 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
      */
     public void setSqlEngineFactory(SqlEngineFactory sqlEngineFactory) {
         this.sqlEngineFactory = sqlEngineFactory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getQueryEngineProcessingCache(String name) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedQueryEngine(name);
+            return collectionToString(engine.getProcessingCache().keySet());
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        return errors.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getCrudEngineProcessingCache(String name) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedCrudEngine(name);
+            return collectionToString(engine.getProcessingCache().keySet());
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        return errors.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProcedureEngineProcessingCache(String name) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedProcedureEngine(name);
+            return collectionToString(engine.getProcessingCache().keySet());
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        return errors.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String resetQueryEngineProcessingCache(String name, String names) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedQueryEngine(name);
+            for (String name0 : names.split(",")) {
+                engine.getProcessingCache().remove(name0);
+            }
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        return errors.length() == 0 ? OK : errors.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String resetCrudEngineProcessingCache(String name, String names) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedCrudEngine(name);
+            for (String name0 : names.split(",")) {
+                engine.getProcessingCache().remove(name0);
+            }
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        return errors.length() == 0 ? OK : errors.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String resetProcedureEngineProcessingCache(String name, String names) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedProcedureEngine(name);
+            for (String name0 : names.split(",")) {
+                engine.getProcessingCache().remove(name0);
+            }
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        return errors.length() == 0 ? OK : errors.toString();
     }
 }

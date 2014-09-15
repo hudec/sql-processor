@@ -144,4 +144,58 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryJmx implements SqlSi
     public boolean isLazyInit() {
         return super.isLazyInit();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the processing cache used for the selected SQL Query Engine.")
+    public String getQueryEngineProcessingCache(String name) {
+        return super.getQueryEngineProcessingCache(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the processing cache used for the selected SQL CRUD Engine.")
+    public String getCrudEngineProcessingCache(String name) {
+        return super.getCrudEngineProcessingCache(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the processing cache used for the selected SQL Procedure Engine.")
+    public String getProcedureEngineProcessingCache(String name) {
+        return super.getProcedureEngineProcessingCache(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Clears the processing cache used for the selected SQL Query Engine.")
+    public String resetQueryEngineProcessingCache(String name, String names) {
+        return super.resetQueryEngineProcessingCache(name, names);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Clears the processing cache used for the selected SQL CRUD Engine.")
+    public String resetCrudEngineProcessingCache(String name, String names) {
+        return super.resetCrudEngineProcessingCache(name, names);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Clears the processing cache used for the selected SQL Procedure Engine.")
+    public String resetProcedureEngineProcessingCache(String name, String names) {
+        return super.resetProcedureEngineProcessingCache(name, names);
+    }
 }

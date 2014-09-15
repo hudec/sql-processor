@@ -120,4 +120,64 @@ public interface SqlSimpleFactoryMXBean {
      * @return the indicator to speed up the initialization process
      */
     public boolean isLazyInit();
+
+    /**
+     * Returns the processing cache used for the selected SQL Query Engine
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine
+     * @return the processing cache used for the selected SQL Query Engine or the error message
+     */
+    public String getQueryEngineProcessingCache(String name);
+
+    /**
+     * Returns the processing cache used for the selected SQL CRUD Engine
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine
+     * @return the processing cache used for the selected SQL CRUD Engine or the error message
+     */
+    public String getCrudEngineProcessingCache(String name);
+
+    /**
+     * Returns the processing cache used for the selected SQL Procedure Engine
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine
+     * @return the processing cache used for the selected SQL Procedure Engine or the error message
+     */
+    public String getProcedureEngineProcessingCache(String name);
+
+    /**
+     * Clears the processing cache used for the selected SQL Query Engine
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine
+     * @param names
+     *            the names of the processing cache entries to be cleared
+     * @return the OK or the error message
+     */
+    public String resetQueryEngineProcessingCache(String name, String names);
+
+    /**
+     * Clears the processing cache used for the selected SQL CRUD Engine
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine
+     * @param names
+     *            the names of the processing cache entries to be cleared
+     * @return the OK or the error message
+     */
+    public String resetCrudEngineProcessingCache(String name, String names);
+
+    /**
+     * Clears the processing cache used for the selected SQL Procedure Engine
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine
+     * @param names
+     *            the names of the processing cache entries to be cleared
+     * @return the OK or the error message
+     */
+    public String resetProcedureEngineProcessingCache(String name, String names);
 }

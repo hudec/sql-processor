@@ -339,6 +339,15 @@ public abstract class SqlEngine {
     }
 
     /**
+     * Returns the processing cache used for {@link SqlProcessResult} instances.
+     * 
+     * @return the processing cache used for {@link SqlProcessResult} instances.
+     */
+    public Map<String, SqlProcessResult> getProcessingCache() {
+        return processingCache;
+    }
+
+    /**
      * Sets the processing cache used for {@link SqlProcessResult} instances.
      * 
      * @param processingCache
