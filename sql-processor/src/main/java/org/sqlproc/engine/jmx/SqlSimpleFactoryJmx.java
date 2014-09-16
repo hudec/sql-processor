@@ -32,11 +32,21 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
     @Override
     public String initQueryEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names.split(",")) {
-            try {
-                sqlEngineFactory.getCheckedQueryEngine(name);
-            } catch (SqlEngineException ex) {
-                errors.append(ex.getMessage()).append("\n");
+        if ("*".equals(names)) {
+            for (String name : sqlEngineFactory.getNames()) {
+                try {
+                    sqlEngineFactory.getCheckedQueryEngine(name);
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
+            }
+        } else {
+            for (String name : names.split(",")) {
+                try {
+                    sqlEngineFactory.getCheckedQueryEngine(name);
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
             }
         }
         return errors.length() == 0 ? OK : errors.toString();
@@ -48,11 +58,21 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
     @Override
     public String initCrudEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names.split(",")) {
-            try {
-                sqlEngineFactory.getCheckedCrudEngine(name);
-            } catch (SqlEngineException ex) {
-                errors.append(ex.getMessage()).append("\n");
+        if ("*".equals(names)) {
+            for (String name : sqlEngineFactory.getNames()) {
+                try {
+                    sqlEngineFactory.getCheckedCrudEngine(name);
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
+            }
+        } else {
+            for (String name : names.split(",")) {
+                try {
+                    sqlEngineFactory.getCheckedCrudEngine(name);
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
             }
         }
         return errors.length() == 0 ? OK : errors.toString();
@@ -64,11 +84,21 @@ public class SqlSimpleFactoryJmx implements SqlSimpleFactoryMXBean {
     @Override
     public String initProcedureEngines(String names) {
         StringBuilder errors = new StringBuilder();
-        for (String name : names.split(",")) {
-            try {
-                sqlEngineFactory.getCheckedProcedureEngine(name);
-            } catch (SqlEngineException ex) {
-                errors.append(ex.getMessage()).append("\n");
+        if ("*".equals(names)) {
+            for (String name : sqlEngineFactory.getNames()) {
+                try {
+                    sqlEngineFactory.getCheckedProcedureEngine(name);
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
+            }
+        } else {
+            for (String name : names.split(",")) {
+                try {
+                    sqlEngineFactory.getCheckedProcedureEngine(name);
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
             }
         }
         return errors.length() == 0 ? OK : errors.toString();
