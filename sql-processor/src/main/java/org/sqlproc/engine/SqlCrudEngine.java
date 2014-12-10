@@ -278,7 +278,7 @@ public class SqlCrudEngine extends SqlEngine {
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
-     * @throws org.sqlproc.engine.SqlValidationException
+     * @throws org.sqlproc.engine.validation.SqlValidationException
      *             in the case the validation of the input values isn't successfull
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
@@ -486,6 +486,8 @@ public class SqlCrudEngine extends SqlEngine {
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
+                    if (getFetchSize(sqlControl) > 0)
+                        query.setFetchSize(getFetchSize(sqlControl));
                     processResult.setQueryParams(session, query);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
@@ -639,7 +641,7 @@ public class SqlCrudEngine extends SqlEngine {
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
-     * @throws org.sqlproc.engine.SqlValidationException
+     * @throws org.sqlproc.engine.validation.SqlValidationException
      *             in the case the validation of the input values isn't successfull
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)

@@ -357,6 +357,8 @@ public class SqlProcedureEngine extends SqlEngine {
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
+                    if (getFetchSize(sqlControl) > 0)
+                        query.setFetchSize(getFetchSize(sqlControl));
                     processResult.setQueryParams(session, query);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, null, query);

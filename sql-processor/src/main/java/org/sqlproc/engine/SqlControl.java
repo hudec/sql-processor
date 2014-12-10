@@ -81,4 +81,11 @@ public interface SqlControl {
      * @return the unique ID of the executed statement based on the input values combination
      */
     public String getProcessingId();
+
+    /**
+     * Returns the fetch size of SQL execution output rows, which can be returned in one SQL statement.
+     *
+     * @return the fetch size of SQL execution output rows
+     */
+    public int getFetchSize();
 }

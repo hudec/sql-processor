@@ -52,6 +52,15 @@ public interface SqlQuery {
     SqlQuery setMaxResults(int maxResults);
 
     /**
+     * Sets the fetch size of rows to retrieve. If not set, there is no limit to the number of rows retrieved.
+     *
+     * @param fetchSize
+     *            the fetch size of rows
+     * @return this instance to enable the methods chaining
+     */
+    SqlQuery setFetchSize(int fetchSize);
+
+    /**
      * Sets the indicator the SQL output is sorted.
      * 
      * @param ordered

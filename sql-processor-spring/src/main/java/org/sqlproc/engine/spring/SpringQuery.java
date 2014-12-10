@@ -118,6 +118,10 @@ public class SpringQuery implements SqlQuery {
      */
     Integer maxResults;
     /**
+     * The fetch size of rows to retrieve in one SQL.
+     */
+    Integer fetchSize;
+    /**
      * The SQL output is sorted.
      */
     boolean ordered;
@@ -179,6 +183,15 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public SqlQuery setFetchSize(int fetchSize) {
+        this.fetchSize = fetchSize;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQuery setOrdered(boolean ordered) {
         this.ordered = ordered;
         return this;
@@ -204,6 +217,8 @@ public class SpringQuery implements SqlQuery {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (timeout != null)
                     ps.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    ps.setFetchSize(fetchSize);
                 return ps;
             }
         };
@@ -216,6 +231,8 @@ public class SpringQuery implements SqlQuery {
         ResultSetExtractor<List> rse = new ResultSetExtractor<List>() {
             @Override
             public List extractData(ResultSet rs) throws SQLException, DataAccessException {
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 return getResults(rs);
             }
         };
@@ -489,6 +506,8 @@ public class SpringQuery implements SqlQuery {
                 CallableStatement cs = con.prepareCall(query);
                 if (timeout != null)
                     cs.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    cs.setFetchSize(fetchSize);
                 return cs;
             }
         };
@@ -504,6 +523,8 @@ public class SpringQuery implements SqlQuery {
                     if (hasResultSet || cs.getMoreResults()) {
                         rs = cs.getResultSet();
                         ResultSet rsToUse = rs;
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }
@@ -512,6 +533,8 @@ public class SpringQuery implements SqlQuery {
                     } else {
                         rs = (ResultSet) getParameters(cs, true);
                         ResultSet rsToUse = rs;
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }
@@ -637,6 +660,8 @@ public class SpringQuery implements SqlQuery {
                     if (hasResultSet) {
                         rs = cs.getResultSet();
                         ResultSet rsToUse = rs;
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }

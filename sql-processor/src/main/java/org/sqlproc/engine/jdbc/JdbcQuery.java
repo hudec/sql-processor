@@ -108,6 +108,10 @@ public class JdbcQuery implements SqlQuery {
      */
     Integer maxResults;
     /**
+     * The fetch size of rows to retrieve in one SQL.
+     */
+    Integer fetchSize;
+    /**
      * The SQL output is sorted.
      */
     boolean ordered;
@@ -169,6 +173,15 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public SqlQuery setFetchSize(int fetchSize) {
+        this.fetchSize = fetchSize;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQuery setOrdered(boolean ordered) {
         this.ordered = ordered;
         return this;
@@ -194,8 +207,12 @@ public class JdbcQuery implements SqlQuery {
             ps = connection.prepareStatement(query);
             if (timeout != null)
                 ps.setQueryTimeout(timeout);
+            if (fetchSize != null)
+                ps.setFetchSize(fetchSize);
             setParameters(ps, limitType, 1);
             rs = ps.executeQuery();
+            if (fetchSize != null)
+                rs.setFetchSize(fetchSize);
             List list = getResults(rs);
             if (logger.isDebugEnabled()) {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
@@ -416,14 +433,20 @@ public class JdbcQuery implements SqlQuery {
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
+            if (fetchSize != null)
+                cs.setFetchSize(fetchSize);
             setParameters(cs, null, 1);
             hasResultSet = cs.execute();
             if (hasResultSet || cs.getMoreResults()) {
                 rs = cs.getResultSet();
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 list = getResults(rs);
                 getParameters(cs, false);
             } else {
                 rs = (ResultSet) getParameters(cs, true);
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 list = getResults(rs);
             }
             if (logger.isDebugEnabled()) {
@@ -539,10 +562,14 @@ public class JdbcQuery implements SqlQuery {
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
+            if (fetchSize != null)
+                cs.setFetchSize(fetchSize);
             setParameters(cs, null, 1);
             hasResultSet = cs.execute();
             if (hasResultSet) {
                 rs = cs.getResultSet();
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 list = getResults(rs);
                 if (list != null && !list.isEmpty())
                     result = list.get(0);

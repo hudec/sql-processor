@@ -67,6 +67,11 @@ public class SqlStandardControl implements SqlControl {
     private String processingId;
 
     /**
+     * Returns the fetch size of SQL execution output rows, which can be returned in one SQL statement.
+     */
+    private int fetchSize;
+
+    /**
      * Standard constructor.
      */
     public SqlStandardControl() {
@@ -310,6 +315,23 @@ public class SqlStandardControl implements SqlControl {
      */
     public SqlStandardControl setProcessingId(String processingId) {
         this.processingId = processingId;
+        return this;
+    }
+
+    @Override
+    public int getFetchSize() {
+        return fetchSize;
+    }
+
+    /**
+     * Sets the fetch size of SQL execution output rows, which can be returned in one SQL statement.
+     *
+     * @param fetchSize
+     *            the fetch size of SQL execution output rows
+     * @return this instance
+     */
+    public SqlStandardControl setFetchSize(int fetchSize) {
+        this.fetchSize = fetchSize;
         return this;
     }
 

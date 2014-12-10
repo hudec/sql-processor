@@ -269,6 +269,20 @@ public abstract class SqlEngine {
     }
 
     /**
+     * The helper to prevent the NPE
+     *
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the fetch size of SQL statement
+     */
+    public static int getFetchSize(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return 0;
+        else
+            return sqlControl.getFetchSize();
+    }
+
+    /**
      * Check the input parameters.
      * 
      * @param dynamicInputValues
