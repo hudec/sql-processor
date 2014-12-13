@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
-import org.sqlproc.engine.impl.SqlProcessContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
 
@@ -79,8 +79,8 @@ public class JdbcDefaultType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(Object resultInstance, String attributeName, Object resultValue, boolean ingoreError)
-            throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult DEFAULT: resultInstance=" + resultInstance + ", attributeName=" + attributeName
                     + ", resultValue=" + resultValue + ", resultType"
@@ -104,7 +104,7 @@ public class JdbcDefaultType extends SqlMetaType {
                     resultValue = (Integer) ((BigDecimal) resultValue).intValue();
                 else if (resultValue != null && resultValue instanceof BigInteger)
                     resultValue = (Integer) ((BigInteger) resultValue).intValue();
-                Object enumInstance = SqlUtils.getValueToEnum(attributeType, resultValue);
+                Object enumInstance = SqlUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
                 BeanUtils.simpleInvokeMethod(m, resultInstance, enumInstance);
             } else if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
@@ -137,19 +137,21 @@ public class JdbcDefaultType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlQuery query, String paramName, Object inputValue, Class<?> inputType,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
+            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter DEFAULT: paramName=" + paramName + ", inputValue=" + inputValue
                     + ", inputType=" + inputType);
         }
         if (!(inputValue instanceof Collection)) {
             if (inputType.isEnum()) {
-                Class clazz = SqlUtils.getEnumToClass(inputType);
+                Class clazz = SqlUtils.getEnumToClass(runtimeCtx, inputType);
                 if (clazz == String.class) {
-                    JdbcTypeFactory.ENUM_STRING.setParameter(query, paramName, inputValue, inputType, ingoreError);
+                    JdbcTypeFactory.ENUM_STRING.setParameter(runtimeCtx, query, paramName, inputValue, inputType,
+                            ingoreError);
                 } else if (clazz == Integer.class) {
-                    JdbcTypeFactory.ENUM_INT.setParameter(query, paramName, inputValue, inputType, ingoreError);
+                    JdbcTypeFactory.ENUM_INT.setParameter(runtimeCtx, query, paramName, inputValue, inputType,
+                            ingoreError);
                 } else {
                     if (ingoreError) {
                         logger.error("Incorrect type based enum " + inputValue + " for " + paramName);
@@ -158,9 +160,9 @@ public class JdbcDefaultType extends SqlMetaType {
                     }
                 }
             } else {
-                SqlMetaType type = SqlProcessContext.getTypeFactory().getMetaType(inputType);
+                SqlMetaType type = runtimeCtx.getTypeFactory().getMetaType(inputType);
                 if (type != null) {
-                    type.setParameter(query, paramName, inputValue, inputType, ingoreError);
+                    type.setParameter(runtimeCtx, query, paramName, inputValue, inputType, ingoreError);
                 } else {
                     if (ingoreError) {
                         logger.error("Incorrect default type " + inputValue + " for " + paramName);
@@ -178,7 +180,7 @@ public class JdbcDefaultType extends SqlMetaType {
                     break;
                 else
                     isEnum = true;
-                Object o = SqlUtils.getEnumToValue(val);
+                Object o = SqlUtils.getEnumToValue(runtimeCtx, val);
                 if (o != null) {
                     vals.add(o);
                 } else {

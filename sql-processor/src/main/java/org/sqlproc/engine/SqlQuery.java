@@ -52,6 +52,15 @@ public interface SqlQuery {
     SqlQuery setMaxResults(int maxResults);
 
     /**
+     * Sets the fetch size of rows to retrieve. If not set, there is no limit to the number of rows retrieved.
+     *
+     * @param fetchSize
+     *            the fetch size of rows
+     * @return this instance to enable the methods chaining
+     */
+    SqlQuery setFetchSize(int fetchSize);
+
+    /**
      * Sets the indicator the SQL output is sorted.
      * 
      * @param ordered
@@ -64,62 +73,74 @@ public interface SqlQuery {
      * Returns the query results as a <tt>List</tt>. If the query contains multiple results per row, the results are
      * returned in an instance of <tt>Object[]</tt>.
      * 
+     * @param runtime
+     *            the public runtime context
      * @return the result list
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
     @SuppressWarnings("rawtypes")
-    List list() throws SqlProcessorException;
+    List list(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Convenience method to return a single instance that matches the query, or null if the query returns no results.
      * 
+     * @param runtime
+     *            the public runtime context
      * @return the single result or <tt>null</tt>
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    Object unique() throws SqlProcessorException;
+    Object unique(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Executes the update, delete or insert statement.
      * 
+     * @param runtime
+     *            the public runtime context
      * @return the number of affected rows
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    int update() throws SqlProcessorException;
+    int update(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Returns the stored procedure execution results as a <tt>List</tt>. If the query contains multiple results per
      * row, the results are returned in an instance of <tt>Object[]</tt>. It's based on the CallableStatement
      * invocation.
      * 
+     * @param runtime
+     *            the public runtime context
      * @return the result list
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
     @SuppressWarnings("rawtypes")
-    List callList() throws SqlProcessorException;
+    List callList(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Convenience method to return a single instance that matches the stored procedure execution, or null if the stored
      * procedure execution returns no results. It's based on the CallableStatement invocation.
      * 
+     * @param runtime
+     *            the public runtime context
      * @return the single result or <tt>null</tt>
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    Object callUnique() throws SqlProcessorException;
+    Object callUnique(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Executes the update, delete, insert statement or other statements in the stored procedure, which don't return the
      * result set. It's based on the CallableStatement invocation.
      * 
+     * @param runtime
+     *            the public runtime context
      * @return the number of affected rows
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    int callUpdate() throws SqlProcessorException;
+    int callUpdate(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Executes the statements in the stored function, which return value of any type but the result set. It's based on

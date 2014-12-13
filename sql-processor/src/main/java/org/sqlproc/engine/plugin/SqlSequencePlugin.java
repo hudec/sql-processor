@@ -1,6 +1,7 @@
 package org.sqlproc.engine.plugin;
 
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * The SQL Processor plugin devoted to the sequence SELECT SQL construction.
@@ -18,9 +19,11 @@ public interface SqlSequencePlugin extends Modifiers {
     /**
      * Used to construct the sequence SELECT SQL.
      * 
+     * @param runtimeCtx
+     *            the public runtime context
      * @param sequenceName
      *            the sequence name
      * @return the final sequence SELECT SQL
      */
-    public String sequenceSelect(String sequenceName);
+    public String sequenceSelect(SqlRuntimeContext runtimeCtx, String sequenceName);
 }

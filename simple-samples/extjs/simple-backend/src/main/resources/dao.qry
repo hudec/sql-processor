@@ -1,0 +1,18 @@
+package org.sample.dao.person {
+
+  dao ContactDao :: Contact {
+    scaffold
+  }
+
+  dao CountryDao :: Country {
+    scaffold
+  }
+
+  dao PersonDao :: Person {
+    scaffold
+  }
+
+  dao RelativeDao :: Relative {
+    scaffold
+  }
+}

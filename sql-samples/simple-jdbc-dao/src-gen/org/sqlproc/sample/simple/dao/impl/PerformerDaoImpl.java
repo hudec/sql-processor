@@ -29,6 +29,9 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public PerformerDaoImpl() {
+  }
+    	
   public PerformerDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
@@ -50,15 +53,12 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
     }
     return (count > 0) ? performer : null;
   }
-  
   public Performer insert(Performer performer, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), performer, sqlControl);
   }
-  
   public Performer insert(SqlSession sqlSession, Performer performer) {
     return insert(sqlSession, performer, null);
   }
-  
   public Performer insert(Performer performer) {
     return insert(performer, null);
   }
@@ -75,15 +75,12 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
     }
     return performerGot;
   }
-  	
   public Performer get(Performer performer, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), performer, sqlControl);
   }
-  
   public Performer get(SqlSession sqlSession, Performer performer) {
     return get(sqlSession, performer, null);
   }
-  
   public Performer get(Performer performer) {
     return get(performer, null);
   }
@@ -102,15 +99,12 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
     }
     return count;
   }
-  
   public int update(Performer performer, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), performer, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, Performer performer) {
     return update(sqlSession, performer, null);
   }
-  
   public int update(Performer performer) {
     return update(performer, null);
   }
@@ -129,15 +123,12 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
     }
     return count;
   }
-  
   public int delete(Performer performer, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), performer, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, Performer performer) {
     return delete(sqlSession, performer, null);
   }
-  
   public int delete(Performer performer) {
     return delete(performer, null);
   }
@@ -154,15 +145,12 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
     }
     return performerList;
   }
-  
   public List<Performer> list(Performer performer, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), performer, sqlControl);
   }
-  
-  public List<Performer> list(SqlSession sqlSession, Performer performer) {
+      public List<Performer> list(SqlSession sqlSession, Performer performer) {
     return list(sqlSession, performer, null);
   }
-  
   public List<Performer> list(Performer performer) {
     return list(performer, null);
   }
@@ -179,15 +167,12 @@ public class PerformerDaoImpl extends BaseDaoImpl implements BaseDao, PerformerD
     }
     return count;
   }
-  
   public int count(Performer performer, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), performer, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, Performer performer) {
+      public int count(SqlSession sqlSession, Performer performer) {
     return count(sqlSession, performer, null);
   }
-  
   public int count(Performer performer) {
     return count(performer, null);
   }

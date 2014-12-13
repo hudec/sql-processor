@@ -69,4 +69,23 @@ public interface SqlControl {
      * @return the optional features
      */
     public Map<String, Object> getFeatures();
+
+    /**
+     * Returns the unique ID of the executed statement based on the input values combination. This ID can be used for
+     * the caching purposes to optimize the
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, SqlControl, SqlEngine)}
+     * 
+     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
+     * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
+     * 
+     * @return the unique ID of the executed statement based on the input values combination
+     */
+    public String getProcessingId();
+
+    /**
+     * Returns the fetch size of SQL execution output rows, which can be returned in one SQL statement.
+     *
+     * @return the fetch size of SQL execution output rows
+     */
+    public int getFetchSize();
 }

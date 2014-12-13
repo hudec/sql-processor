@@ -32,11 +32,11 @@ class SqlStatistika {
         // Get the MBeanServer.
         def mbeans = connection.MBeanServerConnection
 
-        //println "Total MBeans: ${mbeans.MBeanCount}\n"
+        println "Total MBeans: ${mbeans.MBeanCount}\n"
 
         // Create GroovyMBean.
         def simon = new GroovyMBean(mbeans, 'sql-processor:type=Stopwatch,name=catalog.'+stopwatchName)
-        //println mbean  // Outputs all attributes and operations.
+        println simon  // Outputs all attributes and operations.
 
         def sample = simon.sample()
         println ""

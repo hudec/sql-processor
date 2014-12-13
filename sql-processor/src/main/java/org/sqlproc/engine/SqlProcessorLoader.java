@@ -7,17 +7,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlProcessor;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlComposedTypeFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidatorFactory;
 
 /**
  * The helper class for the META SQL statements and mapping rules parsing. These statements and rules are taken from the
@@ -112,9 +115,21 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     private SqlPluginFactory pluginFactory;
     /**
+     * The monitor factory used in the process of the SQL Monitor instances creation
+     */
+    private SqlMonitorFactory monitorFactory;
+    /**
+     * The validator factory used in the process of the SQL Monitor instances creation
+     */
+    private SqlValidatorFactory validatorFactory;
+    /**
      * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
     private Map<String, SqlEngine> engines = new HashMap<String, SqlEngine>();
+    /**
+     * The collection of named dynamic SQL Engines (the primary SQL Processor class) instances.
+     */
+    private Map<String, SqlEngine> dynamicEngines = new ConcurrentHashMap<String, SqlEngine>();
     /**
      * The collection of named META SQL queries.
      */
@@ -143,6 +158,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * The collection of the SQL Processor optional features to be cleared in the statement context.
      */
     private Map<String, Set<String>> statementsFeaturesUnset;
+    /**
+     * This flag indicates to speed up the initialization process.
+     */
+    private boolean lazyInit;
+    /**
+     * The processing cache used for {@link SqlProcessResult} instances.
+     */
+    private Map<String, Map<String, SqlProcessResult>> commonProcessingCache = new ConcurrentHashMap<String, Map<String, SqlProcessResult>>();
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -275,11 +298,87 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes,
             String... onlyStatements) throws SqlEngineException {
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, null, customTypes, onlyStatements);
+    }
+
+    /**
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL
+     * Engine is accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these
+     * monitors the SQL Monitor Factory can be used.
+     * 
+     * @param sbStatements
+     *            the String representation of the META SQL queries/statements/output mappings
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     * @param filter
+     *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
+     * @param monitorFactory
+     *            the monitor factory used in the process of the SQL Monitor instances creation
+     * @param validatorFactory
+     *            the validator factory used in the process of the SQL Monitor instances creation
+     * @param customTypes
+     *            the custom META types
+     * @param onlyStatements
+     *            only statements and rules with the names in this container are picked up from the properties
+     *            repository
+     * @throws SqlEngineException
+     *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
+     */
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
+            List<SqlInternalType> customTypes, String... onlyStatements) throws SqlEngineException {
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, validatorFactory, customTypes, false,
+                onlyStatements);
+    }
+
+    /**
+     * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
+     * collection of the META SQL statements, mapping rules and optional features. During the instance construction all
+     * the statements are parsed and the collection of named SQL Engine instances is established. Later these instances
+     * are used for the SQL queries/statements execution. For the purpose of the META types construction (located inside
+     * the META SQL statements and mapping rules) a factory instance has to be supplied. Every instance of the SQL
+     * Engine is accompanied with the SQL Monitor for the runtime statistics gathering. For the creation of these
+     * monitors the SQL Monitor Factory can be used.
+     * 
+     * @param sbStatements
+     *            the String representation of the META SQL queries/statements/output mappings
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     * @param filter
+     *            the properties name prefix to filter the META SQL statements, mapping rules and optional features
+     * @param monitorFactory
+     *            the monitor factory used in the process of the SQL Monitor instances creation
+     * @param validatorFactory
+     *            the validator factory used in the process of the SQL Monitor instances creation
+     * @param customTypes
+     *            the custom META types
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     * @param onlyStatements
+     *            only statements and rules with the names in this container are picked up from the properties
+     *            repository
+     * @throws SqlEngineException
+     *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
+     */
+    public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
+            List<SqlInternalType> customTypes, boolean lazyInit, String... onlyStatements) throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> SqlProcessorLoader, sbStatements=" + sbStatements + ", typeFactory=" + typeFactory
-                    + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", filter=" + filter
-                    + ", customTypes=" + customTypes + ", onlyStatements=" + onlyStatements);
+                    + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", validatorFactory="
+                    + validatorFactory + ", filter=" + filter + ", customTypes=" + customTypes + ", lazyInit="
+                    + lazyInit + ", onlyStatements=" + onlyStatements);
         }
+
+        long start = System.currentTimeMillis();
 
         if (sbStatements == null)
             throw new SqlEngineException("Missing SQL META queries/statements/output mappings");
@@ -288,6 +387,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
 
         this.composedTypeFactory = new SqlComposedTypeFactory(typeFactory, customTypes);
         this.pluginFactory = pluginFactory;
+        this.validatorFactory = validatorFactory;
+        this.monitorFactory = monitorFactory;
+        this.lazyInit = lazyInit;
 
         try {
             Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
@@ -300,8 +402,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             SqlProcessor processor = null;
 
             try {
-                processor = SqlProcessor.getInstance(sbStatements, composedTypeFactory, defaultFeatures,
-                        setSelectQueries, filter);
+                processor = (lazyInit) ? SqlProcessor.getLazyInstance(sbStatements, composedTypeFactory,
+                        defaultFeatures, setSelectQueries, filter) : SqlProcessor.getInstance(sbStatements,
+                        composedTypeFactory, defaultFeatures, setSelectQueries, filter);
             } catch (SqlEngineException see) {
                 errors.append(see.getMessage());
             }
@@ -329,59 +432,39 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             if (errors.length() > 0)
                 throw new SqlEngineException(errors.toString());
 
-            for (String name : sqls.keySet()) {
-                SqlMetaStatement stmt = sqls.get(name);
+            if (!lazyInit) {
+                for (String name : sqls.keySet()) {
+                    try {
+                        getQueryEngine(name);
+                    } catch (SqlEngineException ex) {
+                        errors.append(ex.getMessage()).append("\n");
+                    }
+                }
 
-                SqlMappingRule mapping = null;
-                if (!stmt.isHasOutputMapping() && !outs.containsKey(name)) {
-                    errors.append("For the QRY there's no OUT: ").append(name).append("\n");
-                } else if (outs.containsKey(name)) {
-                    mapping = outs.get(name);
-                } else {
-                    mapping = new SqlMappingRule();
+                for (String name : cruds.keySet()) {
+                    try {
+                        getCrudEngine(name);
+                    } catch (SqlEngineException ex) {
+                        errors.append(ex.getMessage()).append("\n");
+                    }
                 }
-                SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                if (stmt != null) {
-                    engines.put(name, new SqlQueryEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    loadStatementFeatures(name);
+
+                for (String name : calls.keySet()) {
+                    try {
+                        getProcedureEngine(name);
+                    } catch (SqlEngineException ex) {
+                        errors.append(ex.getMessage()).append("\n");
+                    }
                 }
+
+                if (errors.length() > 0)
+                    throw new SqlEngineException(errors.toString());
             }
-
-            for (String name : cruds.keySet()) {
-                SqlMetaStatement stmt = cruds.get(name);
-                SqlMappingRule mapping = null;
-                if (outs.containsKey(name)) {
-                    mapping = outs.get(name);
-                }
-                SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                if (stmt != null) {
-                    engines.put(name, new SqlCrudEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    loadStatementFeatures(name);
-                }
-            }
-
-            for (String name : calls.keySet()) {
-                SqlMetaStatement stmt = calls.get(name);
-                SqlMappingRule mapping = null;
-                if (outs.containsKey(name)) {
-                    mapping = outs.get(name);
-                } else {
-                    mapping = new SqlMappingRule();
-                }
-                SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
-                if (stmt != null) {
-                    engines.put(name, new SqlProcedureEngine(name, stmt, mapping, monitor, features,
-                            this.composedTypeFactory, this.pluginFactory));
-                    loadStatementFeatures(name);
-                }
-            }
-
-            if (errors.length() > 0)
-                throw new SqlEngineException(errors.toString());
         } finally {
+
             if (logger.isDebugEnabled()) {
+                long end = System.currentTimeMillis();
+                logger.debug("== SqlProcessorLoader, lazyInit=" + lazyInit + ", duration in ms=" + (end - start));
                 logger.debug("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
                         + ", fields=" + outs + ", features=" + features);
             }
@@ -394,8 +477,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @param name
      *            the name of the META SQL statement
      */
-    private void loadStatementFeatures(String name) {
-        SqlEngine sqlEngine = engines.get(name);
+    private void loadStatementFeatures(String name, SqlEngine sqlEngine) {
         Map<String, Object> statementFeatures = statementsFeatures.get(name);
         if (statementFeatures != null) {
             for (Map.Entry<String, Object> entry : statementFeatures.entrySet()) {
@@ -404,17 +486,14 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         }
         Set<String> statementFeaturesUnset = statementsFeaturesUnset.get(name);
         if (statementFeaturesUnset != null) {
-            for (String feature : statementFeaturesUnset) {
-                sqlEngine.unsetFeature(feature);
-            }
+            sqlEngine.unsetFeatures(statementFeaturesUnset);
         }
     }
 
     /**
-     * Returns the collection of names of all initialized/constructed SQL Engine instances.
-     * 
-     * @return The collection of all initialized SQL Engine instances' names
+     * {@inheritDoc}
      */
+    @Override
     public Collection<String> getNames() {
         return engines.keySet();
     }
@@ -423,11 +502,164 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
+    public Collection<String> getDynamicNames() {
+        return dynamicEngines.keySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getEngines() {
+        return engines;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getDynamicEngines() {
+        return dynamicEngines;
+    }
+
+    /**
+     * The SQL Engine types
+     */
+    enum EngineType {
+        Query, Crud, Procedure
+    }
+
+    /**
+     * Creates a new instance of the SQL Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param engineType
+     *            the required SQL Engine type
+     * @param stmt
+     *            the new SQL META statement instance for the case of static SQL Engine instance
+     * @param sqlStatement
+     *            the new SQL statement for the case of dynamic SQL Engine instance
+     * @return the new SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the instance can't be created
+     */
+    private SqlEngine createEngine(String name, EngineType engineType, SqlMetaStatement stmt, String sqlStatement) {
+        SqlMetaStatement stmt2 = null;
+        if (sqlStatement != null)
+            stmt2 = SqlMetaStatement.getInstance(name, sqlStatement, composedTypeFactory);
+        else if (lazyInit)
+            stmt2 = SqlMetaStatement.getInstance(name, stmt.getRaw(), composedTypeFactory);
+        else
+            stmt2 = stmt;
+
+        if (engineType == EngineType.Query && !stmt2.isHasOutputMapping() && !outs.containsKey(name))
+            throw new SqlEngineException("For the QRY there's no OUT: " + name);
+        SqlMappingRule mapping = null;
+        if (outs.containsKey(name)) {
+            mapping = outs.get(name);
+            if (lazyInit)
+                mapping = SqlMappingRule.getInstance(name, mapping.getRaw(), composedTypeFactory);
+        } else {
+            mapping = new SqlMappingRule();
+        }
+
+        SqlMonitor monitor = (monitorFactory != null) ? monitorFactory.getSqlMonitor(name, features) : null;
+        SqlEngine sqlEngine;
+        if (engineType == EngineType.Query)
+            sqlEngine = new SqlQueryEngine(name, stmt2, mapping, monitor, features, this.composedTypeFactory,
+                    this.pluginFactory);
+        else if (engineType == EngineType.Crud)
+            sqlEngine = new SqlCrudEngine(name, stmt2, mapping, monitor, features, this.composedTypeFactory,
+                    this.pluginFactory);
+        else
+            sqlEngine = new SqlProcedureEngine(name, stmt2, mapping, monitor, features, this.composedTypeFactory,
+                    this.pluginFactory);
+        sqlEngine.setValidator((validatorFactory != null) ? validatorFactory.getSqlValidator() : null);
+        loadStatementFeatures(name, sqlEngine);
+        return sqlEngine;
+    }
+
+    /**
+     * Returns the named static SQL Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param engineType
+     *            the required SQL Engine type
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the instance can't be created
+     */
+    private SqlEngine getStaticEngine(String name, EngineType engineType) {
+        dynamicEngines.remove(name);
+        SqlEngine sqlEngine = engines.get(name);
+        Map<String, SqlMetaStatement> stmts = getStatements(engineType);
+
+        if (sqlEngine == null && stmts.containsKey(name)) {
+            SqlMetaStatement stmt = stmts.get(name);
+
+            synchronized (stmt) {
+                sqlEngine = engines.get(name);
+                if (sqlEngine == null) {
+                    sqlEngine = createEngine(name, engineType, stmt, null);
+                    engines.put(name, sqlEngine);
+                }
+                commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
+                sqlEngine.setProcessingCache(commonProcessingCache.get(name));
+            }
+        }
+        return sqlEngine;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getStaticQueryEngine(String name) {
+        return (SqlQueryEngine) getStaticEngine(name, EngineType.Query);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getStaticCrudEngine(String name) {
+        return (SqlCrudEngine) getStaticEngine(name, EngineType.Crud);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getStaticProcedureEngine(String name) {
+        return (SqlProcedureEngine) getStaticEngine(name, EngineType.Procedure);
+    }
+
+    /**
+     * Returns the named static or dynamic SQL Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param engineType
+     *            the required SQL Engine type
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the instance can't be created
+     */
+    private SqlEngine getEngine(String name, EngineType engineType) {
+        SqlEngine sqlEngine = dynamicEngines.get(name);
+        if (sqlEngine != null)
+            return sqlEngine;
+        return getStaticEngine(name, engineType);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQueryEngine getQueryEngine(String name) {
-        Object o = engines.get(name);
-        if (o != null && o instanceof SqlQueryEngine)
-            return (SqlQueryEngine) o;
-        return null;
+        return (SqlQueryEngine) getEngine(name, EngineType.Query);
     }
 
     /**
@@ -435,10 +667,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCrudEngine(String name) {
-        Object o = engines.get(name);
-        if (o != null && o instanceof SqlCrudEngine)
-            return (SqlCrudEngine) o;
-        return null;
+        return (SqlCrudEngine) getEngine(name, EngineType.Crud);
     }
 
     /**
@@ -446,10 +675,73 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getProcedureEngine(String name) {
-        Object o = engines.get(name);
-        if (o != null && o instanceof SqlProcedureEngine)
-            return (SqlProcedureEngine) o;
-        return null;
+        return (SqlProcedureEngine) getEngine(name, EngineType.Procedure);
+    }
+
+    /**
+     * Returns the named dynamic SQL Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param engineType
+     *            the required SQL Engine type
+     * @param sqlStatement
+     *            the new SQL statement
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the instance can't be created
+     */
+    private SqlEngine getDynamicEngine(String name, EngineType engineType, String sqlStatement) {
+        Map<String, SqlMetaStatement> stmts = getStatements(engineType);
+        if (!stmts.containsKey(name))
+            throw new SqlEngineException("Missing SQL Engine " + name);
+        if (sqlStatement == null)
+            throw new SqlEngineException("SQL statement for SQL Engine " + name + " is null");
+        SqlEngine sqlEngine = createEngine(name, engineType, null, sqlStatement);
+        dynamicEngines.put(name, sqlEngine);
+        commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
+        sqlEngine.setProcessingCache(commonProcessingCache.get(name));
+        return sqlEngine;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement) {
+        return (SqlQueryEngine) getDynamicEngine(name, EngineType.Query, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getDynamicCrudEngine(String name, String sqlStatement) {
+        return (SqlCrudEngine) getDynamicEngine(name, EngineType.Crud, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement) {
+        return (SqlProcedureEngine) getDynamicEngine(name, EngineType.Procedure, sqlStatement);
+    }
+
+    /**
+     * Returns the static statements container based on required SQL Engine type
+     * 
+     * @param engineType
+     *            the required SQL Engine type
+     * @return the static statements container
+     */
+    private Map<String, SqlMetaStatement> getStatements(EngineType engineType) {
+        if (engineType == EngineType.Query)
+            return sqls;
+        else if (engineType == EngineType.Crud)
+            return cruds;
+        else
+            return calls;
     }
 
     /**
@@ -457,10 +749,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
-        SqlQueryEngine queryEngine = getQueryEngine(name);
-        if (queryEngine == null)
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
-        return queryEngine;
+        SqlQueryEngine sqlEngine = getQueryEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
 
     /**
@@ -468,10 +759,9 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCheckedCrudEngine(String name) {
-        SqlCrudEngine queryEngine = getCrudEngine(name);
-        if (queryEngine == null)
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
-        return queryEngine;
+        SqlCrudEngine sqlEngine = getCrudEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
 
     /**
@@ -479,9 +769,63 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getCheckedProcedureEngine(String name) {
-        SqlProcedureEngine procedureEngine = getProcedureEngine(name);
-        if (procedureEngine == null)
-            throw new SqlEngineException("Missing SqlQueryEngine " + name);
-        return procedureEngine;
+        SqlProcedureEngine sqlEngine = getProcedureEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getCheckedStaticQueryEngine(String name) throws SqlEngineException {
+        SqlQueryEngine sqlEngine = getStaticQueryEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getCheckedStaticCrudEngine(String name) {
+        SqlCrudEngine sqlEngine = getStaticCrudEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getCheckedStaticProcedureEngine(String name) {
+        SqlProcedureEngine sqlEngine = getStaticProcedureEngine(name);
+        check(name, sqlEngine);
+        return sqlEngine;
+    }
+
+    /**
+     * Check the SQL Engine instance is not null
+     * 
+     * @param name
+     *            the name of the required SQL Engine instance
+     * @param sqlEngine
+     *            the checked SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the the SQL Engine instance is null
+     */
+    private void check(String name, SqlEngine sqlEngine) {
+        if (sqlEngine == null)
+            throw new SqlEngineException("Missing SqlEngine " + name);
+    }
+
+    /**
+     * Returns a flag which indicates the lazy initialization mode.
+     * 
+     * @return a flag which indicates the lazy initialization mode.
+     */
+    public boolean isLazyInit() {
+        return lazyInit;
+    }
+
 }

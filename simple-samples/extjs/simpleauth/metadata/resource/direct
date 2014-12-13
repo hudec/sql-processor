@@ -1,0 +1,13 @@
+{
+    "type": "directresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "direct",
+        "url": "http://localhost:8080/simple-backend/api-debug-doc.js?fullRouterUrl=true&group=auth"
+    },
+    "designerId": "6ae70443-2183-4fa6-a011-623330e477c2"
+}

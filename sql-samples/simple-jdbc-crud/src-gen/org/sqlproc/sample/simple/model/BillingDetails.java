@@ -21,45 +21,45 @@ public abstract class BillingDetails implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public BillingDetails _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private Subscriber subscriber;
-    
+  
   public Subscriber getSubscriber() {
     return subscriber;
   }
-    
+  
   public void setSubscriber(Subscriber subscriber) {
     this.subscriber = subscriber;
   }
-    
+  
   public BillingDetails _setSubscriber(Subscriber subscriber) {
     this.subscriber = subscriber;
     return this;
   }
   
   private String type;
-    
+  
   public String getType() {
     return type;
   }
-    
+  
   public void setType(String type) {
     this.type = type;
   }
-    
+  
   public BillingDetails _setType(String type) {
     this.type = type;
     return this;
@@ -74,7 +74,7 @@ public abstract class BillingDetails implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     BillingDetails other = (BillingDetails) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -83,7 +83,7 @@ public abstract class BillingDetails implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -100,11 +100,21 @@ public abstract class BillingDetails implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public BillingDetails  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public BillingDetails _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -114,11 +124,21 @@ public abstract class BillingDetails implements Serializable {
       initAssociations.add(association);
   }
   
+  public BillingDetails _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public BillingDetails _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -143,11 +163,21 @@ public abstract class BillingDetails implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public BillingDetails _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public BillingDetails _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -157,11 +187,21 @@ public abstract class BillingDetails implements Serializable {
       nullValues.add(attribute);
   }
   
+  public BillingDetails _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public BillingDetails _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -212,6 +252,6 @@ public abstract class BillingDetails implements Serializable {
   }
   
   public String toStringFull() {
-    return "BillingDetails [id=" + id + ", type=" + type + ", subscriber=" + subscriber + "]";
+    return "BillingDetails [id=" + id + ", subscriber=" + subscriber + ", type=" + type + "]";
   }
 }

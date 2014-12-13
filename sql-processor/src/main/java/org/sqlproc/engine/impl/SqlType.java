@@ -33,8 +33,6 @@ class SqlType {
      * Creates a new instance with unspecified internal type.
      */
     SqlType() {
-        this.metaType = null;
-
     }
 
     /**
@@ -50,17 +48,21 @@ class SqlType {
     /**
      * Returns the internal type.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @return the internal type
      */
-    SqlMetaType getMetaType() {
+    SqlMetaType getMetaType(SqlProcessContext ctx) {
         if (metaType == null)
-            return SqlProcessContext.getTypeFactory().getDefaultType();
+            return ctx.getTypeFactory().getDefaultType();
         return metaType;
     }
 
     /**
      * Initializes the attribute of the result class with output values from SQL query execution.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param resultInstance
      *            the instance of the result class
      * @param attributeName
@@ -70,16 +72,19 @@ class SqlType {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with output values handling
      */
-    void setResult(Object resultInstance, String attributeName, Object resultValue) throws SqlRuntimeException {
+    void setResult(SqlProcessContext ctx, Object resultInstance, String attributeName, Object resultValue)
+            throws SqlRuntimeException {
         if (logger.isDebugEnabled())
             logger.debug("setResult " + metaType + " " + attributeName + " " + resultValue);
-        getMetaType().setResult(resultInstance, attributeName, resultValue,
-                SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT));
+        getMetaType(ctx).setResult(ctx, resultInstance, attributeName, resultValue,
+                ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT));
     }
 
     /**
      * Bind an input value to a named query parameter.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param query
      *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
      * @param paramName
@@ -89,12 +94,12 @@ class SqlType {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with input values handling
      */
-    void setParameter(SqlQuery query, String paramName, Object inputValue, Class<?> inputType)
+    void setParameter(SqlProcessContext ctx, SqlQuery query, String paramName, Object inputValue, Class<?> inputType)
             throws SqlRuntimeException {
         if (logger.isDebugEnabled())
             logger.debug("setParameter " + metaType + " " + paramName + " " + inputValue);
-        getMetaType().setParameter(query, paramName, inputValue, inputType,
-                SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN));
+        getMetaType(ctx).setParameter(ctx, query, paramName, inputValue, inputType,
+                ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN));
     }
 
     /**
@@ -118,20 +123,35 @@ class SqlType {
         this.value = value;
     }
 
+    //
+    // /**
+    // * Returns the indicator the value is the correct one.
+    // *
+    // * @param values
+    // * the set of correct values
+    // * @return the indicator the value is the correct one
+    // */
+    // public boolean hasValue(String... values) {
+    // if (this.value == null)
+    // return false;
+    // for (String v : values) {
+    // if (this.value.equalsIgnoreCase(v))
+    // return true;
+    // }
+    // return false;
+    // }
+
     /**
-     * Returns the indicator the value is the correct one.
+     * For debug purposes.
      * 
-     * @param values
-     *            the set of correct values
-     * @return the indicator the value is the correct one
+     * @return a String representation for a debug output
      */
-    public boolean hasValue(String... values) {
-        if (this.value == null)
-            return false;
-        for (String v : values) {
-            if (this.value.equalsIgnoreCase(v))
-                return true;
+    public String toString() {
+        StringBuilder sb = new StringBuilder("SqlType[");
+        if (metaType != null) {
+            sb.append(" metaType=").append(metaType.toString());
         }
-        return false;
+        sb.append(", value=").append(value);
+        return sb.append("]").toString();
     }
 }

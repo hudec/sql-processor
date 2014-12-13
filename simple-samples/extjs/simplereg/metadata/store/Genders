@@ -1,0 +1,47 @@
+{
+    "type": "arraystore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "storeId": "Genders",
+        "designer|userClassName": "Genders",
+        "data": [
+            "[",
+            "    { value: \"MALE\", name: \"Male\" },",
+            "    { value: \"FEMALE\", name: \"Female\" },",
+            "    { value: \"UNKNOWN\", name: \"---\" }",
+            "]"
+        ]
+    },
+    "designerId": "964d190e-a3d8-4f4b-b7c5-3c5a05093fab",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value"
+            },
+            "designerId": "b0235fce-d4c3-4baf-a0a9-0f9836f38b54"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "designerId": "378e69d7-af9b-45d0-a375-33b5580032a8"
+        }
+    ]
+}

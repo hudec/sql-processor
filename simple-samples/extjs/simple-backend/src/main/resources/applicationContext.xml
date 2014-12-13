@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:cloud="http://schema.cloudfoundry.org/spring"
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd">
+
+    <context:annotation-config />
+
+    <!-- bean id="config" class="org.sample.web.config.SpringConfig" / -->
+    <context:component-scan base-package="ch.ralscha.extdirectspring" />
+    <mvc:annotation-driven />
+
+    <mvc:default-servlet-handler />
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    </bean>
+    <bean id="modelController" class="org.sample.web.config.ModelController" />
+    <bean id="configuration" class="ch.ralscha.extdirectspring.controller.Configuration">
+        <property name="sendExceptionMessage" value="true" />
+    </bean>
+
+    <!-- define cache annotation driver - for DAO class proxy target class = true, for DAO interface false (default) -->
+    <cache:annotation-driven proxy-target-class="true" />
+
+    <bean id="cacheFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:config-location="classpath:ehcache.xml" />
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cache-manager-ref="cacheFactory" />
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="sqlSessionFactory" class="org.sqlproc.engine.spring.SpringSessionFactory">
+        <constructor-arg ref="jdbcTemplate" />
+    </bean>
+
+    <bean id="dao" autowire="byType" abstract="true">
+        <constructor-arg name="sqlEngineFactory" ref="sqlFactory" />
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean id="personDao" class="org.sample.web.dao.person.PersonExtDao" parent="dao" />
+    <bean id="contactDao" class="org.sample.dao.person.ContactDao" parent="dao" />
+    <bean id="countryDao" class="org.sample.dao.person.CountryDao" parent="dao" />
+    <bean id="relativeDao" class="org.sample.dao.person.RelativeDao" parent="dao" />
+
+    <bean id="authUserDao" class="org.sample.dao.auth.AuthUserDao" parent="dao" />
+    <bean id="authRoleDao" class="org.sample.dao.auth.AuthRoleDao" parent="dao" />
+    <bean id="userRoleDao" class="org.sample.dao.auth.UserRoleDao" parent="dao" />
+    <bean id="userSessionDao" class="org.sample.dao.auth.UserSessionDao" parent="dao" />
+
+    <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory">
+        <property name="metaFilesNames">
+            <list>
+                <value>statements.qry</value>
+                <value>auth/statements.qry</value>
+            </list>
+        </property>
+        <property name="filter" value="${db.type}" />
+    </bean>
+
+    <bean id="beanUtils" class="org.sample.web.util.BeanExtJsUtils" />
+    <bean id="personService" class="org.sample.web.app.person.PersonService">
+        <property name="personDao" ref="personDao" />
+    </bean>
+    <bean id="contactService" class="org.sample.web.app.person.ContactService">
+        <property name="contactDao" ref="contactDao" />
+    </bean>
+    <bean id="countryService" class="org.sample.web.app.person.CountryService">
+        <property name="countryDao" ref="countryDao" />
+    </bean>
+    <bean id="relativeService" class="org.sample.web.app.person.RelativeService">
+        <property name="relativeDao" ref="relativeDao" />
+        <property name="personDao" ref="personDao" />
+    </bean>
+
+    <bean id="authUserService" class="org.sample.web.app.auth.AuthUserService">
+        <property name="authUserDao" ref="authUserDao" />
+    </bean>
+    <bean id="authRoleService" class="org.sample.web.app.auth.AuthRoleService">
+        <property name="authRoleDao" ref="authRoleDao" />
+    </bean>
+    <bean id="userRoleService" class="org.sample.web.app.auth.UserRoleService">
+        <property name="userRoleDao" ref="userRoleDao" />
+    </bean>
+    <bean id="userSessionService" class="org.sample.web.app.auth.UserSessionService">
+        <property name="userSessionDao" ref="userSessionDao" />
+    </bean>
+
+    <bean id="personWeb" class="org.sample.web.service.PersonWeb">
+        <property name="personService" ref="personService" />
+        <property name="contactService" ref="contactService" />
+        <property name="countryService" ref="countryService" />
+        <property name="relativeService" ref="relativeService" />
+        <property name="beanUtils" ref="beanUtils" />
+    </bean>
+
+    <bean id="authWeb" class="org.sample.web.service.AuthWeb">
+        <property name="authUserService" ref="authUserService" />
+        <property name="authRoleService" ref="authRoleService" />
+        <property name="userRoleService" ref="userRoleService" />
+        <property name="beanUtils" ref="beanUtils" />
+    </bean>
+
+    <beans profile="default">
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName" value="${jdbc.driver}" />
+            <property name="url" value="${jdbc.url}" />
+            <property name="username" value="${jdbc.user}" />
+            <property name="password" value="${jdbc.password}" />
+            <property name="defaultAutoCommit" value="false" />
+        </bean>
+
+        <bean id="TestDataInitializer" class="org.sample.web.db.TestDataInitializer">
+            <property name="jdbcTemplate" ref="jdbcTemplate" />
+            <property name="personService" ref="personService" />
+            <property name="contactService" ref="contactService" />
+            <property name="relativeService" ref="relativeService" />
+            <property name="authUserService" ref="authUserService" />
+            <property name="authRoleService" ref="authRoleService" />
+            <property name="userRoleService" ref="userRoleService" />
+            <property name="initData" value="${init.data}" />
+            <property name="catalog" value="hsqldb.ddl" />
+            <property name="catalogAuth" value="auth/hsqldb.ddl" />
+            <property name="people" value="people.csv" />
+            <property name="contacts" value="contacts.csv" />
+        </bean>
+    </beans>
+
+    <beans profile="cloud">
+        <cloud:data-source id="dataSource">
+            <cloud:pool pool-size="2" max-wait-time="1000" />
+        </cloud:data-source>
+    </beans>
+
+</beans>

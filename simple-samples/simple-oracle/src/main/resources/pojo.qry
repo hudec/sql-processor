@@ -23,7 +23,7 @@ package org.sample.model {
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber address
-    toString ::: id person phoneNumber address type
+    toString ::: id phoneNumber address type
   }
 
   pojo Person serializable 1 operators {
@@ -41,7 +41,7 @@ package org.sample.model {
     toString ::: dateOfBirth id lastName ssn gender firstName
   }
 
-  pojo AnHourBefore serializable 1  { // procedure
+  pojo AnHourBefore serializable 1  { // function
     t : java.sql.Timestamp
     toString ::: t
   }
@@ -66,7 +66,7 @@ package org.sample.model {
     toString ::: dateOfBirth lastName ssn resultCur gender firstName
   }
 
-  pojo NewPersonRetRs serializable 1  { // procedure
+  pojo NewPersonRetRs serializable 1  { // function
     dateOfBirth : java.sql.Timestamp
     ssn : java.lang.String
     firstName : java.lang.String

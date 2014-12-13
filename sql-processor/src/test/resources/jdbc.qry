@@ -21,7 +21,7 @@ SEQ1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
  * Default select command to obtain a new created identity
  */
 SEL1(OPT,HSQLDB)=call identity();
-SEL1(OPT,ORACLE)=select last_insert_id();
+SEL1(OPT,MYSQL)=select last_insert_id();
 SEL1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
 SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
@@ -32,7 +32,6 @@ SEL1(OPT,DB2)=select identity_val_local() from sysibm.dual;
  */
 SEL1(OPT,IDSEL_JDBC_TRUE)=JDBC;
 SEL1(OPT,IDSEL_JDBC_FALSE)=generates test exception;
-
 
 // META SQL query
 ANSI_BASIC(QRY)=
@@ -695,6 +694,19 @@ LIKE_BASIC_2_PARTIAL(QRY,BOPT=SURROUND_QUERY_LIKE_PARTIAL=true)=
   {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
   {#1 order by id}
 ;
+REPLACE1(MOPT)=['*':'%', '?':'_'];
+LIKE_BASIC_REPLACE_CHARS(QRY,OPT=REPLACE_LIKE_CHARS=REF=REPLACE1)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate(type=date), p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& UPPER(p.NAME_FIRST) like :+name.first}
+  {? :name.last | and UPPER(p.NAME_LAST) like :+name.last}
+  {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
+  {#1 order by id}
+;
  
  
 ORDER(QRY)=
@@ -828,7 +840,7 @@ COLLECTIONS_EMPTY2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.LASTUPDATEDBY @lastUpdatedBy
   from PERSON p
   where 1=1
-  {& p.ID in :idSet(any)}
+  {& p.ID in :idSet(anyset,notnull)}
   {& p.LASTUPDATEDBY in :updatedBySet}
   {#1 order by id}
 ;
@@ -1597,14 +1609,29 @@ INSERT_PERSON_5(CRUD)=
   {= values (:id(type=long,idsel), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
+INSERT_PERSON_5A(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(type=long,idsel,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+;
+  
 INSERT_PERSON_6(CRUD)=
   insert into PERSON (SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(type=long,idsel=SEL1), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+;
+  
+INSERT_PERSON_6A(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   {= values (:id(type=long,idsel=SEL1), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
 INSERT_PERSON_7(CRUD)=
   insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
   {= values (:id(type=long,seq), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
+;
+
+INSERT_PERSON_8(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id, :ssn.number(type=string), :ssn.country, :name.first(type=string), :name.last, :birthDate(type=date), :sex, :createdDate(type=stamp), :createdBy, :version, :clothesSize) }
 ;
   
 CRUD_PERSON_SELECT(QRY)=
@@ -1647,6 +1674,40 @@ UPDATE_PERSON_2(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
 UPDATE_PERSON_2(CRUD,DB2)=
   update PERSON
   {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=stamp)}
+  {= where ID = :id }
+;
+UPDATE_PERSON_3(CRUD)=
+  update PERSON p
+  {= set p.NAME_FIRST = :name.first, p.CREATEDDATE = :createdDate(type=date,any), p.BIRTHDATE = :birthDate}
+  {= where p.ID = :id }
+;
+UPDATE_PERSON_3(CRUD,POSTGRESQL,INFORMIX,MSSQL)=
+  update PERSON
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=date,any), BIRTHDATE = :birthDate}
+  {= where ID = :id }
+;
+UPDATE_PERSON_3(CRUD,DB2)=
+  update PERSON
+  {= set NAME_FIRST = :name.first, CREATEDDATE = :createdDate(type=stamp,any), BIRTHDATE = :birthDate}
+  {= where ID = :id }
+;
+
+UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true)=
+  update ENGAGEMENT p
+  {= set 
+  	{ ,p.ROLE = :role }
+    { ,p.UUID = :uuid }
+    { ,p.PERSON = :person.id }
+  }
+  {= where p.ID = :id }
+;
+UPDATE_ENGAGEMENT_3(CRUD,BOPT=EMPTY_USE_METHOD_IS_NULL=true,POSTGRESQL,INFORMIX,MSSQL,DB2)=
+  update ENGAGEMENT
+  {= set 
+  	{ ,ROLE = :role }
+    { ,UUID = :uuid }
+    { ,PERSON = :person.id }
+  }
   {= where ID = :id }
 ;
 
@@ -1833,4 +1894,91 @@ PLUGIN_IS_TRUE(QRY)=
     {? :id(type=long,null) | AND p.ID is null | AND p.ID = :id}
     {? :createdBy(type=string,zero) | AND p.CREATED_BY is null | AND p.CREATED_BY = :createdBy}
   }
+;
+
+SEQ_GEN1(OPT,HSQLDB)=call NEXT VALUE FOR SQLPROC_SEQUENCE; 
+SEQ_GEN1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
+SEQ_GEN1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
+SEQ_GEN1(OPT,INFORMIX)=SELECT FIRST 1 SQLPROC_SEQUENCE.NEXTVAL FROM systables;
+SEQ_GEN1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
+
+IDSEL_GEN1(OPT,HSQLDB)=call identity();
+IDSEL_GEN1(OPT,MYSQL)=select last_insert_id();
+IDSEL_GEN1(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('person','id'));
+IDSEL_GEN1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
+IDSEL_GEN1(OPT,MSSQL)=JDBC;
+IDSEL_GEN1(OPT,DB2)=select identity_val_local() from sysibm.dual;
+IDSEL_GEN1(OPT,IDSEL_JDBC_TRUE)=JDBC;
+
+IDGEN_GEN2(OPT,HSQLDB)=seq=SQLPROC_SEQUENCE; 
+IDGEN_GEN2(OPT,ORACLE)=seq=SQLPROC_SEQUENCE;
+IDGEN_GEN2(OPT,POSTGRESQL)=seq=person_id_seq;
+IDGEN_GEN2(OPT,DB2)=seq=SQLPROC_SEQUENCE;
+IDGEN_GEN2(OPT,MYSQL)=idsel;
+IDGEN_GEN2(OPT,INFORMIX)=idsel;
+IDSEL_GEN2(OPT,MSSQL)=idsel;
+
+
+INSERT_PERSON_101(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(seq=GEN1,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize) }
+;
+  
+INSERT_PERSON_102(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(idsel=GEN1,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize) }
+;
+
+INSERT_PERSON_103(CRUD)=
+  insert into PERSON (ID, SSN_NUMBER, SSN_COUNTRY, NAME_FIRST, NAME_LAST, BIRTHDATE,  SEX, CREATEDDATE, CREATEDBY, VERSION, CLOTHES_SIZE)
+  {= values (:id(idgen=GEN2,id=ID), :ssn.number, :ssn.country, :name.first, :name.last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize) }
+;
+
+FORM_BASIC_CACHE(QRY)=
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  {= where
+    {& p.id = :id}
+    {& p.NAME_FIRST = :name.first}
+    {& p.NAME_LAST = :name.last}
+    {& p.SSN_NUMBER = :ssn.number}
+    {& p.SSN_COUNTRY = :ssn.country}
+    {& p.BIRTHDATE = :birthDate}
+    {& p.SEX = :sex.value}
+    {& p.CREATEDDATE = :createdDate}
+    {& p.LASTUPDATEDBY = :lastUpdatedBy}
+    {& p.LASTUPDATED = :lastUpdated}
+    {& p.CREATEDBY = :createdBy}
+    {& p.VERSION = :version}
+  }
+  {#1 order by id}
+;
+FORM_BASIC_CACHE(OUT)=
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
+;
+
+FORM_BASIC_2_CACHE(QRY)=
+  select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
+  p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),
+  p.LASTUPDATEDBY @lastUpdatedBy, p.VERSION as @version
+  from PERSON p
+  {= where
+    {& p.id = :id}
+    {& p.NAME_FIRST = :name.first}
+    {& p.NAME_LAST = :name.last}
+    {& p.SSN_NUMBER = :ssn.number}
+    {& p.SSN_COUNTRY = :ssn.country}
+    {& p.BIRTHDATE = :birthDate}
+    {& p.SEX = :sex.value}
+    {& p.CREATEDDATE = :createdDate}
+    {& p.LASTUPDATEDBY = :lastUpdatedBy}
+    {& p.LASTUPDATED = :lastUpdated}
+    {& p.CREATEDBY = :createdBy}
+    {& p.VERSION = :version}
+  }
+  {#1 order by id}
 ;

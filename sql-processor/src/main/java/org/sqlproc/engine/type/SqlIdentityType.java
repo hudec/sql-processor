@@ -1,6 +1,7 @@
 package org.sqlproc.engine.type;
 
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 
 /**
@@ -37,8 +38,8 @@ public abstract class SqlIdentityType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(Object resultInstance, String attributeName, Object resultValue, boolean ingoreError)
-            throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
         throw new UnsupportedOperationException();
     }
 
@@ -46,8 +47,8 @@ public abstract class SqlIdentityType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlQuery query, String paramName, Object identitySetter, Class<?> inputType,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object identitySetter,
+            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter "
                     + ((getMetaTypes() != null && getMetaTypes().length > 0) ? getMetaTypes()[0] : "null")

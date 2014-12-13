@@ -27,7 +27,12 @@ public class JdbcSimpleSession implements SqlSession {
     /**
      * The connection to the database. It should be opened.
      */
-    Connection connection;
+    private Connection connection;
+
+    /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
 
     /**
      * Creates a new instance.
@@ -38,6 +43,19 @@ public class JdbcSimpleSession implements SqlSession {
     public JdbcSimpleSession(Connection connection) {
         super();
         this.connection = connection;
+    }
+
+    /**
+     * Creates a new instance of this dynamic proxy.
+     * 
+     * @param connection
+     *            the connection to the database
+     * @param name
+     *            the name of the database
+     */
+    public JdbcSimpleSession(Connection connection, String name) {
+        this(connection);
+        this.name = name;
     }
 
     /**
@@ -64,5 +82,12 @@ public class JdbcSimpleSession implements SqlSession {
     public int[] executeBatch(String[] statements) throws SqlProcessorException {
         SqlQuery sqlQuery = createSqlQuery(null);
         return sqlQuery.executeBatch(statements);
+    }
+
+    /**
+     * @return the name of the database related to this session. It's usage is implementation specific.
+     */
+    public String getName() {
+        return name;
     }
 }

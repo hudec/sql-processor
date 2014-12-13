@@ -74,9 +74,9 @@ class SqlMetaOperator extends SqlMetaConst {
     @Override
     Object getInputValues(SqlProcessContext ctx) {
         if (dynamicInputValue)
-            return ctx.dynamicInputValues;
+            return ctx.getDynamicInputValues();
         else
-            return ctx.staticInputValues;
+            return ctx.getStaticInputValues();
     }
 
     /**
@@ -114,7 +114,7 @@ class SqlMetaOperator extends SqlMetaConst {
             ix = item.indexOf("@");
             if (ix >= 0) {
                 prefix = item.substring(0, ix);
-                suffix = SqlProcessContext.getFeature(item.substring(ix + 1));
+                suffix = ctx.getFeature(item.substring(ix + 1));
                 name = prefix + suffix;
             } else {
                 name = item;
@@ -126,7 +126,7 @@ class SqlMetaOperator extends SqlMetaConst {
         suffix = SqlUtils.firstLowerCase(suffix);
         Object o = (BeanUtils.checkProperty(obj, suffix)) ? BeanUtils.getProperty(obj, suffix) : null;
         if (o == null || !(o instanceof Map)) {
-            suffix = SqlProcessContext.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
+            suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
             o = (BeanUtils.checkProperty(obj, suffix)) ? BeanUtils.getProperty(obj, suffix) : null;
             if (o == null || !(o instanceof Map)) {
                 return null;
@@ -140,7 +140,7 @@ class SqlMetaOperator extends SqlMetaConst {
      * {@inheritDoc}
      */
     @Override
-    String getData(Object obj) {
+    String getData(SqlProcessContext ctx, Object obj) {
         if (obj instanceof String)
             return (String) obj;
         return obj.toString();

@@ -1,7 +1,12 @@
+SEQ_contact_person_id_seq(OPT)=select nextval('contact_person_id_seq');
+SEQ_person_id_seq(OPT)=select nextval('person_id_seq');
+SEQ_contact_id_seq(OPT)=select nextval('contact_id_seq');
+IDSEL_PERSON(OPT)=select currval(pg_get_serial_sequence('person','id'));
+IDSEL_CONTACT(OPT)=select currval(pg_get_serial_sequence('contact','id'));
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%contact (%id, %person_id, %ctype, %address, %phone_number)
-  {= values (:id(seq=contact_id_seq), :person.id, :ctype, :address, :phoneNumber) }
+  {= values (:id(idgen=CONTACT,id=id), :person.id, :ctype, :address, :phoneNumber) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
@@ -55,7 +60,7 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
 
 INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   insert into %%person (%id, %first_name, %last_name, %date_of_birth, %gender, %ssn)
-  {= values (:id(seq=person_id_seq), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
+  {= values (:id(idgen=person_id_seq,id=id), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
 ;
 
 GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=

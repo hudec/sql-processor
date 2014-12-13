@@ -27,6 +27,9 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public NewBookDaoImpl() {
+  }
+    	
   public NewBookDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
@@ -52,15 +55,12 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     }
     return (count > 0) ? newBook : null;
   }
-  
   public NewBook insert(NewBook newBook, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), newBook, sqlControl);
   }
-  
   public NewBook insert(SqlSession sqlSession, NewBook newBook) {
     return insert(sqlSession, newBook, null);
   }
-  
   public NewBook insert(NewBook newBook) {
     return insert(newBook, null);
   }
@@ -77,15 +77,12 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     }
     return newBookGot;
   }
-  	
   public NewBook get(NewBook newBook, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), newBook, sqlControl);
   }
-  
   public NewBook get(SqlSession sqlSession, NewBook newBook) {
     return get(sqlSession, newBook, null);
   }
-  
   public NewBook get(NewBook newBook) {
     return get(newBook, null);
   }
@@ -108,15 +105,12 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     }
     return count;
   }
-  
   public int update(NewBook newBook, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), newBook, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, NewBook newBook) {
     return update(sqlSession, newBook, null);
   }
-  
   public int update(NewBook newBook) {
     return update(newBook, null);
   }
@@ -139,15 +133,12 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     }
     return count;
   }
-  
   public int delete(NewBook newBook, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), newBook, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, NewBook newBook) {
     return delete(sqlSession, newBook, null);
   }
-  
   public int delete(NewBook newBook) {
     return delete(newBook, null);
   }
@@ -164,15 +155,12 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     }
     return newBookList;
   }
-  
   public List<NewBook> list(NewBook newBook, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), newBook, sqlControl);
   }
-  
-  public List<NewBook> list(SqlSession sqlSession, NewBook newBook) {
+      public List<NewBook> list(SqlSession sqlSession, NewBook newBook) {
     return list(sqlSession, newBook, null);
   }
-  
   public List<NewBook> list(NewBook newBook) {
     return list(newBook, null);
   }
@@ -189,15 +177,12 @@ public class NewBookDaoImpl extends BaseDaoImpl implements BaseDao, NewBookDao {
     }
     return count;
   }
-  
   public int count(NewBook newBook, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), newBook, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, NewBook newBook) {
+      public int count(SqlSession sqlSession, NewBook newBook) {
     return count(sqlSession, newBook, null);
   }
-  
   public int count(NewBook newBook) {
     return count(newBook, null);
   }

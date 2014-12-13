@@ -13,6 +13,7 @@ import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidationException;
 
 /**
  * The primary SQL Processor class for the META SQL CRUD statement execution.
@@ -101,10 +102,10 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Creates a new instance of the SqlCrudEngine from one META SQL statement string. Constructor will call the
      * internal ANTLR parser for the CRUD statement instances construction. Compared to the previous constructor, an
-     * external SQL Monitor for the runtime statistics gathering is engaged and the optional features can be involved.
-     * This constructor is devoted to manual META SQL statements construction. More obvious is to put the META SQL
-     * statements definitions into the meta statements file and engage the {@link SqlProcessorLoader} for the
-     * SqlCrudEngine instances construction.
+     * external SQL Monitor for the runtime sSqlValidationExceptiontatistics gathering is engaged and the optional
+     * features can be involved. This constructor is devoted to manual META SQL statements construction. More obvious is
+     * to put the META SQL statements definitions into the meta statements file and engage the
+     * {@link SqlProcessorLoader} for the SqlCrudEngine instances construction.
      * 
      * @param name
      *            the name of this SQL Engine instance
@@ -210,7 +211,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int insert(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return insert(session, dynamicInputValues, null, 0);
+        return insert(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -220,7 +221,8 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return insert(session, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return insert(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -255,7 +257,6 @@ public class SqlCrudEngine extends SqlEngine {
         checkStaticInputValues(staticInputValues);
         return insert(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
                 .setMaxTimeout(maxTimeout));
-
     }
 
     /**
@@ -277,9 +278,11 @@ public class SqlCrudEngine extends SqlEngine {
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.validation.SqlValidationException
+     *             in the case the validation of the input values isn't successfull
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
-            throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> insert, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
@@ -291,19 +294,30 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.CREATE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.CREATE, dynamicInputValues,
+                            sqlControl);
+                    processResult.validate(validator);
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    sql = SqlUtils.handleInsertSql(processResult.getIdentities(), sql);
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    Integer count = query.update();
-                    processResult.postProcess();
-                    return count;
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return insert(query, processResult);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return insert(query, processResult);
+                    }
                 }
+
             }, Integer.class);
             return count;
         } finally {
@@ -314,13 +328,28 @@ public class SqlCrudEngine extends SqlEngine {
     }
 
     /**
+     * Internal insert implementation
+     * 
+     * @param query
+     *            query
+     * @param processResult
+     *            processResult
+     * @return the result
+     */
+    private Integer insert(final SqlQuery query, final SqlProcessResult processResult) {
+        Integer count = query.update(processResult.getRuntimeContext());
+        processResult.postProcess();
+        return count;
+    }
+
+    /**
      * Runs the META SQL query to obtain a unique database row. This is one of the overriden methods. For the parameters
      * description please see the most complex execution method
      * {@link #get(SqlSession, Class, Object, Object, int, Map)} .
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, null, 0);
+        return get(session, resultClass, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -330,7 +359,9 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues) throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return get(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -341,7 +372,10 @@ public class SqlCrudEngine extends SqlEngine {
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final Map<String, Class<?>> moreResultClasses)
             throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, staticInputValues, 0, moreResultClasses);
+        checkStaticInputValues(staticInputValues);
+        return get(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues)
+                        .setMoreResultClasses(moreResultClasses));
     }
 
     /**
@@ -351,7 +385,9 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
-        return get(session, resultClass, dynamicInputValues, staticInputValues, maxTimeout, null);
+        checkStaticInputValues(staticInputValues);
+        return get(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -442,56 +478,30 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             result = monitor.run(new SqlMonitor.Runner() {
                 public E run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.RETRIEVE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.RETRIEVE, dynamicInputValues,
+                            sqlControl);
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
+                    if (getFetchSize(sqlControl) > 0)
+                        query.setFetchSize(getFetchSize(sqlControl));
                     processResult.setQueryParams(session, query);
-                    SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
+                    final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
-                    @SuppressWarnings("rawtypes")
-                    List list = query.list();
-                    E resultInstance = null;
-                    Object[] resultValue = null;
-                    Map<String, Object> ids = mappingResult.getIds();
-
-                    for (@SuppressWarnings("rawtypes")
-                    Iterator i$ = list.iterator(); i$.hasNext();) {
-                        Object resultRow = i$.next();
-                        resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                                : (new Object[] { resultRow });
-
-                        boolean changedIdentity = true;
-                        if (ids != null) {
-                            String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                            if (ids.containsKey(idsKey))
-                                changedIdentity = false;
-                        }
-
-                        if (changedIdentity) {
-                            if (resultInstance != null) {
-                                throw new SqlProcessorException("There's no unique result");
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public E run() {
+                                return get(query, mappingResult, resultClass, sqlControl);
                             }
-                            resultInstance = BeanUtils.getInstance(resultClass);
-                            if (resultInstance == null) {
-                                throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                            }
-                        }
-
-                        mappingResult.setQueryResultData(resultInstance, resultValue, ids,
-                                getMoreResultClasses(sqlControl));
-                        if (changedIdentity) {
-                            if (ids != null) {
-                                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                                ids.put(idsKey, resultInstance);
-                            }
-                        }
+                        }, resultClass);
+                    } else {
+                        return get(query, mappingResult, resultClass, sqlControl);
                     }
-                    return resultInstance;
                 }
             }, resultClass);
             return result;
@@ -503,13 +513,66 @@ public class SqlCrudEngine extends SqlEngine {
     }
 
     /**
+     * Internal get implementation
+     * 
+     * @param query
+     *            query
+     * @param mappingResult
+     *            mappingResult
+     * @param resultClass
+     *            resultClass
+     * @param sqlControl
+     *            sqlCOntrol
+     * @return the result
+     */
+    private <E> E get(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
+            final SqlControl sqlControl) {
+        List list = query.list(mappingResult.getRuntimeContext());
+        E resultInstance = null;
+        Object[] resultValue = null;
+        Map<String, Object> ids = mappingResult.getIds();
+
+        for (@SuppressWarnings("rawtypes")
+        Iterator i$ = list.iterator(); i$.hasNext();) {
+            Object resultRow = i$.next();
+            resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
+
+            boolean changedIdentity = true;
+            if (ids != null) {
+                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                if (ids.containsKey(idsKey))
+                    changedIdentity = false;
+            }
+
+            if (changedIdentity) {
+                if (resultInstance != null) {
+                    throw new SqlProcessorException("There's no unique result");
+                }
+                resultInstance = BeanUtils.getInstance(resultClass);
+                if (resultInstance == null) {
+                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                }
+            }
+
+            mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
+            if (changedIdentity) {
+                if (ids != null) {
+                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                    ids.put(idsKey, resultInstance);
+                }
+            }
+        }
+        return resultInstance;
+    }
+
+    /**
      * Runs the META SQL update statement to persist a database row. This is one of the overriden methods. For the
      * parameters description please see the most complex execution method
      * {@link #update(SqlSession, Object, Object, int)} .
      */
     public int update(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return update(session, dynamicInputValues, null, 0);
+        return update(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -519,7 +582,8 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return update(session, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return update(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -577,9 +641,11 @@ public class SqlCrudEngine extends SqlEngine {
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.validation.SqlValidationException
+     *             in the case the validation of the input values isn't successfull
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
-            throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> update, session=" + session + ", dynamicInputValues=" + dynamicInputValues
                     + ", sqlControl=" + sqlControl);
@@ -591,16 +657,27 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.UPDATE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.UPDATE, dynamicInputValues,
+                            sqlControl);
+                    processResult.validate(validator);
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return query.update();
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return update(query, processResult);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return update(query, processResult);
+                    }
                 }
             }, Integer.class);
             return count;
@@ -612,13 +689,24 @@ public class SqlCrudEngine extends SqlEngine {
     }
 
     /**
+     * Internal update implementation
+     * 
+     * @param query
+     *            query
+     * @return the result
+     */
+    private Integer update(final SqlQuery query, final SqlProcessResult processResult) {
+        return query.update(processResult.getRuntimeContext());
+    }
+
+    /**
      * Runs the META SQL delete statement to delete a database row. This is one of the overriden methods. For the
      * parameters description please see the most complex execution method
      * {@link #delete(SqlSession, Object, Object, int)} .
      */
     public int delete(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
-        return delete(session, dynamicInputValues, null, 0);
+        return delete(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
     /**
@@ -628,7 +716,8 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
-        return delete(session, dynamicInputValues, staticInputValues, 0);
+        checkStaticInputValues(staticInputValues);
+        return delete(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -698,16 +787,26 @@ public class SqlCrudEngine extends SqlEngine {
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    SqlProcessResult processResult = statement.process(SqlMetaStatement.Type.DELETE,
-                            dynamicInputValues, getStaticInputValues(sqlControl), null, features,
-                            getFeatures(sqlControl), typeFactory, pluginFactory);
-                    SqlQuery query = session.createSqlQuery(processResult.getSql().toString());
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.DELETE, dynamicInputValues,
+                            sqlControl);
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) > 0)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
-                    return query.update();
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return delete(query, processResult);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return delete(query, processResult);
+                    }
                 }
             }, Integer.class);
             return count;
@@ -716,6 +815,17 @@ public class SqlCrudEngine extends SqlEngine {
                 logger.debug("<< delete, result=" + count);
             }
         }
+    }
+
+    /**
+     * Internal delete implementation
+     * 
+     * @param query
+     *            query
+     * @return the result
+     */
+    private Integer delete(final SqlQuery query, final SqlProcessResult processResult) {
+        return query.update(processResult.getRuntimeContext());
     }
 
     /**
@@ -817,10 +927,10 @@ public class SqlCrudEngine extends SqlEngine {
             sql = monitor.run(new SqlMonitor.Runner() {
 
                 public String run() {
-                    SqlProcessResult processResult = statement.process(statementType, dynamicInputValues,
-                            getStaticInputValues(sqlControl), null, features, getFeatures(sqlControl), typeFactory,
-                            pluginFactory);
-                    return processResult.getSql().toString();
+                    SqlProcessResult processResult = process(statementType, dynamicInputValues, sqlControl);
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    return sql;
                 }
             }, String.class);
             return sql;

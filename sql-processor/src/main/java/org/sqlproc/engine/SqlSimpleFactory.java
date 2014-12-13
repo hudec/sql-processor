@@ -2,13 +2,16 @@ package org.sqlproc.engine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidatorFactory;
 
 /**
  * The simple implementation of the {@link SqlEngineFactory}.
@@ -101,11 +104,29 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * based files.
      */
     private SqlProcessorLoader processorLoader;
+    /**
+     * The validator factory used in the process of the SQL Monitor instances creation.
+     */
+    private SqlValidatorFactory validatorFactory;
+    /**
+     * This flag indicates to speed up the initialization process.
+     */
+    private boolean lazyInit;
 
     /**
      * Creates a new instance with no default values.
      */
     public SqlSimpleFactory() {
+    }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     */
+    public SqlSimpleFactory(boolean lazyInit) {
+        this.lazyInit = lazyInit;
     }
 
     /**
@@ -124,10 +145,19 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, customTypes, onlyStatements);
+                                monitorFactory, validatorFactory, customTypes, lazyInit, onlyStatements);
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Conditional dynamic initialization, called mainly from the Spring configuration initialization.
+     */
+    public void init0() {
+        if (getLoader() == null) {
+            init();
         }
     }
 
@@ -136,9 +166,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getQueryEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getQueryEngine(name);
     }
 
@@ -147,9 +175,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCrudEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCrudEngine(name);
     }
 
@@ -158,9 +184,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getProcedureEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getProcedureEngine(name);
     }
 
@@ -168,10 +192,35 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
+    public SqlQueryEngine getStaticQueryEngine(String name) {
+        init0();
+        return getLoader().getStaticQueryEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getStaticCrudEngine(String name) {
+        init0();
+        return getLoader().getStaticCrudEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getStaticProcedureEngine(String name) {
+        init0();
+        return getLoader().getStaticProcedureEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedQueryEngine(name);
     }
 
@@ -180,9 +229,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCheckedCrudEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedCrudEngine(name);
     }
 
@@ -191,10 +238,62 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getCheckedProcedureEngine(String name) {
-        if (getLoader() == null) {
-            init();
-        }
+        init0();
         return getLoader().getCheckedProcedureEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getCheckedStaticQueryEngine(String name) throws SqlEngineException {
+        init0();
+        return getLoader().getCheckedStaticQueryEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getCheckedStaticCrudEngine(String name) {
+        init0();
+        return getLoader().getCheckedStaticCrudEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getCheckedStaticProcedureEngine(String name) {
+        init0();
+        return getLoader().getCheckedStaticProcedureEngine(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement) throws SqlEngineException {
+        init0();
+        return getLoader().getDynamicQueryEngine(name, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlCrudEngine getDynamicCrudEngine(String name, String sqlStatement) {
+        init0();
+        return getLoader().getDynamicCrudEngine(name, sqlStatement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement) {
+        init0();
+        return getLoader().getDynamicProcedureEngine(name, sqlStatement);
     }
 
     /**
@@ -408,11 +507,81 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * Returns the indicator to speed up the initialization process
+     * 
+     * @return the indicator to speed up the initialization process
+     */
+    public boolean isLazyInit() {
+        return lazyInit;
+    }
+
+    /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
+    public void setLazyInit(boolean lazyInit) {
+        this.lazyInit = lazyInit;
+    }
+
+    /**
      * Returns the internal SQL engine or processor loader.
      * 
      * @return the internal SQL engine or processor loader
      */
     public SqlEngineFactory getLoader() {
         return processorLoader;
+    }
+
+    /**
+     * Returns the validator factory used in the process of the SQL Monitor instances creation.
+     * 
+     * @return the validator factory used in the process of the SQL Monitor instances creation
+     */
+    public SqlValidatorFactory getValidatorFactory() {
+        return validatorFactory;
+    }
+
+    /**
+     * Sets the validator factory used in the process of the SQL Monitor instances creation.
+     * 
+     * @param validatorFactory
+     *            the validator factory used in the process of the SQL Monitor instances creation
+     */
+    public void setValidatorFactory(SqlValidatorFactory validatorFactory) {
+        this.validatorFactory = validatorFactory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getNames() {
+        return getLoader().getNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getDynamicNames() {
+        return getLoader().getDynamicNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getEngines() {
+        return getLoader().getEngines();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getDynamicEngines() {
+        return getLoader().getDynamicEngines();
     }
 }

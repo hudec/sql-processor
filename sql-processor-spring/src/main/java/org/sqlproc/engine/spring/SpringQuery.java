@@ -30,7 +30,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.impl.SqlProcessContext;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
@@ -118,6 +118,10 @@ public class SpringQuery implements SqlQuery {
      */
     Integer maxResults;
     /**
+     * The fetch size of rows to retrieve in one SQL.
+     */
+    Integer fetchSize;
+    /**
      * The SQL output is sorted.
      */
     boolean ordered;
@@ -179,6 +183,15 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public SqlQuery setFetchSize(int fetchSize) {
+        this.fetchSize = fetchSize;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQuery setOrdered(boolean ordered) {
         this.ordered = ordered;
         return this;
@@ -188,10 +201,11 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list() throws SqlProcessorException {
+    public List list(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
-        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? SqlProcessContext.getPluginFactory()
-                .getSqlFromToPlugin().limitQuery(queryString, queryResult, firstResult, maxResults, ordered) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
+                .getSqlFromToPlugin()
+                .limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered) : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
@@ -203,6 +217,8 @@ public class SpringQuery implements SqlQuery {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (timeout != null)
                     ps.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    ps.setFetchSize(fetchSize);
                 return ps;
             }
         };
@@ -215,6 +231,8 @@ public class SpringQuery implements SqlQuery {
         ResultSetExtractor<List> rse = new ResultSetExtractor<List>() {
             @Override
             public List extractData(ResultSet rs) throws SQLException, DataAccessException {
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 return getResults(rs);
             }
         };
@@ -234,8 +252,8 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique() throws SqlProcessorException {
-        List list = list();
+    public Object unique(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List list = list(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
@@ -253,7 +271,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int update() throws SqlProcessorException {
+    public int update(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
@@ -471,7 +489,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList() throws SqlProcessorException {
+    public List callList(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
@@ -488,6 +506,8 @@ public class SpringQuery implements SqlQuery {
                 CallableStatement cs = con.prepareCall(query);
                 if (timeout != null)
                     cs.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    cs.setFetchSize(fetchSize);
                 return cs;
             }
         };
@@ -503,6 +523,8 @@ public class SpringQuery implements SqlQuery {
                     if (hasResultSet || cs.getMoreResults()) {
                         rs = cs.getResultSet();
                         ResultSet rsToUse = rs;
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }
@@ -511,6 +533,8 @@ public class SpringQuery implements SqlQuery {
                     } else {
                         rs = (ResultSet) getParameters(cs, true);
                         ResultSet rsToUse = rs;
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }
@@ -538,8 +562,8 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique() throws SqlProcessorException {
-        List list = callList();
+    public Object callUnique(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List list = callList(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
@@ -557,7 +581,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int callUpdate() throws SqlProcessorException {
+    public int callUpdate(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callUpdate, query=" + queryString);
         }
@@ -636,6 +660,8 @@ public class SpringQuery implements SqlQuery {
                     if (hasResultSet) {
                         rs = cs.getResultSet();
                         ResultSet rsToUse = rs;
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }

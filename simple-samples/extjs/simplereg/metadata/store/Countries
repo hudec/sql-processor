@@ -1,0 +1,61 @@
+{
+    "type": "directstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "model": "Country",
+        "storeId": "Countries",
+        "designer|userClassName": "Countries",
+        "pageSize": null
+    },
+    "designerId": "b7f5a560-66d4-4faa-95d7-c8fa7b5a074e",
+    "cn": [
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "code",
+                "designer|displayName": "CodeSorter"
+            },
+            "designerId": "1b4198df-913e-49d3-9d3a-fc08388e4ef7"
+        },
+        {
+            "type": "Ext.data.proxy.Direct",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy",
+                "api": [
+                    "{ read: \"personWeb.loadCountries\" }"
+                ]
+            },
+            "designerId": "6bc598b1-8228-4395-b7db-fdc6e2bac435",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "records",
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "7416e538-2a3b-4609-8e93-9b4fcb50108f"
+                }
+            ]
+        }
+    ]
+}

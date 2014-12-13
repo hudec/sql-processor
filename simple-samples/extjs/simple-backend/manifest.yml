@@ -1,0 +1,13 @@
+---
+applications:
+- name: simple-backend
+  memory: 512M
+  instances: 2
+  url: simple-backend.cfapps.io
+  path: .
+  services:
+    mysql-simple-backend:
+      label: cleardb
+      provider: cleardb
+      version: n/a
+      plan: spark

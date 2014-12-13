@@ -36,6 +36,11 @@ public class SqlMappingRule {
     protected static Logger logger = LoggerFactory.getLogger(SqlMappingRule.class);
 
     /**
+     * A raw representation this output value mapping
+     */
+    String raw;
+
+    /**
      * All sub-elements based on ANTLR grammar defined in SqlMapping.g. Every sub-element is one mapping item.
      */
     private Map<String, SqlMappingItem> mappings;
@@ -90,6 +95,22 @@ public class SqlMappingRule {
     }
 
     /**
+     * Creates a new instance. It's used from inside ANTLR parser.
+     */
+    public SqlMappingRule(String raw) {
+        this.raw = raw;
+    }
+
+    /**
+     * Returns raw representation this output value mapping
+     * 
+     * @return raw representation this output value mapping
+     */
+    public String getRaw() {
+        return raw;
+    }
+
+    /**
      * Adds a new Mapping item, which is a mapping rule for one column.
      * 
      * @param item
@@ -120,6 +141,6 @@ public class SqlMappingRule {
      * @return the crate for output mapping rule and database row identities
      */
     public static SqlMappingResult merge(SqlMappingRule mapping, SqlProcessResult processResult) {
-        return new SqlMappingResult(mapping, processResult.getOutputValues());
+        return new SqlMappingResult(processResult.getCtx(), mapping, processResult.getOutputValues());
     }
 }

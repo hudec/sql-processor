@@ -15,30 +15,30 @@ public abstract class Media implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Media _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private String title;
-    
+  
   public String getTitle() {
     return title;
   }
-    
+  
   public void setTitle(String title) {
     this.title = title;
   }
-    
+  
   public Media _setTitle(String title) {
     this.title = title;
     return this;
@@ -53,7 +53,7 @@ public abstract class Media implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Media other = (Media) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -62,7 +62,7 @@ public abstract class Media implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   

@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.impl.SqlProcessContext;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
@@ -108,6 +108,10 @@ public class JdbcQuery implements SqlQuery {
      */
     Integer maxResults;
     /**
+     * The fetch size of rows to retrieve in one SQL.
+     */
+    Integer fetchSize;
+    /**
      * The SQL output is sorted.
      */
     boolean ordered;
@@ -169,6 +173,15 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public SqlQuery setFetchSize(int fetchSize) {
+        this.fetchSize = fetchSize;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQuery setOrdered(boolean ordered) {
         this.ordered = ordered;
         return this;
@@ -178,10 +191,11 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list() throws SqlProcessorException {
+    public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
-        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? SqlProcessContext.getPluginFactory()
-                .getSqlFromToPlugin().limitQuery(queryString, queryResult, firstResult, maxResults, ordered) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
+                .getSqlFromToPlugin()
+                .limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered) : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
@@ -193,8 +207,12 @@ public class JdbcQuery implements SqlQuery {
             ps = connection.prepareStatement(query);
             if (timeout != null)
                 ps.setQueryTimeout(timeout);
+            if (fetchSize != null)
+                ps.setFetchSize(fetchSize);
             setParameters(ps, limitType, 1);
             rs = ps.executeQuery();
+            if (fetchSize != null)
+                rs.setFetchSize(fetchSize);
             List list = getResults(rs);
             if (logger.isDebugEnabled()) {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
@@ -222,8 +240,8 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique() throws SqlProcessorException {
-        List list = list();
+    public Object unique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List list = list(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
@@ -241,7 +259,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int update() throws SqlProcessorException {
+    public int update(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
@@ -396,7 +414,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList() throws SqlProcessorException {
+    public List callList(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
@@ -415,14 +433,20 @@ public class JdbcQuery implements SqlQuery {
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
+            if (fetchSize != null)
+                cs.setFetchSize(fetchSize);
             setParameters(cs, null, 1);
             hasResultSet = cs.execute();
             if (hasResultSet || cs.getMoreResults()) {
                 rs = cs.getResultSet();
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 list = getResults(rs);
                 getParameters(cs, false);
             } else {
                 rs = (ResultSet) getParameters(cs, true);
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 list = getResults(rs);
             }
             if (logger.isDebugEnabled()) {
@@ -452,8 +476,8 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique() throws SqlProcessorException {
-        List list = callList();
+    public Object callUnique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List list = callList(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
@@ -471,7 +495,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int callUpdate() throws SqlProcessorException {
+    public int callUpdate(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callUpdate, query=" + queryString);
         }
@@ -538,10 +562,14 @@ public class JdbcQuery implements SqlQuery {
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
+            if (fetchSize != null)
+                cs.setFetchSize(fetchSize);
             setParameters(cs, null, 1);
             hasResultSet = cs.execute();
             if (hasResultSet) {
                 rs = cs.getResultSet();
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 list = getResults(rs);
                 if (list != null && !list.isEmpty())
                     result = list.get(0);
@@ -666,6 +694,9 @@ public class JdbcQuery implements SqlQuery {
                     if (type instanceof JdbcSqlType) {
                         JdbcSqlType sqlType = (JdbcSqlType) type;
                         try {
+                            if (logger.isTraceEnabled()) {
+                                logger.trace("setParameters, ix=" + (ix + i) + ", value=" + value);
+                            }
                             sqlType.set(ps, ix + i, value);
                         } catch (ClassCastException cce) {
                             StringBuilder sb = new StringBuilder("Not compatible input value of type ")
@@ -676,11 +707,20 @@ public class JdbcQuery implements SqlQuery {
                             throw new SqlProcessorException(sb.toString(), cce);
                         }
                     } else if (value == null) {
+                        if (logger.isTraceEnabled()) {
+                            logger.trace("setNull, ix=" + (ix + i) + ", type=" + type);
+                        }
                         ps.setNull(ix + i, (Integer) type);
                     } else {
+                        if (logger.isTraceEnabled()) {
+                            logger.trace("setNull, ix=" + (ix + i) + ", type=" + type);
+                        }
                         ps.setObject(ix + i, value, (Integer) type);
                     }
                 } else {
+                    if (logger.isTraceEnabled()) {
+                        logger.trace("setObject, ix=" + (ix + i) + ", type=" + type);
+                    }
                     ps.setObject(ix + i, value);
                 }
             }

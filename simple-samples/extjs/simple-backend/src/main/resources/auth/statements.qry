@@ -1,0 +1,228 @@
+SELECT_AUTH_USER(QRY,inx=AuthUser,outx=AuthUser,tab=authUser=a,tab=userRole=u,tab=authRole=r)=
+  select %a.ID @id(id), %a.USERNAME @username, %a.PASSWORD @password, %a.NAME @name, %a.EMAIL @email, %a.LAST_LOGIN @lastLogin, %a.VERSION @version
+         {? :userRoles(call=toInit) | , %u.ID @userRoles.id(id), %u.AUTH_USER_ID @userRoles.authUserId, %u.AUTH_ROLE_ID @userRoles.authRole.id, %u.VERSION @userRoles.version, %r.NAME @userRoles.authRole.name, %r.DESCRIPTION @userRoles.authRole.description, %r.VERSION @userRoles.authRole.version}
+  from %%AUTH_USER a
+  {? :userRoles(call=toInit) | left join %%USER_ROLE u on %a.ID = %u.AUTH_USER_ID left join %%AUTH_ROLE r on %u.AUTH_ROLE_ID = %r.ID}
+  {= where
+    {& %a.ID ::= :id }
+    {& UPPER(%a.USERNAME) like :+username }
+    {& UPPER(%a.PASSWORD) like :+password }
+    {& UPPER(%a.NAME) like :+name }
+    {& UPPER(%a.EMAIL) like :+email }
+    {& %a.LAST_LOGIN ::= :lastLogin }
+  }
+  {#1 order by %a.ID }
+  {#2 order by %a.USERNAME }
+;
+
+
+INSERT_AUTH_ROLE(CRUD,inx=AuthRole,outx=AuthRole,tab=authRole,MYSQL)=
+  insert into %%AUTH_ROLE (%NAME, %DESCRIPTION, %VERSION)
+  {= values (:id(idsel), :name, :description, :version) }
+;
+
+INSERT_AUTH_USER(CRUD,inx=AuthUser,outx=AuthUser,tab=authUser,MYSQL)=
+  insert into %%AUTH_USER (%USERNAME, %PASSWORD, %NAME, %EMAIL, %LAST_LOGIN, %VERSION)
+  {= values (:id(idsel), :username, :password, :name, :email, :lastLogin, :version) }
+;
+
+INSERT_USER_ROLE(CRUD,inx=UserRole,outx=UserRole,tab=userRole,MYSQL)=
+  insert into %%USER_ROLE (%AUTH_USER_ID, %AUTH_ROLE_ID, %VERSION)
+  {= values (:id(idsel), :authUserId, :authRole.id, :version) }
+;
+
+INSERT_USER_SESSION(CRUD,inx=UserSession,outx=UserSession,tab=userSession,MYSQL)=
+  insert into %%USER_SESSION (%AUTH_USER_ID, %LAST_ACCESS)
+  {= values (:id(idsel), :authUserId, :lastAccess) }
+;
+
+// generated type
+
+INSERT_AUTH_ROLE(CRUD,inx=AuthRole,outx=AuthRole,tab=authRole)=
+  insert into %%AUTH_ROLE (%ID, %NAME, %DESCRIPTION, %VERSION)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :name, :description, :version) }
+;
+
+GET_AUTH_ROLE(CRUD,inx=AuthRole,outx=AuthRole,tab=authRole)=
+  select %ID @id(id), %NAME @name, %DESCRIPTION @description, %VERSION @version
+  from %%AUTH_ROLE
+  {= where
+    {& %ID ::= :id }
+    {& %NAME ::= :name }
+    {& %DESCRIPTION ::= :description }
+  }
+;
+
+UPDATE_AUTH_ROLE(CRUD,inx=AuthRole,outx=AuthRole,tab=authRole)=
+  update %%AUTH_ROLE
+  {= set
+    { ,%NAME = :name(call=isDef) }
+    { ,%DESCRIPTION = :description(call=isDef) }
+    { ,%VERSION = %VERSION + 1 }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
+  }
+;
+
+DELETE_AUTH_ROLE(CRUD,inx=AuthRole,outx=AuthRole,tab=authRole)=
+  delete from %%AUTH_ROLE
+  {= where
+    {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
+  }
+;
+
+SELECT_AUTH_ROLE(QRY,inx=AuthRole,outx=AuthRole,tab=authRole)=
+  select %ID @id(id), %NAME @name, %DESCRIPTION @description, %VERSION @version
+  from %%AUTH_ROLE
+  {= where
+    {& %ID ::= :id }
+    {& UPPER(%NAME) like :+name }
+    {& UPPER(%DESCRIPTION) like :+description }
+  }
+  {#1 order by %ID }
+;
+
+INSERT_AUTH_USER(CRUD,inx=AuthUser,outx=AuthUser,tab=authUser)=
+  insert into %%AUTH_USER (%ID, %USERNAME, %PASSWORD, %NAME, %EMAIL, %LAST_LOGIN, %VERSION)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :username, :password, :name, :email, :lastLogin, :version) }
+;
+
+GET_AUTH_USER(CRUD,inx=AuthUser,outx=AuthUser,tab=authUser=a,tab=userRole=u)=
+  select %a.ID @id(id), %a.USERNAME @username, %a.PASSWORD @password, %a.NAME @name, %a.EMAIL @email, %a.LAST_LOGIN @lastLogin, %a.VERSION @version
+         {? :userRoles(call=toInit) | , %u.ID @userRoles.id(id), %u.AUTH_USER_ID @userRoles.authUserId, %u.AUTH_ROLE_ID @userRoles.authRole.id, %u.VERSION @userRoles.version }
+  from %%AUTH_USER a
+  {? :userRoles(call=toInit) | left join %%USER_ROLE u on %a.ID = %u.AUTH_USER_ID }
+  {= where
+    {& %a.ID ::= :id }
+    {& %a.USERNAME ::= :username }
+    {& %a.PASSWORD ::= :password }
+    {& %a.NAME ::= :name }
+    {& %a.EMAIL ::= :email }
+    {& %a.LAST_LOGIN ::= :lastLogin }
+  }
+;
+
+UPDATE_AUTH_USER(CRUD,inx=AuthUser,outx=AuthUser,tab=authUser)=
+  update %%AUTH_USER
+  {= set
+    { ,%USERNAME = :username(call=isDef) }
+    { ,%PASSWORD = :password(call=isDef) }
+    { ,%NAME = :name(call=isDef) }
+    { ,%EMAIL = :email(call=isDef) }
+    { ,%LAST_LOGIN = :lastLogin(call=isDef) }
+    { ,%VERSION = %VERSION + 1 }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
+  }
+;
+
+DELETE_AUTH_USER(CRUD,inx=AuthUser,outx=AuthUser,tab=authUser)=
+  delete from %%AUTH_USER
+  {= where
+    {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
+  }
+;
+
+INSERT_USER_ROLE(CRUD,inx=UserRole,outx=UserRole,tab=userRole)=
+  insert into %%USER_ROLE (%ID, %AUTH_USER_ID, %AUTH_ROLE_ID, %VERSION)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :authUserId, :authRole.id, :version) }
+;
+
+GET_USER_ROLE(CRUD,inx=UserRole,outx=UserRole,tab=userRole=u,tab=authRole=a)=
+  select %u.ID @id(id), %u.AUTH_USER_ID @authUserId, %u.AUTH_ROLE_ID @authRole.id(id), %u.VERSION @version
+         {? :authRole(call=toInit) | , %a.NAME @authRole.name, %a.DESCRIPTION @authRole.description, %a.VERSION @authRole.version }
+  from %%USER_ROLE u
+  {? :authRole(call=toInit) | left join %%AUTH_ROLE a on %u.AUTH_ROLE_ID = %a.ID }
+  {= where
+    {& %u.ID ::= :id }
+    {& %u.AUTH_USER_ID ::= :authUserId }
+    {& %u.AUTH_ROLE_ID ::= :authRole.id }
+  }
+;
+
+UPDATE_USER_ROLE(CRUD,inx=UserRole,outx=UserRole,tab=userRole)=
+  update %%USER_ROLE
+  {= set
+    { ,%AUTH_USER_ID = :authUserId }
+    { ,%AUTH_ROLE_ID = :authRole.id }
+    { ,%VERSION = %VERSION + 1 }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
+  }
+;
+
+DELETE_USER_ROLE(CRUD,inx=UserRole,outx=UserRole,tab=userRole)=
+  delete from %%USER_ROLE
+  {= where
+    {& %ID = :id(!empty) }
+    {& %VERSION = :version(!empty) }
+  }
+;
+
+SELECT_USER_ROLE(QRY,inx=UserRole,outx=UserRole,tab=userRole=u,tab=authRole=a)=
+  select %u.ID @id(id), %u.AUTH_USER_ID @authUserId, %u.AUTH_ROLE_ID @authRole.id(id), %u.VERSION @version
+         {? :authRole(call=toInit) | , %a.NAME @authRole.name, %a.DESCRIPTION @authRole.description, %a.VERSION @authRole.version }
+  from %%USER_ROLE u
+  {? :authRole(call=toInit) | left join %%AUTH_ROLE a on %u.AUTH_ROLE_ID = %a.ID }
+  {= where
+    {& %u.ID ::= :id }
+    {& %u.AUTH_USER_ID ::= :authUserId }
+    {& %u.AUTH_ROLE_ID ::= :authRole.id }
+  }
+  {#1 order by %u.ID }
+  {#4 order by %u.AUTH_USER_ID }
+  {#5 order by %u.AUTH_ROLE_ID }
+;
+
+INSERT_USER_SESSION(CRUD,inx=UserSession,outx=UserSession,tab=userSession)=
+  insert into %%USER_SESSION (%ID, %AUTH_USER_ID, %LAST_ACCESS)
+  {= values (:id(seq=SIMPLE_SEQUENCE), :authUserId, :lastAccess) }
+;
+
+GET_USER_SESSION(CRUD,inx=UserSession,outx=UserSession,tab=userSession)=
+  select %ID @id(id), %AUTH_USER_ID @authUserId, %LAST_ACCESS @lastAccess
+  from %%USER_SESSION
+  {= where
+    {& %ID ::= :id }
+    {& %AUTH_USER_ID ::= :authUserId }
+    {& %LAST_ACCESS ::= :lastAccess }
+  }
+;
+
+UPDATE_USER_SESSION(CRUD,inx=UserSession,outx=UserSession,tab=userSession)=
+  update %%USER_SESSION
+  {= set
+    { ,%AUTH_USER_ID = :authUserId }
+    { ,%LAST_ACCESS = :lastAccess }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_USER_SESSION(CRUD,inx=UserSession,outx=UserSession,tab=userSession)=
+  delete from %%USER_SESSION
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_USER_SESSION(QRY,inx=UserSession,outx=UserSession,tab=userSession)=
+  select %ID @id(id), %AUTH_USER_ID @authUserId, %LAST_ACCESS @lastAccess
+  from %%USER_SESSION
+  {= where
+    {& %ID ::= :id }
+    {& %AUTH_USER_ID ::= :authUserId }
+    {& %LAST_ACCESS ::= :lastAccess }
+  }
+  {#1 order by %ID }
+  {#3 order by %AUTH_USER_ID }
+;

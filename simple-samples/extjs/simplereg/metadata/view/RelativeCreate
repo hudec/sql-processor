@@ -1,0 +1,171 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": null,
+        "id": "relative-create",
+        "itemId": "dialog",
+        "width": 400,
+        "designer|userClassName": "RelativeCreate",
+        "designer|userAlias": null,
+        "closeAction": "hide",
+        "iconCls": "icon-add",
+        "title": "Add Relative",
+        "modal": true
+    },
+    "designerId": "16fdb21a-b691-4691-aff4-af5b4e8a841c",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "Data",
+                "trackResetOnLoad": true
+            },
+            "configAlternates": {
+                "buttons": "array"
+            },
+            "designerId": "38f77cbf-a2ad-46bd-88d5-2712efbcc2f3",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Person Id",
+                        "name": "personId",
+                        "readOnly": true
+                    },
+                    "designerId": "f1865dc3-ec84-45ef-9165-2bdc7108e1b7"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Version",
+                        "name": "version",
+                        "readOnly": true
+                    },
+                    "designerId": "1cb4050d-9b74-41cb-a0ef-10be3877a01e"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Type",
+                        "name": "rtype",
+                        "allowBlank": false,
+                        "editable": false,
+                        "displayField": "name",
+                        "forceSelection": true,
+                        "queryMode": "local",
+                        "queryParam": "name",
+                        "store": "RelativeTypes",
+                        "valueField": "value"
+                    },
+                    "designerId": "ae0bb7fc-eabc-4231-9892-0f66ab6a6c55"
+                },
+                {
+                    "type": "Ext.form.FieldContainer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "height": null,
+                        "designer|displayName": "Relative",
+                        "layout": "hbox",
+                        "fieldLabel": "Relative"
+                    },
+                    "designerId": "cf0047cc-1665-4f28-82d8-9230351c93e1",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": 1,
+                                "itemId": "people",
+                                "fieldLabel": null,
+                                "hideLabel": null,
+                                "name": "relPerson.id",
+                                "allowBlank": false,
+                                "editable": false,
+                                "hideTrigger": null,
+                                "displayField": "title",
+                                "forceSelection": null,
+                                "minChars": null,
+                                "pageSize": 25,
+                                "queryMode": null,
+                                "queryParam": null,
+                                "store": "QueryPeople",
+                                "triggerAction": null,
+                                "valueField": "id"
+                            },
+                            "designerId": "90ca8b7d-8140-4155-9ce0-78d79feacbbb"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "itemId": "search-person",
+                                "iconCls": "icon-search",
+                                "text": ""
+                            },
+                            "designerId": "6eceb511-5eaa-407c-8a22-fa8876aa843c"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "f071c735-d506-4e14-9b4d-b5637ce1c1f3",
+            "masterInstanceId": "39500951-445d-44a4-a963-93c0cb969557"
+        }
+    ]
+}

@@ -21,60 +21,60 @@ public class PhysicalMedia implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public PhysicalMedia _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private String location;
-    
+  
   public String getLocation() {
     return location;
   }
-    
+  
   public void setLocation(String location) {
     this.location = location;
   }
-    
+  
   public PhysicalMedia _setLocation(String location) {
     this.location = location;
     return this;
   }
   
   private Media media;
-    
+  
   public Media getMedia() {
     return media;
   }
-    
+  
   public void setMedia(Media media) {
     this.media = media;
   }
-    
+  
   public PhysicalMedia _setMedia(Media media) {
     this.media = media;
     return this;
   }
   
   private Library library;
-    
+  
   public Library getLibrary() {
     return library;
   }
-    
+  
   public void setLibrary(Library library) {
     this.library = library;
   }
-    
+  
   public PhysicalMedia _setLibrary(Library library) {
     this.library = library;
     return this;
@@ -89,7 +89,7 @@ public class PhysicalMedia implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     PhysicalMedia other = (PhysicalMedia) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -98,7 +98,7 @@ public class PhysicalMedia implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -115,11 +115,21 @@ public class PhysicalMedia implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public PhysicalMedia  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public PhysicalMedia _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -129,11 +139,21 @@ public class PhysicalMedia implements Serializable {
       initAssociations.add(association);
   }
   
+  public PhysicalMedia _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public PhysicalMedia _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -158,11 +178,21 @@ public class PhysicalMedia implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public PhysicalMedia _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public PhysicalMedia _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -172,11 +202,21 @@ public class PhysicalMedia implements Serializable {
       nullValues.add(attribute);
   }
   
+  public PhysicalMedia _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public PhysicalMedia _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -223,10 +263,10 @@ public class PhysicalMedia implements Serializable {
   
   @Override
   public String toString() {
-    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + "]";
+    return "PhysicalMedia [id=" + id + ", location=" + location + "]";
   }
   
   public String toStringFull() {
-    return "PhysicalMedia [id=" + id + ", location=" + location + ", library=" + library + ", media=" + media + "]";
+    return "PhysicalMedia [id=" + id + ", location=" + location + ", media=" + media + ", library=" + library + "]";
   }
 }

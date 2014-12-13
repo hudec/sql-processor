@@ -193,13 +193,13 @@ import org.sqlproc.engine.type.SqlMetaType;
   
   boolean add(SqlProcessor processor, String type, String name, SqlMetaStatement statement, List<String> activeFilters, String... filters) {
     List<ErrorMsg> errorsList = getPartialErrors();
-    processor.addMetaStatement(type, name, statement, errorsList, activeFilters, filters);
+    processor.addMetaStatement(type, name, null, statement, errorsList, activeFilters, filters);
     return errorsList == null;
   }
   
   boolean add(SqlProcessor processor, String type, String name, SqlMappingRule mapping, List<String> activeFilters, String... filters) {
     List<ErrorMsg> errorsList = getPartialErrors();
-    processor.addMappingRule(type, name, mapping, errorsList, activeFilters, filters);
+    processor.addMappingRule(type, name, null, mapping, errorsList, activeFilters, filters);
     return errorsList == null;
   }
   
@@ -494,7 +494,7 @@ option [String name] returns [StringBuilder text]
 	
 STATEMENT: 'QRY'|'CRUD'|'CALL';
 MAPPING: 'OUT';
-OPTION: 'OPT' | 'LOPT' | 'IOPT' | 'SOPT' | 'BOPT';
+OPTION: 'OPT' | 'LOPT' | 'IOPT' | 'SOPT' | 'BOPT' | 'MOPT';
 	
 IDENT_DOT: IDENT (DOT IDENT)+;
 IDENT: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_' | '=')*;

@@ -48,4 +48,11 @@ public interface SqlPluginFactory {
      * @return the SQL Processor plugin devoted to the identity SELECT SQL construction
      */
     public SqlIdentityPlugin getSqlIdentityPlugin();
+
+    /**
+     * Returns the SQL Processor plugin devoted to possible SQL query/command modification just before it is executed.
+     * 
+     * @return the SQL Processor plugin devoted to possible SQL query/command modification just before it is executed
+     */
+    public SqlExecutionPlugin getSqlExecutionPlugin();
 }

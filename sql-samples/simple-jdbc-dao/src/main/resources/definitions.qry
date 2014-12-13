@@ -37,8 +37,8 @@ pojogen-not-abstract-tables MEDIA;
 pojogen-extends-class org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 pojogen-make-it-final;
 // opt lock
-pojogen-version-column VERSION;
-pojogen-version-column VER PERFORMER;
+pojogen-version-column VERSION - PERFORMER;
+pojogen-version-column VER + PERFORMER;
 
 metagen-global-sequence SIMPLE_SEQUENCE; // SEQ1
 //metagen-global-identity SEL1;

@@ -1,5 +1,5 @@
 package org.sample.dao;
-  
+	
 import java.sql.Timestamp;
 import org.sample.model.AnHourBefore;
 
@@ -19,42 +19,42 @@ import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 
 public class FunctionsDao {
-  protected final Logger logger = LoggerFactory.getLogger(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-  protected SqlEngineFactory sqlEngineFactory;
-  protected SqlSessionFactory sqlSessionFactory;
-    	
-  public FunctionsDao(SqlEngineFactory sqlEngineFactory) {
-    this.sqlEngineFactory = sqlEngineFactory;
-  }
-    	
-  public FunctionsDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
-    this.sqlEngineFactory = sqlEngineFactory;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
-  
-  
-  public Timestamp anHourBefore(SqlSession sqlSession, AnHourBefore anHourBefore, SqlControl sqlControl) {
-    if (logger.isTraceEnabled()) {
-      logger.trace("anHourBefore: " + anHourBefore + " " + sqlControl);
-    }
-    SqlQueryEngine sqlFunAnHourBefore = sqlEngineFactory.getCheckedQueryEngine("FUN_AN_HOUR_BEFORE");
-    java.util.List<AnHourBefore> list = sqlFunAnHourBefore.query(sqlSession, AnHourBefore.class, anHourBefore, sqlControl);
-    if (logger.isTraceEnabled()) {
-      logger.trace("anHourBefore result: " + list);
-    }
-    return (list != null && !list.isEmpty()) ? list.get(0).getResult() : null;
-  }
-  
-  public Timestamp anHourBefore(AnHourBefore anHourBefore, SqlControl sqlControl) {
-  	return anHourBefore(sqlSessionFactory.getSqlSession(), anHourBefore, sqlControl);
-  }
-  
-  public Timestamp anHourBefore(SqlSession sqlSession, AnHourBefore anHourBefore) {
-    return anHourBefore(sqlSession, anHourBefore, null);
-  }
-  
-  public Timestamp anHourBefore(AnHourBefore anHourBefore) {
-    return anHourBefore(anHourBefore, null);
-  }
+	protected SqlEngineFactory sqlEngineFactory;
+	protected SqlSessionFactory sqlSessionFactory;
+			
+	public FunctionsDao() {
+	}
+			
+	public FunctionsDao(SqlEngineFactory sqlEngineFactory) {
+		this.sqlEngineFactory = sqlEngineFactory;
+	}
+			
+	public FunctionsDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
+		this.sqlEngineFactory = sqlEngineFactory;
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+	
+
+	public Timestamp anHourBefore(SqlSession sqlSession, AnHourBefore anHourBefore, SqlControl sqlControl) {
+		if (logger.isTraceEnabled()) {
+			logger.trace("anHourBefore: " + anHourBefore + " " + sqlControl);
+		}
+		SqlQueryEngine sqlFunAnHourBefore = sqlEngineFactory.getCheckedQueryEngine("FUN_AN_HOUR_BEFORE");
+		java.util.List<AnHourBefore> list = sqlFunAnHourBefore.query(sqlSession, AnHourBefore.class, anHourBefore, sqlControl);
+		if (logger.isTraceEnabled()) {
+			logger.trace("anHourBefore result: " + list);
+		}
+		return (list != null && !list.isEmpty()) ? list.get(0).getResult() : null;
+	}
+	public Timestamp anHourBefore(AnHourBefore anHourBefore, SqlControl sqlControl) {
+		return anHourBefore(sqlSessionFactory.getSqlSession(), anHourBefore, sqlControl);
+	}
+	public Timestamp anHourBefore(SqlSession sqlSession, AnHourBefore anHourBefore) {
+		return anHourBefore(sqlSession, anHourBefore, null);
+	}
+	public Timestamp anHourBefore(AnHourBefore anHourBefore) {
+		return anHourBefore(anHourBefore, null);
+	}
 }

@@ -2,6 +2,7 @@ package org.sqlproc.engine.plugin;
 
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * The SQL Processor plugin devoted to the FROM-TO SQL construction.
@@ -24,7 +25,7 @@ import org.sqlproc.engine.SqlQuery;
 public interface SqlFromToPlugin extends Modifiers {
 
     /**
-     * The characteristic of FROM and TO restrictions used in {@link SqlQuery#list()}.
+     * The characteristic of FROM and TO restrictions used in {@link SqlQuery#list(SqlRuntimeContext)}.
      */
     public static class LimitType {
         public boolean alsoFirst;
@@ -37,6 +38,8 @@ public interface SqlFromToPlugin extends Modifiers {
     /**
      * Used to construct the FROM-TO SQL.
      * 
+     * @param runtimeCtx
+     *            the public runtime context
      * @param queryString
      *            the original ANSI SQL
      * @param queryResult
@@ -49,8 +52,8 @@ public interface SqlFromToPlugin extends Modifiers {
      *            usage is to support the pagination.
      * @param ordered
      *            the SQL output is sorted
-     * @return the characteristic of FROM and TO restrictions used in {@link SqlQuery#list()}
+     * @return the characteristic of FROM and TO restrictions used in {@link SqlQuery#list(SqlRuntimeContext)}
      */
-    public LimitType limitQuery(String queryString, StringBuilder queryResult, Integer firstResult, Integer maxResults,
-            boolean ordered);
+    public LimitType limitQuery(SqlRuntimeContext runtimeCtx, String queryString, StringBuilder queryResult,
+            Integer firstResult, Integer maxResults, boolean ordered);
 }

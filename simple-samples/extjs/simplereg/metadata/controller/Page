@@ -1,0 +1,12 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Page"
+    },
+    "designerId": "5b42240f-08da-474c-b3c8-4ef44280ee49"
+}

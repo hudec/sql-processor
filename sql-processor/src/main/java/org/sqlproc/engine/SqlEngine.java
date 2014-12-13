@@ -3,19 +3,25 @@ package org.sqlproc.engine;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
+import org.sqlproc.engine.impl.SqlMetaStatement.Type;
+import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
+import org.sqlproc.engine.validation.SqlValidator;
 
 /**
- * Common ancestor for {@link SqlQueryEngine} and {@link SqlCrudEngine}.
+ * Common ancestor for {@link SqlQueryEngine}, {@link SqlCrudEngine} and {@link SqlProcedureEngine}.
  * 
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
@@ -57,6 +63,11 @@ public abstract class SqlEngine {
     protected SqlMonitor monitor;
 
     /**
+     * The injected validator. It validates dynamic input values.
+     */
+    protected SqlValidator validator;
+
+    /**
      * The factory for the META types construction. The META type defines the mapping between a Java class type and a
      * JDBC datatype. For the default META type factory, please see {@link org.sqlproc.engine.jdbc.type.JdbcTypeFactory}
      * .
@@ -67,6 +78,11 @@ public abstract class SqlEngine {
      * The factory for the SQL Processor plugins. This is the basic facility to alter the SQL Processor processing.
      */
     protected SqlPluginFactory pluginFactory;
+
+    /**
+     * The processing cache used for {@link SqlProcessResult} instances.
+     */
+    protected Map<String, SqlProcessResult> processingCache = new ConcurrentHashMap<String, SqlProcessResult>();
 
     /**
      * Creates a new instance of the SqlEngine from one META SQL statement and one SQL Mapping rule instance. Both
@@ -96,11 +112,22 @@ public abstract class SqlEngine {
         this.statement = statement;
         this.mapping = mapping;
         if (features != null) {
-            this.features.putAll(features);
+            for (Entry<String, Object> feature : features.entrySet())
+                setFeature(feature.getKey(), feature.getValue());
         }
         this.monitor = (monitor != null) ? monitor : new SqlEmptyMonitor();
         this.typeFactory = typeFactory;
         this.pluginFactory = (pluginFactory != null) ? pluginFactory : SimpleSqlPluginFactory.getInstance();
+    }
+
+    /**
+     * Injects a validator. It validates dynamic input values.
+     * 
+     * @param validator
+     *            a generir validator instance
+     */
+    public void setValidator(SqlValidator validator) {
+        this.validator = validator;
     }
 
     /**
@@ -113,18 +140,20 @@ public abstract class SqlEngine {
      */
     public void setFeature(String name, Object value) {
         features.put(name, value);
-        unsetFeature(SqlUtils.oppositeFeature(name));
+        unsetFeatures(SqlUtils.oppositeFeatures(name));
     }
 
     /**
-     * Clears the optional feature in the stament's or global scope.
+     * Clears the optional features in the stament's or global scope.
      * 
-     * @param name
-     *            the name of the optional feature
+     * @param names
+     *            the names of the optional features
      */
-    public void unsetFeature(String name) {
-        if (name != null)
-            features.remove(name);
+    public void unsetFeatures(Set<String> names) {
+        if (names != null) {
+            for (String name : names)
+                features.remove(name);
+        }
     }
 
     /**
@@ -134,7 +163,7 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the object used for the SQL statement static input values
      */
-    Object getStaticInputValues(SqlControl sqlControl) {
+    public static Object getStaticInputValues(SqlControl sqlControl) {
         if (sqlControl == null)
             return null;
         else
@@ -148,7 +177,7 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the max SQL execution time
      */
-    int getMaxTimeout(SqlControl sqlControl) {
+    public static int getMaxTimeout(SqlControl sqlControl) {
         if (sqlControl == null)
             return 0;
         else
@@ -162,7 +191,7 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the first SQL execution output row
      */
-    int getFirstResult(SqlControl sqlControl) {
+    public static int getFirstResult(SqlControl sqlControl) {
         if (sqlControl == null)
             return 0;
         else
@@ -176,7 +205,7 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the max number of SQL execution output rows
      */
-    int getMaxResults(SqlControl sqlControl) {
+    public static int getMaxResults(SqlControl sqlControl) {
         if (sqlControl == null)
             return 0;
         else
@@ -190,7 +219,7 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the ordering directive list
      */
-    SqlOrder getOrder(SqlControl sqlControl) {
+    public static SqlOrder getOrder(SqlControl sqlControl) {
         if (sqlControl == null || sqlControl.getOrder() == null)
             return SqlQueryEngine.NO_ORDER;
         else
@@ -204,7 +233,7 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return more result classes used for the return values
      */
-    Map<String, Class<?>> getMoreResultClasses(SqlControl sqlControl) {
+    public static Map<String, Class<?>> getMoreResultClasses(SqlControl sqlControl) {
         if (sqlControl == null)
             return null;
         else
@@ -218,11 +247,39 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the optiona features
      */
-    Map<String, Object> getFeatures(SqlControl sqlControl) {
+    public static Map<String, Object> getFeatures(SqlControl sqlControl) {
         if (sqlControl == null)
             return null;
         else
             return sqlControl.getFeatures();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the unique ID of the executed statement based on the input values combination
+     */
+    public static String getProcessingId(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getProcessingId();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     *
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
+     * @return the fetch size of SQL statement
+     */
+    public static int getFetchSize(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return 0;
+        else
+            return sqlControl.getFetchSize();
     }
 
     /**
@@ -263,5 +320,89 @@ public abstract class SqlEngine {
             throw new InvalidParameterException("SqlOrder used as static input values");
         if (staticInputValues instanceof SqlControl)
             throw new InvalidParameterException("SqlControl used as static input values");
+    }
+
+    /**
+     * Returns the optional features, which can alter the SQL Processor runtime behavior.
+     * 
+     * @return the optional features, which can alter the SQL Processor runtime behavior
+     */
+    public Map<String, Object> getFeatures() {
+        return features;
+    }
+
+    /**
+     * Returns the factory for the META types construction. The META type defines the mapping between a Java class type
+     * and a JDBC datatype. For the default META type factory, please see
+     * {@link org.sqlproc.engine.jdbc.type.JdbcTypeFactory}
+     * 
+     * @return the factory for the META types construction
+     */
+    public SqlTypeFactory getTypeFactory() {
+        return typeFactory;
+    }
+
+    /**
+     * Returns the factory for the SQL Processor plugins. This is the basic facility to alter the SQL Processor
+     * processing.
+     * 
+     * @return the factory for the SQL Processor plugins
+     */
+    public SqlPluginFactory getPluginFactory() {
+        return pluginFactory;
+    }
+
+    /**
+     * Returns the processing cache used for {@link SqlProcessResult} instances.
+     * 
+     * @return the processing cache used for {@link SqlProcessResult} instances.
+     */
+    public Map<String, SqlProcessResult> getProcessingCache() {
+        return processingCache;
+    }
+
+    /**
+     * Sets the processing cache used for {@link SqlProcessResult} instances.
+     * 
+     * @param processingCache
+     *            the processing cache used for {@link SqlProcessResult} instances.
+     */
+    public void setProcessingCache(Map<String, SqlProcessResult> processingCache) {
+        this.processingCache = processingCache;
+    }
+
+    /**
+     * The main contract for a dynamic ANSI SQL Query generation.
+     * 
+     * The ANSI SQL Query creation is based on
+     * <ul>
+     * <li>META SQL
+     * <li>dynamic input values
+     * <li>static input values
+     * <li>ordering list directive
+     * <li>optional features
+     * <ul>
+     * 
+     * @param sqlStatementType
+     *            the SQL command type
+     * @param dynamicInputValues
+     *            the SQL statement dynamic parameters (input values)
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return the crate for ANSI SQL and other attributes, which control the SQL statement itself
+     */
+    protected SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, SqlControl sqlControl) {
+        SqlProcessResult processResult = null;
+        String processingId = getProcessingId(sqlControl);
+        if (processingId != null)
+            processResult = processingCache.get(processingId);
+        if (processResult != null) {
+            return new SqlProcessResult(processResult, dynamicInputValues, sqlControl);
+        }
+        processResult = statement.process(sqlStatementType, dynamicInputValues, sqlControl, this);
+        if (processingId != null)
+            processingCache.put(processingId, processResult);
+        return processResult;
+
     }
 }

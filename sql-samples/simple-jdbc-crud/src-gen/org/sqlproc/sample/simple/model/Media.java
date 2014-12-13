@@ -20,45 +20,45 @@ public class Media implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Media _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private String title;
-    
+  
   public String getTitle() {
     return title;
   }
-    
+  
   public void setTitle(String title) {
     this.title = title;
   }
-    
+  
   public Media _setTitle(String title) {
     this.title = title;
     return this;
   }
   
   private Performer author;
-    
+  
   public Performer getAuthor() {
     return author;
   }
-    
+  
   public void setAuthor(Performer author) {
     this.author = author;
   }
-    
+  
   public Media _setAuthor(Performer author) {
     this.author = author;
     return this;
@@ -73,7 +73,7 @@ public class Media implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Media other = (Media) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -82,7 +82,7 @@ public class Media implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -99,11 +99,21 @@ public class Media implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Media  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Media _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -113,11 +123,21 @@ public class Media implements Serializable {
       initAssociations.add(association);
   }
   
+  public Media _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Media _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -143,11 +163,21 @@ public class Media implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Media _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Media _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -157,11 +187,21 @@ public class Media implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Media _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Media _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -212,6 +252,6 @@ public class Media implements Serializable {
   }
   
   public String toStringFull() {
-    return "Media [id=" + id + ", author=" + author + ", title=" + title + "]";
+    return "Media [id=" + id + ", title=" + title + ", author=" + author + "]";
   }
 }

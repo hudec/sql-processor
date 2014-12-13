@@ -1,0 +1,84 @@
+{
+    "type": "Ext.toolbar.Toolbar",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "ListToolbar",
+        "designer|userAlias": "listtoolbar"
+    },
+    "designerId": "8bdfeb77-92a1-422b-97ba-9aea4cd8870e",
+    "cn": [
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "action": "create",
+                "itemId": null,
+                "iconCls": "icon-add",
+                "text": "Add"
+            },
+            "designerId": "7371c9b8-3393-4299-a8aa-09e7bfc803c8",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "action": "delete",
+                "itemId": null,
+                "iconCls": "icon-delete",
+                "text": "Remove"
+            },
+            "designerId": "912a958d-db1b-4f66-a5f6-47769454feb8",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": null,
+                "action": "update",
+                "itemId": null,
+                "iconCls": "icon-edit",
+                "text": "Modify"
+            },
+            "designerId": "7366e2dd-0251-4e8a-bd5e-73f4240515d8",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "action",
+                    "type": "string"
+                }
+            ]
+        }
+    ]
+}

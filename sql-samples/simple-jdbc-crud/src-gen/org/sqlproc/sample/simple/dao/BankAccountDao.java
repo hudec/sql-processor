@@ -22,6 +22,9 @@ public class BankAccountDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public BankAccountDao() {
+  }
+    	
   public BankAccountDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
@@ -43,15 +46,12 @@ public class BankAccountDao {
     }
     return (count > 0) ? bankAccount : null;
   }
-  
   public BankAccount insert(BankAccount bankAccount, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl);
   }
-  
   public BankAccount insert(SqlSession sqlSession, BankAccount bankAccount) {
     return insert(sqlSession, bankAccount, null);
   }
-  
   public BankAccount insert(BankAccount bankAccount) {
     return insert(bankAccount, null);
   }
@@ -68,15 +68,12 @@ public class BankAccountDao {
     }
     return bankAccountGot;
   }
-  	
   public BankAccount get(BankAccount bankAccount, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl);
   }
-  
   public BankAccount get(SqlSession sqlSession, BankAccount bankAccount) {
     return get(sqlSession, bankAccount, null);
   }
-  
   public BankAccount get(BankAccount bankAccount) {
     return get(bankAccount, null);
   }
@@ -92,15 +89,12 @@ public class BankAccountDao {
     }
     return count;
   }
-  
   public int update(BankAccount bankAccount, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, BankAccount bankAccount) {
     return update(sqlSession, bankAccount, null);
   }
-  
   public int update(BankAccount bankAccount) {
     return update(bankAccount, null);
   }
@@ -116,15 +110,12 @@ public class BankAccountDao {
     }
     return count;
   }
-  
   public int delete(BankAccount bankAccount, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, BankAccount bankAccount) {
     return delete(sqlSession, bankAccount, null);
   }
-  
   public int delete(BankAccount bankAccount) {
     return delete(bankAccount, null);
   }
@@ -141,15 +132,12 @@ public class BankAccountDao {
     }
     return bankAccountList;
   }
-  
   public List<BankAccount> list(BankAccount bankAccount, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl);
   }
-  
-  public List<BankAccount> list(SqlSession sqlSession, BankAccount bankAccount) {
+      public List<BankAccount> list(SqlSession sqlSession, BankAccount bankAccount) {
     return list(sqlSession, bankAccount, null);
   }
-  
   public List<BankAccount> list(BankAccount bankAccount) {
     return list(bankAccount, null);
   }
@@ -166,15 +154,12 @@ public class BankAccountDao {
     }
     return count;
   }
-  
   public int count(BankAccount bankAccount, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, BankAccount bankAccount) {
+      public int count(SqlSession sqlSession, BankAccount bankAccount) {
     return count(sqlSession, bankAccount, null);
   }
-  
   public int count(BankAccount bankAccount) {
     return count(bankAccount, null);
   }

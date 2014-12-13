@@ -16,30 +16,30 @@ public class Movie extends Media implements Serializable {
   }
   
   private String urlimdb;
-    
+  
   public String getUrlimdb() {
     return urlimdb;
   }
-    
+  
   public void setUrlimdb(String urlimdb) {
     this.urlimdb = urlimdb;
   }
-    
+  
   public Movie _setUrlimdb(String urlimdb) {
     this.urlimdb = urlimdb;
     return this;
   }
   
   private Integer playlength;
-    
+  
   public Integer getPlaylength() {
     return playlength;
   }
-    
+  
   public void setPlaylength(Integer playlength) {
     this.playlength = playlength;
   }
-    
+  
   public Movie _setPlaylength(Integer playlength) {
     this.playlength = playlength;
     return this;
@@ -51,6 +51,6 @@ public class Movie extends Media implements Serializable {
   }
   
   public String toStringFull() {
-    return "Movie [playlength=" + playlength + ", urlimdb=" + urlimdb + super.toString() + "]";
+    return "Movie [urlimdb=" + urlimdb + ", playlength=" + playlength + super.toString() + "]";
   }
 }

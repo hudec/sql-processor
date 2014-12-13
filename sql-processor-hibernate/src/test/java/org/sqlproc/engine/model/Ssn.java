@@ -1,10 +1,15 @@
 package org.sqlproc.engine.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
 public class Ssn {
 
+    @NotNull
+    @Size(max = 20)
     private String number;
     private Country country;
 

@@ -75,7 +75,7 @@ class SqlMetaIf implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         result.addFalse();
         StringBuilder s = new StringBuilder();
         result.setSql(s);

@@ -1,0 +1,118 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "height": null,
+        "id": "UserRoleDelete",
+        "itemId": "dialog",
+        "width": 400,
+        "designer|userClassName": "UserRoleDelete",
+        "closeAction": "hide",
+        "iconCls": "icon-delete",
+        "title": "Remove User Role",
+        "modal": true
+    },
+    "designerId": "3420c95d-5dc9-4940-95ea-aae29dc3374f",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "Data",
+                "api": [
+                    "{ submit: \"authWeb.deleteUserRole\" }"
+                ],
+                "standardSubmit": false,
+                "trackResetOnLoad": true
+            },
+            "designerId": "6d98c419-6117-46b1-a484-cce1c3df4cf0",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Id",
+                        "name": "id",
+                        "readOnly": true
+                    },
+                    "designerId": "46b6ea4a-1b2d-4246-89ad-fe695d0236e8"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "hidden": true,
+                        "fieldLabel": "Version",
+                        "name": "version",
+                        "readOnly": true
+                    },
+                    "designerId": "256ca87e-2226-46d0-a33b-c0a4a28b5369"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Name",
+                        "name": "name",
+                        "value": null
+                    },
+                    "designerId": "f7f637c2-db5f-4c0b-99c2-5932cac2c886"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|anchor": "100%",
+                        "fieldLabel": "Description",
+                        "name": "description",
+                        "value": null
+                    },
+                    "designerId": "fa6d6478-a322-4e1b-9087-8036660b04dd"
+                }
+            ]
+        },
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Toolbar"
+            },
+            "designerId": "044e12e3-1a8a-4af4-97d2-5cfab86f7c1b",
+            "masterInstanceId": "48677c89-8429-4318-8f02-ee03bf56b5f0"
+        }
+    ]
+}

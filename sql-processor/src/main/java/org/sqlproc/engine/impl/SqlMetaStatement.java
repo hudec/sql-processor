@@ -3,17 +3,17 @@ package org.sqlproc.engine.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlOrder;
-import org.sqlproc.engine.plugin.SqlPluginFactory;
+import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -79,6 +79,11 @@ public class SqlMetaStatement implements SqlMetaElement {
     }
 
     /**
+     * A raw representation this META SQL statement
+     */
+    String raw;
+
+    /**
      * All sub-elements based on ANTLR grammar defined in SqlStatement.g.
      */
     List<SqlMetaElement> elements;
@@ -138,6 +143,22 @@ public class SqlMetaStatement implements SqlMetaElement {
     }
 
     /**
+     * Creates a new instance. It's used from inside ANTLR parser.
+     */
+    public SqlMetaStatement(String raw) {
+        this.raw = raw;
+    }
+
+    /**
+     * Returns raw representation this META SQL statement
+     * 
+     * @return raw representation this META SQL statement
+     */
+    public String getRaw() {
+        return raw;
+    }
+
+    /**
      * Adds a new sub-element. It's used from inside ANTLR parser.
      * 
      * @param element
@@ -182,27 +203,17 @@ public class SqlMetaStatement implements SqlMetaElement {
      *            the SQL command type
      * @param dynamicInputValues
      *            the SQL statement dynamic parameters (input values)
-     * @param staticInputValues
-     *            the SQL statement static parameters (input values)
-     * @param order
-     *            the list of ordering directives
-     * @param features
-     *            the optional features in the statement/global scope
-     * @param runtimeFeatures
-     *            the optional features in the statement's exection scope
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @param sqlEngine
+     *            the primary SQL Processor class for the META SQL execution
      * @return the crate for ANSI SQL and other attributes, which control the SQL statement itself
      */
-    public SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, Object staticInputValues,
-            List<SqlOrder> order, Map<String, Object> features, Map<String, Object> runtimeFeatures,
-            SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
-        SqlProcessContext ctx = new SqlProcessContext(sqlStatementType, dynamicInputValues, staticInputValues, order,
-                features, runtimeFeatures, typeFactory, pluginFactory);
+    public SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, SqlControl sqlControl,
+            SqlEngine sqlEngine) {
+        SqlProcessContext ctx = new SqlProcessContext(sqlStatementType, dynamicInputValues, sqlControl, sqlEngine);
         SqlProcessResult result = this.process(ctx);
-        result.setLogError(SqlProcessContext.isFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION));
+        result.setLogError(ctx.isFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION));
         return result;
     }
 
@@ -211,7 +222,7 @@ public class SqlMetaStatement implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         StringBuilder s = new StringBuilder();
         result.setSql(s);
         List<SqlProcessResult> orderByResult = new ArrayList<SqlProcessResult>();
@@ -232,6 +243,13 @@ public class SqlMetaStatement implements SqlMetaElement {
                 result.addFalse();
             }
         }
+        if (ctx.getOrder() != null && !ctx.getOrder().isEmpty() && orderByResult.isEmpty()) {
+            if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
+                logger.error("There's no order statement for " + ctx.getOrder().toString());
+            } else {
+                throw new SqlRuntimeException("There's no order statement for " + ctx.getOrder().toString());
+            }
+        }
         if (!orderByResult.isEmpty()) {
             Collections.sort(orderByResult);
             s.append("order by ");
@@ -246,6 +264,7 @@ public class SqlMetaStatement implements SqlMetaElement {
                 result.addMappedInputValues(itemResult.getMappedInputValues());
             }
         }
+        // System.out.println("\n\n" + result.toString());
         return result;
     }
 }

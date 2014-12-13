@@ -1,0 +1,270 @@
+{
+    "name": "simpleauth",
+    "settings": {
+        "spacesToIndent": 4,
+        "lineEnding": "LF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "urlPrefix": "",
+        "exportPath": "",
+        "buildShouldOverwriteIndex": true
+    },
+    "xdsVersion": "2.2.2",
+    "xdsBuild": 991,
+    "schemaVersion": 1,
+    "upgradeVersion": 210000000503,
+    "framework": "ext42",
+    "topInstanceFileMap": {
+        "9d7b692a-9c22-45fb-be32-cebc3dc81921": {
+            "paths": [
+                "metadata/resource/Library"
+            ],
+            "className": "Library"
+        },
+        "84241eea-e02c-47ee-b8aa-6f8cff1e8cd4": {
+            "paths": [
+                "metadata/resource/js1"
+            ],
+            "className": "js1"
+        },
+        "7777de07-2c83-4fa4-a543-93095398349d": {
+            "paths": [
+                "metadata/resource/css"
+            ],
+            "className": "css"
+        },
+        "3a30fcfc-05e6-4b8f-9839-7631a3953ffb": {
+            "paths": [
+                "metadata/store/AuthUsers",
+                "app/store/override/AuthUsers.js",
+                "app/store/AuthUsers.js"
+            ],
+            "className": "AuthUsers"
+        },
+        "cb651e04-077b-4667-adbe-3c2cb4ef8187": {
+            "paths": [
+                "metadata/model/AuthRole",
+                "app/model/override/AuthRole.js",
+                "app/model/AuthRole.js"
+            ],
+            "className": "AuthRole"
+        },
+        "3cd4b154-5b6a-48b6-998f-68bf981f0e6a": {
+            "paths": [
+                "metadata/model/AuthUser",
+                "app/model/override/AuthUser.js",
+                "app/model/AuthUser.js"
+            ],
+            "className": "AuthUser"
+        },
+        "4c54e1b3-842d-4210-9eac-efef9bfff73b": {
+            "paths": [
+                "metadata/model/UserRole",
+                "app/model/override/UserRole.js",
+                "app/model/UserRole.js"
+            ],
+            "className": "UserRole"
+        },
+        "57abd7f4-affd-430f-99a1-ac328ae6726c": {
+            "paths": [
+                "metadata/controller/Page",
+                "app/controller/override/Page.js",
+                "app/controller/Page.js"
+            ],
+            "className": "Page"
+        },
+        "249e1f27-517c-4645-98b6-241a0c721dc4": {
+            "paths": [
+                "metadata/view/Page",
+                "app/view/override/Page.js",
+                "app/view/Page.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "Page"
+        },
+        "5c2a8106-884f-4f0d-9af1-1ec63e959e20": {
+            "paths": [
+                "metadata/view/UserList",
+                "app/view/override/UserList.js",
+                "app/view/UserList.js"
+            ],
+            "className": "UserList"
+        },
+        "ffc5c2db-6521-4652-83a2-7225690fea52": {
+            "paths": [
+                "metadata/view/toolbar.AddRemoveModify",
+                "app/view/override/toolbar/AddRemoveModify.js",
+                "app/view/toolbar/AddRemoveModify.js"
+            ],
+            "className": "toolbar.AddRemoveModify"
+        },
+        "39500951-445d-44a4-a963-93c0cb969557": {
+            "paths": [
+                "metadata/view/toolbar.OkCancelReset",
+                "app/view/override/toolbar/OkCancelReset.js",
+                "app/view/toolbar/OkCancelReset.js"
+            ],
+            "className": "toolbar.OkCancelReset"
+        },
+        "48677c89-8429-4318-8f02-ee03bf56b5f0": {
+            "paths": [
+                "metadata/view/toolbar.OkCancel",
+                "app/view/override/toolbar/OkCancel.js",
+                "app/view/toolbar/OkCancel.js"
+            ],
+            "className": "toolbar.OkCancel"
+        },
+        "14091b89-8ebf-411a-83bf-173a2991fdb9": {
+            "paths": [
+                "metadata/view/UserCreate",
+                "app/view/override/UserCreate.js",
+                "app/view/UserCreate.js"
+            ],
+            "className": "UserCreate"
+        },
+        "ee1d6d38-d3e8-47bd-8777-a34ad7640717": {
+            "paths": [
+                "metadata/view/UserUpdate",
+                "app/view/override/UserUpdate.js",
+                "app/view/UserUpdate.js"
+            ],
+            "className": "UserUpdate"
+        },
+        "9ac97172-0096-4d6a-9b8d-76f39cfe4d5d": {
+            "paths": [
+                "metadata/view/UserDelete",
+                "app/view/override/UserDelete.js",
+                "app/view/UserDelete.js"
+            ],
+            "className": "UserDelete"
+        },
+        "6ae70443-2183-4fa6-a011-623330e477c2": {
+            "paths": [
+                "metadata/resource/direct"
+            ],
+            "className": "direct"
+        },
+        "70492228-a8d6-47b7-9e6d-e3d25024cf40": {
+            "paths": [
+                "metadata/store/AuthRoles",
+                "app/store/override/AuthRoles.js",
+                "app/store/AuthRoles.js"
+            ],
+            "className": "AuthRoles"
+        },
+        "bd8f7204-72ad-46e2-9ff3-f2e8153364cd": {
+            "paths": [
+                "metadata/view/RoleList",
+                "app/view/override/RoleList.js",
+                "app/view/RoleList.js"
+            ],
+            "className": "RoleList"
+        },
+        "8874cbcb-c734-4d5d-8fd1-ea1e0070e89f": {
+            "paths": [
+                "metadata/view/RoleCreate",
+                "app/view/override/RoleCreate.js",
+                "app/view/RoleCreate.js"
+            ],
+            "className": "RoleCreate"
+        },
+        "37ae7361-e3f0-4797-9ff4-5fe35fa397d2": {
+            "paths": [
+                "metadata/view/RoleDelete",
+                "app/view/override/RoleDelete.js",
+                "app/view/RoleDelete.js"
+            ],
+            "className": "RoleDelete"
+        },
+        "afab8a6e-8190-485c-ac34-3ce9712d6632": {
+            "paths": [
+                "metadata/view/RoleUpdate",
+                "app/view/override/RoleUpdate.js",
+                "app/view/RoleUpdate.js"
+            ],
+            "className": "RoleUpdate"
+        },
+        "d5d01836-44c3-4cfd-af0c-e435652e505c": {
+            "paths": [
+                "metadata/store/UserRoles",
+                "app/store/override/UserRoles.js",
+                "app/store/UserRoles.js"
+            ],
+            "className": "UserRoles"
+        },
+        "6298b33d-bfda-4823-83ea-8ab71330138c": {
+            "paths": [
+                "metadata/view/UserRoleList",
+                "app/view/override/UserRoleList.js",
+                "app/view/UserRoleList.js"
+            ],
+            "className": "UserRoleList"
+        },
+        "3420c95d-5dc9-4940-95ea-aae29dc3374f": {
+            "paths": [
+                "metadata/view/UserRoleDelete",
+                "app/view/override/UserRoleDelete.js",
+                "app/view/UserRoleDelete.js"
+            ],
+            "className": "UserRoleDelete"
+        },
+        "cecfd218-cc9e-4a43-af77-ee80b4322112": {
+            "paths": [
+                "metadata/view/UserRoleCreate",
+                "app/view/override/UserRoleCreate.js",
+                "app/view/UserRoleCreate.js"
+            ],
+            "className": "UserRoleCreate"
+        },
+        "cc9104b2-eef6-45bd-8093-cf70a73172ff": {
+            "paths": [
+                "metadata/store/QueryAuthRoles",
+                "app/store/override/QueryAuthRoles.js",
+                "app/store/QueryAuthRoles.js"
+            ],
+            "className": "QueryAuthRoles"
+        }
+    },
+    "viewOrderMap": {
+        "view": [
+            "249e1f27-517c-4645-98b6-241a0c721dc4",
+            "39500951-445d-44a4-a963-93c0cb969557",
+            "48677c89-8429-4318-8f02-ee03bf56b5f0",
+            "ffc5c2db-6521-4652-83a2-7225690fea52",
+            "5c2a8106-884f-4f0d-9af1-1ec63e959e20",
+            "6298b33d-bfda-4823-83ea-8ab71330138c",
+            "bd8f7204-72ad-46e2-9ff3-f2e8153364cd",
+            "14091b89-8ebf-411a-83bf-173a2991fdb9",
+            "ee1d6d38-d3e8-47bd-8777-a34ad7640717",
+            "9ac97172-0096-4d6a-9b8d-76f39cfe4d5d",
+            "cecfd218-cc9e-4a43-af77-ee80b4322112",
+            "3420c95d-5dc9-4940-95ea-aae29dc3374f",
+            "8874cbcb-c734-4d5d-8fd1-ea1e0070e89f",
+            "afab8a6e-8190-485c-ac34-3ce9712d6632",
+            "37ae7361-e3f0-4797-9ff4-5fe35fa397d2"
+        ],
+        "store": [
+            "3a30fcfc-05e6-4b8f-9839-7631a3953ffb",
+            "70492228-a8d6-47b7-9e6d-e3d25024cf40",
+            "cc9104b2-eef6-45bd-8093-cf70a73172ff",
+            "d5d01836-44c3-4cfd-af0c-e435652e505c"
+        ],
+        "controller": [
+            "57abd7f4-affd-430f-99a1-ac328ae6726c"
+        ],
+        "model": [
+            "cb651e04-077b-4667-adbe-3c2cb4ef8187",
+            "3cd4b154-5b6a-48b6-998f-68bf981f0e6a",
+            "4c54e1b3-842d-4210-9eac-efef9bfff73b"
+        ],
+        "resource": [
+            "9d7b692a-9c22-45fb-be32-cebc3dc81921",
+            "7777de07-2c83-4fa4-a543-93095398349d",
+            "6ae70443-2183-4fa6-a011-623330e477c2",
+            "84241eea-e02c-47ee-b8aa-6f8cff1e8cd4"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

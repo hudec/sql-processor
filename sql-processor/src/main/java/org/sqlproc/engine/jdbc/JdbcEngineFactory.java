@@ -48,7 +48,17 @@ public class JdbcEngineFactory extends SqlSimpleFactory {
      * Creates a new instance with default values for the JDBC stack.
      */
     public JdbcEngineFactory() {
-        super();
+        this(false);
+    }
+
+    /**
+     * Creates a new instance with default values for the JDBC stack.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     */
+    public JdbcEngineFactory(boolean lazyInit) {
+        super(lazyInit);
         setJdbc(true);
         setTypeFactory(JdbcTypeFactory.getInstance());
     }

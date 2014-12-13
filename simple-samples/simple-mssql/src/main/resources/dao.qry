@@ -1,0 +1,19 @@
+package org.sample.dao {
+
+  dao ContactDao :: Contact {
+    scaffold
+  }
+
+  dao PersonDao :: Person {
+    scaffold
+  }
+
+  dao ProceduresDao {
+    callUpdate newPerson _void ::: newPerson ::NewPerson
+    callQuery newPersonRetRs :java.util.List<:Person> ::: newPersonRetRs ::NewPersonRetRs
+  }
+
+  dao FunctionsDao {
+    callFunction anHourBefore :java.sql.Timestamp ::: anHourBefore ::AnHourBefore
+  }
+}

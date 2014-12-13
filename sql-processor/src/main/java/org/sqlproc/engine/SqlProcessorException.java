@@ -1,7 +1,7 @@
 package org.sqlproc.engine;
 
 /**
- * the general runtime exception class for the SQL Processor engine.
+ * The general runtime exception class for the SQL Processor engine.
  * 
  * This exception can be raised in the process of a META SQL query or a statement execution. It's produced in the JDBC
  * or ORM layer, not in the SQL Processor engine itself. Most of the time it's a wrapper class for the cause exception.

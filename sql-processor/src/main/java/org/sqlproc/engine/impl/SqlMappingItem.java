@@ -163,12 +163,14 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Returns the indicator this is an identity column.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @return the indicator this is an identity column
      */
-    boolean isIdentity() {
+    boolean isIdentity(SqlProcessContext ctx) {
         if (identity)
             return true;
-        String id = SqlProcessContext.getFeature(SqlFeature.ID);
+        String id = ctx.getFeature(SqlFeature.ID);
         if (id != null && id.equalsIgnoreCase(getName()))
             return true;
         return false;
@@ -269,6 +271,8 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Declares a scalar query result for this mapping rule item.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param resultClass
      *            the class used for the return values, the SQL execution output
      * @param moreResultClasses
@@ -278,19 +282,19 @@ class SqlMappingItem implements SqlMetaElement {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with output values preparation
      */
-    void setQueryResultMapping(Class<?> resultClass, Map<String, Class<?>> moreResultClasses, SqlQuery query)
-            throws SqlRuntimeException {
+    void setQueryResultMapping(SqlProcessContext ctx, Class<?> resultClass, Map<String, Class<?>> moreResultClasses,
+            SqlQuery query) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>>  setQueryResultMapping, fullName=" + getFullName() + ", resultClass=" + resultClass
                     + ", moreResultClasses=" + moreResultClasses);
         }
 
-        if (sqlType.getMetaType() instanceof SqlInternalType) {
+        if (sqlType.getMetaType(ctx) instanceof SqlInternalType) {
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
-                        + ", metaType=" + sqlType.getMetaType());
+                        + ", metaType=" + sqlType.getMetaType(ctx));
             }
-            ((SqlInternalType) sqlType.getMetaType()).addScalar(query, dbName, null);
+            ((SqlInternalType) sqlType.getMetaType(ctx)).addScalar(query, dbName, null);
         } else {
             int count = attributes.size();
             boolean exit = false;
@@ -302,7 +306,7 @@ class SqlMappingItem implements SqlMetaElement {
                 Method m = BeanUtils.getGetter(objClass, name);
                 if (m != null) {
                     objClass = m.getReturnType();
-                } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                     logger.error("There's no getter for '" + name + "' in " + objClass
                             + ", complete attribute name is '" + attr.getFullName() + "'");
                     exit = true;
@@ -329,7 +333,7 @@ class SqlMappingItem implements SqlMetaElement {
                         }
                         if (typeClass != null) {
                             objClass = typeClass;
-                        } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                             logger.error("There's no generic type defined for collection " + objClass
                                     + ", complete attribute name is '" + attr.getFullName()
                                     + "', possible type name is " + typeName);
@@ -354,7 +358,7 @@ class SqlMappingItem implements SqlMetaElement {
                         + ", attributeType=" + attributeType);
             }
             if (!exit) {
-                sqlType.getMetaType().addScalar(query, dbName, attributeType);
+                sqlType.getMetaType(ctx).addScalar(query, dbName, attributeType);
             }
         }
     }
@@ -362,6 +366,8 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Initializes the attribute of the result class with the output value from the SQL query execution.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param resultInstance
      *            the instance of the result class
      * @param resultIndex
@@ -382,8 +388,8 @@ class SqlMappingItem implements SqlMetaElement {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with output values handling
      */
-    void setQueryResultData(Object resultInstance, int resultIndex, Object[] resultValues, Map<String, Object> ids,
-            Map<String, Object> idsProcessed, Map<String, SqlMappingIdentity> identities,
+    void setQueryResultData(SqlProcessContext ctx, Object resultInstance, int resultIndex, Object[] resultValues,
+            Map<String, Object> ids, Map<String, Object> idsProcessed, Map<String, SqlMappingIdentity> identities,
             Map<String, Class<?>> moreResultClasses) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setQueryResultData, fullName=" + getFullName() + ", resultInstance=" + resultInstance
@@ -429,7 +435,7 @@ class SqlMappingItem implements SqlMetaElement {
                                 typeClass = ArrayList.class;
                             } else if (clazz == Set.class) {
                                 typeClass = HashSet.class;
-                            } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                                 logger.error("There's no type defined for collection " + clazz
                                         + ", complete attribute name is '" + attr.getFullName()
                                         + "', possible type name is " + typeName);
@@ -460,7 +466,7 @@ class SqlMappingItem implements SqlMetaElement {
                             nextObj = BeanUtils.getInstance(typeClass);
                         if (nextObj != null) {
                             BeanUtils.setProperty(obj, name, nextObj);
-                        } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                             logger.error("There's problem to instantiate " + typeClass
                                     + ", complete attribute name is '" + attr.getFullName()
                                     + "', possible type name is " + typeName);
@@ -498,7 +504,7 @@ class SqlMappingItem implements SqlMetaElement {
                                 ((Collection) nextObj).add(itemObj);
                                 idsProcessed.put(idsKey, itemObj);
                                 nextObj = itemObj;
-                            } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                                 logger.error("There's problem to instantiate " + typeClass
                                         + ", complete attribute name is " + attr.getFullName()
                                         + ", possible type name is " + typeName);
@@ -508,7 +514,7 @@ class SqlMappingItem implements SqlMetaElement {
                                         + ", complete attribute name is " + attr.getFullName()
                                         + ", possible type name is " + typeName);
                             }
-                        } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                             logger.error("There's no generic type defined for collection " + nextObj
                                     + ", complete attribute name is " + attr.getFullName() + ", possible type name is "
                                     + typeName);
@@ -521,7 +527,7 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 }
                 obj = nextObj;
-            } else if (SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                 logger.error("There's no getter for " + name + " in " + obj + ", complete attribute name is "
                         + attr.getFullName());
                 exit = true;
@@ -535,7 +541,7 @@ class SqlMappingItem implements SqlMetaElement {
             logger.trace("<<< setQueryResultData, fullName=" + getFullName() + ", name=" + getName() + ", obj=" + obj
                     + ", resultValue=" + resultValues[resultIndex]);
         }
-        sqlType.setResult(obj, getName(), resultValues[resultIndex]);
+        sqlType.setResult(ctx, obj, getName(), resultValues[resultIndex]);
     }
 
     /**
@@ -574,7 +580,7 @@ class SqlMappingItem implements SqlMetaElement {
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
 
-        SqlProcessResult result = new SqlProcessResult(dbName);
+        SqlProcessResult result = new SqlProcessResult(ctx, dbName);
         result.addOutputValue(dbName, this);
         return result;
     }

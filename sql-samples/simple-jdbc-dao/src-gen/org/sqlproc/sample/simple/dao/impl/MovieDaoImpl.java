@@ -27,6 +27,9 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public MovieDaoImpl() {
+  }
+    	
   public MovieDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
@@ -52,15 +55,12 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     }
     return (count > 0) ? movie : null;
   }
-  
   public Movie insert(Movie movie, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), movie, sqlControl);
   }
-  
   public Movie insert(SqlSession sqlSession, Movie movie) {
     return insert(sqlSession, movie, null);
   }
-  
   public Movie insert(Movie movie) {
     return insert(movie, null);
   }
@@ -77,15 +77,12 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     }
     return movieGot;
   }
-  	
   public Movie get(Movie movie, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), movie, sqlControl);
   }
-  
   public Movie get(SqlSession sqlSession, Movie movie) {
     return get(sqlSession, movie, null);
   }
-  
   public Movie get(Movie movie) {
     return get(movie, null);
   }
@@ -108,15 +105,12 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     }
     return count;
   }
-  
   public int update(Movie movie, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), movie, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, Movie movie) {
     return update(sqlSession, movie, null);
   }
-  
   public int update(Movie movie) {
     return update(movie, null);
   }
@@ -139,15 +133,12 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     }
     return count;
   }
-  
   public int delete(Movie movie, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), movie, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, Movie movie) {
     return delete(sqlSession, movie, null);
   }
-  
   public int delete(Movie movie) {
     return delete(movie, null);
   }
@@ -164,15 +155,12 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     }
     return movieList;
   }
-  
   public List<Movie> list(Movie movie, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), movie, sqlControl);
   }
-  
-  public List<Movie> list(SqlSession sqlSession, Movie movie) {
+      public List<Movie> list(SqlSession sqlSession, Movie movie) {
     return list(sqlSession, movie, null);
   }
-  
   public List<Movie> list(Movie movie) {
     return list(movie, null);
   }
@@ -189,15 +177,12 @@ public class MovieDaoImpl extends BaseDaoImpl implements BaseDao, MovieDao {
     }
     return count;
   }
-  
   public int count(Movie movie, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), movie, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, Movie movie) {
+      public int count(SqlSession sqlSession, Movie movie) {
     return count(sqlSession, movie, null);
   }
-  
   public int count(Movie movie) {
     return count(movie, null);
   }

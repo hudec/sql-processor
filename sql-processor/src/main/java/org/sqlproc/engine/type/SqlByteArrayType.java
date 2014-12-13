@@ -3,6 +3,7 @@ package org.sqlproc.engine.type;
 import java.lang.reflect.Method;
 
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlUtils;
@@ -41,8 +42,8 @@ public abstract class SqlByteArrayType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(Object resultInstance, String attributeName, Object resultValue, boolean ingoreError)
-            throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
@@ -82,8 +83,8 @@ public abstract class SqlByteArrayType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlQuery query, String paramName, Object inputValue, Class<?> inputType,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
+            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);

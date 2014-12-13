@@ -22,6 +22,9 @@ public class MediaDao {
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public MediaDao() {
+  }
+    	
   public MediaDao(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
@@ -43,15 +46,12 @@ public class MediaDao {
     }
     return (count > 0) ? media : null;
   }
-  
   public Media insert(Media media, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), media, sqlControl);
   }
-  
   public Media insert(SqlSession sqlSession, Media media) {
     return insert(sqlSession, media, null);
   }
-  
   public Media insert(Media media) {
     return insert(media, null);
   }
@@ -68,15 +68,12 @@ public class MediaDao {
     }
     return mediaGot;
   }
-  	
   public Media get(Media media, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), media, sqlControl);
   }
-  
   public Media get(SqlSession sqlSession, Media media) {
     return get(sqlSession, media, null);
   }
-  
   public Media get(Media media) {
     return get(media, null);
   }
@@ -92,15 +89,12 @@ public class MediaDao {
     }
     return count;
   }
-  
   public int update(Media media, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), media, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, Media media) {
     return update(sqlSession, media, null);
   }
-  
   public int update(Media media) {
     return update(media, null);
   }
@@ -116,15 +110,12 @@ public class MediaDao {
     }
     return count;
   }
-  
   public int delete(Media media, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), media, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, Media media) {
     return delete(sqlSession, media, null);
   }
-  
   public int delete(Media media) {
     return delete(media, null);
   }
@@ -141,15 +132,12 @@ public class MediaDao {
     }
     return mediaList;
   }
-  
   public List<Media> list(Media media, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), media, sqlControl);
   }
-  
-  public List<Media> list(SqlSession sqlSession, Media media) {
+      public List<Media> list(SqlSession sqlSession, Media media) {
     return list(sqlSession, media, null);
   }
-  
   public List<Media> list(Media media) {
     return list(media, null);
   }
@@ -166,15 +154,12 @@ public class MediaDao {
     }
     return count;
   }
-  
   public int count(Media media, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), media, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, Media media) {
+      public int count(SqlSession sqlSession, Media media) {
     return count(sqlSession, media, null);
   }
-  
   public int count(Media media) {
     return count(media, null);
   }

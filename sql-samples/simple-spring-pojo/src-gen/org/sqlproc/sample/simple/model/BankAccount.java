@@ -14,15 +14,15 @@ public class BankAccount extends BillingDetails implements Serializable {
   }
   
   private String baAccount;
-    
+  
   public String getBaAccount() {
     return baAccount;
   }
-    
+  
   public void setBaAccount(String baAccount) {
     this.baAccount = baAccount;
   }
-    
+  
   public BankAccount _setBaAccount(String baAccount) {
     this.baAccount = baAccount;
     return this;

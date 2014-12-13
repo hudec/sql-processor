@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sample</groupId>
     <artifactId>simple-hsqldb</artifactId>
-    <version>2.2.2-SNAPSHOT</version>
+    <version>2.4.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>SQL Processor Sample, Simple JDBC</name>
 
     <properties>
-        <version.sql-processor>2.2.2-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>2.4.2-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.2</version.slf4j>
+        <version.slf4j>1.7.7</version.slf4j>
         <version.junit>4.10</version.junit>
-        <version.hsqldb>2.2.9</version.hsqldb>
+        <version.hsqldb>2.3.2</version.hsqldb>
+        <version.validation>1.1.0.Final</version.validation>
+        <version.hibarnate.validator>4.3.1.Final</version.hibarnate.validator>
     </properties>
 
     <build>
@@ -21,7 +24,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.9</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -39,7 +42,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -51,14 +54,14 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>2.6</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.17</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <forkMode>once</forkMode>
@@ -68,7 +71,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2</version>
+                <version>1.3.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -126,9 +129,109 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>${version.junit}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${version.validation}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${version.hibarnate.validator}</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>db2mo</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.sqlproc.dsl</groupId>
+                    <artifactId>sqlep</artifactId>
+                    <version>1.9.2</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <configuration>
+                            <executable>java</executable>
+                            <classpathScope>runtime</classpathScope>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath>
+                                    <dependency>org.sqlproc.dsl:sqlep</dependency>
+                                    <dependency>org.hsqldb:hsqldb</dependency>
+                                    <dependency>javax.validation:validation-api</dependency>
+                                </classpath>
+                                <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
+                                <argument>-control</argument>
+                                <argument>definitions.qry</argument>
+                                <argument>-pojo</argument>
+                                <argument>pojo.qry</argument>
+                                <argument>-dao</argument>
+                                <argument>dao.qry</argument>
+                                <argument>-sql</argument>
+                                <argument>statements.qry</argument>
+                                <argument>-ddl</argument>
+                                <argument>hsqldb.ddl</argument>
+                                <argument>-source</argument>
+                                <argument>src/main/resources</argument>
+                                <argument>-target</argument>
+                                <argument>src/main/resources</argument>
+                                <argument>-nomerge</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>mo2ja</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.sqlproc.dsl</groupId>
+                    <artifactId>sqlep</artifactId>
+                    <version>1.9.2</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <configuration>
+                            <executable>java</executable>
+                            <classpathScope>runtime</classpathScope>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath>
+                                    <dependency>org.sqlproc.dsl:sqlep</dependency>
+                                    <dependency>org.hsqldb:hsqldb</dependency>
+                                    <dependency>javax.validation:validation-api</dependency>
+                                </classpath>
+                                <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
+                                <argument>-models</argument>
+                                <argument>pojo.qry,dao.qry</argument>
+                                <argument>-source</argument>
+                                <argument>src/main/resources</argument>
+                                <argument>-target</argument>
+                                <argument>src-gen</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <repositories>
         <repository>

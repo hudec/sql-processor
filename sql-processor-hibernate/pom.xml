@@ -4,12 +4,11 @@
     <packaging>jar</packaging>
     <name>SQL Processor, Hibernate Module</name>
     <description>SQL Processor, Hibernate Module</description>
-    <url>http://code.google.com/p/sql-processor/</url>
 
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-parent</artifactId>
-        <version>2.2.2-SNAPSHOT</version>
+        <version>2.4.2-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
@@ -18,7 +17,7 @@
         <dependency>
             <groupId>org.sqlproc</groupId>
             <artifactId>sql-processor</artifactId>
-            <version>2.2.2-SNAPSHOT</version>
+            <version>2.4.2-SNAPSHOT</version>
         </dependency>
 
         <!-- LOG -->
@@ -80,6 +79,16 @@
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

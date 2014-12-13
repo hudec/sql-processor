@@ -18,15 +18,15 @@ public class BankAccount extends BillingDetails implements Serializable {
   }
   
   private String baAccount;
-    
+  
   public String getBaAccount() {
     return baAccount;
   }
-    
+  
   public void setBaAccount(String baAccount) {
     this.baAccount = baAccount;
   }
-    
+  
   public BankAccount _setBaAccount(String baAccount) {
     this.baAccount = baAccount;
     return this;
@@ -45,11 +45,21 @@ public class BankAccount extends BillingDetails implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public BankAccount  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public BankAccount _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -59,11 +69,21 @@ public class BankAccount extends BillingDetails implements Serializable {
       initAssociations.add(association);
   }
   
+  public BankAccount _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public BankAccount _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -89,11 +109,21 @@ public class BankAccount extends BillingDetails implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public BankAccount _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public BankAccount _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -103,11 +133,21 @@ public class BankAccount extends BillingDetails implements Serializable {
       nullValues.add(attribute);
   }
   
+  public BankAccount _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public BankAccount _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {

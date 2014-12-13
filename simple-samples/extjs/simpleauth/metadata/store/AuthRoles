@@ -1,0 +1,80 @@
+{
+    "type": "directstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "model": "AuthRole",
+        "remoteFilter": true,
+        "storeId": "AuthRoles",
+        "designer|userClassName": "AuthRoles",
+        "pageSize": null
+    },
+    "designerId": "70492228-a8d6-47b7-9e6d-e3d25024cf40",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Direct",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy",
+                "api": null,
+                "directFn": "authWeb.loadAuthRoles"
+            },
+            "designerId": "2c8cb1d5-c8d0-4b93-af1f-733954ce61a5",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "records",
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "98f95f9f-5ce0-4d75-a61f-f18feb90e2cb"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "fitin",
+                "implHandler": [
+                    "if (store.currentPage > 1 && !records.length) {",
+                    "    store.previousPage();",
+                    "}   "
+                ],
+                "name": "load",
+                "scope": "me"
+            },
+            "designerId": "e77bde15-12bc-4c98-899f-b07319b24045"
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "name",
+                "designer|displayName": "NameSorter"
+            },
+            "designerId": "f3c2428f-311c-467c-b244-d00a1f4486f9"
+        }
+    ]
+}

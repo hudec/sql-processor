@@ -97,7 +97,7 @@ class SqlMetaAndOr implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         result.addFalse();
         StringBuilder s = new StringBuilder(this.getPrefix());
         result.setSql(s);

@@ -1,0 +1,61 @@
+{
+    "type": "directstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": null,
+        "model": "Contact",
+        "storeId": "Contacts",
+        "designer|userClassName": "Contacts",
+        "pageSize": null
+    },
+    "designerId": "f041d596-7bea-4d5b-8365-7c8fc9f6927f",
+    "cn": [
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "address",
+                "designer|displayName": "AdressSorter"
+            },
+            "designerId": "3145940b-228c-47bb-b5f8-70b7636a4434"
+        },
+        {
+            "type": "Ext.data.proxy.Direct",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy",
+                "api": [
+                    "{ read: \"personWeb.loadContacts\" }"
+                ]
+            },
+            "designerId": "08dda53d-8553-476b-8da8-d3991430f151",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "records",
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "28e1b5aa-fca2-4b1b-8668-3d7277a36455"
+                }
+            ]
+        }
+    ]
+}

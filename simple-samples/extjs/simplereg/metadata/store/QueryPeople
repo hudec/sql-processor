@@ -1,0 +1,63 @@
+{
+    "type": "directstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "model": "Person",
+        "remoteFilter": true,
+        "remoteSort": null,
+        "storeId": "QueryPeople",
+        "designer|userClassName": "QueryPeople",
+        "pageSize": 5
+    },
+    "designerId": "334aab56-bd97-4f9c-961f-451762250e85",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Direct",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|displayName": "Proxy",
+                "api": [
+                    "{ read: \"personWeb.loadPeople\" }"
+                ]
+            },
+            "designerId": "dded2a51-5291-4881-af55-01bf3e8464f5",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "records",
+                        "designer|displayName": "Reader"
+                    },
+                    "designerId": "be10a299-8d18-4680-bc08-500d18fba0a5"
+                }
+            ]
+        },
+        {
+            "type": "Ext.util.Sorter",
+            "reference": {
+                "name": "sorters",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "property": "lastName",
+                "designer|displayName": "LastNameSorter"
+            },
+            "designerId": "c1d757ee-4d32-4b27-826b-692e93149d34"
+        }
+    ]
+}

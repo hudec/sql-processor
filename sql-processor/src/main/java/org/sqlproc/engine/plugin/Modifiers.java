@@ -49,6 +49,11 @@ public interface Modifiers {
     static final String MODIFIER_IDENTITY_SELECT = "idsel";
 
     /**
+     * The modifier used to detect the identity generator. The related value is a sequence or identity select.
+     */
+    static final String MODIFIER_IDENTITY_GENERATOR = "idgen";
+
+    /**
      * The modifier used to detect the empty value and true value for the collections. For the usage please see the Wiki
      * Tutorials.
      */

@@ -9,11 +9,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * SQL Processor utilities.
@@ -24,10 +30,10 @@ public class SqlUtils {
 
     // enums
 
-    public static Object getEnumToValue(Object obj) {
+    public static Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object obj) {
         if (obj == null)
             return null;
-        for (String methodName : SqlProcessContext.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
             try {
                 return MethodUtils.invokeMethod(obj, methodName, null);
             } catch (NoSuchMethodException e) {
@@ -42,10 +48,10 @@ public class SqlUtils {
     }
 
     @SuppressWarnings("rawtypes")
-    public static Class getEnumToClass(Class clazz) {
+    public static Class getEnumToClass(SqlRuntimeContext runtimeCtx, Class clazz) {
         if (clazz == null)
             return null;
-        for (String methodName : SqlProcessContext.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
             Method m = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, new Class[] {});
             if (m != null)
                 return m.getReturnType();
@@ -53,10 +59,10 @@ public class SqlUtils {
         return null;
     }
 
-    public static Object getValueToEnum(Class<?> objClass, Object val) {
+    public static Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
         if (val == null)
             return null;
-        for (String methodName : SqlProcessContext.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
             try {
                 return MethodUtils.invokeStaticMethod(objClass, methodName, val);
             } catch (NoSuchMethodException e) {
@@ -246,6 +252,70 @@ public class SqlUtils {
         return idsKey;
     }
 
+    static final Pattern patternInsert = Pattern.compile("[^\\(]*\\(\\s*([^\\)]*)\\s*\\).*");
+
+    public static String handleInsertSql(Map<String, SqlInputValue> identities, String sql) {
+        if (identities == null || identities.isEmpty())
+            return sql;
+        Map<String, SqlInputValue> ids1 = new HashMap<String, SqlInputValue>();
+        Map<String, SqlInputValue> ids2 = new HashMap<String, SqlInputValue>();
+        for (Entry<String, SqlInputValue> e : identities.entrySet()) {
+            if (e.getValue().getValueType() == SqlInputValue.Type.IDENTITY_SELECT) {
+                ids1.put(e.getKey(), e.getValue());
+                if (e.getValue().getDbIdentityName() != null) {
+                    ids2.put(e.getValue().getDbIdentityName(), e.getValue());
+                }
+            }
+        }
+        if (ids1.isEmpty())
+            return sql;
+        Matcher matcher = patternInsert.matcher(sql);
+        if (!matcher.matches())
+            return sql;
+        String fragment = matcher.group(1);
+        String[] cols = fragment.split(",");
+        int icol = -1;
+        for (int i = 0; i < cols.length; i++) {
+            String c = cols[i].trim();
+            if (c.startsWith("%"))
+                c = c.substring(1);
+            if (ids2.containsKey(c)) {
+                icol = i;
+            } else if (ids2.containsKey(c.toLowerCase()))
+                icol = i;
+            else if (ids2.containsKey(c.toUpperCase()))
+                icol = i;
+            else if (ids1.containsKey(c))
+                icol = i;
+            else if (ids1.containsKey(c.toLowerCase()))
+                icol = i;
+            else if (ids1.containsKey(c.toUpperCase()))
+                icol = i;
+            if (icol >= 0)
+                break;
+        }
+        if (icol < 0)
+            return sql;
+        int ix = sql.indexOf(cols[icol]);
+        if (ix < 0)
+            return sql;
+        // System.out.println("XXXXXXXXXX " + ix + " '" + sql + "'");
+        String sql1 = sql.substring(0, ix);
+        String sql2 = sql.substring(ix + cols[icol].length());
+        // System.out.println("YYYYYYYYYY '" + sql1 + "'" + sql2 + "'");
+        if (sql1.trim().endsWith(",")) {
+            ix = sql1.lastIndexOf(",");
+            sql = sql.substring(0, ix) + sql2;
+        } else if (sql2.trim().startsWith(",")) {
+            ix = sql2.indexOf(",");
+            sql = sql1 + sql2.substring(ix + 1);
+        } else {
+            sql = sql1 + sql2;
+        }
+        // System.out.println("ZZZZZZZZZZ '" + sql + "'");
+        return sql;
+    }
+
     public static List<Integer> asList(int[] array) {
         List<Integer> list = new ArrayList<Integer>();
         if (array == null)
@@ -263,16 +333,22 @@ public class SqlUtils {
         return s.substring(0, 1).toLowerCase() + s.substring(1);
     }
 
-    public static String oppositeFeature(String featureName) {
+    public static Set<String> oppositeFeatures(String featureName) {
+        Set<String> oppositeFeatures = new HashSet<String>();
         if (SqlFeature.SURROUND_QUERY_LIKE_FULL.equals(featureName)) {
-            return SqlFeature.SURROUND_QUERY_LIKE_PARTIAL;
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
+            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS);
         } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(featureName)) {
-            return SqlFeature.SURROUND_QUERY_LIKE_FULL;
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL);
+            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS);
+        } else if (SqlFeature.REPLACE_LIKE_CHARS.equals(featureName)) {
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL);
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
         } else if (SqlFeature.EMPTY_FOR_NULL.equals(featureName)) {
-            return SqlFeature.EMPTY_USE_METHOD_IS_NULL;
+            oppositeFeatures.add(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
         } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.equals(featureName)) {
-            return SqlFeature.EMPTY_FOR_NULL;
+            oppositeFeatures.add(SqlFeature.EMPTY_FOR_NULL);
         }
-        return null;
+        return oppositeFeatures;
     }
 }

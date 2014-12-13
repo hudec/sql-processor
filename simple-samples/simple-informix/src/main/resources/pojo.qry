@@ -14,7 +14,7 @@ package org.sample.model {
   }
 
   pojo Contact serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
+    id : java.lang.Integer primaryKey index 1
     person :: Person required index 2
     address : java.lang.String required
     type :: ContactType
@@ -23,7 +23,7 @@ package org.sample.model {
     hashCode ::: id
     toInit ::: person
     isDef ::: phoneNumber type
-    toString ::: id person phoneNumber address type
+    toString ::: id phoneNumber address type
   }
 
   pojo Person serializable 1 operators {

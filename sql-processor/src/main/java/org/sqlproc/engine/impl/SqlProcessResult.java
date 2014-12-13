@@ -5,10 +5,17 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.engine.validation.SqlValidationContext;
+import org.sqlproc.engine.validation.SqlValidationException;
+import org.sqlproc.engine.validation.SqlValidationResult;
+import org.sqlproc.engine.validation.SqlValidator;
 
 /**
  * Holds the results of ANSI SQL query generation.
@@ -22,6 +29,10 @@ import org.sqlproc.engine.SqlSession;
  */
 public class SqlProcessResult implements Comparable<SqlProcessResult> {
 
+    /**
+     * The crate for all input parameters and the context of processing.
+     */
+    private SqlProcessContext ctx;
     /**
      * The indicator that a partial processing result (of ANSI SQL Query generation) is going to be part of a final ANSI
      * SQL.
@@ -67,28 +78,35 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
 
     /**
      * Creates a new instance.
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      */
-    SqlProcessResult() {
-        allInputValues = new ArrayList<String>();
-        inputValues = new LinkedHashMap<String, SqlInputValue>();
-        outputValues = new LinkedHashMap<String, SqlMappingItem>();
-        identities = new HashMap<String, SqlInputValue>();
-        outValues = new HashMap<String, SqlInputValue>();
-        sql = new StringBuilder();
+    SqlProcessResult(SqlProcessContext ctx) {
+        this.ctx = ctx;
+        this.allInputValues = new ArrayList<String>();
+        this.inputValues = new LinkedHashMap<String, SqlInputValue>();
+        this.outputValues = new LinkedHashMap<String, SqlMappingItem>();
+        this.identities = new HashMap<String, SqlInputValue>();
+        this.outValues = new HashMap<String, SqlInputValue>();
+        this.sql = new StringBuilder();
     }
 
     /**
      * Creates a new instance with a SQL fragment from SqlMetaText.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param sql
      *            a SQL fragment
      */
-    SqlProcessResult(String sql) {
-        allInputValues = new ArrayList<String>();
-        inputValues = new HashMap<String, SqlInputValue>();
-        outputValues = new LinkedHashMap<String, SqlMappingItem>();
-        identities = new HashMap<String, SqlInputValue>();
-        outValues = new HashMap<String, SqlInputValue>();
+    SqlProcessResult(SqlProcessContext ctx, String sql) {
+        this.ctx = ctx;
+        this.allInputValues = new ArrayList<String>();
+        this.inputValues = new LinkedHashMap<String, SqlInputValue>();
+        this.outputValues = new LinkedHashMap<String, SqlMappingItem>();
+        this.identities = new HashMap<String, SqlInputValue>();
+        this.outValues = new HashMap<String, SqlInputValue>();
         if (sql != null) {
             this.sql = new StringBuilder(sql);
             this.add = true;
@@ -96,6 +114,63 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
             this.sql = null;
             this.add = false;
         }
+    }
+
+    /**
+     * Creates a new instance with a SQL fragment from SqlMetaText.
+     * 
+     * @param result
+     *            SqlProcessResult instance to clone
+     * @param dynamicInputValues
+     *            the SQL statement dynamic parameters (input values)
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     */
+    public SqlProcessResult(SqlProcessResult result, Object dynamicInputValues, SqlControl sqlControl) {
+        this.ctx = new SqlProcessContext(result.ctx, dynamicInputValues, sqlControl);
+        this.add = result.add;
+        this.allInputValues = result.allInputValues;
+        if (result.inputValues != null) {
+            this.inputValues = new LinkedHashMap<String, SqlInputValue>();
+            for (Entry<String, SqlInputValue> e : result.inputValues.entrySet()) {
+                this.inputValues.put(e.getKey(), new SqlInputValue(ctx, e.getKey(), e.getValue(), dynamicInputValues));
+            }
+        }
+        this.outputValues = result.outputValues;
+        if (result.identities != null) {
+            this.identities = new HashMap<String, SqlInputValue>();
+            for (Entry<String, SqlInputValue> e : result.identities.entrySet()) {
+                this.identities.put(e.getKey(), this.inputValues.get(e.getKey()));
+            }
+        }
+        if (result.outValues != null) {
+            this.outValues = new HashMap<String, SqlInputValue>();
+            for (Entry<String, SqlInputValue> e : result.outValues.entrySet()) {
+                this.outValues.put(e.getKey(), this.inputValues.get(e.getKey()));
+            }
+        }
+        this.sql = result.sql;
+        this.orderIndex = result.orderIndex;
+        this.skipNextText = result.skipNextText;
+        this.logError = result.logError;
+    }
+
+    /**
+     * Returns the crate for all input parameters and the context of processing.
+     * 
+     * @return the crate for all input parameters and the context of processing
+     */
+    SqlProcessContext getCtx() {
+        return ctx;
+    }
+
+    /**
+     * Returns the public runtime context
+     * 
+     * @return the public runtime context
+     */
+    public SqlRuntimeContext getRuntimeContext() {
+        return ctx;
     }
 
     /**
@@ -258,7 +333,7 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * 
      * @return the collection of identities
      */
-    Map<String, SqlInputValue> getIdentities() {
+    public Map<String, SqlInputValue> getIdentities() {
         return identities;
     }
 
@@ -410,25 +485,6 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
     }
 
     /**
-     * For debug purposes.
-     * 
-     * @return a String representation for a debug output
-     */
-    public String toString() {
-        StringBuilder sb = new StringBuilder("SqlProcessResult:");
-        sb.append(" add=").append(add);
-        if (inputValues != null) {
-            for (String paramName : this.inputValues.keySet()) {
-                SqlInputValue value = this.inputValues.get(paramName);
-                sb.append(", ident=").append(paramName).append(", value=").append(value);
-            }
-        }
-        sb.append(" s='").append(sql).append("'");
-
-        return sb.toString();
-    }
-
-    /**
      * In case there're several ordering rules in the final generated ANSI SQL, they should be ordered.
      * 
      * {@inheritDoc}
@@ -438,5 +494,61 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         if (getOrderIndex() == null || o.getOrderIndex() == null)
             throw new RuntimeException("Compared non-order processing results");
         return getOrderIndex().compareTo(o.getOrderIndex());
+    }
+
+    /**
+     * Validates the processed input attributes and their values.
+     * 
+     * @param validator
+     *            the injected validator
+     * @throws SqlValidationException
+     *             in the case the validation isn't successfull
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public void validate(SqlValidator validator) throws SqlValidationException {
+        if (validator == null || this.allInputValues.isEmpty() || this.inputValues.isEmpty())
+            return;
+        SqlValidationContext validatorContext = null;
+        for (String paramName : this.allInputValues) {
+            SqlInputValue inputValue = this.inputValues.get(paramName);
+            if (validatorContext == null)
+                validatorContext = validator.start(inputValue.getParentInputValue().getClass());
+            if (inputValue.getParentInputValue() != null && inputValue.getInputName() != null)
+                validator.validate(validatorContext, inputValue.getParentInputValue().getClass(),
+                        inputValue.getInputName(), inputValue.getInputValue());
+        }
+        SqlValidationResult result = validator.finish(validatorContext);
+        if (result != null)
+            throw new SqlValidationException(result);
+    }
+
+    /**
+     * For debug purposes.
+     * 
+     * @return a String representation for a debug output
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder("SqlProcessResult[");
+        sb.append(" add=").append(add);
+        if (allInputValues != null && !allInputValues.isEmpty()) {
+            sb.append(", allInputValue=").append(allInputValues.toString());
+        }
+        if (inputValues != null && !inputValues.isEmpty()) {
+            sb.append(", inputValues=").append(inputValues.toString());
+        }
+        if (outputValues != null && !outputValues.isEmpty()) {
+            sb.append(", outputValues=").append(outputValues.toString());
+        }
+        if (identities != null && !identities.isEmpty()) {
+            sb.append(", identities=").append(identities.toString());
+        }
+        if (outValues != null && !outValues.isEmpty()) {
+            sb.append(", outValues=").append(outValues.toString());
+        }
+        sb.append(", sql='").append(sql).append("'");
+        sb.append(", orderIndex=").append(orderIndex);
+        sb.append(", skipNextText=").append(skipNextText);
+        sb.append(", logError=").append(logError);
+        return sb.append("]").toString();
     }
 }

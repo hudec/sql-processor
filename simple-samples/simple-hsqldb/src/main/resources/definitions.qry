@@ -7,13 +7,14 @@ database-login-password "";
 //database-in-catalog PUBLIC;
 //database-active-schema PUBLIC;
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
-database-show-database-info HSQL Database Engine,2.2.9,2,2;
+database-show-database-info HSQL Database Engine,2.2.8,2,2;
 database-show-driver-info HSQL Database Engine Driver,2.2.9,2,2;
 database-show-driver-output getNumericFunctions->ABS,ACOS,ASIN,ATAN,ATAN2,BITAND,BITOR,BITXOR,CEILING,COS,COT,DEGREES,EXP,FLOOR,LOG,LOG10,MOD,PI,POWER,RADIANS,RAND,ROUND,ROUNDMAGIC,SIGN,SIN,SQRT,TAN,TRUNCATE;
 database-show-driver-output getStringFunctions->ASCII,CHAR,CONCAT,DIFFERENCE,HEXTORAW,INSERT,LCASE,LEFT,LENGTH,LOCATE,LTRIM,RAWTOHEX,REPEAT,REPLACE,RIGHT,RTRIM,SOUNDEX,SPACE,SUBSTR,UCASE;
 database-show-driver-output getSystemFunctions->DATABASE,IFNULL,USER;
 database-show-driver-output getTimeDateFunctions->CURDATE,CURTIME,DATEDIFF,DAYNAME,DAYOFMONTH,DAYOFWEEK,DAYOFYEAR,HOUR,MINUTE,MONTH,MONTHNAME,NOW,QUARTER,SECOND,SECONDS_SINCE_MIDNIGHT,TIMESTAMPADD,TIMESTAMPDIFF,TO_CHAR,WEEK,YEAR;
 //database-is-of-type HSQLDB;
+database-take-comments;
 
 // native types
 pojogen-generate-wrappers;
@@ -28,16 +29,25 @@ pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSINESS I2->ABROAD;
 pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE I0->UNKNOWN; 
 // operators
 pojogen-generate-operators;
+// validation annotations
+pojogen-generate-validation-annotations;
+pojogen-package org.sample.model;
 
 // use indetity for primary keys
-metagen-global-sequence SIMPLE_SEQUENCE;
+metagen-global-identity COMMON;
+//metagen-global-sequence SIMPLE_SEQUENCE;
+metagen-table-sequence CONTACT SIMPLE_SEQUENCE;
+metagen-generate-idgenerators;
+//metagen-generate-default-idgenerators;
 // can't overwrite existing META SQL 
 //metagen-make-it-final;
 // operators
-metagen-not-like-columns CONTACT PHONE_NUMBER;
+metagen-like-columns PERSON FIRST_NAME LAST_NAME;
+metagen-not-like-columns;
 //metagen-optimize-insert;
 // can't overwrite existing DAO 
 //daogen-make-it-final; 
+daogen-package org.sample.dao;
 
 table contact CONTACT;
 table person PERSON;
@@ -46,6 +56,8 @@ procedure newPerson NEW_PERSON;
 procedure newPersonRetRs NEW_PERSON_RET_RS;
 function anHourBefore AN_HOUR_BEFORE;
 
+
 metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
-//pojogen-debug-level DEBUG;
+//metagen-debug-level DEBUG;
+

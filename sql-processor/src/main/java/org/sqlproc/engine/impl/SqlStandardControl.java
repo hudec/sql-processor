@@ -2,6 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlOrder;
@@ -55,6 +56,22 @@ public class SqlStandardControl implements SqlControl {
     private Map<String, Object> features = new HashMap<String, Object>();
 
     /**
+     * The unique ID of the executed statement based on input values combination. This ID can be used for the caching
+     * purposes to optimize the
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, SqlControl, org.sqlproc.engine.SqlEngine)}
+     * 
+     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values
+     * combination. This ID is an indicator of the uniqueness these input values. For more info please see the
+     * tutorials.
+     */
+    private String processingId;
+
+    /**
+     * Returns the fetch size of SQL execution output rows, which can be returned in one SQL statement.
+     */
+    private int fetchSize;
+
+    /**
      * Standard constructor.
      */
     public SqlStandardControl() {
@@ -71,6 +88,8 @@ public class SqlStandardControl implements SqlControl {
             setMaxTimeout(sqlControl.getMaxTimeout());
             setMoreResultClasses(sqlControl.getMoreResultClasses());
             setOrder(sqlControl.getOrder());
+            setFeatures(sqlControl.getFeatures());
+            setProcessingId(sqlControl.getProcessingId());
         }
     }
 
@@ -242,8 +261,9 @@ public class SqlStandardControl implements SqlControl {
      * @param features
      *            the optional features
      */
-    public void setFeatures(Map<String, Object> features) {
+    public SqlStandardControl setFeatures(Map<String, Object> features) {
         this.features = features;
+        return this;
     }
 
     /**
@@ -254,20 +274,65 @@ public class SqlStandardControl implements SqlControl {
      * @param value
      *            the value of the optional feature
      */
-    public void setFeature(String name, Object value) {
+    public SqlStandardControl setFeature(String name, Object value) {
         features.put(name, value);
-        unsetFeature(SqlUtils.oppositeFeature(name));
+        unsetFeatures(SqlUtils.oppositeFeatures(name));
+        return this;
     }
 
     /**
-     * Clears the optional feature in the stament's execution scope.
+     * Clears the optional features in the stament's or execution scope.
      * 
-     * @param name
-     *            the name of the optional feature
+     * @param names
+     *            the names of the optional features
      */
-    public void unsetFeature(String name) {
-        if (name != null)
-            features.remove(name);
+    public SqlStandardControl unsetFeatures(Set<String> names) {
+        if (names != null) {
+            for (String name : names)
+                features.remove(name);
+        }
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProcessingId() {
+        return processingId;
+    }
+
+    /**
+     * Sets the unique ID of the executed statement based on input values combination. This ID can be used for the
+     * caching purposes to optimize the
+     * {@link org.sqlproc.engine.impl.SqlMetaStatement#process(org.sqlproc.engine.impl.SqlMetaStatement.Type, Object, SqlControl, org.sqlproc.engine.SqlEngine)}
+     * 
+     * The generation of the final ANSI SQL statement from the META SQL statement is influenced by the input values.
+     * This ID is an indicator of the uniqueness these input values. For more info please see the tutorials.
+     * 
+     * @param processingId
+     *            the unique ID of the executed statement based on input values combination
+     */
+    public SqlStandardControl setProcessingId(String processingId) {
+        this.processingId = processingId;
+        return this;
+    }
+
+    @Override
+    public int getFetchSize() {
+        return fetchSize;
+    }
+
+    /**
+     * Sets the fetch size of SQL execution output rows, which can be returned in one SQL statement.
+     *
+     * @param fetchSize
+     *            the fetch size of SQL execution output rows
+     * @return this instance
+     */
+    public SqlStandardControl setFetchSize(int fetchSize) {
+        this.fetchSize = fetchSize;
+        return this;
     }
 
     /**
@@ -277,6 +342,7 @@ public class SqlStandardControl implements SqlControl {
     public String toString() {
         return "SqlStandardControl [staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
                 + ", firstResult=" + firstResult + ", maxResults=" + maxResults + ", order=" + order
-                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + "]";
+                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + ", processingId="
+                + processingId + "]";
     }
 }

@@ -2,6 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +59,7 @@ class SqlMetaIfItem implements SqlMetaElement {
      */
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
-        SqlProcessResult result = new SqlProcessResult();
+        SqlProcessResult result = new SqlProcessResult(ctx);
         result.addFalse();
         result.setSql(new StringBuilder());
         boolean like = false;
@@ -89,31 +90,44 @@ class SqlMetaIfItem implements SqlMetaElement {
                         && !(item instanceof SqlMetaOperator)) {
                     result.addTrue();
                 }
-                result.getSql().append(itemResult.getSql());
                 result.addInputValues(itemResult.getInputValues());
                 result.addMappedInputValues(itemResult.getMappedInputValues());
                 result.addOutputValues(itemResult.getOutputValues());
                 result.addIdentities(itemResult.getIdentities());
                 result.addOutValues(itemResult.getOutValues());
-                if ((SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || SqlProcessContext
-                        .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL)) && item instanceof SqlMetaIdent && like) {
+                if (item instanceof SqlMetaIdent
+                        && like
+                        && (ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || ctx
+                                .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL))) {
                     for (String ident : itemResult.getInputValues()) {
-                        itemResult.getInputValue(ident).setLike(
-                                SqlProcessContext.getFeature(SqlFeature.WILDCARD_CHARACTER),
-                                SqlProcessContext.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN),
-                                SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL));
+                        itemResult.getInputValue(ident).setLike(ctx.getFeature(SqlFeature.WILDCARD_CHARACTER),
+                                ctx.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN),
+                                ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL));
+                    }
+                } else if (item instanceof SqlMetaIdent && like
+                        && ctx.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null) {
+                    for (String ident : itemResult.getInputValues()) {
+                        itemResult.getInputValue(ident).setReplaceChars(
+                                (Map<String, String>) ctx.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS));
                     }
                 } else if (item instanceof SqlMetaText
-                        && (SqlProcessContext.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || SqlProcessContext
-                                .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL))
+                        && (ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL)
+                                || ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL) || ctx
+                                .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null)
                         && itemResult.getSql().toString().trim().toLowerCase()
-                                .endsWith(SqlProcessContext.getFeature(SqlFeature.LIKE_STRING))) {
+                                .endsWith(ctx.getFeature(SqlFeature.LIKE_STRING))) {
+                    String replaceLike = ctx.getFeature(SqlFeature.REPLACE_LIKE_STRING);
+                    if (replaceLike != null) {
+                        itemResult.setSql(new StringBuilder(itemResult.getSql().toString().toLowerCase()
+                                .replace(ctx.getFeature(SqlFeature.LIKE_STRING), replaceLike)));
+                    }
                     like = true;
                 } else {
                     if (!like || !(item instanceof SqlMetaText) || !((SqlMetaText) item).isWhite())
                         like = false;
                 }
-                skipNextText = result.isSkipNextText();
+                result.getSql().append(itemResult.getSql());
+                skipNextText = itemResult.isSkipNextText();
             }
         }
         if (onlyText && !SqlUtils.isEmpty(result.getSql()))

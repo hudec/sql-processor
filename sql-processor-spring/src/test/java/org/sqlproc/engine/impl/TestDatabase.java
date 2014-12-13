@@ -42,6 +42,8 @@ import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.engine.util.PropertiesLoader;
+import org.sqlproc.engine.validation.SampleValidator;
+import org.sqlproc.engine.validation.SqlValidatorFactory;
 
 @Ignore("Not test class.")
 public abstract class TestDatabase extends DatabaseTestCase {
@@ -63,6 +65,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static List<String> ddlCreateDb;
     protected static List<String> ddlDropDb;
     protected static boolean dbCreated = false;
+    protected static SqlValidatorFactory validatorFactory;
 
     protected static List<SqlInternalType> customTypes = new ArrayList<SqlInternalType>();
     static {
@@ -102,6 +105,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
         transactionManager = new DataSourceTransactionManager();
         transactionManager.setDataSource(dataSource);
         txTemplate = new TransactionTemplate(transactionManager);
+
+        validatorFactory = new SampleValidator.SampleValidatorFactory();
     }
 
     public TestDatabase() {
@@ -210,8 +215,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     protected SqlEngineFactory getEngineFactory(String name, SqlPluginFactory sqlPluginFactory) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
         factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(), sqlPluginFactory, dbType, null,
                 customTypes, name);
@@ -226,9 +229,25 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
+    SqlQueryEngine getDefaultQueryEngine(String name, SqlEngineFactory factory) {
+        SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement, SqlEngineFactory factory) {
+        SqlQueryEngine sqlEngine = factory.getDynamicQueryEngine(name, sqlStatement);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    SqlQueryEngine getStaticQueryEngine(String name, SqlEngineFactory factory) {
+        SqlQueryEngine sqlEngine = factory.getStaticQueryEngine(name);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
     SqlEngineFactory getEngineFactory(String name) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
         factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
                 SimpleSqlPluginFactory.getInstance(), dbType, null, customTypes, name);
@@ -237,8 +256,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
     }
 
     SqlEngineFactory getEngineFactory(String name, String filter) {
-        SqlProcessContext.nullFeatures();
-        SqlProcessContext.nullTypeFactory();
         SqlEngineFactory factory;
         factory = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
                 SimpleSqlPluginFactory.getInstance(), filter, null, customTypes, name);
@@ -260,6 +277,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     SqlCrudEngine getCrudEngine(String name, String filter) {
         SqlEngineFactory factory = getEngineFactory(name, filter);
         SqlCrudEngine sqlEngine = factory.getCrudEngine(name);
+        sqlEngine.setValidator(validatorFactory.getSqlValidator());
         assertNotNull(sqlEngine);
         return sqlEngine;
     }
@@ -267,6 +285,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     SqlCrudEngine getCrudEngine(String name) {
         SqlEngineFactory factory = getEngineFactory(name);
         SqlCrudEngine sqlEngine = factory.getCrudEngine(name);
+        sqlEngine.setValidator(validatorFactory.getSqlValidator());
         assertNotNull(sqlEngine);
         return sqlEngine;
     }

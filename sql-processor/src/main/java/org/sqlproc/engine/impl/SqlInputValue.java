@@ -1,6 +1,8 @@
 package org.sqlproc.engine.impl;
 
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +83,10 @@ class SqlInputValue {
     };
 
     /**
+     * the crate for all input parameters and the context of processing.
+     */
+    private SqlProcessContext ctx;
+    /**
      * The type of the input value, please see {@link Type}.
      */
     private Type valueType;
@@ -96,6 +102,14 @@ class SqlInputValue {
      * A dynamic input value.
      */
     private Object inputValue;
+    /**
+     * A input attribute name.
+     */
+    private String inputName;
+    /**
+     * A input attribute full name.
+     */
+    private String fullInputName;
     /**
      * A parent of a dynamic input value.
      */
@@ -137,10 +151,20 @@ class SqlInputValue {
      * A dynamic input value can be also an output value.
      */
     private Object outValue;
+    /**
+     * A map of characters to be replaced in input value;
+     */
+    private Map<String, String> replaceChars;
+    /**
+     * A database identity column name
+     */
+    private String dbIdentityName;
 
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param valueType
      *            a value type
      * @param inputValue
@@ -154,8 +178,10 @@ class SqlInputValue {
      * @param type
      *            a dynamic input value META type
      */
-    SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
-            Code caseConversion, Mode inOutMode, SqlType type) {
+    SqlInputValue(SqlProcessContext ctx, Type valueType, Object inputValue, Object parentInputValue,
+            Class<?> inputValueType, Code caseConversion, Mode inOutMode, SqlType type, String inputName,
+            String fullInputName) {
+        this.ctx = ctx;
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
@@ -163,11 +189,15 @@ class SqlInputValue {
         this.caseConversion = caseConversion;
         this.inOutMode = inOutMode;
         this.type = type;
+        this.inputName = inputName;
+        this.fullInputName = fullInputName;
     }
 
     /**
      * Creates a new instance of this entity. Used from inside ANTLR parser.
      * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
      * @param valueType
      *            a value type
      * @param inputValue
@@ -179,8 +209,9 @@ class SqlInputValue {
      * @param type
      *            a dynamic input value META type
      */
-    SqlInputValue(Type valueType, Object inputValue, Object parentInputValue, Class<?> inputValueType,
-            String sequenceOrIdentitySelect, SqlType type) {
+    SqlInputValue(SqlProcessContext ctx, Type valueType, Object inputValue, Object parentInputValue,
+            Class<?> inputValueType, String sequenceOrIdentitySelect, SqlType type, String dbIdentityName) {
+        this.ctx = ctx;
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
@@ -190,6 +221,51 @@ class SqlInputValue {
         else
             this.identitySelect = sequenceOrIdentitySelect;
         this.type = type;
+        this.dbIdentityName = dbIdentityName;
+    }
+
+    /**
+     * Creates a new instance of this entity.
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
+     * @param name
+     *            the name og the attribute
+     * @param sqlInputValue
+     *            SqlInputValue instance to clone
+     * @param dynamicInputValues
+     *            the SQL statement dynamic parameters (input values)
+     */
+    SqlInputValue(SqlProcessContext ctx, String name, SqlInputValue sqlInputValue, Object dynamicInputValues) {
+        this.ctx = ctx;
+        this.valueType = sqlInputValue.valueType;
+        this.caseConversion = sqlInputValue.caseConversion;
+        this.inOutMode = sqlInputValue.inOutMode;
+        this.parentInputValue = dynamicInputValues;
+        if (sqlInputValue.fullInputName != null || sqlInputValue.inputName != null) {
+            String[] ss = (sqlInputValue.fullInputName != null) ? sqlInputValue.fullInputName.split(",")
+                    : new String[] { sqlInputValue.inputName };
+            for (int i = 0; i < ss.length; i++) {
+                this.inputValue = BeanUtils.getProperty((i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
+                if (i < ss.length - 1)
+                    this.parentInputValue = this.inputValue;
+            }
+        }
+        // if (this.valueType == Type.IDENTITY_SELECT)
+        // this.parentInputValue = dynamicInputValues;
+        this.inputName = sqlInputValue.inputName;
+        this.fullInputName = sqlInputValue.fullInputName;
+        this.inputValueType = sqlInputValue.inputValueType;
+        this.likeChar = sqlInputValue.likeChar;
+        this.minLikeLength = sqlInputValue.minLikeLength;
+        this.partialLike = sqlInputValue.partialLike;
+        this.type = sqlInputValue.type;
+        this.sequence = sqlInputValue.sequence;
+        this.identitySelect = sqlInputValue.identitySelect;
+        this.identity = sqlInputValue.identity;
+        this.outValue = sqlInputValue.outValue;
+        this.replaceChars = sqlInputValue.replaceChars;
+        this.dbIdentityName = sqlInputValue.dbIdentityName;
     }
 
     /**
@@ -207,11 +283,11 @@ class SqlInputValue {
     void setQueryParam(final SqlSession session, SqlQuery query, String paramName) throws SqlRuntimeException {
         if (sequence != null) {
             SqlQuery seqQuery = session.createSqlQuery(sequence);
-            SqlProcessContext.getTypeFactory().getDefaultType().addScalar(seqQuery, "1", inputValueType);
-            identity = seqQuery.unique();
-            type.setParameter(query, paramName, identity, inputValueType);
+            ctx.getTypeFactory().getDefaultType().addScalar(seqQuery, "1", inputValueType);
+            identity = seqQuery.unique(ctx);
+            type.setParameter(ctx, query, paramName, identity, inputValueType);
         } else if (identitySelect != null) {
-            SqlProcessContext.getTypeFactory().getIdentityType().setParameter(query, paramName, new IdentitySetter() {
+            ctx.getTypeFactory().getIdentityType().setParameter(ctx, query, paramName, new IdentitySetter() {
                 @Override
                 public void setIdentity(Object identity) {
                     if (identity != null && identity instanceof BigDecimal)
@@ -226,21 +302,21 @@ class SqlInputValue {
                 public String getIdentitySelect() {
                     return SqlInputValue.this.identitySelect;
                 }
-            }, inputValueType, SqlProcessContext.isFeature(SqlFeature.IGNORE_INPROPER_IN));
+            }, inputValueType, ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN));
         } else if (inOutMode == Mode.IN || inOutMode == Mode.INOUT) {
             Object o = this.inputValue;
             if (inputValue instanceof String) {
                 if (caseConversion == Code.NONE) {
-                    o = processLike(this.inputValue);
+                    o = processReplaceChars(processLike(this.inputValue));
                 } else if (caseConversion == Code.LOWER) {
-                    o = inputValue != null ? processLike(inputValue).toLowerCase() : (String) null;
+                    o = inputValue != null ? processReplaceChars(processLike(inputValue)).toLowerCase() : (String) null;
                 } else if (caseConversion == Code.UPPER) {
-                    o = inputValue != null ? processLike(inputValue).toUpperCase() : (String) null;
+                    o = inputValue != null ? processReplaceChars(processLike(inputValue)).toUpperCase() : (String) null;
                 }
             }
-            type.setParameter(query, paramName, o, inputValueType);
+            type.setParameter(ctx, query, paramName, o, inputValueType);
             if (inOutMode == Mode.INOUT) {
-                type.setParameter(query, paramName, new OutValueSetter() {
+                type.setParameter(ctx, query, paramName, new OutValueSetter() {
                     @Override
                     public void setOutValue(Object outValue) {
                         SqlInputValue.this.outValue = outValue;
@@ -248,7 +324,7 @@ class SqlInputValue {
                 }, inputValueType);
             }
         } else if (inOutMode == Mode.OUT) {
-            type.setParameter(query, paramName, new OutValueSetter() {
+            type.setParameter(ctx, query, paramName, new OutValueSetter() {
                 @Override
                 public void setOutValue(Object outValue) {
                     SqlInputValue.this.outValue = outValue;
@@ -266,7 +342,7 @@ class SqlInputValue {
      *             in the case of any problem with output values handling
      */
     void setIdentityResult(String paramName) throws SqlRuntimeException {
-        type.setResult(parentInputValue, paramName, identity);
+        type.setResult(ctx, parentInputValue, paramName, identity);
     }
 
     /**
@@ -280,11 +356,11 @@ class SqlInputValue {
     void setOutValueResult(String paramName) throws SqlRuntimeException {
         if (Character.isDigit(paramName.charAt(0)))
             return;
-        type.setResult(parentInputValue, paramName, outValue);
+        type.setResult(ctx, parentInputValue, paramName, outValue);
     }
 
     /**
-     * Sets a special treatment of dynamic input value.
+     * Sets a special treatment of a dynamic input value.
      * 
      * @param likeChar
      *            a wildcard character
@@ -300,7 +376,17 @@ class SqlInputValue {
     }
 
     /**
-     * A special treatment of dynamic input value for SQL comman <code>LIKE</code>.
+     * Sets a special treatment of a dynamic input value.
+     * 
+     * @param replaceChars
+     *            a map of characters to be replaced in input value
+     */
+    void setReplaceChars(Map<String, String> replaceChars) {
+        this.replaceChars = replaceChars;
+    }
+
+    /**
+     * A special treatment of dynamic input value for SQL command <code>LIKE</code>.
      * 
      * @param val
      *            a dynamic input value
@@ -352,15 +438,92 @@ class SqlInputValue {
     }
 
     /**
+     * A special treatment of dynamic input value for SQL command <code>LIKE</code>.
+     * 
+     * @param val
+     *            a dynamic input value
+     * @return a dynamic input value with replaced characters
+     */
+    private String processReplaceChars(Object val) {
+        String param = (String) val;
+        if (replaceChars == null || replaceChars.isEmpty())
+            return param;
+        for (Entry<String, String> entry : replaceChars.entrySet()) {
+            param = param.replace(entry.getKey(), entry.getValue());
+        }
+        return param;
+    }
+
+    /**
+     * Returns a dynamic input value.
+     * 
+     * @return a dynamic input value
+     */
+    Object getInputValue() {
+        return inputValue;
+    }
+
+    /**
+     * Returns a input attribute name.
+     * 
+     * @return a input attribute name
+     */
+    String getInputName() {
+        return inputName;
+    }
+
+    /**
+     * Returns a parent of a dynamic input value.
+     * 
+     * @return a parent of a dynamic input value
+     */
+    Object getParentInputValue() {
+        return parentInputValue;
+    }
+
+    /**
+     * Returns the type of the input value, please see {@link Type}.
+     * 
+     * @return the type of the input value, please see {@link Type}
+     */
+    public Type getValueType() {
+        return valueType;
+    }
+
+    /**
+     * Returns a database identity column name.
+     * 
+     * @return a database identity column name
+     */
+    public String getDbIdentityName() {
+        return dbIdentityName;
+    }
+
+    /**
      * For debug purposes.
      * 
      * @return a String representation for a debug output
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder("SqlInputValue:");
-        sb.append(" caseConversion=").append(caseConversion);
-        sb.append(" value='").append(inputValue).append("'");
-
-        return sb.toString();
+        StringBuilder sb = new StringBuilder("SqlInputValue[");
+        sb.append(" valueType=").append(valueType);
+        sb.append(", caseConversion=").append(caseConversion);
+        sb.append(", inOutMode=").append(inOutMode);
+        sb.append(", inputValue=").append(inputValue);
+        sb.append(", inputName=").append(inputName);
+        sb.append(", fullInputName=").append(fullInputName);
+        sb.append(", parentInputValue=").append(parentInputValue);
+        sb.append(", inputValueType=").append(inputValueType);
+        sb.append(", likeChar=").append(likeChar);
+        sb.append(", minLikeLength=").append(minLikeLength);
+        sb.append(", partialLike=").append(partialLike);
+        sb.append(", type=").append(type);
+        sb.append(", sequence=").append(sequence);
+        sb.append(", identitySelect=").append(identitySelect);
+        sb.append(", identity=").append(identity);
+        sb.append(", outValue=").append(outValue);
+        sb.append(", replaceChars=").append((replaceChars != null) ? replaceChars : null);
+        sb.append(", dbIdentityName=").append(dbIdentityName);
+        return sb.append("]").toString();
     }
 }

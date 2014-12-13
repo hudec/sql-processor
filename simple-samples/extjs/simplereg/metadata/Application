@@ -1,0 +1,50 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "version": "3.3",
+        "title": "Simple Reg.",
+        "models": [
+            "Person",
+            "PersonIdentity",
+            "Relative",
+            "Contact",
+            "Country"
+        ],
+        "stores": [
+            "People",
+            "QueryPeople",
+            "Genders",
+            "Relatives",
+            "RelativeTypes",
+            "Contacts",
+            "ContactTypes",
+            "Countries"
+        ],
+        "views": [
+            "Page"
+        ],
+        "autoCreateViewport": true,
+        "controllers": [
+            "Page"
+        ],
+        "name": "Simplereg"
+    },
+    "designerId": "application",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "version",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "title",
+            "type": "string"
+        }
+    ]
+}

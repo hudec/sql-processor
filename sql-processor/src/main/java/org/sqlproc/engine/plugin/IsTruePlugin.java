@@ -2,6 +2,7 @@ package org.sqlproc.engine.plugin;
 
 import java.util.Map;
 
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -36,6 +37,8 @@ public interface IsTruePlugin extends Modifiers {
     /**
      * Used for the evaluation of the logical expression in the conditional META SQL fragments.
      * 
+     * @param runtimeCtx
+     *            the public runtime context
      * @param attributeName
      *            the name of the input value
      * @param obj
@@ -48,10 +51,8 @@ public interface IsTruePlugin extends Modifiers {
      *            the input/output value modifier devoted to extend the processing of the input/output values
      * @param values
      *            values for a special identifier handling, for example a sequence for an identity
-     * @param features
-     *            the optional features in the statement coontext
      * @return the boolean value of the logical expression
      */
-    public boolean isTrue(String attributeName, Object obj, Object parentObj, SqlMetaType sqlMetaType,
-            String inOutModifier, Map<String, String> values, Map<String, Object> features);
+    public boolean isTrue(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
+            SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values);
 }

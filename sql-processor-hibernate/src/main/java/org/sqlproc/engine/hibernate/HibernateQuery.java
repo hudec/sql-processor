@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.IdentitySetter;
 
@@ -114,6 +115,15 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
+    public SqlQuery setFetchSize(int fetchSize) {
+        query.setFetchSize(fetchSize);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlQuery setOrdered(boolean ordered) {
         return this;
     }
@@ -122,7 +132,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list() throws SqlProcessorException {
+    public List list(SqlRuntimeContext runtime) throws SqlProcessorException {
         try {
             return query.list();
         } catch (HibernateException ex) {
@@ -134,7 +144,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique() throws SqlProcessorException {
+    public Object unique(SqlRuntimeContext runtime) throws SqlProcessorException {
         try {
             return query.uniqueResult();
         } catch (HibernateException ex) {
@@ -146,7 +156,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int update() throws SqlProcessorException {
+    public int update(SqlRuntimeContext runtime) throws SqlProcessorException {
         if (isSetJDBCIdentity()) {
             throw new UnsupportedOperationException(
                     "JDBC identity select (IDSEL_JDBC) not supported in Hibernate stack.");
@@ -268,7 +278,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList() throws SqlProcessorException {
+    public List callList(SqlRuntimeContext runtime) throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
@@ -276,7 +286,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique() throws SqlProcessorException {
+    public Object callUnique(SqlRuntimeContext runtime) throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
@@ -284,7 +294,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int callUpdate() throws SqlProcessorException {
+    public int callUpdate(SqlRuntimeContext runtime) throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 

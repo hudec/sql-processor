@@ -27,6 +27,9 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
   protected SqlEngineFactory sqlEngineFactory;
   protected SqlSessionFactory sqlSessionFactory;
     	
+  public CreditCardDaoImpl() {
+  }
+    	
   public CreditCardDaoImpl(SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
@@ -48,15 +51,12 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
     }
     return (count > 0) ? creditCard : null;
   }
-  
   public CreditCard insert(CreditCard creditCard, SqlControl sqlControl) {
   	return insert(sqlSessionFactory.getSqlSession(), creditCard, sqlControl);
   }
-  
   public CreditCard insert(SqlSession sqlSession, CreditCard creditCard) {
     return insert(sqlSession, creditCard, null);
   }
-  
   public CreditCard insert(CreditCard creditCard) {
     return insert(creditCard, null);
   }
@@ -73,15 +73,12 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
     }
     return creditCardGot;
   }
-  	
   public CreditCard get(CreditCard creditCard, SqlControl sqlControl) {
   	return get(sqlSessionFactory.getSqlSession(), creditCard, sqlControl);
   }
-  
   public CreditCard get(SqlSession sqlSession, CreditCard creditCard) {
     return get(sqlSession, creditCard, null);
   }
-  
   public CreditCard get(CreditCard creditCard) {
     return get(creditCard, null);
   }
@@ -100,15 +97,12 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
     }
     return count;
   }
-  
   public int update(CreditCard creditCard, SqlControl sqlControl) {
   	return update(sqlSessionFactory.getSqlSession(), creditCard, sqlControl);
   }
-  
   public int update(SqlSession sqlSession, CreditCard creditCard) {
     return update(sqlSession, creditCard, null);
   }
-  
   public int update(CreditCard creditCard) {
     return update(creditCard, null);
   }
@@ -127,15 +121,12 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
     }
     return count;
   }
-  
   public int delete(CreditCard creditCard, SqlControl sqlControl) {
   	return delete(sqlSessionFactory.getSqlSession(), creditCard, sqlControl);
   }
-  
   public int delete(SqlSession sqlSession, CreditCard creditCard) {
     return delete(sqlSession, creditCard, null);
   }
-  
   public int delete(CreditCard creditCard) {
     return delete(creditCard, null);
   }
@@ -152,15 +143,12 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
     }
     return creditCardList;
   }
-  
   public List<CreditCard> list(CreditCard creditCard, SqlControl sqlControl) {
   	return list(sqlSessionFactory.getSqlSession(), creditCard, sqlControl);
   }
-  
-  public List<CreditCard> list(SqlSession sqlSession, CreditCard creditCard) {
+      public List<CreditCard> list(SqlSession sqlSession, CreditCard creditCard) {
     return list(sqlSession, creditCard, null);
   }
-  
   public List<CreditCard> list(CreditCard creditCard) {
     return list(creditCard, null);
   }
@@ -177,15 +165,12 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements BaseDao, CreditCar
     }
     return count;
   }
-  
   public int count(CreditCard creditCard, SqlControl sqlControl) {
   	return count(sqlSessionFactory.getSqlSession(), creditCard, sqlControl);
   }
-  
-  public int count(SqlSession sqlSession, CreditCard creditCard) {
+      public int count(SqlSession sqlSession, CreditCard creditCard) {
     return count(sqlSession, creditCard, null);
   }
-  
   public int count(CreditCard creditCard) {
     return count(creditCard, null);
   }

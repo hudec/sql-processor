@@ -1,6 +1,7 @@
 package org.sqlproc.sample.simple.model;
   
 import java.sql.Timestamp;
+import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.MethodUtils;
 
-public class Payment implements Serializable {
+public class Payment extends BaseModelImpl implements Serializable {
   
   private static final long serialVersionUID = 1L;
   public static final int ORDER_BY_ID = 1;
@@ -23,60 +24,60 @@ public class Payment implements Serializable {
   }
   
   private Long id;
-    
+  
   public Long getId() {
     return id;
   }
-    
+  
   public void setId(Long id) {
     this.id = id;
   }
-    
+  
   public Payment _setId(Long id) {
     this.id = id;
     return this;
   }
   
   private BillingDetails billingDetails;
-    
+  
   public BillingDetails getBillingDetails() {
     return billingDetails;
   }
-    
+  
   public void setBillingDetails(BillingDetails billingDetails) {
     this.billingDetails = billingDetails;
   }
-    
+  
   public Payment _setBillingDetails(BillingDetails billingDetails) {
     this.billingDetails = billingDetails;
     return this;
   }
   
   private Timestamp paid;
-    
+  
   public Timestamp getPaid() {
     return paid;
   }
-    
+  
   public void setPaid(Timestamp paid) {
     this.paid = paid;
   }
-    
+  
   public Payment _setPaid(Timestamp paid) {
     this.paid = paid;
     return this;
   }
   
   private Integer version = 0;
-    
+  
   public Integer getVersion() {
     return version;
   }
-    
+  
   public void setVersion(Integer version) {
     this.version = version;
   }
-    
+  
   public Payment _setVersion(Integer version) {
     this.version = version;
     return this;
@@ -91,7 +92,7 @@ public class Payment implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     Payment other = (Payment) obj;
-    if (!id.equals(other.id))
+    if (id == null || !id.equals(other.id))
       return false;
     return true;
   }  
@@ -100,7 +101,7 @@ public class Payment implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id.hashCode();
+    result = prime * result + ((id != null) ? id.hashCode() : 0);
     return result;
   }  
   
@@ -117,11 +118,21 @@ public class Payment implements Serializable {
       initAssociations.add(association.name());
   }
   
+  public Payment  _setInit(Association... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(Association... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (Association association : associations)
       initAssociations.remove(association.name());
+  }
+  
+  public Payment _clearInit(Association... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public void setInit(String... associations) {
@@ -131,11 +142,21 @@ public class Payment implements Serializable {
       initAssociations.add(association);
   }
   
+  public Payment _setInit(String... associations) {
+    setInit(associations);
+    return this;
+  }
+  
   public void clearInit(String... associations) {
     if (associations == null)
       throw new IllegalArgumentException();
     for (String association : associations)
       initAssociations.remove(association);
+  }
+  
+  public Payment _clearInit(String... associations) {
+    clearInit(associations);
+    return this;
   }
   
   public Boolean toInit(String association) {
@@ -160,11 +181,21 @@ public class Payment implements Serializable {
       nullValues.add(attribute.name());
   }
   
+  public Payment _setNull(Attribute... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(Attribute... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
       nullValues.remove(attribute.name());
+  }
+  
+  public Payment _clearNull(Attribute... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public void setNull(String... attributes) {
@@ -174,11 +205,21 @@ public class Payment implements Serializable {
       nullValues.add(attribute);
   }
   
+  public Payment _setNull(String... attributes) {
+    setNull(attributes);
+    return this;
+  }
+  
   public void clearNull(String... attributes) {
     if (attributes == null)
       throw new IllegalArgumentException();
     for (String attribute : attributes)
       nullValues.remove(attribute);
+  }
+  
+  public Payment _clearNull(String... attributes) {
+    clearNull(attributes);
+    return this;
   }
   
   public Boolean isNull(String attrName) {
@@ -229,6 +270,6 @@ public class Payment implements Serializable {
   }
   
   public String toStringFull() {
-    return "Payment [id=" + id + ", paid=" + paid + ", billingDetails=" + billingDetails + ", version=" + version + "]";
+    return "Payment [id=" + id + ", billingDetails=" + billingDetails + ", paid=" + paid + ", version=" + version + "]";
   }
 }

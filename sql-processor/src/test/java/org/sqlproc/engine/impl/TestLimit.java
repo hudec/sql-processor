@@ -49,8 +49,8 @@ public class TestLimit extends TestDatabase {
 
     @Test
     public void testLimitMinMax() {
-        if ("mssql".equalsIgnoreCase(dbType))
-            return;
+        // if ("mssql".equalsIgnoreCase(dbType))
+        // return;
 
         SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_2");
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

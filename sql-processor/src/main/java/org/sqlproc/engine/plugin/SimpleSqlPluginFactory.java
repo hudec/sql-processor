@@ -78,6 +78,11 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     private SqlIdentityPlugin sqlIdentityPlugin;
 
     /**
+     * The SQL Processor plugin devoted to possible SQL query/command modification just before it is executed.
+     */
+    private SqlExecutionPlugin sqlExecutionPlugin;
+
+    /**
      * The private constructor.
      */
     private SimpleSqlPluginFactory() {
@@ -142,6 +147,14 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlExecutionPlugin getSqlExecutionPlugin() {
+        return (sqlExecutionPlugin != null) ? sqlExecutionPlugin : defaultSqlPlugins;
+    }
+
+    /**
      * Sets the SQL Processor plugin devoted to evaluate the boolean value of the logical expression.
      * 
      * @param isTruePlugin
@@ -200,4 +213,15 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     public void setSqlIdentityPlugin(SqlIdentityPlugin sqlIdentityPlugin) {
         this.sqlIdentityPlugin = sqlIdentityPlugin;
     }
+
+    /**
+     * Sets the SQL Processor plugin devoted to possible SQL query/command modification just before it is executed
+     * 
+     * @param sqlExecutionPlugin
+     *            the SQL Processor plugin devoted to possible SQL query/command modification just before it is executed
+     */
+    public void setSqlExecutionPlugin(SqlExecutionPlugin sqlExecutionPlugin) {
+        this.sqlExecutionPlugin = sqlExecutionPlugin;
+    }
+
 }

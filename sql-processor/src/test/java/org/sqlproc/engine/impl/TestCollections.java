@@ -52,6 +52,12 @@ public class TestCollections extends TestDatabase {
 
         List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
         assertEquals(0, list.size());
+
+        try {
+            list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            fail();
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     @Test
