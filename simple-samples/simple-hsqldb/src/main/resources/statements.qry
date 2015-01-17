@@ -2,12 +2,12 @@ SEQ_SIMPLE_SEQUENCE(OPT)=call next value for SIMPLE_SEQUENCE;
 IDSEL_COMMON(OPT)=call identity();
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
-  insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER, %X_NOTE)
-  {= values (:id(idgen=SIMPLE_SEQUENCE,id=ID), :person.id, :type, :address, :phoneNumber, :xNote) }
+  insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER, %GENDER2, %X_NOTE)
+  {= values (:id(idgen=SIMPLE_SEQUENCE,id=ID), :person.id, :type, :address, :phoneNumber, :gender2, :xNote) }
 ;
 
 GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.X_NOTE @xNote
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.GENDER2 @gender2, %c.X_NOTE @xNote
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
@@ -17,6 +17,7 @@ GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
     {& %c.TYPE ::= :type }
     {& %c.ADDRESS ::= :address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
+    {& %c.GENDER2 ::= :gender2 }
     {& %c.X_NOTE ::= :xNote }
   }
 ;
@@ -28,6 +29,7 @@ UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
     { ,%TYPE = :type(call=isDef) }
     { ,%ADDRESS = :address(call=isDef) }
     { ,%PHONE_NUMBER = :phoneNumber(call=isDef) }
+    { ,%GENDER2 = :gender2(call=isDef) }
     { ,%X_NOTE = :xNote(call=isDef) }
   }
   {= where
@@ -43,7 +45,7 @@ DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
 ;
 
 SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.X_NOTE @xNote
+  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.GENDER2 @gender2, %c.X_NOTE @xNote
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
   from %%CONTACT c
   {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
@@ -53,6 +55,7 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
     {& %c.TYPE ::= :type }
     {& %c.ADDRESS ::= :address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
+    {& %c.GENDER2 ::= :gender2 }
     {& %c.X_NOTE ::= :xNote }
   }
   {#1 order by %c.ID }
@@ -66,7 +69,7 @@ INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
 
 GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.X_NOTE @contacts.xNote }
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.GENDER2 @contacts.gender2, %c.X_NOTE @contacts.xNote }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where
@@ -102,7 +105,7 @@ DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
 
 SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.X_NOTE @contacts.xNote }
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.GENDER2 @contacts.gender2, %c.X_NOTE @contacts.xNote }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
   {= where

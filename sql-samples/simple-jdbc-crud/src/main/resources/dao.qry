@@ -28,32 +28,33 @@ package org.sqlproc.sample.simple.dao {
     scaffold
   }
 
+  #Discriminator(billingDetails,"BA"=::BankAccount,"CC"=::CreditCard)
   final dao PaymentDao :: Payment {
     scaffold
-    billingDetails ::: BA ::BankAccount CC ::CreditCard
   }
 
+  #Discriminator(work,"movie"=::Movie,"book"=::NewBook)
   final dao PerformerDao :: Performer {
     scaffold
-    work ::: movie ::Movie book ::NewBook
   }
 
+  #Discriminator(library,"movie"=::Movie,"book"=::NewBook)
+  #Pojo(::Person)
   final dao PersonDao :: Person {
     scaffold
-    library ::: movie ::Movie book ::NewBook
   }
 
   final dao PersonLibraryDao :: PersonLibrary {
     scaffold
   }
 
+  #Discriminator(media,"movie"=::Movie,"book"=::NewBook)
   final dao PhysicalMediaDao :: PhysicalMedia {
     scaffold
-    media ::: movie ::Movie book ::NewBook
   }
 
+  #Discriminator(billingDetails,"BA"=::BankAccount,"CC"=::CreditCard)
   final dao SubscriberDao :: Subscriber {
     scaffold
-    billingDetails ::: BA ::BankAccount CC ::CreditCard
   }
 }

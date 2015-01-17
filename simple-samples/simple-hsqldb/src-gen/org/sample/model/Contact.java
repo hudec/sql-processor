@@ -16,6 +16,7 @@ public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final int ORDER_BY_ID = 1;
 	public static final int ORDER_BY_PERSON = 2;
+	public static final int ORDER_BY_ID_TYPE = 3;
 	
 	public Contact() {
 	}
@@ -103,6 +104,21 @@ public class Contact implements Serializable {
 
 	public Contact _setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+		return this;
+	}
+
+	private Gender gender2;
+
+	public Gender getGender2() {
+		return gender2;
+	}
+
+	public void setGender2(Gender gender2) {
+		this.gender2 = gender2;
+	}
+
+	public Contact _setGender2(Gender gender2) {
+		this.gender2 = gender2;
 		return this;
 	}
 
@@ -209,7 +225,7 @@ public class Contact implements Serializable {
 	}
 
 	public enum Attribute {
-		xNote, phoneNumber
+		xNote, phoneNumber, gender2
 	}
 
 	private Set<String> nullValues = new HashSet<String>();
@@ -306,15 +322,15 @@ public class Contact implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+		return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + ", gender2=" + gender2 + "]";
 	}
 
 	public String toStringFull() {
-		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + "]";
+		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", gender2=" + gender2 + ", xNote=" + xNote + "]";
 	}
 
 	public enum OpAttribute {
-		id, person, type, address, phoneNumber, xNote
+		id, person, type, address, phoneNumber, gender2, xNote
 	}
 
 	private Map<String, String> operators = new HashMap<String, String>();

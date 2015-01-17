@@ -23,7 +23,7 @@ public class Person implements Serializable {
 	public Person() {
 	}
 		
-	public Person(String firstName, String lastName, PersonGender gender) {
+	public Person(String firstName, String lastName, Gender gender) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -94,17 +94,17 @@ public class Person implements Serializable {
 	}
 
 	@NotNull
-	private PersonGender gender;
+	private Gender gender;
 
-	public PersonGender getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(PersonGender gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
-	public Person _setGender(PersonGender gender) {
+	public Person _setGender(Gender gender) {
 		this.gender = gender;
 		return this;
 	}
