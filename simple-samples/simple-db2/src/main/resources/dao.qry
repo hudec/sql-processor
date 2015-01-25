@@ -16,7 +16,7 @@ package org.sample.dao {
   dao NewPersonRetRsDao {
   }
 
-  callSelectFunction :java.sql.Timestamp,AnHourBefore)
+  #FunctionQuery(:java.sql.Timestamp,AnHourBefore)
   dao AnHourBeforeDao {
   }
 }

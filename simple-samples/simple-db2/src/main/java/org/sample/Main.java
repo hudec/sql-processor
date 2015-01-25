@@ -34,7 +34,7 @@ import org.sqlproc.engine.util.DDLLoader;
 public class Main {
 
     private static final Driver JDBC_DRIVER = new com.ibm.db2.jcc.DB2Driver();
-    private static final String DB_URL = "jdbc:db2://localhost:50001/simple:deferPrepares=0;progressiveStreaming=2;";
+    private static final String DB_URL = "jdbc:db2://db2:50001/simple:deferPrepares=0;progressiveStreaming=2;";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
     private static final String DB_TYPE = SqlFeature.DB2;
