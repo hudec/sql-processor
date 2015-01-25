@@ -26,87 +26,102 @@ public class NewPerson implements Serializable {
 		return this;
 	}
 
-	private Date dateOfBirth;
+	private Date birthdate;
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+	public Date getBirthdate() {
+		return birthdate;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
 
-	public NewPerson _setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public NewPerson _setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 		return this;
 	}
 
-	private String ssn;
+	private String ssnNumber;
 
-	public String getSsn() {
-		return ssn;
+	public String getSsnNumber() {
+		return ssnNumber;
 	}
 
-	public void setSsn(String ssn) {
-		this.ssn = ssn;
+	public void setSsnNumber(String ssnNumber) {
+		this.ssnNumber = ssnNumber;
 	}
 
-	public NewPerson _setSsn(String ssn) {
-		this.ssn = ssn;
+	public NewPerson _setSsnNumber(String ssnNumber) {
+		this.ssnNumber = ssnNumber;
 		return this;
 	}
 
-	private String firstName;
+	private String ssnCountry;
 
-	public String getFirstName() {
-		return firstName;
+	public String getSsnCountry() {
+		return ssnCountry;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setSsnCountry(String ssnCountry) {
+		this.ssnCountry = ssnCountry;
 	}
 
-	public NewPerson _setFirstName(String firstName) {
-		this.firstName = firstName;
+	public NewPerson _setSsnCountry(String ssnCountry) {
+		this.ssnCountry = ssnCountry;
 		return this;
 	}
 
-	private String lastName;
+	private String nameFirst;
 
-	public String getLastName() {
-		return lastName;
+	public String getNameFirst() {
+		return nameFirst;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setNameFirst(String nameFirst) {
+		this.nameFirst = nameFirst;
 	}
 
-	public NewPerson _setLastName(String lastName) {
-		this.lastName = lastName;
+	public NewPerson _setNameFirst(String nameFirst) {
+		this.nameFirst = nameFirst;
 		return this;
 	}
 
-	private String gender;
+	private String nameLast;
 
-	public String getGender() {
-		return gender;
+	public String getNameLast() {
+		return nameLast;
 	}
 
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setNameLast(String nameLast) {
+		this.nameLast = nameLast;
 	}
 
-	public NewPerson _setGender(String gender) {
-		this.gender = gender;
+	public NewPerson _setNameLast(String nameLast) {
+		this.nameLast = nameLast;
+		return this;
+	}
+
+	private String sex;
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public NewPerson _setSex(String sex) {
+		this.sex = sex;
 		return this;
 	}
 
 	@Override
 	public String toString() {
-		return "NewPerson [dateOfBirth=" + dateOfBirth + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + ", newid=" + newid + "]";
+		return "NewPerson [sex=" + sex + ", nameLast=" + nameLast + ", nameFirst=" + nameFirst + ", ssnNumber=" + ssnNumber + ", birthdate=" + birthdate + ", ssnCountry=" + ssnCountry + ", newid=" + newid + "]";
 	}
 
 	public String toStringFull() {
-		return "NewPerson [newid=" + newid + ", dateOfBirth=" + dateOfBirth + ", ssn=" + ssn + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + "]";
+		return "NewPerson [newid=" + newid + ", birthdate=" + birthdate + ", ssnNumber=" + ssnNumber + ", ssnCountry=" + ssnCountry + ", nameFirst=" + nameFirst + ", nameLast=" + nameLast + ", sex=" + sex + "]";
 	}
 }

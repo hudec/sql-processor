@@ -1,10 +1,9 @@
 package org.sample.model;
 	
+import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
@@ -16,15 +15,18 @@ public class Person implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	public static final int ORDER_BY_ID = 1;
-	public static final int ORDER_BY_LAST_NAME = 2;
 	
 	public Person() {
 	}
 		
-	public Person(String firstName, String lastName, PersonGender gender) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.gender = gender;
+	public Person(Date birthdate, Long version, String ssnNumber, String ssnCountry, String nameFirst, String nameLast, String sex) {
+		this.birthdate = birthdate;
+		this.version = version;
+		this.ssnNumber = ssnNumber;
+		this.ssnCountry = ssnCountry;
+		this.nameFirst = nameFirst;
+		this.nameLast = nameLast;
+		this.sex = sex;
 	}
 
 	private Long id;
@@ -42,120 +44,203 @@ public class Person implements Serializable {
 		return this;
 	}
 
-	private String firstName;
+	private Date birthdate;
 
-	public String getFirstName() {
-		return firstName;
+	public Date getBirthdate() {
+		return birthdate;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 	}
 
-	public Person _setFirstName(String firstName) {
-		this.firstName = firstName;
+	public Person _setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
 		return this;
 	}
 
-	private String lastName;
+	private Timestamp lastupdated;
 
-	public String getLastName() {
-		return lastName;
+	public Timestamp getLastupdated() {
+		return lastupdated;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastupdated(Timestamp lastupdated) {
+		this.lastupdated = lastupdated;
 	}
 
-	public Person _setLastName(String lastName) {
-		this.lastName = lastName;
+	public Person _setLastupdated(Timestamp lastupdated) {
+		this.lastupdated = lastupdated;
 		return this;
 	}
 
-	private Date dateOfBirth;
+	private String lastupdatedby;
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+	public String getLastupdatedby() {
+		return lastupdatedby;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setLastupdatedby(String lastupdatedby) {
+		this.lastupdatedby = lastupdatedby;
 	}
 
-	public Person _setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public Person _setLastupdatedby(String lastupdatedby) {
+		this.lastupdatedby = lastupdatedby;
 		return this;
 	}
 
-	private PersonGender gender;
+	private Timestamp createddate;
 
-	public PersonGender getGender() {
-		return gender;
+	public Timestamp getCreateddate() {
+		return createddate;
 	}
 
-	public void setGender(PersonGender gender) {
-		this.gender = gender;
+	public void setCreateddate(Timestamp createddate) {
+		this.createddate = createddate;
 	}
 
-	public Person _setGender(PersonGender gender) {
-		this.gender = gender;
+	public Person _setCreateddate(Timestamp createddate) {
+		this.createddate = createddate;
 		return this;
 	}
 
-	private String ssn;
+	private String createdby;
 
-	public String getSsn() {
-		return ssn;
+	public String getCreatedby() {
+		return createdby;
 	}
 
-	public void setSsn(String ssn) {
-		this.ssn = ssn;
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
 	}
 
-	public Person _setSsn(String ssn) {
-		this.ssn = ssn;
+	public Person _setCreatedby(String createdby) {
+		this.createdby = createdby;
 		return this;
 	}
 
-	private List<Contact> contacts = new ArrayList<Contact>();
+	private Long version;
 
-	public List<Contact> getContacts() {
-		return contacts;
+	public Long getVersion() {
+		return version;
 	}
 
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
-	public Person _setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
+	public Person _setVersion(Long version) {
+		this.version = version;
 		return this;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (id == null || !id.equals(other.id))
-		return false;
-		return true;
-	}	
+	private Contact contact;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id != null) ? id.hashCode() : 0);
-		return result;
-	}	
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	public Person _setContact(Contact contact) {
+		this.contact = contact;
+		return this;
+	}
+
+	private String ssnNumber;
+
+	public String getSsnNumber() {
+		return ssnNumber;
+	}
+
+	public void setSsnNumber(String ssnNumber) {
+		this.ssnNumber = ssnNumber;
+	}
+
+	public Person _setSsnNumber(String ssnNumber) {
+		this.ssnNumber = ssnNumber;
+		return this;
+	}
+
+	private String ssnCountry;
+
+	public String getSsnCountry() {
+		return ssnCountry;
+	}
+
+	public void setSsnCountry(String ssnCountry) {
+		this.ssnCountry = ssnCountry;
+	}
+
+	public Person _setSsnCountry(String ssnCountry) {
+		this.ssnCountry = ssnCountry;
+		return this;
+	}
+
+	private String nameFirst;
+
+	public String getNameFirst() {
+		return nameFirst;
+	}
+
+	public void setNameFirst(String nameFirst) {
+		this.nameFirst = nameFirst;
+	}
+
+	public Person _setNameFirst(String nameFirst) {
+		this.nameFirst = nameFirst;
+		return this;
+	}
+
+	private String nameLast;
+
+	public String getNameLast() {
+		return nameLast;
+	}
+
+	public void setNameLast(String nameLast) {
+		this.nameLast = nameLast;
+	}
+
+	public Person _setNameLast(String nameLast) {
+		this.nameLast = nameLast;
+		return this;
+	}
+
+	private String sex;
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public Person _setSex(String sex) {
+		this.sex = sex;
+		return this;
+	}
+
+	private Integer clothesSize;
+
+	public Integer getClothesSize() {
+		return clothesSize;
+	}
+
+	public void setClothesSize(Integer clothesSize) {
+		this.clothesSize = clothesSize;
+	}
+
+	public Person _setClothesSize(Integer clothesSize) {
+		this.clothesSize = clothesSize;
+		return this;
+	}
 
 	public enum Association {
-		contacts
+		contact
 	}
 
 	private Set<String> initAssociations = new HashSet<String>();
@@ -219,7 +304,7 @@ public class Person implements Serializable {
 	}
 
 	public enum Attribute {
-		dateOfBirth, ssn
+		lastupdated, lastupdatedby, createddate, createdby, contact, clothesSize
 	}
 
 	private Set<String> nullValues = new HashSet<String>();
@@ -315,16 +400,38 @@ public class Person implements Serializable {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (id == null || !id.equals(other.id))
+		return false;
+		return true;
+	}	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id != null) ? id.hashCode() : 0);
+		return result;
+	}	
+
+	@Override
 	public String toString() {
-		return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
+		return "Person [sex=" + sex + ", nameFirst=" + nameFirst + ", lastupdated=" + lastupdated + ", ssnCountry=" + ssnCountry + ", createddate=" + createddate + ", createdby=" + createdby + ", lastupdatedby=" + lastupdatedby + ", version=" + version + ", clothesSize=" + clothesSize + ", id=" + id + ", nameLast=" + nameLast + ", birthdate=" + birthdate + ", ssnNumber=" + ssnNumber + "]";
 	}
 
 	public String toStringFull() {
-		return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", contacts=" + contacts + "]";
+		return "Person [id=" + id + ", birthdate=" + birthdate + ", lastupdated=" + lastupdated + ", lastupdatedby=" + lastupdatedby + ", createddate=" + createddate + ", createdby=" + createdby + ", version=" + version + ", contact=" + contact + ", ssnNumber=" + ssnNumber + ", ssnCountry=" + ssnCountry + ", nameFirst=" + nameFirst + ", nameLast=" + nameLast + ", sex=" + sex + ", clothesSize=" + clothesSize + "]";
 	}
 
 	public enum OpAttribute {
-		id, firstName, lastName, dateOfBirth, gender, ssn, contacts
+		id, birthdate, lastupdated, lastupdatedby, createddate, createdby, version, contact, ssnNumber, ssnCountry, nameFirst, nameLast, sex, clothesSize
 	}
 
 	private Map<String, String> operators = new HashMap<String, String>();

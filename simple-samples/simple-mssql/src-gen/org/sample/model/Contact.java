@@ -1,6 +1,10 @@
 package org.sample.model;
+	
+import java.sql.Timestamp;
+import java.util.List;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.InvocationTargetException;
@@ -12,73 +16,208 @@ public class Contact implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	public static final int ORDER_BY_ID = 1;
+	public static final int ORDER_BY_UUID = 2;
 	
 	public Contact() {
 	}
 		
-	public Contact(Person person, ContactType type, String address) {
-		this.person = person;
-		this.type = type;
-		this.address = address;
+	public Contact(String uuid, Long version) {
+		this.uuid = uuid;
+		this.version = version;
 	}
 
-	private Integer id;
+	private Long id;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Contact _setId(Integer id) {
+	public Contact _setId(Long id) {
 		this.id = id;
 		return this;
 	}
 
-	private Person person;
+	private String adress;
 
-	public Person getPerson() {
-		return person;
+	public String getAdress() {
+		return adress;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setAdress(String adress) {
+		this.adress = adress;
 	}
 
-	public Contact _setPerson(Person person) {
-		this.person = person;
+	public Contact _setAdress(String adress) {
+		this.adress = adress;
 		return this;
 	}
 
-	private ContactType type;
+	private String city;
 
-	public ContactType getType() {
-		return type;
+	public String getCity() {
+		return city;
 	}
 
-	public void setType(ContactType type) {
-		this.type = type;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public Contact _setType(ContactType type) {
-		this.type = type;
+	public Contact _setCity(String city) {
+		this.city = city;
 		return this;
 	}
 
-	private String address;
+	private String zip;
 
-	public String getAddress() {
-		return address;
+	public String getZip() {
+		return zip;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 
-	public Contact _setAddress(String address) {
-		this.address = address;
+	public Contact _setZip(String zip) {
+		this.zip = zip;
+		return this;
+	}
+
+	private String state;
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Contact _setState(String state) {
+		this.state = state;
+		return this;
+	}
+
+	private String uuid;
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public Contact _setUuid(String uuid) {
+		this.uuid = uuid;
+		return this;
+	}
+
+	private Timestamp lastupdated;
+
+	public Timestamp getLastupdated() {
+		return lastupdated;
+	}
+
+	public void setLastupdated(Timestamp lastupdated) {
+		this.lastupdated = lastupdated;
+	}
+
+	public Contact _setLastupdated(Timestamp lastupdated) {
+		this.lastupdated = lastupdated;
+		return this;
+	}
+
+	private String lastupdatedby;
+
+	public String getLastupdatedby() {
+		return lastupdatedby;
+	}
+
+	public void setLastupdatedby(String lastupdatedby) {
+		this.lastupdatedby = lastupdatedby;
+	}
+
+	public Contact _setLastupdatedby(String lastupdatedby) {
+		this.lastupdatedby = lastupdatedby;
+		return this;
+	}
+
+	private Timestamp createddate;
+
+	public Timestamp getCreateddate() {
+		return createddate;
+	}
+
+	public void setCreateddate(Timestamp createddate) {
+		this.createddate = createddate;
+	}
+
+	public Contact _setCreateddate(Timestamp createddate) {
+		this.createddate = createddate;
+		return this;
+	}
+
+	private String createdby;
+
+	public String getCreatedby() {
+		return createdby;
+	}
+
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
+
+	public Contact _setCreatedby(String createdby) {
+		this.createdby = createdby;
+		return this;
+	}
+
+	private Long version;
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	public Contact _setVersion(Long version) {
+		this.version = version;
+		return this;
+	}
+
+	private String personnameFirst;
+
+	public String getPersonnameFirst() {
+		return personnameFirst;
+	}
+
+	public void setPersonnameFirst(String personnameFirst) {
+		this.personnameFirst = personnameFirst;
+	}
+
+	public Contact _setPersonnameFirst(String personnameFirst) {
+		this.personnameFirst = personnameFirst;
+		return this;
+	}
+
+	private String personnameLast;
+
+	public String getPersonnameLast() {
+		return personnameLast;
+	}
+
+	public void setPersonnameLast(String personnameLast) {
+		this.personnameLast = personnameLast;
+	}
+
+	public Contact _setPersonnameLast(String personnameLast) {
+		this.personnameLast = personnameLast;
 		return this;
 	}
 
@@ -97,30 +236,23 @@ public class Contact implements Serializable {
 		return this;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contact other = (Contact) obj;
-		if (id == null || !id.equals(other.id))
-		return false;
-		return true;
-	}	
+	private List<Person> persons = new ArrayList<Person>();
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id != null) ? id.hashCode() : 0);
-		return result;
-	}	
+	public List<Person> getPersons() {
+		return persons;
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
+	}
+
+	public Contact _setPersons(List<Person> persons) {
+		this.persons = persons;
+		return this;
+	}
 
 	public enum Association {
-		person
+		persons
 	}
 
 	private Set<String> initAssociations = new HashSet<String>();
@@ -184,7 +316,7 @@ public class Contact implements Serializable {
 	}
 
 	public enum Attribute {
-		phoneNumber
+		adress, city, zip, state, lastupdated, lastupdatedby, createddate, createdby, personnameFirst, personnameLast, phoneNumber
 	}
 
 	private Set<String> nullValues = new HashSet<String>();
@@ -280,16 +412,38 @@ public class Contact implements Serializable {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		if (id == null || !id.equals(other.id))
+		return false;
+		return true;
+	}	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id != null) ? id.hashCode() : 0);
+		return result;
+	}	
+
+	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+		return "Contact [zip=" + zip + ", personnameLast=" + personnameLast + ", state=" + state + ", lastupdated=" + lastupdated + ", createddate=" + createddate + ", createdby=" + createdby + ", lastupdatedby=" + lastupdatedby + ", personnameFirst=" + personnameFirst + ", city=" + city + ", version=" + version + ", id=" + id + ", adress=" + adress + ", phoneNumber=" + phoneNumber + ", uuid=" + uuid + "]";
 	}
 
 	public String toStringFull() {
-		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
+		return "Contact [id=" + id + ", adress=" + adress + ", city=" + city + ", zip=" + zip + ", state=" + state + ", uuid=" + uuid + ", lastupdated=" + lastupdated + ", lastupdatedby=" + lastupdatedby + ", createddate=" + createddate + ", createdby=" + createdby + ", version=" + version + ", personnameFirst=" + personnameFirst + ", personnameLast=" + personnameLast + ", phoneNumber=" + phoneNumber + ", persons=" + persons + "]";
 	}
 
 	public enum OpAttribute {
-		id, person, type, address, phoneNumber
+		id, adress, city, zip, state, uuid, lastupdated, lastupdatedby, createddate, createdby, version, personnameFirst, personnameLast, phoneNumber, persons
 	}
 
 	private Map<String, String> operators = new HashMap<String, String>();
