@@ -1,6 +1,7 @@
 package org.sample.dao;
 	
 import java.sql.Timestamp;
+import org.sample.Dao;
 import org.sample.model.AnHourBefore;
 
 import java.util.HashMap;
@@ -18,31 +19,30 @@ import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 
-public class FunctionsDao {
+public class AnHourBeforeDao {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected SqlEngineFactory sqlEngineFactory;
 	protected SqlSessionFactory sqlSessionFactory;
 			
-	public FunctionsDao() {
+	public AnHourBeforeDao() {
 	}
 			
-	public FunctionsDao(SqlEngineFactory sqlEngineFactory) {
+	public AnHourBeforeDao(SqlEngineFactory sqlEngineFactory) {
 		this.sqlEngineFactory = sqlEngineFactory;
 	}
 			
-	public FunctionsDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
+	public AnHourBeforeDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
 		this.sqlEngineFactory = sqlEngineFactory;
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
 	
-
 	public Timestamp anHourBefore(SqlSession sqlSession, AnHourBefore anHourBefore, SqlControl sqlControl) {
 		if (logger.isTraceEnabled()) {
 			logger.trace("anHourBefore: " + anHourBefore + " " + sqlControl);
 		}
-		SqlProcedureEngine sqlFunAnHourBefore = sqlEngineFactory.getCheckedProcedureEngine("FUN_AN_HOUR_BEFORE");
-		Object result = sqlFunAnHourBefore.callFunction(sqlSession, anHourBefore, sqlControl);
+		SqlProcedureEngine sqlFunAnHourBeforeDao = sqlEngineFactory.getCheckedProcedureEngine("FUN_AN_HOUR_BEFORE");
+		Object result = sqlFunAnHourBeforeDao.callFunction(sqlSession, anHourBefore, sqlControl);
 		if (logger.isTraceEnabled()) {
 			logger.trace("anHourBefore result: " + result);
 		}

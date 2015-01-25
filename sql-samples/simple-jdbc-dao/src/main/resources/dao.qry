@@ -1,63 +1,76 @@
+#Implementation(impl)
 package org.sqlproc.sample.simple.dao {
 
-  implements org.sqlproc.sample.simple.dao.BaseDao
-  extends org.sqlproc.sample.simple.dao.impl.BaseDaoImpl
-  implementation-package impl
+  implements :org.sqlproc.sample.simple.dao.BaseDao
+  extends :org.sqlproc.sample.simple.dao.impl.BaseDaoImpl
 
-  final dao BankAccountDao :: BankAccount {
-    scaffold
+  #CRUD(BankAccount)
+  #Query(BankAccount)
+  final dao BankAccountDao {
   }
 
-  final dao NewBookDao :: NewBook {
-    scaffold
+  #CRUD(NewBook)
+  #Query(NewBook)
+  final dao NewBookDao {
   }
 
-  final dao ContactDao :: Contact {
-    scaffold
+  #CRUD(Contact)
+  #Query(Contact)
+  final dao ContactDao {
   }
 
-  final dao CreditCardDao :: CreditCard {
-    scaffold
+  #CRUD(CreditCard)
+  #Query(CreditCard)
+  final dao CreditCardDao {
   }
 
-  final dao LibraryDao :: Library {
-    scaffold
+  #CRUD(Library)
+  #Query(Library)
+  final dao LibraryDao {
   }
 
-  final dao MediaDao :: Media {
-    scaffold
+  #CRUD(Media)
+  #Query(Media)
+  final dao MediaDao {
   }
 
-  final dao MovieDao :: Movie {
-    scaffold
+  #CRUD(Movie)
+  #Query(Movie)
+  final dao MovieDao {
   }
 
-  final dao PaymentDao :: Payment {
-    scaffold
-    billingDetails ::: BA ::BankAccount CC ::CreditCard
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard)
+  #CRUD(Payment)
+  #Query(Payment)
+  final dao PaymentDao {
   }
 
-  final dao PerformerDao :: Performer {
-    scaffold
-    work ::: movie ::Movie book ::NewBook
+  #InheritanceHandler(work,"movie"=Movie,"book"=NewBook)
+  #CRUD(Performer)
+  #Query(Performer)
+  final dao PerformerDao {
   }
 
-  final dao PersonDao :: Person {
-    scaffold
-    library ::: movie ::Movie book ::NewBook
+  #InheritanceHandler(library,"movie"=Movie,"book"=NewBook)
+  #CRUD(Person)
+  #Query(Person)
+  final dao PersonDao {
   }
 
-  final dao PersonLibraryDao :: PersonLibrary {
-    scaffold
+  #CRUD(PersonLibrary)
+  #Query(PersonLibrary)
+  final dao PersonLibraryDao {
   }
 
-  final dao PhysicalMediaDao :: PhysicalMedia {
-    scaffold
-    media ::: movie ::Movie book ::NewBook
+  #InheritanceHandler(media,"movie"=Movie,"book"=NewBook)
+  #CRUD(PhysicalMedia)
+  #Query(PhysicalMedia)
+  final dao PhysicalMediaDao {
   }
 
-  final dao SubscriberDao :: Subscriber {
-    scaffold
-    billingDetails ::: BA ::BankAccount CC ::CreditCard
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard)
+  #CRUD(Subscriber)
+  #Query(Subscriber)
+  final dao SubscriberDao {
   }
 }

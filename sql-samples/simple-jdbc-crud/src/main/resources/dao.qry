@@ -1,60 +1,72 @@
 package org.sqlproc.sample.simple.dao {
 
-  final dao BankAccountDao :: BankAccount {
-    scaffold
+  #CRUD(BankAccount)
+  #Query(BankAccount)
+  final dao BankAccountDao {
   }
 
-  final dao NewBookDao :: NewBook {
-    scaffold
+  #CRUD(NewBook)
+  #Query(NewBook)
+  final dao NewBookDao {
   }
 
-  final dao ContactDao :: Contact {
-    scaffold
+  #CRUD(Contact)
+  #Query(Contact)
+  final dao ContactDao {
   }
 
-  final dao CreditCardDao :: CreditCard {
-    scaffold
+  #CRUD(CreditCard)
+  #Query(CreditCard)
+  final dao CreditCardDao {
   }
 
-  final dao LibraryDao :: Library {
-    scaffold
+  #CRUD(Library)
+  #Query(Library)
+  final dao LibraryDao {
   }
 
-  final dao MediaDao :: Media {
-    scaffold
+  #CRUD(Media)
+  #Query(Media)
+  final dao MediaDao {
   }
 
-  final dao MovieDao :: Movie {
-    scaffold
+  #CRUD(Movie)
+  #Query(Movie)
+  final dao MovieDao {
   }
 
-  #Discriminator(billingDetails,"BA"=::BankAccount,"CC"=::CreditCard)
-  final dao PaymentDao :: Payment {
-    scaffold
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard)
+  #CRUD(Payment)
+  #Query(Payment)
+  final dao PaymentDao {
   }
 
-  #Discriminator(work,"movie"=::Movie,"book"=::NewBook)
-  final dao PerformerDao :: Performer {
-    scaffold
+  #InheritanceHandler(work,"movie"=Movie,"book"=NewBook)
+  #CRUD(Performer)
+  #Query(Performer)
+  final dao PerformerDao {
   }
 
-  #Discriminator(library,"movie"=::Movie,"book"=::NewBook)
-  #Pojo(::Person)
-  final dao PersonDao :: Person {
-    scaffold
+  #InheritanceHandler(library,"movie"=Movie,"book"=NewBook)
+  #CRUD(Person)
+  #Query(Person)
+  final dao PersonDao {
   }
 
-  final dao PersonLibraryDao :: PersonLibrary {
-    scaffold
+  #CRUD(PersonLibrary)
+  #Query(PersonLibrary)
+  final dao PersonLibraryDao {
   }
 
-  #Discriminator(media,"movie"=::Movie,"book"=::NewBook)
-  final dao PhysicalMediaDao :: PhysicalMedia {
-    scaffold
+  #InheritanceHandler(media,"movie"=Movie,"book"=NewBook)
+  #CRUD(PhysicalMedia)
+  #Query(PhysicalMedia)
+  final dao PhysicalMediaDao {
   }
 
-  #Discriminator(billingDetails,"BA"=::BankAccount,"CC"=::CreditCard)
-  final dao SubscriberDao :: Subscriber {
-    scaffold
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard)
+  #CRUD(Subscriber)
+  #Query(Subscriber)
+  final dao SubscriberDao {
   }
 }

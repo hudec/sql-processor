@@ -16,7 +16,6 @@ public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final int ORDER_BY_ID = 1;
 	public static final int ORDER_BY_PERSON = 2;
-	public static final int ORDER_BY_ID_TYPE = 3;
 	
 	public Contact() {
 	}
@@ -138,27 +137,20 @@ public class Contact implements Serializable {
 		return this;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contact other = (Contact) obj;
-		if (id == null || !id.equals(other.id))
-		return false;
-		return true;
-	}	
+	private int xint;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id != null) ? id.hashCode() : 0);
-		return result;
-	}	
+	public int getXint() {
+		return xint;
+	}
+
+	public void setXint(int xint) {
+		this.xint = xint;
+	}
+
+	public Contact _setXint(int xint) {
+		this.xint = xint;
+		return this;
+	}
 
 	public enum Association {
 		person
@@ -225,7 +217,7 @@ public class Contact implements Serializable {
 	}
 
 	public enum Attribute {
-		xNote, phoneNumber, gender2
+		phoneNumber, gender2, xNote, xint
 	}
 
 	private Set<String> nullValues = new HashSet<String>();
@@ -321,16 +313,38 @@ public class Contact implements Serializable {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contact other = (Contact) obj;
+		if (id == null || !id.equals(other.id))
+		return false;
+		return true;
+	}	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id != null) ? id.hashCode() : 0);
+		return result;
+	}	
+
+	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + ", gender2=" + gender2 + "]";
+		return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", xint=" + xint + ", type=" + type + ", gender2=" + gender2 + "]";
 	}
 
 	public String toStringFull() {
-		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", gender2=" + gender2 + ", xNote=" + xNote + "]";
+		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", gender2=" + gender2 + ", xNote=" + xNote + ", xint=" + xint + "]";
 	}
 
 	public enum OpAttribute {
-		id, person, type, address, phoneNumber, gender2, xNote
+		id, person, type, address, phoneNumber, gender2, xNote, xint
 	}
 
 	private Map<String, String> operators = new HashMap<String, String>();

@@ -21,7 +21,7 @@ pojogen-generate-wrappers;
 // POJO helpers' methods
 pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
-pojogen-implements-interfaces java.io.Serializable;
+pojogen-implements-interfaces :java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // rename enums
@@ -62,3 +62,7 @@ metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
 //pojogen-debug-level DEBUG;
 
 pojogen-enum-for-check-constraints Gender PERSON_GENDER CONTACT_GENDER2;
+pojogen-create-columns CONTACT XINT->:int;
+
+daogen-implements-interfaces-generics :org.sample.Dao + CONTACT PERSON;
+compress-meta-directives;

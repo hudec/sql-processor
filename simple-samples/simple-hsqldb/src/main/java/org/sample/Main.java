@@ -11,10 +11,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Assert;
+import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
-import org.sample.dao.FunctionsDao;
+import org.sample.dao.NewPersonDao;
+import org.sample.dao.NewPersonRetRsDao;
 import org.sample.dao.PersonDao;
-import org.sample.dao.ProceduresDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
@@ -72,8 +73,9 @@ public class Main {
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
         personDao = new PersonDao(sqlFactory, sessionFactory);
-        functionsDao = new FunctionsDao(sqlFactory, sessionFactory);
-        proceduresDao = new ProceduresDao(sqlFactory, sessionFactory);
+        anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
+        newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
+        newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -83,8 +85,9 @@ public class Main {
 
     private ContactDao contactDao;
     private PersonDao personDao;
-    private FunctionsDao functionsDao;
-    private ProceduresDao proceduresDao;
+    private AnHourBeforeDao anHourBeforeDao;
+    private NewPersonDao newPersonDao;
+    private NewPersonRetRsDao newPersonRetRsDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = personDao.insert(person, new SqlStandardControl().setProcessingId("insertPerson"));
@@ -259,7 +262,7 @@ public class Main {
         // function
         AnHourBefore anHourBefore = new AnHourBefore();
         anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
-        java.sql.Timestamp result = functionsDao.anHourBefore(anHourBefore);
+        java.sql.Timestamp result = anHourBeforeDao.anHourBefore(anHourBefore);
         Assert.assertNotNull(result);
 
         // procedures
@@ -269,7 +272,7 @@ public class Main {
         newPerson.setSsn("999888777");
         newPerson.setDateOfBirth(getAge(1969, 11, 1));
         newPerson.setGender(Gender.FEMALE.getValue());
-        proceduresDao.newPerson(newPerson);
+        newPersonDao.newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
 
         NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
@@ -278,7 +281,7 @@ public class Main {
         newPersonRetRs.setSsn("888777666");
         newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
         newPersonRetRs.setGender(Gender.FEMALE.getValue());
-        list = proceduresDao.newPersonRetRs(newPersonRetRs);
+        list = newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());

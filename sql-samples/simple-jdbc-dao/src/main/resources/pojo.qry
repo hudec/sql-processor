@@ -1,163 +1,234 @@
 package org.sqlproc.sample.simple.model {
 
-  extends org.sqlproc.sample.simple.model.impl.BaseModelImpl
+  extends :org.sqlproc.sample.simple.model.impl.BaseModelImpl
 
-  final pojo BankAccount extends BillingDetails discriminator BA serializable 1 {
-    baAccount : java.lang.String
-    toInit ::: subscriber
-    isDef ::: baAccount
-    toString ::: baAccount
+  #InheritanceChild(BA)
+  #Serializable(1)
+  #ToString(baAccount)
+  final pojo BankAccount extends BillingDetails {
+    #IsDef
+    baAccount :java.lang.String
   }
 
-  final abstract pojo BillingDetails serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    subscriber :: Subscriber required index 2
-    type : java.lang.String discriminator required
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit ::: subscriber
-    isDef :::
-    toString ::: id type version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,type,version)
+  final abstract pojo BillingDetails {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #ToInit
+    #Required
+    #Index(2)
+    subscriber Subscriber
+    #InheritanceDiscriminator
+    #Required
+    type :java.lang.String
+    #Version
+    version :java.lang.Integer
   }
 
-  final pojo NewBook extends Media serializable 1 {
-    newIsbn : java.lang.String required
-    toInit ::: author
-    isDef ::: author
-    toString ::: newIsbn
+  #Serializable(1)
+  #ToString(newIsbn)
+  final pojo NewBook extends Media {
+    #Required
+    newIsbn :java.lang.String
   }
 
-  final pojo Contact serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    person :: Person required index 2
-    address : java.lang.String required
-    phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit ::: person
-    isDef ::: phoneNumber
-    toString ::: id phoneNumber address version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,phoneNumber,address,version)
+  final pojo Contact {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #ToInit
+    #Required
+    #Index(2)
+    person Person
+    #Required
+    address :java.lang.String
+    #IsDef
+    phoneNumber :org.sqlproc.sample.simple.model.PhoneNumber
+    #Version
+    version :java.lang.Integer
   }
 
-  final pojo CreditCard extends BillingDetails discriminator CC serializable 1 {
-    ccNumber : java.lang.Long
-    toInit ::: subscriber
-    isDef ::: ccNumber
-    toString ::: ccNumber
+  #InheritanceChild(CC)
+  #Serializable(1)
+  #ToString(ccNumber)
+  final pojo CreditCard extends BillingDetails {
+    #IsDef
+    ccNumber :java.lang.Long
   }
 
-  final pojo Library serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    name : java.lang.String required
-    version : java.lang.Integer optLock
-    subscribers : java.util.List <:Subscriber>
-    catalog : java.util.List <:PhysicalMedia>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: catalog subscribers
-    isDef :::
-    toString ::: id name version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,name,version)
+  final pojo Library {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    name :java.lang.String
+    #Version
+    version :java.lang.Integer
+    #ToInit
+    subscribers :java.util.List <Subscriber>
+    #ToInit
+    catalog :java.util.List <PhysicalMedia>
   }
 
-  final pojo Media serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    title : java.lang.String required
-    author :: Performer index 2
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit ::: author
-    isDef ::: author
-    toString ::: id title version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,title,version)
+  final pojo Media {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    title :java.lang.String
+    #IsDef
+    #ToInit
+    #Index(2)
+    author Performer
+    #Version
+    version :java.lang.Integer
   }
 
-  final pojo Movie extends Media serializable 1 {
-    urlimdb : java.lang.String required
-    playlength : java.lang.Integer required
-    toInit ::: author
-    isDef ::: author
-    toString ::: playlength urlimdb
+  #Serializable(1)
+  #ToString(playlength,urlimdb)
+  final pojo Movie extends Media {
+    #Required
+    urlimdb :java.lang.String
+    #Required
+    playlength :java.lang.Integer
   }
 
-  final pojo Payment serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    billingDetails :: BillingDetails required index 2
-    paid : java.sql.Timestamp required
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit ::: billingDetails
-    isDef :::
-    toString ::: id paid version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,paid,version)
+  final pojo Payment {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #ToInit
+    #Required
+    #Index(2)
+    billingDetails BillingDetails
+    #Required
+    paid :java.sql.Timestamp
+    #Version
+    version :java.lang.Integer
   }
 
-  final pojo Performer serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    person :: Person required index 2
-    ver : java.lang.Integer optLock
-    work : java.util.List <:Media>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: work person
-    isDef :::
-    toString ::: id ver
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,ver)
+  final pojo Performer {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #ToInit
+    #Required
+    #Index(2)
+    person Person
+    #Version
+    ver :java.lang.Integer
+    #ToInit
+    work :java.util.List <Media>
   }
 
-  final pojo Person serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    firstName : java.lang.String required
-    lastName : java.lang.String required index 2
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    version : java.lang.Integer optLock
-    passport : java.lang.String
-    library : java.util.List <:Media>
-    contacts : java.util.List <:Contact>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: library contacts
-    isDef ::: dateOfBirth ssn passport
-    toString ::: dateOfBirth id lastName ssn passport firstName version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(dateOfBirth,id,lastName,ssn,passport,firstName,version)
+  final pojo Person {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    firstName :java.lang.String
+    #Required
+    #Index(2)
+    lastName :java.lang.String
+    #IsDef
+    dateOfBirth :java.util.Date
+    #IsDef
+    ssn :java.lang.String
+    #Version
+    version :java.lang.Integer
+    #IsDef
+    passport :java.lang.String
+    #ToInit
+    library :java.util.List <Media>
+    #ToInit
+    contacts :java.util.List <Contact>
   }
 
-  final pojo PersonLibrary serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    personId : java.lang.Long required index 2
-    mediaId : java.lang.Long required index 3
-    equals ::: id
-    hashCode ::: id
-    toInit :::
-    isDef :::
-    toString ::: mediaId id personId
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(mediaId,id,personId)
+  final pojo PersonLibrary {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(2)
+    personId :java.lang.Long
+    #Required
+    #Index(3)
+    mediaId :java.lang.Long
   }
 
-  final pojo PhysicalMedia serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    location : java.lang.String required
-    media :: Media required
-    library :: Library required
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit ::: library media
-    isDef :::
-    toString ::: id location version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,location,version)
+  final pojo PhysicalMedia {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    location :java.lang.String
+    #ToInit
+    #Required
+    media Media
+    #ToInit
+    #Required
+    library Library
+    #Version
+    version :java.lang.Integer
   }
 
-  final pojo Subscriber serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    library :: Library required index 2
-    contact :: Contact
-    name : java.lang.String required
-    version : java.lang.Integer optLock
-    billingDetails : java.util.List <:BillingDetails>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: library billingDetails contact
-    isDef ::: contact
-    toString ::: id name version
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,name,version)
+  final pojo Subscriber {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #ToInit
+    #Required
+    #Index(2)
+    library Library
+    #IsDef
+    #ToInit
+    contact Contact
+    #Required
+    name :java.lang.String
+    #Version
+    version :java.lang.Integer
+    #ToInit
+    billingDetails :java.util.List <BillingDetails>
   }
 }
 
