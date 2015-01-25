@@ -1,68 +1,72 @@
 package org.sample.model {
 
 
-  enum ContactType serializable 1  {
-    value : java.lang.Integer
-    HOME ::: 0
-    BUSINESS ::: 1
+  #Serializable(1)
+  enum ContactType {
+    #Values(HOME = 0,BUSINESS = 1)
+    value :java.lang.Integer
   }
 
-  enum PersonGender serializable 1  {
-    value : java.lang.String
-    MALE ::: "M"
-    FEMALE ::: "F"
+  #Serializable(1)
+  enum PersonGender {
+    #Values(MALE = "M",FEMALE = "F")
+    value :java.lang.String
   }
 
-  pojo Contact serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    person :: Person required
-    type :: ContactType required
-    address : java.lang.String required
-    phoneNumber : java.lang.String
-    equals ::: id
-    hashCode ::: id
-    toInit ::: person
-    isDef ::: phoneNumber
-    toString ::: id phoneNumber address type
+  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address,type)
+  pojo Contact {
+    #PrimaryKey #Index(1)
+    id :java.lang.Long
+    #ToInit #Required
+    person Person
+    #Required
+    type ContactType
+    #Required
+    address :java.lang.String
+    #IsDef
+    phoneNumber :java.lang.String
   }
 
-  pojo Person serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    firstName : java.lang.String required
-    lastName : java.lang.String required index 2
-    dateOfBirth : java.util.Date
-    gender :: PersonGender required
-    ssn : java.lang.String
-    contacts : java.util.List <:Contact>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: contacts
-    isDef ::: dateOfBirth ssn
-    toString ::: dateOfBirth id lastName ssn gender firstName
+  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
+  pojo Person {
+    #PrimaryKey #Index(1)
+    id :java.lang.Long
+    #Required
+    firstName :java.lang.String
+    #Required #Index(2)
+    lastName :java.lang.String
+    #IsDef
+    dateOfBirth :java.util.Date
+    #Required
+    gender PersonGender
+    #IsDef
+    ssn :java.lang.String
+    #ToInit
+    contacts :java.util.List <Contact>
   }
 
-  pojo NewPerson serializable 1  { // procedure
-    newid : java.lang.Long
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    firstName : java.lang.String
-    lastName : java.lang.String
-    gender : java.lang.String
-    toString ::: dateOfBirth lastName ssn gender firstName newid
+  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
+  pojo NewPerson { // procedure
+    newid :java.lang.Long
+    dateOfBirth :java.util.Date
+    ssn :java.lang.String
+    firstName :java.lang.String
+    lastName :java.lang.String
+    gender :java.lang.String
   }
 
-  pojo NewPersonRetRs serializable 1  { // procedure
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    firstName : java.lang.String
-    lastName : java.lang.String
-    gender : java.lang.String
-    toString ::: dateOfBirth lastName ssn gender firstName
+  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
+  pojo NewPersonRetRs { // procedure
+    dateOfBirth :java.util.Date
+    ssn :java.lang.String
+    firstName :java.lang.String
+    lastName :java.lang.String
+    gender :java.lang.String
   }
 
-  pojo AnHourBefore serializable 1  { // function
-    t : java.sql.Timestamp
-    result : java.sql.Timestamp
-    toString ::: result t
+  #Serializable(1) #ToString(result,t)
+  pojo AnHourBefore { // function
+    t :java.sql.Timestamp
+    result :java.sql.Timestamp
   }
 }

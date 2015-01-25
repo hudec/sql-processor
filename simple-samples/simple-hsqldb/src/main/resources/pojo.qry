@@ -55,7 +55,7 @@ package org.sample.model {
     #PrimaryKey #Index(1)
     id :java.lang.Long
     // The first name
-    @NotNull 
+    @NotNull
     @Size(max = 100)
     #Required
     firstName :java.lang.String

@@ -1,7 +1,7 @@
 resolve-pojo-on;
-database-is-offline;
+database-is-online;
 database-jdbc-driver :com.ibm.db2.jcc.DB2Driver;
-database-has-url jdbc:db2:\//localhost:50001/simple:deferPrepares=0\;progressiveStreaming=2\;;
+database-has-url jdbc:db2:\//db2:50001/simple:deferPrepares=0\;progressiveStreaming=2\;;
 database-login-username simple;
 database-login-password simple;
 //database-in-catalog SIMPLE;
@@ -20,7 +20,7 @@ pojogen-generate-wrappers;
 // POJO helpers' methods
 pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
-pojogen-implements-interfaces java.io.Serializable;
+pojogen-implements-interfaces :java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // rename enums
@@ -53,3 +53,4 @@ function anHourBefore AN_HOUR_BEFORE;
 metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
 //pojogen-debug-level DEBUG;
+compress-meta-directives;

@@ -132,28 +132,6 @@ public class Person implements Serializable {
 		return this;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (id == null || !id.equals(other.id))
-		return false;
-		return true;
-	}	
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id != null) ? id.hashCode() : 0);
-		return result;
-	}	
-
 	public enum Association {
 		contacts
 	}
@@ -313,6 +291,28 @@ public class Person implements Serializable {
 	public void clearAllNull() {
 		nullValues = new HashSet<String>();
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (id == null || !id.equals(other.id))
+		return false;
+		return true;
+	}	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id != null) ? id.hashCode() : 0);
+		return result;
+	}	
 
 	@Override
 	public String toString() {

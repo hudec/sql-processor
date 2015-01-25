@@ -18,7 +18,7 @@ pojogen-generate-wrappers;
 // POJO helpers' methods
 pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
-pojogen-implements-interfaces java.io.Serializable;
+pojogen-implements-interfaces :java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // rename enums
@@ -51,3 +51,4 @@ function anHourBefore an_hour_before;
 //metagen-function-result an_hour_before stamp;
 metagen-procedure-result-set new_person_ret_rs person;
 //metagen-debug-level DEBUG;
+compress-meta-directives;

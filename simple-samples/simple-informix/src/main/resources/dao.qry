@@ -1,19 +1,24 @@
 package org.sample.dao {
 
-  dao ContactDao :: Contact {
-    scaffold
+  #CRUD(Contact)
+  #Query(Contact)
+  dao ContactDao {
   }
 
-  dao PersonDao :: Person {
-    scaffold
+  #CRUD(Person)
+  #Query(Person)
+  dao PersonDao {
   }
 
-  dao ProceduresDao {
-    callUpdate newPerson _void ::: newPerson ::NewPerson
+  #ProcedureUpdate(:int,NewPerson)
+  dao NewPersonDao {
   }
 
-  dao FunctionsDao {
-    callFunction anHourBefore :java.sql.Timestamp ::: anHourBefore ::AnHourBefore
-    callQueryFunction newPersonRetRs :java.util.List<:Person> ::: newPersonRetRs ::NewPersonRetRs
+  #FunctionCall(:java.sql.Timestamp,AnHourBefore)
+  dao AnHourBeforeDao {
+  }
+
+  #FunctionCallQuery(:java.util.List<Person>,NewPersonRetRs)
+  dao NewPersonRetRsDao {
   }
 }
