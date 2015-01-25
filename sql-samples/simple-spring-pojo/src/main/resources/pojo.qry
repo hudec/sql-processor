@@ -9,97 +9,144 @@ pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT 
 pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 // others
 pojogen-generate-methods toString equals hashCode;
-pojogen-implements-interfaces java.io.Serializable;
+pojogen-implements-interfaces :java.io.Serializable;
 
 
 package org.sqlproc.sample.simple.model {
 
 
-  pojo BankAccount extends BillingDetails discriminator BA serializable 1 {
-    baAccount : java.lang.String
-    toString ::: baAccount
+  #InheritanceChild(BA)
+  #Serializable(1)
+  #ToString(baAccount)
+  pojo BankAccount extends BillingDetails {
+    baAccount :java.lang.String
   }
 
-  abstract pojo BillingDetails serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    subscriber :: Subscriber required index 2
-    type : java.lang.String discriminator required
-    equals ::: id
-    hashCode ::: id
-    toString ::: id type
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,type)
+  abstract pojo BillingDetails {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(2)
+    subscriber Subscriber
+    #InheritanceDiscriminator
+    #Required
+    type :java.lang.String
   }
 
-  pojo Book extends Media serializable 1 {
-    isbn : java.lang.String required
-    toString ::: isbn
+  #Serializable(1)
+  #ToString(isbn)
+  pojo Book extends Media {
+    #Required
+    isbn :java.lang.String
   }
 
-  pojo Contact serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    person :: Person required index 2
-    address : java.lang.String required
-    phoneNumber : org.sqlproc.sample.simple.model.PhoneNumber
-    equals ::: id
-    hashCode ::: id
-    toString ::: id phoneNumber address
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,phoneNumber,address)
+  pojo Contact {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(2)
+    person Person
+    #Required
+    address :java.lang.String
+    phoneNumber :org.sqlproc.sample.simple.model.PhoneNumber
   }
 
-  pojo CreditCard extends BillingDetails discriminator CC serializable 1 {
-    ccNumber : java.lang.Long
-    toString ::: ccNumber
+  #InheritanceChild(CC)
+  #Serializable(1)
+  #ToString(ccNumber)
+  pojo CreditCard extends BillingDetails {
+    ccNumber :java.lang.Long
   }
 
-  pojo Library serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    name : java.lang.String required
-    subscribers : java.util.List <:Subscriber>
-    equals ::: id
-    hashCode ::: id
-    toString ::: id name
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,name)
+  pojo Library {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    name :java.lang.String
+    subscribers :java.util.List <Subscriber>
   }
 
-  abstract pojo Media serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    title : java.lang.String required
-    equals ::: id
-    hashCode ::: id
-    toString ::: id title
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,title)
+  abstract pojo Media {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    title :java.lang.String
   }
 
-  pojo Movie extends Media serializable 1 {
-    urlimdb : java.lang.String required
-    playlength : java.lang.Integer required
-    toString ::: playlength urlimdb
+  #Serializable(1)
+  #ToString(playlength,urlimdb)
+  pojo Movie extends Media {
+    #Required
+    urlimdb :java.lang.String
+    #Required
+    playlength :java.lang.Integer
   }
 
-  pojo Person serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    name : java.lang.String required
-    library : java.util.List <:Media>
-    contacts : java.util.List <:Contact>
-    equals ::: id
-    hashCode ::: id
-    toString ::: id name
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,name)
+  pojo Person {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    name :java.lang.String
+    library :java.util.List <Media>
+    contacts :java.util.List <Contact>
   }
 
-  pojo PersonLibrary serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    personId : java.lang.Long required index 2
-    mediaId : java.lang.Long required index 3
-    equals ::: id
-    hashCode ::: id
-    toString ::: mediaId id personId
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(mediaId,id,personId)
+  pojo PersonLibrary {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(2)
+    personId :java.lang.Long
+    #Required
+    #Index(3)
+    mediaId :java.lang.Long
   }
 
-  pojo Subscriber serializable 1 {
-    id : java.lang.Long primaryKey index 1
-    library :: Library required index 2
-    contact : java.lang.Long
-    name : java.lang.String required
-    billingDetails : java.util.List <:BillingDetails>
-    equals ::: id
-    hashCode ::: id
-    toString ::: id name contact
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,name,contact)
+  pojo Subscriber {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(2)
+    library Library
+    contact :java.lang.Long
+    #Required
+    name :java.lang.String
+    billingDetails :java.util.List <BillingDetails>
   }
 }
 

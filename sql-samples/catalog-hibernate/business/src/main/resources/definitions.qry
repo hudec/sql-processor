@@ -13,6 +13,7 @@ table item ITEM;
 
 pojogen-generate-wrappers;
 pojogen-generate-methods toString equals hashCode;
-pojogen-implements-interfaces java.io.Serializable;
+pojogen-implements-interfaces :java.io.Serializable;
 pojogen-types-for-columns ITEM PRICE->:java.math.BigDecimal;
 //pojogen-debug-level DEBUG;
+compress-meta-directives;

@@ -10,66 +10,76 @@ package org.sqlproc.sample.catalog.model {
   import javax.persistence.GeneratedValue
 
   @Entity
-  @Table ::: name "ITEM"
-  @SequenceGenerator ::: name "seq_item", sequenceName "ITEM_SEQ", initialValue 100
-  pojo Item serializable 1 {
+  @Table(name = "ITEM")
+  @SequenceGenerator(name = "seq:item", sequenceName = "ITEM:SEQ", initialValue = 100)
+  #Serializable(1)
+  #Equals(itemid)
+  #HashCode(itemid)
+  #ToString(price,productid,description,name,image,imagethumburl,itemid,imageurl,imagethumb)
+  pojo Item {
     @Id
-    @GeneratedValue ::: strategy :GenerationType AUTO, generator "seq_item"
-    @Column ::: name "ITEMID"
-    itemid : java.lang.Long primaryKey index 1
-    @Basic ::: optional false
-    @Column ::: name "PRODUCTID"
-    productid : java.lang.String required
-    @Basic ::: optional false
-    @Column ::: name "NAME", unique true
-    name : java.lang.String required
-    @Basic ::: optional false
-    @Column ::: name "DESCRIPTION"
-    description : java.lang.String required
-    @Column ::: name "IMAGEURL"
-    imageurl : java.lang.String
-    @Column ::: name "IMAGETHUMBURL"
-    imagethumburl : java.lang.String
-    @Column ::: name "IMAGE", columnDefinition "LONGVARBINARY"
-    image _byte []
-    @Column ::: name "IMAGETHUMB", columnDefinition "LONGVARBINARY"
-    imagethumb _byte []
-    @Basic ::: optional false
-    @Column ::: name "PRICE"
-    price : java.math.BigDecimal required
-    equals ::: itemid
-    hashCode ::: itemid
-    toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
+    @GeneratedValue(strategy = AUTO :GenerationType,generator = "seq:item")
+    @Column(name = "ITEMID")
+  	#PrimaryKey
+  	#Index(1)
+    itemid :java.lang.Long
+    @Basic(optional = false)
+    @Column(name = "PRODUCTID")
+    #Required
+    productid :java.lang.String
+    @Basic(optional = false)
+    @Column(name = "NAME", unique = true)
+    #Required
+    name :java.lang.String
+    @Basic(optional = false)
+    @Column(name = "DESCRIPTION")
+    #Required
+    description :java.lang.String
+    @Column(name = "IMAGEURL")
+    imageurl :java.lang.String
+    @Column(name = "IMAGETHUMBURL")
+    imagethumburl :java.lang.String
+    @Column(name = "IMAGE",columnDefinition = "LONGVARBINARY")
+    image :byte []
+    @Column(name = "IMAGETHUMB",columnDefinition = "LONGVARBINARY")
+    imagethumb :byte []
+    @Basic(optional = false)
+    @Column(name = "PRICE")
+    #Required
+    price :java.math.BigDecimal
   }
 }
 
 package org.sqlproc.sample.catalog.to {
 
-  pojo ItemTO serializable 1  {
-    itemid : java.lang.Long
-    productid : java.lang.String
-    name : java.lang.String
-    description : java.lang.String
-    imageurl : java.lang.String
-    imagethumburl : java.lang.String
-    image _byte []
-    imagethumb _byte []
-    price : java.math.BigDecimal required
-    toString ::: price productid description name image imagethumburl itemid imageurl imagethumb
+  #Serializable(1)
+  #ToString(price,productid,description,name,image,imagethumburl,itemid,imageurl,imagethumb)
+  pojo ItemTO {
+    itemid :java.lang.Long
+    productid :java.lang.String
+    name :java.lang.String
+    description :java.lang.String
+    imageurl :java.lang.String
+    imagethumburl :java.lang.String
+    image :byte []
+    imagethumb :byte []
+    #Required
+    price :java.math.BigDecimal
   }
 }
 
 package org.sqlproc.sample.catalog.form {
 
-  pojo ItemForm serializable 1  {
-    itemid : java.lang.Long
-    name : java.lang.String
-    description : java.lang.String
-    priceFrom : java.math.BigDecimal
-    priceTo : java.math.BigDecimal
-    first _int
-    count _int
-    order _int
-    toString ::: itemid name description priceFrom priceTo
+  #Serializable(1)
+  #ToString(itemid,name,description,priceFrom,priceTo)
+  pojo ItemForm {
+    itemid :java.lang.Long
+    name :java.lang.String
+    description :java.lang.String
+    priceFrom :java.math.BigDecimal
+    priceTo :java.math.BigDecimal
+    first :int
+    count :int
+    order :int
   }
 }
