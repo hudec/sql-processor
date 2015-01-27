@@ -1,7 +1,6 @@
 package org.sample.dao;
 	
 import java.sql.Timestamp;
-import org.sample.Dao;
 import org.sample.model.AnHourBefore;
 
 import java.util.HashMap;

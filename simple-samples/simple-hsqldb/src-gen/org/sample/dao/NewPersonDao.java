@@ -1,6 +1,5 @@
 package org.sample.dao;
 	
-import org.sample.Dao;
 import org.sample.model.NewPerson;
 
 import java.util.HashMap;

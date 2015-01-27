@@ -1,6 +1,4 @@
 package org.sample.dao;
-	
-import org.sample.Dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +16,7 @@ import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sample.model.Contact;
 
-public class ContactDao implements Dao<Contact> {
+public class ContactDao {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected SqlEngineFactory sqlEngineFactory;

@@ -64,5 +64,5 @@ metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
 pojogen-enum-for-check-constraints Gender PERSON_GENDER CONTACT_GENDER2;
 pojogen-create-columns CONTACT XINT->:int;
 
-daogen-implements-interfaces-generics :org.sample.Dao + CONTACT PERSON;
+//daogen-implements-interfaces-generics :org.sample.Dao + CONTACT PERSON;
 compress-meta-directives;

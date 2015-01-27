@@ -1,7 +1,6 @@
 package org.sample.dao;
 	
 import java.util.List;
-import org.sample.Dao;
 import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 

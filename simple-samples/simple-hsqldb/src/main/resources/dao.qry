@@ -1,8 +1,5 @@
 package org.sample.dao {
 
-  #Generics
-  implements :org.sample.Dao onlyDaos ContactDao PersonDao
-
   #CRUD(Contact) #Query(Contact)
   dao ContactDao {
   }
