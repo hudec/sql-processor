@@ -4,7 +4,9 @@ import java.util.List;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
-
+import org.sqlproc.sample.simple.dao.BaseDao;
+import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
+	
 public interface PhysicalMediaDao {
 	
 		public PhysicalMedia insert(SqlSession sqlSession, PhysicalMedia physicalMedia, SqlControl sqlControl);

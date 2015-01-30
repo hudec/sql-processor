@@ -4,7 +4,9 @@ import java.util.List;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.sample.simple.model.Library;
-
+import org.sqlproc.sample.simple.dao.BaseDao;
+import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
+	
 public interface LibraryDao {
 	
 		public Library insert(SqlSession sqlSession, Library library, SqlControl sqlControl);
