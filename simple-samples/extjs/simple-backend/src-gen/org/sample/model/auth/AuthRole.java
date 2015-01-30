@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 @Model(value = "SimpleWeb.model.AuthRole", paging = true, readMethod = "simpleService.loadAuthRoles")
-@JsonIgnore
-@JsonIgnore
 public class AuthRole implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

@@ -22,7 +22,7 @@ public class AuthRoleService {
         logger.info("listAuthRoles -> " + form + ", " + sqlControl);
 
         List<AuthRole> authroles = authroleDao.list(form, sqlControl);
-        form.clearAllInit();
+        //form.clearAllInit();
         int count = authroleDao.count(form);
         logger.info("listAuthRoles <- " + authroles);
         countHolder.setCount(count);

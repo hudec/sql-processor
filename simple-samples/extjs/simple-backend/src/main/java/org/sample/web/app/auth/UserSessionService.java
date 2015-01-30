@@ -24,7 +24,7 @@ public class UserSessionService {
         logger.info("listUserSessions -> " + form + ", " + sqlControl);
 
         List<UserSession> sessions = userSessionDao.list(form, sqlControl);
-        form.clearAllInit();
+        //form.clearAllInit();
         int count = userSessionDao.count(form);
         logger.info("listUserSessions <- " + sessions);
         countHolder.setCount(count);
