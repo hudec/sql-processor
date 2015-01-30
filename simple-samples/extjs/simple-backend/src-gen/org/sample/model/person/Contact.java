@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 @Model(value = "SimpleWeb.model.Contact", paging = true, readMethod = "simpleService.loadContacts")
 @JsonIgnore
+@JsonIgnore
 public class Contact implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

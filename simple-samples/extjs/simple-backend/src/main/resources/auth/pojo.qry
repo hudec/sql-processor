@@ -2,10 +2,8 @@ package org.sample.model.auth {
 
   import org.hibernate.validator.constraints.NotBlank
   import javax.validation.constraints.NotNull
-  import com.fasterxml.jackson.databind.annotation.JsonDeserialize
   import com.fasterxml.jackson.databind.annotation.JsonSerialize
   import ch.ralscha.extdirectspring.generator.ModelAssociation
-  import org.sample.web.util.DMYDateTimeDeserializer
   import ch.ralscha.extdirectspring.generator.ModelField
   import ch.ralscha.extdirectspring.generator.Model
   import org.sample.web.util.DMYDateTimeSerializer
@@ -13,9 +11,11 @@ package org.sample.model.auth {
   import com.fasterxml.jackson.annotation.JsonIgnore
   import ch.ralscha.extdirectspring.generator.ModelAssociationType
 
-
-  @Model(value = "SimpleWeb.model.AuthRole", paging = true, readMethod = "simpleService.loadAuthRoles")
-  #Static #Conflict
+  #Standard
+  @Model(value = "SimpleWeb.model.AuthRole",paging = true,readMethod = "simpleService.loadAuthRoles")
+  #Static
+  @JsonIgnore
+  #Conflict
   @JsonIgnore
   #Operators
   #Serializable(1)
@@ -36,8 +36,11 @@ package org.sample.model.auth {
     version :java.lang.Integer
   }
 
-  @Model(value = "SimpleWeb.model.AuthUser", paging = true, readMethod = "simpleService.loadAuthUsers")
-  #Static #Conflict
+  #Standard
+  @Model(value = "SimpleWeb.model.AuthUser",paging = true,readMethod = "simpleService.loadAuthUsers")
+  #Static
+  @JsonIgnore
+  #Conflict
   @JsonIgnore
   #Operators
   #Serializable(1)
@@ -59,22 +62,29 @@ package org.sample.model.auth {
     name :java.lang.String
     #IsDef
     email :java.lang.String
+    #Attribute
     @ModelField(dateFormat = "d.m.Y")
+    #Attribute
     @Past
-    #Getter #Setter
+    #Getter
+    @JsonSerialize(using = class :DMYDateTimeSerializer)
+    #Setter
     @JsonSerialize(using = class :DMYDateTimeSerializer)
     #IsDef
     lastLogin :java.util.Date
     @NotNull
     #Version
     version :java.lang.Integer
-    @ModelAssociation(value = HAS_MANY :ModelAssociationType, model = class UserRole)
+    @ModelAssociation(value = HAS_MANY :ModelAssociationType,model = class UserRole)
     #ToInit
     userRoles :java.util.List <UserRole>
   }
 
-  @Model(value = "SimpleWeb.model.UserRole", paging = true, readMethod = "simpleService.loadUserRoles")
-  #Static #Conflict
+  #Standard
+  @Model(value = "SimpleWeb.model.UserRole",paging = true,readMethod = "simpleService.loadUserRoles")
+  #Static
+  @JsonIgnore
+  #Conflict
   @JsonIgnore
   #Operators
   #Serializable(1)
@@ -88,7 +98,7 @@ package org.sample.model.auth {
     #Required
     #Index(4)
     authUserId :java.lang.Long
-    @ModelAssociation(value = HAS_ONE :ModelAssociationType, model = class AuthRole)
+    @ModelAssociation(value = HAS_ONE :ModelAssociationType,model = class AuthRole)
     #ToInit
     #Required
     #Index(5)

@@ -1,19 +1,17 @@
 package org.sample.model.person {
 
-  import org.sample.web.util.DMYDateDeserializer
-  import javax.validation.constraints.NotNull
-  import org.springframework.format.annotation.DateTimeFormat
-  import ch.ralscha.extdirectspring.generator.ModelAssociation
-  import com.fasterxml.jackson.databind.annotation.JsonSerialize
-  import ch.ralscha.extdirectspring.generator.ModelField
-  import ch.ralscha.extdirectspring.generator.Model
-  import com.fasterxml.jackson.annotation.JsonIgnore
-  import javax.validation.constraints.Past
-  import ch.ralscha.extdirectspring.generator.ModelAssociationType
   import ch.ralscha.extdirectspring.generator.ModelType
   import org.hibernate.validator.constraints.NotBlank
-  import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+  import javax.validation.constraints.NotNull
+  import org.springframework.format.annotation.DateTimeFormat
+  import com.fasterxml.jackson.databind.annotation.JsonSerialize
+  import ch.ralscha.extdirectspring.generator.ModelAssociation
+  import ch.ralscha.extdirectspring.generator.ModelField
   import org.sample.web.util.DMYDateSerializer
+  import ch.ralscha.extdirectspring.generator.Model
+  import javax.validation.constraints.Past
+  import com.fasterxml.jackson.annotation.JsonIgnore
+  import ch.ralscha.extdirectspring.generator.ModelAssociationType
 
   #Serializable(1)
   enum ContactCtype {
@@ -33,8 +31,11 @@ package org.sample.model.person {
     value :java.lang.String
   }
 
-  @Model(value = "SimpleWeb.model.Contact", paging = true, readMethod = "simpleService.loadContacts")
-  #Static #Conflict
+  #Standard
+  @Model(value = "SimpleWeb.model.Contact",paging = true,readMethod = "simpleService.loadContacts")
+  #Static
+  @JsonIgnore
+  #Conflict
   @JsonIgnore
   #Operators
   #Serializable(1)
@@ -69,8 +70,11 @@ package org.sample.model.person {
     countryCode : java.lang.String
   }
 
-  @Model(value = "SimpleWeb.model.Country", paging = true, readMethod = "simpleService.loadCountries")
-  #Static #Conflict
+  #Standard
+  @Model(value = "SimpleWeb.model.Country",paging = true,readMethod = "simpleService.loadCountries")
+  #Static
+  @JsonIgnore
+  #Conflict
   @JsonIgnore
   #Operators
   #Serializable(1)
@@ -89,8 +93,11 @@ package org.sample.model.person {
     name :java.lang.String
   }
 
-  @Model(value = "SimpleWeb.model.Person", paging = true, readMethod = "simpleService.loadPeople")
-  #Static #Conflict
+  #Standard
+  @Model(value = "SimpleWeb.model.Person",paging = true,readMethod = "simpleService.loadPeople")
+  #Static
+  @JsonIgnore
+  #Conflict
   @JsonIgnore
   #Operators
   #Serializable(1)
@@ -108,10 +115,15 @@ package org.sample.model.person {
     #Required
     #Index(2)
     lastName :java.lang.String
+    #Attribute
     @ModelField(dateFormat = "d.m.Y")
+    #Attribute
     @Past
+    #Attribute
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    #Getter #Setter
+    #Getter
+    @JsonSerialize(using = class :DMYDateSerializer)
+    #Setter
     @JsonSerialize(using = class :DMYDateSerializer)
     #IsDef
     dateOfBirth :java.util.Date
@@ -124,16 +136,19 @@ package org.sample.model.person {
     @NotNull
     #Version
     version :java.lang.Integer
-    @ModelAssociation(value = HAS_MANY :ModelAssociationType, model = class Relative )
+    @ModelAssociation(value = HAS_MANY :ModelAssociationType,model = class Relative)
     #ToInit
     relatives :java.util.List <Relative>
-    @ModelAssociation(value = HAS_MANY :ModelAssociationType, model = class Contact)
+    @ModelAssociation(value = HAS_MANY :ModelAssociationType,model = class Contact)
     #ToInit
     contacts :java.util.List <Contact>
   }
 
+  #Standard
   @Model(value = "SimpleWeb.model.Relative")
-  #Static #Conflict
+  #Static
+  @JsonIgnore
+  #Conflict
   @JsonIgnore
   #Operators
   #Serializable(1)
@@ -147,7 +162,7 @@ package org.sample.model.person {
     #Required
     #Index(2)
     personId :java.lang.Long
-    @ModelAssociation(value = HAS_ONE :ModelAssociationType, model = class Person)
+    @ModelAssociation(value = HAS_ONE :ModelAssociationType,model = class Person)
     #ToInit
     #Required
     #Index(3)

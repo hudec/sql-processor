@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 @Model(value = "SimpleWeb.model.Relative")
 @JsonIgnore
+@JsonIgnore
 public class Relative implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

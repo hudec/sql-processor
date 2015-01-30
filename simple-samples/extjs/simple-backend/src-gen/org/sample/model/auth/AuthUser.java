@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 @Model(value = "SimpleWeb.model.AuthUser", paging = true, readMethod = "simpleService.loadAuthUsers")
 @JsonIgnore
+@JsonIgnore
 public class AuthUser implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

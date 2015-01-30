@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 @Model(value = "SimpleWeb.model.Country", paging = true, readMethod = "simpleService.loadCountries")
 @JsonIgnore
+@JsonIgnore
 public class Country implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
