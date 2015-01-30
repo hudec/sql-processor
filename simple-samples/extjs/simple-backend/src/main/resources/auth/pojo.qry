@@ -13,74 +13,103 @@ package org.sample.model.auth {
   import com.fasterxml.jackson.annotation.JsonIgnore
   import ch.ralscha.extdirectspring.generator.ModelAssociationType
 
-  @Model ::: value "SimpleWeb.model.AuthRole", paging true, readMethod "simpleService.loadAuthRoles"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo AuthRole serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
+
+  @Model(value = "SimpleWeb.model.AuthRole", paging = true, readMethod = "simpleService.loadAuthRoles")
+  #Static #Conflict
+  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,description,name,version)
+  pojo AuthRole {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
     @NotBlank
-    name : java.lang.String required
-    description : java.lang.String
+    #Required
+    name :java.lang.String
+    #IsDef
+    description :java.lang.String
     @NotNull
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit :::
-    isDef ::: description
-    toString ::: id description name version
+    #Version
+    version :java.lang.Integer
   }
 
-  @Model ::: value "SimpleWeb.model.AuthUser", paging true, readMethod "simpleService.loadAuthUsers"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo AuthUser serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
+  @Model(value = "SimpleWeb.model.AuthUser", paging = true, readMethod = "simpleService.loadAuthUsers")
+  #Static #Conflict
+  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,lastLogin,username,email,name,password,version)
+  pojo AuthUser {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
     @NotBlank
-    username : java.lang.String required index 2
-    password : java.lang.String
+    #Required
+    #Index(2)
+    username :java.lang.String
+    #IsDef
+    password :java.lang.String
     @NotBlank
-    name : java.lang.String required
-    email : java.lang.String
-    @ModelField ::: dateFormat "d.m.Y H:i:s"
+    #Required
+    name :java.lang.String
+    #IsDef
+    email :java.lang.String
+    @ModelField(dateFormat = "d.m.Y")
     @Past
-    @@JsonSerialize ::: using :DMYDateTimeSerializer class
-    @@@JsonDeserialize ::: using :DMYDateTimeDeserializer class
-    lastLogin : java.util.Date
+    #Getter #Setter
+    @JsonSerialize(using = class :DMYDateTimeSerializer)
+    #IsDef
+    lastLogin :java.util.Date
     @NotNull
-    version : java.lang.Integer optLock
-    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::UserRole class
-    userRoles : java.util.List <:UserRole>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: userRoles
-    isDef ::: lastLogin email password
-    toString ::: id lastLogin username email name password version
+    #Version
+    version :java.lang.Integer
+    @ModelAssociation(value = HAS_MANY :ModelAssociationType, model = class UserRole)
+    #ToInit
+    userRoles :java.util.List <UserRole>
   }
 
-  @Model ::: value "SimpleWeb.model.UserRole", paging true, readMethod "simpleService.loadUserRoles"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo UserRole serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    authUserId : java.lang.Long required index 4
-    @ModelAssociation ::: value :ModelAssociationType HAS_ONE, model ::AuthRole class
-    authRole :: AuthRole required index 5
-    version : java.lang.Integer optLock
-    equals ::: id
-    hashCode ::: id
-    toInit ::: authRole
-    isDef :::
-    toString ::: id authUserId authRole version
+  @Model(value = "SimpleWeb.model.UserRole", paging = true, readMethod = "simpleService.loadUserRoles")
+  #Static #Conflict
+  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,authUserId,version)
+  pojo UserRole {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(4)
+    authUserId :java.lang.Long
+    @ModelAssociation(value = HAS_ONE :ModelAssociationType, model = class AuthRole)
+    #ToInit
+    #Required
+    #Index(5)
+    authRole AuthRole
+    #Version
+    version :java.lang.Integer
   }
 
-  pojo UserSession serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    authUserId : java.lang.Long required index 3
-    lastAccess : java.util.Date required
-    equals ::: id
-    hashCode ::: id
-    toInit :::
-    isDef :::
-    toString ::: id authUserId lastAccess
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,authUserId,lastAccess)
+  pojo UserSession {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(3)
+    authUserId :java.lang.Long
+    #Required
+    lastAccess :java.util.Date
   }
 }

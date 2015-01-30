@@ -1,18 +1,22 @@
 package org.sample.dao.person {
 
-  dao ContactDao :: Contact {
-    scaffold
+  #CRUD(Contact)
+  #Query(Contact)
+  dao ContactDao {
   }
 
-  dao CountryDao :: Country {
-    scaffold
+  #CRUD(Country)
+  #Query(Country)
+  dao CountryDao {
   }
 
-  dao PersonDao :: Person {
-    scaffold
+  #CRUD(Person)
+  #Query(Person)
+  dao PersonDao {
   }
 
-  dao RelativeDao :: Relative {
-    scaffold
+  #CRUD(Relative)
+  #Query(Relative)
+  dao RelativeDao {
   }
 }

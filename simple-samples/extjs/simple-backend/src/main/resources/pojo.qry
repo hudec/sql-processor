@@ -15,131 +15,164 @@ package org.sample.model.person {
   import com.fasterxml.jackson.databind.annotation.JsonDeserialize
   import org.sample.web.util.DMYDateSerializer
 
-  enum ContactCtype serializable 1  {
-    value : java.lang.String
-    HOME ::: "0"
-    BUSINESS ::: "1"
-    ABROAD ::: "2"
+  #Serializable(1)
+  enum ContactCtype {
+    #Values(HOME = "0",BUSINESS = "1",ABROAD = "2")
+    value :java.lang.String
   }
 
-  enum PersonGender serializable 1  {
-    value : java.lang.String
-    MALE ::: "M"
-    FEMALE ::: "F"
-    UNKNOWN ::: "0"
+  #Serializable(1)
+  enum PersonGender {
+    #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+    value :java.lang.String
   }
 
-  enum RelativeRtype serializable 1  {
-    value : java.lang.String
-    FATHER ::: "F"
-    MOTHER ::: "M"
-    SON ::: "S"
-    DAUGHTER ::: "D"
-    HUSBAND ::: "H"
-    WIFE ::: "W"
-    BROTHER ::: "B"
-    SISTER ::: "I"
+  #Serializable(1)
+  enum RelativeRtype {
+    #Values(FATHER = "F",MOTHER = "M",SON = "S",DAUGHTER = "D",HUSBAND = "H",WIFE = "W",BROTHER = "B",SISTER = "I")
+    value :java.lang.String
   }
 
-  @Model ::: value "SimpleWeb.model.Contact", paging true, readMethod "simpleService.loadContacts"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo Contact serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    personId : java.lang.Long required index 2
-    @ModelField ::: type :ModelType STRING
+  @Model(value = "SimpleWeb.model.Contact", paging = true, readMethod = "simpleService.loadContacts")
+  #Static #Conflict
+  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,phoneNumber,address,countryCode,ctype,personId,version)
+  pojo Contact {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(2)
+    personId :java.lang.Long
+    @ModelField(type = STRING :ModelType)
     @NotNull
-    ctype :: ContactCtype required
+    #Required
+    ctype ContactCtype
     @NotBlank
-    address : java.lang.String required
-    phoneNumber : java.lang.String
+    #Required
+    address :java.lang.String
+    #IsDef
+    phoneNumber :java.lang.String
     @NotNull
-    version : java.lang.Integer optLock
-    country :: Country updateCol code->countryCode required index 3
-    countryCode : java.lang.String createCol country->code
-    equals ::: id
-    hashCode ::: id
-    toInit ::: country
-    isDef ::: phoneNumber
-    toString ::: id phoneNumber address countryCode ctype personId version
+    #Version
+    version :java.lang.Integer
+    #ToInit
+    #Required
+    #Index(3)
+    #UpdateCol(code,countryCode)
+    country Country
+    #CreateCol(country,code)
+    countryCode : java.lang.String
   }
 
-  @Model ::: value "SimpleWeb.model.Country", paging true, readMethod "simpleService.loadCountries"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo Country serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    code : java.lang.String required index 3
-    name : java.lang.String index 4
-    equals ::: id
-    hashCode ::: id
-    toInit :::
-    isDef ::: name
-    toString ::: id name code
+  @Model(value = "SimpleWeb.model.Country", paging = true, readMethod = "simpleService.loadCountries")
+  #Static #Conflict
+  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,name,code)
+  pojo Country {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(3)
+    code :java.lang.String
+    #IsDef
+    #Index(4)
+    name :java.lang.String
   }
 
-  @Model ::: value "SimpleWeb.model.Person", paging true, readMethod "simpleService.loadPeople"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo Person serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
+  @Model(value = "SimpleWeb.model.Person", paging = true, readMethod = "simpleService.loadPeople")
+  #Static #Conflict
+  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(dateOfBirth,id,lastName,ssn,gender,firstName,version)
+  pojo Person {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
     @NotBlank
-    firstName : java.lang.String required
+    #Required
+    firstName :java.lang.String
     @NotBlank
-    lastName : java.lang.String required index 2
-    @ModelField ::: dateFormat "d.m.Y"
+    #Required
+    #Index(2)
+    lastName :java.lang.String
+    @ModelField(dateFormat = "d.m.Y")
     @Past
-    @DateTimeFormat ::: pattern "dd.MM.yyyy"
-    @@JsonSerialize ::: using :DMYDateSerializer class
-    @@@JsonDeserialize ::: using :DMYDateDeserializer class
-    dateOfBirth : java.util.Date
-    @ModelField ::: type :ModelType STRING
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    #Getter #Setter
+    @JsonSerialize(using = class :DMYDateSerializer)
+    #IsDef
+    dateOfBirth :java.util.Date
+    @ModelField(type = STRING :ModelType)
     @NotNull
-    gender :: PersonGender required
-    ssn : java.lang.String
+    #Required
+    gender PersonGender
+    #IsDef
+    ssn :java.lang.String
     @NotNull
-    version : java.lang.Integer optLock
-    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Relative class
-    relatives : java.util.List <:Relative>
-    @ModelAssociation ::: value :ModelAssociationType HAS_MANY, model ::Contact class
-    contacts : java.util.List <:Contact>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: relatives contacts
-    isDef ::: dateOfBirth ssn
-    toString ::: dateOfBirth id lastName ssn gender firstName version
+    #Version
+    version :java.lang.Integer
+    @ModelAssociation(value = HAS_MANY :ModelAssociationType, model = class Relative )
+    #ToInit
+    relatives :java.util.List <Relative>
+    @ModelAssociation(value = HAS_MANY :ModelAssociationType, model = class Contact)
+    #ToInit
+    contacts :java.util.List <Contact>
   }
 
-  @Model ::: value "SimpleWeb.model.Relative"
-  @@@JsonIgnore
-  @@@@JsonIgnore
-  pojo Relative serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    personId : java.lang.Long required index 2
-    @ModelAssociation ::: value :ModelAssociationType HAS_ONE, model ::Person class
-    relPerson :: Person required index 3
-    @ModelField ::: type :ModelType STRING
+  @Model(value = "SimpleWeb.model.Relative")
+  #Static #Conflict
+  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,rtype,personId,version)
+  pojo Relative {
+    #PrimaryKey
+    #Index(1)
+    id :java.lang.Long
+    #Required
+    #Index(2)
+    personId :java.lang.Long
+    @ModelAssociation(value = HAS_ONE :ModelAssociationType, model = class Person)
+    #ToInit
+    #Required
+    #Index(3)
+    relPerson Person
+    @ModelField(type = STRING :ModelType)
     @NotNull
-    rtype :: RelativeRtype required
+    #Required
+    rtype RelativeRtype
     @NotNull
-    version : java.lang.Integer
-    equals ::: id
-    hashCode ::: id
-    toInit ::: relPerson
-    isDef ::: version
-    toString ::: id rtype personId version
+    #IsDef
+    version :java.lang.Integer
   }
 }
 
 
 package org.sample.web.form {
-	pojo PersonForm extends Person serializable 1 {
-		dateOfBirthFrom : java.util.Date
-		dateOfBirthTo : java.util.Date
-		toString ::: dateOfBirthFrom dateOfBirthTo
-	}
+ 
+  #Serializable(1)
+  pojo PersonForm extends Person {
+    dateOfBirthFrom : java.util.Date
+    dateOfBirthTo : java.util.Date
+  }
 	
-	pojo CountHolder serializable 1 {
-		count : int 
-	}
+  #Serializable(1)
+  pojo CountHolder {
+    count : int 
+  }
 }

@@ -1,18 +1,22 @@
 package org.sample.dao.auth {
 
-  dao AuthRoleDao :: AuthRole {
-    scaffold
+  #CRUD(AuthRole)
+  #Query(AuthRole)
+  dao AuthRoleDao {
   }
 
-  dao AuthUserDao :: AuthUser {
-    scaffold
+  #CRUD(AuthUser)
+  #Query(AuthUser)
+  dao AuthUserDao {
   }
 
-  dao UserRoleDao :: UserRole {
-    scaffold
+  #CRUD(UserRole)
+  #Query(UserRole)
+  dao UserRoleDao {
   }
 
-  dao UserSessionDao :: UserSession {
-    scaffold
+  #CRUD(UserSession)
+  #Query(UserSession)
+  dao UserSessionDao {
   }
 }

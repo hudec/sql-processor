@@ -1,45 +1,3 @@
-SELECT_PERSON(QRY,inx=PersonForm,outx=Person,tab=person=p,tab=relative=r,tab=contact=c,tab=person=p1)=
-  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
-         {? :relatives(call=toInit) | , %r.ID @relatives.id(id), %r.PERSON_ID @relatives.personId, %r.REL_PERSON_ID @relatives.relPerson.id, %r.RTYPE @relatives.rtype, %p1.FIRST_NAME @relatives.relPerson.firstName, %p1.LAST_NAME @relatives.relPerson.lastName, %p1.DATE_OF_BIRTH @relatives.relPerson.dateOfBirth, %p1.GENDER @relatives.relPerson.gender, %p1.SSN @relatives.relPerson.ssn, %p1.VERSION @relatives.relPerson.version }
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
-  from %%PERSON p
-  {? :relatives(call=toInit) | left join %%RELATIVE r on %p.ID = %r.PERSON_ID left join %%PERSON p1 on %r.REL_PERSON_ID = %p1.ID }
-  {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
-  {= where
-    {& %p.ID ::= :id }
-    {& UPPER(%p.FIRST_NAME) like :+firstName }
-    {& UPPER(%p.LAST_NAME) like :+lastName }
-    {& %p.DATE_OF_BIRTH ::= :dateOfBirth }
-    {& %p.DATE_OF_BIRTH >= :dateOfBirthFrom }
-    {& %p.DATE_OF_BIRTH <= :dateOfBirthTo }        
-    {& UPPER(%p.GENDER) like :+gender }
-    {& UPPER(%p.SSN) like :+ssn }
-  }
-  {#1 order by %p.ID }
-  {#2 order by %p.LAST_NAME }
-;
-
-INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact,MYSQL)=
-  insert into %%CONTACT (%PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %COUNTRY_CODE)
-  {= values (:id(idsel), :personId, :ctype, :address, :phoneNumber, :version, :country.code) }
-;
-
-INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person,MYSQL)=
-  insert into %%PERSON (%FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN, %VERSION)
-  {= values (:id(idsel), :firstName, :lastName, :dateOfBirth, :gender, :ssn, :version) }
-;
-
-INSERT_COUNTRY(CRUD,inx=Country,outx=Country,tab=country,MYSQL)=
-  insert into %%COUNTRY (%CODE, %NAME)
-  {= values (:id(idsel), :code, :name) }
-;
-
-INSERT_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative,MYSQL)=
-  insert into %%RELATIVE (%PERSON_ID, %REL_PERSON_ID, %RTYPE)
-  {= values (:id(idsel), :personId, :relPerson.id, :rtype) }
-;
-
-// generated
 
 INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %COUNTRY_CODE)
@@ -195,6 +153,25 @@ DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   }
 ;
 
+SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=relative=r,tab=contact=c)=
+  select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
+         {? :relatives(call=toInit) | , %r.ID @relatives.id(id), %r.PERSON_ID @relatives.personId, %r.REL_PERSON_ID @relatives.relPerson.id, %r.RTYPE @relatives.rtype }
+         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
+  from %%PERSON p
+  {? :relatives(call=toInit) | left join %%RELATIVE r on %p.ID = %r.REL_PERSON_ID }
+  {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {= where
+    {& %p.ID ::= :id }
+    {& UPPER(%p.FIRST_NAME) like :+firstName }
+    {& UPPER(%p.LAST_NAME) like :+lastName }
+    {& %p.DATE_OF_BIRTH ::= :dateOfBirth }
+    {& UPPER(%p.GENDER) like :+gender }
+    {& UPPER(%p.SSN) like :+ssn }
+  }
+  {#1 order by %p.ID }
+  {#2 order by %p.LAST_NAME }
+;
+
 INSERT_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative)=
   insert into %%RELATIVE (%ID, %PERSON_ID, %REL_PERSON_ID, %RTYPE)
   {= values (:id(seq=SIMPLE_SEQUENCE), :personId, :relPerson.id, :rtype) }
@@ -216,9 +193,9 @@ GET_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative=r,tab=person=p)=
 UPDATE_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative)=
   update %%RELATIVE
   {= set
-    { ,%PERSON_ID = :personId }
-    { ,%REL_PERSON_ID = :relPerson.id }
-    { ,%RTYPE = :rtype }
+    { ,%PERSON_ID = :personId(call=isDef) }
+    { ,%REL_PERSON_ID = :relPerson.id(call=isDef) }
+    { ,%RTYPE = :rtype(call=isDef) }
   }
   {= where
     {& %ID = :id(!empty) }
