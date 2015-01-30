@@ -16,6 +16,7 @@ import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
+import org.sample.model.NewPerson;
 
 public class NewPersonDao {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());

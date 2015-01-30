@@ -17,6 +17,7 @@ import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
+import org.sample.model.AnHourBefore;
 
 public class AnHourBeforeDao {
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
