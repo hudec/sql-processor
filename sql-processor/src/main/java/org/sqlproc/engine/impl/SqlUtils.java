@@ -351,4 +351,12 @@ public class SqlUtils {
         }
         return oppositeFeatures;
     }
+
+    public static boolean isPrimitiveWrapper(Class clazz) {
+        if (clazz == Boolean.class || clazz == Character.class || clazz == Short.class || clazz == Integer.class
+                || clazz == Long.class || clazz == Double.class || clazz == Float.class || clazz == BigInteger.class
+                || clazz == BigDecimal.class)
+            return true;
+        return false;
+    }
 }

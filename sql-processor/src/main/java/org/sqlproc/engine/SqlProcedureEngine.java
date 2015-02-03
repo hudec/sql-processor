@@ -11,6 +11,7 @@ import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlStandardControl;
+import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -396,6 +397,8 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     private <E> List<E> callQuery(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass) {
         List list = query.callList(mappingResult.getRuntimeContext());
+        if (SqlUtils.isPrimitiveWrapper(resultClass))
+            return list;
         List<E> result = new ArrayList<E>();
         E resultInstance = null;
         Object[] resultValue = null;
