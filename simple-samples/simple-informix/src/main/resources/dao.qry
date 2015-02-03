@@ -10,6 +10,10 @@ package org.sample.dao {
   dao PersonDao {
   }
 
+  #ProcedureCallQuery(:java.util.List<:java.lang.Long>,FunLong)
+  dao FunLongDao {
+  }
+
   #ProcedureUpdate(:int,NewPerson)
   dao NewPersonDao {
   }

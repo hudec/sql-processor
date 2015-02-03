@@ -65,6 +65,12 @@ package org.sample.model {
   }
 
   #Serializable(1)
+  #ToString(fakep)
+  pojo FunLong { // procedure
+    fakep :java.lang.Long
+  }
+
+  #Serializable(1)
   #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
   pojo NewPerson { // procedure
     newid :java.lang.Integer

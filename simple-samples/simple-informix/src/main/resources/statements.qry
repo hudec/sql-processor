@@ -122,6 +122,13 @@ FUN_AN_HOUR_BEFORE(OUT)=
   1$1(type=stamp)
 ;
 
+PROC_FUN_LONG(CALL,inx=FunLong)=
+  call fun_long(:fakep)
+;
+PROC_FUN_LONG(OUT)=
+  1$1(type=long)
+;
+
 PROC_NEW_PERSON(CALL,inx=NewPerson)=
   call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName, :gender)
 ;
