@@ -20,7 +20,7 @@ pojogen-generate-wrappers;
 // POJO helpers' methods
 pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
-pojogen-implements-interfaces java.io.Serializable;
+pojogen-implements-interfaces :java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // operators
@@ -33,8 +33,6 @@ metagen-global-sequence SIMPLE_SEQUENCE;
 // operators
 metagen-not-like-columns CONTACT PHONE_NUMBER;
 
-// can't overwrite existing DAO 
-daogen-implementation-package impl;
 //daogen-make-it-final;
 
 table contact CONTACT;
