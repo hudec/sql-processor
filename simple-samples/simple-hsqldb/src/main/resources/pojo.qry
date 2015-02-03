@@ -10,13 +10,13 @@ package org.sample.model {
   }
 
   #Serializable(1)
-  enum Gender {
+  enum PersonGender {
     #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
     value :java.lang.String
   }
 
   // The contact information
-  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,phoneNumber,address,xint,type,gender2)
+  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,phoneNumber,address,type)
   pojo Contact {
     // The technical primary key
     #PrimaryKey #Index(1)
@@ -38,14 +38,10 @@ package org.sample.model {
     @Size(max = 100)
     #IsDef
     phoneNumber :java.lang.String
-    #IsDef
-    gender2 Gender
     // Any notes and remarks
     @Size(max = 100)
     #IsDef
     xNote :java.lang.String
-    #IsDef
-    xint :int
   }
 
   // The personal information
@@ -70,7 +66,7 @@ package org.sample.model {
     // The gender: M=male, F=female, 0=other
     @NotNull
     #Required
-    gender Gender
+    gender PersonGender
     // The social security number
     @Size(max = 100)
     #IsDef

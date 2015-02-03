@@ -3,52 +3,102 @@
 #set( $symbol_escape = '\' )
 package ${package}.model {
 
+  import javax.validation.constraints.NotNull
+  import javax.validation.constraints.Size
 
-  pojo Contact serializable 1 operators {
-    id : java.lang.Long primaryKey index 1
-    person :: Person required index 2
-    address : java.lang.String required
-    phoneNumber : java.lang.String
-    equals ::: id
-    hashCode ::: id
-    toInit ::: person
-    isDef ::: phoneNumber
-    toString ::: id person phoneNumber address
+  #Serializable(1)
+  enum ContactType {
+    #Values(HOME = 0,BUSINESS = 1,ABROAD = 2)
+    value :java.lang.Integer
   }
 
-  pojo Person serializable 1  {
-    id : java.lang.Long primaryKey index 1
-    firstName : java.lang.String required
-    lastName : java.lang.String required index 2
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    contacts : java.util.List <:Contact>
-    equals ::: id
-    hashCode ::: id
-    toInit ::: contacts
-    isDef ::: dateOfBirth ssn
-    toString ::: dateOfBirth id lastName ssn firstName
+  #Serializable(1)
+  enum PersonGender {
+    #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+    value :java.lang.String
   }
 
-  pojo AnHourBefore serializable 1  { // function
-    t : java.sql.Timestamp
-    toString ::: t
+  // The contact information
+  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,phoneNumber,address,type)
+  pojo Contact {
+    // The technical primary key
+    #PrimaryKey #Index(1)
+    id :java.lang.Long
+    // The owner of this contact
+    @NotNull
+    #ToInit #Required #Index(2)
+    person Person
+    // The contact type: 0=home, 1=business, 2=abroad
+    @NotNull
+    #Required
+    type ContactType
+    // The address: city, street...
+    @NotNull
+    @Size(max = 100)
+    #Required
+    address :java.lang.String
+    // The phone number
+    @Size(max = 100)
+    #IsDef
+    phoneNumber :java.lang.String
+    // Any notes and remarks
+    @Size(max = 100)
+    #IsDef
+    xNote :java.lang.String
   }
 
-  pojo NewPerson serializable 1  { // procedure
-    newid : java.lang.Integer
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    firstName : java.lang.String
-    lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName newid
+  // The personal information
+  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
+  pojo Person {
+    // The technical primary key
+    #PrimaryKey #Index(1)
+    id :java.lang.Long
+    // The first name
+    @NotNull
+    @Size(max = 100)
+    #Required
+    firstName :java.lang.String
+    // The surname
+    @NotNull
+    @Size(max = 100)
+    #Required #Index(2)
+    lastName :java.lang.String
+    // The date of birth
+    #IsDef
+    dateOfBirth :java.util.Date
+    // The gender: M=male, F=female, 0=other
+    @NotNull
+    #Required
+    gender PersonGender
+    // The social security number
+    @Size(max = 100)
+    #IsDef
+    ssn :java.lang.String
+    #ToInit
+    contacts :java.util.List <Contact>
   }
 
-  pojo NewPersonRetRs serializable 1  { // procedure
-    dateOfBirth : java.util.Date
-    ssn : java.lang.String
-    firstName : java.lang.String
-    lastName : java.lang.String
-    toString ::: dateOfBirth lastName ssn firstName
+  #Serializable(1) #ToString(t)
+  pojo AnHourBefore { // function
+    t :java.sql.Timestamp
+  }
+
+  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
+  pojo NewPerson { // procedure
+    newid :java.lang.Integer
+    dateOfBirth :java.util.Date
+    ssn :java.lang.String
+    firstName :java.lang.String
+    lastName :java.lang.String
+    gender :java.lang.String
+  }
+
+  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
+  pojo NewPersonRetRs { // procedure
+    dateOfBirth :java.util.Date
+    ssn :java.lang.String
+    firstName :java.lang.String
+    lastName :java.lang.String
+    gender :java.lang.String
   }
 }

@@ -3,20 +3,23 @@
 #set( $symbol_escape = '\' )
 package ${package}.dao {
 
-  dao ContactDao :: Contact {
-    scaffold
+  #CRUD(Contact) #Query(Contact)
+  dao ContactDao {
   }
 
-  dao PersonDao :: Person {
-    scaffold
+  #CRUD(Person) #Query(Person)
+  dao PersonDao {
   }
 
-  dao ProceduresDao {
-    callUpdate newPerson _void ::: newPerson ::NewPerson
-    callQuery newPersonRetRs :java.util.List<:Person> ::: newPersonRetRs ::NewPersonRetRs
+  #ProcedureUpdate(:int,NewPerson)
+  dao NewPersonDao {
   }
 
-  dao FunctionsDao {
-    callFunction anHourBefore :java.sql.Timestamp ::: anHourBefore ::AnHourBefore
+  #ProcedureCallQuery(:java.util.List<Person>,NewPersonRetRs)
+  dao NewPersonRetRsDao {
+  }
+
+  #FunctionCall(:java.sql.Timestamp,AnHourBefore)
+  dao AnHourBeforeDao {
   }
 }

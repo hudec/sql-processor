@@ -106,21 +106,6 @@ public class Contact implements Serializable {
 		return this;
 	}
 
-	private Gender gender2;
-
-	public Gender getGender2() {
-		return gender2;
-	}
-
-	public void setGender2(Gender gender2) {
-		this.gender2 = gender2;
-	}
-
-	public Contact _setGender2(Gender gender2) {
-		this.gender2 = gender2;
-		return this;
-	}
-
 	@Size(max = 100)
 	private String xNote;
 
@@ -134,21 +119,6 @@ public class Contact implements Serializable {
 
 	public Contact _setxNote(String xNote) {
 		this.xNote = xNote;
-		return this;
-	}
-
-	private int xint;
-
-	public int getXint() {
-		return xint;
-	}
-
-	public void setXint(int xint) {
-		this.xint = xint;
-	}
-
-	public Contact _setXint(int xint) {
-		this.xint = xint;
 		return this;
 	}
 
@@ -217,7 +187,7 @@ public class Contact implements Serializable {
 	}
 
 	public enum Attribute {
-		phoneNumber, gender2, xNote, xint
+		phoneNumber, xNote
 	}
 
 	private Set<String> nullValues = new HashSet<String>();
@@ -336,15 +306,15 @@ public class Contact implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", xint=" + xint + ", type=" + type + ", gender2=" + gender2 + "]";
+		return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
 	}
 
 	public String toStringFull() {
-		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", gender2=" + gender2 + ", xNote=" + xNote + ", xint=" + xint + "]";
+		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + "]";
 	}
 
 	public enum OpAttribute {
-		id, person, type, address, phoneNumber, gender2, xNote, xint
+		id, person, type, address, phoneNumber, xNote
 	}
 
 	private Map<String, String> operators = new HashMap<String, String>();

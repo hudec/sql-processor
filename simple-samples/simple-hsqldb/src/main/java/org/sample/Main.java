@@ -19,10 +19,10 @@ import org.sample.dao.PersonDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
-import org.sample.model.Gender;
 import org.sample.model.NewPerson;
 import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
+import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
@@ -125,32 +125,32 @@ public class Main {
         List<Contact> listc;
 
         // insert
-        Person jan = insertPersonContacts(new Person("Jan", "Jansky", Gender.MALE),
+        Person jan = insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE),
                 new Contact()._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME));
         p = getPerson(jan.getId(), Person.Association.contacts);
         Assert.assertEquals("Jan", p.getFirstName());
         Assert.assertEquals("Jan address 1", p.getContacts().get(0).getAddress());
 
-        Person janik = insertPersonContacts(new Person("Janik", "Janicek", Gender.MALE), new Contact()
+        Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
                 ._setAddress("Janik address 1")._setType(ContactType.BUSINESS));
         p = getPerson(janik.getId(), Person.Association.contacts);
         Assert.assertEquals("Janik", p.getFirstName());
         Assert.assertEquals("Janik address 1", p.getContacts().get(0).getAddress());
 
-        Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", Gender.MALE), new Contact()
+        Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
                 ._setAddress("Honza address 1")._setType(ContactType.HOME), new Contact()
                 ._setAddress("Honza address 2")._setType(ContactType.BUSINESS));
         p = getPerson(honza.getId(), Person.Association.contacts);
         Assert.assertEquals("Honza", p.getFirstName());
         Assert.assertEquals("Honza address 2", p.getContacts().get(1).getAddress());
 
-        Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", Gender.MALE));
+        Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
         p = getPerson(honzik.getId(), Person.Association.contacts);
         Assert.assertEquals("Honzik", p.getFirstName());
         Assert.assertEquals(0, p.getContacts().size());
 
         Person andrej = insertPersonContacts(
-                new Person("Andrej", "Andrejcek", Gender.MALE)._setSsn("123456789"),
+                new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
                         ._setType(ContactType.BUSINESS));
         p = getPerson(andrej.getId(), Person.Association.contacts);
@@ -177,7 +177,7 @@ public class Main {
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
-        Assert.assertEquals(Gender.MALE, p.getGender());
+        Assert.assertEquals(PersonGender.MALE, p.getGender());
         Assert.assertTrue(p.getContacts().size() == 0);
 
         person = new Person();
@@ -271,7 +271,7 @@ public class Main {
         newPerson.setLastName("Maruskova");
         newPerson.setSsn("999888777");
         newPerson.setDateOfBirth(getAge(1969, 11, 1));
-        newPerson.setGender(Gender.FEMALE.getValue());
+        newPerson.setGender(PersonGender.FEMALE.getValue());
         newPersonDao.newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
 
@@ -280,7 +280,7 @@ public class Main {
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
         newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
-        newPersonRetRs.setGender(Gender.FEMALE.getValue());
+        newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
         list = newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
