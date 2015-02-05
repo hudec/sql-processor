@@ -1,22 +1,22 @@
 package org.sample.^dao {
 
   #CRUD(Contact) #Query(Contact)
-  dao ContactDao {
+  #Dao ContactDao {
   }
 
   #CRUD(Person) #Query(Person)
-  dao PersonDao {
+  #Dao PersonDao {
   }
 
   #ProcedureUpdate(:int,NewPerson)
-  dao NewPersonDao {
+  #Dao NewPersonDao {
   }
 
   #ProcedureCallQuery(:java.util.List<Person>,NewPersonRetRs)
-  dao NewPersonRetRsDao {
+  #Dao NewPersonRetRsDao {
   }
 
   #FunctionCall(:java.sql.Timestamp,AnHourBefore)
-  dao AnHourBeforeDao {
+  #Dao AnHourBeforeDao {
   }
 }

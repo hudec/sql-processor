@@ -4,20 +4,20 @@ package org.sample.model {
   import javax.validation.constraints.Size
 
   #Serializable(1)
-  enum ContactType {
+  #Enum ContactType {
     #Values(HOME = 0,BUSINESS = 1,ABROAD = 2)
     value :java.lang.Integer
   }
 
   #Serializable(1)
-  enum Gender {
+  #Enum Gender {
     #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
     value :java.lang.String
   }
 
   // The contact information
   #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,phoneNumber,address,xint,type,gender2)
-  pojo Contact {
+  #Pojo Contact {
     // The technical primary key
     #PrimaryKey #Index(1)
     id :java.lang.Long
@@ -50,7 +50,7 @@ package org.sample.model {
 
   // The personal information
   #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
-  pojo Person {
+  #Pojo Person {
     // The technical primary key
     #PrimaryKey #Index(1)
     id :java.lang.Long
@@ -80,12 +80,12 @@ package org.sample.model {
   }
 
   #Serializable(1) #ToString(t)
-  pojo AnHourBefore { // function
+  #Pojo AnHourBefore { // function
     t :java.sql.Timestamp
   }
 
   #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
-  pojo NewPerson { // procedure
+  #Pojo NewPerson { // procedure
     newid :java.lang.Integer
     dateOfBirth :java.util.Date
     ssn :java.lang.String
@@ -95,7 +95,7 @@ package org.sample.model {
   }
 
   #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
-  pojo NewPersonRetRs { // procedure
+  #Pojo NewPersonRetRs { // procedure
     dateOfBirth :java.util.Date
     ssn :java.lang.String
     firstName :java.lang.String

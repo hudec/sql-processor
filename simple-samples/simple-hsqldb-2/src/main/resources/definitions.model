@@ -41,7 +41,7 @@ metagen-not-like-columns;
 //metagen-optimize-insert;
 // can't overwrite existing DAO 
 //daogen-make-it-final; 
-daogen-package org.sample.^dao;
+daogen-package org.sample.dao;
 
 table contact CONTACT;
 table person PERSON;
