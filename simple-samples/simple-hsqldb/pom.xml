@@ -145,11 +145,11 @@
 
     <profiles>
         <profile>
-            <id>db2mo</id>
+            <id>db2me</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.sqlproc.dsl</groupId>
-                    <artifactId>sqlep</artifactId>
+                    <groupId>org.sqlproc.meta</groupId>
+                    <artifactId>sqlmeta</artifactId>
                     <version>2.0.0-SNAPSHOT</version>
                     <scope>runtime</scope>
                 </dependency>
@@ -166,19 +166,61 @@
                             <arguments>
                                 <argument>-classpath</argument>
                                 <classpath>
-                                    <dependency>org.sqlproc.dsl:sqlep</dependency>
+                                    <dependency>org.sqlproc.meta:sqlmeta</dependency>
                                     <dependency>org.hsqldb:hsqldb</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
                                 </classpath>
                                 <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
                                 <argument>-control</argument>
-                                <argument>definitions.qry</argument>
-                                <argument>-pojo</argument>
-                                <argument>pojo.qry</argument>
-                                <argument>-dao</argument>
-                                <argument>dao.qry</argument>
+                                <argument>definitions.meta</argument>
                                 <argument>-sql</argument>
-                                <argument>statements.qry</argument>
+                                <argument>statements.meta</argument>
+                                <argument>-ddl</argument>
+                                <argument>hsqldb.ddl</argument>
+                                <argument>-source</argument>
+                                <argument>src/main/resources</argument>
+                                <argument>-target</argument>
+                                <argument>src/main/resources</argument>
+                                <argument>-nomerge</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>db2mo</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.sqlproc.model</groupId>
+                    <artifactId>sqlmodel</artifactId>
+                    <version>2.0.0-SNAPSHOT</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <configuration>
+                            <executable>java</executable>
+                            <classpathScope>runtime</classpathScope>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath>
+                                    <dependency>org.sqlproc.model:sqlmodel</dependency>
+                                    <dependency>org.hsqldb:hsqldb</dependency>
+                                    <dependency>javax.validation:validation-api</dependency>
+                                </classpath>
+                                <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
+                                <argument>-control</argument>
+                                <argument>definitions.model</argument>
+                                <argument>-pojo</argument>
+                                <argument>pojo.model</argument>
+                                <argument>-dao</argument>
+                                <argument>dao.model</argument>
                                 <argument>-ddl</argument>
                                 <argument>hsqldb.ddl</argument>
                                 <argument>-source</argument>
@@ -196,8 +238,8 @@
             <id>mo2ja</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.sqlproc.dsl</groupId>
-                    <artifactId>sqlep</artifactId>
+                    <groupId>org.sqlproc.model</groupId>
+                    <artifactId>sqlmodel</artifactId>
                     <version>2.0.0-SNAPSHOT</version>
                     <scope>runtime</scope>
                 </dependency>
@@ -214,13 +256,13 @@
                             <arguments>
                                 <argument>-classpath</argument>
                                 <classpath>
-                                    <dependency>org.sqlproc.dsl:sqlep</dependency>
+                                    <dependency>org.sqlproc.model:sqlmodel</dependency>
                                     <dependency>org.hsqldb:hsqldb</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
                                 </classpath>
                                 <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
                                 <argument>-models</argument>
-                                <argument>pojo.qry,dao.qry</argument>
+                                <argument>pojo.model,dao.model</argument>
                                 <argument>-source</argument>
                                 <argument>src/main/resources</argument>
                                 <argument>-target</argument>
