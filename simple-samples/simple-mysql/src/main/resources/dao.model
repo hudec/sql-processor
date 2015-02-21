@@ -1,0 +1,28 @@
+package org.sample.dao {
+
+  import org.sample.model.NewPersonRetRs
+  import org.sample.model.AnHourBefore
+  import org.sample.model.Contact
+  import org.sample.model.NewPerson
+  import org.sample.model.Person
+
+  #CRUD(Contact) #Query(Contact)
+  #Dao ContactDao {
+  }
+
+  #CRUD(Person) #Query(Person)
+  #Dao PersonDao {
+  }
+
+  #ProcedureUpdate(int,NewPerson)
+  #Dao NewPersonDao {
+  }
+
+  #ProcedureCallQuery(java.util.List<Person>,NewPersonRetRs)
+  #Dao NewPersonRetRsDao {
+  }
+
+  #FunctionCall(java.sql.Timestamp,AnHourBefore)
+  #Dao AnHourBeforeDao {
+  }
+}
