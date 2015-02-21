@@ -6,13 +6,13 @@ package org.sample.model {
   #Serializable(1)
   #Enum ContactType {
     #Values(HOME = 0,BUSINESS = 1,ABROAD = 2)
-    #Attr java.lang.Integer value
+    #Attr Integer value
   }
 
   #Serializable(1)
   #Enum PersonGender {
     #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
-    #Attr java.lang.String value
+    #Attr String value
   }
 
   // The contact information
@@ -20,7 +20,7 @@ package org.sample.model {
   #Pojo Contact {
     // The technical primary key
     #PrimaryKey #Index(1)
-    #Attr java.lang.Long id
+    #Attr Long id
     // The owner of this contact
     @NotNull
     #ToInit #Required #Index(2)
@@ -33,15 +33,15 @@ package org.sample.model {
     @NotNull
     @Size(max = 100)
     #Required
-    #Attr java.lang.String address
+    #Attr String address
     // The phone number
     @Size(max = 100)
     #IsDef
-    #Attr java.lang.String phoneNumber
+    #Attr String phoneNumber
     // Any notes and remarks
     @Size(max = 100)
     #IsDef
-    #Attr java.lang.String xNote
+    #Attr String xNote
   }
 
   // The personal information
@@ -49,17 +49,17 @@ package org.sample.model {
   #Pojo Person {
     // The technical primary key
     #PrimaryKey #Index(1)
-    #Attr java.lang.Long id
+    #Attr Long id
     // The first name
     @NotNull
     @Size(max = 100)
     #Required
-    #Attr java.lang.String firstName
+    #Attr String firstName
     // The surname
     @NotNull
     @Size(max = 100)
     #Required #Index(2)
-    #Attr java.lang.String lastName
+    #Attr String lastName
     // The date of birth
     #IsDef
     #Attr java.util.Date dateOfBirth
@@ -70,32 +70,32 @@ package org.sample.model {
     // The social security number
     @Size(max = 100)
     #IsDef
-    #Attr java.lang.String ssn
+    #Attr String ssn
     #ToInit
     #Attr java.util.List <Contact> contacts
   }
 
   #Serializable(1) #ToString(t)
   #Pojo AnHourBefore { // function
-    #Attr java.sql.Timestamp t
+    #Attr java.util.Date t
   }
 
   #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
   #Pojo NewPerson { // procedure
-    #Attr java.lang.Integer newid
+    #Attr short newid
     #Attr java.util.Date dateOfBirth
-    #Attr java.lang.String ssn
-    #Attr java.lang.String firstName
-    #Attr java.lang.String lastName
-    #Attr java.lang.String gender
+    #Attr String ssn
+    #Attr String firstName
+    #Attr String lastName
+    #Attr String gender
   }
 
   #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
   #Pojo NewPersonRetRs { // procedure
     #Attr java.util.Date dateOfBirth
-    #Attr java.lang.String ssn
-    #Attr java.lang.String firstName
-    #Attr java.lang.String lastName
-    #Attr java.lang.String gender
+    #Attr String ssn
+    #Attr String firstName
+    #Attr String lastName
+    #Attr String gender
   }
 }

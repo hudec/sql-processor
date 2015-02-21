@@ -12,3 +12,4 @@ build
 .pydevproject
 *.swp
 *~
+*_trace

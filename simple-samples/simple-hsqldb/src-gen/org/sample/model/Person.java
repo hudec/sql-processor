@@ -9,7 +9,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.sample.model.Contact;
 import org.sample.model.PersonGender;
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
 @SuppressWarnings("all")
 public class Person implements Serializable {
   private final static long serialVersionUID = 1L;

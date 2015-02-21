@@ -5,7 +5,7 @@ database-has-url "jdbc:hsqldb:mem:hsqldb";
 database-login-username sa;
 database-login-password "";
 //database-in-catalog PUBLIC;
-//database-active-schema PUBLIC;
+//database-active-schema PUBLIC;getSqlTypes
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 database-show-database-info "HSQL Database Engine,2.2.9,2,2";
 database-show-driver-info "HSQL Database Engine Driver,2.2.9,2,2";
@@ -15,6 +15,13 @@ database-show-driver-output getSystemFunctions->"DATABASE,IFNULL,USER";
 database-show-driver-output getTimeDateFunctions->"CURDATE,CURTIME,DATEDIFF,DAYNAME,DAYOFMONTH,DAYOFWEEK,DAYOFYEAR,HOUR,MINUTE,MONTH,MONTHNAME,NOW,QUARTER,SECOND,SECONDS_SINCE_MIDNIGHT,TIMESTAMPADD,TIMESTAMPDIFF,TO_CHAR,WEEK,YEAR";
 //database-is-of-type HSQLDB;
 database-take-comments;
+pojogen-show-type-for-column CONTACT ID->"BIGINT(64)";
+//pojogen-types-sqltypes "BIGINT(64)"->java.lang.Integer;
+//pojogen-types-in-table CONTACT "BIGINT(64)"->java.lang.Byte;
+//pojogen-types-for-columns CONTACT ID->java.lang.Short;
+//pojogen-create-columns CONTACT ID2->boolean;
+pojogen-types-for-procedure AN_HOUR_BEFORE T->:java.util.Date;
+pojogen-types-for-procedure NEW_PERSON NEWID->:short;
 
 // native types
 pojogen-generate-wrappers;
@@ -55,7 +62,6 @@ procedure anHourBefore AN_HOUR_BEFORE;
 procedure newPerson NEW_PERSON;
 procedure newPersonRetRs NEW_PERSON_RET_RS;
 function anHourBefore AN_HOUR_BEFORE;
-
 
 metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;

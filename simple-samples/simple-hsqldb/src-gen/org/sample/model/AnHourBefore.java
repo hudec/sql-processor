@@ -1,23 +1,25 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
 @SuppressWarnings("all")
 public class AnHourBefore implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private Timestamp t;
+  private Date t;
   
-  public Timestamp getT() {
+  public Date getT() {
     return this.t;
   }
   
-  public void setT(final Timestamp t) {
+  public void setT(final Date t) {
     this.t = t;
   }
   
-  public AnHourBefore _setT(final Timestamp t) {
+  public AnHourBefore _setT(final Date t) {
     this.t = t;
     return this;
   }

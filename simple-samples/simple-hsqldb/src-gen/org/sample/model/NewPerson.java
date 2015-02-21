@@ -2,22 +2,24 @@ package org.sample.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
 @SuppressWarnings("all")
 public class NewPerson implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private Integer newid;
+  private short newid;
   
-  public Integer getNewid() {
+  public short getNewid() {
     return this.newid;
   }
   
-  public void setNewid(final Integer newid) {
+  public void setNewid(final short newid) {
     this.newid = newid;
   }
   
-  public NewPerson _setNewid(final Integer newid) {
+  public NewPerson _setNewid(final short newid) {
     this.newid = newid;
     return this;
   }

@@ -2,7 +2,9 @@ package org.sample.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
 @SuppressWarnings("all")
 public class NewPersonRetRs implements Serializable {
   private final static long serialVersionUID = 1L;
