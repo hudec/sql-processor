@@ -1,61 +1,55 @@
 package org.sample.dao;
-	
+
 import java.util.List;
 import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlControl;
-import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlQueryEngine;
-import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
-import org.sqlproc.engine.impl.SqlStandardControl;
-import org.sample.model.NewPersonRetRs;
 
+@SuppressWarnings("all")
 public class NewPersonRetRsDao {
-	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
-	protected SqlEngineFactory sqlEngineFactory;
-	protected SqlSessionFactory sqlSessionFactory;
-			
-	public NewPersonRetRsDao() {
-	}
-			
-	public NewPersonRetRsDao(SqlEngineFactory sqlEngineFactory) {
-		this.sqlEngineFactory = sqlEngineFactory;
-	}
-			
-	public NewPersonRetRsDao(SqlEngineFactory sqlEngineFactory, SqlSessionFactory sqlSessionFactory) {
-		this.sqlEngineFactory = sqlEngineFactory;
-		this.sqlSessionFactory = sqlSessionFactory;
-	}
-	
-	public List<Person> newPersonRetRs(SqlSession sqlSession, NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
-		if (logger.isTraceEnabled()) {
-			logger.trace("newPersonRetRs: " + newPersonRetRs + " " + sqlControl);
-		}
-		SqlProcedureEngine sqlProcNewPersonRetRsDao = sqlEngineFactory.getCheckedProcedureEngine("FUN_NEW_PERSON_RET_RS");
-		List<Person> list = sqlProcNewPersonRetRsDao.callQuery(sqlSession, Person.class, newPersonRetRs, sqlControl);
-		if (logger.isTraceEnabled()) {
-			logger.trace("newPersonRetRs result: " + list);
-		}
-		return list;
-	}
-	public List<Person> newPersonRetRs(NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
-		return newPersonRetRs(sqlSessionFactory.getSqlSession(), newPersonRetRs, sqlControl);
-	}
-	public List<Person> newPersonRetRs(SqlSession sqlSession, NewPersonRetRs newPersonRetRs) {
-		return newPersonRetRs(sqlSession, newPersonRetRs, null);
-	}
-	public List<Person> newPersonRetRs(NewPersonRetRs newPersonRetRs) {
-		return newPersonRetRs(newPersonRetRs, null);
-	}
+  protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
+  
+  public NewPersonRetRsDao() {
+  }
+  
+  public NewPersonRetRsDao(final SqlEngineFactory sqlEngineFactory) {
+    this.sqlEngineFactory = sqlEngineFactory;
+  }
+  
+  public NewPersonRetRsDao(final SqlEngineFactory sqlEngineFactory, final SqlSessionFactory sqlSessionFactory) {
+    this.sqlEngineFactory = sqlEngineFactory;
+    this.sqlSessionFactory = sqlSessionFactory;
+  }
+  
+  protected SqlEngineFactory sqlEngineFactory;
+  
+  protected SqlSessionFactory sqlSessionFactory;
+  
+  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs NewPersonRetRs, final SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql newPersonRetRs: " + NewPersonRetRs + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlProcedureEngine sqlProcNewPersonRetRsDao = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON_RET_RS");
+    List<Person> list = sqlProcNewPersonRetRsDao.callQuery(sqlSession, Person.class, NewPersonRetRs, sqlControl);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql newPersonRetRs result: " + list);
+    }
+    return list;
+  }
+  
+  public List<Person> newPersonRetRs(final NewPersonRetRs NewPersonRetRs, final SqlControl sqlControl) {
+    return newPersonRetRs(sqlSessionFactory.getSqlSession(), NewPersonRetRs, sqlControl);
+  }
+  
+  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs NewPersonRetRs) {
+    return newPersonRetRs(sqlSession, NewPersonRetRs, null);
+  }
+  
+  public List<Person> newPersonRetRs(final NewPersonRetRs NewPersonRetRs) {
+    return newPersonRetRs(NewPersonRetRs, null);
+  }
 }

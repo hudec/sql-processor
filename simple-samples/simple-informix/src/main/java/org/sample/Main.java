@@ -37,7 +37,7 @@ import org.sqlproc.engine.util.DDLLoader;
 public class Main {
 
 	private static final Driver JDBC_DRIVER = new com.informix.jdbc.IfxDriver();
-	private static final String DB_URL = "jdbc:informix-sqli://localhost:9090/simple2:informixserver=ol_informix1210";
+	private static final String DB_URL = "jdbc:informix-sqli://localhost:1556/simple:informixserver=popel_ais3";
 	private static final String DB_USER = "simple";
 	private static final String DB_PASSWORD = "simple";
 	private static final String DB_TYPE = SqlFeature.INFORMIX;
@@ -62,7 +62,7 @@ public class Main {
 
 	public Main() throws SQLException {
 		JdbcEngineFactory factory = new JdbcEngineFactory();
-		factory.setMetaFilesNames("statements.qry");
+		factory.setMetaFilesNames("statements.meta");
 		factory.setFilter(DB_TYPE);
 		this.sqlFactory = factory;
 
@@ -253,11 +253,12 @@ public class Main {
 		Assert.assertEquals(1, list.size());
 		Assert.assertNotNull(list.get(0).getId());
 
-		FunLong fl = new FunLong()._setFakep(10L);
+		FunLong fl = new FunLong()._setCount(10L);
 		List<Long> listl = main.funLongDao.funLong(fl);
 		Assert.assertNotNull(listl);
-		Assert.assertEquals(1, listl.size());
-		Assert.assertEquals(10L, (long)listl.get(0));
+		Assert.assertEquals(11, listl.size());
+		Assert.assertEquals(0L, (long)listl.get(0));
+		Assert.assertEquals(10L, (long)listl.get(10));
 	}
 
 	public static java.sql.Timestamp getAge(int year, int month, int day) {

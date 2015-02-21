@@ -1,0 +1,93 @@
+package org.sample.model {
+
+
+  #Serializable(1)
+  #Enum ContactType {
+    #Values(HOME = 0,BUSINESS = 1)
+    #Attr Integer value
+  }
+
+  #Serializable(1)
+  #Enum PersonGender {
+    #Values(MALE = "M",FEMALE = "F")
+    #Attr String value
+  }
+
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,phoneNumber,address,type)
+  #Pojo Contact {
+    #PrimaryKey
+    #Index(1)
+    #Attr Integer id
+    #ToInit
+    #Required
+    #Index(2)
+    #Attr Person person
+    #Required
+    #Attr String address
+    #IsDef
+    #Attr ContactType type
+    #IsDef
+    #Attr String phoneNumber
+  }
+
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
+  #Pojo Person {
+    #PrimaryKey
+    #Index(1)
+    #Attr Long id
+    #Required
+    #Attr String firstName
+    #Required
+    #Index(2)
+    #Attr String lastName
+    #IsDef
+    #Attr java.util.Date dateOfBirth
+    #Required
+    #Attr PersonGender gender
+    #IsDef
+    #Attr String ssn
+    #ToInit
+    #Attr java.util.List <Contact> contacts
+  }
+
+  #Serializable(1)
+  #ToString(t)
+  #Pojo AnHourBefore { // function
+    #Attr java.sql.Timestamp t
+  }
+
+  #Serializable(1)
+  #ToString(count)
+  #Pojo FunLong { // procedure
+    #Attr Long count
+  }
+
+  #Serializable(1)
+  #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
+  #Pojo NewPerson { // procedure
+    #Attr Integer newid
+    #Attr java.util.Date dateOfBirth
+    #Attr String ssn
+    #Attr String firstName
+    #Attr String lastName
+    #Attr String gender
+  }
+
+  #Serializable(1)
+  #ToString(dateOfBirth,lastName,ssn,gender,firstName)
+  #Pojo NewPersonRetRs { // procedure
+    #Attr java.util.Date dateOfBirth
+    #Attr String ssn
+    #Attr String firstName
+    #Attr String lastName
+    #Attr String gender
+  }
+}

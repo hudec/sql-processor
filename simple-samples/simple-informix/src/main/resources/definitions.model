@@ -1,0 +1,62 @@
+resolve-pojo-on;
+database-is-offline;
+database-jdbc-driver :com.informix.jdbc.IfxDriver; 
+database-has-url "jdbc:informix-sqli://localhost:1556/simple:INFORMIXSERVER=popel_ais3;DB_LOCALE=cs_cz.utf8";
+database-login-username simple;
+database-login-password simple;
+database-in-catalog simple;
+//database-active-schema simple;
+//database-ddl-create informix.ddl; // should be located in the same directory as definitions.qry
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces :java.io.Serializable;
+// can't overwrite existing POJO 
+//pojogen-make-it-final;
+// ignore SYS tables
+//pojogen-ignore-tables sysdomains sysindexes;
+// rename enums
+pojogen-rename-columns contact_type I0->HOME I1->BUSINESS; 
+pojogen-rename-columns person_gender M->MALE F->FEMALE; 
+// operators
+pojogen-generate-operators;
+
+// use indetity for primary keys
+metagen-table-sequence person simple_sequence;
+metagen-global-identity common;
+metagen-generate-idgenerators;
+//metagen-generate-indirect-idgenerators;
+// can't overwrite existing META SQL 
+//metagen-make-it-final;
+// operators
+metagen-not-like-columns contact phone_number;
+
+// can't overwrite existing DAO 
+//daogen-make-it-final; 
+// ignore SYS tables
+daogen-ignore-tables sysdomains sysindexes;
+
+table contact contact;
+table person person;
+
+procedure anHourBefore an_hour_before;
+procedure funLong fun_long;
+procedure newPerson new_person;
+procedure newPersonRetRs new_person_ret_rs;
+
+function anHourBefore an_hour_before;
+//function newPersonRetRs new_person_ret_rs;
+metagen-procedure-result-set new_person_ret_rs person;
+
+pojogen-package org.sample.model;
+daogen-package org.sample.dao;
+
+pojo AnHourBefore org.sample.model.AnHourBefore;
+pojo Contact org.sample.model.Contact;
+pojo FunLong org.sample.model.FunLong;
+pojo NewPerson org.sample.model.NewPerson;
+pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+pojo Person org.sample.model.Person;

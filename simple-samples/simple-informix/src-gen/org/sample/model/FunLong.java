@@ -1,35 +1,34 @@
 package org.sample.model;
 
 import java.io.Serializable;
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
+@SuppressWarnings("all")
 public class FunLong implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
-	public FunLong() {
-	}
-
-	private Long fakep;
-
-	public Long getFakep() {
-		return fakep;
-	}
-
-	public void setFakep(Long fakep) {
-		this.fakep = fakep;
-	}
-
-	public FunLong _setFakep(Long fakep) {
-		this.fakep = fakep;
-		return this;
-	}
-
-	@Override
-	public String toString() {
-		return "FunLong [fakep=" + fakep + "]";
-	}
-
-	public String toStringFull() {
-		return "FunLong [fakep=" + fakep + "]";
-	}
+  private final static long serialVersionUID = 1L;
+  
+  private Long count;
+  
+  public Long getCount() {
+    return this.count;
+  }
+  
+  public void setCount(final Long count) {
+    this.count = count;
+  }
+  
+  public FunLong _setCount(final Long count) {
+    this.count = count;
+    return this;
+  }
+  
+  @Override
+  public String toString() {
+    return "FunLong [count=" + count + "]";
+  }
+  
+  public String toStringFull() {
+    return "FunLong [count=" + count + "]";
+  }
 }
