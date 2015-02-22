@@ -1,0 +1,71 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver :oracle.jdbc.OracleDriver;
+database-has-url "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+database-login-username simple;
+database-login-password simple;
+//database-in-catalog ;
+database-active-schema SIMPLE;
+//database-ddl-create oracle.ddl; // should be located in the same directory as definitions.0qry
+database-show-database-info "Oracle,Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production,11,2";
+database-show-driver-info "Oracle JDBC driver,11.2.0.3.0,11,2";
+database-show-driver-output getNumericFunctions->"ABS,ACOS,ASIN,ATAN,ATAN2,CEILING,COS,EXP,FLOOR,LOG,LOG10,MOD,PI,POWER,ROUND,SIGN,SIN,SQRT,TAN,TRUNCATE";
+database-show-driver-output getStringFunctions->"ASCII,CHAR,CHAR_LENGTH,CHARACTER_LENGTH,CONCAT,LCASE,LENGTH,LTRIM,OCTET_LENGTH,REPLACE,RTRIM,SOUNDEX,SUBSTRING,UCASE";
+database-show-driver-output getSystemFunctions->"USER";
+database-show-driver-output getTimeDateFunctions->"CURRENT_DATE,CURRENT_TIMESTAMP,CURDATE,EXTRACT,HOUR,MINUTE,MONTH,SECOND,YEAR";
+database-show-driver-output getSQLKeywords->"ACCESS, ADD, ALTER, AUDIT, CLUSTER, COLUMN, COMMENT, COMPRESS, CONNECT, DATE, DROP, EXCLUSIVE, FILE, IDENTIFIED, IMMEDIATE, INCREMENT, INDEX, INITIAL, INTERSECT, LEVEL, LOCK, LONG, MAXEXTENTS, MINUS, MODE, NOAUDIT, NOCOMPRESS, NOWAIT, NUMBER, OFFLINE, ONLINE, PCTFREE, PRIOR, all_PL_SQL_reserved_ words";
+database-show-driver-output getExtraNameCharacters->"$#";
+//database-is-of-type Oracle;
+
+// native types
+pojogen-generate-wrappers;
+// POJO helpers' methods
+pojogen-generate-methods toString equals hashCode isDef toInit;
+// POJO are serializable
+pojogen-implements-interfaces :java.io.Serializable;
+// can't overwrite existing POJO 
+//pojogen-make-it-final;
+// rename enums
+pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSINESS; 
+pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE; 
+// operators
+pojogen-generate-operators;
+pojogen-generate-validation-annotations;
+
+// use indetity for primary keys
+metagen-global-sequence SIMPLE_SEQUENCE;
+metagen-generate-idgenerators;
+// can't overwrite existing META SQL 
+//metagen-make-it-final;
+//metagen-generate-sequences;
+// operators
+metagen-not-like-columns CONTACT PHONE_NUMBER;
+
+// can't overwrite existing DAO 
+//daogen-make-it-final;
+
+table contact CONTACT;
+table person PERSON;
+procedure anHourBefore AN_HOUR_BEFORE;
+procedure newPerson NEW_PERSON;
+procedure newPersonOutRs NEW_PERSON_OUT_RS;
+procedure newPersonRetRs NEW_PERSON_RET_RS;
+function anHourBefore AN_HOUR_BEFORE;
+function newPersonRetRs NEW_PERSON_RET_RS;
+
+//metagen-function-result AN_HOUR_BEFORE stamp;
+metagen-function-result-set NEW_PERSON_RET_RS PERSON;
+metagen-procedure-result-set NEW_PERSON_OUT_RS PERSON;
+//pojogen-debug-level DEBUG;
+
+pojogen-package org.sample.model;
+daogen-package org.sample.dao;
+
+compress-meta-directives;
+
+pojo AnHourBefore org.sample.model.AnHourBefore;
+pojo Contact org.sample.model.Contact;
+pojo NewPerson org.sample.model.NewPerson;
+pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+pojo NewPersonOutRs org.sample.model.NewPersonOutRs;
+pojo Person org.sample.model.Person;

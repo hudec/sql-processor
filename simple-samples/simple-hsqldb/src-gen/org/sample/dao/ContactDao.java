@@ -1,6 +1,7 @@
 package org.sample.dao;
 
 import java.util.List;
+import org.sample.Test;
 import org.sample.model.Contact;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
@@ -8,6 +9,7 @@ import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
+@Test
 @SuppressWarnings("all")
 public class ContactDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());

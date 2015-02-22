@@ -5,11 +5,13 @@ import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.sample.Test;
 import org.sample.model.ContactType;
 import org.sample.model.Person;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@Test
 @SuppressWarnings("all")
 public class Contact implements Serializable {
   private final static long serialVersionUID = 1L;

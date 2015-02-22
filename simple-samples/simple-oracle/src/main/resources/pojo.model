@@ -2,88 +2,56 @@ package org.sample.model {
 
   import javax.validation.constraints.NotNull
   import javax.validation.constraints.Size
-  import org.sample.Test
 
   #Serializable(1)
   #Enum ContactType {
-    #Values(HOME = 0,BUSINESS = 1,ABROAD = 2)
+    #Values(HOME = 0,BUSINESS = 1)
     #Attr Integer value
   }
 
   #Serializable(1)
   #Enum PersonGender {
-    #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+    #Values(MALE = "M",FEMALE = "F")
     #Attr String value
   }
 
-  @Test
-  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,phoneNumber,address,type)
-  // The contact information
+  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address,type)
   #Pojo Contact {
     #PrimaryKey #Index(1)
-    // The technical primary key
     #Attr Long id
-    #Attribute
     @NotNull
-    #ToInit #Required #Index(2)
-    // The owner of this contact
+    #ToInit #Required
     #Attr Person person
-    #Attribute
     @NotNull
     #Required
-    // The contact type: 0=home, 1=business, 2=abroad
     #Attr ContactType type
-    #Attribute
-    @NotNull
-    #Attribute
     @Size(max = 100)
-    #Required
-    // The address: city, street...
+    #IsDef
     #Attr String address
-    #Attribute
     @Size(max = 100)
     #IsDef
-    // The phone number
     #Attr String phoneNumber
-    #Attribute
-    @Size(max = 100)
-    #IsDef
-    // Any notes and remarks
-    #Attr String xNote
   }
 
   #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
-  // The personal information
   #Pojo Person {
     #PrimaryKey #Index(1)
-    // The technical primary key
     #Attr Long id
-    #Attribute
     @NotNull
-    #Attribute
     @Size(max = 100)
     #Required
-    // The first name
     #Attr String firstName
-    #Attribute
     @NotNull
-    #Attribute
     @Size(max = 100)
     #Required #Index(2)
-    // The surname
     #Attr String lastName
     #IsDef
-    // The date of birth
-    #Attr java.util.Date dateOfBirth
-    #Attribute
+    #Attr java.sql.Timestamp dateOfBirth
     @NotNull
     #Required
-    // The gender: M=male, F=female, 0=other
     #Attr PersonGender gender
-    #Attribute
     @Size(max = 100)
     #IsDef
-    // The social security number
     #Attr String ssn
     #ToInit
     #Attr java.util.List <Contact> contacts
@@ -91,13 +59,23 @@ package org.sample.model {
 
   #Serializable(1) #ToString(t)
   #Pojo AnHourBefore {
-    #Attr java.util.Date t
+    #Attr java.sql.Timestamp t
   }
 
   #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
   #Pojo NewPerson {
-    #Attr short newid
-    #Attr java.util.Date dateOfBirth
+    #Attr java.math.BigInteger newid
+    #Attr java.sql.Timestamp dateOfBirth
+    #Attr String ssn
+    #Attr String firstName
+    #Attr String lastName
+    #Attr String gender
+  }
+
+  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,resultCur,gender,firstName)
+  #Pojo NewPersonOutRs {
+    #Attr Object resultCur
+    #Attr java.sql.Timestamp dateOfBirth
     #Attr String ssn
     #Attr String firstName
     #Attr String lastName
@@ -106,7 +84,7 @@ package org.sample.model {
 
   #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
   #Pojo NewPersonRetRs {
-    #Attr java.util.Date dateOfBirth
+    #Attr java.sql.Timestamp dateOfBirth
     #Attr String ssn
     #Attr String firstName
     #Attr String lastName

@@ -4,10 +4,9 @@ package org.sample.dao {
   import org.sample.model.AnHourBefore
   import org.sample.model.Contact
   import org.sample.model.NewPerson
+  import org.sample.model.NewPersonOutRs
   import org.sample.model.Person
-  import org.sample.Test
 
-  @org.sample.Test
   #CRUD(Contact) #Query(Contact)
   #Dao ContactDao {
   }
@@ -20,11 +19,15 @@ package org.sample.dao {
   #Dao NewPersonDao {
   }
 
-  #ProcedureCallQuery(java.util.List<Person>,NewPersonRetRs)
-  #Dao NewPersonRetRsDao {
+  #ProcedureCallQuery(java.util.List<Person>,NewPersonOutRs)
+  #Dao NewPersonOutRsDao {
   }
 
   #FunctionCall(java.sql.Timestamp,AnHourBefore)
   #Dao AnHourBeforeDao {
+  }
+
+  #FunctionCallQuery(java.util.List<Person>,NewPersonRetRs)
+  #Dao NewPersonRetRsDao {
   }
 }
