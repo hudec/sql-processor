@@ -1,0 +1,69 @@
+package org.sqlproc.sample.simple.dao {
+
+  import org.sqlproc.sample.simple.model.Library
+  import org.sqlproc.sample.simple.model.BankAccount
+  import org.sqlproc.sample.simple.model.Media
+  import org.sqlproc.sample.simple.model.BillingDetails
+  import org.sqlproc.sample.simple.model.Performer
+  import org.sqlproc.sample.simple.model.Contact
+  import org.sqlproc.sample.simple.model.Movie
+  import org.sqlproc.sample.simple.model.Subscriber
+  import org.sqlproc.sample.simple.model.Payment
+  import org.sqlproc.sample.simple.model.NewBook
+  import org.sqlproc.sample.simple.model.PersonLibrary
+  import org.sqlproc.sample.simple.model.Person
+  import org.sqlproc.sample.simple.model.CreditCard
+  import org.sqlproc.sample.simple.model.PhysicalMedia
+
+  #CRUD(BankAccount) #Query(BankAccount)
+  #Dao BankaccountDao {
+  }
+
+  #CRUD(NewBook) #Query(NewBook)
+  #Dao NewbookDao {
+  }
+
+  #CRUD(Contact) #Query(Contact)
+  #Dao ContactDao {
+  }
+
+  #CRUD(CreditCard) #Query(CreditCard)
+  #Dao CreditcardDao {
+  }
+
+  #CRUD(Library) #Query(Library)
+  #Dao LibraryDao {
+  }
+
+  #CRUD(Media) #Query(Media)
+  #Dao MediaDao {
+  }
+
+  #CRUD(Movie) #Query(Movie)
+  #Dao MovieDao {
+  }
+
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard) #CRUD(Payment) #Query(Payment)
+  #Dao PaymentDao {
+  }
+
+  #InheritanceHandler(work,"movie"=Movie,"book"=NewBook) #CRUD(Performer) #Query(Performer)
+  #Dao PerformerDao {
+  }
+
+  #InheritanceHandler(library,"movie"=Movie,"book"=NewBook) #CRUD(Person) #Query(Person)
+  #Dao PersonDao {
+  }
+
+  #CRUD(PersonLibrary) #Query(PersonLibrary)
+  #Dao PersonlibraryDao {
+  }
+
+  #InheritanceHandler(media,"movie"=Movie,"book"=NewBook) #CRUD(PhysicalMedia) #Query(PhysicalMedia)
+  #Dao PhysicalmediaDao {
+  }
+
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard) #CRUD(Subscriber) #Query(Subscriber)
+  #Dao SubscriberDao {
+  }
+}
