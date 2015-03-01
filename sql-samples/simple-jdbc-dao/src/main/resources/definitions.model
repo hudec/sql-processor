@@ -1,0 +1,85 @@
+resolve-pojo-on;
+database-is-online;
+database-jdbc-driver :org.hsqldb.jdbcDriver;
+database-has-url "jdbc:hsqldb:mem:jdbccrud";
+database-login-username sa;
+database-login-password "";
+//database-active-schema simplejdbcdao;
+database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
+
+pojogen-generate-wrappers;
+// custom type
+pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
+// rename
+pojogen-rename-columns PERFORMER MEDIAS->WORK;
+pojogen-rename-columns LIBRARY PHYSICAL_MEDIAS->CATALOG;
+pojogen-rename-columns BOOK ISBN->NEW_ISBN;
+pojogen-rename-tables BOOK->NEW_BOOK;
+// inheritance
+pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
+pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
+pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+// many-to-one
+pojogen-create-many-to-one SUBSCRIBER CONTACT->CONTACT->ID;
+pojogen-create-many-to-one PHYSICAL_MEDIA MEDIA->MEDIA->ID;
+pojogen-create-many-to-one PHYSICAL_MEDIA LIBRARY->LIBRARY->ID;
+// many-to-many
+pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+// one-to-many
+pojogen-ignore-one-to-many PERSON ID->PERFORMER->PERSON_ID;
+pojogen-ignore-one-to-many BILLING_DETAILS ID->PAYMENT->BILLING_DETAILS;
+pojogen-create-one-to-many LIBRARY ID->PHYSICAL_MEDIA->LIBRARY;
+// others
+pojogen-generate-methods toString equals hashCode isDef toInit;
+pojogen-implements-interfaces :java.io.Serializable;
+pojogen-create-columns PERSON PASSPORT->:java.lang.String;
+pojogen-not-abstract-tables MEDIA;
+pojogen-extends-class :org.sqlproc.sample.simple.model.impl.BaseModelImpl;
+pojogen-make-it-final;
+// opt lock
+pojogen-version-column VERSION - PERFORMER;
+pojogen-version-column VER + PERFORMER;
+
+metagen-global-sequence SIMPLE_SEQUENCE; // SEQ1
+//metagen-global-identity SEL1;
+metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
+//metagen-statement-meta-type INSERT_CONTACT PHONE_NUMBER->phone;
+metagen-make-it-final;
+
+daogen-extends-class :org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
+daogen-implements-interfaces :org.sqlproc.sample.simple.dao.BaseDao;
+daogen-make-it-final;
+
+table billingDetails BILLING_DETAILS;
+table book BOOK;
+table contact CONTACT;
+table library LIBRARY;
+table media MEDIA;
+table movie MOVIE;
+table payment PAYMENT;
+table performer PERFORMER;
+table person PERSON;
+table personLibrary PERSON_LIBRARY;
+table physicalMedia PHYSICAL_MEDIA;
+table subscriber SUBSCRIBER;
+
+pojo BankAccount org.sqlproc.sample.simple.model.BankAccount;
+pojo BillingDetails org.sqlproc.sample.simple.model.BillingDetails;
+pojo Contact org.sqlproc.sample.simple.model.Contact;
+pojo CreditCard org.sqlproc.sample.simple.model.CreditCard;
+pojo FormSimpleFunction org.sqlproc.sample.simple.form.FormSimpleFunction;
+pojo Library org.sqlproc.sample.simple.model.Library;
+pojo Media org.sqlproc.sample.simple.model.Media;
+pojo Movie org.sqlproc.sample.simple.model.Movie;
+pojo NewBook org.sqlproc.sample.simple.model.NewBook;
+pojo Payment org.sqlproc.sample.simple.model.Payment;
+pojo Performer org.sqlproc.sample.simple.model.Performer;
+pojo Person org.sqlproc.sample.simple.model.Person;
+pojo PersonLibrary org.sqlproc.sample.simple.model.PersonLibrary;
+pojo PhoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
+pojo PhysicalMedia org.sqlproc.sample.simple.model.PhysicalMedia;
+pojo Subscriber org.sqlproc.sample.simple.model.Subscriber;
+
+compress-meta-directives;
+pojogen-package org.sqlproc.sample.simple.model;
+daogen-package org.sqlproc.sample.simple.dao;

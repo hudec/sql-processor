@@ -1,35 +1,57 @@
 package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.model.CreditCard;
-import org.sqlproc.sample.simple.dao.BaseDao;
-import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
-	
+
+@SuppressWarnings("all")
 public interface CreditCardDao {
-	public CreditCard insert(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl);
-	public CreditCard insert(CreditCard creditCard, SqlControl sqlControl);
-	public CreditCard insert(SqlSession sqlSession, CreditCard creditCard);
-	public CreditCard insert(CreditCard creditCard);
-	public CreditCard get(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl);
-	public CreditCard get(CreditCard creditCard, SqlControl sqlControl);
-	public CreditCard get(SqlSession sqlSession, CreditCard creditCard);
-	public CreditCard get(CreditCard creditCard);
-	public int update(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl);
-	public int update(CreditCard creditCard, SqlControl sqlControl);
-	public int update(SqlSession sqlSession, CreditCard creditCard);
-	public int update(CreditCard creditCard);
-	public int delete(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl);
-	public int delete(CreditCard creditCard, SqlControl sqlControl);
-	public int delete(SqlSession sqlSession, CreditCard creditCard);
-	public int delete(CreditCard creditCard);
-	public List<CreditCard> list(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl);
-	public List<CreditCard> list(CreditCard creditCard, SqlControl sqlControl);
-	public List<CreditCard> list(SqlSession sqlSession, CreditCard creditCard);
-	public List<CreditCard> list(CreditCard creditCard);
-	public int count(SqlSession sqlSession, CreditCard creditCard, SqlControl sqlControl);
-	public int count(CreditCard creditCard, SqlControl sqlControl);
-	public int count(SqlSession sqlSession, CreditCard creditCard);
-	public int count(CreditCard creditCard);
+  public CreditCard insert(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
+  
+  public CreditCard insert(final CreditCard creditCard, SqlControl sqlControl);
+  
+  public CreditCard insert(final SqlSession sqlSession, final CreditCard creditCard);
+  
+  public CreditCard insert(final CreditCard creditCard);
+  
+  public CreditCard get(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
+  
+  public CreditCard get(final CreditCard creditCard, SqlControl sqlControl);
+  
+  public CreditCard get(final SqlSession sqlSession, final CreditCard creditCard);
+  
+  public CreditCard get(final CreditCard creditCard);
+  
+  public int update(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
+  
+  public int update(final CreditCard creditCard, SqlControl sqlControl);
+  
+  public int update(final SqlSession sqlSession, final CreditCard creditCard);
+  
+  public int update(final CreditCard creditCard);
+  
+  public int delete(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
+  
+  public int delete(final CreditCard creditCard, SqlControl sqlControl);
+  
+  public int delete(final SqlSession sqlSession, final CreditCard creditCard);
+  
+  public int delete(final CreditCard creditCard);
+  
+  public List<CreditCard> list(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
+  
+  public List<CreditCard> list(final CreditCard creditCard, SqlControl sqlControl);
+  
+  public List<CreditCard> list(final SqlSession sqlSession, final CreditCard creditCard);
+  
+  public List<CreditCard> list(final CreditCard creditCard);
+  
+  public int count(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
+  
+  public int count(final CreditCard creditCard, SqlControl sqlControl);
+  
+  public int count(final SqlSession sqlSession, final CreditCard creditCard);
+  
+  public int count(final CreditCard creditCard);
 }

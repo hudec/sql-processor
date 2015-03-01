@@ -1,35 +1,57 @@
 package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.model.PersonLibrary;
-import org.sqlproc.sample.simple.dao.BaseDao;
-import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
-	
+
+@SuppressWarnings("all")
 public interface PersonLibraryDao {
-	public PersonLibrary insert(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl);
-	public PersonLibrary insert(PersonLibrary personLibrary, SqlControl sqlControl);
-	public PersonLibrary insert(SqlSession sqlSession, PersonLibrary personLibrary);
-	public PersonLibrary insert(PersonLibrary personLibrary);
-	public PersonLibrary get(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl);
-	public PersonLibrary get(PersonLibrary personLibrary, SqlControl sqlControl);
-	public PersonLibrary get(SqlSession sqlSession, PersonLibrary personLibrary);
-	public PersonLibrary get(PersonLibrary personLibrary);
-	public int update(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl);
-	public int update(PersonLibrary personLibrary, SqlControl sqlControl);
-	public int update(SqlSession sqlSession, PersonLibrary personLibrary);
-	public int update(PersonLibrary personLibrary);
-	public int delete(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl);
-	public int delete(PersonLibrary personLibrary, SqlControl sqlControl);
-	public int delete(SqlSession sqlSession, PersonLibrary personLibrary);
-	public int delete(PersonLibrary personLibrary);
-	public List<PersonLibrary> list(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl);
-	public List<PersonLibrary> list(PersonLibrary personLibrary, SqlControl sqlControl);
-	public List<PersonLibrary> list(SqlSession sqlSession, PersonLibrary personLibrary);
-	public List<PersonLibrary> list(PersonLibrary personLibrary);
-	public int count(SqlSession sqlSession, PersonLibrary personLibrary, SqlControl sqlControl);
-	public int count(PersonLibrary personLibrary, SqlControl sqlControl);
-	public int count(SqlSession sqlSession, PersonLibrary personLibrary);
-	public int count(PersonLibrary personLibrary);
+  public PersonLibrary insert(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public PersonLibrary insert(final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public PersonLibrary insert(final SqlSession sqlSession, final PersonLibrary personLibrary);
+  
+  public PersonLibrary insert(final PersonLibrary personLibrary);
+  
+  public PersonLibrary get(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public PersonLibrary get(final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public PersonLibrary get(final SqlSession sqlSession, final PersonLibrary personLibrary);
+  
+  public PersonLibrary get(final PersonLibrary personLibrary);
+  
+  public int update(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int update(final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int update(final SqlSession sqlSession, final PersonLibrary personLibrary);
+  
+  public int update(final PersonLibrary personLibrary);
+  
+  public int delete(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int delete(final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int delete(final SqlSession sqlSession, final PersonLibrary personLibrary);
+  
+  public int delete(final PersonLibrary personLibrary);
+  
+  public List<PersonLibrary> list(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public List<PersonLibrary> list(final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public List<PersonLibrary> list(final SqlSession sqlSession, final PersonLibrary personLibrary);
+  
+  public List<PersonLibrary> list(final PersonLibrary personLibrary);
+  
+  public int count(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int count(final PersonLibrary personLibrary, SqlControl sqlControl);
+  
+  public int count(final SqlSession sqlSession, final PersonLibrary personLibrary);
+  
+  public int count(final PersonLibrary personLibrary);
 }

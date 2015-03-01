@@ -1,35 +1,57 @@
 package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.model.Movie;
-import org.sqlproc.sample.simple.dao.BaseDao;
-import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
-	
+
+@SuppressWarnings("all")
 public interface MovieDao {
-	public Movie insert(SqlSession sqlSession, Movie movie, SqlControl sqlControl);
-	public Movie insert(Movie movie, SqlControl sqlControl);
-	public Movie insert(SqlSession sqlSession, Movie movie);
-	public Movie insert(Movie movie);
-	public Movie get(SqlSession sqlSession, Movie movie, SqlControl sqlControl);
-	public Movie get(Movie movie, SqlControl sqlControl);
-	public Movie get(SqlSession sqlSession, Movie movie);
-	public Movie get(Movie movie);
-	public int update(SqlSession sqlSession, Movie movie, SqlControl sqlControl);
-	public int update(Movie movie, SqlControl sqlControl);
-	public int update(SqlSession sqlSession, Movie movie);
-	public int update(Movie movie);
-	public int delete(SqlSession sqlSession, Movie movie, SqlControl sqlControl);
-	public int delete(Movie movie, SqlControl sqlControl);
-	public int delete(SqlSession sqlSession, Movie movie);
-	public int delete(Movie movie);
-	public List<Movie> list(SqlSession sqlSession, Movie movie, SqlControl sqlControl);
-	public List<Movie> list(Movie movie, SqlControl sqlControl);
-	public List<Movie> list(SqlSession sqlSession, Movie movie);
-	public List<Movie> list(Movie movie);
-	public int count(SqlSession sqlSession, Movie movie, SqlControl sqlControl);
-	public int count(Movie movie, SqlControl sqlControl);
-	public int count(SqlSession sqlSession, Movie movie);
-	public int count(Movie movie);
+  public Movie insert(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
+  
+  public Movie insert(final Movie movie, SqlControl sqlControl);
+  
+  public Movie insert(final SqlSession sqlSession, final Movie movie);
+  
+  public Movie insert(final Movie movie);
+  
+  public Movie get(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
+  
+  public Movie get(final Movie movie, SqlControl sqlControl);
+  
+  public Movie get(final SqlSession sqlSession, final Movie movie);
+  
+  public Movie get(final Movie movie);
+  
+  public int update(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
+  
+  public int update(final Movie movie, SqlControl sqlControl);
+  
+  public int update(final SqlSession sqlSession, final Movie movie);
+  
+  public int update(final Movie movie);
+  
+  public int delete(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
+  
+  public int delete(final Movie movie, SqlControl sqlControl);
+  
+  public int delete(final SqlSession sqlSession, final Movie movie);
+  
+  public int delete(final Movie movie);
+  
+  public List<Movie> list(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
+  
+  public List<Movie> list(final Movie movie, SqlControl sqlControl);
+  
+  public List<Movie> list(final SqlSession sqlSession, final Movie movie);
+  
+  public List<Movie> list(final Movie movie);
+  
+  public int count(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
+  
+  public int count(final Movie movie, SqlControl sqlControl);
+  
+  public int count(final SqlSession sqlSession, final Movie movie);
+  
+  public int count(final Movie movie);
 }

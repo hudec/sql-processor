@@ -1,35 +1,57 @@
 package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.model.BankAccount;
-import org.sqlproc.sample.simple.dao.BaseDao;
-import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
-	
+
+@SuppressWarnings("all")
 public interface BankAccountDao {
-	public BankAccount insert(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl);
-	public BankAccount insert(BankAccount bankAccount, SqlControl sqlControl);
-	public BankAccount insert(SqlSession sqlSession, BankAccount bankAccount);
-	public BankAccount insert(BankAccount bankAccount);
-	public BankAccount get(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl);
-	public BankAccount get(BankAccount bankAccount, SqlControl sqlControl);
-	public BankAccount get(SqlSession sqlSession, BankAccount bankAccount);
-	public BankAccount get(BankAccount bankAccount);
-	public int update(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl);
-	public int update(BankAccount bankAccount, SqlControl sqlControl);
-	public int update(SqlSession sqlSession, BankAccount bankAccount);
-	public int update(BankAccount bankAccount);
-	public int delete(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl);
-	public int delete(BankAccount bankAccount, SqlControl sqlControl);
-	public int delete(SqlSession sqlSession, BankAccount bankAccount);
-	public int delete(BankAccount bankAccount);
-	public List<BankAccount> list(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl);
-	public List<BankAccount> list(BankAccount bankAccount, SqlControl sqlControl);
-	public List<BankAccount> list(SqlSession sqlSession, BankAccount bankAccount);
-	public List<BankAccount> list(BankAccount bankAccount);
-	public int count(SqlSession sqlSession, BankAccount bankAccount, SqlControl sqlControl);
-	public int count(BankAccount bankAccount, SqlControl sqlControl);
-	public int count(SqlSession sqlSession, BankAccount bankAccount);
-	public int count(BankAccount bankAccount);
+  public BankAccount insert(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public BankAccount insert(final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public BankAccount insert(final SqlSession sqlSession, final BankAccount bankAccount);
+  
+  public BankAccount insert(final BankAccount bankAccount);
+  
+  public BankAccount get(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public BankAccount get(final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public BankAccount get(final SqlSession sqlSession, final BankAccount bankAccount);
+  
+  public BankAccount get(final BankAccount bankAccount);
+  
+  public int update(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int update(final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int update(final SqlSession sqlSession, final BankAccount bankAccount);
+  
+  public int update(final BankAccount bankAccount);
+  
+  public int delete(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int delete(final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int delete(final SqlSession sqlSession, final BankAccount bankAccount);
+  
+  public int delete(final BankAccount bankAccount);
+  
+  public List<BankAccount> list(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public List<BankAccount> list(final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public List<BankAccount> list(final SqlSession sqlSession, final BankAccount bankAccount);
+  
+  public List<BankAccount> list(final BankAccount bankAccount);
+  
+  public int count(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int count(final BankAccount bankAccount, SqlControl sqlControl);
+  
+  public int count(final SqlSession sqlSession, final BankAccount bankAccount);
+  
+  public int count(final BankAccount bankAccount);
 }

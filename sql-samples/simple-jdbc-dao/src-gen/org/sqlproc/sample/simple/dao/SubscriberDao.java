@@ -1,35 +1,59 @@
 package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
-import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.model.Subscriber;
-import org.sqlproc.sample.simple.dao.BaseDao;
-import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
-	
+
+@SuppressWarnings("all")
 public interface SubscriberDao {
-	public Subscriber insert(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl);
-	public Subscriber insert(Subscriber subscriber, SqlControl sqlControl);
-	public Subscriber insert(SqlSession sqlSession, Subscriber subscriber);
-	public Subscriber insert(Subscriber subscriber);
-	public Subscriber get(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl);
-	public Subscriber get(Subscriber subscriber, SqlControl sqlControl);
-	public Subscriber get(SqlSession sqlSession, Subscriber subscriber);
-	public Subscriber get(Subscriber subscriber);
-	public int update(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl);
-	public int update(Subscriber subscriber, SqlControl sqlControl);
-	public int update(SqlSession sqlSession, Subscriber subscriber);
-	public int update(Subscriber subscriber);
-	public int delete(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl);
-	public int delete(Subscriber subscriber, SqlControl sqlControl);
-	public int delete(SqlSession sqlSession, Subscriber subscriber);
-	public int delete(Subscriber subscriber);
-	public List<Subscriber> list(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl);
-	public List<Subscriber> list(Subscriber subscriber, SqlControl sqlControl);
-	public List<Subscriber> list(SqlSession sqlSession, Subscriber subscriber);
-	public List<Subscriber> list(Subscriber subscriber);
-	public int count(SqlSession sqlSession, Subscriber subscriber, SqlControl sqlControl);
-	public int count(Subscriber subscriber, SqlControl sqlControl);
-	public int count(SqlSession sqlSession, Subscriber subscriber);
-	public int count(Subscriber subscriber);
+  public Subscriber insert(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl);
+  
+  public Subscriber insert(final Subscriber subscriber, SqlControl sqlControl);
+  
+  public Subscriber insert(final SqlSession sqlSession, final Subscriber subscriber);
+  
+  public Subscriber insert(final Subscriber subscriber);
+  
+  public Subscriber get(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl);
+  
+  public Subscriber get(final Subscriber subscriber, SqlControl sqlControl);
+  
+  public Subscriber get(final SqlSession sqlSession, final Subscriber subscriber);
+  
+  public Subscriber get(final Subscriber subscriber);
+  
+  public int update(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl);
+  
+  public int update(final Subscriber subscriber, SqlControl sqlControl);
+  
+  public int update(final SqlSession sqlSession, final Subscriber subscriber);
+  
+  public int update(final Subscriber subscriber);
+  
+  public int delete(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl);
+  
+  public int delete(final Subscriber subscriber, SqlControl sqlControl);
+  
+  public int delete(final SqlSession sqlSession, final Subscriber subscriber);
+  
+  public int delete(final Subscriber subscriber);
+  
+  public List<Subscriber> list(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl);
+  
+  public List<Subscriber> list(final Subscriber subscriber, SqlControl sqlControl);
+  
+  public List<Subscriber> list(final SqlSession sqlSession, final Subscriber subscriber);
+  
+  public List<Subscriber> list(final Subscriber subscriber);
+  
+  public int count(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl);
+  
+  public int count(final Subscriber subscriber, SqlControl sqlControl);
+  
+  public int count(final SqlSession sqlSession, final Subscriber subscriber);
+  
+  public int count(final Subscriber subscriber);
+  
+  public SqlControl getMoreResultClasses(final Subscriber subscriber, SqlControl sqlControl);
 }

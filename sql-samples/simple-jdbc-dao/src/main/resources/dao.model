@@ -1,0 +1,73 @@
+#Implementation(impl)
+package org.sqlproc.sample.simple.dao {
+
+  import org.sqlproc.sample.simple.model.Library
+  import org.sqlproc.sample.simple.model.BankAccount
+  import org.sqlproc.sample.simple.model.Media
+  import org.sqlproc.sample.simple.model.BillingDetails
+  import org.sqlproc.sample.simple.model.Performer
+  import org.sqlproc.sample.simple.model.Contact
+  import org.sqlproc.sample.simple.model.Movie
+  import org.sqlproc.sample.simple.model.Subscriber
+  import org.sqlproc.sample.simple.model.Payment
+  import org.sqlproc.sample.simple.model.NewBook
+  import org.sqlproc.sample.simple.model.PersonLibrary
+  import org.sqlproc.sample.simple.model.Person
+  import org.sqlproc.sample.simple.model.CreditCard
+  import org.sqlproc.sample.simple.model.PhysicalMedia
+
+  implements org.sqlproc.sample.simple.dao.BaseDao
+  extends org.sqlproc.sample.simple.dao.impl.BaseDaoImpl
+
+  #CRUD(BankAccount) #Query(BankAccount)
+  final #Dao BankAccountDao {
+  }
+
+  #CRUD(NewBook) #Query(NewBook)
+  final #Dao NewBookDao {
+  }
+
+  #CRUD(Contact) #Query(Contact)
+  final #Dao ContactDao {
+  }
+
+  #CRUD(CreditCard) #Query(CreditCard)
+  final #Dao CreditCardDao {
+  }
+
+  #CRUD(Library) #Query(Library)
+  final #Dao LibraryDao {
+  }
+
+  #CRUD(Media) #Query(Media)
+  final #Dao MediaDao {
+  }
+
+  #CRUD(Movie) #Query(Movie)
+  final #Dao MovieDao {
+  }
+
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard) #CRUD(Payment) #Query(Payment)
+  final #Dao PaymentDao {
+  }
+
+  #InheritanceHandler(work,"movie"=Movie,"book"=NewBook) #CRUD(Performer) #Query(Performer)
+  final #Dao PerformerDao {
+  }
+
+  #InheritanceHandler(library,"movie"=Movie,"book"=NewBook) #CRUD(Person) #Query(Person)
+  final #Dao PersonDao {
+  }
+
+  #CRUD(PersonLibrary) #Query(PersonLibrary)
+  final #Dao PersonLibraryDao {
+  }
+
+  #InheritanceHandler(media,"movie"=Movie,"book"=NewBook) #CRUD(PhysicalMedia) #Query(PhysicalMedia)
+  final #Dao PhysicalMediaDao {
+  }
+
+  #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard) #CRUD(Subscriber) #Query(Subscriber)
+  final #Dao SubscriberDao {
+  }
+}
