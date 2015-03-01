@@ -70,7 +70,7 @@ package org.sqlproc.sample.simple.model {
     #Required
     #Attr Integer playlength
   }
- 
+
   #Serializable(1) #Index(1,id) #Index(2,billingDetails) #Equals(id) #HashCode(id) #ToString(id,paid)
   #Pojo Payment {
     #PrimaryKey

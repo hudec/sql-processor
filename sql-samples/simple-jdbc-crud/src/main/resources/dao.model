@@ -16,11 +16,11 @@ package org.sqlproc.sample.simple.dao {
   import org.sqlproc.sample.simple.model.PhysicalMedia
 
   #CRUD(BankAccount) #Query(BankAccount)
-  #Dao BankaccountDao {
+  #Dao BankAccountDao {
   }
 
   #CRUD(NewBook) #Query(NewBook)
-  #Dao NewbookDao {
+  #Dao NewBookDao {
   }
 
   #CRUD(Contact) #Query(Contact)
@@ -28,7 +28,7 @@ package org.sqlproc.sample.simple.dao {
   }
 
   #CRUD(CreditCard) #Query(CreditCard)
-  #Dao CreditcardDao {
+  #Dao CreditCardDao {
   }
 
   #CRUD(Library) #Query(Library)
@@ -56,11 +56,11 @@ package org.sqlproc.sample.simple.dao {
   }
 
   #CRUD(PersonLibrary) #Query(PersonLibrary)
-  #Dao PersonlibraryDao {
+  #Dao PersonLibraryDao {
   }
 
   #InheritanceHandler(media,"movie"=Movie,"book"=NewBook) #CRUD(PhysicalMedia) #Query(PhysicalMedia)
-  #Dao PhysicalmediaDao {
+  #Dao PhysicalMediaDao {
   }
 
   #InheritanceHandler(billingDetails,"BA"=BankAccount,"CC"=CreditCard) #CRUD(Subscriber) #Query(Subscriber)
