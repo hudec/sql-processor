@@ -24,9 +24,9 @@ public class Person implements Serializable {
   }
   
   public Person(final String firstName, final String lastName, final PersonGender gender) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.gender = gender;
+    setFirstName(firstName);
+    setLastName(lastName);
+    setGender(gender);
   }
   
   private Long id;

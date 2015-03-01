@@ -1,13 +1,11 @@
 package org.sample.dao {
 
+  import org.sample.model.Contact
   import org.sample.model.NewPersonRetRs
   import org.sample.model.AnHourBefore
-  import org.sample.model.Contact
   import org.sample.model.NewPerson
   import org.sample.model.Person
-  import org.sample.Test
 
-  @org.sample.Test
   #CRUD(Contact) #Query(Contact)
   #Dao ContactDao {
   }

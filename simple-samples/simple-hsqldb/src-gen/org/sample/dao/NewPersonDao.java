@@ -27,7 +27,7 @@ public class NewPersonDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public int newPerson(final SqlSession sqlSession, final NewPerson NewPerson, final SqlControl sqlControl) {
+  public int newPerson(final SqlSession sqlSession, final NewPerson NewPerson, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql newPerson: " + NewPerson + " " + sqlControl);
     }
@@ -39,7 +39,7 @@ public class NewPersonDao {
     return count;
   }
   
-  public int newPerson(final NewPerson NewPerson, final SqlControl sqlControl) {
+  public int newPerson(final NewPerson NewPerson, SqlControl sqlControl) {
     return newPerson(sqlSessionFactory.getSqlSession(), NewPerson, sqlControl);
   }
   

@@ -1,7 +1,6 @@
 package org.sample.dao;
 
 import java.util.List;
-import org.sample.Test;
 import org.sample.model.Contact;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
@@ -9,7 +8,6 @@ import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
-@Test
 @SuppressWarnings("all")
 public class ContactDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
@@ -30,7 +28,7 @@ public class ContactDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public Contact insert(final SqlSession sqlSession, final Contact contact, final SqlControl sqlControl) {
+  public Contact insert(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert contact: " + contact + " " + sqlControl);
     }
@@ -42,7 +40,7 @@ public class ContactDao {
     return (count > 0) ? contact : null;
   }
   
-  public Contact insert(final Contact contact, final SqlControl sqlControl) {
+  public Contact insert(final Contact contact, SqlControl sqlControl) {
     return insert(sqlSessionFactory.getSqlSession(), contact, sqlControl);
   }
   
@@ -54,7 +52,7 @@ public class ContactDao {
     return insert(contact, null);
   }
   
-  public Contact get(final SqlSession sqlSession, final Contact contact, final SqlControl sqlControl) {
+  public Contact get(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get: " + contact + " " + sqlControl);
     }
@@ -67,7 +65,7 @@ public class ContactDao {
     return contactGot;
   }
   
-  public Contact get(final Contact contact, final SqlControl sqlControl) {
+  public Contact get(final Contact contact, SqlControl sqlControl) {
     return get(sqlSessionFactory.getSqlSession(), contact, sqlControl);
   }
   
@@ -79,7 +77,7 @@ public class ContactDao {
     return get(contact, null);
   }
   
-  public int update(final SqlSession sqlSession, final Contact contact, final SqlControl sqlControl) {
+  public int update(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update contact: " + contact + " " + sqlControl);
     }
@@ -91,7 +89,7 @@ public class ContactDao {
     return count;
   }
   
-  public int update(final Contact contact, final SqlControl sqlControl) {
+  public int update(final Contact contact, SqlControl sqlControl) {
     return update(sqlSessionFactory.getSqlSession(), contact, sqlControl);
   }
   
@@ -103,7 +101,7 @@ public class ContactDao {
     return update(contact, null);
   }
   
-  public int delete(final SqlSession sqlSession, final Contact contact, final SqlControl sqlControl) {
+  public int delete(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete contact: " + contact + " " + sqlControl);
     }
@@ -115,7 +113,7 @@ public class ContactDao {
     return count;
   }
   
-  public int delete(final Contact contact, final SqlControl sqlControl) {
+  public int delete(final Contact contact, SqlControl sqlControl) {
     return delete(sqlSessionFactory.getSqlSession(), contact, sqlControl);
   }
   
@@ -127,7 +125,7 @@ public class ContactDao {
     return delete(contact, null);
   }
   
-  public List<Contact> list(final SqlSession sqlSession, final Contact contact, final SqlControl sqlControl) {
+  public List<Contact> list(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list contact: " + contact + " " + sqlControl);
     }
@@ -140,7 +138,7 @@ public class ContactDao {
     return contactList;
   }
   
-  public List<Contact> list(final Contact contact, final SqlControl sqlControl) {
+  public List<Contact> list(final Contact contact, SqlControl sqlControl) {
     return list(sqlSessionFactory.getSqlSession(), contact, sqlControl);
   }
   
@@ -152,7 +150,7 @@ public class ContactDao {
     return list(contact, null);
   }
   
-  public int count(final SqlSession sqlSession, final Contact contact, final SqlControl sqlControl) {
+  public int count(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("count contact: " + contact + " " + sqlControl);
     }
@@ -165,7 +163,7 @@ public class ContactDao {
     return count;
   }
   
-  public int count(final Contact contact, final SqlControl sqlControl) {
+  public int count(final Contact contact, SqlControl sqlControl) {
     return count(sqlSessionFactory.getSqlSession(), contact, sqlControl);
   }
   
