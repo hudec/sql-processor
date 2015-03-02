@@ -24,6 +24,7 @@ public class Person implements Serializable {
   }
   
   public Person(final String firstName, final String lastName, final PersonGender gender) {
+    super();
     setFirstName(firstName);
     setLastName(lastName);
     setGender(gender);

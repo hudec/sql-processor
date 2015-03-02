@@ -169,6 +169,7 @@
                                     <dependency>org.sqlproc.meta:sqlmeta</dependency>
                                     <dependency>org.hsqldb:hsqldb</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
+                                    <dependency>org.sqlproc:sql-processor</dependency>
                                 </classpath>
                                 <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
                                 <argument>-control</argument>
@@ -213,6 +214,7 @@
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
                                     <dependency>org.hsqldb:hsqldb</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
+                                    <dependency>org.sqlproc:sql-processor</dependency>
                                 </classpath>
                                 <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
                                 <argument>-control</argument>
@@ -259,6 +261,7 @@
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
                                     <dependency>org.hsqldb:hsqldb</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
+                                    <dependency>org.sqlproc:sql-processor</dependency>
                                 </classpath>
                                 <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
                                 <argument>-models</argument>

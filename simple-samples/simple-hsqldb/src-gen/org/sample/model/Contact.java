@@ -22,6 +22,7 @@ public class Contact implements Serializable {
   }
   
   public Contact(final Person person, final ContactType type, final String address) {
+    super();
     setPerson(person);
     setType(type);
     setAddress(address);
