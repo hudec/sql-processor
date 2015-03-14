@@ -1,56 +1,59 @@
 package org.sqlproc.sample.simple.model;
 
 import java.io.Serializable;
+import org.sqlproc.engine.annotation.Pojo;
+import org.sqlproc.sample.simple.model.Media;
 
+@Pojo
+@SuppressWarnings("all")
 public class Movie extends Media implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
-	public Movie() {
-	}
-		
-	public Movie(String title, String urlimdb, Integer playlength) {
-		super(title);
-		this.urlimdb = urlimdb;
-		this.playlength = playlength;
-	}
-
-	private String urlimdb;
-
-	public String getUrlimdb() {
-		return urlimdb;
-	}
-
-	public void setUrlimdb(String urlimdb) {
-		this.urlimdb = urlimdb;
-	}
-
-	public Movie _setUrlimdb(String urlimdb) {
-		this.urlimdb = urlimdb;
-		return this;
-	}
-
-	private Integer playlength;
-
-	public Integer getPlaylength() {
-		return playlength;
-	}
-
-	public void setPlaylength(Integer playlength) {
-		this.playlength = playlength;
-	}
-
-	public Movie _setPlaylength(Integer playlength) {
-		this.playlength = playlength;
-		return this;
-	}
-
-	@Override
-	public String toString() {
-		return "Movie [playlength=" + playlength + ", urlimdb=" + urlimdb + super.toString() + "]";
-	}
-
-	public String toStringFull() {
-		return "Movie [urlimdb=" + urlimdb + ", playlength=" + playlength + super.toString() + "]";
-	}
+  private final static long serialVersionUID = 1L;
+  
+  public Movie() {
+  }
+  
+  public Movie(final String title, final String urlimdb, final Integer playlength) {
+    super(title);
+    setUrlimdb(urlimdb);
+    setPlaylength(playlength);
+  }
+  
+  private String urlimdb;
+  
+  public String getUrlimdb() {
+    return this.urlimdb;
+  }
+  
+  public void setUrlimdb(final String urlimdb) {
+    this.urlimdb = urlimdb;
+  }
+  
+  public Movie _setUrlimdb(final String urlimdb) {
+    this.urlimdb = urlimdb;
+    return this;
+  }
+  
+  private Integer playlength;
+  
+  public Integer getPlaylength() {
+    return this.playlength;
+  }
+  
+  public void setPlaylength(final Integer playlength) {
+    this.playlength = playlength;
+  }
+  
+  public Movie _setPlaylength(final Integer playlength) {
+    this.playlength = playlength;
+    return this;
+  }
+  
+  @Override
+  public String toString() {
+    return "Movie [playlength=" + playlength + ", urlimdb=" + urlimdb + "]";
+  }
+  
+  public String toStringFull() {
+    return "Movie [urlimdb=" + urlimdb + ", playlength=" + playlength + "]";
+  }
 }

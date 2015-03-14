@@ -1,0 +1,15 @@
+resolve-pojo-on;
+database-is-offline;
+
+pojo bankAccount org.sqlproc.sample.simple.model.BankAccount;
+pojo billingDetails org.sqlproc.sample.simple.model.BillingDetails;
+pojo book org.sqlproc.sample.simple.model.Book;
+pojo contact org.sqlproc.sample.simple.model.Contact;
+pojo creditCard org.sqlproc.sample.simple.model.CreditCard;
+pojo library org.sqlproc.sample.simple.model.Library;
+pojo media org.sqlproc.sample.simple.model.Media;
+pojo movie org.sqlproc.sample.simple.model.Movie;
+pojo person org.sqlproc.sample.simple.model.Person;
+pojo personLibrary org.sqlproc.sample.simple.model.PersonLibrary;
+pojo phoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
+pojo subscriber org.sqlproc.sample.simple.model.Subscriber;

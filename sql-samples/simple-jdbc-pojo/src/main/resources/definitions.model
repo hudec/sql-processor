@@ -1,0 +1,51 @@
+resolve-pojo-on;
+database-is-online;
+//database-jdbc-driver :oracle.jdbc.OracleDriver;
+//database-has-url jdbc:oracle:thin:@127.0.0.1:1521:xe;
+//database-login-username sqlsample;
+//database-login-password sqlsample;
+//database-active-schema SQLSAMPLE;
+database-jdbc-driver :org.hsqldb.jdbcDriver;
+database-has-url "jdbc:hsqldb:mem:jdbcpojo";
+database-login-username sa;
+database-login-password "";
+//database-active-schema simplejdbcpojo;
+database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
+//database-ddl-drop hsqldb_drop.ddl;
+
+pojogen-generate-wrappers;
+// custom type
+pojogen-types-for-columns CONTACT PHONE_NUMBER->org.sqlproc.sample.simple.model.PhoneNumber;
+// inheritance
+pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
+pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
+pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
+// many-to-many
+pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+// others
+pojogen-generate-methods toString equals hashCode;
+pojogen-implements-interfaces :java.io.Serializable;
+
+table billingDetails BILLING_DETAILS;
+table book BOOK;
+table contact CONTACT;
+table library LIBRARY;
+table media MEDIA;
+table movie MOVIE;
+table person PERSON;
+table personLibrary PERSON_LIBRARY;
+table subscriber SUBSCRIBER;
+
+pojo BankAccount org.sqlproc.sample.simple.model.BankAccount;
+pojo BillingDetails org.sqlproc.sample.simple.model.BillingDetails;
+pojo Book org.sqlproc.sample.simple.model.Book;
+pojo Contact org.sqlproc.sample.simple.model.Contact;
+pojo CreditCard org.sqlproc.sample.simple.model.CreditCard;
+pojo FormSimpleFunction org.sqlproc.sample.simple.form.FormSimpleFunction;
+pojo Library org.sqlproc.sample.simple.model.Library;
+pojo Media org.sqlproc.sample.simple.model.Media;
+pojo Movie org.sqlproc.sample.simple.model.Movie;
+pojo Person org.sqlproc.sample.simple.model.Person;
+pojo PersonLibrary org.sqlproc.sample.simple.model.PersonLibrary;
+pojo PhoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
+pojo Subscriber org.sqlproc.sample.simple.model.Subscriber;

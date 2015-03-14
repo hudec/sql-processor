@@ -56,7 +56,7 @@ public class Main {
 
     public Main() throws SQLException {
         JdbcEngineFactory factory = new JdbcEngineFactory();
-        factory.setMetaFilesNames("statements.qry");
+        factory.setMetaFilesNames("statements.meta");
         factory.addCustomType(new PhoneNumberType());
         sqlFactory = factory;
 

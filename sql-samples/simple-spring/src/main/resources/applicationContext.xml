@@ -31,7 +31,7 @@
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory" init-method="init">
         <property name="metaFilesNames">
             <list>
-                <value>statements.qry</value>
+                <value>statements.meta</value>
             </list>
         </property>
         <property name="customTypes">

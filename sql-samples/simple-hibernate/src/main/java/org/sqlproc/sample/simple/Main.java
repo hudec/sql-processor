@@ -42,7 +42,7 @@ public class Main {
 
     public Main() {
         HibernateEngineFactory factory = new HibernateEngineFactory();
-        factory.setMetaFilesNames("statements.qry");
+        factory.setMetaFilesNames("statements.meta");
         factory.addCustomType(new PhoneNumberType());
         sqlFactory = factory;
 
