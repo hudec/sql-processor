@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Media;
 
 @SuppressWarnings("all")
-public interface MediaDao {
+public interface MediaDao extends BaseDao {
   public Media insert(final SqlSession sqlSession, final Media media, SqlControl sqlControl);
   
   public Media insert(final Media media, SqlControl sqlControl);

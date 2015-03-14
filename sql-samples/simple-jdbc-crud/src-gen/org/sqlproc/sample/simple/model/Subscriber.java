@@ -22,8 +22,8 @@ public class Subscriber implements Serializable {
   
   public Subscriber(final Library library, final String name) {
     super();
-    	   				setLibrary(library);
-    	   				setName(name);
+    setLibrary(library);
+    setName(name);
   }
   
   private Long id;

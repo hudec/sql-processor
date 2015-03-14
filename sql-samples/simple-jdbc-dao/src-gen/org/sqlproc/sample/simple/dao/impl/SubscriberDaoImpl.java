@@ -6,13 +6,15 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.dao.SubscriberDao;
+import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Subscriber;
 
 @SuppressWarnings("all")
-public class SubscriberDaoImpl implements SubscriberDao {
+public class SubscriberDaoImpl extends BaseDaoImpl implements SubscriberDao, BaseDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
   
   public SubscriberDaoImpl() {

@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Performer;
 
 @SuppressWarnings("all")
-public interface PerformerDao {
+public interface PerformerDao extends BaseDao {
   public Performer insert(final SqlSession sqlSession, final Performer performer, SqlControl sqlControl);
   
   public Performer insert(final Performer performer, SqlControl sqlControl);

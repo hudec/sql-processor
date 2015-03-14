@@ -24,8 +24,8 @@ public class Contact implements Serializable {
   
   public Contact(final Person person, final String address) {
     super();
-    	   				setPerson(person);
-    	   				setAddress(address);
+    setPerson(person);
+    setAddress(address);
   }
   
   private Long id;

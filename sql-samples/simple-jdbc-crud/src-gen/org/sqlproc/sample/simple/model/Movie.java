@@ -15,8 +15,8 @@ public class Movie extends Media implements Serializable {
   
   public Movie(final String title, final String urlimdb, final Integer playlength) {
     super(title);
-    	   				setUrlimdb(urlimdb);
-    	   				setPlaylength(playlength);
+    setUrlimdb(urlimdb);
+    setPlaylength(playlength);
   }
   
   private String urlimdb;

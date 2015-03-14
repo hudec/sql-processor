@@ -6,11 +6,13 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.dao.CreditCardDao;
+import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
 import org.sqlproc.sample.simple.model.CreditCard;
 
 @SuppressWarnings("all")
-public class CreditCardDaoImpl implements CreditCardDao {
+public class CreditCardDaoImpl extends BaseDaoImpl implements CreditCardDao, BaseDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
   
   public CreditCardDaoImpl() {
@@ -34,11 +36,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
     	logger.trace("sql insert creditCard: " + creditCard + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlInsertCreditCard = sqlEngineFactory.getCheckedCrudEngine("INSERT_CREDIT_CARD");
-    org.sqlproc.engine.SqlCrudEngine sqlInsertBillingDetails = sqlEngineFactory.getCheckedCrudEngine("INSERT_BILLING_DETAILS");
-    int count = sqlInsertBillingDetails.insert(sqlSession, creditCard, sqlControl);
-    if (count > 0) {
-    	sqlInsertCreditCard.insert(sqlSession, creditCard, sqlControl);
-    }
+    int count = sqlInsertCreditCard.insert(sqlSession, creditCard, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert creditCard result: " + count + " " + creditCard);
     }
@@ -87,11 +85,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
     	logger.trace("sql update creditCard: " + creditCard + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlUpdateEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CREDIT_CARD");
-    org.sqlproc.engine.SqlCrudEngine sqlUpdateBillingDetails = sqlEngineFactory.getCheckedCrudEngine("UPDATE_BILLING_DETAILS");
     int count = sqlUpdateEngineCreditCard.update(sqlSession, creditCard, sqlControl);
-    if (count > 0) {
-    	sqlUpdateBillingDetails.update(sqlSession, creditCard, sqlControl);
-    }
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update creditCard result count: " + count);
     }
@@ -115,11 +109,7 @@ public class CreditCardDaoImpl implements CreditCardDao {
     	logger.trace("sql delete creditCard: " + creditCard + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlDeleteEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("DELETE_CREDIT_CARD");
-    org.sqlproc.engine.SqlCrudEngine sqlDeleteBillingDetails = sqlEngineFactory.getCheckedCrudEngine("DELETE_BILLING_DETAILS");
     int count = sqlDeleteEngineCreditCard.delete(sqlSession, creditCard, sqlControl);
-    if (count > 0) {
-    	sqlDeleteBillingDetails.delete(sqlSession, creditCard, sqlControl);
-    }
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete creditCard result count: " + count);
     }

@@ -21,7 +21,7 @@ public class Performer implements Serializable {
   
   public Performer(final Person person) {
     super();
-    	   				setPerson(person);
+    setPerson(person);
   }
   
   private Long id;

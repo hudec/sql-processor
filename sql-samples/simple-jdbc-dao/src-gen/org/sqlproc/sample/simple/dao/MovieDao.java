@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Movie;
 
 @SuppressWarnings("all")
-public interface MovieDao {
+public interface MovieDao extends BaseDao {
   public Movie insert(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
   
   public Movie insert(final Movie movie, SqlControl sqlControl);

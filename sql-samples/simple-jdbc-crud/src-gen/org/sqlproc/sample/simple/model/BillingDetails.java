@@ -19,8 +19,8 @@ public abstract class BillingDetails implements Serializable {
   
   public BillingDetails(final Subscriber subscriber, final String type) {
     super();
-    	   				setSubscriber(subscriber);
-    	   				setType(type);
+    setSubscriber(subscriber);
+    setType(type);
   }
   
   private Long id;

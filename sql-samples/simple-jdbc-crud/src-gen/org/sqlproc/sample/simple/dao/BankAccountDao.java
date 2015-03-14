@@ -33,11 +33,7 @@ public class BankAccountDao {
     	logger.trace("sql insert bankAccount: " + bankAccount + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlInsertBankAccount = sqlEngineFactory.getCheckedCrudEngine("INSERT_BANK_ACCOUNT");
-    org.sqlproc.engine.SqlCrudEngine sqlInsertBillingDetails = sqlEngineFactory.getCheckedCrudEngine("INSERT_BILLING_DETAILS");
-    int count = sqlInsertBillingDetails.insert(sqlSession, bankAccount, sqlControl);
-    if (count > 0) {
-    	sqlInsertBankAccount.insert(sqlSession, bankAccount, sqlControl);
-    }
+    int count = sqlInsertBankAccount.insert(sqlSession, bankAccount, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert bankAccount result: " + count + " " + bankAccount);
     }
@@ -86,11 +82,7 @@ public class BankAccountDao {
     	logger.trace("sql update bankAccount: " + bankAccount + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlUpdateEngineBankAccount = sqlEngineFactory.getCheckedCrudEngine("UPDATE_BANK_ACCOUNT");
-    org.sqlproc.engine.SqlCrudEngine sqlUpdateBillingDetails = sqlEngineFactory.getCheckedCrudEngine("UPDATE_BILLING_DETAILS");
     int count = sqlUpdateEngineBankAccount.update(sqlSession, bankAccount, sqlControl);
-    if (count > 0) {
-    	sqlUpdateBillingDetails.update(sqlSession, bankAccount, sqlControl);
-    }
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update bankAccount result count: " + count);
     }
@@ -114,11 +106,7 @@ public class BankAccountDao {
     	logger.trace("sql delete bankAccount: " + bankAccount + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlDeleteEngineBankAccount = sqlEngineFactory.getCheckedCrudEngine("DELETE_BANK_ACCOUNT");
-    org.sqlproc.engine.SqlCrudEngine sqlDeleteBillingDetails = sqlEngineFactory.getCheckedCrudEngine("DELETE_BILLING_DETAILS");
     int count = sqlDeleteEngineBankAccount.delete(sqlSession, bankAccount, sqlControl);
-    if (count > 0) {
-    	sqlDeleteBillingDetails.delete(sqlSession, bankAccount, sqlControl);
-    }
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete bankAccount result count: " + count);
     }

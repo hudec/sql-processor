@@ -6,13 +6,15 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.dao.PersonDao;
+import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
 import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.NewBook;
 import org.sqlproc.sample.simple.model.Person;
 
 @SuppressWarnings("all")
-public class PersonDaoImpl implements PersonDao {
+public class PersonDaoImpl extends BaseDaoImpl implements PersonDao, BaseDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
   
   public PersonDaoImpl() {

@@ -33,11 +33,7 @@ public class CreditCardDao {
     	logger.trace("sql insert creditCard: " + creditCard + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlInsertCreditCard = sqlEngineFactory.getCheckedCrudEngine("INSERT_CREDIT_CARD");
-    org.sqlproc.engine.SqlCrudEngine sqlInsertBillingDetails = sqlEngineFactory.getCheckedCrudEngine("INSERT_BILLING_DETAILS");
-    int count = sqlInsertBillingDetails.insert(sqlSession, creditCard, sqlControl);
-    if (count > 0) {
-    	sqlInsertCreditCard.insert(sqlSession, creditCard, sqlControl);
-    }
+    int count = sqlInsertCreditCard.insert(sqlSession, creditCard, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert creditCard result: " + count + " " + creditCard);
     }
@@ -86,11 +82,7 @@ public class CreditCardDao {
     	logger.trace("sql update creditCard: " + creditCard + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlUpdateEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CREDIT_CARD");
-    org.sqlproc.engine.SqlCrudEngine sqlUpdateBillingDetails = sqlEngineFactory.getCheckedCrudEngine("UPDATE_BILLING_DETAILS");
     int count = sqlUpdateEngineCreditCard.update(sqlSession, creditCard, sqlControl);
-    if (count > 0) {
-    	sqlUpdateBillingDetails.update(sqlSession, creditCard, sqlControl);
-    }
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update creditCard result count: " + count);
     }
@@ -114,11 +106,7 @@ public class CreditCardDao {
     	logger.trace("sql delete creditCard: " + creditCard + " " + sqlControl);
     }
     org.sqlproc.engine.SqlCrudEngine sqlDeleteEngineCreditCard = sqlEngineFactory.getCheckedCrudEngine("DELETE_CREDIT_CARD");
-    org.sqlproc.engine.SqlCrudEngine sqlDeleteBillingDetails = sqlEngineFactory.getCheckedCrudEngine("DELETE_BILLING_DETAILS");
     int count = sqlDeleteEngineCreditCard.delete(sqlSession, creditCard, sqlControl);
-    if (count > 0) {
-    	sqlDeleteBillingDetails.delete(sqlSession, creditCard, sqlControl);
-    }
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete creditCard result count: " + count);
     }

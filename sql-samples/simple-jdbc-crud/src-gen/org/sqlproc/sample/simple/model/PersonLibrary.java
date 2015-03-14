@@ -19,8 +19,8 @@ public class PersonLibrary implements Serializable {
   
   public PersonLibrary(final Long personId, final Long mediaId) {
     super();
-    	   				setPersonId(personId);
-    	   				setMediaId(mediaId);
+    setPersonId(personId);
+    setMediaId(mediaId);
   }
   
   private Long id;

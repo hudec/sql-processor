@@ -20,8 +20,8 @@ public class Payment implements Serializable {
   
   public Payment(final BillingDetails billingDetails, final Timestamp paid) {
     super();
-    	   				setBillingDetails(billingDetails);
-    	   				setPaid(paid);
+    setBillingDetails(billingDetails);
+    setPaid(paid);
   }
   
   private Long id;

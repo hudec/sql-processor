@@ -15,7 +15,7 @@ public class NewBook extends Media implements Serializable {
   
   public NewBook(final String title, final String newIsbn) {
     super(title);
-    	   				setNewIsbn(newIsbn);
+    setNewIsbn(newIsbn);
   }
   
   private String newIsbn;

@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.CreditCard;
 
 @SuppressWarnings("all")
-public interface CreditCardDao {
+public interface CreditCardDao extends BaseDao {
   public CreditCard insert(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
   
   public CreditCard insert(final CreditCard creditCard, SqlControl sqlControl);

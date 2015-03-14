@@ -19,7 +19,7 @@ public class Media implements Serializable {
   
   public Media(final String title) {
     super();
-    	   				setTitle(title);
+    setTitle(title);
   }
   
   private Long id;

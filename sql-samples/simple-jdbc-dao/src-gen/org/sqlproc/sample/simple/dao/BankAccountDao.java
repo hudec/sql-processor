@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.BankAccount;
 
 @SuppressWarnings("all")
-public interface BankAccountDao {
+public interface BankAccountDao extends BaseDao {
   public BankAccount insert(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
   
   public BankAccount insert(final BankAccount bankAccount, SqlControl sqlControl);

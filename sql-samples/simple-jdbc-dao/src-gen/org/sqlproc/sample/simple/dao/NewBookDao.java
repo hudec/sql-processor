@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.NewBook;
 
 @SuppressWarnings("all")
-public interface NewBookDao {
+public interface NewBookDao extends BaseDao {
   public NewBook insert(final SqlSession sqlSession, final NewBook newBook, SqlControl sqlControl);
   
   public NewBook insert(final NewBook newBook, SqlControl sqlControl);

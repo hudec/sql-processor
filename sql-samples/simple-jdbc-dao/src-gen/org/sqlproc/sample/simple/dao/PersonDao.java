@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Person;
 
 @SuppressWarnings("all")
-public interface PersonDao {
+public interface PersonDao extends BaseDao {
   public Person insert(final SqlSession sqlSession, final Person person, SqlControl sqlControl);
   
   public Person insert(final Person person, SqlControl sqlControl);

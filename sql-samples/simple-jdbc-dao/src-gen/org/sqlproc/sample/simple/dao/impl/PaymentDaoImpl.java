@@ -6,13 +6,15 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.dao.PaymentDao;
+import org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Payment;
 
 @SuppressWarnings("all")
-public class PaymentDaoImpl implements PaymentDao {
+public class PaymentDaoImpl extends BaseDaoImpl implements PaymentDao, BaseDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
   
   public PaymentDaoImpl() {

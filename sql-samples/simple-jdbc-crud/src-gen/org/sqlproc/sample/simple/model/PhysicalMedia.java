@@ -18,9 +18,9 @@ public class PhysicalMedia implements Serializable {
   
   public PhysicalMedia(final String location, final Media media, final Library library) {
     super();
-    	   				setLocation(location);
-    	   				setMedia(media);
-    	   				setLibrary(library);
+    setLocation(location);
+    setMedia(media);
+    setLibrary(library);
   }
   
   private Long id;

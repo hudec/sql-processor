@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Payment;
 
 @SuppressWarnings("all")
-public interface PaymentDao {
+public interface PaymentDao extends BaseDao {
   public Payment insert(final SqlSession sqlSession, final Payment payment, SqlControl sqlControl);
   
   public Payment insert(final Payment payment, SqlControl sqlControl);

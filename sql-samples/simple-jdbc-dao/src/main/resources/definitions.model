@@ -9,7 +9,7 @@ database-ddl-create hsqldb.ddl; // should be located in the same directory as de
 
 pojogen-generate-wrappers;
 // custom type
-pojogen-types-for-columns CONTACT PHONE_NUMBER->:org.sqlproc.sample.simple.model.PhoneNumber;
+pojogen-types-for-columns CONTACT PHONE_NUMBER->org.sqlproc.sample.simple.model.PhoneNumber;
 // rename
 pojogen-rename-columns PERFORMER MEDIAS->WORK;
 pojogen-rename-columns LIBRARY PHYSICAL_MEDIAS->CATALOG;
@@ -32,7 +32,7 @@ pojogen-create-one-to-many LIBRARY ID->PHYSICAL_MEDIA->LIBRARY;
 // others
 pojogen-generate-methods toString equals hashCode isDef toInit;
 pojogen-implements-interfaces :java.io.Serializable;
-pojogen-create-columns PERSON PASSPORT->:java.lang.String;
+pojogen-create-columns PERSON PASSPORT->java.lang.String;
 pojogen-not-abstract-tables MEDIA;
 pojogen-extends-class :org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 pojogen-make-it-final;

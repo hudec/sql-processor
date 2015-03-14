@@ -494,8 +494,10 @@ public class Main {
         Assert.assertEquals(1, count);
         count = main.movieDao.delete(movie1);
         Assert.assertEquals(1, count);
+        creditCard1.setVersion(creditCard.getVersion()+1);
         count = main.creditCardDao.delete(creditCard1);
         Assert.assertEquals(1, count);
+        bankAccount1.setVersion(bankAccount1.getVersion()+1);
         count = main.bankAccountDao.delete(bankAccount1);
         Assert.assertEquals(1, count);
         count = main.libraryDao.delete(lib);

@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Subscriber;
 
 @SuppressWarnings("all")
-public interface SubscriberDao {
+public interface SubscriberDao extends BaseDao {
   public Subscriber insert(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl);
   
   public Subscriber insert(final Subscriber subscriber, SqlControl sqlControl);

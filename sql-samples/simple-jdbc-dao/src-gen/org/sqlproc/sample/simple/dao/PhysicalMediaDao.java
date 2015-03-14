@@ -3,10 +3,11 @@ package org.sqlproc.sample.simple.dao;
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlSession;
+import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
 
 @SuppressWarnings("all")
-public interface PhysicalMediaDao {
+public interface PhysicalMediaDao extends BaseDao {
   public PhysicalMedia insert(final SqlSession sqlSession, final PhysicalMedia physicalMedia, SqlControl sqlControl);
   
   public PhysicalMedia insert(final PhysicalMedia physicalMedia, SqlControl sqlControl);

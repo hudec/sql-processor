@@ -19,7 +19,7 @@ public class Library implements Serializable {
   
   public Library(final String name) {
     super();
-    	   				setName(name);
+    setName(name);
   }
   
   private Long id;
