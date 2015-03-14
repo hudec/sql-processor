@@ -20,8 +20,8 @@ pojogen-show-type-for-column CONTACT ID->"BIGINT(64)";
 //pojogen-types-in-table CONTACT "BIGINT(64)"->java.lang.Byte;
 //pojogen-types-for-columns CONTACT ID->java.lang.Short;
 //pojogen-create-columns CONTACT ID2->boolean;
-pojogen-types-for-procedure AN_HOUR_BEFORE T->:java.util.Date;
-pojogen-types-for-procedure NEW_PERSON NEWID->:short;
+pojogen-types-for-procedure AN_HOUR_BEFORE T->java.util.Date;
+pojogen-types-for-procedure NEW_PERSON NEWID->short;
 
 // native types
 pojogen-generate-wrappers;

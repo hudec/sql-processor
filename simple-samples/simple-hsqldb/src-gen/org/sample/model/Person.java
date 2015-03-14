@@ -45,21 +45,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String idOp;
-  
-  public String getIdOp() {
-    return this.idOp;
-  }
-  
-  public void setIdOp(final String idOp) {
-    this.idOp = idOp;
-  }
-  
-  public Person _setIdOp(final String idOp) {
-    this.idOp = idOp;
-    return this;
-  }
-  
   @NotNull
   @Size(max = 100)
   private String firstName;
@@ -74,21 +59,6 @@ public class Person implements Serializable {
   
   public Person _setFirstName(final String firstName) {
     this.firstName = firstName;
-    return this;
-  }
-  
-  private String firstNameOp;
-  
-  public String getFirstNameOp() {
-    return this.firstNameOp;
-  }
-  
-  public void setFirstNameOp(final String firstNameOp) {
-    this.firstNameOp = firstNameOp;
-  }
-  
-  public Person _setFirstNameOp(final String firstNameOp) {
-    this.firstNameOp = firstNameOp;
     return this;
   }
   
@@ -109,21 +79,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String lastNameOp;
-  
-  public String getLastNameOp() {
-    return this.lastNameOp;
-  }
-  
-  public void setLastNameOp(final String lastNameOp) {
-    this.lastNameOp = lastNameOp;
-  }
-  
-  public Person _setLastNameOp(final String lastNameOp) {
-    this.lastNameOp = lastNameOp;
-    return this;
-  }
-  
   private Date dateOfBirth;
   
   public Date getDateOfBirth() {
@@ -136,21 +91,6 @@ public class Person implements Serializable {
   
   public Person _setDateOfBirth(final Date dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
-    return this;
-  }
-  
-  private String dateOfBirthOp;
-  
-  public String getDateOfBirthOp() {
-    return this.dateOfBirthOp;
-  }
-  
-  public void setDateOfBirthOp(final String dateOfBirthOp) {
-    this.dateOfBirthOp = dateOfBirthOp;
-  }
-  
-  public Person _setDateOfBirthOp(final String dateOfBirthOp) {
-    this.dateOfBirthOp = dateOfBirthOp;
     return this;
   }
   
@@ -170,21 +110,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String genderOp;
-  
-  public String getGenderOp() {
-    return this.genderOp;
-  }
-  
-  public void setGenderOp(final String genderOp) {
-    this.genderOp = genderOp;
-  }
-  
-  public Person _setGenderOp(final String genderOp) {
-    this.genderOp = genderOp;
-    return this;
-  }
-  
   @Size(max = 100)
   private String ssn;
   
@@ -201,21 +126,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String ssnOp;
-  
-  public String getSsnOp() {
-    return this.ssnOp;
-  }
-  
-  public void setSsnOp(final String ssnOp) {
-    this.ssnOp = ssnOp;
-  }
-  
-  public Person _setSsnOp(final String ssnOp) {
-    this.ssnOp = ssnOp;
-    return this;
-  }
-  
   private List<Contact> contacts = new java.util.ArrayList<Contact>();
   
   public List<Contact> getContacts() {
@@ -228,21 +138,6 @@ public class Person implements Serializable {
   
   public Person _setContacts(final List<Contact> contacts) {
     this.contacts = contacts;
-    return this;
-  }
-  
-  private String contactsOp;
-  
-  public String getContactsOp() {
-    return this.contactsOp;
-  }
-  
-  public void setContactsOp(final String contactsOp) {
-    this.contactsOp = contactsOp;
-  }
-  
-  public Person _setContactsOp(final String contactsOp) {
-    this.contactsOp = contactsOp;
     return this;
   }
   

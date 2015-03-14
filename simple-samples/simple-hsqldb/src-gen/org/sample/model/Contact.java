@@ -43,21 +43,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String idOp;
-  
-  public String getIdOp() {
-    return this.idOp;
-  }
-  
-  public void setIdOp(final String idOp) {
-    this.idOp = idOp;
-  }
-  
-  public Contact _setIdOp(final String idOp) {
-    this.idOp = idOp;
-    return this;
-  }
-  
   @NotNull
   private Person person;
   
@@ -74,21 +59,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String personOp;
-  
-  public String getPersonOp() {
-    return this.personOp;
-  }
-  
-  public void setPersonOp(final String personOp) {
-    this.personOp = personOp;
-  }
-  
-  public Contact _setPersonOp(final String personOp) {
-    this.personOp = personOp;
-    return this;
-  }
-  
   @NotNull
   private ContactType type;
   
@@ -102,21 +72,6 @@ public class Contact implements Serializable {
   
   public Contact _setType(final ContactType type) {
     this.type = type;
-    return this;
-  }
-  
-  private String typeOp;
-  
-  public String getTypeOp() {
-    return this.typeOp;
-  }
-  
-  public void setTypeOp(final String typeOp) {
-    this.typeOp = typeOp;
-  }
-  
-  public Contact _setTypeOp(final String typeOp) {
-    this.typeOp = typeOp;
     return this;
   }
   
@@ -137,21 +92,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String addressOp;
-  
-  public String getAddressOp() {
-    return this.addressOp;
-  }
-  
-  public void setAddressOp(final String addressOp) {
-    this.addressOp = addressOp;
-  }
-  
-  public Contact _setAddressOp(final String addressOp) {
-    this.addressOp = addressOp;
-    return this;
-  }
-  
   @Size(max = 100)
   private String phoneNumber;
   
@@ -168,21 +108,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String phoneNumberOp;
-  
-  public String getPhoneNumberOp() {
-    return this.phoneNumberOp;
-  }
-  
-  public void setPhoneNumberOp(final String phoneNumberOp) {
-    this.phoneNumberOp = phoneNumberOp;
-  }
-  
-  public Contact _setPhoneNumberOp(final String phoneNumberOp) {
-    this.phoneNumberOp = phoneNumberOp;
-    return this;
-  }
-  
   @Size(max = 100)
   private String xNote;
   
@@ -196,21 +121,6 @@ public class Contact implements Serializable {
   
   public Contact _setxNote(final String xNote) {
     this.xNote = xNote;
-    return this;
-  }
-  
-  private String xNoteOp;
-  
-  public String getXNoteOp() {
-    return this.xNoteOp;
-  }
-  
-  public void setXNoteOp(final String xNoteOp) {
-    this.xNoteOp = xNoteOp;
-  }
-  
-  public Contact _setxNoteOp(final String xNoteOp) {
-    this.xNoteOp = xNoteOp;
     return this;
   }
   
