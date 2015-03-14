@@ -1,19 +1,20 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver :org.hsqldb.jdbcDriver;
-database-has-url jdbc:hsqldb:mem:hsqldb;
+database-has-url "jdbc:hsqldb:mem:hsqldb";
 database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 
-pojo item org.sqlproc.sample.catalog.model.Item;
-pojo itemForm org.sqlproc.sample.catalog.form.ItemForm;
-
 table item ITEM;
+
+pojo Item org.sqlproc.sample.catalog.model.Item;
+pojo ItemForm org.sqlproc.sample.catalog.form.ItemForm;
+pojo ItemTO org.sqlproc.sample.catalog.to.ItemTO;
 
 pojogen-generate-wrappers;
 pojogen-generate-methods toString equals hashCode;
 pojogen-implements-interfaces :java.io.Serializable;
-pojogen-types-for-columns ITEM PRICE->:java.math.BigDecimal;
+pojogen-types-for-columns ITEM PRICE->java.math.BigDecimal;
 //pojogen-debug-level DEBUG;
 compress-meta-directives;

@@ -1,0 +1,95 @@
+package org.sqlproc.sample.catalog.model {
+
+    import javax.persistence.Basic
+    import javax.persistence.SequenceGenerator
+    import javax.persistence.Column
+    import javax.persistence.Table
+    import javax.persistence.Id
+    import javax.persistence.Entity
+    import javax.persistence.GenerationType
+    import javax.persistence.GeneratedValue
+
+
+    final @Entity
+    final @Table(name = "ITEM")
+    final @SequenceGenerator(name = "seq:item", sequenceName = "ITEM:SEQ", initialValue = 100)
+    #Serializable(1) #Equals(itemid) #HashCode(itemid) #ToString(price,productid,description,name,image,imagethumburl,itemid,imageurl,imagethumb)
+    #Pojo Item {
+        #Attribute
+        final @Id
+        #Attribute
+        final @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq:item")
+        #Attribute
+        final @Column(name = "ITEMID")
+        #PrimaryKey #Index(1)
+        #Attr Long itemid
+        #Attribute
+        final @Basic(optional = false)
+        #Attribute
+        final @Column(name = "PRODUCTID")
+        #Required
+        #Attr String productid
+        #Attribute
+        final @Basic(optional = false)
+        #Attribute
+        final @Column(name = "NAME", unique = true)
+        #Required
+        #Attr String name
+        #Attribute
+        final @Basic(optional = false)
+        #Attribute
+        final @Column(name = "DESCRIPTION")
+        #Required
+        #Attr String description
+        #Attribute
+        final @Column(name = "IMAGEURL")
+        #Attr String imageurl
+        #Attribute
+        final @Column(name = "IMAGETHUMBURL")
+        #Attr String imagethumburl
+        #Attribute
+        final @Column(name = "IMAGE",columnDefinition = "LONGVARBINARY")
+        #Attr byte [] image
+        #Attribute
+        final @Column(name = "IMAGETHUMB",columnDefinition = "LONGVARBINARY")
+        #Attr byte [] imagethumb
+        #Attribute
+        final @Basic(optional = false)
+        #Attribute
+        final @Column(name = "PRICE")
+        #Required
+        #Attr java.math.BigDecimal price
+    }
+}
+
+package org.sqlproc.sample.catalog.to {
+
+	#Serializable(1) #ToString(price, productid, description, name, image, imagethumburl, itemid, imageurl, imagethumb)
+	#Pojo ItemTO {
+		#Attr Long itemid
+		#Attr String productid
+		#Attr String name
+		#Attr String description
+		#Attr String imageurl
+		#Attr String imagethumburl
+		#Attr byte [] image
+		#Attr byte [] imagethumb
+		#Required
+		#Attr java.math.BigDecimal price
+	}
+} 
+
+package org.sqlproc.sample.catalog.form {
+
+	#Serializable(1) #ToString(itemid, name, description, priceFrom, priceTo)
+	#Pojo ItemForm {
+		#Attr Long itemid
+		#Attr String name
+		#Attr String description
+		#Attr java.math.BigDecimal priceFrom
+		#Attr java.math.BigDecimal priceTo
+		#Attr int first
+		#Attr int count
+		#Attr int order
+	}
+}

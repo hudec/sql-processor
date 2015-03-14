@@ -1,0 +1,54 @@
+package org.sqlproc.sample.catalog.model {
+
+
+
+    #Serializable(1) #Equals(itemid) #HashCode(itemid) #ToString(price,productid,description,name,image,imagethumburl,itemid,imageurl,imagethumb)
+    #Pojo Item {
+        #PrimaryKey #Index(1)
+        #Attr Long itemid
+        #Required
+        #Attr String productid
+        #Required
+        #Attr String name
+        #Required
+        #Attr String description
+        #Attr String imageurl
+        #Attr String imagethumburl
+        #Attr byte [] image
+        #Attr byte [] imagethumb
+        #Required
+        #Attr java.math.BigDecimal price
+    }
+}
+
+package org.sqlproc.sample.catalog.to {
+
+	#Serializable(1) #ToString(price, productid, description, name, image, imagethumburl, itemid, imageurl, imagethumb)
+	#Pojo ItemTO {
+		#Attr Long itemid
+		#Attr String productid
+		#Attr String name
+		#Attr String description
+		#Attr String imageurl
+		#Attr String imagethumburl
+		#Attr byte [] image
+		#Attr byte [] imagethumb
+		#Required
+		#Attr java.math.BigDecimal price
+	}
+} 
+
+package org.sqlproc.sample.catalog.form {
+
+	#Serializable(1) #ToString(itemid, name, description, priceFrom, priceTo)
+	#Pojo ItemForm {
+		#Attr Long itemid
+		#Attr String name
+		#Attr String description
+		#Attr java.math.BigDecimal priceFrom
+		#Attr java.math.BigDecimal priceTo
+		#Attr int first
+		#Attr int count
+		#Attr int order
+	}
+}

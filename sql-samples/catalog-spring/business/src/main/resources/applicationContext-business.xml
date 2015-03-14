@@ -71,7 +71,7 @@
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">
         <property name="metaFilesNames">
             <list>
-                <value>statements.qry</value>
+                <value>statements.meta</value>
             </list>
         </property>
         <property name="filter" value="${db.type}" />

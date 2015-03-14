@@ -1,7 +1,7 @@
 SURROUND_QUERY_LIKE_PARTIAL(BOPT)=false;
 SURROUND_QUERY_LIKE_FULL(BOPT)=true;
 
-ITEMS(QRY,inx=ItemForm,outx=ItemTO,tab=item)=
+ITEMS(QRY,in=ItemForm,out=ItemTO,tab=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
   from %%ITEM
@@ -16,24 +16,24 @@ ITEMS(QRY,inx=ItemForm,outx=ItemTO,tab=item)=
   {#2 order by %PRICE}
 ;
 
-GET_ITEM(CRUD,inx=ItemForm,outx=Item,tab=item)=
+GET_ITEM(CRUD,in=ItemForm,out=Item,tab=item)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
   from %%ITEM
   {= where %ITEMID = :itemid(notnull)}
 ;
 
-DELETE_ITEM(CRUD,inx=ItemForm,tab=item)=
+DELETE_ITEM(CRUD,in=ItemForm,tab=item)=
   delete from %%ITEM
   {= where %ITEMID = :itemid(notnull)}
 ;
 
-INSERT_ITEM(CRUD,inx=Item,tab=item)=
+INSERT_ITEM(CRUD,in=Item,tab=item)=
   insert into %%ITEM (%ITEMID, %PRODUCTID, %NAME, %DESCRIPTION, %IMAGEURL, %IMAGETHUMBURL, %IMAGE, %IMAGETHUMB, %PRICE)
-  {= values (:itemid(seq=HIBERNATE_SEQUENCE), :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
+  {= values (:itemid(seq=SIMPLE_SEQUENCE), :productid, :name, :description, :imageurl, :imagethumburl, :image, :imagethumb, :price) }
 ;
 
-UPDATE_ITEM(CRUD,inx=Item,tab=item)=
+UPDATE_ITEM(CRUD,in=Item,tab=item)=
   update %%ITEM
   {= set %PRODUCTID = :productid, %NAME = :name, %DESCRIPTION = :description,
       %IMAGEURL = :imageurl, %IMAGETHUMBURL = :imagethumburl, %IMAGE = :image,
