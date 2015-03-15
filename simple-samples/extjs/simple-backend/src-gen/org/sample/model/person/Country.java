@@ -17,10 +17,10 @@ public class Country implements Serializable {
   public final static int ORDER_BY_ID = 1;
   
   @JsonIgnore
-  public final static int ORDER_BY_CODE = 2;
+  public final static int ORDER_BY_CODE = 3;
   
   @JsonIgnore
-  public final static int ORDER_BY_NAME = 3;
+  public final static int ORDER_BY_NAME = 4;
   
   public Country() {
   }

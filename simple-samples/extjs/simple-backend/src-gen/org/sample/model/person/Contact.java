@@ -141,10 +141,14 @@ public class Contact implements Serializable {
   
   public void setCountry(final Country country) {
     this.country = country;
+    if (this.country != null)
+      this.countryCode = this.country.getCode();
   }
   
   public Contact _setCountry(final Country country) {
     this.country = country;
+    if (this.country != null)
+      this.countryCode = this.country.getCode();
     return this;
   }
   
@@ -156,10 +160,16 @@ public class Contact implements Serializable {
   
   public void setCountryCode(final String countryCode) {
     this.countryCode = countryCode;
+    if (this.country == null)
+      this.country = new org.sample.model.person.Country();
+    this.country.setCode(countryCode);
   }
   
   public Contact _setCountryCode(final String countryCode) {
     this.countryCode = countryCode;
+    if (this.country == null)
+      this.country = new org.sample.model.person.Country();
+    this.country.setCode(countryCode);
     return this;
   }
   
@@ -187,7 +197,7 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", ctype=" + ctype + ", personId=" + personId + ", version=" + version + "]";
+    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", countryCode=" + countryCode + ", ctype=" + ctype + ", personId=" + personId + ", version=" + version + "]";
   }
   
   public String toStringFull() {
