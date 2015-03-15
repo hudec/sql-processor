@@ -1,0 +1,18 @@
+package org.sample.dao.auth {
+
+    #CRUD(org.sample.model.auth.AuthRole) #Query(org.sample.model.auth.AuthRole)
+    #Dao AuthRoleDao {
+    }
+
+    #CRUD(org.sample.model.auth.AuthUser) #Query(org.sample.model.auth.AuthUser)
+    #Dao AuthUserDao {
+    }
+
+    #CRUD(org.sample.model.auth.UserRole) #Query(org.sample.model.auth.UserRole)
+    #Dao UserRoleDao {
+    }
+
+    #CRUD(org.sample.model.auth.UserSession) #Query(org.sample.model.auth.UserSession)
+    #Dao UserSessionDao {
+    }
+}

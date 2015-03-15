@@ -1,7 +1,7 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver :org.hsqldb.jdbcDriver;
-database-has-url jdbc:hsqldb:mem:auth;
+database-has-url "jdbc:hsqldb:mem:auth";
 database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
@@ -29,8 +29,8 @@ pojogen-ignore-one-to-many AUTH_USER ID->USER_SESSION;
 pojogen-ignore-many-to-one USER_ROLE AUTH_USER_ID->AUTH_USER;
 pojogen-ignore-many-to-one USER_SESSION AUTH_USER_ID->AUTH_USER;
 
-pojogen-types-for-columns AUTH_USER LAST_LOGIN->:java.util.Date; 
-pojogen-types-for-columns USER_SESSION LAST_ACCESS->:java.util.Date; 
+pojogen-types-for-columns AUTH_USER LAST_LOGIN->java.util.Date; 
+pojogen-types-for-columns USER_SESSION LAST_ACCESS->java.util.Date; 
 
 
 // use indetity for primary keys
@@ -50,3 +50,12 @@ table userRole USER_ROLE;
 table userSession USER_SESSION;
 
 //pojogen-debug-level DEBUG;
+
+compress-meta-directives;
+pojogen-package org.sample.model.auth;
+daogen-package org.sample.dao.auth;
+
+pojo AuthRole org.sample.model.auth.AuthRole;
+pojo AuthUser org.sample.model.auth.AuthUser;
+pojo UserRole org.sample.model.auth.UserRole;
+pojo UserSession org.sample.model.auth.UserSession;

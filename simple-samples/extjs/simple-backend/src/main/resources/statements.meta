@@ -1,10 +1,10 @@
 
-INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %CTYPE, %ADDRESS, %PHONE_NUMBER, %VERSION, %COUNTRY_CODE)
   {= values (:id(seq=SIMPLE_SEQUENCE), :personId, :ctype, :address, :phoneNumber, :version, :country.code) }
 ;
 
-GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=country=c1)=
+GET_CONTACT(CRUD,in=Contact,out=Contact,tab=contact=c,tab=country=c1)=
   select %c.ID @id(id), %c.PERSON_ID @personId, %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.COUNTRY_CODE @country.code(id), %c.COUNTRY_CODE @countryCode
          {? :country(call=toInit) | , %c1.CODE @country.code, %c1.NAME @country.name }
   from %%CONTACT c
@@ -19,7 +19,7 @@ GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=country=c1)=
   }
 ;
 
-UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+UPDATE_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   update %%CONTACT
   {= set
     { ,%PERSON_ID = :personId(call=isDef) }
@@ -35,7 +35,7 @@ UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   }
 ;
 
-DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+DELETE_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   delete from %%CONTACT
   {= where
     {& %ID = :id(!empty) }
@@ -43,7 +43,7 @@ DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   }
 ;
 
-SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=country=c1)=
+SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=country=c1)=
   select %c.ID @id(id), %c.PERSON_ID @personId, %c.CTYPE @ctype, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.VERSION @version, %c.COUNTRY_CODE @country.code(id), %c.COUNTRY_CODE @countryCode
          {? :country(call=toInit) | , %c1.CODE @country.code, %c1.NAME @country.name }
   from %%CONTACT c
@@ -61,12 +61,12 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=country=c1)=
   {#3 order by %c.COUNTRY_CODE }
 ;
 
-INSERT_COUNTRY(CRUD,inx=Country,outx=Country,tab=country)=
+INSERT_COUNTRY(CRUD,in=Country,out=Country,tab=country)=
   insert into %%COUNTRY (%ID, %CODE, %NAME)
   {= values (:id(seq=SIMPLE_SEQUENCE), :code, :name) }
 ;
 
-GET_COUNTRY(CRUD,inx=Country,outx=Country,tab=country)=
+GET_COUNTRY(CRUD,in=Country,out=Country,tab=country)=
   select %ID @id(id), %CODE @code, %NAME @name
   from %%COUNTRY
   {= where
@@ -76,7 +76,7 @@ GET_COUNTRY(CRUD,inx=Country,outx=Country,tab=country)=
   }
 ;
 
-UPDATE_COUNTRY(CRUD,inx=Country,outx=Country,tab=country)=
+UPDATE_COUNTRY(CRUD,in=Country,out=Country,tab=country)=
   update %%COUNTRY
   {= set
     { ,%CODE = :code(call=isDef) }
@@ -87,14 +87,14 @@ UPDATE_COUNTRY(CRUD,inx=Country,outx=Country,tab=country)=
   }
 ;
 
-DELETE_COUNTRY(CRUD,inx=Country,outx=Country,tab=country)=
+DELETE_COUNTRY(CRUD,in=Country,out=Country,tab=country)=
   delete from %%COUNTRY
   {= where
     {& %ID = :id(!empty) }
   }
 ;
 
-SELECT_COUNTRY(QRY,IOPT=SURROUND_QUERY_MIN_LEN=1,inx=Country,outx=Country,tab=country)=
+SELECT_COUNTRY(QRY,IOPT=SURROUND_QUERY_MIN_LEN=1,in=Country,out=Country,tab=country)=
   select %ID @id(id), %CODE @code, %NAME @name
   from %%COUNTRY
   {= where
@@ -107,12 +107,12 @@ SELECT_COUNTRY(QRY,IOPT=SURROUND_QUERY_MIN_LEN=1,inx=Country,outx=Country,tab=co
   {#4 order by %NAME }
 ;
 
-INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
   insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN, %VERSION)
   {= values (:id(seq=SIMPLE_SEQUENCE), :firstName, :lastName, :dateOfBirth, :gender, :ssn, :version) }
 ;
 
-GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=relative=r,tab=contact=c)=
+GET_PERSON(CRUD,in=Person,out=Person,tab=person=p,tab=relative=r,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
          {? :relatives(call=toInit) | , %r.ID @relatives.id(id), %r.PERSON_ID @relatives.personId, %r.REL_PERSON_ID @relatives.relPerson.id, %r.RTYPE @relatives.rtype }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
@@ -129,7 +129,7 @@ GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=relative=r,tab=contact=c
   }
 ;
 
-UPDATE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+UPDATE_PERSON(CRUD,in=Person,out=Person,tab=person)=
   update %%PERSON
   {= set
     { ,%FIRST_NAME = :firstName(call=isDef) }
@@ -145,7 +145,7 @@ UPDATE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   }
 ;
 
-DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+DELETE_PERSON(CRUD,in=Person,out=Person,tab=person)=
   delete from %%PERSON
   {= where
     {& %ID = :id(!empty) }
@@ -153,7 +153,7 @@ DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   }
 ;
 
-SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=relative=r,tab=contact=c)=
+SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=relative=r,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn, %p.VERSION @version
          {? :relatives(call=toInit) | , %r.ID @relatives.id(id), %r.PERSON_ID @relatives.personId, %r.REL_PERSON_ID @relatives.relPerson.id, %r.RTYPE @relatives.rtype }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.personId, %c.CTYPE @contacts.ctype, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.VERSION @contacts.version, %c.COUNTRY_CODE @contacts.country.code, %c.COUNTRY_CODE @contacts.countryCode }
@@ -172,12 +172,12 @@ SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=relative=r,tab=contact
   {#2 order by %p.LAST_NAME }
 ;
 
-INSERT_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative)=
+INSERT_RELATIVE(CRUD,in=Relative,out=Relative,tab=relative)=
   insert into %%RELATIVE (%ID, %PERSON_ID, %REL_PERSON_ID, %RTYPE)
   {= values (:id(seq=SIMPLE_SEQUENCE), :personId, :relPerson.id, :rtype) }
 ;
 
-GET_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative=r,tab=person=p)=
+GET_RELATIVE(CRUD,in=Relative,out=Relative,tab=relative=r,tab=person=p)=
   select %r.ID @id(id), %r.PERSON_ID @personId, %r.REL_PERSON_ID @relPerson.id(id), %r.RTYPE @rtype
          {? :relPerson(call=toInit) | , %p.FIRST_NAME @relPerson.firstName, %p.LAST_NAME @relPerson.lastName, %p.DATE_OF_BIRTH @relPerson.dateOfBirth, %p.GENDER @relPerson.gender, %p.SSN @relPerson.ssn, %p.VERSION @relPerson.version }
   from %%RELATIVE r
@@ -190,7 +190,7 @@ GET_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative=r,tab=person=p)=
   }
 ;
 
-UPDATE_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative)=
+UPDATE_RELATIVE(CRUD,in=Relative,out=Relative,tab=relative)=
   update %%RELATIVE
   {= set
     { ,%PERSON_ID = :personId(call=isDef) }
@@ -202,14 +202,14 @@ UPDATE_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative)=
   }
 ;
 
-DELETE_RELATIVE(CRUD,inx=Relative,outx=Relative,tab=relative)=
+DELETE_RELATIVE(CRUD,in=Relative,out=Relative,tab=relative)=
   delete from %%RELATIVE
   {= where
     {& %ID = :id(!empty) }
   }
 ;
 
-SELECT_RELATIVE(QRY,inx=Relative,outx=Relative,tab=relative=r,tab=person=p)=
+SELECT_RELATIVE(QRY,in=Relative,out=Relative,tab=relative=r,tab=person=p)=
   select %r.ID @id(id), %r.PERSON_ID @personId, %r.REL_PERSON_ID @relPerson.id(id), %r.RTYPE @rtype
          {? :relPerson(call=toInit) | , %p.FIRST_NAME @relPerson.firstName, %p.LAST_NAME @relPerson.lastName, %p.DATE_OF_BIRTH @relPerson.dateOfBirth, %p.GENDER @relPerson.gender, %p.SSN @relPerson.ssn, %p.VERSION @relPerson.version }
   from %%RELATIVE r

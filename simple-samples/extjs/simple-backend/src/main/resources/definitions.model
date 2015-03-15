@@ -1,7 +1,7 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver :org.hsqldb.jdbcDriver;
-database-has-url jdbc:hsqldb:mem:hsqldb;
+database-has-url "jdbc:hsqldb:mem:hsqldb";
 database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
@@ -31,7 +31,7 @@ pojogen-rename-columns CONTACT COUNTRY_CODE->COUNTRY;
 pojogen-ignore-many-to-one CONTACT PERSON_ID->PERSON;
 pojogen-ignore-many-to-one RELATIVE PERSON_ID->PERSON;
 pojogen-ignore-one-to-many PERSON ID->RELATIVE->PERSON_ID;
-pojogen-create-columns RELATIVE VERSION->:java.lang.Integer;
+pojogen-create-columns RELATIVE VERSION->java.lang.Integer;
 
 // use indetity for primary keys
 // for HSQLDB
@@ -42,7 +42,7 @@ metagen-global-sequence SIMPLE_SEQUENCE;
 //metagen-make-it-final;
 // operators
 metagen-not-like-columns CONTACT PHONE_NUMBER;
-metagen-optional-features SELECT_COUNTRY IOPT=SURROUND_QUERY_MIN_LEN=1;
+metagen-optional-features SELECT_COUNTRY "IOPT=SURROUND_QUERY_MIN_LEN=1";
 
 // can't overwrite existing DAO 
 //daogen-make-it-final; 
@@ -53,3 +53,14 @@ table person PERSON;
 table relative RELATIVE;
 
 //pojogen-debug-level DEBUG;
+
+compress-meta-directives;
+pojogen-package org.sample.model.person;
+daogen-package org.sample.dao.person;
+
+pojo Contact org.sample.model.person.Contact;
+pojo CountHolder org.sample.web.form.CountHolder;
+pojo Country org.sample.model.person.Country;
+pojo Person org.sample.model.person.Person;
+pojo PersonForm org.sample.web.form.PersonForm;
+pojo Relative org.sample.model.person.Relative;

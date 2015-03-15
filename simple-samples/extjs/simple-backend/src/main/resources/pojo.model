@@ -1,0 +1,192 @@
+package org.sample.model.person {
+
+  import ch.ralscha.extdirectspring.generator.ModelType
+  import org.hibernate.validator.constraints.NotBlank
+  import javax.validation.constraints.NotNull
+  import org.springframework.format.annotation.DateTimeFormat
+  import com.fasterxml.jackson.databind.annotation.JsonSerialize
+  import ch.ralscha.extdirectspring.generator.ModelAssociation
+  import ch.ralscha.extdirectspring.generator.ModelField
+  import org.sample.web.util.DMYDateSerializer
+  import ch.ralscha.extdirectspring.generator.Model
+  import javax.validation.constraints.Past
+  import com.fasterxml.jackson.annotation.JsonIgnore
+  import ch.ralscha.extdirectspring.generator.ModelAssociationType
+
+  #Serializable(1)
+  #Enum ContactCtype {
+    #Values(HOME = "0",BUSINESS = "1",ABROAD = "2")
+    #Attr String value
+  }
+
+  #Serializable(1)
+  #Enum PersonGender {
+    #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+    #Attr String value
+  }
+
+  #Serializable(1)
+  #Enum RelativeRtype {
+    #Values(FATHER = "F",MOTHER = "M",SON = "S",DAUGHTER = "D",HUSBAND = "H",WIFE = "W",BROTHER = "B",SISTER = "I")
+    #Attr String value
+  }
+
+//  #Standard
+//  @Model(value = "SimpleWeb.model.Contact",paging = true,readMethod = "simpleService.loadContacts")
+//  #Static
+//  @JsonIgnore
+//  #Conflict
+//  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,phoneNumber,address,ctype,personId,version)
+  #Pojo Contact {
+    #PrimaryKey
+    #Index(1)
+    #Attr Long id
+    #Required
+    #Index(2)
+    #Attr Long personId
+    //@ModelField(type = ModelType.STRING)
+    @NotNull
+    #Required
+    #Attr ContactCtype ctype
+    @NotBlank
+    #Required
+    #Attr String address
+    #IsDef
+    #Attr String phoneNumber
+    @NotNull
+    #Version
+    #Attr Integer version
+    #ToInit
+    #Required
+    #Index(3)
+    //#UpdateCol(code, countryCode)
+    #Attr Country country
+    //#CreateCol(country,code)
+    #Attr String countryCode
+  }
+ 
+//  #Standard
+//  @Model(value = "SimpleWeb.model.Country",paging = true,readMethod = "simpleService.loadCountries")
+//  #Static
+//  @JsonIgnore
+//  #Conflict
+//  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,name,code)
+  #Pojo Country {
+    #PrimaryKey
+    #Index(1)
+    #Attr Long id
+    #Required
+    #Index(2)
+    #Attr String code
+    #IsDef
+    #Index(3)
+    #Attr String name
+  }
+
+//  #Standard
+//  @Model(value = "SimpleWeb.model.Person",paging = true,readMethod = "simpleService.loadPeople")
+//  #Static
+//  @JsonIgnore
+//  #Conflict
+//  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(dateOfBirth,id,lastName,ssn,gender,firstName,version)
+  #Pojo Person {
+    #PrimaryKey
+    #Index(1)
+    #Attr Long id
+    @NotBlank
+    #Required
+    #Attr String firstName
+    @NotBlank
+    #Required
+    #Index(2)
+    #Attr String lastName
+    #Attribute
+    @ModelField(dateFormat = "d.m.Y")
+    #Attribute
+    @Past
+    #Attribute
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    #Getter
+    @JsonSerialize(using = typeof(DMYDateSerializer))
+    #Setter
+    @JsonSerialize(using = typeof(DMYDateSerializer))
+    #IsDef
+    #Attr java.util.Date dateOfBirth
+    //@ModelField(type = ModelType.STRING)
+    @NotNull
+    #Required
+    #Attr PersonGender gender
+    #IsDef
+    #Attr String ssn
+    @NotNull
+    #Version
+    #Attr Integer version
+    @ModelAssociation(value = ModelAssociationType.HAS_MANY,model = typeof(Relative))
+    #ToInit
+    #Attr java.util.List<Relative> relatives
+    @ModelAssociation(value = ModelAssociationType.HAS_MANY,model = typeof(Contact))
+    #ToInit
+    #Attr java.util.List<Contact> contacts
+  }
+
+//  #Standard
+//  @Model(value = "SimpleWeb.model.Relative")
+//  #Static
+//  @JsonIgnore
+//  #Conflict
+//  @JsonIgnore
+  #Operators
+  #Serializable(1)
+  #Equals(id)
+  #HashCode(id)
+  #ToString(id,rtype,personId,version)
+  #Pojo Relative {
+    #PrimaryKey
+    #Index(1)
+    #Attr Long id
+    #Required
+    #Index(2)
+    #Attr Long personId
+    @ModelAssociation(value = ModelAssociationType.HAS_ONE,model = typeof(Person))
+    #ToInit
+    #Required
+    #Index(3)
+    #Attr Person relPerson
+    @ModelField(type = ModelType.STRING)
+    @NotNull
+    #Required
+    #Attr RelativeRtype rtype
+    @NotNull
+    #IsDef
+    #Attr Integer version
+  }
+}
+
+package org.sample.web.form {
+ 
+  #Serializable(1)
+  #Pojo PersonForm extends org.sample.model.person.Person {
+    #Attr java.util.Date dateOfBirthFrom
+    #Attr java.util.Date dateOfBirthTo
+  }
+	
+  #Serializable(1)
+  #Pojo CountHolder {
+    #Attr int count
+  }
+}

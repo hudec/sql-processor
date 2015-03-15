@@ -11,100 +11,100 @@ package org.sample.model.auth {
   import com.fasterxml.jackson.annotation.JsonIgnore
   import ch.ralscha.extdirectspring.generator.ModelAssociationType
 
-  #Standard
-  @Model(value = "SimpleWeb.model.AuthRole",paging = true,readMethod = "simpleService.loadAuthRoles")
-  #Static
-  @JsonIgnore
-  #Conflict
-  @JsonIgnore
+//  #Standard
+//  @Model(value = "SimpleWeb.model.AuthRole",paging = true,readMethod = "simpleService.loadAuthRoles")
+//  #Static
+//  @JsonIgnore
+//  #Conflict
+//  @JsonIgnore
   #Operators
   #Serializable(1)
   #Equals(id)
   #HashCode(id)
   #ToString(id,description,name,version)
-  pojo AuthRole {
+  #Pojo AuthRole {
     #PrimaryKey
     #Index(1)
-    id :java.lang.Long
+    #Attr Long id
     @NotBlank
     #Required
-    name :java.lang.String
+    #Attr String name
     #IsDef
-    description :java.lang.String
+    #Attr String description
     @NotNull
     #Version
-    version :java.lang.Integer
+    #Attr Integer version
   }
 
-  #Standard
-  @Model(value = "SimpleWeb.model.AuthUser",paging = true,readMethod = "simpleService.loadAuthUsers")
-  #Static
-  @JsonIgnore
-  #Conflict
-  @JsonIgnore
+//  #Standard
+//  @Model(value = "SimpleWeb.model.AuthUser",paging = true,readMethod = "simpleService.loadAuthUsers")
+//  #Static
+//  @JsonIgnore
+//  #Conflict
+//  @JsonIgnore
   #Operators
   #Serializable(1)
   #Equals(id)
   #HashCode(id)
   #ToString(id,lastLogin,username,email,name,password,version)
-  pojo AuthUser {
+  #Pojo AuthUser {
     #PrimaryKey
     #Index(1)
-    id :java.lang.Long
+    #Attr Long id
     @NotBlank
     #Required
     #Index(2)
-    username :java.lang.String
+    #Attr String username
     #IsDef
-    password :java.lang.String
+    #Attr String password
     @NotBlank
     #Required
-    name :java.lang.String
+    #Attr String name
     #IsDef
-    email :java.lang.String
+    #Attr String email
     #Attribute
     @ModelField(dateFormat = "d.m.Y")
     #Attribute
     @Past
     #Getter
-    @JsonSerialize(using = class :DMYDateTimeSerializer)
+    @JsonSerialize(using = typeof(DMYDateTimeSerializer))
     #Setter
-    @JsonSerialize(using = class :DMYDateTimeSerializer)
+    @JsonSerialize(using = typeof(DMYDateTimeSerializer))
     #IsDef
-    lastLogin :java.util.Date
+    #Attr java.util.Date lastLogin
     @NotNull
     #Version
-    version :java.lang.Integer
-    @ModelAssociation(value = HAS_MANY :ModelAssociationType,model = class UserRole)
+    #Attr Integer version
+    @ModelAssociation(value = ModelAssociationType.HAS_MANY,model = typeof(UserRole))
     #ToInit
-    userRoles :java.util.List <UserRole>
+    #Attr java.util.List<UserRole> userRoles
   }
 
-  #Standard
-  @Model(value = "SimpleWeb.model.UserRole",paging = true,readMethod = "simpleService.loadUserRoles")
-  #Static
-  @JsonIgnore
-  #Conflict
-  @JsonIgnore
+//  #Standard
+//  @Model(value = "SimpleWeb.model.UserRole",paging = true,readMethod = "simpleService.loadUserRoles")
+//  #Static
+//  @JsonIgnore
+//  #Conflict
+//  @JsonIgnore
   #Operators
   #Serializable(1)
   #Equals(id)
   #HashCode(id)
   #ToString(id,authUserId,version)
-  pojo UserRole {
+  #Pojo UserRole {
     #PrimaryKey
     #Index(1)
-    id :java.lang.Long
+    #Attr Long id
     #Required
     #Index(4)
-    authUserId :java.lang.Long
-    @ModelAssociation(value = HAS_ONE :ModelAssociationType,model = class AuthRole)
+    #Attr Long authUserId
+    @ModelAssociation(value = ModelAssociationType.HAS_ONE,model = typeof(AuthRole))
     #ToInit
     #Required
     #Index(5)
-    authRole AuthRole
+    #Attr AuthRole authRole
     #Version
-    version :java.lang.Integer
+    #Attr Integer version
   }
 
   #Operators
@@ -112,14 +112,14 @@ package org.sample.model.auth {
   #Equals(id)
   #HashCode(id)
   #ToString(id,authUserId,lastAccess)
-  pojo UserSession {
+  #Pojo UserSession {
     #PrimaryKey
     #Index(1)
-    id :java.lang.Long
+    #Attr Long id
     #Required
     #Index(3)
-    authUserId :java.lang.Long
+    #Attr Long authUserId
     #Required
-    lastAccess :java.util.Date
+    #Attr java.util.Date lastAccess
   }
 }
