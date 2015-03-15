@@ -1,8 +1,11 @@
 package org.sample.model.person;
 
+import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
 import ch.ralscha.extdirectspring.generator.ModelField;
+import ch.ralscha.extdirectspring.generator.ModelType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,12 +23,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@Model(value = "SimpleWeb.model.Person", paging = true, readMethod = "simpleService.loadPeople")
 @SuppressWarnings("all")
 public class Person implements Serializable {
   private final static long serialVersionUID = 1L;
   
+  @JsonIgnore
   public final static int ORDER_BY_ID = 1;
   
+  @JsonIgnore
   public final static int ORDER_BY_LAST_NAME = 2;
   
   public Person() {
@@ -105,6 +111,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @ModelField(type = ModelType.STRING)
   @NotNull
   private PersonGender gender;
   
@@ -223,6 +230,7 @@ public class Person implements Serializable {
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setNull(final Person.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -230,11 +238,13 @@ public class Person implements Serializable {
     	nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public Person _setNull(final Person.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearNull(final Person.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -242,6 +252,7 @@ public class Person implements Serializable {
     	nullValues.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Person _clearNull(final Person.Attribute... attributes) {
     clearNull(attributes);
     return this;
@@ -271,6 +282,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean isNull(final Person.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
@@ -321,6 +333,7 @@ public class Person implements Serializable {
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setInit(final Person.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -328,11 +341,13 @@ public class Person implements Serializable {
     	initAssociations.add(association.name());
   }
   
+  @JsonIgnore
   public Person _setInit(final Person.Association... associations) {
     setInit(associations);
     return this;
   }
   
+  @JsonIgnore
   public void clearInit(final Person.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -340,6 +355,7 @@ public class Person implements Serializable {
     	initAssociations.remove(association.name());
   }
   
+  @JsonIgnore
   public Person _clearInit(final Person.Association... associations) {
     clearInit(associations);
     return this;
@@ -369,6 +385,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean toInit(final Person.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
@@ -407,10 +424,12 @@ public class Person implements Serializable {
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();
   
+  @JsonIgnore
   public Map<String, String> getOperators() {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(final String operator, final Person.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -418,11 +437,13 @@ public class Person implements Serializable {
     	operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public Person _setOp(final String operator, final Person.OpAttribute... attributes) {
     setOp(operator, attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearOp(final Person.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -430,6 +451,7 @@ public class Person implements Serializable {
     	operators.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Person _clearOp(final Person.OpAttribute... attributes) {
     clearOp(attributes);
     return this;
@@ -459,6 +481,7 @@ public class Person implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public void setNullOp(final Person.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -466,6 +489,7 @@ public class Person implements Serializable {
     	operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
   public Person _setNullOp(final Person.OpAttribute... attributes) {
     setNullOp(attributes);
     return this;

@@ -1,5 +1,7 @@
 package org.sample.model.auth;
 
+import ch.ralscha.extdirectspring.generator.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
@@ -8,10 +10,12 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@Model(value = "SimpleWeb.model.AuthRole", paging = true, readMethod = "simpleService.loadAuthRoles")
 @SuppressWarnings("all")
 public class AuthRole implements Serializable {
   private final static long serialVersionUID = 1L;
   
+  @JsonIgnore
   public final static int ORDER_BY_ID = 1;
   
   public AuthRole() {
@@ -121,6 +125,7 @@ public class AuthRole implements Serializable {
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setNull(final AuthRole.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -128,11 +133,13 @@ public class AuthRole implements Serializable {
     	nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public AuthRole _setNull(final AuthRole.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearNull(final AuthRole.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -140,6 +147,7 @@ public class AuthRole implements Serializable {
     	nullValues.remove(attribute.name());
   }
   
+  @JsonIgnore
   public AuthRole _clearNull(final AuthRole.Attribute... attributes) {
     clearNull(attributes);
     return this;
@@ -169,6 +177,7 @@ public class AuthRole implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean isNull(final AuthRole.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
@@ -223,10 +232,12 @@ public class AuthRole implements Serializable {
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();
   
+  @JsonIgnore
   public Map<String, String> getOperators() {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(final String operator, final AuthRole.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -234,11 +245,13 @@ public class AuthRole implements Serializable {
     	operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public AuthRole _setOp(final String operator, final AuthRole.OpAttribute... attributes) {
     setOp(operator, attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearOp(final AuthRole.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -246,6 +259,7 @@ public class AuthRole implements Serializable {
     	operators.remove(attribute.name());
   }
   
+  @JsonIgnore
   public AuthRole _clearOp(final AuthRole.OpAttribute... attributes) {
     clearOp(attributes);
     return this;
@@ -275,6 +289,7 @@ public class AuthRole implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public void setNullOp(final AuthRole.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -282,6 +297,7 @@ public class AuthRole implements Serializable {
     	operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
   public AuthRole _setNullOp(final AuthRole.OpAttribute... attributes) {
     setNullOp(attributes);
     return this;

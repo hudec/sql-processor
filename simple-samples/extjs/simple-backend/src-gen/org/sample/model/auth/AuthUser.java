@@ -1,8 +1,10 @@
 package org.sample.model.auth;
 
+import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
 import ch.ralscha.extdirectspring.generator.ModelField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,12 +19,15 @@ import org.sample.web.util.DMYDateTimeSerializer;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@Model(value = "SimpleWeb.model.AuthUser", paging = true, readMethod = "simpleService.loadAuthUsers")
 @SuppressWarnings("all")
 public class AuthUser implements Serializable {
   private final static long serialVersionUID = 1L;
   
+  @JsonIgnore
   public final static int ORDER_BY_ID = 1;
   
+  @JsonIgnore
   public final static int ORDER_BY_USERNAME = 2;
   
   public AuthUser() {
@@ -203,6 +208,7 @@ public class AuthUser implements Serializable {
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setNull(final AuthUser.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -210,11 +216,13 @@ public class AuthUser implements Serializable {
     	nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public AuthUser _setNull(final AuthUser.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearNull(final AuthUser.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -222,6 +230,7 @@ public class AuthUser implements Serializable {
     	nullValues.remove(attribute.name());
   }
   
+  @JsonIgnore
   public AuthUser _clearNull(final AuthUser.Attribute... attributes) {
     clearNull(attributes);
     return this;
@@ -251,6 +260,7 @@ public class AuthUser implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean isNull(final AuthUser.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
@@ -299,6 +309,7 @@ public class AuthUser implements Serializable {
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setInit(final AuthUser.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -306,11 +317,13 @@ public class AuthUser implements Serializable {
     	initAssociations.add(association.name());
   }
   
+  @JsonIgnore
   public AuthUser _setInit(final AuthUser.Association... associations) {
     setInit(associations);
     return this;
   }
   
+  @JsonIgnore
   public void clearInit(final AuthUser.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -318,6 +331,7 @@ public class AuthUser implements Serializable {
     	initAssociations.remove(association.name());
   }
   
+  @JsonIgnore
   public AuthUser _clearInit(final AuthUser.Association... associations) {
     clearInit(associations);
     return this;
@@ -347,6 +361,7 @@ public class AuthUser implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean toInit(final AuthUser.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
@@ -383,10 +398,12 @@ public class AuthUser implements Serializable {
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();
   
+  @JsonIgnore
   public Map<String, String> getOperators() {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(final String operator, final AuthUser.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -394,11 +411,13 @@ public class AuthUser implements Serializable {
     	operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public AuthUser _setOp(final String operator, final AuthUser.OpAttribute... attributes) {
     setOp(operator, attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearOp(final AuthUser.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -406,6 +425,7 @@ public class AuthUser implements Serializable {
     	operators.remove(attribute.name());
   }
   
+  @JsonIgnore
   public AuthUser _clearOp(final AuthUser.OpAttribute... attributes) {
     clearOp(attributes);
     return this;
@@ -435,6 +455,7 @@ public class AuthUser implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public void setNullOp(final AuthUser.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -442,6 +463,7 @@ public class AuthUser implements Serializable {
     	operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
   public AuthUser _setNullOp(final AuthUser.OpAttribute... attributes) {
     setNullOp(attributes);
     return this;

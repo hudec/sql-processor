@@ -31,12 +31,10 @@ package org.sample.model.person {
     #Attr String value
   }
 
-//  #Standard
-//  @Model(value = "SimpleWeb.model.Contact",paging = true,readMethod = "simpleService.loadContacts")
-//  #Static
-//  @JsonIgnore
-//  #Conflict
-//  @JsonIgnore
+  #Standard
+  final @Model(value = "SimpleWeb.model.Contact",paging = true,readMethod = "simpleService.loadContacts")
+  #Static #Conflict
+  final @JsonIgnore
   #Operators
   #Serializable(1)
   #Equals(id)
@@ -49,16 +47,16 @@ package org.sample.model.person {
     #Required
     #Index(2)
     #Attr Long personId
-    //@ModelField(type = ModelType.STRING)
-    @NotNull
+    final @ModelField(type = ModelType.STRING)
+    final @NotNull
     #Required
     #Attr ContactCtype ctype
-    @NotBlank
+    final @NotBlank
     #Required
     #Attr String address
     #IsDef
     #Attr String phoneNumber
-    @NotNull
+    final @NotNull
     #Version
     #Attr Integer version
     #ToInit
@@ -70,12 +68,10 @@ package org.sample.model.person {
     #Attr String countryCode
   }
  
-//  #Standard
-//  @Model(value = "SimpleWeb.model.Country",paging = true,readMethod = "simpleService.loadCountries")
-//  #Static
-//  @JsonIgnore
-//  #Conflict
-//  @JsonIgnore
+  #Standard
+  final @Model(value = "SimpleWeb.model.Country",paging = true,readMethod = "simpleService.loadCountries")
+  #Static #Conflict
+  final @JsonIgnore
   #Operators
   #Serializable(1)
   #Equals(id)
@@ -93,12 +89,10 @@ package org.sample.model.person {
     #Attr String name
   }
 
-//  #Standard
-//  @Model(value = "SimpleWeb.model.Person",paging = true,readMethod = "simpleService.loadPeople")
-//  #Static
-//  @JsonIgnore
-//  #Conflict
-//  @JsonIgnore
+  #Standard
+  final @Model(value = "SimpleWeb.model.Person",paging = true,readMethod = "simpleService.loadPeople")
+  #Static #Conflict
+  final @JsonIgnore
   #Operators
   #Serializable(1)
   #Equals(id)
@@ -108,48 +102,46 @@ package org.sample.model.person {
     #PrimaryKey
     #Index(1)
     #Attr Long id
-    @NotBlank
+    final @NotBlank
     #Required
     #Attr String firstName
-    @NotBlank
+    final @NotBlank
     #Required
     #Index(2)
     #Attr String lastName
     #Attribute
-    @ModelField(dateFormat = "d.m.Y")
+    final @ModelField(dateFormat = "d.m.Y")
     #Attribute
-    @Past
+    final @Past
     #Attribute
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    final @DateTimeFormat(pattern = "dd.MM.yyyy")
     #Getter
-    @JsonSerialize(using = typeof(DMYDateSerializer))
+    final @JsonSerialize(using = typeof(DMYDateSerializer))
     #Setter
-    @JsonSerialize(using = typeof(DMYDateSerializer))
+    final @JsonSerialize(using = typeof(DMYDateSerializer))
     #IsDef
     #Attr java.util.Date dateOfBirth
-    //@ModelField(type = ModelType.STRING)
-    @NotNull
+    final @ModelField(type = ModelType.STRING)
+    final @NotNull
     #Required
     #Attr PersonGender gender
     #IsDef
     #Attr String ssn
-    @NotNull
+    final @NotNull
     #Version
     #Attr Integer version
-    @ModelAssociation(value = ModelAssociationType.HAS_MANY,model = typeof(Relative))
+    final @ModelAssociation(value = ModelAssociationType.HAS_MANY,model = typeof(Relative))
     #ToInit
     #Attr java.util.List<Relative> relatives
-    @ModelAssociation(value = ModelAssociationType.HAS_MANY,model = typeof(Contact))
+    final @ModelAssociation(value = ModelAssociationType.HAS_MANY,model = typeof(Contact))
     #ToInit
     #Attr java.util.List<Contact> contacts
   }
 
-//  #Standard
-//  @Model(value = "SimpleWeb.model.Relative")
-//  #Static
-//  @JsonIgnore
-//  #Conflict
-//  @JsonIgnore
+  #Standard
+  final @Model(value = "SimpleWeb.model.Relative")
+  #Static #Conflict
+  final @JsonIgnore
   #Operators
   #Serializable(1)
   #Equals(id)
@@ -162,16 +154,16 @@ package org.sample.model.person {
     #Required
     #Index(2)
     #Attr Long personId
-    @ModelAssociation(value = ModelAssociationType.HAS_ONE,model = typeof(Person))
+    final @ModelAssociation(value = ModelAssociationType.HAS_ONE,model = typeof(Person))
     #ToInit
     #Required
     #Index(3)
     #Attr Person relPerson
-    @ModelField(type = ModelType.STRING)
-    @NotNull
+    final @ModelField(type = ModelType.STRING)
+    final @NotNull
     #Required
     #Attr RelativeRtype rtype
-    @NotNull
+    final @NotNull
     #IsDef
     #Attr Integer version
   }

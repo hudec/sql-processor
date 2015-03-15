@@ -1,9 +1,11 @@
 package org.sample.model.person;
 
+import ch.ralscha.extdirectspring.generator.Model;
 import ch.ralscha.extdirectspring.generator.ModelAssociation;
 import ch.ralscha.extdirectspring.generator.ModelAssociationType;
 import ch.ralscha.extdirectspring.generator.ModelField;
 import ch.ralscha.extdirectspring.generator.ModelType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
@@ -13,14 +15,18 @@ import org.sample.model.person.RelativeRtype;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@Model(value = "SimpleWeb.model.Relative")
 @SuppressWarnings("all")
 public class Relative implements Serializable {
   private final static long serialVersionUID = 1L;
   
+  @JsonIgnore
   public final static int ORDER_BY_ID = 1;
   
+  @JsonIgnore
   public final static int ORDER_BY_PERSON_ID = 2;
   
+  @JsonIgnore
   public final static int ORDER_BY_REL_PERSON = 3;
   
   public Relative() {
@@ -149,6 +155,7 @@ public class Relative implements Serializable {
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setNull(final Relative.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -156,11 +163,13 @@ public class Relative implements Serializable {
     	nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public Relative _setNull(final Relative.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearNull(final Relative.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -168,6 +177,7 @@ public class Relative implements Serializable {
     	nullValues.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Relative _clearNull(final Relative.Attribute... attributes) {
     clearNull(attributes);
     return this;
@@ -197,6 +207,7 @@ public class Relative implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean isNull(final Relative.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
@@ -245,6 +256,7 @@ public class Relative implements Serializable {
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setInit(final Relative.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -252,11 +264,13 @@ public class Relative implements Serializable {
     	initAssociations.add(association.name());
   }
   
+  @JsonIgnore
   public Relative _setInit(final Relative.Association... associations) {
     setInit(associations);
     return this;
   }
   
+  @JsonIgnore
   public void clearInit(final Relative.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -264,6 +278,7 @@ public class Relative implements Serializable {
     	initAssociations.remove(association.name());
   }
   
+  @JsonIgnore
   public Relative _clearInit(final Relative.Association... associations) {
     clearInit(associations);
     return this;
@@ -293,6 +308,7 @@ public class Relative implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean toInit(final Relative.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
@@ -323,10 +339,12 @@ public class Relative implements Serializable {
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();
   
+  @JsonIgnore
   public Map<String, String> getOperators() {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(final String operator, final Relative.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -334,11 +352,13 @@ public class Relative implements Serializable {
     	operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public Relative _setOp(final String operator, final Relative.OpAttribute... attributes) {
     setOp(operator, attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearOp(final Relative.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -346,6 +366,7 @@ public class Relative implements Serializable {
     	operators.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Relative _clearOp(final Relative.OpAttribute... attributes) {
     clearOp(attributes);
     return this;
@@ -375,6 +396,7 @@ public class Relative implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public void setNullOp(final Relative.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -382,6 +404,7 @@ public class Relative implements Serializable {
     	operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
   public Relative _setNullOp(final Relative.OpAttribute... attributes) {
     setNullOp(attributes);
     return this;

@@ -1,5 +1,9 @@
 package org.sample.model.person;
 
+import ch.ralscha.extdirectspring.generator.Model;
+import ch.ralscha.extdirectspring.generator.ModelField;
+import ch.ralscha.extdirectspring.generator.ModelType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
@@ -10,14 +14,18 @@ import org.sample.model.person.Country;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@Model(value = "SimpleWeb.model.Contact", paging = true, readMethod = "simpleService.loadContacts")
 @SuppressWarnings("all")
 public class Contact implements Serializable {
   private final static long serialVersionUID = 1L;
   
+  @JsonIgnore
   public final static int ORDER_BY_ID = 1;
   
+  @JsonIgnore
   public final static int ORDER_BY_PERSON_ID = 2;
   
+  @JsonIgnore
   public final static int ORDER_BY_COUNTRY = 3;
   
   public Contact() {
@@ -61,6 +69,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @ModelField(type = ModelType.STRING)
   @NotNull
   private ContactCtype ctype;
   
@@ -191,6 +200,7 @@ public class Contact implements Serializable {
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setNull(final Contact.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -198,11 +208,13 @@ public class Contact implements Serializable {
     	nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public Contact _setNull(final Contact.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearNull(final Contact.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -210,6 +222,7 @@ public class Contact implements Serializable {
     	nullValues.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Contact _clearNull(final Contact.Attribute... attributes) {
     clearNull(attributes);
     return this;
@@ -239,6 +252,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean isNull(final Contact.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
@@ -287,6 +301,7 @@ public class Contact implements Serializable {
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setInit(final Contact.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -294,11 +309,13 @@ public class Contact implements Serializable {
     	initAssociations.add(association.name());
   }
   
+  @JsonIgnore
   public Contact _setInit(final Contact.Association... associations) {
     setInit(associations);
     return this;
   }
   
+  @JsonIgnore
   public void clearInit(final Contact.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -306,6 +323,7 @@ public class Contact implements Serializable {
     	initAssociations.remove(association.name());
   }
   
+  @JsonIgnore
   public Contact _clearInit(final Contact.Association... associations) {
     clearInit(associations);
     return this;
@@ -335,6 +353,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean toInit(final Contact.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
@@ -371,10 +390,12 @@ public class Contact implements Serializable {
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();
   
+  @JsonIgnore
   public Map<String, String> getOperators() {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(final String operator, final Contact.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -382,11 +403,13 @@ public class Contact implements Serializable {
     	operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public Contact _setOp(final String operator, final Contact.OpAttribute... attributes) {
     setOp(operator, attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearOp(final Contact.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -394,6 +417,7 @@ public class Contact implements Serializable {
     	operators.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Contact _clearOp(final Contact.OpAttribute... attributes) {
     clearOp(attributes);
     return this;
@@ -423,6 +447,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public void setNullOp(final Contact.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -430,6 +455,7 @@ public class Contact implements Serializable {
     	operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
   public Contact _setNullOp(final Contact.OpAttribute... attributes) {
     setNullOp(attributes);
     return this;

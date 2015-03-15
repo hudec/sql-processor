@@ -1,19 +1,25 @@
 package org.sample.model.person;
 
+import ch.ralscha.extdirectspring.generator.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@Model(value = "SimpleWeb.model.Country", paging = true, readMethod = "simpleService.loadCountries")
 @SuppressWarnings("all")
 public class Country implements Serializable {
   private final static long serialVersionUID = 1L;
   
+  @JsonIgnore
   public final static int ORDER_BY_ID = 1;
   
+  @JsonIgnore
   public final static int ORDER_BY_CODE = 2;
   
+  @JsonIgnore
   public final static int ORDER_BY_NAME = 3;
   
   public Country() {
@@ -106,6 +112,7 @@ public class Country implements Serializable {
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
+  @JsonIgnore
   public void setNull(final Country.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -113,11 +120,13 @@ public class Country implements Serializable {
     	nullValues.add(attribute.name());
   }
   
+  @JsonIgnore
   public Country _setNull(final Country.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearNull(final Country.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -125,6 +134,7 @@ public class Country implements Serializable {
     	nullValues.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Country _clearNull(final Country.Attribute... attributes) {
     clearNull(attributes);
     return this;
@@ -154,6 +164,7 @@ public class Country implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public Boolean isNull(final Country.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
@@ -206,10 +217,12 @@ public class Country implements Serializable {
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();
   
+  @JsonIgnore
   public Map<String, String> getOperators() {
     return operators;
   }
   
+  @JsonIgnore
   public void setOp(final String operator, final Country.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -217,11 +230,13 @@ public class Country implements Serializable {
     	operators.put(attribute.name(), operator);
   }
   
+  @JsonIgnore
   public Country _setOp(final String operator, final Country.OpAttribute... attributes) {
     setOp(operator, attributes);
     return this;
   }
   
+  @JsonIgnore
   public void clearOp(final Country.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -229,6 +244,7 @@ public class Country implements Serializable {
     	operators.remove(attribute.name());
   }
   
+  @JsonIgnore
   public Country _clearOp(final Country.OpAttribute... attributes) {
     clearOp(attributes);
     return this;
@@ -258,6 +274,7 @@ public class Country implements Serializable {
     return this;
   }
   
+  @JsonIgnore
   public void setNullOp(final Country.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
@@ -265,6 +282,7 @@ public class Country implements Serializable {
     	operators.put(attribute.name(), "is null");
   }
   
+  @JsonIgnore
   public Country _setNullOp(final Country.OpAttribute... attributes) {
     setNullOp(attributes);
     return this;
