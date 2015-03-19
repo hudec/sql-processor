@@ -1,18 +1,18 @@
 package org.sample.dao.person {
 
-    #CRUD(org.sample.model.person.Contact) #Query(org.sample.model.person.Contact)
-    #Dao ContactDao {
-    }
+	#CRUD(org.sample.model.person.Contact) #Query(org.sample.model.person.Contact)
+	#Dao ContactDao {
+	}
 
-    #CRUD(org.sample.model.person.Country) #Query(org.sample.model.person.Country)
-    #Dao CountryDao {
-    }
+	#CRUD(org.sample.model.person.Country) #Query(org.sample.model.person.Country)
+	#Dao CountryDao {
+	}
 
-    #CRUD(org.sample.model.person.Person) #Query(org.sample.model.person.Person)
-    #Dao PersonDao {
-    }
+	#CRUD(org.sample.model.person.Person) #Query(org.sample.model.person.Person)
+	#Dao PersonDao {
+	}
 
-    #CRUD(org.sample.model.person.Relative) #Query(org.sample.model.person.Relative)
-    #Dao RelativeDao {
-    }
+	#CRUD(org.sample.model.person.Relative) #Query(org.sample.model.person.Relative)
+	#Dao RelativeDao {
+	}
 }
