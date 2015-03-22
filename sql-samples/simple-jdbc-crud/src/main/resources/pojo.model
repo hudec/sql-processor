@@ -1,7 +1,6 @@
 package org.sqlproc.sample.simple.model {
 
 
-
     #InheritanceChild(BA) #Serializable(1) #ToString(baAccount)
     #Pojo BankAccount extends BillingDetails {
         #IsDef
@@ -147,12 +146,4 @@ package org.sqlproc.sample.simple.model {
         #ToInit
         #Attr java.util.List <BillingDetails> billingDetails
     }
-}
-
-package org.sqlproc.sample.simple.form {
-	
-	#Pojo FormSimpleFunction {
-		#Attr java.sql.Timestamp time
-		#Attr java.sql.Timestamp time2
-	}
 }

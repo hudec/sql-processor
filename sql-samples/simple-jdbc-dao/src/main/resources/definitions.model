@@ -1,6 +1,6 @@
 resolve-pojo-on;
 database-is-online;
-database-jdbc-driver :org.hsqldb.jdbcDriver;
+database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:jdbccrud";
 database-login-username sa;
 database-login-password "";
@@ -31,10 +31,10 @@ pojogen-ignore-one-to-many BILLING_DETAILS ID->PAYMENT->BILLING_DETAILS;
 pojogen-create-one-to-many LIBRARY ID->PHYSICAL_MEDIA->LIBRARY;
 // others
 pojogen-generate-methods toString equals hashCode isDef toInit;
-pojogen-implements-interfaces :java.io.Serializable;
+pojogen-implements-interfaces java.io.Serializable;
 pojogen-create-columns PERSON PASSPORT->java.lang.String;
 pojogen-not-abstract-tables MEDIA;
-pojogen-extends-class :org.sqlproc.sample.simple.model.impl.BaseModelImpl;
+pojogen-extends-class org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 pojogen-make-it-final;
 // opt lock
 pojogen-version-column VERSION - PERFORMER;
@@ -46,8 +46,8 @@ metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
 //metagen-statement-meta-type INSERT_CONTACT PHONE_NUMBER->phone;
 metagen-make-it-final;
 
-daogen-extends-class :org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
-daogen-implements-interfaces :org.sqlproc.sample.simple.dao.BaseDao;
+daogen-extends-class org.sqlproc.sample.simple.dao.impl.BaseDaoImpl;
+daogen-implements-interfaces org.sqlproc.sample.simple.dao.BaseDao;
 daogen-make-it-final;
 
 table billingDetails BILLING_DETAILS;
@@ -83,3 +83,4 @@ pojo Subscriber org.sqlproc.sample.simple.model.Subscriber;
 compress-meta-directives;
 pojogen-package org.sqlproc.sample.simple.model;
 daogen-package org.sqlproc.sample.simple.dao;
+daogen-implementation-package impl;

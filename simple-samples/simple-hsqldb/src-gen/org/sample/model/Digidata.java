@@ -1,26 +1,17 @@
-package org.sqlproc.sample.simple.model;
+package org.sample.model;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Set;
+import javax.validation.constraints.Size;
 import org.sqlproc.engine.annotation.Pojo;
-import org.sqlproc.sample.simple.model.Performer;
 
 @Pojo
 @SuppressWarnings("all")
-public class Media implements Serializable {
+public class Digidata implements Serializable {
   private final static long serialVersionUID = 1L;
   
   public final static int ORDER_BY_ID = 1;
-  
-  public final static int ORDER_BY_AUTHOR = 2;
-  
-  public Media() {
-  }
-  
-  public Media(final String title) {
-    super();
-    setTitle(title);
-  }
   
   private Long id;
   
@@ -32,38 +23,39 @@ public class Media implements Serializable {
     this.id = id;
   }
   
-  public Media _setId(final Long id) {
+  public Digidata _setId(final Long id) {
     this.id = id;
     return this;
   }
   
-  private String title;
+  @Size(max = 100)
+  private String xNote;
   
-  public String getTitle() {
-    return this.title;
+  public String getxNote() {
+    return this.xNote;
   }
   
-  public void setTitle(final String title) {
-    this.title = title;
+  public void setxNote(final String xNote) {
+    this.xNote = xNote;
   }
   
-  public Media _setTitle(final String title) {
-    this.title = title;
+  public Digidata _setxNote(final String xNote) {
+    this.xNote = xNote;
     return this;
   }
   
-  private Performer author;
+  private Boolean xBool;
   
-  public Performer getAuthor() {
-    return this.author;
+  public Boolean getxBool() {
+    return this.xBool;
   }
   
-  public void setAuthor(final Performer author) {
-    this.author = author;
+  public void setxBool(final Boolean xBool) {
+    this.xBool = xBool;
   }
   
-  public Media _setAuthor(final Performer author) {
-    this.author = author;
+  public Digidata _setxBool(final Boolean xBool) {
+    this.xBool = xBool;
     return this;
   }
   
@@ -75,7 +67,7 @@ public class Media implements Serializable {
     	return false;
     if (getClass() != obj.getClass())
     	return false;
-    Media other = (Media) obj;
+    Digidata other = (Digidata) obj;
     if (id == null || !id.equals(other.id))
     	return false;
     return true;
@@ -91,39 +83,41 @@ public class Media implements Serializable {
   
   @Override
   public String toString() {
-    return "Media [id=" + id + ", title=" + title + "]";
+    return "Digidata [id=" + id + ", xNote=" + xNote + ", xBool=" + xBool + "]";
   }
   
   public String toStringFull() {
-    return "Media [id=" + id + ", title=" + title + ", author=" + author + "]";
+    return "Digidata [id=" + id + ", xNote=" + xNote + ", xBool=" + xBool + "]";
   }
   
   public enum Attribute {
-    author;
+    xNote,
+    
+    xBool;
   }
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
-  public void setNull(final Media.Attribute... attributes) {
+  public void setNull(final Digidata.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
     	nullValues.add(attribute.name());
   }
   
-  public Media _setNull(final Media.Attribute... attributes) {
+  public Digidata _setNull(final Digidata.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
-  public void clearNull(final Media.Attribute... attributes) {
+  public void clearNull(final Digidata.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
     	nullValues.remove(attribute.name());
   }
   
-  public Media _clearNull(final Media.Attribute... attributes) {
+  public Digidata _clearNull(final Digidata.Attribute... attributes) {
     clearNull(attributes);
     return this;
   }
@@ -135,7 +129,7 @@ public class Media implements Serializable {
     	nullValues.add(attribute);
   }
   
-  public Media _setNull(final String... attributes) {
+  public Digidata _setNull(final String... attributes) {
     setNull(attributes);
     return this;
   }
@@ -147,12 +141,12 @@ public class Media implements Serializable {
     	nullValues.remove(attribute);
   }
   
-  public Media _clearNull(final String... attributes) {
+  public Digidata _clearNull(final String... attributes) {
     clearNull(attributes);
     return this;
   }
   
-  public Boolean isNull(final Media.Attribute attribute) {
+  public Boolean isNull(final Digidata.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
     return nullValues.contains(attribute.name());
@@ -185,73 +179,93 @@ public class Media implements Serializable {
     nullValues = new java.util.HashSet<String>();
   }
   
-  public enum Association {
-    author;
+  public enum OpAttribute {
+    id,
+    
+    xNote,
+    
+    xBool;
   }
   
-  private Set<String> initAssociations =  new java.util.HashSet<String>();
+  private Map<String, String> operators =  new java.util.HashMap<String, String>();
   
-  public void setInit(final Media.Association... associations) {
-    if (associations == null)
+  public Map<String, String> getOperators() {
+    return operators;
+  }
+  
+  public void setOp(final String operator, final Digidata.OpAttribute... attributes) {
+    if (attributes == null)
     	throw new IllegalArgumentException();
-    for (Association association : associations)
-    	initAssociations.add(association.name());
+    for (OpAttribute attribute : attributes)
+    	operators.put(attribute.name(), operator);
   }
   
-  public Media _setInit(final Media.Association... associations) {
-    setInit(associations);
+  public Digidata _setOp(final String operator, final Digidata.OpAttribute... attributes) {
+    setOp(operator, attributes);
     return this;
   }
   
-  public void clearInit(final Media.Association... associations) {
-    if (associations == null)
+  public void clearOp(final Digidata.OpAttribute... attributes) {
+    if (attributes == null)
     	throw new IllegalArgumentException();
-    for (Association association : associations)
-    	initAssociations.remove(association.name());
+    for (OpAttribute attribute : attributes)
+    	operators.remove(attribute.name());
   }
   
-  public Media _clearInit(final Media.Association... associations) {
-    clearInit(associations);
+  public Digidata _clearOp(final Digidata.OpAttribute... attributes) {
+    clearOp(attributes);
     return this;
   }
   
-  public void setInit(final String... associations) {
-    if (associations == null)
+  public void setOp(final String operator, final String... attributes) {
+    if (attributes == null)
     	throw new IllegalArgumentException();
-    for (String association : associations)
-    	initAssociations.add(association);
+    for (String attribute : attributes)
+    	operators.put(attribute, operator);
   }
   
-  public Media _setInit(final String... associations) {
-    setInit(associations);
+  public Digidata _setOp(final String operator, final String... attributes) {
+    setOp(operator, attributes);
     return this;
   }
   
-  public void clearInit(final String... associations) {
-    if (associations == null)
+  public void clearOp(final String... attributes) {
+    if (attributes == null)
     	throw new IllegalArgumentException();
-    for (String association : associations)
-    	initAssociations.remove(association);
+    for (String attribute : attributes)
+    	operators.remove(attribute);
   }
   
-  public Media _clearInit(final String... associations) {
-    clearInit(associations);
+  public Digidata _clearOp(final String... attributes) {
+    clearOp(attributes);
     return this;
   }
   
-  public Boolean toInit(final Media.Association association) {
-    if (association == null)
+  public void setNullOp(final Digidata.OpAttribute... attributes) {
+    if (attributes == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association.name());
+    for (OpAttribute attribute : attributes)
+    	operators.put(attribute.name(), "is null");
   }
   
-  public Boolean toInit(final String association) {
-    if (association == null)
-    	throw new IllegalArgumentException();
-    return initAssociations.contains(association);
+  public Digidata _setNullOp(final Digidata.OpAttribute... attributes) {
+    setNullOp(attributes);
+    return this;
   }
   
-  public void clearAllInit() {
-    initAssociations = new java.util.HashSet<String>();
+  public void setNullOp(final String... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (String attribute : attributes)
+    	operators.put(attribute, "is null");
+  }
+  
+  public Digidata _setNullOp(final String... attributes) {
+    setNullOp(attributes);
+    return this;
+  }
+  
+  public void clearAllOps() {
+    operators = new java.util.HashMap<String, String>();
   }
 }

@@ -5,7 +5,7 @@ database-is-online;
 //database-login-username sqlsample;
 //database-login-password sqlsample;
 //database-active-schema SQLSAMPLE;
-database-jdbc-driver :org.hsqldb.jdbcDriver;
+database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:jdbcpojo";
 database-login-username sa;
 database-login-password "";
@@ -24,7 +24,7 @@ pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT 
 pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
 // others
 pojogen-generate-methods toString equals hashCode;
-pojogen-implements-interfaces :java.io.Serializable;
+pojogen-implements-interfaces java.io.Serializable;
 
 table billingDetails BILLING_DETAILS;
 table book BOOK;

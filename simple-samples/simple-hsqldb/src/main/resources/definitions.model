@@ -1,6 +1,6 @@
 resolve-pojo-on; 
 database-is-online;
-database-jdbc-driver :org.hsqldb.jdbcDriver;
+database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:hsqldb";
 database-login-username sa;
 database-login-password "";
@@ -28,7 +28,7 @@ pojogen-generate-wrappers;
 // POJO helpers' methods
 pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
-pojogen-implements-interfaces :java.io.Serializable;
+pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // rename enums
@@ -74,3 +74,6 @@ pojo Contact org.sample.model.Contact;
 pojo NewPerson org.sample.model.NewPerson;
 pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
 pojo Person org.sample.model.Person;
+
+table digidata DIGIDATA;
+pojo Digidata org.sample.model.Digidata;

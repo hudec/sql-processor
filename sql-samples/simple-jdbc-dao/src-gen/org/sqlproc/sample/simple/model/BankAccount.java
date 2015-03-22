@@ -114,22 +114,13 @@ public class BankAccount extends BillingDetails implements Serializable {
     if (nullValues.contains(attrName))
     	return true;
     try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "get" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
+    	Object result = org.apache.commons.beanutils.PropertyUtils.getSimpleProperty(this, attrName);
     	return (result != null) ? true : false;
-    } catch (NoSuchMethodException e) {
     } catch (IllegalAccessException e) {
     	throw new RuntimeException(e);
     } catch (java.lang.reflect.InvocationTargetException e) {
     	throw new RuntimeException(e);
-    }
-    try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "is" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
-    	return (result != null) ? true : false;
     } catch (NoSuchMethodException e) {
-    } catch (IllegalAccessException e) {
-    	throw new RuntimeException(e);
-    } catch (java.lang.reflect.InvocationTargetException e) {
-    	throw new RuntimeException(e);
     }
     return false;
   }

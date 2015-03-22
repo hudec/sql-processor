@@ -59,6 +59,50 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
   {#2 order by %c.PERSON_ID }
 ;
 
+INSERT_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  insert into %%DIGIDATA (%ID, %X_NOTE, %X_BOOL)
+  {= values (:id(idgen=COMMON,id=ID), :xNote, :xBool) }
+;
+
+GET_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  select %ID @id(id), %X_NOTE @xNote, %X_BOOL @xBool
+  from %%DIGIDATA
+  {= where
+    {& %ID ::= :id }
+    {& %X_NOTE ::= :xNote }
+    {& %X_BOOL ::= :xBool }
+  }
+;
+
+UPDATE_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  update %%DIGIDATA
+  {= set
+    { ,%X_NOTE = :xNote(call=isDef) }
+    { ,%X_BOOL = :xBool(call=isDef) }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  delete from %%DIGIDATA
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_DIGIDATA(QRY,in=Digidata,out=Digidata,tab=digidata)=
+  select %ID @id(id), %X_NOTE @xNote, %X_BOOL @xBool
+  from %%DIGIDATA
+  {= where
+    {& %ID ::= :id }
+    {& %X_NOTE ::= :xNote }
+    {& %X_BOOL ::= :xBool }
+  }
+  {#1 order by %ID }
+;
+
 INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
   insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
