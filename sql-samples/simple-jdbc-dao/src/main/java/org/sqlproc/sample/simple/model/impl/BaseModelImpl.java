@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.beanutils.MethodUtils;
-import org.sqlproc.sample.simple.model.Person.Attribute;
 
 public class BaseModelImpl {
 
@@ -37,30 +36,10 @@ public class BaseModelImpl {
 
     private Set<String> nullValues = new HashSet<String>();
 
-    public void setNull(Attribute... attributes) {
-        if (attributes == null)
-            throw new IllegalArgumentException();
-        for (Attribute attribute : attributes)
-            nullValues.add(attribute.name());
-    }
-
-    public void clearNull(Attribute... attributes) {
-        if (attributes == null)
-            throw new IllegalArgumentException();
-        for (Attribute attribute : attributes)
-            nullValues.remove(attribute.name());
-    }
-
     public Boolean isNull(String attrName) {
         if (attrName == null)
             throw new IllegalArgumentException();
         return nullValues.contains(attrName);
-    }
-
-    public Boolean isNull(Attribute attribute) {
-        if (attribute == null)
-            throw new IllegalArgumentException();
-        return nullValues.contains(attribute.name());
     }
 
     public Boolean isDef(String attrName) {

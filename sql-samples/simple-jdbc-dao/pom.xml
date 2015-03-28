@@ -47,7 +47,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.3</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -90,6 +90,34 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>prepare</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.3</version>
+                        <configuration>
+                            <source>1.6</source>
+                            <target>1.6</target>
+                            <compilerVersion>1.6</compilerVersion>
+                            <encoding>UTF-8</encoding>
+                            <!--encoding>${file.encoding}</encoding -->
+                            <includes>
+                                <include>org/sqlproc/sample/simple/dao/BaseDao.java</include>
+                                <include>org/sqlproc/sample/simple/dao/impl/BaseDaoImpl.java</include>
+                                <include>org/sqlproc/sample/simple/model/PhoneNumber.java</include>
+                                <include>org/sqlproc/sample/simple/model/impl/BaseModelImpl.java</include>
+                                <include>org/sqlproc/sample/simple/type/PhoneNumberType.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
