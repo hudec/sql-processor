@@ -1,486 +1,172 @@
+SEQ1(OPT)=call NEXT VALUE FOR SIMPLE_SEQUENCE;
+SEL1(OPT)=call identity(); 
 
-INSERT_BANK_ACCOUNT(CRUD,in=BankAccount,out=BankAccount,tab=billingDetails)=
-  insert into %%BILLING_DETAILS (%BA_ACCOUNT, %ID, %SUBSCRIBER, %TYPE)
-  {= values (:baAccount, :id, :subscriber.id, :type) }
-;
-
-GET_BANK_ACCOUNT(CRUD,in=BankAccount,out=BankAccount,tab=billingDetails=b,tab=subscriber=s)=
-  select %b.BA_ACCOUNT @baAccount, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
-         {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact, %s.NAME @subscriber.name }
-  from %%BILLING_DETAILS b
-  {? :subscriber(call=toInit) | left join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID }
+ALL_PEOPLE(QRY,in=Person,out=Person,tab=person)=
+  select %ID @id, %NAME @name
+  from %%PERSON
   {= where
-    {& %b.BA_ACCOUNT = :baAccount }
-    {& %b.ID = :id }
-    {& %b.SUBSCRIBER = :subscriber.id }
-    {& %b.TYPE = :type }
+   {& %ID = :id}
+   {& UPPER(%NAME) = :+name}
   }
+  {#1 order by %ID}
+  {#2 order by %NAME}
 ;
 
-UPDATE_BANK_ACCOUNT(CRUD,in=BankAccount,out=BankAccount,tab=billingDetails)=
-  update %%BILLING_DETAILS
-  {= set
-    { ,%BA_ACCOUNT = :baAccount(call=isDef) }
-    { ,%SUBSCRIBER = :subscriber.id }
-    { ,%TYPE = :type }
-  }
+LIKE_PEOPLE(QRY,in=Person,out=Person,tab=person)=
+  select %ID @id, %NAME @name
+  from %%PERSON
   {= where
-    {& %ID = :id(!empty) }
+   {& %ID = :id}
+   {& UPPER(%NAME) like :+name}
   }
+  {#1 order by %ID}
+  {#2 order by %NAME}
 ;
 
-DELETE_BANK_ACCOUNT(CRUD,in=BankAccount,out=BankAccount,tab=billingDetails)=
-  delete from %%BILLING_DETAILS
+INSERT_PERSON(CRUD,in=Person,tab=person)=
+  insert into %%PERSON (%ID, %NAME)
+  {= values (:id(type=long,seq=SEQ1), :name) }
+;
+  
+INSERT_PERSON2(CRUD,in=Person,tab=person)=
+  insert into %%PERSON (%NAME)
+  {= values (:id(type=long,id)sel, :name) }
+;
+
+GET_PERSON(CRUD,in=Person,out=Person,tab=person)=
+  select @id, @name
+  from %%PERSON
+  {= where %ID = :id}
+;
+
+UPDATE_PERSON(CRUD,in=Person,tab=person)=
+  update %%PERSON
+  {= set %NAME = :name}
+  {= where {& %ID = :id(type=long,notnull)}}
+;
+  
+DELETE_PERSON(CRUD,in=Person,tab=person)=
+  delete from %%PERSON
+  {= where {& %ID = :id(type=long,notnull)}}
+;
+
+INSERT_CONTACT(CRUD,in=Contact,tab=contact)=
+  insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS)
+  {= values (:id(type=long,seq=SEQ1), :person.id, :address) }
+;
+
+ALL_PEOPLE_AND_CONTACTS(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
+  select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts.id(type=long,id), %p.ID @contacts.person.id, %c.ADDRESS @contacts.address
+  from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where
-    {& %ID = :id(!empty) }
+   {& %p.ID = :id}
+   {& UPPER(%p.NAME) like :+name}
   }
+  {#1 order by %p.NAME, %c.ADDRESS}
 ;
 
-SELECT_BANK_ACCOUNT(QRY,in=BankAccount,out=BankAccount,tab=billingDetails=b,tab=subscriber=s)=
-  select %b.BA_ACCOUNT @baAccount, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
-         {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact, %s.NAME @subscriber.name }
-  from %%BILLING_DETAILS b
-  {? :subscriber(call=toInit) | left join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID }
+ALL_PEOPLE_AND_CONTACTS2(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
+  select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts=linked.id(type=long,id), %p.ID @contacts.person.id, %c.ADDRESS @contacts.address
+  from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where
-    {& UPPER(%b.BA_ACCOUNT) like :+baAccount }
-    {& %b.ID = :id }
-    {& %b.SUBSCRIBER = :subscriber.id }
-    {& UPPER(%b.TYPE) like :+type }
+   {& %p.ID = :id}
+   {& UPPER(%p.NAME) like :+name}
   }
+  {#1 order by %p.NAME, %c.ADDRESS}
 ;
 
-INSERT_BOOK(CRUD,in=Book,out=Book,tab=book)=
-  insert into %%BOOK (%MEDIA_ID, %ISBN)
-  {= values (:id, :isbn) }
-;
-
-GET_BOOK(CRUD,in=Book,out=Book,tab=book=b,tab=media=m)=
-  select %b.MEDIA_ID @id(id), %b.ISBN @isbn
-         , %m.TITLE @title
-  from %%BOOK b
-  join %%MEDIA m on %b.MEDIA_ID = %m.ID
-  {= where
-    {& %b.MEDIA_ID = :id }
-    {& %b.ISBN = :isbn }
-    {& %m.TITLE = :title }
-  }
-;
-
-UPDATE_BOOK(CRUD,in=Book,out=Book,tab=book)=
-  update %%BOOK
-  {= set
-    { ,%ISBN = :isbn }
-  }
-  {= where
-    {& %MEDIA_ID = :id(!empty) }
-  }
-;
-
-DELETE_BOOK(CRUD,in=Book,out=Book,tab=book)=
-  delete from %%BOOK
-  {= where
-    {& %MEDIA_ID = :id(!empty) }
-  }
-;
-
-SELECT_BOOK(QRY,in=Book,out=Book,tab=book=b,tab=media=m)=
-  select %b.MEDIA_ID @id(id), %b.ISBN @isbn
-         , %m.TITLE @title
-  from %%BOOK b
-  join %%MEDIA m on %b.MEDIA_ID = %m.ID
-  {= where
-    {& %b.MEDIA_ID = :id }
-    {& UPPER(%b.ISBN) like :+isbn }
-    {& UPPER(%m.TITLE) like :+title }
-  }
-  {#1 order by %b.MEDIA_ID }
-;
-
-INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
-  insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS, %PHONE_NUMBER)
-  {= values (:id, :person.id, :address, :phoneNumber) }
-;
-
-GET_CONTACT(CRUD,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
-         {? :person(call=toInit) | , %p.NAME @person.name }
-  from %%CONTACT c
-  {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
-  {= where
-    {& %c.ID = :id }
-    {& %c.PERSON_ID = :person.id }
-    {& %c.ADDRESS = :address }
-    {& %c.PHONE_NUMBER = :phoneNumber }
-  }
-;
-
-UPDATE_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
-  update %%CONTACT
-  {= set
-    { ,%PERSON_ID = :person.id(call=isDef) }
-    { ,%ADDRESS = :address(call=isDef) }
-    { ,%PHONE_NUMBER = :phoneNumber(call=isDef) }
-  }
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-DELETE_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
-  delete from %%CONTACT
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
-  select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber
-         {? :person(call=toInit) | , %p.NAME @person.name }
-  from %%CONTACT c
-  {? :person(call=toInit) | left join %%PERSON p on %c.PERSON_ID = %p.ID }
-  {= where
-    {& %c.ID = :id }
-    {& %c.PERSON_ID = :person.id }
-    {& UPPER(%c.ADDRESS) like :+address }
-    {& %c.PHONE_NUMBER = :phoneNumber }
-  }
-  {#1 order by %c.ID }
-  {#2 order by %c.PERSON_ID }
-;
-
-INSERT_CREDIT_CARD(CRUD,in=CreditCard,out=CreditCard,tab=billingDetails)=
-  insert into %%BILLING_DETAILS (%CC_NUMBER, %ID, %SUBSCRIBER, %TYPE)
-  {= values (:ccNumber, :id, :subscriber.id, :type) }
-;
-
-GET_CREDIT_CARD(CRUD,in=CreditCard,out=CreditCard,tab=billingDetails=b,tab=subscriber=s)=
-  select %b.CC_NUMBER @ccNumber, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
-         {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact, %s.NAME @subscriber.name }
-  from %%BILLING_DETAILS b
-  {? :subscriber(call=toInit) | left join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID }
-  {= where
-    {& %b.CC_NUMBER = :ccNumber }
-    {& %b.ID = :id }
-    {& %b.SUBSCRIBER = :subscriber.id }
-    {& %b.TYPE = :type }
-  }
-;
-
-UPDATE_CREDIT_CARD(CRUD,in=CreditCard,out=CreditCard,tab=billingDetails)=
-  update %%BILLING_DETAILS
-  {= set
-    { ,%CC_NUMBER = :ccNumber(call=isDef) }
-    { ,%SUBSCRIBER = :subscriber.id }
-    { ,%TYPE = :type }
-  }
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-DELETE_CREDIT_CARD(CRUD,in=CreditCard,out=CreditCard,tab=billingDetails)=
-  delete from %%BILLING_DETAILS
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-SELECT_CREDIT_CARD(QRY,in=CreditCard,out=CreditCard,tab=billingDetails=b,tab=subscriber=s)=
-  select %b.CC_NUMBER @ccNumber, %b.ID @id(id), %b.SUBSCRIBER @subscriber.id(id), %b.TYPE @type
-         {? :subscriber(call=toInit) | , %s.LIBRARY @subscriber.library.id, %s.CONTACT @subscriber.contact, %s.NAME @subscriber.name }
-  from %%BILLING_DETAILS b
-  {? :subscriber(call=toInit) | left join %%SUBSCRIBER s on %b.SUBSCRIBER = %s.ID }
-  {= where
-    {& %b.CC_NUMBER = :ccNumber }
-    {& %b.ID = :id }
-    {& %b.SUBSCRIBER = :subscriber.id }
-    {& UPPER(%b.TYPE) like :+type }
-  }
-;
-
-INSERT_LIBRARY(CRUD,in=Library,out=Library,tab=library)=
-  insert into %%LIBRARY (%ID, %NAME)
-  {= values (:id, :name) }
-;
-
-GET_LIBRARY(CRUD,in=Library,out=Library,tab=library=l,tab=subscriber=s)=
-  select %l.ID @id(id), %l.NAME @name
-         {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact, %s.NAME @subscribers.name }
-  from %%LIBRARY l
-  {? :subscribers(call=toInit) | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
-  {= where
-    {& %l.ID = :id }
-    {& %l.NAME = :name }
-  }
-;
-
-UPDATE_LIBRARY(CRUD,in=Library,out=Library,tab=library)=
-  update %%LIBRARY
-  {= set
-    { ,%NAME = :name }
-  }
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-DELETE_LIBRARY(CRUD,in=Library,out=Library,tab=library)=
-  delete from %%LIBRARY
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-SELECT_LIBRARY(QRY,in=Library,out=Library,tab=library=l,tab=subscriber=s)=
-  select %l.ID @id(id), %l.NAME @name
-         {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact, %s.NAME @subscribers.name }
-  from %%LIBRARY l
-  {? :subscribers(call=toInit) | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
-  {= where
-    {& %l.ID = :id }
-    {& UPPER(%l.NAME) like :+name }
-  }
-  {#1 order by %l.ID }
-;
-
-INSERT_MEDIA(CRUD,in=Media,out=Media,tab=media)=
+INSERT_MEDIA(CRUD,in=Media,tab=media)=
   insert into %%MEDIA (%ID, %TITLE)
-  {= values (:id, :title) }
+  {= values (:id(type=long,seq=SEQ1), :title) }
 ;
 
-GET_MEDIA(CRUD,in=Media,out=Media,tab=media)=
-  select %ID @id(id), %TITLE @title
-  from %%MEDIA
-  {= where
-    {& %ID = :id }
-    {& %TITLE = :title }
-  }
-;
-
-UPDATE_MEDIA(CRUD,in=Media,out=Media,tab=media)=
-  update %%MEDIA
-  {= set
-    { ,%TITLE = :title }
-  }
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-DELETE_MEDIA(CRUD,in=Media,out=Media,tab=media)=
-  delete from %%MEDIA
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-SELECT_MEDIA(QRY,in=Media,out=Media,tab=media)=
-  select %ID @id(id), %TITLE @title
-  from %%MEDIA
-  {= where
-    {& %ID = :id }
-    {& UPPER(%TITLE) like :+title }
-  }
-  {#1 order by %ID }
-;
-
-INSERT_MOVIE(CRUD,in=Movie,out=Movie,tab=movie)=
+INSERT_MOVIE(CRUD,in=Movie,tab=movie)=
   insert into %%MOVIE (%MEDIA_ID, %URLIMDB, %PLAYLENGTH)
   {= values (:id, :urlimdb, :playlength) }
 ;
 
-GET_MOVIE(CRUD,in=Movie,out=Movie,tab=movie=m,tab=media=m1)=
-  select %m.MEDIA_ID @id(id), %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength
-         , %m1.TITLE @title
-  from %%MOVIE m
-  join %%MEDIA m1 on %m.MEDIA_ID = %m1.ID
-  {= where
-    {& %m.MEDIA_ID = :id }
-    {& %m.URLIMDB = :urlimdb }
-    {& %m.PLAYLENGTH = :playlength }
-    {& %m1.TITLE = :title }
-  }
+INSERT_BOOK(CRUD,in=Book,tab=book)=
+  insert into %%BOOK (%MEDIA_ID, %ISBN)
+  {= values (:id, :isbn) }
 ;
 
-UPDATE_MOVIE(CRUD,in=Movie,out=Movie,tab=movie)=
-  update %%MOVIE
-  {= set
-    { ,%URLIMDB = :urlimdb }
-    { ,%PLAYLENGTH = :playlength }
-  }
-  {= where
-    {& %MEDIA_ID = :id(!empty) }
-  }
-;
-
-DELETE_MOVIE(CRUD,in=Movie,out=Movie,tab=movie)=
-  delete from %%MOVIE
-  {= where
-    {& %MEDIA_ID = :id(!empty) }
-  }
-;
-
-SELECT_MOVIE(QRY,in=Movie,out=Movie,tab=movie=m,tab=media=m1)=
-  select %m.MEDIA_ID @id(id), %m.URLIMDB @urlimdb, %m.PLAYLENGTH @playlength
-         , %m1.TITLE @title
-  from %%MOVIE m
-  join %%MEDIA m1 on %m.MEDIA_ID = %m1.ID
-  {= where
-    {& %m.MEDIA_ID = :id }
-    {& UPPER(%m.URLIMDB) like :+urlimdb }
-    {& %m.PLAYLENGTH = :playlength }
-    {& UPPER(%m1.TITLE) like :+title }
-  }
-  {#1 order by %m.MEDIA_ID }
-;
-
-INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
-  insert into %%PERSON (%ID, %NAME)
-  {= values (:id, :name) }
-;
-
-GET_PERSON(CRUD,in=Person,out=Person,tab=person=p,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b,tab=contact=c)=
-  select %p.ID @id(id), %p.NAME @name
-         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.isbn, %m.ID @library.id(id), %m.TITLE @library.title }
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
-  from %%PERSON p
-  {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
-  {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
-  {= where
-    {& %p.ID = :id }
-    {& %p.NAME = :name }
-  }
-;
-
-UPDATE_PERSON(CRUD,in=Person,out=Person,tab=person)=
-  update %%PERSON
-  {= set
-    { ,%NAME = :name }
-  }
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-DELETE_PERSON(CRUD,in=Person,out=Person,tab=person)=
-  delete from %%PERSON
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b,tab=contact=c)=
-  select %p.ID @id(id), %p.NAME @name
-         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.isbn, %m.ID @library.id(id), %m.TITLE @library.title }
-         {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber }
-  from %%PERSON p
-  {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
-  {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
-  {= where
-    {& %p.ID = :id }
-    {& UPPER(%p.NAME) like :+name }
-  }
-  {#1 order by %p.ID }
-;
-
-INSERT_PERSON_LIBRARY(CRUD,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
+CREATE_LIBRARY(CRUD,in=PersonLibrary,tab=personLibrary)=
   insert into %%PERSON_LIBRARY (%ID, %PERSON_ID, %MEDIA_ID)
-  {= values (:id, :personId, :mediaId) }
+  {= values (:id(type=long,seq=SEQ1), :personId, :mediaId) }
 ;
 
-GET_PERSON_LIBRARY(CRUD,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
-  select %ID @id(id), %PERSON_ID @personId, %MEDIA_ID @mediaId
-  from %%PERSON_LIBRARY
+ALL_PEOPLE_LIBRARY(QRY,in=Person,out=Person,tab=person=p,tab=personLibrary=l,tab=media=m,tab=movie=mo,tab=book=bk)=
+  select %p.ID @id(type=long,id), %p.NAME @name, %mo.MEDIA_ID @library(gtype=movie)id(type=long,id), %bk.MEDIA_ID @library(gtype=book)id(type=long,id),
+  %m.TITLE @library.title, %mo.URLIMDB @library.urlimdb, %mo.PLAYLENGTH @library.playlength, %bk.ISBN @library.isbn
+  from %%PERSON p left join %%PERSON_LIBRARY l on %p.ID = %l.PERSON_ID
+  left join %%MEDIA m on %m.ID = %l.MEDIA_ID
+  left join %%MOVIE mo on %mo.MEDIA_ID = %m.ID
+  left join %%BOOK bk on %bk.MEDIA_ID = %m.ID
   {= where
-    {& %ID = :id }
-    {& %PERSON_ID = :personId }
-    {& %MEDIA_ID = :mediaId }
+   {& %p.ID = :id}
+   {& UPPER(%p.NAME) like :+name}
   }
+  {#1 order by %p.NAME, %m.TITLE}
 ;
 
-UPDATE_PERSON_LIBRARY(CRUD,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
-  update %%PERSON_LIBRARY
-  {= set
-    { ,%PERSON_ID = :personId }
-    { ,%MEDIA_ID = :mediaId }
-  }
+INSERT_CONTACT_CUSTOM(CRUD,in=Contact,tab=contact)=
+  insert into %%CONTACT (%ID, %PERSON_ID, %ADDRESS, %PHONE_NUMBER)
+  {= values (:id(type=long,seq=SEQ1), :person.id, :address, :phoneNumber(type=phone)) }
+;
+
+ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,in=Contact,out=Person,tab=person=p,tab=contact=c)=
+  select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts.id(type=long,id), %p.ID @contacts.person.id, %c.ADDRESS @contacts.address,
+  %c.PHONE_NUMBER @contacts.phoneNumber(type=phone)
+  from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where
-    {& %ID = :id(!empty) }
+   {& %c.ID = :id}
+   {& %c.PHONE_NUMBER = :phoneNumber(type=phone)}
   }
+  {#1 order by %p.NAME, %c.ADDRESS}
+;
+  
+INSERT_LIBRARY(CRUD,in=Library,tab=library)=
+  insert into %%LIBRARY (%ID, %NAME)
+  {= values (:id(type=long,seq=SEQ1), :name) }
+;
+  
+INSERT_SUBSCRIBER(CRUD,in=Subscriber,tab=subscriber)=
+  insert into %%SUBSCRIBER (%ID, %LIBRARY, %NAME)
+  {= values (:id(type=long,seq=SEQ1), :library.id, :name) }
+;
+  
+INSERT_CREDIT_CARD(CRUD,in=CreditCard,tab=billingDetails)=
+  insert into %%BILLING_DETAILS (%ID, %SUBSCRIBER, %TYPE, %CC_NUMBER)
+  {= values (:id(type=long,seq=SEQ1), :subscriber.id, 'CC', :ccNumber) }
+;
+  
+INSERT_BANK_ACCOUNT(CRUD,in=BankAccount,tab=billingDetails)=
+  insert into %%BILLING_DETAILS (%ID, %SUBSCRIBER, %TYPE, %BA_ACCOUNT)
+  {= values (:id(type=long,seq=SEQ1), :subscriber.id, 'BA', :baAccount) }
 ;
 
-DELETE_PERSON_LIBRARY(CRUD,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
-  delete from %%PERSON_LIBRARY
+ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=billingDetails=bd)=
+  select %s.ID @id(type=long,id), %s.NAME @name, %s.LIBRARY @library.id(type=long,id),
+  %bd.TYPE @billingDetails(discr)type, %bd.ID @billingDetails.id(type=long,id),
+  %bd.CC_NUMBER @billingDetails.ccNumber, %bd.BA_ACCOUNT @billingDetails.baAccount
+  from %%SUBSCRIBER s left join %%BILLING_DETAILS bd on %s.ID = %bd.SUBSCRIBER
   {= where
-    {& %ID = :id(!empty) }
+   {& UPPER(%s.NAME)=:+name}
+//   {& %bd.TYPE = :type}
   }
+  {#1 order by %s.ID, %bd.ID}
+;
+  
+SIMPLE_FUNCTION(CALL,in=FormSimpleFunction)=
+  call an_hour_before(:time)
+;
+SIMPLE_FUNCTION(OUT)=1$1(type=stamp)
 ;
 
-SELECT_PERSON_LIBRARY(QRY,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
-  select %ID @id(id), %PERSON_ID @personId, %MEDIA_ID @mediaId
-  from %%PERSON_LIBRARY
-  {= where
-    {& %ID = :id }
-    {& %PERSON_ID = :personId }
-    {& %MEDIA_ID = :mediaId }
-  }
-  {#1 order by %ID }
-  {#2 order by %PERSON_ID }
-  {#3 order by %MEDIA_ID }
+SIMPLE_FUNCTION_TO_IN_FORM(CALL,in=FormSimpleFunction)=
+  :<time2 = call an_hour_before(:time)
 ;
 
-INSERT_SUBSCRIBER(CRUD,in=Subscriber,out=Subscriber,tab=subscriber)=
-  insert into %%SUBSCRIBER (%ID, %LIBRARY, %CONTACT, %NAME)
-  {= values (:id, :library.id, :contact, :name) }
-;
-
-GET_SUBSCRIBER(CRUD,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=library=l,tab=billingDetails=b)=
-  select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact, %s.NAME @name
-         {? :library(call=toInit) | , %l.NAME @library.name }
-         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
-  from %%SUBSCRIBER s
-  {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
-  {? :billingDetails(call=toInit) | left join %%BILLING_DETAILS b on %s.ID = %b.SUBSCRIBER }
-  {= where
-    {& %s.ID = :id }
-    {& %s.LIBRARY = :library.id }
-    {& %s.CONTACT = :contact }
-    {& %s.NAME = :name }
-  }
-;
-
-UPDATE_SUBSCRIBER(CRUD,in=Subscriber,out=Subscriber,tab=subscriber)=
-  update %%SUBSCRIBER
-  {= set
-    { ,%LIBRARY = :library.id(call=isDef) }
-    { ,%CONTACT = :contact(call=isDef) }
-    { ,%NAME = :name(call=isDef) }
-  }
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-DELETE_SUBSCRIBER(CRUD,in=Subscriber,out=Subscriber,tab=subscriber)=
-  delete from %%SUBSCRIBER
-  {= where
-    {& %ID = :id(!empty) }
-  }
-;
-
-SELECT_SUBSCRIBER(QRY,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=library=l,tab=billingDetails=b)=
-  select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact, %s.NAME @name
-         {? :library(call=toInit) | , %l.NAME @library.name }
-         {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
-  from %%SUBSCRIBER s
-  {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
-  {? :billingDetails(call=toInit) | left join %%BILLING_DETAILS b on %s.ID = %b.SUBSCRIBER }
-  {= where
-    {& %s.ID = :id }
-    {& %s.LIBRARY = :library.id }
-    {& %s.CONTACT = :contact }
-    {& UPPER(%s.NAME) like :+name }
-  }
-  {#1 order by %s.ID }
-  {#2 order by %s.LIBRARY }
+INSERT_PERSON_CALL(CALL,in=Person)=
+  call new_person(:<id, :name)
 ;

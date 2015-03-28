@@ -2,86 +2,61 @@ package org.sqlproc.sample.simple.model {
 
 
 
-    #InheritanceChild(BA)
-    #Serializable(1)
-    #ToString(baAccount)
+    #InheritanceChild(BA) #Serializable(1) #ToString(baAccount)
     #Pojo BankAccount extends BillingDetails {
         #Attr String baAccount
     }
 
-    #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,type)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type)
     abstract #Pojo BillingDetails {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long id
-        #Required
-        #Index(2)
+        #Required #Index(2)
         #Attr Subscriber subscriber
-        #InheritanceDiscriminator
-        #Required
+        #InheritanceDiscriminator #Required
         #Attr String type
     }
 
-    #Serializable(1)
-    #ToString(isbn)
+    #Serializable(1) #ToString(isbn)
     #Pojo Book extends Media {
         #Required
         #Attr String isbn
     }
 
-    #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,phoneNumber,address)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address)
     #Pojo Contact {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long id
-        #Required
-        #Index(2)
+        #Required #Index(2)
         #Attr Person person
         #Required
         #Attr String address
         #Attr org.sqlproc.sample.simple.model.PhoneNumber phoneNumber
     }
 
-    #InheritanceChild(CC)
-    #Serializable(1)
-    #ToString(ccNumber)
+    #InheritanceChild(CC) #Serializable(1) #ToString(ccNumber)
     #Pojo CreditCard extends BillingDetails {
         #Attr Long ccNumber
     }
 
-    #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,name)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name)
     #Pojo Library {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long id
         #Required
         #Attr String name
         #Attr java.util.List <Subscriber> subscribers
     }
 
-    #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,title)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,title)
     abstract #Pojo Media {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long id
         #Required
         #Attr String title
     }
 
-    #Serializable(1)
-    #ToString(playlength,urlimdb)
+    #Serializable(1) #ToString(playlength,urlimdb)
     #Pojo Movie extends Media {
         #Required
         #Attr String urlimdb
@@ -89,13 +64,9 @@ package org.sqlproc.sample.simple.model {
         #Attr Integer playlength
     }
 
-    #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,name)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name)
     #Pojo Person {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long id
         #Required
         #Attr String name
@@ -103,44 +74,25 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Contact> contacts
     }
 
-    #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(mediaId,id,personId)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(mediaId,id,personId)
     #Pojo PersonLibrary {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long id
-        #Required
-        #Index(2)
+        #Required #Index(2)
         #Attr Long personId
-        #Required
-        #Index(3)
+        #Required #Index(3)
         #Attr Long mediaId
     }
 
-    #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,name,contact)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name,contact)
     #Pojo Subscriber {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long id
-        #Required
-        #Index(2)
+        #Required #Index(2)
         #Attr Library library
         #Attr Long contact
         #Required
         #Attr String name
         #Attr java.util.List <BillingDetails> billingDetails
     }
-}
-
-package org.sqlproc.sample.simple.form {
-	
-	#Pojo FormSimpleFunction {
-		#Attr java.sql.Timestamp time
-		#Attr java.sql.Timestamp time2
-	}
 }

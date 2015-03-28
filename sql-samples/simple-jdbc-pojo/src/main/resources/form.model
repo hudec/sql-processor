@@ -1,0 +1,7 @@
+package org.sqlproc.sample.simple.form {
+	
+	#Pojo FormSimpleFunction {
+		#Attr java.sql.Timestamp time
+		#Attr java.sql.Timestamp time2
+	}
+}

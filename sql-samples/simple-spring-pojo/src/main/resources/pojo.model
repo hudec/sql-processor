@@ -136,11 +136,3 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <BillingDetails> billingDetails
     }
 }
-
-package org.sqlproc.sample.simple.form {
-	
-	#Pojo FormSimpleFunction {
-		#Attr java.sql.Timestamp time
-		#Attr java.sql.Timestamp time2
-	}
-}

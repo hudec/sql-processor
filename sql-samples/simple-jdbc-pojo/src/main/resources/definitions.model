@@ -49,3 +49,7 @@ pojo Person org.sqlproc.sample.simple.model.Person;
 pojo PersonLibrary org.sqlproc.sample.simple.model.PersonLibrary;
 pojo PhoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
 pojo Subscriber org.sqlproc.sample.simple.model.Subscriber;
+
+compress-meta-directives;
+pojogen-package org.sqlproc.sample.simple.model;
+daogen-package org.sqlproc.sample.simple.dao;
