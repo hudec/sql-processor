@@ -29,7 +29,7 @@ public class NewPersonOutRsDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public List<Person> newPersonOutRs(final SqlSession sqlSession, final NewPersonOutRs NewPersonOutRs, final SqlControl sqlControl) {
+  public List<Person> newPersonOutRs(final SqlSession sqlSession, final NewPersonOutRs NewPersonOutRs, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql newPersonOutRs: " + NewPersonOutRs + " " + sqlControl);
     }
@@ -41,7 +41,7 @@ public class NewPersonOutRsDao {
     return list;
   }
   
-  public List<Person> newPersonOutRs(final NewPersonOutRs NewPersonOutRs, final SqlControl sqlControl) {
+  public List<Person> newPersonOutRs(final NewPersonOutRs NewPersonOutRs, SqlControl sqlControl) {
     return newPersonOutRs(sqlSessionFactory.getSqlSession(), NewPersonOutRs, sqlControl);
   }
   

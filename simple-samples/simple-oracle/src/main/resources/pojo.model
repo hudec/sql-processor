@@ -1,93 +1,94 @@
 package org.sample.model {
 
-  import javax.validation.constraints.NotNull
-  import javax.validation.constraints.Size
+    import javax.validation.constraints.NotNull
+    import javax.validation.constraints.Size
 
-  #Serializable(1)
-  #Enum ContactType {
-    #Values(HOME = 0,BUSINESS = 1)
-    #Attr Integer value
-  }
 
-  #Serializable(1)
-  #Enum PersonGender {
-    #Values(MALE = "M",FEMALE = "F")
-    #Attr String value
-  }
+    #Serializable(1)
+    #Enum ContactType {
+        #Values(HOME = 0,BUSINESS = 1)
+        #Attr Integer value
+    }
 
-  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address,type)
-  #Pojo Contact {
-    #PrimaryKey #Index(1)
-    #Attr Long id
-    @NotNull
-    #ToInit #Required
-    #Attr Person person
-    @NotNull
-    #Required
-    #Attr ContactType type
-    @Size(max = 100)
-    #IsDef
-    #Attr String address
-    @Size(max = 100)
-    #IsDef
-    #Attr String phoneNumber
-  }
+    #Serializable(1)
+    #Enum PersonGender {
+        #Values(MALE = "M",FEMALE = "F")
+        #Attr String value
+    }
 
-  #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
-  #Pojo Person {
-    #PrimaryKey #Index(1)
-    #Attr Long id
-    @NotNull
-    @Size(max = 100)
-    #Required
-    #Attr String firstName
-    @NotNull
-    @Size(max = 100)
-    #Required #Index(2)
-    #Attr String lastName
-    #IsDef
-    #Attr java.sql.Timestamp dateOfBirth
-    @NotNull
-    #Required
-    #Attr PersonGender gender
-    @Size(max = 100)
-    #IsDef
-    #Attr String ssn
-    #ToInit
-    #Attr java.util.List <Contact> contacts
-  }
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address,type)
+    #Pojo Contact {
+        #PrimaryKey #Index(1)
+        #Attr Long id
+        @NotNull
+        #ToInit #Required
+        #Attr Person person
+        @NotNull
+        #Required
+        #Attr ContactType type
+        @Size(max = 100)
+        #IsDef
+        #Attr String address
+        @Size(max = 100)
+        #IsDef
+        #Attr String phoneNumber
+    }
 
-  #Serializable(1) #ToString(t)
-  #Pojo AnHourBefore {
-    #Attr java.sql.Timestamp t
-  }
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
+    #Pojo Person {
+        #PrimaryKey #Index(1)
+        #Attr Long id
+        @NotNull
+        @Size(max = 100)
+        #Required
+        #Attr String firstName
+        @NotNull
+        @Size(max = 100)
+        #Required #Index(2)
+        #Attr String lastName
+        #IsDef
+        #Attr java.sql.Timestamp dateOfBirth
+        @NotNull
+        #Required
+        #Attr PersonGender gender
+        @Size(max = 100)
+        #IsDef
+        #Attr String ssn
+        #ToInit
+        #Attr java.util.List <Contact> contacts
+    }
 
-  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
-  #Pojo NewPerson {
-    #Attr java.math.BigInteger newid
-    #Attr java.sql.Timestamp dateOfBirth
-    #Attr String ssn
-    #Attr String firstName
-    #Attr String lastName
-    #Attr String gender
-  }
+    #Serializable(1) #ToString(t)
+    #Pojo AnHourBefore {
+        #Attr java.sql.Timestamp t
+    }
 
-  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,resultCur,gender,firstName)
-  #Pojo NewPersonOutRs {
-    #Attr Object resultCur
-    #Attr java.sql.Timestamp dateOfBirth
-    #Attr String ssn
-    #Attr String firstName
-    #Attr String lastName
-    #Attr String gender
-  }
+    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
+    #Pojo NewPerson {
+        #Attr java.math.BigInteger newid
+        #Attr java.sql.Timestamp dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
+    }
 
-  #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
-  #Pojo NewPersonRetRs {
-    #Attr java.sql.Timestamp dateOfBirth
-    #Attr String ssn
-    #Attr String firstName
-    #Attr String lastName
-    #Attr String gender
-  }
+    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,resultCur,gender,firstName)
+    #Pojo NewPersonOutRs {
+        #Attr Object resultCur
+        #Attr java.sql.Timestamp dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
+    }
+
+    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
+    #Pojo NewPersonRetRs {
+        #Attr java.sql.Timestamp dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
+    }
 }

@@ -28,7 +28,7 @@ public class PersonDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public Person insert(final SqlSession sqlSession, final Person person, final SqlControl sqlControl) {
+  public Person insert(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert person: " + person + " " + sqlControl);
     }
@@ -40,7 +40,7 @@ public class PersonDao {
     return (count > 0) ? person : null;
   }
   
-  public Person insert(final Person person, final SqlControl sqlControl) {
+  public Person insert(final Person person, SqlControl sqlControl) {
     return insert(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
   
@@ -52,7 +52,7 @@ public class PersonDao {
     return insert(person, null);
   }
   
-  public Person get(final SqlSession sqlSession, final Person person, final SqlControl sqlControl) {
+  public Person get(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get: " + person + " " + sqlControl);
     }
@@ -65,7 +65,7 @@ public class PersonDao {
     return personGot;
   }
   
-  public Person get(final Person person, final SqlControl sqlControl) {
+  public Person get(final Person person, SqlControl sqlControl) {
     return get(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
   
@@ -77,7 +77,7 @@ public class PersonDao {
     return get(person, null);
   }
   
-  public int update(final SqlSession sqlSession, final Person person, final SqlControl sqlControl) {
+  public int update(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update person: " + person + " " + sqlControl);
     }
@@ -89,7 +89,7 @@ public class PersonDao {
     return count;
   }
   
-  public int update(final Person person, final SqlControl sqlControl) {
+  public int update(final Person person, SqlControl sqlControl) {
     return update(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
   
@@ -101,7 +101,7 @@ public class PersonDao {
     return update(person, null);
   }
   
-  public int delete(final SqlSession sqlSession, final Person person, final SqlControl sqlControl) {
+  public int delete(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete person: " + person + " " + sqlControl);
     }
@@ -113,7 +113,7 @@ public class PersonDao {
     return count;
   }
   
-  public int delete(final Person person, final SqlControl sqlControl) {
+  public int delete(final Person person, SqlControl sqlControl) {
     return delete(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
   
@@ -125,7 +125,7 @@ public class PersonDao {
     return delete(person, null);
   }
   
-  public List<Person> list(final SqlSession sqlSession, final Person person, final SqlControl sqlControl) {
+  public List<Person> list(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list person: " + person + " " + sqlControl);
     }
@@ -138,7 +138,7 @@ public class PersonDao {
     return personList;
   }
   
-  public List<Person> list(final Person person, final SqlControl sqlControl) {
+  public List<Person> list(final Person person, SqlControl sqlControl) {
     return list(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
   
@@ -150,7 +150,7 @@ public class PersonDao {
     return list(person, null);
   }
   
-  public int count(final SqlSession sqlSession, final Person person, final SqlControl sqlControl) {
+  public int count(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("count person: " + person + " " + sqlControl);
     }
@@ -163,7 +163,7 @@ public class PersonDao {
     return count;
   }
   
-  public int count(final Person person, final SqlControl sqlControl) {
+  public int count(final Person person, SqlControl sqlControl) {
     return count(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
   

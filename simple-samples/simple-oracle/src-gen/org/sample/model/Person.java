@@ -24,9 +24,10 @@ public class Person implements Serializable {
   }
   
   public Person(final String firstName, final String lastName, final PersonGender gender) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.gender = gender;
+    super();
+    setFirstName(firstName);
+    setLastName(lastName);
+    setGender(gender);
   }
   
   private Long id;
@@ -41,21 +42,6 @@ public class Person implements Serializable {
   
   public Person _setId(final Long id) {
     this.id = id;
-    return this;
-  }
-  
-  private String idOp;
-  
-  public String getIdOp() {
-    return this.idOp;
-  }
-  
-  public void setIdOp(final String idOp) {
-    this.idOp = idOp;
-  }
-  
-  public Person _setIdOp(final String idOp) {
-    this.idOp = idOp;
     return this;
   }
   
@@ -76,21 +62,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String firstNameOp;
-  
-  public String getFirstNameOp() {
-    return this.firstNameOp;
-  }
-  
-  public void setFirstNameOp(final String firstNameOp) {
-    this.firstNameOp = firstNameOp;
-  }
-  
-  public Person _setFirstNameOp(final String firstNameOp) {
-    this.firstNameOp = firstNameOp;
-    return this;
-  }
-  
   @NotNull
   @Size(max = 100)
   private String lastName;
@@ -108,21 +79,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String lastNameOp;
-  
-  public String getLastNameOp() {
-    return this.lastNameOp;
-  }
-  
-  public void setLastNameOp(final String lastNameOp) {
-    this.lastNameOp = lastNameOp;
-  }
-  
-  public Person _setLastNameOp(final String lastNameOp) {
-    this.lastNameOp = lastNameOp;
-    return this;
-  }
-  
   private Timestamp dateOfBirth;
   
   public Timestamp getDateOfBirth() {
@@ -135,21 +91,6 @@ public class Person implements Serializable {
   
   public Person _setDateOfBirth(final Timestamp dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
-    return this;
-  }
-  
-  private String dateOfBirthOp;
-  
-  public String getDateOfBirthOp() {
-    return this.dateOfBirthOp;
-  }
-  
-  public void setDateOfBirthOp(final String dateOfBirthOp) {
-    this.dateOfBirthOp = dateOfBirthOp;
-  }
-  
-  public Person _setDateOfBirthOp(final String dateOfBirthOp) {
-    this.dateOfBirthOp = dateOfBirthOp;
     return this;
   }
   
@@ -169,21 +110,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String genderOp;
-  
-  public String getGenderOp() {
-    return this.genderOp;
-  }
-  
-  public void setGenderOp(final String genderOp) {
-    this.genderOp = genderOp;
-  }
-  
-  public Person _setGenderOp(final String genderOp) {
-    this.genderOp = genderOp;
-    return this;
-  }
-  
   @Size(max = 100)
   private String ssn;
   
@@ -200,21 +126,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String ssnOp;
-  
-  public String getSsnOp() {
-    return this.ssnOp;
-  }
-  
-  public void setSsnOp(final String ssnOp) {
-    this.ssnOp = ssnOp;
-  }
-  
-  public Person _setSsnOp(final String ssnOp) {
-    this.ssnOp = ssnOp;
-    return this;
-  }
-  
   private List<Contact> contacts = new java.util.ArrayList<Contact>();
   
   public List<Contact> getContacts() {
@@ -227,21 +138,6 @@ public class Person implements Serializable {
   
   public Person _setContacts(final List<Contact> contacts) {
     this.contacts = contacts;
-    return this;
-  }
-  
-  private String contactsOp;
-  
-  public String getContactsOp() {
-    return this.contactsOp;
-  }
-  
-  public void setContactsOp(final String contactsOp) {
-    this.contactsOp = contactsOp;
-  }
-  
-  public Person _setContactsOp(final String contactsOp) {
-    this.contactsOp = contactsOp;
     return this;
   }
   
@@ -350,22 +246,13 @@ public class Person implements Serializable {
     if (nullValues.contains(attrName))
     	return true;
     try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "get" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
+    	Object result = org.apache.commons.beanutils.PropertyUtils.getSimpleProperty(this, attrName);
     	return (result != null) ? true : false;
-    } catch (NoSuchMethodException e) {
     } catch (IllegalAccessException e) {
     	throw new RuntimeException(e);
     } catch (java.lang.reflect.InvocationTargetException e) {
     	throw new RuntimeException(e);
-    }
-    try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "is" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
-    	return (result != null) ? true : false;
     } catch (NoSuchMethodException e) {
-    } catch (IllegalAccessException e) {
-    	throw new RuntimeException(e);
-    } catch (java.lang.reflect.InvocationTargetException e) {
-    	throw new RuntimeException(e);
     }
     return false;
   }
