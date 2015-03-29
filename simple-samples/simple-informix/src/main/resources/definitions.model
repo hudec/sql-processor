@@ -1,6 +1,6 @@
 resolve-pojo-on;
 database-is-offline;
-database-jdbc-driver :com.informix.jdbc.IfxDriver; 
+database-jdbc-driver com.informix.jdbc.IfxDriver; 
 database-has-url "jdbc:informix-sqli://localhost:1556/simple:INFORMIXSERVER=popel_ais3;DB_LOCALE=cs_cz.utf8";
 database-login-username simple;
 database-login-password simple;
@@ -13,7 +13,7 @@ pojogen-generate-wrappers;
 // POJO helpers' methods
 pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
-pojogen-implements-interfaces :java.io.Serializable;
+pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // ignore SYS tables

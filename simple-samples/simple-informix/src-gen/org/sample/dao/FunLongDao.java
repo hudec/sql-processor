@@ -28,7 +28,7 @@ public class FunLongDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public List<Long> funLong(final SqlSession sqlSession, final FunLong FunLong, final SqlControl sqlControl) {
+  public List<Long> funLong(final SqlSession sqlSession, final FunLong FunLong, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql funLong: " + FunLong + " " + sqlControl);
     }
@@ -40,7 +40,7 @@ public class FunLongDao {
     return list;
   }
   
-  public List<Long> funLong(final FunLong FunLong, final SqlControl sqlControl) {
+  public List<Long> funLong(final FunLong FunLong, SqlControl sqlControl) {
     return funLong(sqlSessionFactory.getSqlSession(), FunLong, sqlControl);
   }
   

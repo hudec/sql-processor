@@ -28,7 +28,7 @@ public class AnHourBeforeDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public Timestamp anHourBefore(final SqlSession sqlSession, final AnHourBefore AnHourBefore, final SqlControl sqlControl) {
+  public Timestamp anHourBefore(final SqlSession sqlSession, final AnHourBefore AnHourBefore, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql anHourBefore: " + AnHourBefore + " " + sqlControl);
     }
@@ -40,7 +40,7 @@ public class AnHourBeforeDao {
     return (Timestamp) result;
   }
   
-  public Timestamp anHourBefore(final AnHourBefore AnHourBefore, final SqlControl sqlControl) {
+  public Timestamp anHourBefore(final AnHourBefore AnHourBefore, SqlControl sqlControl) {
     return anHourBefore(sqlSessionFactory.getSqlSession(), AnHourBefore, sqlControl);
   }
   
