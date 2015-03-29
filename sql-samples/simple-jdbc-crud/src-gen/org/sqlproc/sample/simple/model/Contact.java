@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 import org.sqlproc.engine.annotation.Pojo;
 import org.sqlproc.sample.simple.model.Person;
+import org.sqlproc.sample.simple.model.PhoneNumber;
 
 @Pojo
 @SuppressWarnings("all")
@@ -72,17 +73,17 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private  org.sqlproc.sample.simple.model.PhoneNumber phoneNumber;
+  private PhoneNumber phoneNumber;
   
-  public  org.sqlproc.sample.simple.model.PhoneNumber getPhoneNumber() {
+  public PhoneNumber getPhoneNumber() {
     return this.phoneNumber;
   }
   
-  public void setPhoneNumber(final  org.sqlproc.sample.simple.model.PhoneNumber phoneNumber) {
+  public void setPhoneNumber(final PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
   
-  public Contact _setPhoneNumber(final  org.sqlproc.sample.simple.model.PhoneNumber phoneNumber) {
+  public Contact _setPhoneNumber(final PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }
