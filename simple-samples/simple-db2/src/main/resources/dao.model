@@ -1,0 +1,22 @@
+package org.sample.dao {
+
+    #CRUD(org.sample.model.Contact) #Query(org.sample.model.Contact)
+    #Dao ContactDao {
+    }
+
+    #CRUD(org.sample.model.Person) #Query(org.sample.model.Person)
+    #Dao PersonDao {
+    }
+
+    #ProcedureUpdate(int,org.sample.model.NewPerson)
+    #Dao NewPersonDao {
+    }
+
+    #ProcedureCallQuery(java.util.List<org.sample.model.Person>,org.sample.model.NewPersonRetRs)
+    #Dao NewPersonRetRsDao {
+    }
+
+    #FunctionQuery(java.sql.Timestamp,org.sample.model.AnHourBefore)
+    #Dao AnHourBeforeDao {
+    }
+}
