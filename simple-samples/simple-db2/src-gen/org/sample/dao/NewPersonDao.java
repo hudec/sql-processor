@@ -27,27 +27,27 @@ public class NewPersonDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public int newPerson(final SqlSession sqlSession, final NewPerson NewPerson, SqlControl sqlControl) {
+  public int newPerson(final SqlSession sqlSession, final NewPerson newPerson, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
-    	logger.trace("sql newPerson: " + NewPerson + " " + sqlControl);
+    	logger.trace("sql newPerson: " + newPerson + " " + sqlControl);
     }
     org.sqlproc.engine.SqlProcedureEngine sqlProcNewPersonDao = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON");
-    int count = sqlProcNewPersonDao.callUpdate(sqlSession, NewPerson, sqlControl);
+    int count = sqlProcNewPersonDao.callUpdate(sqlSession, newPerson, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql newPerson result: " + count);
     }
     return count;
   }
   
-  public int newPerson(final NewPerson NewPerson, SqlControl sqlControl) {
-    return newPerson(sqlSessionFactory.getSqlSession(), NewPerson, sqlControl);
+  public int newPerson(final NewPerson newPerson, SqlControl sqlControl) {
+    return newPerson(sqlSessionFactory.getSqlSession(), newPerson, sqlControl);
   }
   
-  public int newPerson(final SqlSession sqlSession, final NewPerson NewPerson) {
-    return newPerson(sqlSession, NewPerson, null);
+  public int newPerson(final SqlSession sqlSession, final NewPerson newPerson) {
+    return newPerson(sqlSession, newPerson, null);
   }
   
-  public int newPerson(final NewPerson NewPerson) {
-    return newPerson(NewPerson, null);
+  public int newPerson(final NewPerson newPerson) {
+    return newPerson(newPerson, null);
   }
 }
