@@ -28,27 +28,27 @@ public class FunLongDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public List<Long> funLong(final SqlSession sqlSession, final FunLong FunLong, SqlControl sqlControl) {
+  public List<Long> funLong(final SqlSession sqlSession, final FunLong funLong, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
-    	logger.trace("sql funLong: " + FunLong + " " + sqlControl);
+    	logger.trace("sql funLong: " + funLong + " " + sqlControl);
     }
     org.sqlproc.engine.SqlProcedureEngine sqlProcFunLongDao = sqlEngineFactory.getCheckedProcedureEngine("PROC_FUN_LONG");
-    List<Long> list = sqlProcFunLongDao.callQuery(sqlSession, Long.class, FunLong, sqlControl);
+    List<Long> list = sqlProcFunLongDao.callQuery(sqlSession, Long.class, funLong, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql funLong result: " + list);
     }
     return list;
   }
   
-  public List<Long> funLong(final FunLong FunLong, SqlControl sqlControl) {
-    return funLong(sqlSessionFactory.getSqlSession(), FunLong, sqlControl);
+  public List<Long> funLong(final FunLong funLong, SqlControl sqlControl) {
+    return funLong(sqlSessionFactory.getSqlSession(), funLong, sqlControl);
   }
   
-  public List<Long> funLong(final SqlSession sqlSession, final FunLong FunLong) {
-    return funLong(sqlSession, FunLong, null);
+  public List<Long> funLong(final SqlSession sqlSession, final FunLong funLong) {
+    return funLong(sqlSession, funLong, null);
   }
   
-  public List<Long> funLong(final FunLong FunLong) {
-    return funLong(FunLong, null);
+  public List<Long> funLong(final FunLong funLong) {
+    return funLong(funLong, null);
   }
 }

@@ -29,27 +29,27 @@ public class NewPersonRetRsDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs NewPersonRetRs, SqlControl sqlControl) {
+  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
-    	logger.trace("sql newPersonRetRs: " + NewPersonRetRs + " " + sqlControl);
+    	logger.trace("sql newPersonRetRs: " + newPersonRetRs + " " + sqlControl);
     }
     org.sqlproc.engine.SqlProcedureEngine sqlProcNewPersonRetRsDao = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON_RET_RS");
-    List<Person> list = sqlProcNewPersonRetRsDao.callQuery(sqlSession, Person.class, NewPersonRetRs, sqlControl);
+    List<Person> list = sqlProcNewPersonRetRsDao.callQuery(sqlSession, Person.class, newPersonRetRs, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql newPersonRetRs result: " + list);
     }
     return list;
   }
   
-  public List<Person> newPersonRetRs(final NewPersonRetRs NewPersonRetRs, SqlControl sqlControl) {
-    return newPersonRetRs(sqlSessionFactory.getSqlSession(), NewPersonRetRs, sqlControl);
+  public List<Person> newPersonRetRs(final NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
+    return newPersonRetRs(sqlSessionFactory.getSqlSession(), newPersonRetRs, sqlControl);
   }
   
-  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs NewPersonRetRs) {
-    return newPersonRetRs(sqlSession, NewPersonRetRs, null);
+  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs newPersonRetRs) {
+    return newPersonRetRs(sqlSession, newPersonRetRs, null);
   }
   
-  public List<Person> newPersonRetRs(final NewPersonRetRs NewPersonRetRs) {
-    return newPersonRetRs(NewPersonRetRs, null);
+  public List<Person> newPersonRetRs(final NewPersonRetRs newPersonRetRs) {
+    return newPersonRetRs(newPersonRetRs, null);
   }
 }
