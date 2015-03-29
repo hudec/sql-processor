@@ -18,8 +18,9 @@ public class Contact implements Serializable {
   }
   
   public Contact(final Person person, final ContactCtype ctype) {
-    this.person = person;
-    this.ctype = ctype;
+    super();
+    setPerson(person);
+    setCtype(ctype);
   }
   
   private Long id;
@@ -34,21 +35,6 @@ public class Contact implements Serializable {
   
   public Contact _setId(final Long id) {
     this.id = id;
-    return this;
-  }
-  
-  private String idOp;
-  
-  public String getIdOp() {
-    return this.idOp;
-  }
-  
-  public void setIdOp(final String idOp) {
-    this.idOp = idOp;
-  }
-  
-  public Contact _setIdOp(final String idOp) {
-    this.idOp = idOp;
     return this;
   }
   
@@ -67,21 +53,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String personOp;
-  
-  public String getPersonOp() {
-    return this.personOp;
-  }
-  
-  public void setPersonOp(final String personOp) {
-    this.personOp = personOp;
-  }
-  
-  public Contact _setPersonOp(final String personOp) {
-    this.personOp = personOp;
-    return this;
-  }
-  
   private ContactCtype ctype;
   
   public ContactCtype getCtype() {
@@ -94,21 +65,6 @@ public class Contact implements Serializable {
   
   public Contact _setCtype(final ContactCtype ctype) {
     this.ctype = ctype;
-    return this;
-  }
-  
-  private String ctypeOp;
-  
-  public String getCtypeOp() {
-    return this.ctypeOp;
-  }
-  
-  public void setCtypeOp(final String ctypeOp) {
-    this.ctypeOp = ctypeOp;
-  }
-  
-  public Contact _setCtypeOp(final String ctypeOp) {
-    this.ctypeOp = ctypeOp;
     return this;
   }
   
@@ -127,21 +83,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String addressOp;
-  
-  public String getAddressOp() {
-    return this.addressOp;
-  }
-  
-  public void setAddressOp(final String addressOp) {
-    this.addressOp = addressOp;
-  }
-  
-  public Contact _setAddressOp(final String addressOp) {
-    this.addressOp = addressOp;
-    return this;
-  }
-  
   private String phoneNumber;
   
   public String getPhoneNumber() {
@@ -154,21 +95,6 @@ public class Contact implements Serializable {
   
   public Contact _setPhoneNumber(final String phoneNumber) {
     this.phoneNumber = phoneNumber;
-    return this;
-  }
-  
-  private String phoneNumberOp;
-  
-  public String getPhoneNumberOp() {
-    return this.phoneNumberOp;
-  }
-  
-  public void setPhoneNumberOp(final String phoneNumberOp) {
-    this.phoneNumberOp = phoneNumberOp;
-  }
-  
-  public Contact _setPhoneNumberOp(final String phoneNumberOp) {
-    this.phoneNumberOp = phoneNumberOp;
     return this;
   }
   
@@ -277,22 +203,13 @@ public class Contact implements Serializable {
     if (nullValues.contains(attrName))
     	return true;
     try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "get" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
+    	Object result = org.apache.commons.beanutils.PropertyUtils.getSimpleProperty(this, attrName);
     	return (result != null) ? true : false;
-    } catch (NoSuchMethodException e) {
     } catch (IllegalAccessException e) {
     	throw new RuntimeException(e);
     } catch (java.lang.reflect.InvocationTargetException e) {
     	throw new RuntimeException(e);
-    }
-    try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "is" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
-    	return (result != null) ? true : false;
     } catch (NoSuchMethodException e) {
-    } catch (IllegalAccessException e) {
-    	throw new RuntimeException(e);
-    } catch (java.lang.reflect.InvocationTargetException e) {
-    	throw new RuntimeException(e);
     }
     return false;
   }

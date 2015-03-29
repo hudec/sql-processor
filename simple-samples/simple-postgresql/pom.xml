@@ -155,7 +155,7 @@
                                 <argument>-classpath</argument>
                                 <classpath>
                                     <dependency>org.sqlproc.meta:sqlmeta</dependency>
-                                    <dependency>org.hsqldb:hsqldb</dependency>
+                                    <dependency>postgresql:postgresql</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
@@ -165,8 +165,6 @@
                                 <argument>definitions.meta</argument>
                                 <argument>-sql</argument>
                                 <argument>statements.meta</argument>
-                                <argument>-ddl</argument>
-                                <argument>hsqldb.ddl</argument>
                                 <argument>-source</argument>
                                 <argument>src/main/resources</argument>
                                 <argument>-target</argument>
@@ -201,7 +199,7 @@
                                 <argument>-classpath</argument>
                                 <classpath>
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
-                                    <dependency>org.hsqldb:hsqldb</dependency>
+                                    <dependency>postgresql:postgresql</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
@@ -213,8 +211,6 @@
                                 <argument>pojo.model</argument>
                                 <argument>-dao</argument>
                                 <argument>dao.model</argument>
-                                <argument>-ddl</argument>
-                                <argument>hsqldb.ddl</argument>
                                 <argument>-source</argument>
                                 <argument>src/main/resources</argument>
                                 <argument>-target</argument>
@@ -249,7 +245,7 @@
                                 <argument>-classpath</argument>
                                 <classpath>
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
-                                    <dependency>org.hsqldb:hsqldb</dependency>
+                                    <dependency>postgresql:postgresql</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
