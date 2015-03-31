@@ -12,7 +12,8 @@
     <fileSet filtered="true" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
-        <include>**/*.qry</include>
+        <include>**/*.model</include>
+        <include>**/*.meta</include>
         <include>**/*.properties</include>
         <include>**/*.ddl</include>
         <include>**/*.xml</include>

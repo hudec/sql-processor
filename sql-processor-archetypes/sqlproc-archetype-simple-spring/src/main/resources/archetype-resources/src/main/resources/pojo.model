@@ -1,0 +1,105 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+package ${package}.model {
+
+    import javax.validation.constraints.NotNull
+    import javax.validation.constraints.Size
+
+
+    #Serializable(1)
+    #Enum ContactType {
+        #Values(HOME = 0,BUSINESS = 1,ABROAD = 2)
+        #Attr Integer value
+    }
+
+    #Serializable(1)
+    #Enum PersonGender {
+        #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+        #Attr String value
+    }
+
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,phoneNumber,address,type)
+    // The contact information
+    #Pojo Contact {
+        #PrimaryKey #Index(1)
+        // The technical primary key
+        #Attr Long id
+        @NotNull
+        #ToInit #Required #Index(2)
+        // The owner of this contact
+        #Attr Person person
+        @NotNull
+        #Required
+        // The contact type: 0=home, 1=business, 2=abroad
+        #Attr ContactType type
+        @NotNull
+        @Size(max = 100)
+        #Required
+        // The address: city, street...
+        #Attr String address
+        @Size(max = 100)
+        #IsDef
+        // The phone number
+        #Attr String phoneNumber
+        @Size(max = 100)
+        #IsDef
+        // Any notes and remarks
+        #Attr String xNote
+    }
+
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
+    // The personal information
+    #Pojo Person {
+        #PrimaryKey #Index(1)
+        // The technical primary key
+        #Attr Long id
+        @NotNull
+        @Size(max = 100)
+        #Required
+        // The first name
+        #Attr String firstName
+        @NotNull
+        @Size(max = 100)
+        #Required #Index(2)
+        // The surname
+        #Attr String lastName
+        #IsDef
+        // The date of birth
+        #Attr java.util.Date dateOfBirth
+        @NotNull
+        #Required
+        // The gender: M=male, F=female, 0=other
+        #Attr PersonGender gender
+        @Size(max = 100)
+        #IsDef
+        // The social security number
+        #Attr String ssn
+        #ToInit
+        #Attr java.util.List <Contact> contacts
+    }
+
+    #Serializable(1) #ToString(t)
+    #Pojo AnHourBefore {
+        #Attr java.util.Date t
+    }
+
+    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
+    #Pojo NewPerson {
+        #Attr short newid
+        #Attr java.util.Date dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
+    }
+
+    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
+    #Pojo NewPersonRetRs {
+        #Attr java.util.Date dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
+    }
+}

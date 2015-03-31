@@ -28,31 +28,38 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" /-->
 
+    <bean id="validatorFactory" class="org.sample.SampleValidator.SampleValidatorFactory" />
     <bean id="sqlFactory" class="org.sqlproc.engine.jdbc.JdbcEngineFactory" init-method="init">
         <property name="metaFilesNames">
             <list>
-                <value>statements.qry</value>
+                <value>statements.meta</value>
             </list>
         </property>
         <property name="filter" value="HSQLDB" />
+        <property name="validatorFactory" ref="validatorFactory" />
     </bean>
 
-    <bean id="contactDao" class="${package}.dao.impl.ContactDaoImpl">
+    <bean id="contactDao" class="${package}.dao.ContactDao">
         <constructor-arg ref="sqlFactory"/>
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
-    <bean id="personDao" class="${package}.dao.impl.PersonDaoImpl">
+    <bean id="personDao" class="${package}.dao.PersonDao">
         <constructor-arg ref="sqlFactory"/>
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
-    <bean id="proceduresDao" class="${package}.dao.impl.ProceduresDaoImpl">
+    <bean id="anHourBeforeDao" class="${package}.dao.AnHourBeforeDao">
         <constructor-arg ref="sqlFactory"/>
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
-    <bean id="functionsDao" class="${package}.dao.impl.FunctionsDaoImpl">
+    <bean id="newPersonDao" class="${package}.dao.NewPersonDao">
+        <constructor-arg ref="sqlFactory"/>
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean id="newPersonRetRsDao" class="${package}.dao.NewPersonRetRsDao">
         <constructor-arg ref="sqlFactory"/>
         <constructor-arg ref="sessionFactory"/>
     </bean>

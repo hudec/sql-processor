@@ -65,7 +65,7 @@ public class Main {
 
     public Main() throws SQLException {
         JdbcEngineFactory factory = new JdbcEngineFactory();
-        factory.setMetaFilesNames("statements.qry");
+        factory.setMetaFilesNames("statements.meta");
         factory.setFilter(DB_TYPE);
         factory.setValidatorFactory(new SampleValidator.SampleValidatorFactory());
         this.sqlFactory = factory;

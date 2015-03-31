@@ -1,12 +1,12 @@
 SEQ_SIMPLE_SEQUENCE(OPT)=call next value for SIMPLE_SEQUENCE;
 IDSEL_COMMON(OPT)=call identity();
 
-INSERT_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER, %X_NOTE)
   {= values (:id(idgen=SIMPLE_SEQUENCE,id=ID), :person.id, :type, :address, :phoneNumber, :xNote) }
 ;
 
-GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+GET_CONTACT(CRUD,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
   select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.X_NOTE @xNote
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
   from %%CONTACT c
@@ -21,7 +21,7 @@ GET_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   }
 ;
 
-UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+UPDATE_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   update %%CONTACT
   {= set
     { ,%PERSON_ID = :person.id(call=isDef) }
@@ -35,14 +35,14 @@ UPDATE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
   }
 ;
 
-DELETE_CONTACT(CRUD,inx=Contact,outx=Contact,tab=contact)=
+DELETE_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   delete from %%CONTACT
   {= where
     {& %ID = :id(!empty) }
   }
 ;
 
-SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
+SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
   select %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.X_NOTE @xNote
          {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
   from %%CONTACT c
@@ -59,12 +59,56 @@ SELECT_CONTACT(QRY,inx=Contact,outx=Contact,tab=contact=c,tab=person=p)=
   {#2 order by %c.PERSON_ID }
 ;
 
-INSERT_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+INSERT_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  insert into %%DIGIDATA (%ID, %X_NOTE, %X_BOOL)
+  {= values (:id(idgen=COMMON,id=ID), :xNote, :xBool) }
+;
+
+GET_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  select %ID @id(id), %X_NOTE @xNote, %X_BOOL @xBool
+  from %%DIGIDATA
+  {= where
+    {& %ID ::= :id }
+    {& %X_NOTE ::= :xNote }
+    {& %X_BOOL ::= :xBool }
+  }
+;
+
+UPDATE_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  update %%DIGIDATA
+  {= set
+    { ,%X_NOTE = :xNote(call=isDef) }
+    { ,%X_BOOL = :xBool(call=isDef) }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_DIGIDATA(CRUD,in=Digidata,out=Digidata,tab=digidata)=
+  delete from %%DIGIDATA
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_DIGIDATA(QRY,in=Digidata,out=Digidata,tab=digidata)=
+  select %ID @id(id), %X_NOTE @xNote, %X_BOOL @xBool
+  from %%DIGIDATA
+  {= where
+    {& %ID ::= :id }
+    {& %X_NOTE ::= :xNote }
+    {& %X_BOOL ::= :xBool }
+  }
+  {#1 order by %ID }
+;
+
+INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
   insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
 ;
 
-GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+GET_PERSON(CRUD,in=Person,out=Person,tab=person=p,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.X_NOTE @contacts.xNote }
   from %%PERSON p
@@ -79,7 +123,7 @@ GET_PERSON(CRUD,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   }
 ;
 
-UPDATE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+UPDATE_PERSON(CRUD,in=Person,out=Person,tab=person)=
   update %%PERSON
   {= set
     { ,%FIRST_NAME = :firstName(call=isDef) }
@@ -93,14 +137,14 @@ UPDATE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
   }
 ;
 
-DELETE_PERSON(CRUD,inx=Person,outx=Person,tab=person)=
+DELETE_PERSON(CRUD,in=Person,out=Person,tab=person)=
   delete from %%PERSON
   {= where
     {& %ID = :id(!empty) }
   }
 ;
 
-SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
+SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.X_NOTE @contacts.xNote }
   from %%PERSON p
@@ -117,20 +161,20 @@ SELECT_PERSON(QRY,inx=Person,outx=Person,tab=person=p,tab=contact=c)=
   {#2 order by %p.LAST_NAME }
 ;
 
-FUN_AN_HOUR_BEFORE(CALL,inx=AnHourBefore)=
+FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
   call AN_HOUR_BEFORE(:t)
 ;
 FUN_AN_HOUR_BEFORE(OUT)=
   1$1(type=stamp)
 ;
 
-PROC_NEW_PERSON(CALL,inx=NewPerson)=
+PROC_NEW_PERSON(CALL,in=NewPerson)=
   call NEW_PERSON(:<newid, :dateOfBirth, :ssn, :firstName, :lastName, :gender)
 ;
 
-PROC_NEW_PERSON_RET_RS(CALL,inx=NewPersonRetRs)=
+PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
   call NEW_PERSON_RET_RS(:dateOfBirth, :ssn, :firstName, :lastName, :gender)
 ;
-PROC_NEW_PERSON_RET_RS(OUT,outx=Person)=
+PROC_NEW_PERSON_RET_RS(OUT,out=Person)=
   ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth GENDER$gender SSN$ssn
 ;
