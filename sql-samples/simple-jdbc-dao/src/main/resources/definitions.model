@@ -67,7 +67,6 @@ pojo BankAccount org.sqlproc.sample.simple.model.BankAccount;
 pojo BillingDetails org.sqlproc.sample.simple.model.BillingDetails;
 pojo Contact org.sqlproc.sample.simple.model.Contact;
 pojo CreditCard org.sqlproc.sample.simple.model.CreditCard;
-pojo FormSimpleFunction org.sqlproc.sample.simple.form.FormSimpleFunction;
 pojo Library org.sqlproc.sample.simple.model.Library;
 pojo Media org.sqlproc.sample.simple.model.Media;
 pojo Movie org.sqlproc.sample.simple.model.Movie;
