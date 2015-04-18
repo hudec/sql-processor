@@ -249,4 +249,6 @@ public interface SqlQuery {
      *            an indicator the failed SQL command should be logged
      */
     public void setLogError(boolean logError);
+
+    int query(SqlRuntimeContext runtimeCtx, SqlQueryProcessor sqlQueryProcessor) throws SqlProcessorException;
 }

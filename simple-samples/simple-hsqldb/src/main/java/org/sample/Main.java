@@ -15,7 +15,7 @@ import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
 import org.sample.dao.NewPersonDao;
 import org.sample.dao.NewPersonRetRsDao;
-import org.sample.dao.PersonDao;
+import org.sample.dao.PersonDaoExt;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
@@ -26,7 +26,9 @@ import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlEngineProcessor;
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
@@ -72,7 +74,7 @@ public class Main {
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
-        personDao = new PersonDao(sqlFactory, sessionFactory);
+        personDao = new PersonDaoExt(sqlFactory, sessionFactory);
         anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
         newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
         newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
@@ -84,7 +86,7 @@ public class Main {
     }
 
     private ContactDao contactDao;
-    private PersonDao personDao;
+    private PersonDaoExt personDao;
     private AnHourBeforeDao anHourBeforeDao;
     private NewPersonDao newPersonDao;
     private NewPersonRetRsDao newPersonRetRsDao;
@@ -218,6 +220,40 @@ public class Main {
         person = new Person();
         list = personDao.list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
+
+        // query people with associations
+        SqlEngineProcessor<Person> sep = new SqlEngineProcessor<Person>() {
+
+            @Override
+            public boolean processResult(Person person, int rownum) throws SqlRuntimeException {
+                if (rownum == 1)
+                    Assert.assertEquals("Andrejcek", person.getLastName());
+                else if (rownum == 2)
+                    Assert.assertEquals("Honzicek", person.getLastName());
+                else if (rownum == 3)
+                    Assert.assertEquals("Honzovsky", person.getLastName());
+                else if (rownum == 4)
+                    Assert.assertEquals("Janicek", person.getLastName());
+                else if (rownum == 4)
+                    Assert.assertEquals("Jansky", person.getLastName());
+                return true;
+            }
+        };
+        person = new Person();
+        person.setInit(Person.Association.contacts);
+        count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        Assert.assertEquals(5, count);
+        sep = new SqlEngineProcessor<Person>() {
+
+            @Override
+            public boolean processResult(Person person, int rownum) throws SqlRuntimeException {
+                if (rownum == 3)
+                    return false;
+                return true;
+            }
+        };
+        count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        Assert.assertEquals(3, count);
 
         // count
         count = personDao.count(null);

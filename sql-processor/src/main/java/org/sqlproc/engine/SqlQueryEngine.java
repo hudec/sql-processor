@@ -541,6 +541,144 @@ public class SqlQueryEngine extends SqlEngine {
     }
 
     /**
+     * Runs the META SQL query to obtain a list of database rows. This is the primary and the most complex SQL Processor
+     * execution method to obtain a list of result class instances. Criteria to pickup the correct database rows are
+     * taken from the input values.
+     * 
+     * @param session
+     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
+     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
+     *            Hibernate session.
+     * @param resultClass
+     *            The class used for the return values, the SQL query execution output. This class is also named as the
+     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
+     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
+     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
+     *            be accessible using public getters and setters. The instances of this class are created on the fly in
+     *            the process of query execution using the reflection API.
+     * @param dynamicInputValues
+     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
+     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
+     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
+     * @param sqlControl
+     *            The compound parameters controlling the META SQL execution
+     * @return The list of the resultClass instances.
+     * @throws org.sqlproc.engine.SqlProcessorException
+     *             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the input/output values handling
+     */
+    public <E> Integer query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
+            final SqlControl sqlControl, final SqlEngineProcessor<E> sqlQueryProcessor) throws SqlProcessorException,
+            SqlRuntimeException {
+        if (logger.isDebugEnabled()) {
+            logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
+                    + dynamicInputValues + ", sqlControl=" + sqlControl);
+        }
+        checkDynamicInputValues(dynamicInputValues);
+
+        Integer rownums = 0;
+
+        try {
+            rownums = monitor.run(new SqlMonitor.Runner() {
+                public Integer run() {
+                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
+                            sqlControl);
+                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                            processResult.getSql().toString());
+                    final SqlQuery query = session.createSqlQuery(sql);
+                    query.setLogError(processResult.isLogError());
+                    if (getMaxTimeout(sqlControl) > 0)
+                        query.setTimeout(getMaxTimeout(sqlControl));
+                    if (getFetchSize(sqlControl) > 0)
+                        query.setFetchSize(getFetchSize(sqlControl));
+                    query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
+                    processResult.setQueryParams(session, query);
+                    final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
+                    mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
+
+                    if (getFirstResult(sqlControl) > 0) {
+                        query.setFirstResult(getFirstResult(sqlControl));
+                        query.setMaxResults(getMaxResults(sqlControl));
+                    } else if (getMaxResults(sqlControl) > 0) {
+                        query.setMaxResults(getMaxResults(sqlControl));
+                    }
+
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer run() {
+                                return query(query, mappingResult, resultClass, sqlControl, sqlQueryProcessor);
+                            }
+                        }, Integer.class);
+                    } else {
+                        return query(query, mappingResult, resultClass, sqlControl, sqlQueryProcessor);
+                    }
+                }
+            }, Integer.class);
+            return rownums;
+        } finally {
+            if (logger.isDebugEnabled()) {
+                logger.debug("<< query, result=" + rownums);
+            }
+        }
+    }
+
+    private static class RownumsHolder {
+        Integer rownums = 0;
+    }
+
+    private <E> Integer query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
+            final SqlControl sqlControl, final SqlEngineProcessor<E> sqlQueryProcessor) {
+
+        final Map<String, Object> ids = mappingResult.getIds();
+        final RownumsHolder rownums = new RownumsHolder();
+
+        query.query(mappingResult.getRuntimeContext(), new SqlQueryProcessor() {
+
+            @Override
+            public boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException {
+                E resultInstance = null;
+
+                Object[] resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
+                        : (new Object[] { resultRow });
+
+                boolean changedIdentity = true;
+                if (ids != null) {
+                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                    if (ids.containsKey(idsKey)) {
+                        resultInstance = (E) ids.get(idsKey);
+                        changedIdentity = false;
+                    }
+                }
+
+                if (changedIdentity) {
+                    resultInstance = BeanUtils.getInstance(resultClass);
+                    if (resultInstance == null) {
+                        throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                    }
+                }
+
+                mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
+
+                if (changedIdentity) {
+                    ++rownums.rownums;
+                    if (!sqlQueryProcessor.processResult(resultInstance, rownum))
+                        return false;
+                    if (ids != null) {
+                        String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                        ids.put(idsKey, resultInstance);
+                    }
+                }
+
+                return true;
+            }
+
+        });
+        return rownums.rownums;
+    }
+
+    /**
      * Runs the META SQL query to obtain the number of database rows. This is one of the overriden methods. For the
      * parameters description please see the most complex execution method
      * {@link #queryCount(SqlSession, Object, Object, SqlOrder, int)} .

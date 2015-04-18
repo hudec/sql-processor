@@ -45,17 +45,6 @@ package org.sample.model {
         #Attr String xNote
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,xBool)
-    #Pojo Digidata {
-        #PrimaryKey #Index(1)
-        #Attr Long id
-        @Size(max = 100)
-        #IsDef
-        #Attr String xNote
-        #IsDef
-        #Attr Boolean xBool
-    }
-
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
     // The personal information
     #Pojo Person {

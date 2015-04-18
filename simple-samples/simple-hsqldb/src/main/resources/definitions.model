@@ -74,6 +74,3 @@ pojo Contact org.sample.model.Contact;
 pojo NewPerson org.sample.model.NewPerson;
 pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
 pojo Person org.sample.model.Person;
-
-table digidata DIGIDATA;
-pojo Digidata org.sample.model.Digidata;

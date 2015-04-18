@@ -30,6 +30,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlQueryProcessor;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
@@ -962,4 +963,11 @@ public class SpringQuery implements SqlQuery {
     public void setLogError(boolean logError) {
         this.logError = logError;
     }
+
+    @Override
+    public int query(SqlRuntimeContext runtimeCtx, SqlQueryProcessor sqlQueryProcessor) throws SqlProcessorException {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
 }

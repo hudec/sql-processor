@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
+import org.sqlproc.engine.SqlQueryProcessor;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
@@ -119,6 +120,8 @@ public class JdbcQuery implements SqlQuery {
      * The failed SQL command should be logged.
      */
     boolean logError;
+
+    private static final Object NO_MORE_DATA = new Object();
 
     /**
      * Creates a new instance of this adapter.
@@ -253,6 +256,61 @@ public class JdbcQuery implements SqlQuery {
             }
         }
         return first;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int query(final SqlRuntimeContext runtimeCtx, SqlQueryProcessor sqlQueryProcessor)
+            throws SqlProcessorException {
+        StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
+                .getSqlFromToPlugin()
+                .limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered) : null;
+        final String query = limitType != null ? queryResult.toString() : queryString;
+        if (logger.isDebugEnabled()) {
+            logger.debug("list, query=" + query);
+        }
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int rownum = 0;
+        try {
+            ps = connection.prepareStatement(query);
+            if (timeout != null)
+                ps.setQueryTimeout(timeout);
+            if (fetchSize != null)
+                ps.setFetchSize(fetchSize);
+            setParameters(ps, limitType, 1);
+            rs = ps.executeQuery();
+            if (fetchSize != null)
+                rs.setFetchSize(fetchSize);
+            for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs)) {
+                ++rownum;
+                if (!sqlQueryProcessor.processRow(oo, rownum))
+                    break;
+            }
+            if (logger.isDebugEnabled()) {
+                logger.debug("list, number of returned rows=" + rownum);
+            }
+            return rownum;
+        } catch (SQLException ex) {
+            throw newSqlProcessorException(ex, query);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
     }
 
     /**
@@ -836,7 +894,24 @@ public class JdbcQuery implements SqlQuery {
         List result = new ArrayList();
         if (rs == null)
             return result;
-        while (rs.next()) {
+        for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs))
+            result.add(oo);
+        return result;
+    }
+
+    /**
+     * Gets the value of the designated columns as the objects in the Java programming language.
+     * 
+     * @param rs
+     *            an instance of ResultSet
+     * @return the result object for one row
+     * @throws SQLException
+     *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
+     */
+    protected Object getOneResult(ResultSet rs) throws SQLException {
+        if (rs == null)
+            return NO_MORE_DATA;
+        if (rs.next()) {
             List<Object> row = new ArrayList<Object>();
             for (int i = 0, n = scalars.size(); i < n; i++) {
                 String name = scalars.get(i);
@@ -853,11 +928,11 @@ public class JdbcQuery implements SqlQuery {
             }
             Object[] oo = row.toArray();
             if (oo.length == 1)
-                result.add(oo[0]);
+                return oo[0];
             else
-                result.add(oo);
+                return oo;
         }
-        return result;
+        return NO_MORE_DATA;
     }
 
     /**
