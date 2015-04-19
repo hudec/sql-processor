@@ -230,16 +230,15 @@ public class Main {
 
             @Override
             public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
-                System.out.println(rownum + " " + person.getLastName());
                 if (rownum == 1)
                     Assert.assertEquals("Andrejcek", person.getLastName());
                 else if (rownum == 2)
                     Assert.assertEquals("Honzicek", person.getLastName());
                 else if (rownum == 3)
                     Assert.assertEquals("Honzovsky", person.getLastName());
-                else if (rownum == 5)
+                else if (rownum == 4)
                     Assert.assertEquals("Janicek", person.getLastName());
-                else if (rownum == 6)
+                else if (rownum == 5)
                     Assert.assertEquals("Jansky", person.getLastName());
                 return true;
             }

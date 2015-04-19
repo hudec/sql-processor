@@ -490,13 +490,13 @@ public class SqlQueryEngine extends SqlEngine {
      * Internal query implementation
      * 
      * @param query
-     *            query
+     *            SQL query
      * @param mappingResult
-     *            mappingResult
+     *            output value mappings
      * @param resultClass
-     *            resultClass
+     *            resultClass for output value
      * @param sqlControl
-     *            sqlCOntrol
+     *            META SQL execution control
      * @return the result
      */
     private <E> List<E> query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
@@ -632,8 +632,23 @@ public class SqlQueryEngine extends SqlEngine {
         Integer rownums = 0;
     }
 
+    /**
+     * Internal query implementation
+     * 
+     * @param query
+     *            SQL query
+     * @param mappingResult
+     *            output value mappings
+     * @param resultClass
+     *            resultClass for output value
+     * @param sqlControl
+     *            META SQL execution control
+     * @param sqlRowProcessor
+     *            callback row processor
+     * @return the result
+     */
     private <E> Integer query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
-            final SqlControl sqlControl, final SqlRowProcessor<E> sqlQueryProcessor) {
+            final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor) {
 
         final Map<String, Object> ids = mappingResult.getIds();
         final RownumsHolder rownums = new RownumsHolder();
@@ -667,7 +682,7 @@ public class SqlQueryEngine extends SqlEngine {
 
                 if (changedIdentity) {
                     ++rownums.rownums;
-                    if (!sqlQueryProcessor.processRow(resultInstance, rownum))
+                    if (!sqlRowProcessor.processRow(resultInstance, rownums.rownums))
                         return false;
                     if (ids != null) {
                         String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
