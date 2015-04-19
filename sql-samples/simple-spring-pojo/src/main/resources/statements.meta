@@ -156,7 +156,7 @@ ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,in=Subscriber,out=Subscriber,tab=subscriber=
   }
   {#1 order by %s.ID, %bd.ID}
 ;
-  
+
 SIMPLE_FUNCTION(CALL,in=FormSimpleFunction)=
   call an_hour_before(:time)
 ;

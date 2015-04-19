@@ -121,6 +121,9 @@ public class JdbcQuery implements SqlQuery {
      */
     boolean logError;
 
+    /**
+     * The indicator there are no more data in ResultSet.
+     */
     private static final Object NO_MORE_DATA = new Object();
 
     /**
@@ -900,7 +903,7 @@ public class JdbcQuery implements SqlQuery {
     }
 
     /**
-     * Gets the value of the designated columns for one database row as the objects in the Java programming language.
+     * Gets the value of the designated columns for one database row as the object in the Java programming language.
      * 
      * @param rs
      *            an instance of ResultSet

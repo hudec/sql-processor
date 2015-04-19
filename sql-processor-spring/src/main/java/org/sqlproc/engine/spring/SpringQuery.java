@@ -132,6 +132,11 @@ public class SpringQuery implements SqlQuery {
     boolean logError;
 
     /**
+     * The indicator there are no more data in ResultSet.
+     */
+    private static final Object NO_MORE_DATA = new Object();
+
+    /**
      * Creates a new instance of this adapter.
      * 
      * @param jdbcTemplate
@@ -202,7 +207,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin()
@@ -253,7 +258,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public Object unique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         List list = list(runtimeCtx);
         int size = list.size();
         if (size == 0)
@@ -272,16 +277,65 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int query(SqlRuntimeContext runtimeCtx, SqlQueryRowProcessor sqlQueryRowProcessor)
+    public int query(final SqlRuntimeContext runtimeCtx, final SqlQueryRowProcessor sqlQueryRowProcessor)
             throws SqlProcessorException {
-        throw new UnsupportedOperationException();
+        final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
+                .getSqlFromToPlugin()
+                .limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered) : null;
+        final String query = limitType != null ? queryResult.toString() : queryString;
+        if (logger.isDebugEnabled()) {
+            logger.debug("list, query=" + query);
+        }
+
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement(query);
+                if (timeout != null)
+                    ps.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    ps.setFetchSize(fetchSize);
+                return ps;
+            }
+        };
+        PreparedStatementSetter pss = new PreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps) throws SQLException {
+                setParameters(ps, limitType, 1);
+            }
+        };
+        ResultSetExtractor<Integer> rse = new ResultSetExtractor<Integer>() {
+            @Override
+            public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
+                int rownum = 0;
+                for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs)) {
+                    ++rownum;
+                    if (!sqlQueryRowProcessor.processRow(oo, rownum))
+                        break;
+                }
+                return rownum;
+            }
+        };
+
+        try {
+            Integer rownums = jdbcTemplate.query(psc, pss, rse);
+            if (logger.isDebugEnabled()) {
+                logger.debug("list, number of returned rows=" + rownums);
+            }
+            return rownums;
+        } catch (DataAccessException ex) {
+            throw newSqlProcessorException(ex, query);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int update(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public int update(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
@@ -396,7 +450,7 @@ public class SpringQuery implements SqlQuery {
      * @param statement
      *            statement to retrieve auto-generated keys from
      */
-    private void getGeneratedKeys(String identityName, Statement statement) {
+    private void getGeneratedKeys(final String identityName, final Statement statement) {
         IdentitySetter identitySetter = identitySetters.get(identityName);
         Object identityType = identityTypes.get(identityName);
         if (logger.isDebugEnabled()) {
@@ -499,7 +553,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public List callList(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
@@ -572,7 +626,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public Object callUnique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         List list = callList(runtimeCtx);
         int size = list.size();
         if (size == 0)
@@ -591,7 +645,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int callUpdate(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public int callUpdate(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callUpdate, query=" + queryString);
         }
@@ -704,7 +758,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery addScalar(String columnAlias) {
+    public SqlQuery addScalar(final String columnAlias) {
         scalars.add(columnAlias);
         return this;
     }
@@ -713,7 +767,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery addScalar(String columnAlias, Object type) {
+    public SqlQuery addScalar(final String columnAlias, final Object type) {
         scalars.add(columnAlias);
         scalarTypes.put(columnAlias, type);
         return this;
@@ -723,7 +777,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameter(String name, Object val) throws SqlProcessorException {
+    public SqlQuery setParameter(final String name, final Object val) throws SqlProcessorException {
         parameters.add(name);
         parameterValues.put(name, val);
         return this;
@@ -733,7 +787,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameter(String name, Object val, Object type) throws SqlProcessorException {
+    public SqlQuery setParameter(final String name, final Object val, final Object type) throws SqlProcessorException {
         if (val != null && val instanceof IdentitySetter) {
             identities.add(name);
             identitySetters.put(name, (IdentitySetter) val);
@@ -757,7 +811,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameterList(String name, Object[] vals) throws SqlProcessorException {
+    public SqlQuery setParameterList(final String name, final Object[] vals) throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
@@ -765,7 +819,8 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameterList(String name, Object[] vals, Object type) throws SqlProcessorException {
+    public SqlQuery setParameterList(final String name, final Object[] vals, final Object type)
+            throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
@@ -781,7 +836,7 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
-    protected void setParameters(PreparedStatement ps, SqlFromToPlugin.LimitType limitType, int start)
+    protected void setParameters(final PreparedStatement ps, final SqlFromToPlugin.LimitType limitType, final int start)
             throws SQLException {
         int ix = start;
         ix = setLimits(ps, limitType, ix, false);
@@ -834,8 +889,8 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
      */
-    protected int setLimits(PreparedStatement ps, SqlFromToPlugin.LimitType limitType, int ix, boolean afterSql)
-            throws SQLException {
+    protected int setLimits(final PreparedStatement ps, final SqlFromToPlugin.LimitType limitType, int ix,
+            boolean afterSql) throws SQLException {
         if (limitType == null)
             return ix;
         if (afterSql && !limitType.afterSql)
@@ -871,7 +926,7 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
      */
-    protected Object getParameters(CallableStatement cs, boolean isFunction) throws SQLException {
+    protected Object getParameters(final CallableStatement cs, boolean isFunction) throws SQLException {
 
         Object result = null;
         boolean resultInited = false;
@@ -910,11 +965,28 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
      */
-    protected List getResults(ResultSet rs) throws SQLException {
+    protected List getResults(final ResultSet rs) throws SQLException {
         List result = new ArrayList();
         if (rs == null)
             return result;
-        while (rs.next()) {
+        for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs))
+            result.add(oo);
+        return result;
+    }
+
+    /**
+     * Gets the value of the designated columns for one database row as the object in the Java programming language.
+     * 
+     * @param rs
+     *            an instance of ResultSet
+     * @return the result object for one row
+     * @throws SQLException
+     *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
+     */
+    protected Object getOneResult(final ResultSet rs) throws SQLException {
+        if (rs == null)
+            return NO_MORE_DATA;
+        if (rs.next()) {
             List<Object> row = new ArrayList<Object>();
             for (int i = 0, n = scalars.size(); i < n; i++) {
                 String name = scalars.get(i);
@@ -931,18 +1003,18 @@ public class SpringQuery implements SqlQuery {
             }
             Object[] oo = row.toArray();
             if (oo.length == 1)
-                result.add(oo[0]);
+                return oo[0];
             else
-                result.add(oo);
+                return oo;
         }
-        return result;
+        return NO_MORE_DATA;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int[] executeBatch(String[] statements) throws SqlProcessorException {
+    public int[] executeBatch(final String[] statements) throws SqlProcessorException {
         try {
             int[] result = jdbcTemplate.batchUpdate(statements);
             if (logger.isDebugEnabled()) {
