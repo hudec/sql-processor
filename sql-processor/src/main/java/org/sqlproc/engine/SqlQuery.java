@@ -2,6 +2,8 @@ package org.sqlproc.engine;
 
 import java.util.List;
 
+import org.sqlproc.engine.annotation.Beta;
+
 /**
  * The SQL Engine query contract definition. In fact it's an adapter or a proxy to an internal stuff in one of the
  * stacks on top of which the SQL Processor works.
@@ -92,6 +94,20 @@ public interface SqlQuery {
      *             in the case of any problem in ORM or JDBC stack
      */
     Object unique(SqlRuntimeContext runtime) throws SqlProcessorException;
+
+    /**
+     * Process the query output using the {@link SqlQueryRowProcessor}.
+     * 
+     * @param runtime
+     *            the public runtime context
+     * @param sqlQueryRowProcessor
+     *            the callback designated to process every database row
+     * @return the total number of processed database rows
+     * @throws SqlProcessorException
+     *             in the case of any problem in ORM or JDBC stack
+     */
+    @Beta
+    int query(SqlRuntimeContext runtime, SqlQueryRowProcessor sqlQueryRowProcessor) throws SqlProcessorException;
 
     /**
      * Executes the update, delete or insert statement.
@@ -249,6 +265,4 @@ public interface SqlQuery {
      *            an indicator the failed SQL command should be logged
      */
     public void setLogError(boolean logError);
-
-    int query(SqlRuntimeContext runtimeCtx, SqlQueryProcessor sqlQueryProcessor) throws SqlProcessorException;
 }

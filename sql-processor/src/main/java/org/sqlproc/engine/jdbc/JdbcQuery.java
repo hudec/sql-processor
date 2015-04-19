@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.SqlQueryProcessor;
+import org.sqlproc.engine.SqlQueryRowProcessor;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
@@ -262,7 +262,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public int query(final SqlRuntimeContext runtimeCtx, SqlQueryProcessor sqlQueryProcessor)
+    public int query(final SqlRuntimeContext runtimeCtx, SqlQueryRowProcessor sqlQueryRowProcessor)
             throws SqlProcessorException {
         StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
@@ -288,7 +288,7 @@ public class JdbcQuery implements SqlQuery {
                 rs.setFetchSize(fetchSize);
             for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs)) {
                 ++rownum;
-                if (!sqlQueryProcessor.processRow(oo, rownum))
+                if (!sqlQueryRowProcessor.processRow(oo, rownum))
                     break;
             }
             if (logger.isDebugEnabled()) {
@@ -900,7 +900,7 @@ public class JdbcQuery implements SqlQuery {
     }
 
     /**
-     * Gets the value of the designated columns as the objects in the Java programming language.
+     * Gets the value of the designated columns for one database row as the objects in the Java programming language.
      * 
      * @param rs
      *            an instance of ResultSet

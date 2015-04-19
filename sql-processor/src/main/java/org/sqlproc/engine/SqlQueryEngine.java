@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.sqlproc.engine.annotation.Beta;
 import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
@@ -541,9 +542,9 @@ public class SqlQueryEngine extends SqlEngine {
     }
 
     /**
-     * Runs the META SQL query to obtain a list of database rows. This is the primary and the most complex SQL Processor
-     * execution method to obtain a list of result class instances. Criteria to pickup the correct database rows are
-     * taken from the input values.
+     * Runs the META SQL query to process the query output using {@link SqlRowProcessor}. This is the primary and the
+     * most complex SQL Processor execution method to obtain result class instance for every database row and process
+     * this output. Criteria to pickup the correct database rows are taken from the input values.
      * 
      * @param session
      *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
@@ -562,14 +563,17 @@ public class SqlQueryEngine extends SqlEngine {
      *            parameters settled into the SQL prepared statement are picked up using the reflection API.
      * @param sqlControl
      *            The compound parameters controlling the META SQL execution
-     * @return The list of the resultClass instances.
+     * @param sqlRowProcessor
+     *            The callback designated to process every database row after transformation into result class instance
+     * @return The total number of processed database rows.
      * @throws org.sqlproc.engine.SqlProcessorException
      *             in the case of any problem with ORM or JDBC stack
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
+    @Beta
     public <E> Integer query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
-            final SqlControl sqlControl, final SqlEngineProcessor<E> sqlQueryProcessor) throws SqlProcessorException,
+            final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor) throws SqlProcessorException,
             SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
@@ -608,11 +612,11 @@ public class SqlQueryEngine extends SqlEngine {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
                             public Integer run() {
-                                return query(query, mappingResult, resultClass, sqlControl, sqlQueryProcessor);
+                                return query(query, mappingResult, resultClass, sqlControl, sqlRowProcessor);
                             }
                         }, Integer.class);
                     } else {
-                        return query(query, mappingResult, resultClass, sqlControl, sqlQueryProcessor);
+                        return query(query, mappingResult, resultClass, sqlControl, sqlRowProcessor);
                     }
                 }
             }, Integer.class);
@@ -629,12 +633,12 @@ public class SqlQueryEngine extends SqlEngine {
     }
 
     private <E> Integer query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
-            final SqlControl sqlControl, final SqlEngineProcessor<E> sqlQueryProcessor) {
+            final SqlControl sqlControl, final SqlRowProcessor<E> sqlQueryProcessor) {
 
         final Map<String, Object> ids = mappingResult.getIds();
         final RownumsHolder rownums = new RownumsHolder();
 
-        query.query(mappingResult.getRuntimeContext(), new SqlQueryProcessor() {
+        query.query(mappingResult.getRuntimeContext(), new SqlQueryRowProcessor() {
 
             @Override
             public boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException {
@@ -663,7 +667,7 @@ public class SqlQueryEngine extends SqlEngine {
 
                 if (changedIdentity) {
                     ++rownums.rownums;
-                    if (!sqlQueryProcessor.processResult(resultInstance, rownum))
+                    if (!sqlQueryProcessor.processRow(resultInstance, rownum))
                         return false;
                     if (ids != null) {
                         String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
