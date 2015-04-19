@@ -471,10 +471,10 @@ public class Main {
                     Assert.assertEquals("Honzíček", person.getLastName());
                 else if (rownum == 3)
                     Assert.assertEquals("Honzovský", person.getLastName());
-                else if (rownum == 4)
-                    Assert.assertEquals("Janicek", person.getLastName());
                 else if (rownum == 5)
-                    Assert.assertEquals("Jansky", person.getLastName());
+                    Assert.assertEquals("Janíček", person.getLastName());
+                else if (rownum == 6)
+                    Assert.assertEquals("Jánský", person.getLastName());
                 return true;
             }
         };

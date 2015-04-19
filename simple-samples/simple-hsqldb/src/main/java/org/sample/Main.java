@@ -213,7 +213,11 @@ public class Main {
         person.setInit(Person.Association.contacts);
         list = personDao.list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
+        Assert.assertEquals("Andrejcek", list.get(0).getLastName());
         Assert.assertEquals("Honzicek", list.get(1).getLastName());
+        Assert.assertEquals("Honzovsky", list.get(2).getLastName());
+        Assert.assertEquals("Janicek", list.get(3).getLastName());
+        Assert.assertEquals("Jansky", list.get(4).getLastName());
         list = personDao.list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzovsky", list.get(2).getLastName());
@@ -233,9 +237,9 @@ public class Main {
                     Assert.assertEquals("Honzicek", person.getLastName());
                 else if (rownum == 3)
                     Assert.assertEquals("Honzovsky", person.getLastName());
-                else if (rownum == 4)
-                    Assert.assertEquals("Janicek", person.getLastName());
                 else if (rownum == 5)
+                    Assert.assertEquals("Janicek", person.getLastName());
+                else if (rownum == 6)
                     Assert.assertEquals("Jansky", person.getLastName());
                 return true;
             }
