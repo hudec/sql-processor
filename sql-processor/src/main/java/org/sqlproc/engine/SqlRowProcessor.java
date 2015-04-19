@@ -24,7 +24,7 @@ public interface SqlRowProcessor<E> {
      * @param result
      *            The result class instance. The object representation of the database row.
      * @param rownum
-     *            The database row number.
+     *            The database row number starting from 1.
      * @return True to continue processing, false to stop.
      */
     boolean processRow(E result, int rownum) throws SqlRuntimeException;
