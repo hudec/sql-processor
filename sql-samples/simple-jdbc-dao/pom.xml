@@ -17,11 +17,12 @@
     <properties>
         <version.sql-processor>2.5.4-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
+        <version.spring>3.1.2.RELEASE</version.spring>
+        <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.2</version.slf4j>
         <version.junit>4.10</version.junit>
         <version.hsqldb>2.2.9</version.hsqldb>
-        <version.oracle>10.2.0.4</version.oracle>
     </properties>
 
     <build>
@@ -124,6 +125,28 @@
             <groupId>org.sqlproc</groupId>
             <artifactId>sql-processor</artifactId>
             <version>${version.sql-processor}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.sqlproc</groupId>
+            <artifactId>sql-processor-spring</artifactId>
+            <version>${version.sql-processor}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${version.spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${version.commons-dbcp}</version>
         </dependency>
 
         <dependency>

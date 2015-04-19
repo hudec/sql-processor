@@ -226,6 +226,7 @@ public class Main {
 
             @Override
             public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
+                System.out.println(rownum + " " + person.getLastName());
                 if (rownum == 1)
                     Assert.assertEquals("Andrejcek", person.getLastName());
                 else if (rownum == 2)
@@ -234,7 +235,7 @@ public class Main {
                     Assert.assertEquals("Honzovsky", person.getLastName());
                 else if (rownum == 4)
                     Assert.assertEquals("Janicek", person.getLastName());
-                else if (rownum == 4)
+                else if (rownum == 5)
                     Assert.assertEquals("Jansky", person.getLastName());
                 return true;
             }

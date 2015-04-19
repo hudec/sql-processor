@@ -1,7 +1,5 @@
 package org.sqlproc.sample.simple;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -10,13 +8,14 @@ import java.util.List;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRowProcessor;
+import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.engine.impl.SqlStandardControl;
-import org.sqlproc.engine.jdbc.JdbcEngineFactory;
-import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.dao.BankAccountDao;
 import org.sqlproc.sample.simple.dao.ContactDao;
@@ -26,22 +25,10 @@ import org.sqlproc.sample.simple.dao.MovieDao;
 import org.sqlproc.sample.simple.dao.NewBookDao;
 import org.sqlproc.sample.simple.dao.PaymentDao;
 import org.sqlproc.sample.simple.dao.PerformerDao;
-import org.sqlproc.sample.simple.dao.PersonDao;
 import org.sqlproc.sample.simple.dao.PersonLibraryDao;
 import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
 import org.sqlproc.sample.simple.dao.SubscriberDao;
-import org.sqlproc.sample.simple.dao.impl.BankAccountDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.ContactDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.CreditCardDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.LibraryDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.MovieDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.NewBookDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.PaymentDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.PerformerDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.PersonDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.PersonLibraryDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.PhysicalMediaDaoImpl;
-import org.sqlproc.sample.simple.dao.impl.SubscriberDaoImpl;
+import org.sqlproc.sample.simple.dao.impl.PersonDaoExt;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
@@ -56,48 +43,33 @@ import org.sqlproc.sample.simple.model.PersonLibrary;
 import org.sqlproc.sample.simple.model.PhoneNumber;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
 import org.sqlproc.sample.simple.model.Subscriber;
-import org.sqlproc.sample.simple.type.PhoneNumberType;
 
 public class Main {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private Connection connection;
     private SqlSessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
     private List<String> ddls;
 
-    static {
-        try {
-            DriverManager.registerDriver(new org.hsqldb.jdbcDriver());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public Main() throws SQLException {
-        JdbcEngineFactory factory = new JdbcEngineFactory();
-        factory.setMetaFilesNames("statements.meta");
-        factory.addCustomType(new PhoneNumberType());
-        factory.setFilter(SqlFeature.HSQLDB);
-        this.sqlFactory = factory;
-
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        sessionFactory = context.getBean("sessionFactory", SqlSessionFactory.class);
+        sqlFactory = context.getBean("sqlFactory", SqlEngineFactory.class);
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
-        connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");
-        sessionFactory = new JdbcSessionFactory(connection);
 
-        bankAccountDao = new BankAccountDaoImpl(sqlFactory, sessionFactory);
-        bookDao = new NewBookDaoImpl(sqlFactory, sessionFactory);
-        contactDao = new ContactDaoImpl(sqlFactory, sessionFactory);
-        creditCardDao = new CreditCardDaoImpl(sqlFactory, sessionFactory);
-        libraryDao = new LibraryDaoImpl(sqlFactory, sessionFactory);
-        movieDao = new MovieDaoImpl(sqlFactory, sessionFactory);
-        personDao = new PersonDaoImpl(sqlFactory, sessionFactory);
-        performerDao = new PerformerDaoImpl(sqlFactory, sessionFactory);
-        personLibraryDao = new PersonLibraryDaoImpl(sqlFactory, sessionFactory);
-        subscriberDao = new SubscriberDaoImpl(sqlFactory, sessionFactory);
-        physicalMediaDao = new PhysicalMediaDaoImpl(sqlFactory, sessionFactory);
-        paymentDao = new PaymentDaoImpl(sqlFactory, sessionFactory);
+        bankAccountDao = context.getBean("bankAccountDao", BankAccountDao.class);
+        bookDao = context.getBean("bookDao", NewBookDao.class);
+        contactDao = context.getBean("contactDao", ContactDao.class);
+        creditCardDao = context.getBean("creditCardDao", CreditCardDao.class);
+        libraryDao = context.getBean("libraryDao", LibraryDao.class);
+        movieDao = context.getBean("movieDao", MovieDao.class);
+        personDao = context.getBean("personDao", PersonDaoExt.class);
+        performerDao = context.getBean("performerDao", PerformerDao.class);
+        personLibraryDao = context.getBean("personLibraryDao", PersonLibraryDao.class);
+        subscriberDao = context.getBean("subscriberDao", SubscriberDao.class);
+        physicalMediaDao = context.getBean("physicalMediaDao", PhysicalMediaDao.class);
+        paymentDao = context.getBean("paymentDao", PaymentDao.class);
     }
 
     public void setupDb() throws SQLException {
@@ -111,7 +83,7 @@ public class Main {
     private CreditCardDao creditCardDao;
     private LibraryDao libraryDao;
     private MovieDao movieDao;
-    private PersonDao personDao;
+    private PersonDaoExt personDao;
     private PerformerDao performerDao;
     private PersonLibraryDao personLibraryDao;
     private SubscriberDao subscriberDao;
@@ -487,6 +459,41 @@ public class Main {
                 .setMaxResults(2));
         Assert.assertEquals(2, list.size());
 
+        // query people with associations
+        SqlRowProcessor<Person> sep = new SqlRowProcessor<Person>() {
+
+            @Override
+            public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
+                System.out.println(rownum + " " + person.getLastName());
+                if (rownum == 1)
+                    Assert.assertEquals("Andrejček", person.getLastName());
+                else if (rownum == 2)
+                    Assert.assertEquals("Honzíček", person.getLastName());
+                else if (rownum == 3)
+                    Assert.assertEquals("Honzovský", person.getLastName());
+                else if (rownum == 4)
+                    Assert.assertEquals("Janicek", person.getLastName());
+                else if (rownum == 5)
+                    Assert.assertEquals("Jansky", person.getLastName());
+                return true;
+            }
+        };
+        person = new Person();
+        person.setInit(Person.Association.contacts);
+        count = main.personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        Assert.assertEquals(5, count);
+        sep = new SqlRowProcessor<Person>() {
+
+            @Override
+            public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
+                if (rownum == 3)
+                    return false;
+                return true;
+            }
+        };
+        count = main.personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        Assert.assertEquals(3, count);
+
         // delete
         count = main.personDao.delete(jan);
         Assert.assertEquals(1, count);
@@ -494,10 +501,10 @@ public class Main {
         Assert.assertEquals(1, count);
         count = main.movieDao.delete(movie1);
         Assert.assertEquals(1, count);
-        creditCard1.setVersion(creditCard.getVersion()+1);
+        creditCard1.setVersion(creditCard.getVersion() + 1);
         count = main.creditCardDao.delete(creditCard1);
         Assert.assertEquals(1, count);
-        bankAccount1.setVersion(bankAccount1.getVersion()+1);
+        bankAccount1.setVersion(bankAccount1.getVersion() + 1);
         count = main.bankAccountDao.delete(bankAccount1);
         Assert.assertEquals(1, count);
         count = main.libraryDao.delete(lib);
