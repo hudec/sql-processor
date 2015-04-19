@@ -3,7 +3,7 @@ package org.sample.dao;
 import org.sample.model.Person;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlEngineProcessor;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
@@ -22,7 +22,7 @@ public class PersonDaoExt extends PersonDao {
     }
 
     public int query(final SqlSession sqlSession, final Person person, SqlControl sqlControl,
-            final SqlEngineProcessor<Person> sqlEngineProcessor) {
+            final SqlRowProcessor<Person> sqlEngineProcessor) {
         if (logger.isTraceEnabled()) {
             logger.trace("sql list person: " + person + " " + sqlControl);
         }
@@ -35,16 +35,15 @@ public class PersonDaoExt extends PersonDao {
         return rownums;
     }
 
-    public int query(final Person person, SqlControl sqlControl, final SqlEngineProcessor<Person> sqlEngineProcessor) {
+    public int query(final Person person, SqlControl sqlControl, final SqlRowProcessor<Person> sqlEngineProcessor) {
         return query(sqlSessionFactory.getSqlSession(), person, sqlControl, sqlEngineProcessor);
     }
 
-    public int query(final SqlSession sqlSession, final Person person,
-            final SqlEngineProcessor<Person> sqlEngineProcessor) {
+    public int query(final SqlSession sqlSession, final Person person, final SqlRowProcessor<Person> sqlEngineProcessor) {
         return query(sqlSession, person, null, sqlEngineProcessor);
     }
 
-    public int query(final Person person, final SqlEngineProcessor<Person> sqlEngineProcessor) {
+    public int query(final Person person, final SqlRowProcessor<Person> sqlEngineProcessor) {
         return query(person, null, sqlEngineProcessor);
     }
 }

@@ -148,7 +148,7 @@ public class Contact implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
+    return "Contact [address=" + address + ", id=" + id + ", phoneNumber=" + phoneNumber + ", type=" + type + ", xNote=" + xNote + "]";
   }
   
   public String toStringFull() {

@@ -26,8 +26,8 @@ import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
-import org.sqlproc.engine.SqlEngineProcessor;
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
@@ -222,10 +222,10 @@ public class Main {
         Assert.assertEquals(2, list.size());
 
         // query people with associations
-        SqlEngineProcessor<Person> sep = new SqlEngineProcessor<Person>() {
+        SqlRowProcessor<Person> sep = new SqlRowProcessor<Person>() {
 
             @Override
-            public boolean processResult(Person person, int rownum) throws SqlRuntimeException {
+            public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
                 if (rownum == 1)
                     Assert.assertEquals("Andrejcek", person.getLastName());
                 else if (rownum == 2)
@@ -243,10 +243,10 @@ public class Main {
         person.setInit(Person.Association.contacts);
         count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
         Assert.assertEquals(5, count);
-        sep = new SqlEngineProcessor<Person>() {
+        sep = new SqlRowProcessor<Person>() {
 
             @Override
-            public boolean processResult(Person person, int rownum) throws SqlRuntimeException {
+            public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
                 if (rownum == 3)
                     return false;
                 return true;

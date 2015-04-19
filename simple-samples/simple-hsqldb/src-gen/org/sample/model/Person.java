@@ -165,7 +165,7 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + "]";
+    return "Person [dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", gender=" + gender + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + "]";
   }
   
   public String toStringFull() {
