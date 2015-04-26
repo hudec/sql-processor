@@ -653,7 +653,7 @@ public class SqlQueryEngine extends SqlEngine {
         final Map<String, Object> ids = mappingResult.getIds();
         final RownumsHolder rownums = new RownumsHolder();
 
-        query.query(mappingResult.getRuntimeContext(), new SqlQueryRowProcessor() {
+        query.query(mappingResult.getRuntimeContext(), new SqlQuery.SqlQueryRowProcessor() {
 
             @Override
             public boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException {

@@ -30,7 +30,6 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.SqlQueryRowProcessor;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.jdbc.type.JdbcSqlType;
