@@ -124,7 +124,7 @@ public class Contact extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", version=" + version + "]";
+    return "Contact [id=" + id + ", address=" + address + ", phoneNumber=" + phoneNumber + ", version=" + version + "]";
   }
   
   public String toStringFull() {

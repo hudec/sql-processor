@@ -68,21 +68,6 @@ public class Library extends BaseModelImpl implements Serializable {
     return this;
   }
   
-  private List<Subscriber> subscribers = new java.util.ArrayList<Subscriber>();
-  
-  public List<Subscriber> getSubscribers() {
-    return this.subscribers;
-  }
-  
-  public void setSubscribers(final List<Subscriber> subscribers) {
-    this.subscribers = subscribers;
-  }
-  
-  public Library _setSubscribers(final List<Subscriber> subscribers) {
-    this.subscribers = subscribers;
-    return this;
-  }
-  
   private List<PhysicalMedia> catalog = new java.util.ArrayList<PhysicalMedia>();
   
   public List<PhysicalMedia> getCatalog() {
@@ -95,6 +80,21 @@ public class Library extends BaseModelImpl implements Serializable {
   
   public Library _setCatalog(final List<PhysicalMedia> catalog) {
     this.catalog = catalog;
+    return this;
+  }
+  
+  private List<Subscriber> subscribers = new java.util.ArrayList<Subscriber>();
+  
+  public List<Subscriber> getSubscribers() {
+    return this.subscribers;
+  }
+  
+  public void setSubscribers(final List<Subscriber> subscribers) {
+    this.subscribers = subscribers;
+  }
+  
+  public Library _setSubscribers(final List<Subscriber> subscribers) {
+    this.subscribers = subscribers;
     return this;
   }
   
@@ -126,13 +126,13 @@ public class Library extends BaseModelImpl implements Serializable {
   }
   
   public String toStringFull() {
-    return "Library [id=" + id + ", name=" + name + ", version=" + version + ", subscribers=" + subscribers + ", catalog=" + catalog + "]";
+    return "Library [id=" + id + ", name=" + name + ", version=" + version + ", catalog=" + catalog + ", subscribers=" + subscribers + "]";
   }
   
   public enum Association {
-    subscribers,
+    catalog,
     
-    catalog;
+    subscribers;
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();

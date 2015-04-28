@@ -9,7 +9,8 @@ database-ddl-create hsqldb.ddl; // should be located in the same directory as de
 
 pojogen-generate-wrappers;
 // custom type
-pojogen-types-for-columns CONTACT PHONE_NUMBER->org.sqlproc.sample.simple.model.PhoneNumber;
+//pojogen-types-for-columns CONTACT PHONE_NUMBER->org.sqlproc.sample.simple.model.PhoneNumber;
+pojogen-types-sqltypes "VARCHAR(99)"->org.sqlproc.sample.simple.model.PhoneNumber;
 // rename
 pojogen-rename-columns PERFORMER MEDIAS->WORK;
 pojogen-rename-columns LIBRARY PHYSICAL_MEDIAS->CATALOG;
@@ -42,7 +43,8 @@ pojogen-version-column VER + PERFORMER;
 
 metagen-global-sequence SIMPLE_SEQUENCE; // SEQ1
 //metagen-global-identity SEL1;
-metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
+//metagen-column-meta-type CONTACT PHONE_NUMBER->phone;
+metagen-sqltype-meta-type "VARCHAR(99)"->phone;
 //metagen-statement-meta-type INSERT_CONTACT PHONE_NUMBER->phone;
 metagen-make-it-final;
 

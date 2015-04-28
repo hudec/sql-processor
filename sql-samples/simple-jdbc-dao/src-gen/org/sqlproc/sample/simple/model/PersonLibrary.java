@@ -93,7 +93,7 @@ public class PersonLibrary extends BaseModelImpl implements Serializable {
   
   @Override
   public String toString() {
-    return "PersonLibrary [mediaId=" + mediaId + ", id=" + id + ", personId=" + personId + "]";
+    return "PersonLibrary [id=" + id + ", personId=" + personId + ", mediaId=" + mediaId + "]";
   }
   
   public String toStringFull() {

@@ -26,7 +26,7 @@ package org.sqlproc.sample.simple.model {
         #Attr String newIsbn
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber,version)
     final #Pojo Contact {
         #PrimaryKey #Index(1)
         #Attr Long id
@@ -55,9 +55,9 @@ package org.sqlproc.sample.simple.model {
         #Version
         #Attr Integer version
         #ToInit
-        #Attr java.util.List <Subscriber> subscribers
-        #ToInit
         #Attr java.util.List <PhysicalMedia> catalog
+        #ToInit
+        #Attr java.util.List <Subscriber> subscribers
     }
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,title,version)
@@ -72,7 +72,7 @@ package org.sqlproc.sample.simple.model {
         #Attr Integer version
     }
 
-    #Serializable(1) #ToString(playlength,urlimdb)
+    #Serializable(1) #ToString(urlimdb,playlength)
     final #Pojo Movie extends Media {
         #Required
         #Attr String urlimdb
@@ -104,7 +104,7 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Media> work
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,passport,firstName,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,ssn,version,passport)
     final #Pojo Person {
         #PrimaryKey #Index(1)
         #Attr Long id
@@ -121,12 +121,12 @@ package org.sqlproc.sample.simple.model {
         #IsDef
         #Attr String passport
         #ToInit
-        #Attr java.util.List <Media> library
-        #ToInit
         #Attr java.util.List <Contact> contacts
+        #ToInit
+        #Attr java.util.List <Media> library
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(mediaId,id,personId)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId)
     final #Pojo PersonLibrary {
         #PrimaryKey #Index(1)
         #Attr Long id
