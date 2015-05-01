@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.dao.BaseDao;
@@ -151,6 +152,31 @@ public class CreditCardDaoImpl extends BaseDaoImpl implements CreditCardDao, Bas
   
   public List<CreditCard> list(final CreditCard creditCard) {
     return list(creditCard, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl, final SqlRowProcessor<CreditCard> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query creditCard: " + creditCard + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineCreditCard = sqlEngineFactory.getCheckedQueryEngine("SELECT_CREDIT_CARD");
+    //sqlControl = getMoreResultClasses(creditCard, sqlControl);
+    int rownums = sqlEngineCreditCard.query(sqlSession, CreditCard.class, creditCard, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query creditCard size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final CreditCard creditCard, SqlControl sqlControl, final SqlRowProcessor<CreditCard> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), creditCard, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final CreditCard creditCard, final SqlRowProcessor<CreditCard> sqlRowProcessor) {
+    return query(sqlSession, creditCard, null, sqlRowProcessor);
+  }
+  
+  public int query(final CreditCard creditCard, final SqlRowProcessor<CreditCard> sqlRowProcessor) {
+    return query(creditCard, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl) {

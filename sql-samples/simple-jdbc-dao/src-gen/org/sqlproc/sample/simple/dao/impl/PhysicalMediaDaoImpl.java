@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.dao.BaseDao;
@@ -159,6 +160,31 @@ public class PhysicalMediaDaoImpl extends BaseDaoImpl implements PhysicalMediaDa
   
   public List<PhysicalMedia> list(final PhysicalMedia physicalMedia) {
     return list(physicalMedia, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final PhysicalMedia physicalMedia, SqlControl sqlControl, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query physicalMedia: " + physicalMedia + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePhysicalMedia = sqlEngineFactory.getCheckedQueryEngine("SELECT_PHYSICAL_MEDIA");
+    sqlControl = getMoreResultClasses(physicalMedia, sqlControl);
+    int rownums = sqlEnginePhysicalMedia.query(sqlSession, PhysicalMedia.class, physicalMedia, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query physicalMedia size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final PhysicalMedia physicalMedia, SqlControl sqlControl, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), physicalMedia, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final PhysicalMedia physicalMedia, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor) {
+    return query(sqlSession, physicalMedia, null, sqlRowProcessor);
+  }
+  
+  public int query(final PhysicalMedia physicalMedia, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor) {
+    return query(physicalMedia, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final PhysicalMedia physicalMedia, SqlControl sqlControl) {

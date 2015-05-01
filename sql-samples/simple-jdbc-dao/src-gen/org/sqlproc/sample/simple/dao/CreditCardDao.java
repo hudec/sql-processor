@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.CreditCard;
@@ -47,6 +48,14 @@ public interface CreditCardDao extends BaseDao {
   public List<CreditCard> list(final SqlSession sqlSession, final CreditCard creditCard);
   
   public List<CreditCard> list(final CreditCard creditCard);
+  
+  public int query(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl, final SqlRowProcessor<CreditCard> sqlRowProcessor);
+  
+  public int query(final CreditCard creditCard, SqlControl sqlControl, final SqlRowProcessor<CreditCard> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final CreditCard creditCard, final SqlRowProcessor<CreditCard> sqlRowProcessor);
+  
+  public int query(final CreditCard creditCard, final SqlRowProcessor<CreditCard> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final CreditCard creditCard, SqlControl sqlControl);
   

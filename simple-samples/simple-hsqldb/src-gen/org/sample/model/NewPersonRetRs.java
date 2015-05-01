@@ -86,7 +86,7 @@ public class NewPersonRetRs implements Serializable {
   
   @Override
   public String toString() {
-    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", gender=" + gender + ", lastName=" + lastName + ", ssn=" + ssn + "]";
+    return "NewPersonRetRs [dateOfBirth=" + dateOfBirth + ", ssn=" + ssn + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + "]";
   }
   
   public String toStringFull() {

@@ -25,10 +25,10 @@ import org.sqlproc.sample.simple.dao.MovieDao;
 import org.sqlproc.sample.simple.dao.NewBookDao;
 import org.sqlproc.sample.simple.dao.PaymentDao;
 import org.sqlproc.sample.simple.dao.PerformerDao;
+import org.sqlproc.sample.simple.dao.PersonDao;
 import org.sqlproc.sample.simple.dao.PersonLibraryDao;
 import org.sqlproc.sample.simple.dao.PhysicalMediaDao;
 import org.sqlproc.sample.simple.dao.SubscriberDao;
-import org.sqlproc.sample.simple.dao.impl.PersonDaoExt;
 import org.sqlproc.sample.simple.model.BankAccount;
 import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.CreditCard;
@@ -64,7 +64,7 @@ public class Main {
         creditCardDao = context.getBean("creditCardDao", CreditCardDao.class);
         libraryDao = context.getBean("libraryDao", LibraryDao.class);
         movieDao = context.getBean("movieDao", MovieDao.class);
-        personDao = context.getBean("personDao", PersonDaoExt.class);
+        personDao = context.getBean("personDao", PersonDao.class);
         performerDao = context.getBean("performerDao", PerformerDao.class);
         personLibraryDao = context.getBean("personLibraryDao", PersonLibraryDao.class);
         subscriberDao = context.getBean("subscriberDao", SubscriberDao.class);
@@ -83,7 +83,7 @@ public class Main {
     private CreditCardDao creditCardDao;
     private LibraryDao libraryDao;
     private MovieDao movieDao;
-    private PersonDaoExt personDao;
+    private PersonDao personDao;
     private PerformerDao performerDao;
     private PersonLibraryDao personLibraryDao;
     private SubscriberDao subscriberDao;
@@ -460,7 +460,7 @@ public class Main {
         Assert.assertEquals(2, list.size());
 
         // query people with associations
-        SqlRowProcessor<Person> sep = new SqlRowProcessor<Person>() {
+        SqlRowProcessor<Person> srp = new SqlRowProcessor<Person>() {
 
             @Override
             public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
@@ -479,9 +479,9 @@ public class Main {
         };
         person = new Person();
         person.setInit(Person.Association.contacts);
-        count = main.personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        count = main.personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), srp);
         Assert.assertEquals(5, count);
-        sep = new SqlRowProcessor<Person>() {
+        srp = new SqlRowProcessor<Person>() {
 
             @Override
             public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
@@ -490,7 +490,7 @@ public class Main {
                 return true;
             }
         };
-        count = main.personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        count = main.personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), srp);
         Assert.assertEquals(3, count);
 
         // delete

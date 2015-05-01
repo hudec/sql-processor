@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.dao.BaseDao;
@@ -151,6 +152,31 @@ public class PersonLibraryDaoImpl extends BaseDaoImpl implements PersonLibraryDa
   
   public List<PersonLibrary> list(final PersonLibrary personLibrary) {
     return list(personLibrary, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl, final SqlRowProcessor<PersonLibrary> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query personLibrary: " + personLibrary + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonLibrary = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_LIBRARY");
+    //sqlControl = getMoreResultClasses(personLibrary, sqlControl);
+    int rownums = sqlEnginePersonLibrary.query(sqlSession, PersonLibrary.class, personLibrary, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query personLibrary size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final PersonLibrary personLibrary, SqlControl sqlControl, final SqlRowProcessor<PersonLibrary> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), personLibrary, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final PersonLibrary personLibrary, final SqlRowProcessor<PersonLibrary> sqlRowProcessor) {
+    return query(sqlSession, personLibrary, null, sqlRowProcessor);
+  }
+  
+  public int query(final PersonLibrary personLibrary, final SqlRowProcessor<PersonLibrary> sqlRowProcessor) {
+    return query(personLibrary, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final PersonLibrary personLibrary, SqlControl sqlControl) {

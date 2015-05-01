@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.BankAccount;
@@ -47,6 +48,14 @@ public interface BankAccountDao extends BaseDao {
   public List<BankAccount> list(final SqlSession sqlSession, final BankAccount bankAccount);
   
   public List<BankAccount> list(final BankAccount bankAccount);
+  
+  public int query(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl, final SqlRowProcessor<BankAccount> sqlRowProcessor);
+  
+  public int query(final BankAccount bankAccount, SqlControl sqlControl, final SqlRowProcessor<BankAccount> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final BankAccount bankAccount, final SqlRowProcessor<BankAccount> sqlRowProcessor);
+  
+  public int query(final BankAccount bankAccount, final SqlRowProcessor<BankAccount> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl);
   

@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Performer;
@@ -47,6 +48,14 @@ public interface PerformerDao extends BaseDao {
   public List<Performer> list(final SqlSession sqlSession, final Performer performer);
   
   public List<Performer> list(final Performer performer);
+  
+  public int query(final SqlSession sqlSession, final Performer performer, SqlControl sqlControl, final SqlRowProcessor<Performer> sqlRowProcessor);
+  
+  public int query(final Performer performer, SqlControl sqlControl, final SqlRowProcessor<Performer> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final Performer performer, final SqlRowProcessor<Performer> sqlRowProcessor);
+  
+  public int query(final Performer performer, final SqlRowProcessor<Performer> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final Performer performer, SqlControl sqlControl);
   

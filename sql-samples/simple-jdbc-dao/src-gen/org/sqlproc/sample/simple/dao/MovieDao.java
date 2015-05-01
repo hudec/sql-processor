@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Movie;
@@ -47,6 +48,14 @@ public interface MovieDao extends BaseDao {
   public List<Movie> list(final SqlSession sqlSession, final Movie movie);
   
   public List<Movie> list(final Movie movie);
+  
+  public int query(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl, final SqlRowProcessor<Movie> sqlRowProcessor);
+  
+  public int query(final Movie movie, SqlControl sqlControl, final SqlRowProcessor<Movie> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final Movie movie, final SqlRowProcessor<Movie> sqlRowProcessor);
+  
+  public int query(final Movie movie, final SqlRowProcessor<Movie> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl);
   

@@ -53,7 +53,7 @@
     <bean id="creditCardDao" class="org.sqlproc.sample.simple.dao.impl.CreditCardDaoImpl" parent="dao" />
     <bean id="libraryDao" class="org.sqlproc.sample.simple.dao.impl.LibraryDaoImpl" parent="dao" />
     <bean id="movieDao" class="org.sqlproc.sample.simple.dao.impl.MovieDaoImpl" parent="dao" />
-    <bean id="personDao" class="org.sqlproc.sample.simple.dao.impl.PersonDaoExt" parent="dao" />
+    <bean id="personDao" class="org.sqlproc.sample.simple.dao.impl.PersonDaoImpl" parent="dao" />
     <bean id="performerDao" class="org.sqlproc.sample.simple.dao.impl.PerformerDaoImpl" parent="dao" />
     <bean id="personLibraryDao" class="org.sqlproc.sample.simple.dao.impl.PersonLibraryDaoImpl" parent="dao" />
     <bean id="subscriberDao" class="org.sqlproc.sample.simple.dao.impl.SubscriberDaoImpl" parent="dao" />

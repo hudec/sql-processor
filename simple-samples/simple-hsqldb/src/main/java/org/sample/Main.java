@@ -15,7 +15,7 @@ import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
 import org.sample.dao.NewPersonDao;
 import org.sample.dao.NewPersonRetRsDao;
-import org.sample.dao.PersonDaoExt;
+import org.sample.dao.PersonDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
@@ -74,7 +74,7 @@ public class Main {
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
-        personDao = new PersonDaoExt(sqlFactory, sessionFactory);
+        personDao = new PersonDao(sqlFactory, sessionFactory);
         anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
         newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
         newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
@@ -86,7 +86,7 @@ public class Main {
     }
 
     private ContactDao contactDao;
-    private PersonDaoExt personDao;
+    private PersonDao personDao;
     private AnHourBeforeDao anHourBeforeDao;
     private NewPersonDao newPersonDao;
     private NewPersonRetRsDao newPersonRetRsDao;
@@ -226,7 +226,7 @@ public class Main {
         Assert.assertEquals(2, list.size());
 
         // query people with associations
-        SqlRowProcessor<Person> sep = new SqlRowProcessor<Person>() {
+        SqlRowProcessor<Person> srp = new SqlRowProcessor<Person>() {
 
             @Override
             public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
@@ -245,9 +245,9 @@ public class Main {
         };
         person = new Person();
         person.setInit(Person.Association.contacts);
-        count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), srp);
         Assert.assertEquals(5, count);
-        sep = new SqlRowProcessor<Person>() {
+        srp = new SqlRowProcessor<Person>() {
 
             @Override
             public boolean processRow(Person person, int rownum) throws SqlRuntimeException {
@@ -256,7 +256,7 @@ public class Main {
                 return true;
             }
         };
-        count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), sep);
+        count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), srp);
         Assert.assertEquals(3, count);
 
         // count

@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Contact;
@@ -47,6 +48,14 @@ public interface ContactDao extends BaseDao {
   public List<Contact> list(final SqlSession sqlSession, final Contact contact);
   
   public List<Contact> list(final Contact contact);
+  
+  public int query(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl, final SqlRowProcessor<Contact> sqlRowProcessor);
+  
+  public int query(final Contact contact, SqlControl sqlControl, final SqlRowProcessor<Contact> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final Contact contact, final SqlRowProcessor<Contact> sqlRowProcessor);
+  
+  public int query(final Contact contact, final SqlRowProcessor<Contact> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl);
   

@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.Media;
@@ -47,6 +48,14 @@ public interface MediaDao extends BaseDao {
   public List<Media> list(final SqlSession sqlSession, final Media media);
   
   public List<Media> list(final Media media);
+  
+  public int query(final SqlSession sqlSession, final Media media, SqlControl sqlControl, final SqlRowProcessor<Media> sqlRowProcessor);
+  
+  public int query(final Media media, SqlControl sqlControl, final SqlRowProcessor<Media> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final Media media, final SqlRowProcessor<Media> sqlRowProcessor);
+  
+  public int query(final Media media, final SqlRowProcessor<Media> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final Media media, SqlControl sqlControl);
   

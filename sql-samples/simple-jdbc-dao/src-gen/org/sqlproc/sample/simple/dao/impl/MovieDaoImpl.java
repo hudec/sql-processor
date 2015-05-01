@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.dao.BaseDao;
@@ -163,6 +164,31 @@ public class MovieDaoImpl extends BaseDaoImpl implements MovieDao, BaseDao {
   
   public List<Movie> list(final Movie movie) {
     return list(movie, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl, final SqlRowProcessor<Movie> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query movie: " + movie + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineMovie = sqlEngineFactory.getCheckedQueryEngine("SELECT_MOVIE");
+    //sqlControl = getMoreResultClasses(movie, sqlControl);
+    int rownums = sqlEngineMovie.query(sqlSession, Movie.class, movie, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query movie size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Movie movie, SqlControl sqlControl, final SqlRowProcessor<Movie> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), movie, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Movie movie, final SqlRowProcessor<Movie> sqlRowProcessor) {
+    return query(sqlSession, movie, null, sqlRowProcessor);
+  }
+  
+  public int query(final Movie movie, final SqlRowProcessor<Movie> sqlRowProcessor) {
+    return query(movie, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Movie movie, SqlControl sqlControl) {

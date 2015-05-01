@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
@@ -47,6 +48,14 @@ public interface PhysicalMediaDao extends BaseDao {
   public List<PhysicalMedia> list(final SqlSession sqlSession, final PhysicalMedia physicalMedia);
   
   public List<PhysicalMedia> list(final PhysicalMedia physicalMedia);
+  
+  public int query(final SqlSession sqlSession, final PhysicalMedia physicalMedia, SqlControl sqlControl, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor);
+  
+  public int query(final PhysicalMedia physicalMedia, SqlControl sqlControl, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final PhysicalMedia physicalMedia, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor);
+  
+  public int query(final PhysicalMedia physicalMedia, final SqlRowProcessor<PhysicalMedia> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final PhysicalMedia physicalMedia, SqlControl sqlControl);
   

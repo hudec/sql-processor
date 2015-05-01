@@ -2,6 +2,7 @@ package org.sqlproc.sample.simple.dao;
 
 import java.util.List;
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.simple.dao.BaseDao;
 import org.sqlproc.sample.simple.model.NewBook;
@@ -47,6 +48,14 @@ public interface NewBookDao extends BaseDao {
   public List<NewBook> list(final SqlSession sqlSession, final NewBook newBook);
   
   public List<NewBook> list(final NewBook newBook);
+  
+  public int query(final SqlSession sqlSession, final NewBook newBook, SqlControl sqlControl, final SqlRowProcessor<NewBook> sqlRowProcessor);
+  
+  public int query(final NewBook newBook, SqlControl sqlControl, final SqlRowProcessor<NewBook> sqlRowProcessor);
+  
+  public int query(final SqlSession sqlSession, final NewBook newBook, final SqlRowProcessor<NewBook> sqlRowProcessor);
+  
+  public int query(final NewBook newBook, final SqlRowProcessor<NewBook> sqlRowProcessor);
   
   public int count(final SqlSession sqlSession, final NewBook newBook, SqlControl sqlControl);
   
