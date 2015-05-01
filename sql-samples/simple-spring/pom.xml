@@ -10,12 +10,12 @@
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>2.6.0</version>
+        <version>2.6.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
-        <version.sql-processor>2.6.0</version.sql-processor>
+        <version.sql-processor>2.6.1-SNAPSHOT</version.sql-processor>
         <version.antlr>3.4</version.antlr>
         <version.spring>3.1.2.RELEASE</version.spring>
         <version.commons-dbcp>1.4</version.commons-dbcp>
