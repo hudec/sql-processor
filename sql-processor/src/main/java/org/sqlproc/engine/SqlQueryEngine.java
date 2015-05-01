@@ -439,106 +439,34 @@ public class SqlQueryEngine extends SqlEngine {
         }
         checkDynamicInputValues(dynamicInputValues);
 
-        List<E> result = null;
+        final QueryExecutor<E> executor = new QueryExecutor<E>(new ArrayList<E>());
+        List<E> rows = null;
 
         try {
-            result = monitor.runList(new SqlMonitor.Runner() {
+            rows = monitor.runList(new SqlMonitor.Runner() {
                 public List<E> run() {
-                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            sqlControl);
-                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
-                            processResult.getSql().toString());
-                    final SqlQuery query = session.createSqlQuery(sql);
-                    query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) > 0)
-                        query.setTimeout(getMaxTimeout(sqlControl));
-                    if (getFetchSize(sqlControl) > 0)
-                        query.setFetchSize(getFetchSize(sqlControl));
-                    query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
-                    processResult.setQueryParams(session, query);
-                    final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
-                    if (getFirstResult(sqlControl) > 0) {
-                        query.setFirstResult(getFirstResult(sqlControl));
-                        query.setMaxResults(getMaxResults(sqlControl));
-                    } else if (getMaxResults(sqlControl) > 0) {
-                        query.setMaxResults(getMaxResults(sqlControl));
-                    }
+                    final SqlRuntimeContext runtimeContext = executor.prepareQuery(session, resultClass,
+                            dynamicInputValues, sqlControl);
 
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runListSql(new SqlMonitor.Runner() {
                             public List<E> run() {
-                                return query(query, mappingResult, resultClass, sqlControl);
+                                return executor.execute(resultClass, sqlControl, runtimeContext);
                             }
                         }, resultClass);
                     } else {
-                        return query(query, mappingResult, resultClass, sqlControl);
+                        return executor.execute(resultClass, sqlControl, runtimeContext);
                     }
                 }
             }, resultClass);
-            return result;
+            return rows;
         } finally {
             if (logger.isDebugEnabled()) {
-                logger.debug("<< query, result=" + result);
+                logger.debug("<< query, result rownums=" + ((rows != null) ? rows.size() : -1));
             }
         }
-    }
-
-    /**
-     * Internal query implementation
-     * 
-     * @param query
-     *            SQL query
-     * @param mappingResult
-     *            output value mappings
-     * @param resultClass
-     *            resultClass for output value
-     * @param sqlControl
-     *            META SQL execution control
-     * @return the result
-     */
-    private <E> List<E> query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
-            final SqlControl sqlControl) {
-        List list = query.list(mappingResult.getRuntimeContext());
-        List<E> result = new ArrayList<E>();
-        E resultInstance = null;
-        Object[] resultValue = null;
-        Map<String, Object> ids = mappingResult.getIds();
-
-        for (@SuppressWarnings("rawtypes")
-        Iterator i$ = list.iterator(); i$.hasNext();) {
-            Object resultRow = i$.next();
-            resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
-
-            boolean changedIdentity = true;
-            if (ids != null) {
-                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                if (ids.containsKey(idsKey)) {
-                    resultInstance = (E) ids.get(idsKey);
-                    changedIdentity = false;
-                }
-            }
-
-            if (changedIdentity) {
-                resultInstance = BeanUtils.getInstance(resultClass);
-                if (resultInstance == null) {
-                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                }
-            }
-
-            mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
-
-            if (changedIdentity) {
-                result.add(resultInstance);
-                if (ids != null) {
-                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                    ids.put(idsKey, resultInstance);
-                }
-            }
-        }
-        return result;
     }
 
     /**
@@ -581,120 +509,34 @@ public class SqlQueryEngine extends SqlEngine {
         }
         checkDynamicInputValues(dynamicInputValues);
 
-        Integer rownums = 0;
+        final QueryExecutor<E> executor = new QueryExecutor<E>(0);
+        Integer rownums = null;
 
         try {
             rownums = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
-                            sqlControl);
-                    String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
-                            processResult.getSql().toString());
-                    final SqlQuery query = session.createSqlQuery(sql);
-                    query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) > 0)
-                        query.setTimeout(getMaxTimeout(sqlControl));
-                    if (getFetchSize(sqlControl) > 0)
-                        query.setFetchSize(getFetchSize(sqlControl));
-                    query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
-                    processResult.setQueryParams(session, query);
-                    final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
-                    mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
 
-                    if (getFirstResult(sqlControl) > 0) {
-                        query.setFirstResult(getFirstResult(sqlControl));
-                        query.setMaxResults(getMaxResults(sqlControl));
-                    } else if (getMaxResults(sqlControl) > 0) {
-                        query.setMaxResults(getMaxResults(sqlControl));
-                    }
+                    final SqlRuntimeContext runtimeContext = executor.prepareQuery(session, resultClass,
+                            dynamicInputValues, sqlControl);
 
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
                             public Integer run() {
-                                return query(query, mappingResult, resultClass, sqlControl, sqlRowProcessor);
+                                return executor.execute(resultClass, sqlControl, sqlRowProcessor, runtimeContext);
                             }
                         }, Integer.class);
                     } else {
-                        return query(query, mappingResult, resultClass, sqlControl, sqlRowProcessor);
+                        return executor.execute(resultClass, sqlControl, sqlRowProcessor, runtimeContext);
                     }
                 }
             }, Integer.class);
             return rownums;
         } finally {
             if (logger.isDebugEnabled()) {
-                logger.debug("<< query, result=" + rownums);
+                logger.debug("<< query, result rownums=" + rownums);
             }
         }
-    }
-
-    private static class RownumsHolder {
-        Integer rownums = 0;
-    }
-
-    /**
-     * Internal query implementation
-     * 
-     * @param query
-     *            SQL query
-     * @param mappingResult
-     *            output value mappings
-     * @param resultClass
-     *            resultClass for output value
-     * @param sqlControl
-     *            META SQL execution control
-     * @param sqlRowProcessor
-     *            callback row processor
-     * @return the result
-     */
-    private <E> Integer query(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
-            final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor) {
-
-        final Map<String, Object> ids = mappingResult.getIds();
-        final RownumsHolder rownums = new RownumsHolder();
-
-        query.query(mappingResult.getRuntimeContext(), new SqlQuery.SqlQueryRowProcessor() {
-
-            @Override
-            public boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException {
-                E resultInstance = null;
-
-                Object[] resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                        : (new Object[] { resultRow });
-
-                boolean changedIdentity = true;
-                if (ids != null) {
-                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                    if (ids.containsKey(idsKey)) {
-                        resultInstance = (E) ids.get(idsKey);
-                        changedIdentity = false;
-                    }
-                }
-
-                if (changedIdentity) {
-                    resultInstance = BeanUtils.getInstance(resultClass);
-                    if (resultInstance == null) {
-                        throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
-                    }
-                }
-
-                mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
-
-                if (changedIdentity) {
-                    ++rownums.rownums;
-                    if (!sqlRowProcessor.processRow(resultInstance, rownums.rownums))
-                        return false;
-                    if (ids != null) {
-                        String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
-                        ids.put(idsKey, resultInstance);
-                    }
-                }
-
-                return true;
-            }
-
-        });
-        return rownums.rownums;
     }
 
     /**
@@ -794,31 +636,25 @@ public class SqlQueryEngine extends SqlEngine {
         }
         checkDynamicInputValues(dynamicInputValues);
 
+        final QueryExecutor<Object> executor = new QueryExecutor<Object>(0);
         Integer count = null;
 
         try {
             count = monitor.run(new SqlMonitor.Runner() {
                 public Integer run() {
-                    final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues,
+
+                    final SqlRuntimeContext runtimeContext = executor.prepareQueryCount(session, dynamicInputValues,
                             sqlControl);
-                    final SqlQuery queryCount = session.createSqlQuery(pluginFactory.getSqlCountPlugin().sqlCount(
-                            processResult.getSql()));
-                    queryCount.setLogError(processResult.isLogError());
-                    typeFactory.getDefaultType().addScalar(queryCount, "vysledek", Integer.class);
-                    if (getMaxTimeout(sqlControl) > 0)
-                        queryCount.setTimeout(getMaxTimeout(sqlControl));
-                    queryCount.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
-                    processResult.setQueryParams(session, queryCount);
 
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
                             public Integer run() {
-                                return queryCount(queryCount, processResult);
+                                return executor.executeCount(runtimeContext);
                             }
                         }, Integer.class);
                     } else {
-                        return queryCount(queryCount, processResult);
+                        return executor.executeCount(runtimeContext);
                     }
                 }
             }, Integer.class);
@@ -828,17 +664,6 @@ public class SqlQueryEngine extends SqlEngine {
                 logger.debug("<< queryCount, count=" + count);
             }
         }
-    }
-
-    /**
-     * Internal delete implementation
-     * 
-     * @param queryCount
-     *            query
-     * @return the result
-     */
-    private Integer queryCount(final SqlQuery queryCount, final SqlProcessResult processResult) {
-        return (Integer) queryCount.unique(processResult.getRuntimeContext());
     }
 
     /**
@@ -936,5 +761,145 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public SqlMonitor getMonitor() {
         return monitor;
+    }
+
+    /*
+     * Internal query execution implementation.
+     */
+    private class QueryExecutor<E> {
+        private Integer rownums;
+        private List<E> rows;
+        private SqlQuery query;
+        private SqlMappingResult mappingResult;
+
+        QueryExecutor(final List<E> rows) {
+            this.rows = rows;
+        }
+
+        QueryExecutor(final Integer rownums) {
+            this.rownums = rownums;
+        }
+
+        SqlRuntimeContext prepareQuery(final SqlSession session, final Class<E> resultClass,
+                final Object dynamicInputValues, final SqlControl sqlControl) {
+            final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues, sqlControl);
+            String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                    processResult.getSql().toString());
+            query = session.createSqlQuery(sql);
+            query.setLogError(processResult.isLogError());
+            if (getMaxTimeout(sqlControl) > 0)
+                query.setTimeout(getMaxTimeout(sqlControl));
+            if (getFetchSize(sqlControl) > 0)
+                query.setFetchSize(getFetchSize(sqlControl));
+            query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
+            processResult.setQueryParams(session, query);
+            mappingResult = SqlMappingRule.merge(mapping, processResult);
+            mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
+
+            if (getFirstResult(sqlControl) > 0) {
+                query.setFirstResult(getFirstResult(sqlControl));
+                query.setMaxResults(getMaxResults(sqlControl));
+            } else if (getMaxResults(sqlControl) > 0) {
+                query.setMaxResults(getMaxResults(sqlControl));
+            }
+            return mappingResult.getRuntimeContext();
+        }
+
+        SqlRuntimeContext prepareQueryCount(final SqlSession session, final Object dynamicInputValues,
+                final SqlControl sqlControl) {
+            final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues, sqlControl);
+            String sql = pluginFactory.getSqlCountPlugin().sqlCount(name, processResult.getSql());
+            query = session.createSqlQuery(sql);
+            query.setLogError(processResult.isLogError());
+            typeFactory.getDefaultType().addScalar(query, "vysledek", Integer.class);
+            if (getMaxTimeout(sqlControl) > 0)
+                query.setTimeout(getMaxTimeout(sqlControl));
+            query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
+            processResult.setQueryParams(session, query);
+            return processResult.getRuntimeContext();
+        }
+
+        List<E> execute(final Class<E> resultClass, final SqlControl sqlControl, final SqlRuntimeContext runtimeContext) {
+
+            Map<String, Object> ids = mappingResult.getIds();
+
+            List list = query.list(runtimeContext);
+            for (@SuppressWarnings("rawtypes")
+            Iterator i$ = list.iterator(); i$.hasNext();) {
+                Object resultRow = i$.next();
+                execute(resultRow, resultClass, sqlControl, null, ids);
+            }
+            return rows;
+        }
+
+        Integer execute(final Class<E> resultClass, final SqlControl sqlControl,
+                final SqlRowProcessor<E> sqlRowProcessor, final SqlRuntimeContext runtimeContext) {
+            final Map<String, Object> ids = mappingResult.getIds();
+
+            query.query(runtimeContext, new SqlQuery.SqlQueryRowProcessor() {
+
+                @Override
+                public boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException {
+                    return execute(resultRow, resultClass, sqlControl, sqlRowProcessor, ids);
+                }
+
+            });
+            return rownums;
+
+        }
+
+        Integer executeCount(final SqlRuntimeContext runtimeContext) {
+
+            return (Integer) query.unique(runtimeContext);
+        }
+
+        boolean execute(Object resultRow, final Class<E> resultClass, final SqlControl sqlControl,
+                final SqlRowProcessor<E> sqlRowProcessor, Map<String, Object> ids) {
+
+            E resultInstance = null;
+
+            Object[] resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
+                    : (new Object[] { resultRow });
+            if (logger.isTraceEnabled()) {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < resultValue.length; i++)
+                    sb.append("'").append(resultValue[i]).append("' ");
+                logger.trace("== SQL execution partial result " + sb.toString());
+            }
+
+            boolean changedIdentity = true;
+            if (ids != null) {
+                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                if (ids.containsKey(idsKey)) {
+                    resultInstance = (E) ids.get(idsKey);
+                    changedIdentity = false;
+                }
+            }
+
+            if (changedIdentity) {
+                resultInstance = BeanUtils.getInstance(resultClass);
+                if (resultInstance == null) {
+                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                }
+            }
+
+            mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
+
+            if (changedIdentity) {
+                if (sqlRowProcessor != null) {
+                    ++rownums;
+                    if (!sqlRowProcessor.processRow(resultInstance, rownums))
+                        return false;
+                } else {
+                    rows.add(resultInstance);
+                }
+                if (ids != null) {
+                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                    ids.put(idsKey, resultInstance);
+                }
+            }
+
+            return true;
+        }
     }
 }

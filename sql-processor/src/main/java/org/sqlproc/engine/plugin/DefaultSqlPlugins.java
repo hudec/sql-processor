@@ -75,9 +75,9 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      *            values for a special identifier handling, for example a sequence for an identity
      * @return the non-emptiness of the input value
      */
-    protected boolean isNotEmptyInternal(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
-            SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
-            throws IllegalArgumentException {
+    protected boolean isNotEmptyInternal(SqlRuntimeContext runtimeCtx, String attributeName, Object obj,
+            Object parentObj, SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert,
+            Map<String, String> values) throws IllegalArgumentException {
 
         if (MODIFIER_NOTNULL.equalsIgnoreCase(inOutModifier)) {
             if (obj == null)
@@ -208,7 +208,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public String sqlCount(StringBuilder sql) {
+    public String sqlCount(String name, StringBuilder sql) {
         if (debug)
             System.out.println("sql " + sql);
         String s = sql.toString().toUpperCase();
@@ -262,8 +262,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public LimitType limitQuery(SqlRuntimeContext runtimeCtx, String queryString, StringBuilder queryResult, Integer firstResult,
-            Integer maxResults, boolean ordered) {
+    public LimitType limitQuery(SqlRuntimeContext runtimeCtx, String queryString, StringBuilder queryResult,
+            Integer firstResult, Integer maxResults, boolean ordered) {
         LimitType limitType = new LimitType();
 
         if (maxResults == null || maxResults <= 0)

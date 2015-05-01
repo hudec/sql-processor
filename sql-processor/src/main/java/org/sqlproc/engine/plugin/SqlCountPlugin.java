@@ -11,9 +11,11 @@ public interface SqlCountPlugin extends Modifiers {
     /**
      * Used to construct the COUNT SQL.
      * 
+     * @param name
+     *            Name of the META SQL query or statement
      * @param sql
      *            original META SQL
      * @return the COUNT SQL
      */
-    public String sqlCount(StringBuilder sql);
+    public String sqlCount(String name, StringBuilder sql);
 }
