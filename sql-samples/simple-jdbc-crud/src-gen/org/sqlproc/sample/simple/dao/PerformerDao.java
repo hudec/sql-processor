@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.Movie;
@@ -150,6 +151,31 @@ public class PerformerDao {
   
   public List<Performer> list(final Performer performer) {
     return list(performer, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Performer performer, SqlControl sqlControl, final SqlRowProcessor<Performer> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query performer: " + performer + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePerformer = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERFORMER");
+    sqlControl = getMoreResultClasses(performer, sqlControl);
+    int rownums = sqlEnginePerformer.query(sqlSession, Performer.class, performer, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query performer size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Performer performer, SqlControl sqlControl, final SqlRowProcessor<Performer> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), performer, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Performer performer, final SqlRowProcessor<Performer> sqlRowProcessor) {
+    return query(sqlSession, performer, null, sqlRowProcessor);
+  }
+  
+  public int query(final Performer performer, final SqlRowProcessor<Performer> sqlRowProcessor) {
+    return query(performer, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Performer performer, SqlControl sqlControl) {

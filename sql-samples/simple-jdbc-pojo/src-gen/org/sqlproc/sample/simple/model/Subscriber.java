@@ -123,7 +123,7 @@ public class Subscriber implements Serializable {
   
   @Override
   public String toString() {
-    return "Subscriber [id=" + id + ", name=" + name + ", contact=" + contact + "]";
+    return "Subscriber [id=" + id + ", contact=" + contact + ", name=" + name + "]";
   }
   
   public String toStringFull() {

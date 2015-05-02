@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.NewBook;
@@ -160,6 +161,31 @@ public class NewBookDao {
   
   public List<NewBook> list(final NewBook newBook) {
     return list(newBook, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final NewBook newBook, SqlControl sqlControl, final SqlRowProcessor<NewBook> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query newBook: " + newBook + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineNewBook = sqlEngineFactory.getCheckedQueryEngine("SELECT_NEW_BOOK");
+    //sqlControl = getMoreResultClasses(newBook, sqlControl);
+    int rownums = sqlEngineNewBook.query(sqlSession, NewBook.class, newBook, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query newBook size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final NewBook newBook, SqlControl sqlControl, final SqlRowProcessor<NewBook> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), newBook, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final NewBook newBook, final SqlRowProcessor<NewBook> sqlRowProcessor) {
+    return query(sqlSession, newBook, null, sqlRowProcessor);
+  }
+  
+  public int query(final NewBook newBook, final SqlRowProcessor<NewBook> sqlRowProcessor) {
+    return query(newBook, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final NewBook newBook, SqlControl sqlControl) {

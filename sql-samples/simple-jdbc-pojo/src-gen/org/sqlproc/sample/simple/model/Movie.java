@@ -50,7 +50,7 @@ public class Movie extends Media implements Serializable {
   
   @Override
   public String toString() {
-    return "Movie [playlength=" + playlength + ", urlimdb=" + urlimdb + "]";
+    return "Movie [urlimdb=" + urlimdb + ", playlength=" + playlength + "]";
   }
   
   public String toStringFull() {

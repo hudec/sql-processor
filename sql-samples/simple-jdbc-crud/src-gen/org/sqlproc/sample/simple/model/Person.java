@@ -118,21 +118,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private List<Media> library = new java.util.ArrayList<Media>();
-  
-  public List<Media> getLibrary() {
-    return this.library;
-  }
-  
-  public void setLibrary(final List<Media> library) {
-    this.library = library;
-  }
-  
-  public Person _setLibrary(final List<Media> library) {
-    this.library = library;
-    return this;
-  }
-  
   private List<Contact> contacts = new java.util.ArrayList<Contact>();
   
   public List<Contact> getContacts() {
@@ -145,6 +130,21 @@ public class Person implements Serializable {
   
   public Person _setContacts(final List<Contact> contacts) {
     this.contacts = contacts;
+    return this;
+  }
+  
+  private List<Media> library = new java.util.ArrayList<Media>();
+  
+  public List<Media> getLibrary() {
+    return this.library;
+  }
+  
+  public void setLibrary(final List<Media> library) {
+    this.library = library;
+  }
+  
+  public Person _setLibrary(final List<Media> library) {
+    this.library = library;
     return this;
   }
   
@@ -172,11 +172,11 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", passport=" + passport + ", firstName=" + firstName + "]";
+    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", ssn=" + ssn + ", passport=" + passport + "]";
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", ssn=" + ssn + ", passport=" + passport + ", library=" + library + ", contacts=" + contacts + "]";
+    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", ssn=" + ssn + ", passport=" + passport + ", contacts=" + contacts + ", library=" + library + "]";
   }
   
   public enum Attribute {
@@ -271,9 +271,9 @@ public class Person implements Serializable {
   }
   
   public enum Association {
-    library,
+    contacts,
     
-    contacts;
+    library;
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();

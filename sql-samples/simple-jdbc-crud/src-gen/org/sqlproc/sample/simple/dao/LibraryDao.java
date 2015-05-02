@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.Library;
@@ -148,6 +149,31 @@ public class LibraryDao {
   
   public List<Library> list(final Library library) {
     return list(library, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Library library, SqlControl sqlControl, final SqlRowProcessor<Library> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query library: " + library + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineLibrary = sqlEngineFactory.getCheckedQueryEngine("SELECT_LIBRARY");
+    //sqlControl = getMoreResultClasses(library, sqlControl);
+    int rownums = sqlEngineLibrary.query(sqlSession, Library.class, library, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query library size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Library library, SqlControl sqlControl, final SqlRowProcessor<Library> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), library, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Library library, final SqlRowProcessor<Library> sqlRowProcessor) {
+    return query(sqlSession, library, null, sqlRowProcessor);
+  }
+  
+  public int query(final Library library, final SqlRowProcessor<Library> sqlRowProcessor) {
+    return query(library, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Library library, SqlControl sqlControl) {

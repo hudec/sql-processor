@@ -1,14 +1,9 @@
 package org.sqlproc.sample.catalog.model {
 
 
-
-    #Serializable(1)
-    #Equals(itemid)
-    #HashCode(itemid)
-    #ToString(price,productid,description,name,image,imagethumburl,itemid,imageurl,imagethumb)
+    #Serializable(1) #Equals(itemid) #HashCode(itemid) #ToString(itemid,productid,name,description,imageurl,imagethumburl,image,imagethumb,price)
     #Pojo Item {
-        #PrimaryKey
-        #Index(1)
+        #PrimaryKey #Index(1)
         #Attr Long itemid
         #Required
         #Attr String productid

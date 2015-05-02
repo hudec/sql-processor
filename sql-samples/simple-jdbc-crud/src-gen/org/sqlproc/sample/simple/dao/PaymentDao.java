@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.BankAccount;
@@ -150,6 +151,31 @@ public class PaymentDao {
   
   public List<Payment> list(final Payment payment) {
     return list(payment, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Payment payment, SqlControl sqlControl, final SqlRowProcessor<Payment> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query payment: " + payment + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePayment = sqlEngineFactory.getCheckedQueryEngine("SELECT_PAYMENT");
+    sqlControl = getMoreResultClasses(payment, sqlControl);
+    int rownums = sqlEnginePayment.query(sqlSession, Payment.class, payment, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query payment size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Payment payment, SqlControl sqlControl, final SqlRowProcessor<Payment> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), payment, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Payment payment, final SqlRowProcessor<Payment> sqlRowProcessor) {
+    return query(sqlSession, payment, null, sqlRowProcessor);
+  }
+  
+  public int query(final Payment payment, final SqlRowProcessor<Payment> sqlRowProcessor) {
+    return query(payment, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Payment payment, SqlControl sqlControl) {

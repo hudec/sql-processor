@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.BankAccount;
@@ -150,6 +151,31 @@ public class SubscriberDao {
   
   public List<Subscriber> list(final Subscriber subscriber) {
     return list(subscriber, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl, final SqlRowProcessor<Subscriber> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query subscriber: " + subscriber + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineSubscriber = sqlEngineFactory.getCheckedQueryEngine("SELECT_SUBSCRIBER");
+    sqlControl = getMoreResultClasses(subscriber, sqlControl);
+    int rownums = sqlEngineSubscriber.query(sqlSession, Subscriber.class, subscriber, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query subscriber size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Subscriber subscriber, SqlControl sqlControl, final SqlRowProcessor<Subscriber> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), subscriber, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Subscriber subscriber, final SqlRowProcessor<Subscriber> sqlRowProcessor) {
+    return query(sqlSession, subscriber, null, sqlRowProcessor);
+  }
+  
+  public int query(final Subscriber subscriber, final SqlRowProcessor<Subscriber> sqlRowProcessor) {
+    return query(subscriber, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Subscriber subscriber, SqlControl sqlControl) {

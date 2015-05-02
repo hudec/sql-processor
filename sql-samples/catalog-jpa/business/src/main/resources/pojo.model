@@ -1,19 +1,19 @@
 package org.sqlproc.sample.catalog.model {
 
     import javax.persistence.Basic
-    import javax.persistence.SequenceGenerator
     import javax.persistence.Column
-    import javax.persistence.Table
-    import javax.persistence.Id
     import javax.persistence.Entity
-    import javax.persistence.GenerationType
     import javax.persistence.GeneratedValue
+    import javax.persistence.GenerationType
+    import javax.persistence.Id
+    import javax.persistence.SequenceGenerator
+    import javax.persistence.Table
 
 
     final @Entity
     final @Table(name = "ITEM")
     final @SequenceGenerator(name = "seq:item", sequenceName = "ITEM:SEQ", initialValue = 100)
-    #Serializable(1) #Equals(itemid) #HashCode(itemid) #ToString(price,productid,description,name,image,imagethumburl,itemid,imageurl,imagethumb)
+    #Serializable(1) #Equals(itemid) #HashCode(itemid) #ToString(itemid,productid,name,description,imageurl,imagethumburl,image,imagethumb,price)
     #Pojo Item {
         #Attribute
         final @Id

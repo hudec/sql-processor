@@ -51,21 +51,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private List<Media> library = new java.util.ArrayList<Media>();
-  
-  public List<Media> getLibrary() {
-    return this.library;
-  }
-  
-  public void setLibrary(final List<Media> library) {
-    this.library = library;
-  }
-  
-  public Person _setLibrary(final List<Media> library) {
-    this.library = library;
-    return this;
-  }
-  
   private List<Contact> contacts = new java.util.ArrayList<Contact>();
   
   public List<Contact> getContacts() {
@@ -78,6 +63,21 @@ public class Person implements Serializable {
   
   public Person _setContacts(final List<Contact> contacts) {
     this.contacts = contacts;
+    return this;
+  }
+  
+  private List<Media> library = new java.util.ArrayList<Media>();
+  
+  public List<Media> getLibrary() {
+    return this.library;
+  }
+  
+  public void setLibrary(final List<Media> library) {
+    this.library = library;
+  }
+  
+  public Person _setLibrary(final List<Media> library) {
+    this.library = library;
     return this;
   }
   
@@ -109,6 +109,6 @@ public class Person implements Serializable {
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", name=" + name + ", library=" + library + ", contacts=" + contacts + "]";
+    return "Person [id=" + id + ", name=" + name + ", contacts=" + contacts + ", library=" + library + "]";
   }
 }

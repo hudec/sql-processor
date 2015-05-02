@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.BankAccount;
@@ -148,6 +149,31 @@ public class BankAccountDao {
   
   public List<BankAccount> list(final BankAccount bankAccount) {
     return list(bankAccount, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl, final SqlRowProcessor<BankAccount> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query bankAccount: " + bankAccount + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineBankAccount = sqlEngineFactory.getCheckedQueryEngine("SELECT_BANK_ACCOUNT");
+    //sqlControl = getMoreResultClasses(bankAccount, sqlControl);
+    int rownums = sqlEngineBankAccount.query(sqlSession, BankAccount.class, bankAccount, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query bankAccount size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final BankAccount bankAccount, SqlControl sqlControl, final SqlRowProcessor<BankAccount> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), bankAccount, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final BankAccount bankAccount, final SqlRowProcessor<BankAccount> sqlRowProcessor) {
+    return query(sqlSession, bankAccount, null, sqlRowProcessor);
+  }
+  
+  public int query(final BankAccount bankAccount, final SqlRowProcessor<BankAccount> sqlRowProcessor) {
+    return query(bankAccount, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final BankAccount bankAccount, SqlControl sqlControl) {

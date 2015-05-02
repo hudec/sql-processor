@@ -23,7 +23,7 @@ package org.sqlproc.sample.simple.model {
         #Attr String newIsbn
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,person) #Index(3,address,person) #Index(4,address) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address)
+    #Serializable(1) #Index(1,id) #Index(2,person) #Index(3,address,person) #Index(4,address) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey
         #Attr Long id
@@ -48,9 +48,9 @@ package org.sqlproc.sample.simple.model {
         #Required
         #Attr String name
         #ToInit
-        #Attr java.util.List <Subscriber> subscribers
-        #ToInit
         #Attr java.util.List <PhysicalMedia> catalog
+        #ToInit
+        #Attr java.util.List <Subscriber> subscribers
     }
 
     #Serializable(1) #Index(1,id) #Index(2,author) #Equals(id) #HashCode(id) #ToString(id,title)
@@ -63,7 +63,7 @@ package org.sqlproc.sample.simple.model {
         #Attr Performer author
     }
 
-    #Serializable(1) #ToString(playlength,urlimdb)
+    #Serializable(1) #ToString(urlimdb,playlength)
     #Pojo Movie extends Media {
         #Required
         #Attr String urlimdb
@@ -91,7 +91,7 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Media> work
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,lastName,firstName) #Index(3,lastName) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,passport,firstName)
+    #Serializable(1) #Index(1,id) #Index(2,lastName,firstName) #Index(3,lastName) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,ssn,passport)
     #Pojo Person {
         #PrimaryKey
         #Attr Long id
@@ -106,12 +106,12 @@ package org.sqlproc.sample.simple.model {
         #IsDef
         #Attr String passport
         #ToInit
-        #Attr java.util.List <Media> library
-        #ToInit
         #Attr java.util.List <Contact> contacts
+        #ToInit
+        #Attr java.util.List <Media> library
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,personId) #Index(3,mediaId) #Equals(id) #HashCode(id) #ToString(mediaId,id,personId)
+    #Serializable(1) #Index(1,id) #Index(2,personId) #Index(3,mediaId) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId)
     #Pojo PersonLibrary {
         #PrimaryKey
         #Attr Long id

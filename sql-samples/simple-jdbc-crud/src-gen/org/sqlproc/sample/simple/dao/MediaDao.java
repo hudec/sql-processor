@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 import org.sqlproc.sample.simple.model.Media;
@@ -148,6 +149,31 @@ public class MediaDao {
   
   public List<Media> list(final Media media) {
     return list(media, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Media media, SqlControl sqlControl, final SqlRowProcessor<Media> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query media: " + media + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineMedia = sqlEngineFactory.getCheckedQueryEngine("SELECT_MEDIA");
+    //sqlControl = getMoreResultClasses(media, sqlControl);
+    int rownums = sqlEngineMedia.query(sqlSession, Media.class, media, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query media size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Media media, SqlControl sqlControl, final SqlRowProcessor<Media> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), media, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Media media, final SqlRowProcessor<Media> sqlRowProcessor) {
+    return query(sqlSession, media, null, sqlRowProcessor);
+  }
+  
+  public int query(final Media media, final SqlRowProcessor<Media> sqlRowProcessor) {
+    return query(media, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Media media, SqlControl sqlControl) {

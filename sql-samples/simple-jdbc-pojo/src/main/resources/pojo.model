@@ -1,7 +1,6 @@
 package org.sqlproc.sample.simple.model {
 
 
-
     #InheritanceChild(BA) #Serializable(1) #ToString(baAccount)
     #Pojo BankAccount extends BillingDetails {
         #Attr String baAccount
@@ -23,7 +22,7 @@ package org.sqlproc.sample.simple.model {
         #Attr String isbn
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey #Index(1)
         #Attr Long id
@@ -56,7 +55,7 @@ package org.sqlproc.sample.simple.model {
         #Attr String title
     }
 
-    #Serializable(1) #ToString(playlength,urlimdb)
+    #Serializable(1) #ToString(urlimdb,playlength)
     #Pojo Movie extends Media {
         #Required
         #Attr String urlimdb
@@ -70,11 +69,11 @@ package org.sqlproc.sample.simple.model {
         #Attr Long id
         #Required
         #Attr String name
-        #Attr java.util.List <Media> library
         #Attr java.util.List <Contact> contacts
+        #Attr java.util.List <Media> library
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(mediaId,id,personId)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId)
     #Pojo PersonLibrary {
         #PrimaryKey #Index(1)
         #Attr Long id
@@ -84,7 +83,7 @@ package org.sqlproc.sample.simple.model {
         #Attr Long mediaId
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name,contact)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,contact,name)
     #Pojo Subscriber {
         #PrimaryKey #Index(1)
         #Attr Long id
