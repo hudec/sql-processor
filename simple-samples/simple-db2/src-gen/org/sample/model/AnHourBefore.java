@@ -41,7 +41,7 @@ public class AnHourBefore implements Serializable {
   
   @Override
   public String toString() {
-    return "AnHourBefore [result=" + result + ", t=" + t + "]";
+    return "AnHourBefore [t=" + t + ", result=" + result + "]";
   }
   
   public String toStringFull() {
