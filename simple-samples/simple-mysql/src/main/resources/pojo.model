@@ -13,7 +13,7 @@ package org.sample.model {
         #Attr String value
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,phoneNumber,address,ctype)
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,ctype,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey #Index(1)
         #Attr Long id
@@ -27,7 +27,7 @@ package org.sample.model {
         #Attr String phoneNumber
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     #Pojo Person {
         #PrimaryKey #Index(1)
         #Attr Long id
@@ -50,7 +50,7 @@ package org.sample.model {
         #Attr java.sql.Timestamp t
     }
 
-    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
+    #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
         #Attr Integer newid
         #Attr java.util.Date dateOfBirth
@@ -60,7 +60,7 @@ package org.sample.model {
         #Attr String gender
     }
 
-    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
+    #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
         #Attr java.util.Date dateOfBirth
         #Attr String ssn
