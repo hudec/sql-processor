@@ -8,6 +8,10 @@ package org.sample.dao {
     #Dao PersonDao {
     }
 
+    #CRUD(org.sample.model.PersonDetail) #Query(org.sample.model.PersonDetail)
+    #Dao PersonDetailDao {
+    }
+
     #ProcedureUpdate(int,org.sample.model.NewPerson)
     #Dao NewPersonDao {
     }
@@ -19,4 +23,17 @@ package org.sample.dao {
     #FunctionCall(java.sql.Timestamp,org.sample.model.AnHourBefore)
     #Dao AnHourBeforeDao {
     }
+
+// Model statistics
+// Tables=3
+// Columns=17
+// Primary Keys=3
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=2
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }

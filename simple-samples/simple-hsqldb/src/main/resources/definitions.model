@@ -1,5 +1,6 @@
 resolve-pojo-on; 
 database-is-online;
+//verify-resources - statements.meta;
 database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:hsqldb";
 database-login-username sa;
@@ -7,12 +8,8 @@ database-login-password "";
 //database-in-catalog PUBLIC;
 //database-active-schema PUBLIC;getSqlTypes
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
-database-show-database-info "HSQL Database Engine,2.2.9,2,2";
-database-show-driver-info "HSQL Database Engine Driver,2.2.9,2,2";
-database-show-driver-output getNumericFunctions->"ABS,ACOS,ASIN,ATAN,ATAN2,BITAND,BITOR,BITXOR,CEILING,COS,COT,DEGREES,EXP,FLOOR,LOG,LOG10,MOD,PI,POWER,RADIANS,RAND,ROUND,ROUNDMAGIC,SIGN,SIN,SQRT,TAN,TRUNCATE";
-database-show-driver-output getStringFunctions->"ASCII,CHAR,CONCAT,DIFFERENCE,HEXTORAW,INSERT,LCASE,LEFT,LENGTH,LOCATE,LTRIM,RAWTOHEX,REPEAT,REPLACE,RIGHT,RTRIM,SOUNDEX,SPACE,SUBSTR,UCASE";
-database-show-driver-output getSystemFunctions->"DATABASE,IFNULL,USER";
-database-show-driver-output getTimeDateFunctions->"CURDATE,CURTIME,DATEDIFF,DAYNAME,DAYOFMONTH,DAYOFWEEK,DAYOFYEAR,HOUR,MINUTE,MONTH,MONTHNAME,NOW,QUARTER,SECOND,SECONDS_SINCE_MIDNIGHT,TIMESTAMPADD,TIMESTAMPDIFF,TO_CHAR,WEEK,YEAR";
+database-show-database-info "HSQL Database Engine,2.3.2,2,3";
+database-show-driver-info "HSQL Database Engine Driver,2.3.2,2,3";
 //database-is-of-type HSQLDB;
 database-take-comments;
 pojogen-show-type-for-column CONTACT ID->"BIGINT(64)";
@@ -40,6 +37,14 @@ pojogen-generate-operators;
 pojogen-generate-validation-annotations;
 pojogen-package org.sample.model;
 
+//pojogen-ignore-one-to-many PERSON ID->PERSON_DETAIL->ID;
+//pojogen-ignore-many-to-one PERSON_DETAIL ID->PERSON->ID;
+//pojogen-create-columns PERSON PERSON_DETAIL->java.lang.Long;
+//pojogen-create-many-to-one PERSON PERSON_DETAIL->PERSON_DETAIL->ID;
+//pojogen-create-columns PERSON_DETAIL PERSON->java.lang.Long;
+//pojogen-create-many-to-one PERSON_DETAIL PERSON->PERSON->ID;
+pojogen-association-one-to-one PERSON ID->PERSON_DETAIL->ID;
+
 // use indetity for primary keys
 metagen-global-identity COMMON;
 //metagen-global-sequence SIMPLE_SEQUENCE;
@@ -58,6 +63,7 @@ daogen-package org.sample.dao;
 
 table contact CONTACT;
 table person PERSON;
+table personDetail PERSON_DETAIL;
 procedure anHourBefore AN_HOUR_BEFORE;
 procedure newPerson NEW_PERSON;
 procedure newPersonRetRs NEW_PERSON_RET_RS;
@@ -74,3 +80,4 @@ pojo Contact org.sample.model.Contact;
 pojo NewPerson org.sample.model.NewPerson;
 pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
 pojo Person org.sample.model.Person;
+pojo PersonDetail org.sample.model.PersonDetail;

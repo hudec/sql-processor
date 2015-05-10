@@ -64,11 +64,13 @@ INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
 ;
 
-GET_PERSON(CRUD,in=Person,out=Person,tab=person=p,tab=contact=c)=
+GET_PERSON(CRUD,in=Person,out=Person,tab=person=p,tab=contact=c,tab=personDetail=p1)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.X_NOTE @contacts.xNote }
+         {? :personDetail(call=toInit) | , %p1.WEIGHT @personDetail.weight, %p1.HEIGHT @personDetail.height, %p1.DISPOSITION @personDetail.disposition, %p1.TITLES @personDetail.titles }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {? :personDetail(call=toInit) | left join %%PERSON_DETAIL p1 on %p.ID = %p1.ID }
   {= where
     {& %p.ID ::= :id }
     {& %p.FIRST_NAME ::= :firstName }
@@ -100,11 +102,13 @@ DELETE_PERSON(CRUD,in=Person,out=Person,tab=person)=
   }
 ;
 
-SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
+SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c,tab=personDetail=p1)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.GENDER @gender, %p.SSN @ssn
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.TYPE @contacts.type, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber, %c.X_NOTE @contacts.xNote }
+         {? :personDetail(call=toInit) | , %p1.WEIGHT @personDetail.weight, %p1.HEIGHT @personDetail.height, %p1.DISPOSITION @personDetail.disposition, %p1.TITLES @personDetail.titles }
   from %%PERSON p
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {? :personDetail(call=toInit) | left join %%PERSON_DETAIL p1 on %p.ID = %p1.ID }
   {= where
     {& %p.ID ::= :id }
     {& UPPER(%p.FIRST_NAME) like :+firstName }
@@ -115,6 +119,60 @@ SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
   }
   {#1 order by %p.ID }
   {#2 order by %p.LAST_NAME }
+;
+
+INSERT_PERSON_DETAIL(CRUD,in=PersonDetail,out=PersonDetail,tab=personDetail)=
+  insert into %%PERSON_DETAIL (%ID, %WEIGHT, %HEIGHT, %DISPOSITION, %TITLES)
+  {= values (:id(idgen=COMMON,id=ID), :weight, :height, :disposition, :titles) }
+;
+
+GET_PERSON_DETAIL(CRUD,in=PersonDetail,out=PersonDetail,tab=personDetail=p,tab=person=p1)=
+  select %p.ID @id(id), %p.WEIGHT @weight, %p.HEIGHT @height, %p.DISPOSITION @disposition, %p.TITLES @titles
+         {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.GENDER @person.gender, %p1.SSN @person.ssn }
+  from %%PERSON_DETAIL p
+  {? :person(call=toInit) | left join %%PERSON p1 on %p.ID = %p1.ID }
+  {= where
+    {& %p.ID ::= :id }
+    {& %p.WEIGHT ::= :weight }
+    {& %p.HEIGHT ::= :height }
+    {& %p.DISPOSITION ::= :disposition }
+    {& %p.TITLES ::= :titles }
+  }
+;
+
+UPDATE_PERSON_DETAIL(CRUD,in=PersonDetail,out=PersonDetail,tab=personDetail)=
+  update %%PERSON_DETAIL
+  {= set
+    { ,%WEIGHT = :weight(call=isDef) }
+    { ,%HEIGHT = :height(call=isDef) }
+    { ,%DISPOSITION = :disposition(call=isDef) }
+    { ,%TITLES = :titles(call=isDef) }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_PERSON_DETAIL(CRUD,in=PersonDetail,out=PersonDetail,tab=personDetail)=
+  delete from %%PERSON_DETAIL
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_PERSON_DETAIL(QRY,in=PersonDetail,out=PersonDetail,tab=personDetail=p,tab=person=p1)=
+  select %p.ID @id(id), %p.WEIGHT @weight, %p.HEIGHT @height, %p.DISPOSITION @disposition, %p.TITLES @titles
+         {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.GENDER @person.gender, %p1.SSN @person.ssn }
+  from %%PERSON_DETAIL p
+  {? :person(call=toInit) | left join %%PERSON p1 on %p.ID = %p1.ID }
+  {= where
+    {& %p.ID ::= :id }
+    {& %p.WEIGHT ::= :weight }
+    {& %p.HEIGHT ::= :height }
+    {& %p.DISPOSITION ::= :disposition }
+    {& %p.TITLES ::= :titles }
+  }
+  {#2 order by %p.ID }
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
@@ -134,3 +192,16 @@ PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
 PROC_NEW_PERSON_RET_RS(OUT,out=Person)=
   ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth GENDER$gender SSN$ssn
 ;
+
+// Model statistics
+// Tables=3
+// Columns=17
+// Primary Keys=3
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=2
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1

@@ -1,35 +1,18 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.sample.model.Contact;
-import org.sample.model.PersonDetail;
-import org.sample.model.PersonGender;
+import org.sample.model.Person;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
 @SuppressWarnings("all")
-public class Person implements Serializable {
+public class PersonDetail implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
-  
-  public final static int ORDER_BY_LAST_NAME = 2;
-  
-  public Person() {
-  }
-  
-  public Person(final String firstName, final String lastName, final PersonGender gender) {
-    super();
-    setFirstName(firstName);
-    setLastName(lastName);
-    setGender(gender);
-  }
+  public final static int ORDER_BY_ID = 2;
   
   private Long id;
   
@@ -41,119 +24,85 @@ public class Person implements Serializable {
     this.id = id;
   }
   
-  public Person _setId(final Long id) {
+  public PersonDetail _setId(final Long id) {
     this.id = id;
     return this;
   }
   
-  @NotNull
-  @Size(max = 100)
-  private String firstName;
+  private Integer weight;
   
-  public String getFirstName() {
-    return this.firstName;
+  public Integer getWeight() {
+    return this.weight;
   }
   
-  public void setFirstName(final String firstName) {
-    this.firstName = firstName;
+  public void setWeight(final Integer weight) {
+    this.weight = weight;
   }
   
-  public Person _setFirstName(final String firstName) {
-    this.firstName = firstName;
+  public PersonDetail _setWeight(final Integer weight) {
+    this.weight = weight;
     return this;
   }
   
-  @NotNull
-  @Size(max = 100)
-  private String lastName;
+  private Integer height;
   
-  public String getLastName() {
-    return this.lastName;
+  public Integer getHeight() {
+    return this.height;
   }
   
-  public void setLastName(final String lastName) {
-    this.lastName = lastName;
+  public void setHeight(final Integer height) {
+    this.height = height;
   }
   
-  public Person _setLastName(final String lastName) {
-    this.lastName = lastName;
+  public PersonDetail _setHeight(final Integer height) {
+    this.height = height;
     return this;
   }
   
-  private Date dateOfBirth;
+  @Size(max = 200)
+  private String disposition;
   
-  public Date getDateOfBirth() {
-    return this.dateOfBirth;
+  public String getDisposition() {
+    return this.disposition;
   }
   
-  public void setDateOfBirth(final Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
+  public void setDisposition(final String disposition) {
+    this.disposition = disposition;
   }
   
-  public Person _setDateOfBirth(final Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-    return this;
-  }
-  
-  @NotNull
-  private PersonGender gender;
-  
-  public PersonGender getGender() {
-    return this.gender;
-  }
-  
-  public void setGender(final PersonGender gender) {
-    this.gender = gender;
-  }
-  
-  public Person _setGender(final PersonGender gender) {
-    this.gender = gender;
+  public PersonDetail _setDisposition(final String disposition) {
+    this.disposition = disposition;
     return this;
   }
   
   @Size(max = 100)
-  private String ssn;
+  private String titles;
   
-  public String getSsn() {
-    return this.ssn;
+  public String getTitles() {
+    return this.titles;
   }
   
-  public void setSsn(final String ssn) {
-    this.ssn = ssn;
+  public void setTitles(final String titles) {
+    this.titles = titles;
   }
   
-  public Person _setSsn(final String ssn) {
-    this.ssn = ssn;
+  public PersonDetail _setTitles(final String titles) {
+    this.titles = titles;
     return this;
   }
   
-  private PersonDetail personDetail;
+  private Person person;
   
-  public PersonDetail getPersonDetail() {
-    return this.personDetail;
+  public Person getPerson() {
+    return this.person;
   }
   
-  public void setPersonDetail(final PersonDetail personDetail) {
-    this.personDetail = personDetail;
+  public void setPerson(final Person person) {
+    this.person = person;
   }
   
-  public Person _setPersonDetail(final PersonDetail personDetail) {
-    this.personDetail = personDetail;
-    return this;
-  }
-  
-  private List<Contact> contacts = new java.util.ArrayList<Contact>();
-  
-  public List<Contact> getContacts() {
-    return this.contacts;
-  }
-  
-  public void setContacts(final List<Contact> contacts) {
-    this.contacts = contacts;
-  }
-  
-  public Person _setContacts(final List<Contact> contacts) {
-    this.contacts = contacts;
+  public PersonDetail _setPerson(final Person person) {
+    this.person = person;
     return this;
   }
   
@@ -165,7 +114,7 @@ public class Person implements Serializable {
     	return false;
     if (getClass() != obj.getClass())
     	return false;
-    Person other = (Person) obj;
+    PersonDetail other = (PersonDetail) obj;
     if (id == null || !id.equals(other.id))
     	return false;
     return true;
@@ -181,43 +130,47 @@ public class Person implements Serializable {
   
   @Override
   public String toString() {
-    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + "]";
+    return "PersonDetail [id=" + id + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + "]";
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", personDetail=" + personDetail + ", contacts=" + contacts + "]";
+    return "PersonDetail [id=" + id + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + ", person=" + person + "]";
   }
   
   public enum Attribute {
-    dateOfBirth,
+    weight,
     
-    ssn,
+    height,
     
-    personDetail;
+    disposition,
+    
+    titles,
+    
+    person;
   }
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
   
-  public void setNull(final Person.Attribute... attributes) {
+  public void setNull(final PersonDetail.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
     	nullValues.add(attribute.name());
   }
   
-  public Person _setNull(final Person.Attribute... attributes) {
+  public PersonDetail _setNull(final PersonDetail.Attribute... attributes) {
     setNull(attributes);
     return this;
   }
   
-  public void clearNull(final Person.Attribute... attributes) {
+  public void clearNull(final PersonDetail.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
     	nullValues.remove(attribute.name());
   }
   
-  public Person _clearNull(final Person.Attribute... attributes) {
+  public PersonDetail _clearNull(final PersonDetail.Attribute... attributes) {
     clearNull(attributes);
     return this;
   }
@@ -229,7 +182,7 @@ public class Person implements Serializable {
     	nullValues.add(attribute);
   }
   
-  public Person _setNull(final String... attributes) {
+  public PersonDetail _setNull(final String... attributes) {
     setNull(attributes);
     return this;
   }
@@ -241,12 +194,12 @@ public class Person implements Serializable {
     	nullValues.remove(attribute);
   }
   
-  public Person _clearNull(final String... attributes) {
+  public PersonDetail _clearNull(final String... attributes) {
     clearNull(attributes);
     return this;
   }
   
-  public Boolean isNull(final Person.Attribute attribute) {
+  public Boolean isNull(final PersonDetail.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
     return nullValues.contains(attribute.name());
@@ -280,33 +233,31 @@ public class Person implements Serializable {
   }
   
   public enum Association {
-    personDetail,
-    
-    contacts;
+    person;
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
-  public void setInit(final Person.Association... associations) {
+  public void setInit(final PersonDetail.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
     	initAssociations.add(association.name());
   }
   
-  public Person _setInit(final Person.Association... associations) {
+  public PersonDetail _setInit(final PersonDetail.Association... associations) {
     setInit(associations);
     return this;
   }
   
-  public void clearInit(final Person.Association... associations) {
+  public void clearInit(final PersonDetail.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
     	initAssociations.remove(association.name());
   }
   
-  public Person _clearInit(final Person.Association... associations) {
+  public PersonDetail _clearInit(final PersonDetail.Association... associations) {
     clearInit(associations);
     return this;
   }
@@ -318,7 +269,7 @@ public class Person implements Serializable {
     	initAssociations.add(association);
   }
   
-  public Person _setInit(final String... associations) {
+  public PersonDetail _setInit(final String... associations) {
     setInit(associations);
     return this;
   }
@@ -330,12 +281,12 @@ public class Person implements Serializable {
     	initAssociations.remove(association);
   }
   
-  public Person _clearInit(final String... associations) {
+  public PersonDetail _clearInit(final String... associations) {
     clearInit(associations);
     return this;
   }
   
-  public Boolean toInit(final Person.Association association) {
+  public Boolean toInit(final PersonDetail.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
     return initAssociations.contains(association.name());
@@ -354,19 +305,15 @@ public class Person implements Serializable {
   public enum OpAttribute {
     id,
     
-    firstName,
+    weight,
     
-    lastName,
+    height,
     
-    dateOfBirth,
+    disposition,
     
-    gender,
+    titles,
     
-    ssn,
-    
-    personDetail,
-    
-    contacts;
+    person;
   }
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();
@@ -375,26 +322,26 @@ public class Person implements Serializable {
     return operators;
   }
   
-  public void setOp(final String operator, final Person.OpAttribute... attributes) {
+  public void setOp(final String operator, final PersonDetail.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
     	operators.put(attribute.name(), operator);
   }
   
-  public Person _setOp(final String operator, final Person.OpAttribute... attributes) {
+  public PersonDetail _setOp(final String operator, final PersonDetail.OpAttribute... attributes) {
     setOp(operator, attributes);
     return this;
   }
   
-  public void clearOp(final Person.OpAttribute... attributes) {
+  public void clearOp(final PersonDetail.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
     	operators.remove(attribute.name());
   }
   
-  public Person _clearOp(final Person.OpAttribute... attributes) {
+  public PersonDetail _clearOp(final PersonDetail.OpAttribute... attributes) {
     clearOp(attributes);
     return this;
   }
@@ -406,7 +353,7 @@ public class Person implements Serializable {
     	operators.put(attribute, operator);
   }
   
-  public Person _setOp(final String operator, final String... attributes) {
+  public PersonDetail _setOp(final String operator, final String... attributes) {
     setOp(operator, attributes);
     return this;
   }
@@ -418,19 +365,19 @@ public class Person implements Serializable {
     	operators.remove(attribute);
   }
   
-  public Person _clearOp(final String... attributes) {
+  public PersonDetail _clearOp(final String... attributes) {
     clearOp(attributes);
     return this;
   }
   
-  public void setNullOp(final Person.OpAttribute... attributes) {
+  public void setNullOp(final PersonDetail.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
     	operators.put(attribute.name(), "is null");
   }
   
-  public Person _setNullOp(final Person.OpAttribute... attributes) {
+  public PersonDetail _setNullOp(final PersonDetail.OpAttribute... attributes) {
     setNullOp(attributes);
     return this;
   }
@@ -442,7 +389,7 @@ public class Person implements Serializable {
     	operators.put(attribute, "is null");
   }
   
-  public Person _setNullOp(final String... attributes) {
+  public PersonDetail _setNullOp(final String... attributes) {
     setNullOp(attributes);
     return this;
   }

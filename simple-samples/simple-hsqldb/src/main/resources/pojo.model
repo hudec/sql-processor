@@ -72,8 +72,34 @@ package org.sample.model {
         #IsDef
         // The social security number
         #Attr String ssn
+        #IsDef #ToInit
+        #Attr PersonDetail personDetail
         #ToInit
         #Attr java.util.List <Contact> contacts
+    }
+
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,weight,height,disposition,titles)
+    // The detailed personal information
+    #Pojo PersonDetail {
+        #PrimaryKey #Index(2)
+        // The technical primary key
+        #Attr Long id
+        #IsDef
+        // The weight
+        #Attr Integer weight
+        #IsDef
+        // The height
+        #Attr Integer height
+        @Size(max = 200)
+        #IsDef
+        // The character
+        #Attr String disposition
+        @Size(max = 100)
+        #IsDef
+        // The titles
+        #Attr String titles
+        #IsDef #ToInit
+        #Attr Person person
     }
 
     #Serializable(1) #ToString(t)
@@ -99,4 +125,17 @@ package org.sample.model {
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=3
+// Columns=17
+// Primary Keys=3
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=2
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }
