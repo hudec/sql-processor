@@ -76,6 +76,8 @@ package org.sample.model {
         #Attr PersonDetail personDetail
         #ToInit
         #Attr java.util.List <Contact> contacts
+        #Attr boolean onlyIds
+        #Attr java.util.List <Long> ids
     }
 
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,weight,height,disposition,titles)
