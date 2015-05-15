@@ -177,9 +177,9 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the max SQL execution time
      */
-    public static int getMaxTimeout(SqlControl sqlControl) {
+    public static Integer getMaxTimeout(SqlControl sqlControl) {
         if (sqlControl == null)
-            return 0;
+            return null;
         else
             return sqlControl.getMaxTimeout();
     }
@@ -191,9 +191,9 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the first SQL execution output row
      */
-    public static int getFirstResult(SqlControl sqlControl) {
+    public static Integer getFirstResult(SqlControl sqlControl) {
         if (sqlControl == null)
-            return 0;
+            return null;
         else
             return sqlControl.getFirstResult();
     }
@@ -205,9 +205,9 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the max number of SQL execution output rows
      */
-    public static int getMaxResults(SqlControl sqlControl) {
+    public static Integer getMaxResults(SqlControl sqlControl) {
         if (sqlControl == null)
-            return 0;
+            return null;
         else
             return sqlControl.getMaxResults();
     }
@@ -275,9 +275,9 @@ public abstract class SqlEngine {
      *            the compound parameters controlling the META SQL execution
      * @return the fetch size of SQL statement
      */
-    public static int getFetchSize(SqlControl sqlControl) {
+    public static Integer getFetchSize(SqlControl sqlControl) {
         if (sqlControl == null)
-            return 0;
+            return null;
         else
             return sqlControl.getFetchSize();
     }

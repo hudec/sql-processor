@@ -27,17 +27,17 @@ public class SqlStandardControl implements SqlControl {
      * The max SQL execution time. This parameter can help to protect production system against ineffective SQL query
      * commands. The value is in milliseconds.
      */
-    private int maxTimeout;
+    private Integer maxTimeout;
     /**
      * The first SQL execution output row to be returned in the case we need to skip some rows in the result set. The
      * primary usage is to support the pagination.
      */
-    private int firstResult;
+    private Integer firstResult;
     /**
      * The max number of SQL execution output rows, which can be returned in the result list. The primary usage is to
      * support the pagination.
      */
-    private int maxResults;
+    private Integer maxResults;
     /**
      * The ordering directive list. Using the class SqlOrder the ordering rules can be chained. Every ordering rule in
      * this chain should correspond to one META SQL ordering statement.
@@ -69,7 +69,7 @@ public class SqlStandardControl implements SqlControl {
     /**
      * Returns the fetch size of SQL execution output rows, which can be returned in one SQL statement.
      */
-    private int fetchSize;
+    private Integer fetchSize;
 
     /**
      * Standard constructor.
@@ -90,6 +90,7 @@ public class SqlStandardControl implements SqlControl {
             setOrder(sqlControl.getOrder());
             setFeatures(sqlControl.getFeatures());
             setProcessingId(sqlControl.getProcessingId());
+            setFetchSize(sqlControl.getFetchSize());
         }
     }
 
@@ -119,7 +120,7 @@ public class SqlStandardControl implements SqlControl {
      * {@inheritDoc}
      */
     @Override
-    public int getMaxTimeout() {
+    public Integer getMaxTimeout() {
         return maxTimeout;
     }
 
@@ -131,7 +132,7 @@ public class SqlStandardControl implements SqlControl {
      *            the max SQL execution time
      * @return this instance
      */
-    public SqlStandardControl setMaxTimeout(int maxTimeout) {
+    public SqlStandardControl setMaxTimeout(Integer maxTimeout) {
         this.maxTimeout = maxTimeout;
         return this;
     }
@@ -140,7 +141,7 @@ public class SqlStandardControl implements SqlControl {
      * {@inheritDoc}
      */
     @Override
-    public int getFirstResult() {
+    public Integer getFirstResult() {
         return firstResult;
     }
 
@@ -152,7 +153,7 @@ public class SqlStandardControl implements SqlControl {
      *            the first SQL execution output row
      * @return this instance
      */
-    public SqlStandardControl setFirstResult(int firstResult) {
+    public SqlStandardControl setFirstResult(Integer firstResult) {
         this.firstResult = firstResult;
         return this;
     }
@@ -161,7 +162,7 @@ public class SqlStandardControl implements SqlControl {
      * {@inheritDoc}
      */
     @Override
-    public int getMaxResults() {
+    public Integer getMaxResults() {
         return maxResults;
     }
 
@@ -173,7 +174,7 @@ public class SqlStandardControl implements SqlControl {
      *            the max number of SQL execution output rows
      * @return this instance
      */
-    public SqlStandardControl setMaxResults(int maxResults) {
+    public SqlStandardControl setMaxResults(Integer maxResults) {
         this.maxResults = maxResults;
         return this;
     }
@@ -319,7 +320,7 @@ public class SqlStandardControl implements SqlControl {
     }
 
     @Override
-    public int getFetchSize() {
+    public Integer getFetchSize() {
         return fetchSize;
     }
 
@@ -330,7 +331,7 @@ public class SqlStandardControl implements SqlControl {
      *            the fetch size of SQL execution output rows
      * @return this instance
      */
-    public SqlStandardControl setFetchSize(int fetchSize) {
+    public SqlStandardControl setFetchSize(Integer fetchSize) {
         this.fetchSize = fetchSize;
         return this;
     }

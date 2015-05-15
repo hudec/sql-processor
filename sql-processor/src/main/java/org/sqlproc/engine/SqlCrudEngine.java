@@ -302,7 +302,7 @@ public class SqlCrudEngine extends SqlEngine {
                     sql = SqlUtils.handleInsertSql(processResult.getIdentities(), sql);
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) > 0)
+                    if (getMaxTimeout(sqlControl) != null)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
@@ -484,9 +484,9 @@ public class SqlCrudEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) > 0)
+                    if (getMaxTimeout(sqlControl) != null)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    if (getFetchSize(sqlControl) > 0)
+                    if (getFetchSize(sqlControl) != null)
                         query.setFetchSize(getFetchSize(sqlControl));
                     processResult.setQueryParams(session, query);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
@@ -664,7 +664,7 @@ public class SqlCrudEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) > 0)
+                    if (getMaxTimeout(sqlControl) != null)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 
@@ -793,7 +793,7 @@ public class SqlCrudEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) > 0)
+                    if (getMaxTimeout(sqlControl) != null)
                         query.setTimeout(getMaxTimeout(sqlControl));
                     processResult.setQueryParams(session, query);
 

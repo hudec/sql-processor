@@ -28,7 +28,7 @@ public interface SqlControl {
      * 
      * @return the max SQL execution time
      */
-    public int getMaxTimeout();
+    public Integer getMaxTimeout();
 
     /**
      * Returns the first SQL execution output row to be returned in the case we need to skip some rows in the result
@@ -36,7 +36,7 @@ public interface SqlControl {
      * 
      * @return the first SQL execution output row
      */
-    public int getFirstResult();
+    public Integer getFirstResult();
 
     /**
      * Returns the max number of SQL execution output rows, which can be returned in the result list. The primary usage
@@ -44,7 +44,7 @@ public interface SqlControl {
      * 
      * @return the max number of SQL execution output rows
      */
-    public int getMaxResults();
+    public Integer getMaxResults();
 
     /**
      * Returns the ordering directive list. Using the class SqlOrder the ordering rules can be chained. Every ordering
@@ -87,5 +87,5 @@ public interface SqlControl {
      *
      * @return the fetch size of SQL execution output rows
      */
-    public int getFetchSize();
+    public Integer getFetchSize();
 }

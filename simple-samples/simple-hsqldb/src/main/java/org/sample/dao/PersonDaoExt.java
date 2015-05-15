@@ -42,26 +42,14 @@ public class PersonDaoExt extends PersonDao {
         person.setOnlyIds(true);
         Set<String> initAssociations = person.getInitAssociations();
         person.setInitAssociations(new HashSet<String>());
-        final List<Long> ids = new ArrayList<Long>();
-        final SqlRowProcessor<Person> sqlRowProcessor = new SqlRowProcessor<Person>() {
-
-            @Override
-            public boolean processRow(Person result, int rownum) throws SqlRuntimeException {
-                ids.add(result.getId());
-                return true;
-            }
-        };
-        sqlEnginePerson.query(sqlSession, Person.class, person, sqlControl, sqlRowProcessor);
+        final List<Long> ids = sqlEnginePerson.query(sqlSession, Long.class, person, sqlControl);
         person.setInitAssociations(initAssociations);
 
         List<Person> personList = new ArrayList<Person>();
-        SqlStandardControl sqlc = new SqlStandardControl();
-        sqlc.setStaticInputValues(sqlControl.getStaticInputValues());
-        sqlc.setOrder(sqlControl.getOrder());
-        sqlc.setMoreResultClasses(sqlControl.getMoreResultClasses());
-        sqlc.setFeatures(sqlControl.getFeatures());
-        sqlc.setFetchSize(sqlControl.getFetchSize());
         if (!ids.isEmpty()) {
+            SqlStandardControl sqlc = new SqlStandardControl(sqlControl);
+            sqlc.setFirstResult(0);
+            sqlc.setMaxResults(0);
             final Map<Long, Person> map = new HashMap<Long, Person>();
             final SqlRowProcessor<Person> sqlRowProcessor2 = new SqlRowProcessor<Person>() {
 
