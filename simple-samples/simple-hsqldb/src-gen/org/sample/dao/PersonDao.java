@@ -1,6 +1,7 @@
 package org.sample.dao;
 
 import java.util.List;
+import java.util.Map;
 import org.sample.model.Person;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
@@ -174,6 +175,56 @@ public class PersonDao {
   
   public int query(final Person person, final SqlRowProcessor<Person> sqlRowProcessor) {
     return query(person, null, sqlRowProcessor);
+  }
+  
+  public List<Person> listFromTo(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
+    if (sqlControl == null || sqlControl.getFirstResult() == null || sqlControl.getMaxResults() == null || person == null)
+    	return list(sqlSession, person, sqlControl);
+    
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql list person: " + person + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON");
+    //sqlControl = getMoreResultClasses(person, sqlControl);
+    person.setOnlyIds(true);
+    java.util.Set<String> initAssociations = person.getInitAssociations();
+    person.setInitAssociations(new java.util.HashSet<String>());
+    final java.util.List<Long> ids = sqlEnginePerson.query(sqlSession, Long.class, person, sqlControl);
+    person.setInitAssociations(initAssociations);
+    
+    List<Person> personList = new java.util.ArrayList<Person>();
+    if (!ids.isEmpty()) {
+    	org.sqlproc.engine.impl.SqlStandardControl sqlc = new org.sqlproc.engine.impl.SqlStandardControl(sqlControl);
+    	sqlc.setFirstResult(0);
+    	sqlc.setMaxResults(0);
+    	final Map<Long, Person> map = new java.util.HashMap<Long, Person>();
+    	final SqlRowProcessor<Person> sqlRowProcessor = new SqlRowProcessor<Person>() {
+    		@Override
+    		public boolean processRow(Person result, int rownum) throws org.sqlproc.engine.SqlRuntimeException {
+    			map.put(result.getId(), result);
+    			return true;
+    		}
+    	};
+    	sqlEnginePerson.query(sqlSession, Person.class, new Person()._setIds(ids), sqlc, sqlRowProcessor);
+    	for (Long id : ids)
+    		personList.add(map.get(id));
+    }
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql list person size: " + ((personList != null) ? personList.size() : "null"));
+    }
+    return personList;
+  }
+  
+  public List<Person> listFromTo(final Person person, SqlControl sqlControl) {
+    return listFromTo(sqlSessionFactory.getSqlSession(), person, sqlControl);
+  }
+  
+  public List<Person> listFromTo(final SqlSession sqlSession, final Person person) {
+    return listFromTo(sqlSession, person, null);
+  }
+  
+  public List<Person> listFromTo(final Person person) {
+    return listFromTo(person, null);
   }
   
   public int count(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {

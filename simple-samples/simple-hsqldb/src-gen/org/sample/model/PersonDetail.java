@@ -1,6 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.Size;
@@ -106,6 +107,36 @@ public class PersonDetail implements Serializable {
     return this;
   }
   
+  private boolean onlyIds;
+  
+  public boolean isOnlyIds() {
+    return this.onlyIds;
+  }
+  
+  public void setOnlyIds(final boolean onlyIds) {
+    this.onlyIds = onlyIds;
+  }
+  
+  public PersonDetail _setOnlyIds(final boolean onlyIds) {
+    this.onlyIds = onlyIds;
+    return this;
+  }
+  
+  private List<Long> ids = new java.util.ArrayList<Long>();
+  
+  public List<Long> getIds() {
+    return this.ids;
+  }
+  
+  public void setIds(final List<Long> ids) {
+    this.ids = ids;
+  }
+  
+  public PersonDetail _setIds(final List<Long> ids) {
+    this.ids = ids;
+    return this;
+  }
+  
   @Override
   public boolean equals(final Object obj) {
     if (this == obj)
@@ -134,7 +165,7 @@ public class PersonDetail implements Serializable {
   }
   
   public String toStringFull() {
-    return "PersonDetail [id=" + id + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + ", person=" + person + "]";
+    return "PersonDetail [id=" + id + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + ", person=" + person + ", onlyIds=" + onlyIds + ", ids=" + ids + "]";
   }
   
   public enum Attribute {
@@ -238,6 +269,14 @@ public class PersonDetail implements Serializable {
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
+  public Set<String> getInitAssociations() {
+    return this.initAssociations;
+  }
+  
+  public void setInitAssociations(final Set<String> initAssociations) {
+    this.initAssociations = initAssociations;
+  }
+  
   public void setInit(final PersonDetail.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
@@ -313,7 +352,11 @@ public class PersonDetail implements Serializable {
     
     titles,
     
-    person;
+    person,
+    
+    onlyIds,
+    
+    ids;
   }
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();

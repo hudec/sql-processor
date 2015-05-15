@@ -43,6 +43,8 @@ package org.sample.model {
         #IsDef
         // Any notes and remarks
         #Attr String xNote
+        #Attr boolean onlyIds
+        #Attr java.util.List <Long> ids
     }
 
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
@@ -102,6 +104,8 @@ package org.sample.model {
         #Attr String titles
         #IsDef #ToInit
         #Attr Person person
+        #Attr boolean onlyIds
+        #Attr java.util.List <Long> ids
     }
 
     #Serializable(1) #ToString(t)

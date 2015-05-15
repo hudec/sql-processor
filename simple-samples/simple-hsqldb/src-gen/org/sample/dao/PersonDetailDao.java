@@ -1,6 +1,7 @@
 package org.sample.dao;
 
 import java.util.List;
+import java.util.Map;
 import org.sample.model.PersonDetail;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
@@ -174,6 +175,56 @@ public class PersonDetailDao {
   
   public int query(final PersonDetail personDetail, final SqlRowProcessor<PersonDetail> sqlRowProcessor) {
     return query(personDetail, null, sqlRowProcessor);
+  }
+  
+  public List<PersonDetail> listFromTo(final SqlSession sqlSession, final PersonDetail personDetail, SqlControl sqlControl) {
+    if (sqlControl == null || sqlControl.getFirstResult() == null || sqlControl.getMaxResults() == null || personDetail == null)
+    	return list(sqlSession, personDetail, sqlControl);
+    
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql list personDetail: " + personDetail + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_DETAIL");
+    //sqlControl = getMoreResultClasses(personDetail, sqlControl);
+    personDetail.setOnlyIds(true);
+    java.util.Set<String> initAssociations = personDetail.getInitAssociations();
+    personDetail.setInitAssociations(new java.util.HashSet<String>());
+    final java.util.List<Long> ids = sqlEnginePersonDetail.query(sqlSession, Long.class, personDetail, sqlControl);
+    personDetail.setInitAssociations(initAssociations);
+    
+    List<PersonDetail> personDetailList = new java.util.ArrayList<PersonDetail>();
+    if (!ids.isEmpty()) {
+    	org.sqlproc.engine.impl.SqlStandardControl sqlc = new org.sqlproc.engine.impl.SqlStandardControl(sqlControl);
+    	sqlc.setFirstResult(0);
+    	sqlc.setMaxResults(0);
+    	final Map<Long, PersonDetail> map = new java.util.HashMap<Long, PersonDetail>();
+    	final SqlRowProcessor<PersonDetail> sqlRowProcessor = new SqlRowProcessor<PersonDetail>() {
+    		@Override
+    		public boolean processRow(PersonDetail result, int rownum) throws org.sqlproc.engine.SqlRuntimeException {
+    			map.put(result.getId(), result);
+    			return true;
+    		}
+    	};
+    	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail()._setIds(ids), sqlc, sqlRowProcessor);
+    	for (Long id : ids)
+    		personDetailList.add(map.get(id));
+    }
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql list personDetail size: " + ((personDetailList != null) ? personDetailList.size() : "null"));
+    }
+    return personDetailList;
+  }
+  
+  public List<PersonDetail> listFromTo(final PersonDetail personDetail, SqlControl sqlControl) {
+    return listFromTo(sqlSessionFactory.getSqlSession(), personDetail, sqlControl);
+  }
+  
+  public List<PersonDetail> listFromTo(final SqlSession sqlSession, final PersonDetail personDetail) {
+    return listFromTo(sqlSession, personDetail, null);
+  }
+  
+  public List<PersonDetail> listFromTo(final PersonDetail personDetail) {
+    return listFromTo(personDetail, null);
   }
   
   public int count(final SqlSession sqlSession, final PersonDetail personDetail, SqlControl sqlControl) {

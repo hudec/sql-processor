@@ -1,6 +1,7 @@
 package org.sample.dao;
 
 import java.util.List;
+import java.util.Map;
 import org.sample.model.Contact;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
@@ -174,6 +175,56 @@ public class ContactDao {
   
   public int query(final Contact contact, final SqlRowProcessor<Contact> sqlRowProcessor) {
     return query(contact, null, sqlRowProcessor);
+  }
+  
+  public List<Contact> listFromTo(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
+    if (sqlControl == null || sqlControl.getFirstResult() == null || sqlControl.getMaxResults() == null || contact == null)
+    	return list(sqlSession, contact, sqlControl);
+    
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql list contact: " + contact + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    //sqlControl = getMoreResultClasses(contact, sqlControl);
+    contact.setOnlyIds(true);
+    java.util.Set<String> initAssociations = contact.getInitAssociations();
+    contact.setInitAssociations(new java.util.HashSet<String>());
+    final java.util.List<Long> ids = sqlEngineContact.query(sqlSession, Long.class, contact, sqlControl);
+    contact.setInitAssociations(initAssociations);
+    
+    List<Contact> contactList = new java.util.ArrayList<Contact>();
+    if (!ids.isEmpty()) {
+    	org.sqlproc.engine.impl.SqlStandardControl sqlc = new org.sqlproc.engine.impl.SqlStandardControl(sqlControl);
+    	sqlc.setFirstResult(0);
+    	sqlc.setMaxResults(0);
+    	final Map<Long, Contact> map = new java.util.HashMap<Long, Contact>();
+    	final SqlRowProcessor<Contact> sqlRowProcessor = new SqlRowProcessor<Contact>() {
+    		@Override
+    		public boolean processRow(Contact result, int rownum) throws org.sqlproc.engine.SqlRuntimeException {
+    			map.put(result.getId(), result);
+    			return true;
+    		}
+    	};
+    	sqlEngineContact.query(sqlSession, Contact.class, new Contact()._setIds(ids), sqlc, sqlRowProcessor);
+    	for (Long id : ids)
+    		contactList.add(map.get(id));
+    }
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql list contact size: " + ((contactList != null) ? contactList.size() : "null"));
+    }
+    return contactList;
+  }
+  
+  public List<Contact> listFromTo(final Contact contact, SqlControl sqlControl) {
+    return listFromTo(sqlSessionFactory.getSqlSession(), contact, sqlControl);
+  }
+  
+  public List<Contact> listFromTo(final SqlSession sqlSession, final Contact contact) {
+    return listFromTo(sqlSession, contact, null);
+  }
+  
+  public List<Contact> listFromTo(final Contact contact) {
+    return listFromTo(contact, null);
   }
   
   public int count(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
