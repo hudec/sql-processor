@@ -1,0 +1,155 @@
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
+POSTGRESQL
+
+an_hour_before
+
+DbTable [name=_pg_char_max_length, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=returnValue, type=timestamp, size=0, sqlType=93, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=t, type=timestamp, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null]]
+
+new_person
+
+DbTable [name=new_person, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=returnValue, type=int8, size=0, sqlType=-5, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=newid, type=int8, size=0, sqlType=-5, nullable=true, position=0, columnType=4, comment=null], 
+DbColumn [name=date_of_birth, type=date, size=0, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=ssn, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=first_name, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=last_name, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=gender, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+new_person_ret_rs
+
+DbTable [name=new_person_ret_rs, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=returnValue, type=refcursor, size=0, sqlType=1111, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=date_of_birth, type=date, size=0, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=ssn, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=first_name, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=last_name, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=gender, type=varchar, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+
+----------------------------------------------------------------------------------------------------------------------------
+MYSQL
+
+AN_HOUR_BEFORE
+
+DbTable [name=AN_HOUR_BEFORE, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=, type=TIMESTAMP, size=19, sqlType=93, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=t, type=TIMESTAMP, size=19, sqlType=93, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON
+
+DbTable [name=NEW_PERSON, comment=null, type=null, ftype=0, ptype=0]
+
+[DbColumn [name=newid, type=INTEGER, size=10, sqlType=4, nullable=true, position=0, columnType=4, comment=null], 
+DbColumn [name=date_of_birth, type=DATE, size=10, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=ssn, type=VARCHAR, size=20, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=first_name, type=VARCHAR, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=last_name, type=VARCHAR, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=gender, type=VARCHAR, size=1, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON_RET_RS
+
+DbTable [name=NEW_PERSON_RET_RS, comment=null, type=null, ftype=0, ptype=0]
+
+[DbColumn [name=date_of_birth, type=DATE, size=10, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=ssn, type=VARCHAR, size=20, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=first_name, type=VARCHAR, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=last_name, type=VARCHAR, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=gender, type=VARCHAR, size=1, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+---
+
+AN_HOUR_BEFORE
+
+DbTable [name=AN_HOUR_BEFORE, comment=null, type=null, ftype=1, ptype=0]
+
+[DbColumn [name=, type=TIMESTAMP, size=19, sqlType=93, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=t, type=TIMESTAMP, size=19, sqlType=93, nullable=true, position=0, columnType=1, comment=null]]
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+IFX
+
+an_hour_before
+
+DbTable [name= systdistold, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=NULL, type=datetime year to fraction, size=3, sqlType=93, nullable=true, position=0, columnType=3, comment=null], 
+DbColumn [name=t, type=datetime year to fraction, size=3, sqlType=93, nullable=true, position=0, columnType=1, comment=null]]
+
+fun_long
+
+DbTable [name=fun_long, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=NULL, type=bigint, size=8, sqlType=-5, nullable=true, position=0, columnType=3, comment=null], 
+DbColumn [name=count, type=bigint, size=8, sqlType=-5, nullable=true, position=0, columnType=1, comment=null]]
+
+new_person
+
+DbTable [name=new_person, comment=null, type=null, ftype=0, ptype=1]
+
+[DbColumn [name=newid, type=integer, size=4, sqlType=4, nullable=true, position=0, columnType=4, comment=null], 
+DbColumn [name=date_of_birth, type=date, size=4, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=ssn, type=varchar, size=20, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=first_name, type=varchar, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=last_name, type=varchar, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=gender, type=varchar, size=1, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+new_person_ret_rs
+
+DbTable [name=new_person_ret_rs, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=id, type=integer, size=4, sqlType=4, nullable=true, position=0, columnType=3, comment=null], 
+DbColumn [name=date_of_birth, type=date, size=4, sqlType=91, nullable=true, position=0, columnType=3, comment=null], 
+DbColumn [name=ssn, type=varchar, size=100, sqlType=12, nullable=true, position=0, columnType=3, comment=null], 
+DbColumn [name=first_name, type=varchar, size=100, sqlType=12, nullable=true, position=0, columnType=3, comment=null], 
+DbColumn [name=last_name, type=varchar, size=100, sqlType=12, nullable=true, position=0, columnType=3, comment=null], 
+DbColumn [name=gender, type=varchar, size=1, sqlType=12, nullable=true, position=0, columnType=3, comment=null], 
+
+DbColumn [name=date_of_birth, type=date, size=4, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=ssn, type=varchar, size=20, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=first_name, type=varchar, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=last_name, type=varchar, size=100, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=gender, type=varchar, size=1, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+----------------------------------------------------------------------------------------------------------------------------
+HSQLDB
+
+AN_HOUR_BEFORE
+
+DbTable [name=AN_HOUR_BEFORE, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=T, type=TIMESTAMP, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON
+
+DbTable [name=NEW_PERSON, comment=null, type=null, ftype=0, ptype=1]
+
+[DbColumn [name=NEWID, type=INTEGER, size=0, sqlType=4, nullable=true, position=0, columnType=4, comment=null], 
+DbColumn [name=DATE_OF_BIRTH, type=DATE, size=0, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=SSN, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=FIRST_NAME, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=LAST_NAME, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=GENDER, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON_RET_RS
+
+DbTable [name=NEW_PERSON_RET_RS, comment=null, type=null, ftype=0, ptype=1]
+
+[DbColumn [name=DATE_OF_BIRTH, type=DATE, size=0, sqlType=91, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=SSN, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=FIRST_NAME, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=LAST_NAME, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=GENDER, type=CHARACTER VARYING, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+
