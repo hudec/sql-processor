@@ -189,7 +189,7 @@ public class PersonDetailDao {
     personDetail.setOnlyIds(true);
     java.util.Set<String> initAssociations = personDetail.getInitAssociations();
     personDetail.setInitAssociations(new java.util.HashSet<String>());
-    final java.util.List<Long> ids = sqlEnginePersonDetail.query(sqlSession, Long.class, personDetail, sqlControl);
+    final java.util.List<java.lang.Long> ids = sqlEnginePersonDetail.query(sqlSession, java.lang.Long.class, personDetail, sqlControl);
     personDetail.setInitAssociations(initAssociations);
     
     List<PersonDetail> personDetailList = new java.util.ArrayList<PersonDetail>();
@@ -197,7 +197,8 @@ public class PersonDetailDao {
     	org.sqlproc.engine.impl.SqlStandardControl sqlc = new org.sqlproc.engine.impl.SqlStandardControl(sqlControl);
     	sqlc.setFirstResult(0);
     	sqlc.setMaxResults(0);
-    	final Map<Long, PersonDetail> map = new java.util.HashMap<Long, PersonDetail>();
+    	sqlc.setOrder(null);
+    	final Map<java.lang.Long, PersonDetail> map = new java.util.HashMap<java.lang.Long, PersonDetail>();
     	final SqlRowProcessor<PersonDetail> sqlRowProcessor = new SqlRowProcessor<PersonDetail>() {
     		@Override
     		public boolean processRow(PersonDetail result, int rownum) throws org.sqlproc.engine.SqlRuntimeException {
@@ -206,7 +207,7 @@ public class PersonDetailDao {
     		}
     	};
     	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail()._setIds(ids), sqlc, sqlRowProcessor);
-    	for (Long id : ids)
+    	for (java.lang.Long id : ids)
     		personDetailList.add(map.get(id));
     }
     if (logger.isTraceEnabled()) {

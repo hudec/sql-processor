@@ -130,3 +130,16 @@ PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
 PROC_NEW_PERSON_RET_RS(OUT,out=Person)=
   id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth gender$gender ssn$ssn
 ;
+
+// Model statistics
+// Tables=2
+// Columns=11
+// Primary Keys=2
+// Exports=1
+// Imports=1
+// Indexes=3
+// Check Constraints=2
+// Procedures=3
+// Procedures Columns=15
+// Functions=0
+// Functions Columns=0

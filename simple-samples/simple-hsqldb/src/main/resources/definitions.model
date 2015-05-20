@@ -1,5 +1,6 @@
 resolve-pojo-on; 
 database-is-online;
+generate-from-to;
 //verify-resources - statements.meta;
 database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:hsqldb";
@@ -69,8 +70,13 @@ procedure newPerson NEW_PERSON;
 procedure newPersonRetRs NEW_PERSON_RET_RS;
 function anHourBefore AN_HOUR_BEFORE;
 
+pojogen-create-tables NEW_PERSON_RET_RS_RESULT;
+pojogen-create-columns NEW_PERSON_RET_RS_RESULT ID->java.lang.Long FIRST_NAME->java.lang.String 
+LAST_NAME->java.lang.String DATE_OF_BIRTH->java.util.Date GENDER->org.sample.model.PersonGender SSN->java.lang.String;
+
 metagen-function-result AN_HOUR_BEFORE stamp;
-metagen-procedure-result-set NEW_PERSON_RET_RS Person;
+//metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
+metagen-procedure-result-set NEW_PERSON_RET_RS NEW_PERSON_RET_RS_RESULT;
 //pojogen-debug-level DEBUG;
 
 compress-meta-directives;
@@ -79,5 +85,7 @@ pojo AnHourBefore org.sample.model.AnHourBefore;
 pojo Contact org.sample.model.Contact;
 pojo NewPerson org.sample.model.NewPerson;
 pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
 pojo Person org.sample.model.Person;
 pojo PersonDetail org.sample.model.PersonDetail;
+

@@ -2,7 +2,7 @@ package org.sample.dao;
 
 import java.util.List;
 import org.sample.model.NewPersonRetRs;
-import org.sample.model.Person;
+import org.sample.model.NewPersonRetRsResult;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -29,27 +29,27 @@ public class NewPersonRetRsDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
+  public List<NewPersonRetRsResult> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql newPersonRetRs: " + newPersonRetRs + " " + sqlControl);
     }
     org.sqlproc.engine.SqlProcedureEngine sqlProcNewPersonRetRsDao = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON_RET_RS");
-    List<Person> list = sqlProcNewPersonRetRsDao.callQuery(sqlSession, Person.class, newPersonRetRs, sqlControl);
+    List<NewPersonRetRsResult> list = sqlProcNewPersonRetRsDao.callQuery(sqlSession, NewPersonRetRsResult.class, newPersonRetRs, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql newPersonRetRs result: " + list);
     }
     return list;
   }
   
-  public List<Person> newPersonRetRs(final NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
+  public List<NewPersonRetRsResult> newPersonRetRs(final NewPersonRetRs newPersonRetRs, SqlControl sqlControl) {
     return newPersonRetRs(sqlSessionFactory.getSqlSession(), newPersonRetRs, sqlControl);
   }
   
-  public List<Person> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs newPersonRetRs) {
+  public List<NewPersonRetRsResult> newPersonRetRs(final SqlSession sqlSession, final NewPersonRetRs newPersonRetRs) {
     return newPersonRetRs(sqlSession, newPersonRetRs, null);
   }
   
-  public List<Person> newPersonRetRs(final NewPersonRetRs newPersonRetRs) {
+  public List<NewPersonRetRsResult> newPersonRetRs(final NewPersonRetRs newPersonRetRs) {
     return newPersonRetRs(newPersonRetRs, null);
   }
 }

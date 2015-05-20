@@ -189,7 +189,7 @@ public class ContactDao {
     contact.setOnlyIds(true);
     java.util.Set<String> initAssociations = contact.getInitAssociations();
     contact.setInitAssociations(new java.util.HashSet<String>());
-    final java.util.List<Long> ids = sqlEngineContact.query(sqlSession, Long.class, contact, sqlControl);
+    final java.util.List<java.lang.Long> ids = sqlEngineContact.query(sqlSession, java.lang.Long.class, contact, sqlControl);
     contact.setInitAssociations(initAssociations);
     
     List<Contact> contactList = new java.util.ArrayList<Contact>();
@@ -197,7 +197,8 @@ public class ContactDao {
     	org.sqlproc.engine.impl.SqlStandardControl sqlc = new org.sqlproc.engine.impl.SqlStandardControl(sqlControl);
     	sqlc.setFirstResult(0);
     	sqlc.setMaxResults(0);
-    	final Map<Long, Contact> map = new java.util.HashMap<Long, Contact>();
+    	sqlc.setOrder(null);
+    	final Map<java.lang.Long, Contact> map = new java.util.HashMap<java.lang.Long, Contact>();
     	final SqlRowProcessor<Contact> sqlRowProcessor = new SqlRowProcessor<Contact>() {
     		@Override
     		public boolean processRow(Contact result, int rownum) throws org.sqlproc.engine.SqlRuntimeException {
@@ -206,7 +207,7 @@ public class ContactDao {
     		}
     	};
     	sqlEngineContact.query(sqlSession, Contact.class, new Contact()._setIds(ids), sqlc, sqlRowProcessor);
-    	for (Long id : ids)
+    	for (java.lang.Long id : ids)
     		contactList.add(map.get(id));
     }
     if (logger.isTraceEnabled()) {

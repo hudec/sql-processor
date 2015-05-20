@@ -68,4 +68,17 @@ package org.sample.model {
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=2
+// Columns=11
+// Primary Keys=2
+// Exports=1
+// Imports=1
+// Indexes=4
+// Check Constraints=2
+// Procedures=3
+// Procedures Columns=13
+// Functions=1
+// Functions Columns=2
 }

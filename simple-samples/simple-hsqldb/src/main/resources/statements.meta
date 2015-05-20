@@ -43,7 +43,7 @@ DELETE_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
 ;
 
 SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
-  select {? :onlyIds | %p.ID @id(id) |
+  select {? :onlyIds | %c.ID @id(id) |
     %c.ID @id(id), %c.PERSON_ID @person.id(id), %c.TYPE @type, %c.ADDRESS @address, %c.PHONE_NUMBER @phoneNumber, %c.X_NOTE @xNote
     {? :person(call=toInit) | , %p.FIRST_NAME @person.firstName, %p.LAST_NAME @person.lastName, %p.DATE_OF_BIRTH @person.dateOfBirth, %p.GENDER @person.gender, %p.SSN @person.ssn }
   }
@@ -56,7 +56,7 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
     {& %c.ADDRESS ::= :address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
     {& %c.X_NOTE ::= :xNote }
-    {& %p.ID in :ids }
+    {& %c.ID in :ids }
   }
   {#1 order by %c.ID }
   {#2 order by %c.PERSON_ID }
@@ -198,7 +198,10 @@ PROC_NEW_PERSON(CALL,in=NewPerson)=
 PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
   call NEW_PERSON_RET_RS(:dateOfBirth, :ssn, :firstName, :lastName, :gender)
 ;
-// Missing pojo Person for a mapping rule devoted to NEW_PERSON_RET_RS
+PROC_NEW_PERSON_RET_RS(OUT,out=NewPersonRetRsResult)=
+  FIRST_NAME$firstName SSN$ssn GENDER$gender DATE_OF_BIRTH$dateOfBirth ID$id LAST_NAME$lastName
+;
+
 // Model statistics
 // Tables=3
 // Columns=17

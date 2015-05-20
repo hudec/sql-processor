@@ -16,7 +16,7 @@ package org.sample.dao {
     #Dao NewPersonDao {
     }
 
-    #ProcedureCallQuery(java.util.List<org.sample.model.Person>,org.sample.model.NewPersonRetRs)
+    #ProcedureCallQuery(java.util.List<org.sample.model.NewPersonRetRsResult>,org.sample.model.NewPersonRetRs)
     #Dao NewPersonRetRsDao {
     }
 

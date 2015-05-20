@@ -19,7 +19,7 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
-        #PrimaryKey #Index(1)
+        #PrimaryKey() #Index(1)
         // The technical primary key
         #Attr Long id
         @NotNull
@@ -47,10 +47,26 @@ package org.sample.model {
         #Attr java.util.List <Long> ids
     }
 
+    #Operators #Serializable(1) #ToString(firstName,ssn,gender,dateOfBirth,id,lastName)
+    #Pojo NewPersonRetRsResult {
+        #IsDef
+        #Attr String firstName
+        #IsDef
+        #Attr String ssn
+        #IsDef
+        #Attr org.sample.model.PersonGender gender
+        #IsDef
+        #Attr java.util.Date dateOfBirth
+        #IsDef
+        #Attr Long id
+        #IsDef
+        #Attr String lastName
+    }
+
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     // The personal information
     #Pojo Person {
-        #PrimaryKey #Index(1)
+        #PrimaryKey() #Index(1)
         // The technical primary key
         #Attr Long id
         @NotNull
@@ -85,7 +101,7 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,weight,height,disposition,titles)
     // The detailed personal information
     #Pojo PersonDetail {
-        #PrimaryKey #Index(2)
+        #PrimaryKey() #Index(2)
         // The technical primary key
         #Attr Long id
         #IsDef
