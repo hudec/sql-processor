@@ -19,4 +19,17 @@ package org.sample.dao {
     #FunctionQuery(java.sql.Timestamp,org.sample.model.AnHourBefore)
     #Dao AnHourBeforeDao {
     }
+
+// Model statistics
+// Tables=2
+// Columns=11
+// Primary Keys=2
+// Exports=1
+// Imports=1
+// Indexes=3
+// Check Constraints=2
+// Procedures=2
+// Procedures Columns=11
+// Functions=1
+// Functions Columns=1
 }
