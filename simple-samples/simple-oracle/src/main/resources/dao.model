@@ -23,4 +23,17 @@ package org.sample.dao {
     #FunctionCallQuery(java.util.List<org.sample.model.Person>,org.sample.model.NewPersonRetRs)
     #Dao NewPersonRetRsDao {
     }
+
+// Model statistics
+// Tables=2
+// Columns=11
+// Primary Keys=2
+// Exports=1
+// Imports=1
+// Indexes=3
+// Check Constraints=2
+// Procedures=4
+// Procedures Columns=20
+// Functions=2
+// Functions Columns=8
 }

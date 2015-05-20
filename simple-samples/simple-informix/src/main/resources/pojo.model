@@ -36,6 +36,24 @@ package org.sample.model {
 
     #Operators
     #Serializable(1)
+    #ToString(id,dateOfBirth,ssn,firstName,lastName,gender)
+    #Pojo NewPersonRetRsResult {
+        #IsDef
+        #Attr Integer id
+        #IsDef
+        #Attr java.util.Date dateOfBirth
+        #IsDef
+        #Attr String ssn
+        #IsDef
+        #Attr String firstName
+        #IsDef
+        #Attr String lastName
+        #IsDef
+        #Attr String gender
+    }
+
+    #Operators
+    #Serializable(1)
     #Equals(id)
     #HashCode(id)
     #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
@@ -90,4 +108,17 @@ package org.sample.model {
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=2
+// Columns=11
+// Primary Keys=2
+// Exports=1
+// Imports=1
+// Indexes=4
+// Check Constraints=2
+// Procedures=4
+// Procedures Columns=21
+// Functions=0
+// Functions Columns=0
 }

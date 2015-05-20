@@ -49,7 +49,7 @@ procedure newPersonRetRs new_person_ret_rs;
 
 function anHourBefore an_hour_before;
 //function newPersonRetRs new_person_ret_rs;
-metagen-procedure-result-set new_person_ret_rs person;
+//metagen-procedure-result-set new_person_ret_rs person;
 
 pojogen-package org.sample.model;
 daogen-package org.sample.dao;
@@ -59,4 +59,5 @@ pojo Contact org.sample.model.Contact;
 pojo FunLong org.sample.model.FunLong;
 pojo NewPerson org.sample.model.NewPerson;
 pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
 pojo Person org.sample.model.Person;

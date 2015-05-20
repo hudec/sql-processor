@@ -21,6 +21,7 @@ import org.sample.model.ContactType;
 import org.sample.model.FunLong;
 import org.sample.model.NewPerson;
 import org.sample.model.NewPersonRetRs;
+import org.sample.model.NewPersonRetRsResult;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
 import org.slf4j.Logger;
@@ -232,10 +233,10 @@ public class Main {
         newPersonRetRs.setSsn("888777666");
         newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
         newPersonRetRs._setGender(PersonGender.FEMALE.getValue());
-        list = main.newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
-        Assert.assertNotNull(list);
-        Assert.assertEquals(1, list.size());
-        Assert.assertNotNull(list.get(0).getId());
+        List<NewPersonRetRsResult> list2 = main.newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
+        Assert.assertNotNull(list2);
+        Assert.assertEquals(1, list2.size());
+        Assert.assertNotNull(list2.get(0).getId());
 
         FunLong fl = new FunLong()._setCount(10L);
         List<Long> listl = main.funLongDao.funLong(fl);

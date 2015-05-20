@@ -1,6 +1,68 @@
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
+ORACLE
+
+AN_HOUR_BEFORE
+
+DbTable [name=AN_HOUR_BEFORE, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=_result_, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=T, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON
+
+DbTable [name=NEW_PERSON, comment=null, type=null, ftype=0, ptype=1]
+
+[DbColumn [name=NEWID, type=NUMBER, size=22, sqlType=3, nullable=true, position=0, columnType=4, comment=null], 
+DbColumn [name=DATE_OF_BIRTH, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=SSN, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=FIRST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=LAST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=GENDER, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON_OUT_RS
+
+DbTable [name=NEW_PERSON_OUT_RS, comment=null, type=null, ftype=0, ptype=1]
+
+[DbColumn [name=RESULT_CUR, type=REF CURSOR, size=0, sqlType=1111, nullable=true, position=0, columnType=2, comment=null], 
+DbColumn [name=DATE_OF_BIRTH, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=SSN, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=FIRST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=LAST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=GENDER, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON_RET_RS
+
+DbTable [name=NEW_PERSON_RET_RS, comment=null, type=null, ftype=0, ptype=2]
+
+[DbColumn [name=_result_, type=REF CURSOR, size=0, sqlType=1111, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=DATE_OF_BIRTH, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=SSN, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=FIRST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=LAST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=GENDER, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
+---
+
+AN_HOUR_BEFORE
+
+DbTable [name=AN_HOUR_BEFORE, comment=null, type=null, ftype=0, ptype=0]
+
+[DbColumn [name=null, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=T, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null]]
+
+NEW_PERSON_RET_RS
+
+DbTable [name=NEW_PERSON_RET_RS, comment=null, type=null, ftype=0, ptype=0]
+
+[DbColumn [name=null, type=REF CURSOR, size=0, sqlType=1111, nullable=true, position=0, columnType=5, comment=null], 
+DbColumn [name=DATE_OF_BIRTH, type=DATE, size=0, sqlType=93, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=SSN, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=FIRST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=LAST_NAME, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null], 
+DbColumn [name=GENDER, type=VARCHAR2, size=0, sqlType=12, nullable=true, position=0, columnType=1, comment=null]]
+
 ----------------------------------------------------------------------------------------------------------------------------
 POSTGRESQL
 
