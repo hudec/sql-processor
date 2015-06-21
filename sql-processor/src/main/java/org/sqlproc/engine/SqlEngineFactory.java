@@ -18,8 +18,8 @@ public interface SqlEngineFactory {
 
     /**
      * Returns the named static or dynamic SQL Query Engine instance (the primary SQL Processor class). In fact it
-     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
-     * new static instance.
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiates
+     * a new static instance.
      * 
      * @param name
      *            the name of the required SQL Query Engine instance
@@ -29,8 +29,8 @@ public interface SqlEngineFactory {
 
     /**
      * Returns the named static or dynamic SQL CRUD Engine instance (the primary SQL Processor class). In fact it
-     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
-     * new static instance.
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiates
+     * a new static instance.
      * 
      * @param name
      *            the name of the required SQL CRUD Engine instance
@@ -40,8 +40,8 @@ public interface SqlEngineFactory {
 
     /**
      * Returns the named static or dynamic SQL Procedure Engine instance (the primary SQL Processor class). In fact it
-     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
-     * new static instance.
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiates
+     * a new static instance.
      * 
      * @param name
      *            the name of the required SQL Procedure Engine instance
@@ -117,8 +117,8 @@ public interface SqlEngineFactory {
 
     /**
      * Returns the named static or dynamic SQL Query Engine instance (the primary SQL Processor class). In fact it
-     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
-     * new static instance.
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiates
+     * a new static instance.
      * 
      * @param name
      *            the name of the required SQL Query Engine instance
@@ -130,8 +130,8 @@ public interface SqlEngineFactory {
 
     /**
      * Returns the named static or dynamic SQL CRUD Engine instance (the primary SQL Processor class). In fact it
-     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
-     * new static instance.
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiates
+     * a new static instance.
      * 
      * @param name
      *            the name of the required SQL CRUD Engine instance
@@ -143,8 +143,8 @@ public interface SqlEngineFactory {
 
     /**
      * Returns the named static or dynamic SQL Procedure Engine instance (the primary SQL Processor class). In fact it
-     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiate a
-     * new static instance.
+     * returns the cached instance in the case it exists (it can be a static or dynamic one). Otherwise it instantiates
+     * a new static instance.
      * 
      * @param name
      *            the name of the required SQL Procedure Engine instance
