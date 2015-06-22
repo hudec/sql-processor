@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlInternalType;
@@ -154,20 +153,20 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                                 monitorFactory, validatorFactory, customTypes, lazyInit, onlyStatements);
                         if (lazyInit && configuration != null) {
                             // TODO - asynchronously based on option
-                            for (String name : configuration.getStaticSqlQueryEngines())
-                                if (!configuration.getDynamicSqlQueryEngines().containsKey(name))
+                            for (String name : configuration.getQueryEngines().keySet())
+                                if (!configuration.getDynamicQueryEngines().containsKey(name))
                                     getQueryEngine(name);
-                            for (String name : configuration.getStaticSqlCrudEngines())
-                                if (!configuration.getDynamicSqlCrudEngines().containsKey(name))
+                            for (String name : configuration.getCrudEngines().keySet())
+                                if (!configuration.getDynamicCrudEngines().containsKey(name))
                                     getCrudEngine(name);
-                            for (String name : configuration.getStaticSqlProcedureEngines())
-                                if (!configuration.getDynamicSqlProcedureEngines().containsKey(name))
+                            for (String name : configuration.getProcedureEngines().keySet())
+                                if (!configuration.getDynamicProcedureEngines().containsKey(name))
                                     getProcedureEngine(name);
-                            for (Entry<String, String> e : configuration.getDynamicSqlQueryEngines().entrySet())
+                            for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet())
                                 getDynamicQueryEngine(e.getKey(), e.getValue());
-                            for (Entry<String, String> e : configuration.getDynamicSqlCrudEngines().entrySet())
+                            for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet())
                                 getDynamicCrudEngine(e.getKey(), e.getValue());
-                            for (Entry<String, String> e : configuration.getDynamicSqlProcedureEngines().entrySet())
+                            for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet())
                                 getDynamicProcedureEngine(e.getKey(), e.getValue());
                         }
                     }
@@ -193,7 +192,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlQueryEngine sqlEngine = getLoader().getQueryEngine(name);
         if (sqlEngine != null && configuration != null)
-            configuration.addEngine(sqlEngine);
+            configuration.addQueryEngine(name);
         return sqlEngine;
     }
 
@@ -205,7 +204,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlCrudEngine sqlEngine = getLoader().getCrudEngine(name);
         if (sqlEngine != null && configuration != null)
-            configuration.addEngine(sqlEngine);
+            configuration.addCrudEngine(name);
         return sqlEngine;
     }
 
@@ -217,7 +216,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlProcedureEngine sqlEngine = getLoader().getProcedureEngine(name);
         if (sqlEngine != null && configuration != null)
-            configuration.addEngine(sqlEngine);
+            configuration.addProcedureEngine(name);
         return sqlEngine;
     }
 
@@ -229,8 +228,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlQueryEngine sqlEngine = getLoader().getStaticQueryEngine(name);
         if (sqlEngine != null && configuration != null) {
-            configuration.addEngine(sqlEngine);
-            configuration.removeDynamicEngine(sqlEngine);
+            configuration.addQueryEngine(name);
+            configuration.removeDynamicQueryEngine(name);
         }
         return sqlEngine;
     }
@@ -243,8 +242,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlCrudEngine sqlEngine = getLoader().getStaticCrudEngine(name);
         if (sqlEngine != null && configuration != null) {
-            configuration.addEngine(sqlEngine);
-            configuration.removeDynamicEngine(sqlEngine);
+            configuration.addCrudEngine(name);
+            configuration.removeDynamicCrudEngine(name);
         }
         return sqlEngine;
     }
@@ -257,8 +256,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlProcedureEngine sqlEngine = getLoader().getStaticProcedureEngine(name);
         if (sqlEngine != null && configuration != null) {
-            configuration.addEngine(sqlEngine);
-            configuration.removeDynamicEngine(sqlEngine);
+            configuration.addProcedureEngine(name);
+            configuration.removeDynamicProcedureEngine(name);
         }
         return sqlEngine;
     }
@@ -271,7 +270,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlQueryEngine sqlEngine = getLoader().getCheckedQueryEngine(name);
         if (configuration != null)
-            configuration.addEngine(sqlEngine);
+            configuration.addQueryEngine(name);
         return sqlEngine;
     }
 
@@ -283,7 +282,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlCrudEngine sqlEngine = getLoader().getCheckedCrudEngine(name);
         if (configuration != null)
-            configuration.addEngine(sqlEngine);
+            configuration.addCrudEngine(name);
         return sqlEngine;
     }
 
@@ -295,7 +294,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlProcedureEngine sqlEngine = getLoader().getCheckedProcedureEngine(name);
         if (configuration != null)
-            configuration.addEngine(sqlEngine);
+            configuration.addProcedureEngine(name);
         return sqlEngine;
     }
 
@@ -307,8 +306,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlQueryEngine sqlEngine = getLoader().getCheckedStaticQueryEngine(name);
         if (configuration != null) {
-            configuration.addEngine(sqlEngine);
-            configuration.removeDynamicEngine(sqlEngine);
+            configuration.addQueryEngine(name);
+            configuration.removeDynamicQueryEngine(name);
         }
         return sqlEngine;
     }
@@ -321,8 +320,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlCrudEngine sqlEngine = getLoader().getCheckedStaticCrudEngine(name);
         if (configuration != null) {
-            configuration.addEngine(sqlEngine);
-            configuration.removeDynamicEngine(sqlEngine);
+            configuration.addCrudEngine(name);
+            configuration.removeDynamicCrudEngine(name);
         }
         return sqlEngine;
     }
@@ -335,8 +334,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlProcedureEngine sqlEngine = getLoader().getCheckedStaticProcedureEngine(name);
         if (configuration != null) {
-            configuration.addEngine(sqlEngine);
-            configuration.removeDynamicEngine(sqlEngine);
+            configuration.addProcedureEngine(name);
+            configuration.removeDynamicProcedureEngine(name);
         }
         return sqlEngine;
     }
@@ -349,7 +348,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlQueryEngine sqlEngine = getLoader().getDynamicQueryEngine(name, sqlStatement);
         if (sqlEngine != null && configuration != null)
-            configuration.addDynamicEngine(sqlEngine, sqlStatement);
+            configuration.addDynamicQueryEngine(name, sqlStatement);
         return sqlEngine;
     }
 
@@ -361,7 +360,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlCrudEngine sqlEngine = getLoader().getDynamicCrudEngine(name, sqlStatement);
         if (sqlEngine != null && configuration != null)
-            configuration.addDynamicEngine(sqlEngine, sqlStatement);
+            configuration.addDynamicCrudEngine(name, sqlStatement);
         return sqlEngine;
     }
 
@@ -373,7 +372,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         init0();
         SqlProcedureEngine sqlEngine = getLoader().getDynamicProcedureEngine(name, sqlStatement);
         if (sqlEngine != null && configuration != null)
-            configuration.addDynamicEngine(sqlEngine, sqlStatement);
+            configuration.addDynamicProcedureEngine(name, sqlStatement);
         return sqlEngine;
     }
 
