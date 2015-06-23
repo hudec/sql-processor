@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.Size;
 import org.sample.model.Person;
+import org.sample.model.PersonDetailType;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -15,18 +16,33 @@ public class PersonDetail implements Serializable {
   
   public final static int ORDER_BY_ID = 2;
   
-  private Long id;
+  private Person id;
   
-  public Long getId() {
+  public Person getId() {
     return this.id;
   }
   
-  public void setId(final Long id) {
+  public void setId(final Person id) {
     this.id = id;
   }
   
-  public PersonDetail _setId(final Long id) {
+  public PersonDetail _setId(final Person id) {
     this.id = id;
+    return this;
+  }
+  
+  private PersonDetailType type;
+  
+  public PersonDetailType getType() {
+    return this.type;
+  }
+  
+  public void setType(final PersonDetailType type) {
+    this.type = type;
+  }
+  
+  public PersonDetail _setType(final PersonDetailType type) {
+    this.type = type;
     return this;
   }
   
@@ -92,21 +108,6 @@ public class PersonDetail implements Serializable {
     return this;
   }
   
-  private Person person;
-  
-  public Person getPerson() {
-    return this.person;
-  }
-  
-  public void setPerson(final Person person) {
-    this.person = person;
-  }
-  
-  public PersonDetail _setPerson(final Person person) {
-    this.person = person;
-    return this;
-  }
-  
   private boolean onlyIds;
   
   public boolean isOnlyIds() {
@@ -148,6 +149,8 @@ public class PersonDetail implements Serializable {
     PersonDetail other = (PersonDetail) obj;
     if (id == null || !id.equals(other.id))
     	return false;
+    if (type == null || !type.equals(other.type))
+    	return false;
     return true;
   }
   
@@ -156,16 +159,17 @@ public class PersonDetail implements Serializable {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((id != null) ? id.hashCode() : 0);
+    result = prime * result + ((type != null) ? type.hashCode() : 0);
     return result;
   }
   
   @Override
   public String toString() {
-    return "PersonDetail [id=" + id + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + "]";
+    return "PersonDetail [type=" + type + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + "]";
   }
   
   public String toStringFull() {
-    return "PersonDetail [id=" + id + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + ", person=" + person + ", onlyIds=" + onlyIds + ", ids=" + ids + "]";
+    return "PersonDetail [id=" + id + ", type=" + type + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + ", onlyIds=" + onlyIds + ", ids=" + ids + "]";
   }
   
   public enum Attribute {
@@ -175,9 +179,7 @@ public class PersonDetail implements Serializable {
     
     disposition,
     
-    titles,
-    
-    person;
+    titles;
   }
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
@@ -264,7 +266,7 @@ public class PersonDetail implements Serializable {
   }
   
   public enum Association {
-    person;
+    id;
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
@@ -344,6 +346,8 @@ public class PersonDetail implements Serializable {
   public enum OpAttribute {
     id,
     
+    type,
+    
     weight,
     
     height,
@@ -351,8 +355,6 @@ public class PersonDetail implements Serializable {
     disposition,
     
     titles,
-    
-    person,
     
     onlyIds,
     

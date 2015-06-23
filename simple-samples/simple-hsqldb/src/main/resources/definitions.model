@@ -44,10 +44,10 @@ pojogen-package org.sample.model;
 //pojogen-create-many-to-one PERSON PERSON_DETAIL->PERSON_DETAIL->ID;
 //pojogen-create-columns PERSON_DETAIL PERSON->java.lang.Long;
 //pojogen-create-many-to-one PERSON_DETAIL PERSON->PERSON->ID;
-pojogen-association-one-to-one PERSON ID->PERSON_DETAIL->ID;
+//pojogen-association-one-to-one PERSON ID->PERSON_DETAIL->ID;
 
 // use indetity for primary keys
-metagen-global-identity COMMON;
+metagen-global-identity COMMON - PERSON_DETAIL;
 //metagen-global-sequence SIMPLE_SEQUENCE;
 metagen-table-sequence CONTACT SIMPLE_SEQUENCE;
 metagen-generate-idgenerators;

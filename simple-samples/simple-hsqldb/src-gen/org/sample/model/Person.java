@@ -127,21 +127,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private PersonDetail personDetail;
-  
-  public PersonDetail getPersonDetail() {
-    return this.personDetail;
-  }
-  
-  public void setPersonDetail(final PersonDetail personDetail) {
-    this.personDetail = personDetail;
-  }
-  
-  public Person _setPersonDetail(final PersonDetail personDetail) {
-    this.personDetail = personDetail;
-    return this;
-  }
-  
   private List<Contact> contacts = new java.util.ArrayList<Contact>();
   
   public List<Contact> getContacts() {
@@ -154,6 +139,21 @@ public class Person implements Serializable {
   
   public Person _setContacts(final List<Contact> contacts) {
     this.contacts = contacts;
+    return this;
+  }
+  
+  private List<PersonDetail> personDetails = new java.util.ArrayList<PersonDetail>();
+  
+  public List<PersonDetail> getPersonDetails() {
+    return this.personDetails;
+  }
+  
+  public void setPersonDetails(final List<PersonDetail> personDetails) {
+    this.personDetails = personDetails;
+  }
+  
+  public Person _setPersonDetails(final List<PersonDetail> personDetails) {
+    this.personDetails = personDetails;
     return this;
   }
   
@@ -215,15 +215,13 @@ public class Person implements Serializable {
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", personDetail=" + personDetail + ", contacts=" + contacts + ", onlyIds=" + onlyIds + ", ids=" + ids + "]";
+    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", contacts=" + contacts + ", personDetails=" + personDetails + ", onlyIds=" + onlyIds + ", ids=" + ids + "]";
   }
   
   public enum Attribute {
     dateOfBirth,
     
-    ssn,
-    
-    personDetail;
+    ssn;
   }
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
@@ -310,9 +308,9 @@ public class Person implements Serializable {
   }
   
   public enum Association {
-    personDetail,
+    contacts,
     
-    contacts;
+    personDetails;
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
@@ -402,9 +400,9 @@ public class Person implements Serializable {
     
     ssn,
     
-    personDetail,
-    
     contacts,
+    
+    personDetails,
     
     onlyIds,
     

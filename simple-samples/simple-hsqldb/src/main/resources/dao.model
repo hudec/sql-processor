@@ -26,12 +26,12 @@ package org.sample.dao {
 
 // Model statistics
 // Tables=3
-// Columns=17
-// Primary Keys=3
+// Columns=18
+// Primary Keys=4
 // Exports=2
 // Imports=2
 // Indexes=6
-// Check Constraints=2
+// Check Constraints=3
 // Procedures=3
 // Procedures Columns=12
 // Functions=1

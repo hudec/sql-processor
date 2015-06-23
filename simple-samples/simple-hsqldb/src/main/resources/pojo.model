@@ -11,6 +11,12 @@ package org.sample.model {
     }
 
     #Serializable(1)
+    #Enum PersonDetailType {
+        #Values(I0 = 0,I1 = 1,I2 = 2,I3 = 3,I4 = 4)
+        #Attr Integer value
+    }
+
+    #Serializable(1)
     #Enum PersonGender {
         #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
         #Attr String value
@@ -90,20 +96,22 @@ package org.sample.model {
         #IsDef
         // The social security number
         #Attr String ssn
-        #IsDef #ToInit
-        #Attr PersonDetail personDetail
         #ToInit
         #Attr java.util.List <Contact> contacts
+        #ToInit
+        #Attr java.util.List <PersonDetail> personDetails
         #Attr boolean onlyIds
         #Attr java.util.List <Long> ids
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,weight,height,disposition,titles)
+    #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles)
     // The detailed personal information
     #Pojo PersonDetail {
-        #PrimaryKey() #Index(2)
+        #ToInit #PrimaryKey(id,Long) #Index(2)
         // The technical primary key
-        #Attr Long id
+        #Attr Person id
+        #PrimaryKey(value,Integer)
+        #Attr PersonDetailType type
         #IsDef
         // The weight
         #Attr Integer weight
@@ -118,8 +126,6 @@ package org.sample.model {
         #IsDef
         // The titles
         #Attr String titles
-        #IsDef #ToInit
-        #Attr Person person
         #Attr boolean onlyIds
         #Attr java.util.List <Long> ids
     }
@@ -150,12 +156,12 @@ package org.sample.model {
 
 // Model statistics
 // Tables=3
-// Columns=17
-// Primary Keys=3
+// Columns=18
+// Primary Keys=4
 // Exports=2
 // Imports=2
 // Indexes=6
-// Check Constraints=2
+// Check Constraints=3
 // Procedures=3
 // Procedures Columns=12
 // Functions=1
