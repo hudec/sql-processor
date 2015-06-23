@@ -828,4 +828,13 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         return lazyInit;
     }
 
+    /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
+    public void setLazyInit(boolean lazyInit) {
+        this.setLazyInit(lazyInit);
+    }
 }

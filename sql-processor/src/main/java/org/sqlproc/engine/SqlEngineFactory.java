@@ -221,4 +221,12 @@ public interface SqlEngineFactory {
      * @return the indicator to speed up the initialization process
      */
     public boolean isLazyInit();
+
+    /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
+    public void setLazyInit(boolean lazyInit);
 }

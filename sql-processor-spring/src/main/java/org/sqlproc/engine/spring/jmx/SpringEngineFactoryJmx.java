@@ -148,6 +148,16 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
+    @ManagedOperation(description = "Sets the indicator to speed up the initialization process.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "lazyInit", description = "The indicator to speed up the initialization process") })
+    public void setLazyInit(boolean lazyInit) {
+        super.setLazyInit(lazyInit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @ManagedOperation(description = "Returns the processing cache used for the selected SQL Query Engine.")
     public String getQueryEngineProcessingCache(String name) {
         return super.getQueryEngineProcessingCache(name);

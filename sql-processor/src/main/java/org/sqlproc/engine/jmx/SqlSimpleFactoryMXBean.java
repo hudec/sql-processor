@@ -265,6 +265,16 @@ public class SqlSimpleFactoryMXBean {
     }
 
     /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
+    public void setLazyInit(boolean lazyInit) {
+        sqlEngineFactory.setLazyInit(lazyInit);
+    }
+
+    /**
      * Returns the processing cache used for the selected SQL Query Engine
      * 
      * @param name

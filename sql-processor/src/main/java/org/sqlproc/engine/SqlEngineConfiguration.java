@@ -3,6 +3,18 @@ package org.sqlproc.engine;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The configuration of the SQL Processor.
+ * 
+ * <p>
+ * The primary goal of this configuration is the eager initialization of the selected SQL Engines. The overall
+ * configuration can be also persisted using the sql-processor-spring.
+ * 
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
+ */
 public class SqlEngineConfiguration {
 
     private ConcurrentHashMap<String, AtomicInteger> queryEngines = new ConcurrentHashMap<String, AtomicInteger>();
