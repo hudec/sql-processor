@@ -43,7 +43,7 @@ class SqlEngine {
 	def dynamicNames = engine.getDynamicNames()
 	println dynamicNames
 	def lazyInit = engine.isLazyInit()
-	println dynamicNames
+	println isLazyInit
     }
 
 
