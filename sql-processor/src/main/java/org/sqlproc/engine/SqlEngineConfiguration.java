@@ -118,6 +118,30 @@ public class SqlEngineConfiguration {
         return dynamicProcedureEngines;
     }
 
+    public void setQueryEngines(ConcurrentHashMap<String, AtomicInteger> queryEngines) {
+        this.queryEngines = queryEngines;
+    }
+
+    public void setCrudEngines(ConcurrentHashMap<String, AtomicInteger> crudEngines) {
+        this.crudEngines = crudEngines;
+    }
+
+    public void setProcedureEngines(ConcurrentHashMap<String, AtomicInteger> procedureEngines) {
+        this.procedureEngines = procedureEngines;
+    }
+
+    public void setDynamicQueryEngines(ConcurrentHashMap<String, String> dynamicQueryEngines) {
+        this.dynamicQueryEngines = dynamicQueryEngines;
+    }
+
+    public void setDynamicCrudEngines(ConcurrentHashMap<String, String> dynamicCrudEngines) {
+        this.dynamicCrudEngines = dynamicCrudEngines;
+    }
+
+    public void setDynamicProcedureEngines(ConcurrentHashMap<String, String> dynamicProcedureEngines) {
+        this.dynamicProcedureEngines = dynamicProcedureEngines;
+    }
+
     public Boolean getLazyInit() {
         return lazyInit;
     }

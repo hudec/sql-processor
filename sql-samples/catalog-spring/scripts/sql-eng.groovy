@@ -5,15 +5,15 @@ import javax.management.*
 import groovy.jmx.builder.*
 import groovy.util.CliBuilder
 
-class SqlStats {
+class SqlEngine {
     
   static main(args) {
 
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z")
-        
-        def cli = new CliBuilder(usage:'sql-stats.groovy [options] [parameters]',header:'Options:',stopAtNonOption:false)
+        	
+        def cli = new CliBuilder(usage:'sql-eng.groovy [options] [parameters]',header:'Options:',stopAtNonOption:false)
         cli.H(longOpt:'help', 'display this help')
-        cli.F(longOpt:'stopwatch', args:1, argName:'stopwatch', 'stopwatch name')
+        //cli.F(longOpt:'stopwatch', args:1, argName:'stopwatch', 'stopwatch name')
      
         def options = cli.parse(args)
         if (options==null)
@@ -23,7 +23,7 @@ class SqlStats {
             return
         }
 
-        def stopwatchName = (options.stopwatch) ? options.stopwatch : null
+        //def stopwatchName = (options.stopwatch) ? options.stopwatch : null
 
         // Setup JMX connection.
         def connection = new JmxBuilder().client(port: 8090, host: 'localhost')
@@ -35,31 +35,15 @@ class SqlStats {
         println "Total MBeans: ${mbeans.MBeanCount}\n"
 
         // Create GroovyMBean.
-        def simon = new GroovyMBean(mbeans, 'sql-processor:type=Stopwatch,name=catalog.'+stopwatchName)
-        println simon  // Outputs all attributes and operations.
+        def engine = new GroovyMBean(mbeans, 'sql-processor:type=Engine')
+        println engine  // Outputs all attributes and operations.
 
-        def sample = simon.sample()
-        println ""
-        println "Statistics for catalog."+stopwatchName
-        println "  counter            : "+sample.counter
-        println "  total              : "+nanos(sample.total)
-        println "  mean               : "+nanos(sample.mean)
-        println ""
-        println "  max                : "+nanos(sample.max)
-        println "  maxTimestamp       : "+sdf.format(sample.maxTimestamp)
-        println "  min                : "+nanos(sample.min)
-        println "  minTimestamp       : "+sdf.format(sample.minTimestamp)
-        println "  last               : "+nanos(sample.last)
-        println ""
-        println "  active             : "+sample.active
-        println "  maxActive          : "+sample.maxActive
-        println "  maxActiveTimestamp : "+sdf.format(sample.maxActiveTimestamp)
-        println ""
-        println "  note               : "+sample.note
-        println "  standardDeviation  : "+sample.standardDeviation
-        println "  variance           : "+sample.variance
-        println "  varianceN          : "+sample.varianceN
-        println ""
+	def names = engine.getNames()
+	println names
+	def dynamicNames = engine.getDynamicNames()
+	println dynamicNames
+	def lazyInit = engine.isLazyInit()
+	println dynamicNames
     }
 
 

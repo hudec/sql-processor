@@ -2,10 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
     xmlns:cache="http://www.springframework.org/schema/cache" xmlns:p="http://www.springframework.org/schema/p"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-	                  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-                      http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+	                  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                      http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+                      http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
     <context:annotation-config />
     <context:mbean-export/>
@@ -68,6 +70,36 @@
         <property name="monitorName" value="catalog" />
     </bean>
 
+
+    <bean id="sqlConfiguration" class="org.sqlproc.engine.SqlEngineConfiguration">
+        <property name="queryEngines">
+            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
+            </util:map>
+        </property>
+        <property name="crudEngines">
+            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
+            </util:map>
+        </property>
+        <property name="procedureEngines">
+            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
+            </util:map>
+        </property>
+        <property name="dynamicQueryEngines">
+            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
+            </util:map>
+        </property>
+        <property name="dynamicCrudEngines">
+            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
+            </util:map>
+        </property>
+        <property name="dynamicProcedureEngines">
+            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
+            </util:map>
+        </property>
+        <property name="lazyInit"><null/></property>
+        <property name="asyncInit"><null/></property>
+    </bean>
+
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">
         <property name="metaFilesNames">
             <list>
@@ -76,6 +108,7 @@
         </property>
         <property name="filter" value="${db.type}" />
         <property name="monitorFactory" ref="sqlMonitorFactory"/>
+        <property name="configuration" ref="sqlConfiguration"/>
     </bean>
 
 
