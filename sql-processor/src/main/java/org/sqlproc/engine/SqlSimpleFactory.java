@@ -154,15 +154,12 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                                 monitorFactory, validatorFactory, customTypes, lazyInit, onlyStatements);
                         if (isLazyInit() && configuration != null) {
                             // TODO - asynchronously based on option
-                            for (String name : configuration.getQueryEngines().keySet())
-                                if (!configuration.getDynamicQueryEngines().containsKey(name))
-                                    getQueryEngine(name);
-                            for (String name : configuration.getCrudEngines().keySet())
-                                if (!configuration.getDynamicCrudEngines().containsKey(name))
-                                    getCrudEngine(name);
-                            for (String name : configuration.getProcedureEngines().keySet())
-                                if (!configuration.getDynamicProcedureEngines().containsKey(name))
-                                    getProcedureEngine(name);
+                            for (String name : configuration.getQueryEnginesToInit())
+                                getQueryEngine(name);
+                            for (String name : configuration.getCrudEnginesToInit())
+                                getCrudEngine(name);
+                            for (String name : configuration.getProcedureEnginesToInit())
+                                getProcedureEngine(name);
                             for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet())
                                 getDynamicQueryEngine(e.getKey(), e.getValue());
                             for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet())

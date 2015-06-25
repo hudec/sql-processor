@@ -1,5 +1,9 @@
 package org.sqlproc.engine;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -421,5 +425,82 @@ public class SqlEngineConfiguration {
      */
     public void setInitTreshold(Integer initTreshold) {
         this.initTreshold = initTreshold;
+    }
+
+    class NameValue implements Comparable<NameValue> {
+        String name;
+        int value;
+
+        NameValue(String name, Integer value) {
+            this.name = name;
+            this.value = (value != null) ? value : 0;
+        }
+
+        @Override
+        public int compareTo(NameValue o) {
+            if (value < o.value)
+                return 1;
+            if (value > o.value)
+                return -1;
+            return 0;
+        }
+
+        @Override
+        public int hashCode() {
+            return name.hashCode();
+        }
+
+    }
+
+    /**
+     * Returns the container of the SQL Engines' names, which has to be initialized. This is called during The SQL
+     * Processor initialization, so there's no need to handle concurrent changes.
+     * 
+     * @param engines
+     *            the container of initialized engines
+     * @return the container of the Query Engines' names, which has to be initialized
+     */
+    protected List<String> getQueryEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines) {
+        NameValue[] arr = new NameValue[engines.size()];
+        int size = 0;
+        for (Entry<String, AtomicInteger> e : engines.entrySet()) {
+            if (initTreshold == null || e.getValue().get() >= initTreshold)
+                arr[size++] = new NameValue(e.getKey(), e.getValue().get());
+        }
+        Arrays.sort(arr, 0, size);
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < size; i++)
+            list.add(arr[i].name);
+        return list;
+    }
+
+    /**
+     * Returns the container of the Query Engines' names, which has to be initialized. This is called during The SQL
+     * Processor initialization, so there's no need to handle concurrent changes.
+     * 
+     * @return the container of the Query Engines' names, which has to be initialized
+     */
+    public List<String> getQueryEnginesToInit() {
+        return getQueryEnginesToInit(queryEngines);
+    }
+
+    /**
+     * Returns the container of the CRUD Engines' names, which has to be initialized. This is called during The SQL
+     * Processor initialization, so there's no need to handle concurrent changes.
+     * 
+     * @return the container of the CRUD Engines' names, which has to be initialized
+     */
+    public List<String> getCrudEnginesToInit() {
+        return getQueryEnginesToInit(queryEngines);
+    }
+
+    /**
+     * Returns the container of the Procedure Engines' names, which has to be initialized. This is called during The SQL
+     * Processor initialization, so there's no need to handle concurrent changes.
+     * 
+     * @return the container of the Procedure Engines' names, which has to be initialized
+     */
+    public List<String> getProcedureEnginesToInit() {
+        return getQueryEnginesToInit(procedureEngines);
     }
 }
