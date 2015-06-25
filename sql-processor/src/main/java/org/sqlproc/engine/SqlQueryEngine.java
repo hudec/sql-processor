@@ -217,8 +217,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass) throws SqlProcessorException,
             SqlRuntimeException {
@@ -227,8 +227,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
@@ -237,8 +237,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues, SqlOrder order)
             throws SqlProcessorException, SqlRuntimeException {
@@ -247,8 +247,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues) throws SqlProcessorException, SqlRuntimeException {
@@ -259,8 +259,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
@@ -273,8 +273,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, SqlOrder order) throws SqlProcessorException, SqlRuntimeException {
@@ -285,8 +285,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, SqlOrder order, final Map<String, Class<?>> moreResultClasses)
@@ -302,8 +302,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues, Integer firstResult,
             Integer maxResults) throws SqlProcessorException, SqlRuntimeException {
@@ -313,8 +313,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, Integer firstResult, Integer maxResults) throws SqlProcessorException,
@@ -327,8 +327,8 @@ public class SqlQueryEngine extends SqlEngine {
 
     /**
      * Runs the META SQL query to obtain a list of database rows. This is one of the overriden methods. For the
-     * parameters description please see the most complex execution method
-     * {@link #query(SqlSession, Class, Object, Object, SqlOrder, int, int, int, Map)} .
+     * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
+     * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final SqlOrder order, final Integer maxTimeout, final Integer maxResults,
@@ -542,7 +542,7 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * Runs the META SQL query to obtain the number of database rows. This is one of the overriden methods. For the
      * parameters description please see the most complex execution method
-     * {@link #queryCount(SqlSession, Object, Object, SqlOrder, int)} .
+     * {@link #queryCount(SqlSession, Object, Object, SqlOrder, Integer)} .
      */
     public int queryCount(SqlSession session) throws SqlProcessorException, SqlRuntimeException {
         return queryCount(session, null, (SqlStandardControl) null);
@@ -551,7 +551,7 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * Runs the META SQL query to obtain the number of database rows. This is one of the overriden methods. For the
      * parameters description please see the most complex execution method
-     * {@link #queryCount(SqlSession, Object, Object, SqlOrder, int)} .
+     * {@link #queryCount(SqlSession, Object, Object, SqlOrder, Integer)} .
      */
     public int queryCount(SqlSession session, Object dynamicInputValues) throws SqlProcessorException,
             SqlRuntimeException {
@@ -561,7 +561,7 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * Runs the META SQL query to obtain the number of database rows. This is one of the overriden methods. For the
      * parameters description please see the most complex execution method
-     * {@link #queryCount(SqlSession, Object, Object, SqlOrder, int)} .
+     * {@link #queryCount(SqlSession, Object, Object, SqlOrder, Integer)} .
      */
     public int queryCount(SqlSession session, Object dynamicInputValues, Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {

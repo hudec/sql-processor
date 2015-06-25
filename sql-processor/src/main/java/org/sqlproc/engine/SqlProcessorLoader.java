@@ -588,24 +588,6 @@ public class SqlProcessorLoader {
     }
 
     /**
-     * Returns the named static or dynamic SQL Engine instance (the primary SQL Processor class).
-     * 
-     * @param name
-     *            the name of the required SQL Procedure Engine instance
-     * @param engineType
-     *            the required SQL Engine type
-     * @return the SQL Engine instance
-     * @throws SqlEngineException
-     *             in the case the instance can't be created
-     */
-    public SqlEngine getEngine(String name, EngineType engineType) {
-        SqlEngine sqlEngine = dynamicEngines.get(name);
-        if (sqlEngine != null)
-            return sqlEngine;
-        return getStaticEngine(name, engineType);
-    }
-
-    /**
      * Returns the named dynamic SQL Engine instance (the primary SQL Processor class).
      * 
      * @param name
@@ -629,6 +611,24 @@ public class SqlProcessorLoader {
         commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
         sqlEngine.setProcessingCache(commonProcessingCache.get(name));
         return sqlEngine;
+    }
+
+    /**
+     * Returns the named static or dynamic SQL Engine instance (the primary SQL Processor class).
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine instance
+     * @param engineType
+     *            the required SQL Engine type
+     * @return the SQL Engine instance
+     * @throws SqlEngineException
+     *             in the case the instance can't be created
+     */
+    public SqlEngine getEngine(String name, EngineType engineType) {
+        SqlEngine sqlEngine = dynamicEngines.get(name);
+        if (sqlEngine != null)
+            return sqlEngine;
+        return getStaticEngine(name, engineType);
     }
 
     /**

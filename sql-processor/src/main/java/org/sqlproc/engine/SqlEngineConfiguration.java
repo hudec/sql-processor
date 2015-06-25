@@ -20,11 +20,32 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class SqlEngineConfiguration {
 
+    /**
+     * The container of initialized Query Engines' names (static or dynamic ones) together with the number of their
+     * usage.
+     */
     private ConcurrentHashMap<String, AtomicInteger> queryEngines = new ConcurrentHashMap<String, AtomicInteger>();
+    /**
+     * The container of initialized CRUD Engines' names (static or dynamic ones) together with the number of their
+     * usage.
+     */
     private ConcurrentHashMap<String, AtomicInteger> crudEngines = new ConcurrentHashMap<String, AtomicInteger>();
+    /**
+     * The container of initialized Procedure Engines' names (static or dynamic ones) together with the number of their
+     * usage.
+     */
     private ConcurrentHashMap<String, AtomicInteger> procedureEngines = new ConcurrentHashMap<String, AtomicInteger>();
+    /**
+     * The container of initialized dynamic Query Engines' names together with their SQL statement.
+     */
     private ConcurrentHashMap<String, String> dynamicQueryEngines = new ConcurrentHashMap<String, String>();
+    /**
+     * The container of initialized dynamic CRUD Engines' names together with their SQL statement.
+     */
     private ConcurrentHashMap<String, String> dynamicCrudEngines = new ConcurrentHashMap<String, String>();
+    /**
+     * The container of initialized dynamic Procedure Engines' names together with their SQL statement.
+     */
     private ConcurrentHashMap<String, String> dynamicProcedureEngines = new ConcurrentHashMap<String, String>();
     /**
      * This flag indicates to speed up the initialization process.
@@ -39,6 +60,15 @@ public class SqlEngineConfiguration {
      */
     private Integer initTreshold;
 
+    /**
+     * Adds the SQL Engine to the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the SQL Engine
+     * @param engines
+     *            the container of initialized engines
+     * @return the actual number of the engine's usage
+     */
     protected int addEngine(String name, ConcurrentHashMap<String, AtomicInteger> engines) {
         AtomicInteger counter = null;
         if (!engines.containsKey(name))
@@ -49,6 +79,15 @@ public class SqlEngineConfiguration {
             return counter.addAndGet(1);
     }
 
+    /**
+     * Removes the SQL Engine from the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the SQL Engine
+     * @param engines
+     *            the container of initialized engines
+     * @return the actual number of the engine's usage
+     */
     protected int removeEngine(String name, ConcurrentHashMap<String, AtomicInteger> engines) {
         synchronized (engines) {
             AtomicInteger counter = engines.remove(name);
@@ -56,101 +95,269 @@ public class SqlEngineConfiguration {
         }
     }
 
+    /**
+     * Adds the Query Engine to the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the Query Engine
+     * @return the actual number of the engine's usage
+     */
     public int addQueryEngine(String name) {
         return addEngine(name, queryEngines);
     }
 
+    /**
+     * Adds the CRUD Engine to the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the CRUD Engine
+     * @return the actual number of the engine's usage
+     */
     public int addCrudEngine(String name) {
         return addEngine(name, crudEngines);
     }
 
+    /**
+     * Adds the Procedure Engine to the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the Procedure Engine
+     * @return the actual number of the engine's usage
+     */
     public int addProcedureEngine(String name) {
         return addEngine(name, procedureEngines);
     }
 
+    /**
+     * Removes the Query Engine from the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the Query Engine
+     * @return the actual number of the engine's usage
+     */
     public int removeQueryEngine(String name) {
-        return addEngine(name, queryEngines);
+        return removeEngine(name, queryEngines);
     }
 
+    /**
+     * Removes the CRUD Engine from the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the CRUD Engine
+     * @return the actual number of the engine's usage
+     */
     public int removeCrudEngine(String name) {
-        return addEngine(name, crudEngines);
+        return removeEngine(name, crudEngines);
     }
 
+    /**
+     * Removes the Procedure Engine from the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the Procedure Engine
+     * @return the actual number of the engine's usage
+     */
     public int removeProcedureEngine(String name) {
-        return addEngine(name, procedureEngines);
+        return removeEngine(name, procedureEngines);
     }
 
+    /**
+     * Adds the dynamic Query Engine to the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the dynamic Query Engine
+     * @return the actual number of the engine's usage
+     */
     public int addDynamicQueryEngine(String name, String sqlStatement) {
         dynamicQueryEngines.put(name, sqlStatement);
         return addQueryEngine(name);
     }
 
+    /**
+     * Adds the dynamic CRUD Engine to the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the dynamic CRUD Engine
+     * @return the actual number of the engine's usage
+     */
     public int addDynamicCrudEngine(String name, String sqlStatement) {
         dynamicCrudEngines.put(name, sqlStatement);
         return addCrudEngine(name);
     }
 
+    /**
+     * Adds the dynamic Procedure Engine to the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the dynamic Procedure Engine
+     * @return the actual number of the engine's usage
+     */
     public int addDynamicProcedureEngine(String name, String sqlStatement) {
         dynamicProcedureEngines.put(name, sqlStatement);
         return addProcedureEngine(name);
     }
 
-    public void removeDynamicQueryEngine(String name) {
+    /**
+     * Removes the dynamic Query Engine from the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the dynamic Query Engine
+     * @return the actual number of the engine's usage
+     */
+    public int removeDynamicQueryEngine(String name) {
         dynamicQueryEngines.remove(name);
+        AtomicInteger counter = queryEngines.get(name);
+        return (counter == null) ? 0 : counter.get();
     }
 
-    public void removeDynamicCrudEngine(String name) {
+    /**
+     * Removes the dynamic CRUD Engine from the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the dynamic CRUD Engine
+     * @return the actual number of the engine's usage
+     */
+    public int removeDynamicCrudEngine(String name) {
         dynamicCrudEngines.remove(name);
+        AtomicInteger counter = crudEngines.get(name);
+        return (counter == null) ? 0 : counter.get();
     }
 
-    public void removeDynamicProcedureEngine(String name) {
+    /**
+     * Removes the dynamic Procedure Engine from the container of initialized engines.
+     * 
+     * @param name
+     *            the name of the dynamic Procedure Engine
+     * @return the actual number of the engine's usage
+     */
+    public int removeDynamicProcedureEngine(String name) {
         dynamicProcedureEngines.remove(name);
+        AtomicInteger counter = procedureEngines.get(name);
+        return (counter == null) ? 0 : counter.get();
     }
 
+    /**
+     * Returns the container of initialized Query Engines' names (static or dynamic ones) together with the number of
+     * their usage
+     * 
+     * @return the container of initialized Query Engines' names (static or dynamic ones) together with the number of
+     *         their usage
+     */
     public ConcurrentHashMap<String, AtomicInteger> getQueryEngines() {
         return queryEngines;
     }
 
+    /**
+     * Returns the container of initialized CRUD Engines' names (static or dynamic ones) together with the number of
+     * their usage
+     * 
+     * @return the container of initialized CRUD Engines' names (static or dynamic ones) together with the number of
+     *         their usage
+     */
     public ConcurrentHashMap<String, AtomicInteger> getCrudEngines() {
         return crudEngines;
     }
 
+    /**
+     * Returns the container of initialized Procedure Engines' names (static or dynamic ones) together with the number
+     * of their usage
+     * 
+     * @return the container of initialized Procedure Engines' names (static or dynamic ones) together with the number
+     *         of their usage
+     */
     public ConcurrentHashMap<String, AtomicInteger> getProcedureEngines() {
         return procedureEngines;
     }
 
+    /**
+     * Returns the container of initialized dynamic Query Engines' names together with their SQL statement
+     * 
+     * @return the container of initialized dynamic Query Engines' names together with their SQL statement
+     */
     public ConcurrentHashMap<String, String> getDynamicQueryEngines() {
         return dynamicQueryEngines;
     }
 
+    /**
+     * Returns the container of initialized dynamic CRUD Engines' names together with their SQL statement
+     * 
+     * @return the container of initialized dynamic CRUD Engines' names together with their SQL statement
+     */
     public ConcurrentHashMap<String, String> getDynamicCrudEngines() {
         return dynamicCrudEngines;
     }
 
+    /**
+     * Returns the container of initialized dynamic Procedure Engines' names together with their SQL statement
+     * 
+     * @return the container of initialized dynamic Procedure Engines' names together with their SQL statement
+     */
     public ConcurrentHashMap<String, String> getDynamicProcedureEngines() {
         return dynamicProcedureEngines;
     }
 
+    /**
+     * Sets the container of initialized Query Engines' names (static or dynamic ones) together with the number of their
+     * usage
+     * 
+     * @param queryEngines
+     *            the container of initialized Query Engines' names (static or dynamic ones) together with the number of
+     *            their usage
+     */
     public void setQueryEngines(ConcurrentHashMap<String, AtomicInteger> queryEngines) {
         this.queryEngines = queryEngines;
     }
 
+    /**
+     * Sets the container of initialized CRUD Engines' names (static or dynamic ones) together with the number of their
+     * usage
+     * 
+     * @param crudEngines
+     *            the container of initialized CRUD Engines' names (static or dynamic ones) together with the number of
+     *            their usage
+     */
     public void setCrudEngines(ConcurrentHashMap<String, AtomicInteger> crudEngines) {
         this.crudEngines = crudEngines;
     }
 
+    /**
+     * Sets the container of initialized Procedure Engines' names (static or dynamic ones) together with the number of
+     * their usage
+     * 
+     * @param procedureEngines
+     *            the container of initialized Procedure Engines' names (static or dynamic ones) together with the
+     *            number of their usage
+     */
     public void setProcedureEngines(ConcurrentHashMap<String, AtomicInteger> procedureEngines) {
         this.procedureEngines = procedureEngines;
     }
 
+    /**
+     * Sets the container of initialized dynamic Query Engines' names together with their SQL statement
+     * 
+     * @param dynamicQueryEngines
+     *            the container of initialized dynamic Query Engines' names together with their SQL statement
+     */
     public void setDynamicQueryEngines(ConcurrentHashMap<String, String> dynamicQueryEngines) {
         this.dynamicQueryEngines = dynamicQueryEngines;
     }
 
+    /**
+     * Sets the container of initialized dynamic CRUD Engines' names together with their SQL statement
+     * 
+     * @param dynamicCrudEngines
+     *            the container of initialized dynamic CRUD Engines' names together with their SQL statement
+     */
     public void setDynamicCrudEngines(ConcurrentHashMap<String, String> dynamicCrudEngines) {
         this.dynamicCrudEngines = dynamicCrudEngines;
     }
 
+    /**
+     * Sets the container of initialized dynamic Procedure Engines' names together with their SQL statement
+     * 
+     * @param dynamicProcedureEngines
+     *            the container of initialized dynamic Procedure Engines' names together with their SQL statement
+     */
     public void setDynamicProcedureEngines(ConcurrentHashMap<String, String> dynamicProcedureEngines) {
         this.dynamicProcedureEngines = dynamicProcedureEngines;
     }

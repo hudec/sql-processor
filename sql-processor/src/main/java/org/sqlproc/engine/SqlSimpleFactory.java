@@ -605,8 +605,6 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setLazyInit(boolean lazyInit) {
         this.lazyInit = lazyInit;
-        if (configuration != null)
-            configuration.setLazyInit(lazyInit);
     }
 
     /**

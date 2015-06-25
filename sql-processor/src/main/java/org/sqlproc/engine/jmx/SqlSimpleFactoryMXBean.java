@@ -243,6 +243,13 @@ public class SqlSimpleFactoryMXBean {
         return collectionToString(sqlEngineFactory.getDynamicNames());
     }
 
+    /**
+     * Converts collection to String representation.
+     * 
+     * @param collection
+     *            the colletion to be presented
+     * @return the collection String representation
+     */
     private String collectionToString(Collection<String> collection) {
         StringBuilder sb = new StringBuilder();
         boolean first = true;
@@ -376,6 +383,11 @@ public class SqlSimpleFactoryMXBean {
         return errors.length() == 0 ? OK : errors.toString();
     }
 
+    /**
+     * Returns the dynamic SQL Processor configuration ant checks it's not null
+     * 
+     * @return the dynamic SQL Processor configuration
+     */
     private SqlEngineConfiguration getConfiguration() {
         SqlEngineConfiguration configuration = sqlEngineFactory.getConfiguration();
         if (configuration == null)
