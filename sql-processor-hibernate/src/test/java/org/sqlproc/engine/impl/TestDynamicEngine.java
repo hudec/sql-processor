@@ -5,7 +5,7 @@ import java.util.List;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.form.PersonForm;
 import org.sqlproc.engine.form.PersonNameForm;
@@ -24,28 +24,28 @@ public class TestDynamicEngine extends TestDatabase {
 
     @Test
     public void testDynamicEngineLoading() {
-        SqlEngineFactory factory = getEngineFactory("ANSI_BASIC_2");
-        SqlQueryEngine sqlDefaultEngine = getDefaultQueryEngine("ANSI_BASIC_2", factory);
+        SqlProcessorLoader loader = getProcessorLoader("ANSI_BASIC_2");
+        SqlQueryEngine sqlDefaultEngine = getDefaultQueryEngine("ANSI_BASIC_2", loader);
 
-        SqlQueryEngine sqlStaticEngine = getStaticQueryEngine("ANSI_BASIC_2", factory);
+        SqlQueryEngine sqlStaticEngine = getStaticQueryEngine("ANSI_BASIC_2", loader);
         Assert.assertSame(sqlDefaultEngine, sqlStaticEngine);
 
-        SqlQueryEngine sqlDynamicEngine = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, factory);
+        SqlQueryEngine sqlDynamicEngine = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, loader);
         Assert.assertNotSame(sqlDefaultEngine, sqlDynamicEngine);
-        Assert.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", factory), sqlDynamicEngine);
+        Assert.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", loader), sqlDynamicEngine);
 
-        SqlQueryEngine sqlStaticEngine2 = getStaticQueryEngine("ANSI_BASIC_2", factory);
+        SqlQueryEngine sqlStaticEngine2 = getStaticQueryEngine("ANSI_BASIC_2", loader);
         Assert.assertSame(sqlStaticEngine, sqlStaticEngine2);
-        Assert.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", factory), sqlStaticEngine2);
+        Assert.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", loader), sqlStaticEngine2);
 
-        SqlQueryEngine sqlDynamicEngine2 = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, factory);
+        SqlQueryEngine sqlDynamicEngine2 = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, loader);
         Assert.assertNotSame(sqlDynamicEngine, sqlDynamicEngine2);
     }
 
     @Test
     public void testDynamicEngineSelect() {
-        SqlEngineFactory factory = getEngineFactory("ANSI_BASIC_2");
-        SqlQueryEngine sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", factory);
+        SqlProcessorLoader loader = getProcessorLoader("ANSI_BASIC_2");
+        SqlQueryEngine sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", loader);
 
         PersonForm pf = new PersonForm();
         pf.setName(new PersonNameForm());
@@ -54,49 +54,49 @@ public class TestDynamicEngine extends TestDatabase {
         Person p = list.get(0);
         assertEquals("Pierce", p.getName().getFirst());
 
-        sqlEngine = getStaticQueryEngine("ANSI_BASIC_2", factory);
+        sqlEngine = getStaticQueryEngine("ANSI_BASIC_2", loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);
         assertEquals("Pierce", p.getName().getFirst());
 
-        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", factory);
+        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);
         assertEquals("Pierce", p.getName().getFirst());
 
-        sqlEngine = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, factory);
+        sqlEngine = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);
         assertNull(p.getName().getFirst());
 
-        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", factory);
+        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);
         assertNull(p.getName().getFirst());
 
-        sqlEngine = getStaticQueryEngine("ANSI_BASIC_2", factory);
+        sqlEngine = getStaticQueryEngine("ANSI_BASIC_2", loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);
         assertEquals("Pierce", p.getName().getFirst());
 
-        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", factory);
+        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);
         assertEquals("Pierce", p.getName().getFirst());
 
-        sqlEngine = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, factory);
+        sqlEngine = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);
         assertNull(p.getName().getFirst());
 
-        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", factory);
+        sqlEngine = getDefaultQueryEngine("ANSI_BASIC_2", loader);
 
         list = sqlEngine.query(session, Person.class, pf);
         p = list.get(0);

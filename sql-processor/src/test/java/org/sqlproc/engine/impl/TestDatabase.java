@@ -24,7 +24,6 @@ import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
-import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlProcessorLoader;
@@ -210,6 +209,20 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return loader;
     }
 
+    protected SqlProcessorLoader getProcessorLoader(String name, String filter) {
+        SqlProcessorLoader loader = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
+                SimpleSqlPluginFactory.getInstance(), filter, null, customTypes, name);
+        assertNotNull(loader);
+        return loader;
+    }
+
+    protected SqlProcessorLoader getProcessorLoader(String name) {
+        SqlProcessorLoader loader = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
+                SimpleSqlPluginFactory.getInstance(), dbType, null, customTypes, name);
+        assertNotNull(loader);
+        return loader;
+    }
+
     protected SqlQueryEngine getQueryEngine(String name, SqlPluginFactory sqlPluginFactory) {
         SqlProcessorLoader loader = getProcessorLoader(name, sqlPluginFactory);
         SqlQueryEngine sqlEngine = (SqlQueryEngine) loader.getEngine(name, SqlProcessorLoader.EngineType.Query);
@@ -217,11 +230,34 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
-    protected SqlProcessorLoader getProcessorLoader(String name, String filter) {
-        SqlProcessorLoader loader = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
-                SimpleSqlPluginFactory.getInstance(), filter, null, customTypes, name);
-        assertNotNull(loader);
-        return loader;
+    protected SqlQueryEngine getQueryEngine(String name) {
+        SqlProcessorLoader loader = getProcessorLoader(name);
+        SqlQueryEngine sqlEngine = (SqlQueryEngine) loader.getEngine(name, SqlProcessorLoader.EngineType.Query);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    protected SqlQueryEngine getDefaultQueryEngine(String name, SqlProcessorLoader loader) {
+        SqlQueryEngine sqlEngine = (SqlQueryEngine) loader.getEngine(name, SqlProcessorLoader.EngineType.Query);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    protected SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement, SqlProcessorLoader loader) {
+        SqlQueryEngine sqlEngine = (SqlQueryEngine) loader.getDynamicEngine(name, SqlProcessorLoader.EngineType.Query,
+                sqlStatement);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    protected SqlQueryEngine getStaticQueryEngine(String name, SqlProcessorLoader loader) {
+        SqlQueryEngine sqlEngine = (SqlQueryEngine) loader.getStaticEngine(name, SqlProcessorLoader.EngineType.Query);
+        assertNotNull(sqlEngine);
+        return sqlEngine;
+    }
+
+    protected SqlQueryEngine getSqlEngine(String name) {
+        return getQueryEngine(name);
     }
 
     protected SqlCrudEngine getCrudEngine(String name, String filter) {
@@ -232,43 +268,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
-    SqlProcessorLoader getProcessorLoader(String name) {
-        SqlProcessorLoader loader = new SqlProcessorLoader(metaStatements, JdbcTypeFactory.getInstance(),
-                SimpleSqlPluginFactory.getInstance(), dbType, null, customTypes, name);
-        assertNotNull(loader);
-        return loader;
-    }
-
-    SqlQueryEngine getQueryEngine(String name) {
-        SqlProcessorLoader loader = getProcessorLoader(name);
-        SqlQueryEngine sqlEngine = (SqlQueryEngine) loader.getEngine(name, SqlProcessorLoader.EngineType.Query);
-        assertNotNull(sqlEngine);
-        return sqlEngine;
-    }
-
-    SqlQueryEngine getDefaultQueryEngine(String name, SqlEngineFactory factory) {
-        SqlQueryEngine sqlEngine = factory.getQueryEngine(name);
-        assertNotNull(sqlEngine);
-        return sqlEngine;
-    }
-
-    SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement, SqlEngineFactory factory) {
-        SqlQueryEngine sqlEngine = factory.getDynamicQueryEngine(name, sqlStatement);
-        assertNotNull(sqlEngine);
-        return sqlEngine;
-    }
-
-    SqlQueryEngine getStaticQueryEngine(String name, SqlEngineFactory factory) {
-        SqlQueryEngine sqlEngine = factory.getStaticQueryEngine(name);
-        assertNotNull(sqlEngine);
-        return sqlEngine;
-    }
-
-    SqlQueryEngine getSqlEngine(String name) {
-        return getQueryEngine(name);
-    }
-
-    SqlCrudEngine getCrudEngine(String name) {
+    protected SqlCrudEngine getCrudEngine(String name) {
         SqlProcessorLoader loader = getProcessorLoader(name);
         SqlCrudEngine sqlEngine = (SqlCrudEngine) loader.getEngine(name, SqlProcessorLoader.EngineType.Crud);
         sqlEngine.setValidator(validatorFactory.getSqlValidator());
@@ -276,7 +276,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         return sqlEngine;
     }
 
-    SqlProcedureEngine getProcedureEngine(String name) {
+    protected SqlProcedureEngine getProcedureEngine(String name) {
         SqlProcessorLoader loader = getProcessorLoader(name);
         SqlProcedureEngine sqlEngine = (SqlProcedureEngine) loader.getEngine(name,
                 SqlProcessorLoader.EngineType.Procedure);
