@@ -188,6 +188,13 @@ public interface SqlEngineFactory {
     SqlProcedureEngine getCheckedStaticProcedureEngine(String name);
 
     /**
+     * Returns the indicator to speed up the initialization process
+     * 
+     * @return the indicator to speed up the initialization process
+     */
+    public boolean isLazyInit();
+
+    /**
      * Returns the collection of names of all initialized/constructed static SQL Engine instances.
      * 
      * @return The collection of all initialized static SQL Engine instances' names
@@ -216,17 +223,9 @@ public interface SqlEngineFactory {
     public Map<String, SqlEngine> getDynamicEngines();
 
     /**
-     * Returns the indicator to speed up the initialization process
+     * Returns the overall dynamic configuration
      * 
-     * @return the indicator to speed up the initialization process
+     * @return the overall dynamic configuration
      */
-    public boolean isLazyInit();
-
-    /**
-     * Sets the indicator to speed up the initialization process
-     * 
-     * @param lazyInit
-     *            the indicator to speed up the initialization process
-     */
-    public void setLazyInit(boolean lazyInit);
+    public SqlEngineConfiguration getConfiguration();
 }

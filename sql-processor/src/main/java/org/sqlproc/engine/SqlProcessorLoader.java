@@ -1,7 +1,6 @@
 package org.sqlproc.engine;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -99,7 +98,7 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlProcessorLoader implements SqlEngineFactory {
+public class SqlProcessorLoader {
 
     /**
      * The internal slf4j logger.
@@ -161,7 +160,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     /**
      * This flag indicates to speed up the initialization process.
      */
-    private boolean lazyInit;
+    private Boolean lazyInit;
     /**
      * The processing cache used for {@link SqlProcessResult} instances.
      */
@@ -370,7 +369,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      */
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
-            List<SqlInternalType> customTypes, boolean lazyInit, String... onlyStatements) throws SqlEngineException {
+            List<SqlInternalType> customTypes, Boolean lazyInit, String... onlyStatements) throws SqlEngineException {
         if (logger.isTraceEnabled()) {
             logger.trace(">> SqlProcessorLoader, sbStatements=" + sbStatements + ", typeFactory=" + typeFactory
                     + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", validatorFactory="
@@ -402,7 +401,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             SqlProcessor processor = null;
 
             try {
-                processor = (lazyInit) ? SqlProcessor.getLazyInstance(sbStatements, composedTypeFactory,
+                processor = (isLazyInit()) ? SqlProcessor.getLazyInstance(sbStatements, composedTypeFactory,
                         defaultFeatures, setSelectQueries, filter) : SqlProcessor.getInstance(sbStatements,
                         composedTypeFactory, defaultFeatures, setSelectQueries, filter);
             } catch (SqlEngineException see) {
@@ -432,10 +431,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
             if (errors.length() > 0)
                 throw new SqlEngineException(errors.toString());
 
-            if (!lazyInit) {
+            if (!isLazyInit()) {
                 for (String name : sqls.keySet()) {
                     try {
-                        getQueryEngine(name);
+                        getEngine(name, EngineType.Query);
                     } catch (SqlEngineException ex) {
                         errors.append(ex.getMessage()).append("\n");
                     }
@@ -443,7 +442,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
 
                 for (String name : cruds.keySet()) {
                     try {
-                        getCrudEngine(name);
+                        getEngine(name, EngineType.Crud);
                     } catch (SqlEngineException ex) {
                         errors.append(ex.getMessage()).append("\n");
                     }
@@ -451,7 +450,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
 
                 for (String name : calls.keySet()) {
                     try {
-                        getProcedureEngine(name);
+                        getEngine(name, EngineType.Procedure);
                     } catch (SqlEngineException ex) {
                         errors.append(ex.getMessage()).append("\n");
                     }
@@ -490,34 +489,10 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<String> getNames() {
-        return engines.keySet();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<String> getDynamicNames() {
-        return dynamicEngines.keySet();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Map<String, SqlEngine> getEngines() {
         return engines;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Map<String, SqlEngine> getDynamicEngines() {
         return dynamicEngines;
     }
@@ -525,7 +500,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     /**
      * The SQL Engine types
      */
-    enum EngineType {
+    public enum EngineType {
         Query, Crud, Procedure
     }
 
@@ -548,7 +523,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         SqlMetaStatement stmt2 = null;
         if (sqlStatement != null)
             stmt2 = SqlMetaStatement.getInstance(name, sqlStatement, composedTypeFactory);
-        else if (lazyInit)
+        else if (isLazyInit())
             stmt2 = SqlMetaStatement.getInstance(name, stmt.getRaw(), composedTypeFactory);
         else
             stmt2 = stmt;
@@ -558,7 +533,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         SqlMappingRule mapping = null;
         if (outs.containsKey(name)) {
             mapping = outs.get(name);
-            if (lazyInit)
+            if (isLazyInit())
                 mapping = SqlMappingRule.getInstance(name, mapping.getRaw(), composedTypeFactory);
         } else {
             mapping = new SqlMappingRule();
@@ -591,7 +566,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @throws SqlEngineException
      *             in the case the instance can't be created
      */
-    private SqlEngine getStaticEngine(String name, EngineType engineType) {
+    public SqlEngine getStaticEngine(String name, EngineType engineType) {
         dynamicEngines.remove(name);
         SqlEngine sqlEngine = engines.get(name);
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
@@ -613,30 +588,6 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQueryEngine getStaticQueryEngine(String name) {
-        return (SqlQueryEngine) getStaticEngine(name, EngineType.Query);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlCrudEngine getStaticCrudEngine(String name) {
-        return (SqlCrudEngine) getStaticEngine(name, EngineType.Crud);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlProcedureEngine getStaticProcedureEngine(String name) {
-        return (SqlProcedureEngine) getStaticEngine(name, EngineType.Procedure);
-    }
-
-    /**
      * Returns the named static or dynamic SQL Engine instance (the primary SQL Processor class).
      * 
      * @param name
@@ -647,35 +598,11 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @throws SqlEngineException
      *             in the case the instance can't be created
      */
-    private SqlEngine getEngine(String name, EngineType engineType) {
+    public SqlEngine getEngine(String name, EngineType engineType) {
         SqlEngine sqlEngine = dynamicEngines.get(name);
         if (sqlEngine != null)
             return sqlEngine;
         return getStaticEngine(name, engineType);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQueryEngine getQueryEngine(String name) {
-        return (SqlQueryEngine) getEngine(name, EngineType.Query);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlCrudEngine getCrudEngine(String name) {
-        return (SqlCrudEngine) getEngine(name, EngineType.Crud);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlProcedureEngine getProcedureEngine(String name) {
-        return (SqlProcedureEngine) getEngine(name, EngineType.Procedure);
     }
 
     /**
@@ -691,7 +618,7 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      * @throws SqlEngineException
      *             in the case the instance can't be created
      */
-    private SqlEngine getDynamicEngine(String name, EngineType engineType, String sqlStatement) {
+    public SqlEngine getDynamicEngine(String name, EngineType engineType, String sqlStatement) {
         Map<String, SqlMetaStatement> stmts = getStatements(engineType);
         if (!stmts.containsKey(name))
             throw new SqlEngineException("Missing SQL Engine " + name);
@@ -702,30 +629,6 @@ public class SqlProcessorLoader implements SqlEngineFactory {
         commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
         sqlEngine.setProcessingCache(commonProcessingCache.get(name));
         return sqlEngine;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement) {
-        return (SqlQueryEngine) getDynamicEngine(name, EngineType.Query, sqlStatement);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlCrudEngine getDynamicCrudEngine(String name, String sqlStatement) {
-        return (SqlCrudEngine) getDynamicEngine(name, EngineType.Crud, sqlStatement);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement) {
-        return (SqlProcedureEngine) getDynamicEngine(name, EngineType.Procedure, sqlStatement);
     }
 
     /**
@@ -745,87 +648,12 @@ public class SqlProcessorLoader implements SqlEngineFactory {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQueryEngine getCheckedQueryEngine(String name) throws SqlEngineException {
-        SqlQueryEngine sqlEngine = getQueryEngine(name);
-        check(name, sqlEngine);
-        return sqlEngine;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlCrudEngine getCheckedCrudEngine(String name) {
-        SqlCrudEngine sqlEngine = getCrudEngine(name);
-        check(name, sqlEngine);
-        return sqlEngine;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlProcedureEngine getCheckedProcedureEngine(String name) {
-        SqlProcedureEngine sqlEngine = getProcedureEngine(name);
-        check(name, sqlEngine);
-        return sqlEngine;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQueryEngine getCheckedStaticQueryEngine(String name) throws SqlEngineException {
-        SqlQueryEngine sqlEngine = getStaticQueryEngine(name);
-        check(name, sqlEngine);
-        return sqlEngine;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlCrudEngine getCheckedStaticCrudEngine(String name) {
-        SqlCrudEngine sqlEngine = getStaticCrudEngine(name);
-        check(name, sqlEngine);
-        return sqlEngine;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlProcedureEngine getCheckedStaticProcedureEngine(String name) {
-        SqlProcedureEngine sqlEngine = getStaticProcedureEngine(name);
-        check(name, sqlEngine);
-        return sqlEngine;
-    }
-
-    /**
-     * Check the SQL Engine instance is not null
-     * 
-     * @param name
-     *            the name of the required SQL Engine instance
-     * @param sqlEngine
-     *            the checked SQL Engine instance
-     * @throws SqlEngineException
-     *             in the case the the SQL Engine instance is null
-     */
-    private void check(String name, SqlEngine sqlEngine) {
-        if (sqlEngine == null)
-            throw new SqlEngineException("Missing SqlEngine " + name);
-    }
-
-    /**
      * Returns a flag which indicates the lazy initialization mode.
      * 
      * @return a flag which indicates the lazy initialization mode.
      */
     public boolean isLazyInit() {
-        return lazyInit;
+        return lazyInit != null && lazyInit;
     }
 
     /**
@@ -835,6 +663,6 @@ public class SqlProcessorLoader implements SqlEngineFactory {
      *            the indicator to speed up the initialization process
      */
     public void setLazyInit(boolean lazyInit) {
-        this.setLazyInit(lazyInit);
+        this.lazyInit = lazyInit;
     }
 }

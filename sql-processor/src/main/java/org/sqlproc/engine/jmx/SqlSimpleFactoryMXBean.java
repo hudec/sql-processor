@@ -3,6 +3,7 @@ package org.sqlproc.engine.jmx;
 import java.util.Collection;
 
 import org.sqlproc.engine.SqlEngine;
+import org.sqlproc.engine.SqlEngineConfiguration;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
 
@@ -256,25 +257,6 @@ public class SqlSimpleFactoryMXBean {
     }
 
     /**
-     * Returns the indicator to speed up the initialization process
-     * 
-     * @return the indicator to speed up the initialization process
-     */
-    public boolean isLazyInit() {
-        return sqlEngineFactory.isLazyInit();
-    }
-
-    /**
-     * Sets the indicator to speed up the initialization process
-     * 
-     * @param lazyInit
-     *            the indicator to speed up the initialization process
-     */
-    public void setLazyInit(boolean lazyInit) {
-        sqlEngineFactory.setLazyInit(lazyInit);
-    }
-
-    /**
      * Returns the processing cache used for the selected SQL Query Engine
      * 
      * @param name
@@ -392,6 +374,74 @@ public class SqlSimpleFactoryMXBean {
             errors.append(ex.getMessage()).append("\n");
         }
         return errors.length() == 0 ? OK : errors.toString();
+    }
+
+    private SqlEngineConfiguration getConfiguration() {
+        SqlEngineConfiguration configuration = sqlEngineFactory.getConfiguration();
+        if (configuration == null)
+            throw new IllegalArgumentException("The dynamic configation is null");
+        return configuration;
+    }
+
+    /**
+     * Returns the indicator to speed up the initialization process
+     * 
+     * @return the indicator to speed up the initialization process
+     */
+    public boolean isLazyInit() {
+        return sqlEngineFactory.isLazyInit();
+    }
+
+    /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
+    public void setLazyInit(boolean lazyInit) {
+        getConfiguration().setLazyInit(lazyInit);
+    }
+
+    /**
+     * Returns the indicator the initialization process should be done asynchronously
+     * 
+     * @return the indicator the initialization process should be done asynchronously
+     */
+    public Boolean getAsyncInit() {
+        return getConfiguration().getAsyncInit();
+    }
+
+    /**
+     * Sets the indicator the initialization process should be done asynchronously
+     * 
+     * @param asyncInit
+     *            the indicator the initialization process should be done asynchronously
+     */
+    public void setAsyncInit(Boolean asyncInit) {
+        getConfiguration().setAsyncInit(asyncInit);
+    }
+
+    /**
+     * Returns the initialization threshold. The engines, which usage is at least this number should be initialized
+     * directly
+     * 
+     * @return the initialization threshold. The engines, which usage is at least this number should be initialized
+     *         directly
+     */
+    public Integer getInitTreshold() {
+        return getConfiguration().getInitTreshold();
+    }
+
+    /**
+     * Sets the initialization threshold. The engines, which usage is at least this number should be initialized
+     * directly
+     * 
+     * @param initTreshold
+     *            the initialization threshold. The engines, which usage is at least this number should be initialized
+     *            directly
+     */
+    public void setInitTreshold(Integer initTreshold) {
+        getConfiguration().setInitTreshold(initTreshold);
     }
 
     /**

@@ -4,11 +4,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * The configuration of the SQL Processor.
+ * The dznamic configuration of the SQL Processor.
  * 
  * <p>
  * The primary goal of this configuration is the eager initialization of the selected SQL Engines. The overall
  * configuration can be also persisted using the sql-processor-spring.
+ * 
+ * The configuration can be dynamically changed using the JMX interface
+ * {@link org.sqlproc.engine.jmx.SqlSimpleFactoryMXBean}.
  * 
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
@@ -23,8 +26,18 @@ public class SqlEngineConfiguration {
     private ConcurrentHashMap<String, String> dynamicQueryEngines = new ConcurrentHashMap<String, String>();
     private ConcurrentHashMap<String, String> dynamicCrudEngines = new ConcurrentHashMap<String, String>();
     private ConcurrentHashMap<String, String> dynamicProcedureEngines = new ConcurrentHashMap<String, String>();
+    /**
+     * This flag indicates to speed up the initialization process.
+     */
     private Boolean lazyInit;
+    /**
+     * This flag indicates the initialization process should be done asynchronously.
+     */
     private Boolean asyncInit;
+    /**
+     * The engines, which usage is at least this number should be initialized directly.
+     */
+    private Integer initTreshold;
 
     protected int addEngine(String name, ConcurrentHashMap<String, AtomicInteger> engines) {
         AtomicInteger counter = null;
@@ -142,19 +155,64 @@ public class SqlEngineConfiguration {
         this.dynamicProcedureEngines = dynamicProcedureEngines;
     }
 
+    /**
+     * Returns the indicator to speed up the initialization process
+     * 
+     * @return the indicator to speed up the initialization process
+     */
     public Boolean getLazyInit() {
         return lazyInit;
     }
 
+    /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
     public void setLazyInit(Boolean lazyInit) {
         this.lazyInit = lazyInit;
     }
 
+    /**
+     * Returns the indicator the initialization process should be done asynchronously
+     * 
+     * @return the indicator the initialization process should be done asynchronously
+     */
     public Boolean getAsyncInit() {
         return asyncInit;
     }
 
+    /**
+     * Sets the indicator the initialization process should be done asynchronously
+     * 
+     * @param asyncInit
+     *            the indicator the initialization process should be done asynchronously
+     */
     public void setAsyncInit(Boolean asyncInit) {
         this.asyncInit = asyncInit;
+    }
+
+    /**
+     * Returns the initialization threshold. The engines, which usage is at least this number should be initialized
+     * directly
+     * 
+     * @return the initialization threshold. The engines, which usage is at least this number should be initialized
+     *         directly
+     */
+    public Integer getInitTreshold() {
+        return initTreshold;
+    }
+
+    /**
+     * Sets the initialization threshold. The engines, which usage is at least this number should be initialized
+     * directly
+     * 
+     * @param initTreshold
+     *            the initialization threshold. The engines, which usage is at least this number should be initialized
+     *            directly
+     */
+    public void setInitTreshold(Integer initTreshold) {
+        this.initTreshold = initTreshold;
     }
 }
