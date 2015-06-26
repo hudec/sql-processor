@@ -3,6 +3,7 @@ package org.sqlproc.engine.jmx;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlEngineConfiguration;
@@ -28,8 +29,6 @@ public class SqlSimpleFactoryMXBean {
      */
     private SqlEngineFactory sqlEngineFactory;
 
-    public static final String OK = "OK";
-
     /**
      * In the case the SQL Query Engines are not initialized, a new static instances are established in the cache.
      * 
@@ -37,12 +36,14 @@ public class SqlSimpleFactoryMXBean {
      *            the names of the required SQL Query Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String initQueryEngines(String names) {
+    public int initQueryEngines(String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         if ("*".equals(names)) {
             for (String name : sqlEngineFactory.getNames()) {
                 try {
                     sqlEngineFactory.getCheckedQueryEngine(name);
+                    count++;
                 } catch (SqlEngineException ex) {
                     errors.append(ex.getMessage()).append("\n");
                 }
@@ -51,12 +52,15 @@ public class SqlSimpleFactoryMXBean {
             for (String name : names.split(",")) {
                 try {
                     sqlEngineFactory.getCheckedQueryEngine(name);
+                    count++;
                 } catch (SqlEngineException ex) {
                     errors.append(ex.getMessage()).append("\n");
                 }
             }
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nInitialized engines: ").append(count).toString());
     }
 
     /**
@@ -66,12 +70,14 @@ public class SqlSimpleFactoryMXBean {
      *            the names of the required SQL CRUD Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String initCrudEngines(String names) {
+    public int initCrudEngines(String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         if ("*".equals(names)) {
             for (String name : sqlEngineFactory.getNames()) {
                 try {
                     sqlEngineFactory.getCheckedCrudEngine(name);
+                    count++;
                 } catch (SqlEngineException ex) {
                     errors.append(ex.getMessage()).append("\n");
                 }
@@ -80,12 +86,15 @@ public class SqlSimpleFactoryMXBean {
             for (String name : names.split(",")) {
                 try {
                     sqlEngineFactory.getCheckedCrudEngine(name);
+                    count++;
                 } catch (SqlEngineException ex) {
                     errors.append(ex.getMessage()).append("\n");
                 }
             }
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nInitialized engines: ").append(count).toString());
     }
 
     /**
@@ -95,12 +104,14 @@ public class SqlSimpleFactoryMXBean {
      *            the names of the required SQL Procedure Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String initProcedureEngines(String names) {
+    public int initProcedureEngines(String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         if ("*".equals(names)) {
             for (String name : sqlEngineFactory.getNames()) {
                 try {
                     sqlEngineFactory.getCheckedProcedureEngine(name);
+                    count++;
                 } catch (SqlEngineException ex) {
                     errors.append(ex.getMessage()).append("\n");
                 }
@@ -109,12 +120,15 @@ public class SqlSimpleFactoryMXBean {
             for (String name : names.split(",")) {
                 try {
                     sqlEngineFactory.getCheckedProcedureEngine(name);
+                    count++;
                 } catch (SqlEngineException ex) {
                     errors.append(ex.getMessage()).append("\n");
                 }
             }
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nInitialized engines: ").append(count).toString());
     }
 
     /**
@@ -124,16 +138,20 @@ public class SqlSimpleFactoryMXBean {
      *            the names of the required SQL Query Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String resetQueryEngines(String names) {
+    public int resetQueryEngines(String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedStaticQueryEngine(name);
+                count++;
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nReset engines: ").append(count).toString());
     }
 
     /**
@@ -143,16 +161,20 @@ public class SqlSimpleFactoryMXBean {
      *            the names of the required SQL CRUD Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String resetCrudEngines(String names) {
+    public int resetCrudEngines(String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedStaticCrudEngine(name);
+                count++;
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nReset engines: ").append(count).toString());
     }
 
     /**
@@ -162,16 +184,20 @@ public class SqlSimpleFactoryMXBean {
      *            the names of the required SQL Procedure Engines instances
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String resetProcedureEngines(String names) {
+    public int resetProcedureEngines(String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         for (String name : names.split(",")) {
             try {
                 sqlEngineFactory.getCheckedStaticProcedureEngine(name);
+                count++;
             } catch (SqlEngineException ex) {
                 errors.append(ex.getMessage()).append("\n");
             }
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nReset engines: ").append(count).toString());
     }
 
     /**
@@ -183,13 +209,12 @@ public class SqlSimpleFactoryMXBean {
      *            the new SQL statement, which is going to replace the original one
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String newQueryEngine(String name, String sqlStatement) throws SqlEngineException {
+    public void newQueryEngine(String name, String sqlStatement) throws SqlEngineException {
         try {
             sqlEngineFactory.getDynamicQueryEngine(name, sqlStatement);
         } catch (SqlEngineException ex) {
-            return ex.getMessage();
+            throw new RuntimeException(ex.getMessage());
         }
-        return OK;
     }
 
     /**
@@ -201,13 +226,12 @@ public class SqlSimpleFactoryMXBean {
      *            the new SQL statement, which is going to replace the original one
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String newCrudEngine(String name, String sqlStatement) {
+    public void newCrudEngine(String name, String sqlStatement) {
         try {
             sqlEngineFactory.getDynamicCrudEngine(name, sqlStatement);
         } catch (SqlEngineException ex) {
-            return ex.getMessage();
+            throw new RuntimeException(ex.getMessage());
         }
-        return OK;
     }
 
     /**
@@ -219,13 +243,12 @@ public class SqlSimpleFactoryMXBean {
      *            the new SQL statement, which is going to replace the original one
      * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
-    public String newProcedureEngine(String name, String sqlStatement) {
+    public void newProcedureEngine(String name, String sqlStatement) {
         try {
             sqlEngineFactory.getDynamicProcedureEngine(name, sqlStatement);
         } catch (SqlEngineException ex) {
-            return ex.getMessage();
+            throw new RuntimeException(ex.getMessage());
         }
-        return OK;
     }
 
     /**
@@ -478,6 +501,99 @@ public class SqlSimpleFactoryMXBean {
      */
     public List<String> getProcedureEnginesToInit() {
         return toList(getConfiguration().getQueryEnginesToInit(getConfiguration().getInitTreshold()));
+    }
+
+    /**
+     * Returns the Query Engine usage number.
+     * 
+     * @param name
+     *            the name of the SQL Query Engine
+     * 
+     * @return the Query Engine usage number
+     */
+    public int getQueryEngineUsage(String name) {
+        AtomicInteger usage = getConfiguration().getQueryEngines().get(name);
+        if (usage == null)
+            return 0;
+        return usage.get();
+    }
+
+    /**
+     * Returns the CRUD Engine usage number.
+     * 
+     * @param name
+     *            the name of the SQL CRUD Engine
+     * 
+     * @return the CRUD Engine usage number
+     */
+    public int getCrudEngineUsage(String name) {
+        AtomicInteger usage = getConfiguration().getCrudEngines().get(name);
+        if (usage == null)
+            return 0;
+        return usage.get();
+    }
+
+    /**
+     * Returns the Procedure Engine usage number.
+     * 
+     * @param name
+     *            the name of the SQL Procedure Engine
+     * 
+     * @return the Procedure Engine usage number
+     */
+    public int getProcedureEngineUsage(String name) {
+        AtomicInteger usage = getConfiguration().getProcedureEngines().get(name);
+        if (usage == null)
+            return 0;
+        return usage.get();
+    }
+
+    /**
+     * Resets the Query Engine usage number.
+     * 
+     * @param name
+     *            the name of the SQL Query Engine
+     * 
+     * @return the Query Engine usage number
+     */
+    public int resetQueryEngineUsage(String name) {
+        AtomicInteger usage = getConfiguration().getQueryEngines().get(name);
+        if (usage == null)
+            return 0;
+        usage.set(0);
+        return usage.get();
+    }
+
+    /**
+     * Resets the CRUD Engine usage number.
+     * 
+     * @param name
+     *            the name of the SQL CRUD Engine
+     * 
+     * @return the CRUD Engine usage number
+     */
+    public int resetCrudEngineUsage(String name) {
+        AtomicInteger usage = getConfiguration().getCrudEngines().get(name);
+        if (usage == null)
+            return 0;
+        usage.set(0);
+        return usage.get();
+    }
+
+    /**
+     * Resets the Procedure Engine usage number.
+     * 
+     * @param name
+     *            the name of the SQL Procedure Engine
+     * 
+     * @return the Procedure Engine usage number
+     */
+    public int resetProcedureEngineUsage(String name) {
+        AtomicInteger usage = getConfiguration().getProcedureEngines().get(name);
+        if (usage == null)
+            return 0;
+        usage.set(0);
+        return usage.get();
     }
 
     /**
