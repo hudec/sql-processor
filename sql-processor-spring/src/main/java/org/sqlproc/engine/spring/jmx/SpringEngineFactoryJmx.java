@@ -1,6 +1,7 @@
 package org.sqlproc.engine.spring.jmx;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
@@ -29,7 +30,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @Override
     @ManagedOperation(description = "In the case the SQL Query Engines are not initialized, a new static instances are established in the cache.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
-    public String initQueryEngines(String names) {
+    public int initQueryEngines(String names) {
         return super.initQueryEngines(names);
     }
 
@@ -39,7 +40,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @Override
     @ManagedOperation(description = "In the case the SQL CRUD Engines are not initialized, a new static instances are established in the cache.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
-    public String initCrudEngines(String names) {
+    public int initCrudEngines(String names) {
         return super.initCrudEngines(names);
     }
 
@@ -49,7 +50,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @Override
     @ManagedOperation(description = "In the case the SQL Procedure Engines are not initialized, a new static instances are established in the cache.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
-    public String initProcedureEngines(String names) {
+    public int initProcedureEngines(String names) {
         return super.initProcedureEngines(names);
     }
 
@@ -59,7 +60,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL Query Engine is in the cache, the static one is re-established.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
-    public String resetQueryEngines(String names) {
+    public int resetQueryEngines(String names) {
         return super.resetQueryEngines(names);
     }
 
@@ -69,7 +70,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL CRUD Engine is in the cache, the static one is re-established.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
-    public String resetCrudEngines(String names) {
+    public int resetCrudEngines(String names) {
         return super.resetCrudEngines(names);
     }
 
@@ -79,7 +80,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL Procedure Engine is in the cache, the static one is re-established.")
     @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
-    public String resetProcedureEngines(String names) {
+    public int resetProcedureEngines(String names) {
         return super.resetProcedureEngines(names);
     }
 
@@ -91,8 +92,8 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @ManagedOperationParameters({
             @ManagedOperationParameter(name = "name", description = "The name of the required SQL Query Engine instances"),
             @ManagedOperationParameter(name = "sqlStatement", description = "The new SQL statement, which is going to replace the original one") })
-    public String newQueryEngine(String name, String sqlStatement) throws SqlEngineException {
-        return super.newQueryEngine(name, sqlStatement);
+    public void newQueryEngine(String name, String sqlStatement) throws SqlEngineException {
+        super.newQueryEngine(name, sqlStatement);
     }
 
     /**
@@ -103,8 +104,8 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @ManagedOperationParameters({
             @ManagedOperationParameter(name = "name", description = "The name of the required SQL CRUD Engine instances"),
             @ManagedOperationParameter(name = "sqlStatement", description = "The new SQL statement, which is going to replace the original one") })
-    public String newCrudEngine(String name, String sqlStatement) {
-        return super.newCrudEngine(name, sqlStatement);
+    public void newCrudEngine(String name, String sqlStatement) {
+        super.newCrudEngine(name, sqlStatement);
     }
 
     /**
@@ -115,8 +116,8 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @ManagedOperationParameters({
             @ManagedOperationParameter(name = "name", description = "The name of the required Procedure Query Engine instances"),
             @ManagedOperationParameter(name = "sqlStatement", description = "The new SQL statement, which is going to replace the original one") })
-    public String newProcedureEngine(String name, String sqlStatement) {
-        return super.newProcedureEngine(name, sqlStatement);
+    public void newProcedureEngine(String name, String sqlStatement) {
+        super.newProcedureEngine(name, sqlStatement);
     }
 
     /**
@@ -135,25 +136,6 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @ManagedOperation(description = "Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.")
     public Collection<String> getDynamicNames() {
         return super.getDynamicNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Engine instances.")
-    public boolean isLazyInit() {
-        return super.isLazyInit();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @ManagedOperation(description = "Sets the indicator to speed up the initialization process.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "lazyInit", description = "The indicator to speed up the initialization process") })
-    public void setLazyInit(boolean lazyInit) {
-        super.setLazyInit(lazyInit);
     }
 
     /**
@@ -188,7 +170,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Clears the processing cache used for the selected SQL Query Engine.")
-    public String resetQueryEngineProcessingCache(String name, String names) {
+    public int resetQueryEngineProcessingCache(String name, String names) {
         return super.resetQueryEngineProcessingCache(name, names);
     }
 
@@ -197,7 +179,7 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Clears the processing cache used for the selected SQL CRUD Engine.")
-    public String resetCrudEngineProcessingCache(String name, String names) {
+    public int resetCrudEngineProcessingCache(String name, String names) {
         return super.resetCrudEngineProcessingCache(name, names);
     }
 
@@ -206,7 +188,151 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Clears the processing cache used for the selected SQL Procedure Engine.")
-    public String resetProcedureEngineProcessingCache(String name, String names) {
+    public int resetProcedureEngineProcessingCache(String name, String names) {
         return super.resetProcedureEngineProcessingCache(name, names);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Engine instances.")
+    public boolean isLazyInit() {
+        return super.isLazyInit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Sets the indicator to speed up the initialization process.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "lazyInit", description = "The indicator to speed up the initialization process.") })
+    public void setLazyInit(boolean lazyInit) {
+        super.setLazyInit(lazyInit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the indicator the initialization process should be done asynchronously.")
+    public Boolean getAsyncInit() {
+        return super.getAsyncInit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Sets the indicator the initialization process should be done asynchronously")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "asyncInit", description = "The indicator the initialization process should be done asynchronously.") })
+    public void setAsyncInit(Boolean asyncInit) {
+        super.setAsyncInit(asyncInit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the initialization threshold. The engines, which usage is at least this number should be initialized directly.")
+    public Integer getInitTreshold() {
+        return super.getInitTreshold();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Sets the initialization threshold. The engines, which usage is at least this number should be initialized directly.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "initTreshold", description = "The initialization threshold.") })
+    public void setInitTreshold(Integer initTreshold) {
+        super.setInitTreshold(initTreshold);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the container of the Query Engines' names, which has to be initialized.")
+    public List<String> getQueryEnginesToInit() {
+        return super.getQueryEnginesToInit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the container of the CRUD Engines' names, which has to be initialized.")
+    public List<String> getCrudEnginesToInit() {
+        return super.getCrudEnginesToInit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the container of the Procedure Engines' names, which has to be initialized.")
+    public List<String> getProcedureEnginesToInit() {
+        return super.getProcedureEnginesToInit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the Query Engine usage number.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Query Engine") })
+    public int getQueryEngineUsage(String name) {
+        return super.getQueryEngineUsage(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the CRUD Engine usage number.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL CRUD Engine") })
+    public int getCrudEngineUsage(String name) {
+        return super.getCrudEngineUsage(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the Procedure Engine usage number.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Procedure Engine") })
+    public int getProcedureEngineUsage(String name) {
+        return super.getProcedureEngineUsage(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Resets the Query Engine usage number.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Query Engine") })
+    public int resetQueryEngineUsage(String name) {
+        return super.resetQueryEngineUsage(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Resets the CRUD Engine usage number.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL CRUD Engine") })
+    public int resetCrudEngineUsage(String name) {
+        return super.resetCrudEngineUsage(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Resets the Procedure Engine usage number.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Procedure Engine") })
+    public int resetProcedureEngineUsage(String name) {
+        return super.resetProcedureEngineUsage(name);
     }
 }

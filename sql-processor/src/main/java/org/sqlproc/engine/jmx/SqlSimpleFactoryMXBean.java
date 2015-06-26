@@ -34,7 +34,7 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @param names
      *            the names of the required SQL Query Engines instances
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
+     * @return the number of successfully initialized engines
      */
     public int initQueryEngines(String names) {
         int count = 0;
@@ -68,7 +68,7 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @param names
      *            the names of the required SQL CRUD Engines instances
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
+     * @return the number of successfully initialized engines
      */
     public int initCrudEngines(String names) {
         int count = 0;
@@ -102,7 +102,7 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @param names
      *            the names of the required SQL Procedure Engines instances
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
+     * @return the number of successfully initialized engines
      */
     public int initProcedureEngines(String names) {
         int count = 0;
@@ -136,7 +136,7 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @param names
      *            the names of the required SQL Query Engines instances
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
+     * @return the number of successfully reset engines
      */
     public int resetQueryEngines(String names) {
         int count = 0;
@@ -159,7 +159,7 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @param names
      *            the names of the required SQL CRUD Engines instances
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
+     * @return the number of successfully reset engines
      */
     public int resetCrudEngines(String names) {
         int count = 0;
@@ -182,7 +182,7 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @param names
      *            the names of the required SQL Procedure Engines instances
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
+     * @return the number of successfully reset engines
      */
     public int resetProcedureEngines(String names) {
         int count = 0;
@@ -207,7 +207,6 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Query Engine instance
      * @param sqlStatement
      *            the new SQL statement, which is going to replace the original one
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public void newQueryEngine(String name, String sqlStatement) throws SqlEngineException {
         try {
@@ -224,7 +223,6 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL CRUD Engine instance
      * @param sqlStatement
      *            the new SQL statement, which is going to replace the original one
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public void newCrudEngine(String name, String sqlStatement) {
         try {
@@ -241,7 +239,6 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Procedure Engine instance
      * @param sqlStatement
      *            the new SQL statement, which is going to replace the original one
-     * @return for the case there's an error thrown, the error Message. Otherwise the OK.
      */
     public void newProcedureEngine(String name, String sqlStatement) {
         try {
@@ -330,19 +327,23 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Query Engine
      * @param names
      *            the names of the processing cache entries to be cleared
-     * @return the OK or the error message
+     * @return the number of successfully reset engine cache entries
      */
-    public String resetQueryEngineProcessingCache(String name, String names) {
+    public int resetQueryEngineProcessingCache(String name, String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedQueryEngine(name);
             for (String name0 : names.split(",")) {
                 engine.getProcessingCache().remove(name0);
+                count++;
             }
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nReset engine cache: ").append(count).toString());
     }
 
     /**
@@ -352,19 +353,23 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL CRUD Engine
      * @param names
      *            the names of the processing cache entries to be cleared
-     * @return the OK or the error message
+     * @return the number of successfully reset engine cache entries
      */
-    public String resetCrudEngineProcessingCache(String name, String names) {
+    public int resetCrudEngineProcessingCache(String name, String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedCrudEngine(name);
             for (String name0 : names.split(",")) {
                 engine.getProcessingCache().remove(name0);
+                count++;
             }
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nReset engine cache: ").append(count).toString());
     }
 
     /**
@@ -374,19 +379,23 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Procedure Engine
      * @param names
      *            the names of the processing cache entries to be cleared
-     * @return the OK or the error message
+     * @return the number of successfully reset engine cache entries
      */
-    public String resetProcedureEngineProcessingCache(String name, String names) {
+    public int resetProcedureEngineProcessingCache(String name, String names) {
+        int count = 0;
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedProcedureEngine(name);
             for (String name0 : names.split(",")) {
                 engine.getProcessingCache().remove(name0);
+                count++;
             }
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
-        return errors.length() == 0 ? OK : errors.toString();
+        if (errors.length() == 0)
+            return count;
+        throw new RuntimeException(errors.append("/nReset engine cache: ").append(count).toString());
     }
 
     /**
@@ -483,8 +492,6 @@ public class SqlSimpleFactoryMXBean {
      * Returns the container of the CRUD Engines' names, which has to be initialized. This is called during The SQL
      * Processor initialization, so there's no need to handle concurrent changes.
      * 
-     * @param treshold
-     *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the CRUD Engines' names, which has to be initialized
      */
     public List<String> getCrudEnginesToInit() {
@@ -495,8 +502,6 @@ public class SqlSimpleFactoryMXBean {
      * Returns the container of the Procedure Engines' names, which has to be initialized. This is called during The SQL
      * Processor initialization, so there's no need to handle concurrent changes.
      * 
-     * @param treshold
-     *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Procedure Engines' names, which has to be initialized
      */
     public List<String> getProcedureEnginesToInit() {
