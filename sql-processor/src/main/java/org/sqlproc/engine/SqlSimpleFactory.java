@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.sqlproc.engine.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.SqlProcessorLoader.EngineType;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
@@ -154,12 +155,15 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                                 monitorFactory, validatorFactory, customTypes, lazyInit, onlyStatements);
                         if (isLazyInit() && configuration != null) {
                             // TODO - asynchronously based on option
-                            for (String name : configuration.getQueryEnginesToInit())
-                                getQueryEngine(name);
-                            for (String name : configuration.getCrudEnginesToInit())
-                                getCrudEngine(name);
-                            for (String name : configuration.getProcedureEnginesToInit())
-                                getProcedureEngine(name);
+                            for (NameValue nameval : configuration.getQueryEnginesToInit(configuration
+                                    .getInitTreshold()))
+                                getQueryEngine(nameval.name);
+                            for (NameValue nameval : configuration
+                                    .getCrudEnginesToInit(configuration.getInitTreshold()))
+                                getCrudEngine(nameval.name);
+                            for (NameValue nameval : configuration.getProcedureEnginesToInit(configuration
+                                    .getInitTreshold()))
+                                getProcedureEngine(nameval.name);
                             for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet())
                                 getDynamicQueryEngine(e.getKey(), e.getValue());
                             for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet())

@@ -1,8 +1,6 @@
 package org.sqlproc.engine;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -427,11 +425,11 @@ public class SqlEngineConfiguration {
         this.initTreshold = initTreshold;
     }
 
-    class NameValue implements Comparable<NameValue> {
-        String name;
-        int value;
+    public class NameValue implements Comparable<NameValue> {
+        public String name;
+        public int value;
 
-        NameValue(String name, Integer value) {
+        public NameValue(String name, Integer value) {
             this.name = name;
             this.value = (value != null) ? value : 0;
         }
@@ -444,12 +442,6 @@ public class SqlEngineConfiguration {
                 return -1;
             return 0;
         }
-
-        @Override
-        public int hashCode() {
-            return name.hashCode();
-        }
-
     }
 
     /**
@@ -458,9 +450,11 @@ public class SqlEngineConfiguration {
      * 
      * @param engines
      *            the container of initialized engines
+     * @param treshold
+     *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Query Engines' names, which has to be initialized
      */
-    protected List<String> getQueryEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines) {
+    protected NameValue[] getQueryEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines, Integer treshold) {
         NameValue[] arr = new NameValue[engines.size()];
         int size = 0;
         for (Entry<String, AtomicInteger> e : engines.entrySet()) {
@@ -468,39 +462,42 @@ public class SqlEngineConfiguration {
                 arr[size++] = new NameValue(e.getKey(), e.getValue().get());
         }
         Arrays.sort(arr, 0, size);
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < size; i++)
-            list.add(arr[i].name);
-        return list;
+        return arr;
     }
 
     /**
      * Returns the container of the Query Engines' names, which has to be initialized. This is called during The SQL
      * Processor initialization, so there's no need to handle concurrent changes.
      * 
+     * @param treshold
+     *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Query Engines' names, which has to be initialized
      */
-    public List<String> getQueryEnginesToInit() {
-        return getQueryEnginesToInit(queryEngines);
+    public NameValue[] getQueryEnginesToInit(Integer treshold) {
+        return getQueryEnginesToInit(queryEngines, treshold);
     }
 
     /**
      * Returns the container of the CRUD Engines' names, which has to be initialized. This is called during The SQL
      * Processor initialization, so there's no need to handle concurrent changes.
      * 
+     * @param treshold
+     *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the CRUD Engines' names, which has to be initialized
      */
-    public List<String> getCrudEnginesToInit() {
-        return getQueryEnginesToInit(queryEngines);
+    public NameValue[] getCrudEnginesToInit(Integer treshold) {
+        return getQueryEnginesToInit(queryEngines, treshold);
     }
 
     /**
      * Returns the container of the Procedure Engines' names, which has to be initialized. This is called during The SQL
      * Processor initialization, so there's no need to handle concurrent changes.
      * 
+     * @param treshold
+     *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Procedure Engines' names, which has to be initialized
      */
-    public List<String> getProcedureEnginesToInit() {
-        return getQueryEnginesToInit(procedureEngines);
+    public NameValue[] getProcedureEnginesToInit(Integer treshold) {
+        return getQueryEnginesToInit(procedureEngines, treshold);
     }
 }

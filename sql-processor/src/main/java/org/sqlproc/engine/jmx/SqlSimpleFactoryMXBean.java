@@ -1,9 +1,12 @@
 package org.sqlproc.engine.jmx;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlEngineConfiguration;
+import org.sqlproc.engine.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
 
@@ -230,8 +233,8 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @return The collection of all initialized static SQL Engine instances' names
      */
-    public String getNames() {
-        return collectionToString(sqlEngineFactory.getNames());
+    public Collection<String> getNames() {
+        return sqlEngineFactory.getNames();
     }
 
     /**
@@ -239,28 +242,8 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @return The collection of all initialized dynamic SQL Engine instances' names
      */
-    public String getDynamicNames() {
-        return collectionToString(sqlEngineFactory.getDynamicNames());
-    }
-
-    /**
-     * Converts collection to String representation.
-     * 
-     * @param collection
-     *            the colletion to be presented
-     * @return the collection String representation
-     */
-    private String collectionToString(Collection<String> collection) {
-        StringBuilder sb = new StringBuilder();
-        boolean first = true;
-        for (String name : collection) {
-            if (first)
-                first = false;
-            else
-                sb.append(",");
-            sb.append(name);
-        }
-        return sb.toString();
+    public Collection<String> getDynamicNames() {
+        return sqlEngineFactory.getDynamicNames();
     }
 
     /**
@@ -270,15 +253,15 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Query Engine
      * @return the processing cache used for the selected SQL Query Engine or the error message
      */
-    public String getQueryEngineProcessingCache(String name) {
+    public Collection<String> getQueryEngineProcessingCache(String name) {
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedQueryEngine(name);
-            return collectionToString(engine.getProcessingCache().keySet());
+            return engine.getProcessingCache().keySet();
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
-        return errors.toString();
+        throw new RuntimeException(errors.toString());
     }
 
     /**
@@ -288,15 +271,15 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL CRUD Engine
      * @return the processing cache used for the selected SQL CRUD Engine or the error message
      */
-    public String getCrudEngineProcessingCache(String name) {
+    public Collection<String> getCrudEngineProcessingCache(String name) {
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedCrudEngine(name);
-            return collectionToString(engine.getProcessingCache().keySet());
+            return engine.getProcessingCache().keySet();
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
-        return errors.toString();
+        throw new RuntimeException(errors.toString());
     }
 
     /**
@@ -306,15 +289,15 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Procedure Engine
      * @return the processing cache used for the selected SQL Procedure Engine or the error message
      */
-    public String getProcedureEngineProcessingCache(String name) {
+    public Collection<String> getProcedureEngineProcessingCache(String name) {
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedProcedureEngine(name);
-            return collectionToString(engine.getProcessingCache().keySet());
+            return engine.getProcessingCache().keySet();
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
-        return errors.toString();
+        throw new RuntimeException(errors.toString());
     }
 
     /**
@@ -454,6 +437,47 @@ public class SqlSimpleFactoryMXBean {
      */
     public void setInitTreshold(Integer initTreshold) {
         getConfiguration().setInitTreshold(initTreshold);
+    }
+
+    private List<String> toList(NameValue[] namevals) {
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < namevals.length; i++)
+            list.add(namevals[i].name);
+        return list;
+    }
+
+    /**
+     * Returns the container of the Query Engines' names, which has to be initialized. This is called during The SQL
+     * Processor initialization, so there's no need to handle concurrent changes.
+     * 
+     * @return the container of the Query Engines' names, which has to be initialized
+     */
+    public List<String> getQueryEnginesToInit() {
+        return toList(getConfiguration().getQueryEnginesToInit(getConfiguration().getInitTreshold()));
+    }
+
+    /**
+     * Returns the container of the CRUD Engines' names, which has to be initialized. This is called during The SQL
+     * Processor initialization, so there's no need to handle concurrent changes.
+     * 
+     * @param treshold
+     *            the engines, which usage is at least this number should be initialized directly
+     * @return the container of the CRUD Engines' names, which has to be initialized
+     */
+    public List<String> getCrudEnginesToInit() {
+        return toList(getConfiguration().getQueryEnginesToInit(getConfiguration().getInitTreshold()));
+    }
+
+    /**
+     * Returns the container of the Procedure Engines' names, which has to be initialized. This is called during The SQL
+     * Processor initialization, so there's no need to handle concurrent changes.
+     * 
+     * @param treshold
+     *            the engines, which usage is at least this number should be initialized directly
+     * @return the container of the Procedure Engines' names, which has to be initialized
+     */
+    public List<String> getProcedureEnginesToInit() {
+        return toList(getConfiguration().getQueryEnginesToInit(getConfiguration().getInitTreshold()));
     }
 
     /**
