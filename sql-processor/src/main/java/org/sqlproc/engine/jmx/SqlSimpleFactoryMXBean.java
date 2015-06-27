@@ -475,6 +475,25 @@ public class SqlSimpleFactoryMXBean {
     }
 
     /**
+     * Returns the indicator that the most frequently used engines should be initialized preferentially
+     * 
+     * @return the indicator that the most frequently used engines should be initialized preferentially
+     */
+    public Boolean getInitInUsageOrder() {
+        return getConfiguration().getInitInUsageOrder();
+    }
+
+    /**
+     * Sets the indicator that the most frequently used engines should be initialized preferentially
+     * 
+     * @param initInUsageOrder
+     *            the indicator that the most frequently used engines should be initialized preferentially
+     */
+    public void setInitInUsageOrder(Boolean initInUsageOrder) {
+        getConfiguration().setInitInUsageOrder(initInUsageOrder);
+    }
+
+    /**
      * Sets the initialization threshold. The engines, which usage is at least this number should be initialized
      * directly
      * 

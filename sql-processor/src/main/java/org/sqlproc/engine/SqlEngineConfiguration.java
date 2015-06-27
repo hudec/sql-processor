@@ -63,6 +63,10 @@ public class SqlEngineConfiguration {
      * The engines, which usage is at least this number should be initialized directly.
      */
     private Integer initTreshold;
+    /**
+     * The most frequently used engines should be initialized preferentially.
+     */
+    private Boolean initInUsageOrder;
 
     /**
      * Adds the SQL Engine to the container of initialized engines.
@@ -74,8 +78,8 @@ public class SqlEngineConfiguration {
      * @return the actual number of the engine's usage
      */
     protected int addEngine(String name, ConcurrentHashMap<String, AtomicInteger> engines) {
-        AtomicInteger counter = null;
-        if (!engines.containsKey(name))
+        AtomicInteger counter = engines.get(name);
+        if (counter == null)
             counter = engines.putIfAbsent(name, new AtomicInteger(1));
         if (counter == null)
             return 1;
@@ -427,6 +431,28 @@ public class SqlEngineConfiguration {
         this.initTreshold = initTreshold;
     }
 
+    /**
+     * Returns the indicator that the most frequently used engines should be initialized preferentially
+     * 
+     * @return the indicator that the most frequently used engines should be initialized preferentially
+     */
+    public Boolean getInitInUsageOrder() {
+        return initInUsageOrder;
+    }
+
+    /**
+     * Sets the indicator that the most frequently used engines should be initialized preferentially
+     * 
+     * @param initInUsageOrder
+     *            the indicator that the most frequently used engines should be initialized preferentially
+     */
+    public void setInitInUsageOrder(Boolean initInUsageOrder) {
+        this.initInUsageOrder = initInUsageOrder;
+    }
+
+    /**
+     * The simple container.
+     */
     public class NameValue implements Comparable<NameValue> {
         public String name;
         public int value;
@@ -462,7 +488,8 @@ public class SqlEngineConfiguration {
             if (initTreshold == null || e.getValue().get() >= initTreshold)
                 list.add(new NameValue(e.getKey(), e.getValue().get()));
         }
-        Collections.sort(list);
+        if (initInUsageOrder != null && initInUsageOrder)
+            Collections.sort(list);
         return list;
     }
 

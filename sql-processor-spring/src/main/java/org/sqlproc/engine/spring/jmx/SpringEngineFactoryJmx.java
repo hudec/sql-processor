@@ -252,6 +252,22 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
+    @ManagedOperation(description = "Returns the indicator that the most frequently used engines should be initialized preferentially.")
+    public Boolean getInitInUsageOrder() {
+        return super.getInitInUsageOrder();
+    }
+
+    @Override
+    @ManagedOperation(description = "Sets the indicator that the most frequently used engines should be initialized preferentially.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "initTreshold", description = "The indicator value.") })
+    public void setInitInUsageOrder(Boolean initInUsageOrder) {
+        super.setInitInUsageOrder(initInUsageOrder);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @ManagedOperation(description = "Returns the container of the Query Engines' names, which has to be initialized.")
     public List<String> getQueryEnginesToInit() {
         return super.getQueryEnginesToInit();
