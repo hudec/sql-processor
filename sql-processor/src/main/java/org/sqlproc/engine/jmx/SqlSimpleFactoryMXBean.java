@@ -486,12 +486,10 @@ public class SqlSimpleFactoryMXBean {
         getConfiguration().setInitTreshold(initTreshold);
     }
 
-    private List<String> toList(NameValue[] namevals) {
+    private List<String> toList(List<NameValue> namevals) {
         List<String> list = new ArrayList<String>();
-        if (namevals != null) {
-            for (int i = 0; i < namevals.length; i++)
-                list.add(namevals[i].name);
-        }
+        for (NameValue nameval : namevals)
+            list.add(nameval.name);
         return list;
     }
 
