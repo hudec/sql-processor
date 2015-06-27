@@ -10,8 +10,9 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.SqlProcessorLoader.EngineType;
+import org.sqlproc.engine.config.SqlEngineConfiguration;
+import org.sqlproc.engine.config.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlInternalType;

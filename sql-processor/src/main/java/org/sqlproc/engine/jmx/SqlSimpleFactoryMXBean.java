@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.sqlproc.engine.SqlEngine;
-import org.sqlproc.engine.SqlEngineConfiguration;
-import org.sqlproc.engine.SqlEngineConfiguration.NameValue;
+import org.sqlproc.engine.config.SqlEngineConfiguration;
+import org.sqlproc.engine.config.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
 

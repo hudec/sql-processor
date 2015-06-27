@@ -3,6 +3,8 @@ package org.sqlproc.engine;
 import java.util.Collection;
 import java.util.Map;
 
+import org.sqlproc.engine.config.SqlEngineConfiguration;
+
 /**
  * The factory definition, which can be used to construct the {@link SqlEngine} instances.
  * 

@@ -1,4 +1,4 @@
-package org.sqlproc.engine;
+package org.sqlproc.engine.config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,8 +7,10 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.sqlproc.engine.config.store.PersistentObject;
+
 /**
- * The dznamic configuration of the SQL Processor.
+ * The dynamic configuration of the SQL Processor.
  * 
  * <p>
  * The primary goal of this configuration is the eager initialization of the selected SQL Engines. The overall
@@ -22,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlEngineConfiguration {
+public class SqlEngineConfiguration implements PersistentObject {
 
     /**
      * The container of initialized Query Engines' names (static or dynamic ones) together with the number of their
@@ -527,5 +529,24 @@ public class SqlEngineConfiguration {
      */
     public List<NameValue> getProcedureEnginesToInit(Integer treshold) {
         return getEnginesToInit(procedureEngines, treshold);
+    }
+
+    @Override
+    public Class<?> getType() {
+        return SqlEngineConfiguration.class;
+    }
+
+    @Override
+    public void init() {
+    }
+
+    @Override
+    public void empty() {
+        queryEngines.clear();
+        crudEngines.clear();
+        procedureEngines.clear();
+        dynamicQueryEngines.clear();
+        dynamicCrudEngines.clear();
+        dynamicProcedureEngines.clear();
     }
 }

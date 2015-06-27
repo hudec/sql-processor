@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqlEngineConfiguration>
+    <asyncInit>false</asyncInit>
+    <crudEngines>
+        <entry>
+            <key>INSERT_ITEM</key>
+            <value/>
+        </entry>
+        <entry>
+            <key>GET_ITEM</key>
+            <value/>
+        </entry>
+    </crudEngines>
+    <dynamicCrudEngines/>
+    <dynamicProcedureEngines/>
+    <dynamicQueryEngines/>
+    <initTreshold>2</initTreshold>
+    <lazyInit>true</lazyInit>
+    <procedureEngines/>
+    <queryEngines/>
+</sqlEngineConfiguration>
