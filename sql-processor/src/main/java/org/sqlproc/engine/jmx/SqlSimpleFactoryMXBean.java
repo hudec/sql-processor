@@ -1,7 +1,7 @@
 package org.sqlproc.engine.jmx;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -253,8 +253,11 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @return The collection of all initialized static SQL Engine instances' names
      */
-    public Collection<String> getNames() {
-        return sqlEngineFactory.getNames();
+    public List<String> getNames() {
+        List<String> list = new ArrayList<String>();
+        list.addAll(sqlEngineFactory.getNames());
+        Collections.sort(list);
+        return list;
     }
 
     /**
@@ -262,8 +265,11 @@ public class SqlSimpleFactoryMXBean {
      * 
      * @return The collection of all initialized dynamic SQL Engine instances' names
      */
-    public Collection<String> getDynamicNames() {
-        return sqlEngineFactory.getDynamicNames();
+    public List<String> getDynamicNames() {
+        List<String> list = new ArrayList<String>();
+        list.addAll(sqlEngineFactory.getDynamicNames());
+        Collections.sort(list);
+        return list;
     }
 
     /**
@@ -273,11 +279,14 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Query Engine
      * @return the processing cache used for the selected SQL Query Engine or the error message
      */
-    public Collection<String> getQueryEngineProcessingCache(String name) {
+    public List<String> getQueryEngineProcessingCache(String name) {
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedQueryEngine(name);
-            return engine.getProcessingCache().keySet();
+            List<String> list = new ArrayList<String>();
+            list.addAll(engine.getProcessingCache().keySet());
+            Collections.sort(list);
+            return list;
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
@@ -291,11 +300,14 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL CRUD Engine
      * @return the processing cache used for the selected SQL CRUD Engine or the error message
      */
-    public Collection<String> getCrudEngineProcessingCache(String name) {
+    public List<String> getCrudEngineProcessingCache(String name) {
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedCrudEngine(name);
-            return engine.getProcessingCache().keySet();
+            List<String> list = new ArrayList<String>();
+            list.addAll(engine.getProcessingCache().keySet());
+            Collections.sort(list);
+            return list;
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
@@ -309,11 +321,14 @@ public class SqlSimpleFactoryMXBean {
      *            the name of the required SQL Procedure Engine
      * @return the processing cache used for the selected SQL Procedure Engine or the error message
      */
-    public Collection<String> getProcedureEngineProcessingCache(String name) {
+    public List<String> getProcedureEngineProcessingCache(String name) {
         StringBuilder errors = new StringBuilder();
         try {
             SqlEngine engine = sqlEngineFactory.getCheckedProcedureEngine(name);
-            return engine.getProcessingCache().keySet();
+            List<String> list = new ArrayList<String>();
+            list.addAll(engine.getProcessingCache().keySet());
+            Collections.sort(list);
+            return list;
         } catch (SqlEngineException ex) {
             errors.append(ex.getMessage()).append("\n");
         }
@@ -473,8 +488,10 @@ public class SqlSimpleFactoryMXBean {
 
     private List<String> toList(NameValue[] namevals) {
         List<String> list = new ArrayList<String>();
-        for (int i = 0; i < namevals.length; i++)
-            list.add(namevals[i].name);
+        if (namevals != null) {
+            for (int i = 0; i < namevals.length; i++)
+                list.add(namevals[i].name);
+        }
         return list;
     }
 
@@ -495,7 +512,7 @@ public class SqlSimpleFactoryMXBean {
      * @return the container of the CRUD Engines' names, which has to be initialized
      */
     public List<String> getCrudEnginesToInit() {
-        return toList(getConfiguration().getQueryEnginesToInit(getConfiguration().getInitTreshold()));
+        return toList(getConfiguration().getCrudEnginesToInit(getConfiguration().getInitTreshold()));
     }
 
     /**
@@ -505,7 +522,7 @@ public class SqlSimpleFactoryMXBean {
      * @return the container of the Procedure Engines' names, which has to be initialized
      */
     public List<String> getProcedureEnginesToInit() {
-        return toList(getConfiguration().getQueryEnginesToInit(getConfiguration().getInitTreshold()));
+        return toList(getConfiguration().getProcedureEnginesToInit(getConfiguration().getInitTreshold()));
     }
 
     /**

@@ -96,8 +96,9 @@
             <util:map map-class="java.util.concurrent.ConcurrentHashMap">
             </util:map>
         </property>
-        <property name="lazyInit"><null/></property>
-        <property name="asyncInit"><null/></property>
+        <property name="lazyInit" value="true"/>
+        <property name="asyncInit" value="false"/>
+        <property name="initTreshold" value="1"/>
     </bean>
 
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">

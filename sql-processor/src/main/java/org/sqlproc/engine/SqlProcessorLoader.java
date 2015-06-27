@@ -464,7 +464,9 @@ public class SqlProcessorLoader {
             if (logger.isDebugEnabled()) {
                 long end = System.currentTimeMillis();
                 logger.debug("== SqlProcessorLoader, lazyInit=" + lazyInit + ", duration in ms=" + (end - start));
-                logger.debug("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
+            }
+            if (logger.isTraceEnabled()) {
+                logger.trace("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
                         + ", fields=" + outs + ", features=" + features);
             }
         }

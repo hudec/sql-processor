@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.SqlProcessorLoader.EngineType;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
@@ -59,6 +61,11 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlSimpleFactory implements SqlEngineFactory {
+
+    /**
+     * The internal slf4j logger.
+     */
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * The platform based line separator.
@@ -152,24 +159,44 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, validatorFactory, customTypes, lazyInit, onlyStatements);
+                                monitorFactory, validatorFactory, customTypes, isLazyInit(), onlyStatements);
                         if (isLazyInit() && configuration != null) {
                             // TODO - asynchronously based on option
                             for (NameValue nameval : configuration.getQueryEnginesToInit(configuration
-                                    .getInitTreshold()))
+                                    .getInitTreshold())) {
                                 getQueryEngine(nameval.name);
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== SqlSimpleFactory, initialized static Query Engine " + nameval.name);
+                            }
                             for (NameValue nameval : configuration
-                                    .getCrudEnginesToInit(configuration.getInitTreshold()))
+                                    .getCrudEnginesToInit(configuration.getInitTreshold())) {
                                 getCrudEngine(nameval.name);
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== SqlSimpleFactory, initialized static CRUD Engine " + nameval.name);
+                            }
                             for (NameValue nameval : configuration.getProcedureEnginesToInit(configuration
-                                    .getInitTreshold()))
+                                    .getInitTreshold())) {
                                 getProcedureEngine(nameval.name);
-                            for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet())
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== SqlSimpleFactory, initialized static Procedure Engine "
+                                            + nameval.name);
+                            }
+                            for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet()) {
                                 getDynamicQueryEngine(e.getKey(), e.getValue());
-                            for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet())
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== SqlSimpleFactory, initialized dynamic Query Engine " + e.getKey());
+                            }
+                            for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet()) {
                                 getDynamicCrudEngine(e.getKey(), e.getValue());
-                            for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet())
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== SqlSimpleFactory, initialized dynamic CRUD Engine " + e.getKey());
+                            }
+                            for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet()) {
                                 getDynamicProcedureEngine(e.getKey(), e.getValue());
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== SqlSimpleFactory, initialized dynamic Procedure Engine "
+                                            + e.getKey());
+                            }
                         }
                     }
                 }

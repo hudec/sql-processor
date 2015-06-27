@@ -38,12 +38,23 @@ class SqlEngine {
         def engine = new GroovyMBean(mbeans, 'sql-processor:type=Engine')
         println engine  // Outputs all attributes and operations.
 
-	def names = engine.getNames()
-	println names
-	def dynamicNames = engine.getDynamicNames()
-	println dynamicNames
-	def lazyInit = engine.isLazyInit()
-	println isLazyInit
+	println "-----------------------------"
+	println "Names "+engine.getNames()
+	println "DynamicNames "+engine.getDynamicNames()
+	println "LazyInit "+engine.isLazyInit()
+	println "AsyncInit "+engine.getAsyncInit()
+	println "InitTreshold "+engine.getInitTreshold()
+	println "QueryEnginesToInit "+engine.getQueryEnginesToInit()
+	println "CrudEnginesToInit "+engine.getCrudEnginesToInit()
+	println "ProcedureEnginesToInit "+engine.getProcedureEnginesToInit()
+	println "CrudEngineUsage INSERT_ITEM "+engine.getCrudEngineUsage("INSERT_ITEM")
+	println "QueryEngineUsage ITEMS "+engine.getQueryEngineUsage("ITEMS")
+	println "initCrudEngines GET_ITEM "+engine.initCrudEngines("GET_ITEM")
+	println "setInitTreshold 2 "
+	engine.setInitTreshold(2)
+	println "QueryEnginesToInit "+engine.getQueryEnginesToInit()
+	println "CrudEnginesToInit "+engine.getCrudEnginesToInit()
+	println "ProcedureEnginesToInit "+engine.getProcedureEnginesToInit()
     }
 
 

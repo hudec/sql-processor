@@ -454,7 +454,7 @@ public class SqlEngineConfiguration {
      *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Query Engines' names, which has to be initialized
      */
-    protected NameValue[] getQueryEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines, Integer treshold) {
+    protected NameValue[] getEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines, Integer treshold) {
         NameValue[] arr = new NameValue[engines.size()];
         int size = 0;
         for (Entry<String, AtomicInteger> e : engines.entrySet()) {
@@ -462,7 +462,7 @@ public class SqlEngineConfiguration {
                 arr[size++] = new NameValue(e.getKey(), e.getValue().get());
         }
         Arrays.sort(arr, 0, size);
-        return arr;
+        return Arrays.copyOf(arr, size);
     }
 
     /**
@@ -474,7 +474,7 @@ public class SqlEngineConfiguration {
      * @return the container of the Query Engines' names, which has to be initialized
      */
     public NameValue[] getQueryEnginesToInit(Integer treshold) {
-        return getQueryEnginesToInit(queryEngines, treshold);
+        return getEnginesToInit(queryEngines, treshold);
     }
 
     /**
@@ -486,7 +486,7 @@ public class SqlEngineConfiguration {
      * @return the container of the CRUD Engines' names, which has to be initialized
      */
     public NameValue[] getCrudEnginesToInit(Integer treshold) {
-        return getQueryEnginesToInit(queryEngines, treshold);
+        return getEnginesToInit(crudEngines, treshold);
     }
 
     /**
@@ -498,6 +498,6 @@ public class SqlEngineConfiguration {
      * @return the container of the Procedure Engines' names, which has to be initialized
      */
     public NameValue[] getProcedureEnginesToInit(Integer treshold) {
-        return getQueryEnginesToInit(procedureEngines, treshold);
+        return getEnginesToInit(procedureEngines, treshold);
     }
 }
