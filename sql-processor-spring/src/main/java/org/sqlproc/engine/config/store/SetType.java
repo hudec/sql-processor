@@ -6,35 +6,22 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Definice typu pro JAXB, který obsahuje set vnořený v mapě.
+ * The type for JAXB serialization/deserialization.
  * 
- * např:
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
- * <pre>
- *  @XmlJavaTypeAdapter(SetXmlAdapter.class)
- *  public Map<String, Set<String>> getSmerovaniDatabase()
- * </pre>
- * 
- * @author Albert Sputa
- * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SetType {
-    /**
-     * Klíč vnořené mapy
-     */
+
     @XmlElement
     String key;
-    /**
-     * Položky mapy
-     */
+
     @XmlElement(name = "entry")
     List<SetEntryType> list;
 
-    /**
-     * Inicializace seznamu, položek mapy
-     */
     public SetType() {
         list = new ArrayList<SetEntryType>();
     }
-
 }

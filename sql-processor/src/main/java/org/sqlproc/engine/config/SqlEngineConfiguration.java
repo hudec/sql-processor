@@ -7,8 +7,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.sqlproc.engine.config.store.PersistentObject;
-
 /**
  * The dynamic configuration of the SQL Processor.
  * 
@@ -24,7 +22,7 @@ import org.sqlproc.engine.config.store.PersistentObject;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlEngineConfiguration implements PersistentObject {
+public class SqlEngineConfiguration {
 
     /**
      * The container of initialized Query Engines' names (static or dynamic ones) together with the number of their
@@ -531,16 +529,13 @@ public class SqlEngineConfiguration implements PersistentObject {
         return getEnginesToInit(procedureEngines, treshold);
     }
 
-    @Override
     public Class<?> getType() {
         return SqlEngineConfiguration.class;
     }
 
-    @Override
     public void init() {
     }
 
-    @Override
     public void empty() {
         queryEngines.clear();
         crudEngines.clear();

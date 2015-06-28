@@ -6,33 +6,21 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Definice typu pro JAXB, který obsahuje dva krát vnořenou mapu.
+ * The type for JAXB serialization/deserialization.
  * 
- * např:
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
- * <pre>
- *  @XmlJavaTypeAdapter(MapMapXmlAdapter.class)
- *  public Map<String, Map<String, Map<String, String>>> getSmerovaniPodleModu()
- * </pre>
- * 
- * @author Juraj Basista
- * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class MapType {
-    /**
-     * Klíč vnořené mapy
-     */
+
     @XmlElement
     String key;
-    /**
-     * Položky mapy
-     */
+
     @XmlElement(name = "entry")
     List<MapEntryType> list;
 
-    /**
-     * Inicializace seznamu, položek mapy
-     */
     public MapType() {
         list = new ArrayList<MapEntryType>();
     }

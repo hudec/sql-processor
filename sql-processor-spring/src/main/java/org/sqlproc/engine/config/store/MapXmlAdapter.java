@@ -6,10 +6,12 @@ import java.util.Map;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * Implementace {@link XmlAdapter}, která serializuje a deserializuje dva krát vnořenou mapu do a z XML pomoci JAXB.
+ * The JAXB serialization/deserialization.
  * 
- * @author Juraj Basista
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class MapXmlAdapter extends XmlAdapter<MapType, Map<String, Map<String, Object>>> {
 
@@ -18,7 +20,6 @@ public class MapXmlAdapter extends XmlAdapter<MapType, Map<String, Map<String, O
         if (v == null || v.isEmpty())
             return null;
         MapType mapType = new MapType();
-        // vytvoření seznamu z mapy
         for (String key : v.keySet()) {
             MapEntryType e = new MapEntryType();
             e.key = key;
@@ -33,7 +34,6 @@ public class MapXmlAdapter extends XmlAdapter<MapType, Map<String, Map<String, O
         if (v.list != null && v.list.isEmpty())
             return null;
         Map<String, Map<String, Object>> map = new HashMap<String, Map<String, Object>>(v.list.size());
-        // opětovné naplnění mapy ze seznamu
         for (MapEntryType e : v.list) {
             map.put(e.key, e.value);
         }

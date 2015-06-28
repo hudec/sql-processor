@@ -23,74 +23,43 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.util.Assert;
 
 /**
- * Třída obsahuje způsob uložení a znovu načtení hodnot z nastavení JMX do/z externího úložiště. V tomto případe se
- * jedná o uložení do XML prostřednictvím JAXB do souboru, který se nastaví parametrem store {@link Resource}.
- * <p/>
- * Třída obsahuje i kopii původního, defaultního nastavení (stav po inicializaci spring kontextu). Pomoci metody reset
- * je možné vrátit připadané změny nastavení do původního defaultního stavu.
+ * The persistemcy logic devoted to SQL Processor dynamic configuration.
  * 
- * @author Juraj Basista
- * @author Tomas Hudec
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class PersistentStore {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /**
-     * From/Where will be files with methods read/write read/saved
-     */
     public final String EXTERNAL_RESOURCE_PREFIX = "file:./";
 
-    /**
-     * Kopie původní nastavení objektu (stav po inicializaci spring kontextu)
-     */
     private Object objectDefault;
-    /**
-     * Zda je objekt ve stavu, kdy je možné provádět uložení
-     */
+
     private boolean readyToStore;
-    /**
-     * true když se provádí reset objektu do původního stavu
-     */
+
     private boolean resetInProgress;
-    /**
-     * Úložiště natavení.
-     */
+
     private Resource store;
-    /**
-     * Reference objektu určeného k uložení stavu.
-     */
+
     private PersistentObject objectToStore;
 
-    /**
-     * true když ukládat objekt to úložiště
-     */
     private boolean saveToStore;
 
-    /**
-     * Inicializace objektu, následuje po inicializaci spring kontextem. Nejdříve zkopíruje nastavení objectToStore do
-     * objectDefault, když existuje soubor s nastavením, tak se pokusí nastavit objectToStore do stavu, který je v
-     * úložišti.
-     */
     public void init() {
         init(store, false);
     }
 
-    /**
-     * Inicializace objektu, následuje po inicializaci spring kontextem. Nejdříve zkopíruje nastavení objectToStore do
-     * objectDefault, když existuje soubor s nastavením, tak se pokusí nastavit objectToStore do stavu, který je v
-     * úložišti.
-     * 
-     * @param store
-     *            {@link org.springframework.core.io.Resource Configuration file} to be configuration initialized from
-     * @param merge
-     *            Should have configuration been merged with previous state?
-     */
     public void init(Resource store, boolean merge) {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> init, store=" + store + ", merge=" + merge + ", objectToStore=" + objectToStore);
+        }
         objectDefault = BeanUtils.instantiate(objectToStore.getType());
         copyProperties(objectToStore, objectDefault, objectToStore.getType(), false);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Standardní hodnoty: " + objectDefault);
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> init, objectDefault=" + objectDefault);
         }
         try {
             if (store != null && store.isReadable() && store.exists()) {
@@ -102,19 +71,14 @@ public class PersistentStore {
         }
         initObjectToStore();
         readyToStore = true;
+        if (logger.isTraceEnabled()) {
+            logger.trace("<< init, objectToStore=" + objectToStore);
+        }
     }
 
-    /**
-     * Reset hodnot do původního stavu. Po nastavení hodnot se metoda pokusí vymazat úložiště.
-     * 
-     * @throws IOException
-     *             když úložiště neexistuje
-     */
     public synchronized void reset() throws IOException {
-        // dump("4 default ", objectDefault);
-        // dump("4 store ", objectToStore);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Nahrávám standardní hodnoty: " + objectDefault);
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> reset, objectToStore=" + objectToStore);
         }
         try {
             resetInProgress = true;
@@ -126,21 +90,24 @@ public class PersistentStore {
         String xmlAbsolutePath = xmlFile.getAbsolutePath();
         if (xmlFile.exists()) {
             if (!xmlFile.delete()) {
-                logger.error("Nelze vymazat soubor: " + xmlAbsolutePath);
+                logger.error("!! reset, the file can't be deleted: " + xmlAbsolutePath);
                 return;
             } else {
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Vymazán soubor: " + xmlAbsolutePath);
+                if (logger.isTraceEnabled()) {
+                    logger.trace("== reset, deleted file: " + xmlAbsolutePath);
                 }
             }
         }
         initObjectToStore();
+        if (logger.isTraceEnabled()) {
+            logger.trace("<< reset, objectToStore=" + objectToStore);
+        }
     }
 
-    /**
-     * Empty all properties on Persistent object (requieres own implementation on implementing class)
-     */
     public synchronized void empty() {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> empty, objectToStore=" + objectToStore);
+        }
         try {
             resetInProgress = true;
 
@@ -155,236 +122,127 @@ public class PersistentStore {
         } finally {
             resetInProgress = false;
         }
+        if (logger.isTraceEnabled()) {
+            logger.trace("<< empty, objectToStore=" + objectToStore);
+        }
     }
 
-    /**
-     * Method reads configuration from given xml-file. As <code>filename</code> should be used name without path
-     * definition. Configuration is immediatelly saved into main config file (specified in parameter <code>store</code>
-     * ).
-     * <p/>
-     * For security purposes there is not possible to enter path in filename therefore in filename are allowed only
-     * letters, digits and some special characters such as period (.), dash (-)
-     * <p/>
-     * When parameter <code>merge</code> is <code>true</code> configuration in memory is merged with actual
-     * configuration otherwise is rewritten by configuration from file.
-     * 
-     * @param filename
-     *            Name of file from which configuration will be read
-     * @param merge
-     *            If <code>true</code> loaded configuration will be merged with actual configuration in memory
-     * @throws java.lang.IllegalArgumentException
-     *             when given filename is wrong (see
-     *             {@link cz.isvs.reg.ws.common.config.store.PersistentStore#checkFilename(String)} )
-     */
     public synchronized void read(String filename, boolean merge) {
-        if (!checkFilename(filename)) {
-            throw new IllegalArgumentException("Wrong filename");
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> read, filename=" + filename + ", merge=" + merge);
         }
+        checkFilename(filename);
         try {
             Resource res = new UrlResource(EXTERNAL_RESOURCE_PREFIX + filename);
             init(res, merge);
         } catch (MalformedURLException e) {
-            logger.error("Problem reading external configuration: " + e.getMessage(), e);
+            logger.error("!! read, problem reading external configuration: " + e.getMessage(), e);
+        }
+        if (logger.isTraceEnabled()) {
+            logger.trace("<< read, objectToStore=" + objectToStore);
         }
     }
 
-    /**
-     * Method will write configuration into given xml-file. As <code>filename</code> should be used name without path
-     * definition.
-     * <p/>
-     * For security purposes there is not possible to enter path in filename therefore in filename are allowed only
-     * letters, digits and some special characters such as period (.), dash (-)
-     * <p/>
-     * When parameter <code>overwrite</code> is <code>true</code> target file is overwritten otherwise
-     * 
-     * @param filename
-     *            Name of file from which configuration will be read
-     * @param overwrite
-     *            If <code>true</code> existing file wil be overwriten
-     * @throws java.lang.IllegalArgumentException
-     *             when given filename is wrong (see
-     *             {@link cz.isvs.reg.ws.common.config.store.PersistentStore#checkFilename(String)} )
-     * @throws IOException
-     *             Is thrown when given file already exist and flag overwrite is <code>false</code>
-     */
     public synchronized void write(String filename, boolean overwrite) throws IOException {
-        logger.info("Saving configuration into external file " + filename);
-        if (!checkFilename(filename)) {
-            throw new IllegalArgumentException("Wrong filename");
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> write, filename=" + filename + ", overwrite=" + overwrite);
         }
+        checkFilename(filename);
         try {
             Resource res = new UrlResource(EXTERNAL_RESOURCE_PREFIX + filename);
 
             if (res.exists()) {
                 if (overwrite) {
-                    logger.warn("Overwiting existing configuration file - file: " + filename + " already exists");
+                    logger.warn("!! write, overwiting existing configuration file, The file: " + filename
+                            + " already exists");
                 } else {
                     throw new IOException("File " + filename + " already exists");
                 }
             }
             store(res);
         } catch (MalformedURLException e) {
-            logger.error("Problem writing external configuration: " + e.getMessage(), e);
+            logger.error("!! write, problem writing external configuration: " + e.getMessage(), e);
+        }
+        if (logger.isTraceEnabled()) {
+            logger.trace("<< write, filename=" + filename);
         }
     }
 
-    /**
-     * Method check given filename if the name of file doesn't contain some forbidden characters. Filename could contaim
-     * only name (without path) and must end with <code>.xml</code>
-     * 
-     * @param filename
-     *            Filename to check
-     * @return Returns <code>true</code> when filename is correct and <code>false</code> when is wrong
-     */
-    public boolean checkFilename(String filename) {
-        if (filename == null) {
-            logger.warn("Filename is null");
-            return false;
-        }
-        return filename.matches("([A-Za-z-\\._0-9]+)\\.(xml)$");
-    }
-
-    /**
-     * This metod will save configuration into file specified by {@link org.springframework.core.io.Resource}
-     * 
-     * @param store
-     *            Pointer to {@link org.springframework.core.io.Resource file} to be saved to
-     * @throws IOException
-     *             When some IO problem occurs
-     */
     protected synchronized void store(Resource store) throws IOException {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> store, store=" + store + ", readyToStore=" + readyToStore + ", resetInProgress="
+                    + resetInProgress);
+        }
         if (store == null || !readyToStore || resetInProgress) {
             return;
         }
-        // dump("6 default ", objectDefault);
-        // dump("6 store ", objectToStore);
         if (logger.isDebugEnabled()) {
-            logger.debug("Ukladam aktualni hodnoty: " + objectToStore);
+            logger.debug("== store, going to persist objectToStore: " + objectToStore);
         }
         File xmlFile = store.getFile();
         String xmlAbsolutePath = xmlFile.getAbsolutePath();
-        // zjisti zda soubor existuje
         if (!xmlFile.exists() && !xmlFile.createNewFile()) {
-            logger.error("Nelze vytvořit soubor: " + xmlAbsolutePath);
+            logger.error("!! store, the file " + xmlAbsolutePath + " can't be created");
             return;
         }
-        // zjisti zda je možné do souboru zapisovat
         if (xmlFile.canWrite()) {
             try {
                 Object pom = BeanUtils.instantiate(objectToStore.getType());
                 copyProperties(objectToStore, pom, objectToStore.getType());
                 JAXB.marshal(pom, xmlFile);
                 if (logger.isDebugEnabled()) {
-                    logger.debug("Aktualni hodnoty zapsany do souboru: " + xmlAbsolutePath);
+                    logger.debug("== store, persisted into: " + xmlAbsolutePath);
                 }
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
             }
         } else {
             xmlFile.delete();
-            logger.error("Nelze zapisovat do souboru: " + xmlAbsolutePath);
+            logger.error("!! store, can't write into the file " + xmlAbsolutePath);
+        }
+        if (logger.isTraceEnabled()) {
+            logger.trace("<< store, xmlAbsolutePath=" + xmlAbsolutePath);
         }
     }
 
-    /**
-     * This metod will save configuration into file specified by public property
-     * {@link org.springframework.core.io.Resource store}
-     * 
-     * @throws IOException
-     *             When some IO problem occurs
-     * @see cz.isvs.reg.ws.common.config.store.PersistentStore#setStore(org.springframework.core.io.Resource)
-     */
     public void store() throws IOException {
         store(store);
     }
 
-    /**
-     * Method creates bean instance of given class from {@link org.springframework.core.io.Resource XML file}
-     * <p/>
-     * <strong>Note:</strong> Method has suppressed warnings for unchecked class cast because implementation of JAXB
-     * doesn't support generics
-     * 
-     * @param store
-     *            From what file will be bean loaded
-     * @param targetClass
-     *            Target class type to be loaded
-     * @return Instance of loaded object
-     * @throws java.io.IOException
-     *             When some IO problem occurs
-     */
     @SuppressWarnings({ "unchecked" })
     protected <T> T loadFromXML(Resource store, Class<T> targetClass) throws IOException {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">> loadFromXML, store=" + store + ", targetClass=" + targetClass);
+        }
         if (store != null && store.isReadable() && store.exists()) {
             if (logger.isDebugEnabled()) {
-                logger.debug("Loading configuration from: " + store.getURL());
+                logger.debug("== loadFromXML, going to load from: " + store.getURL());
             }
-            // deserializace nastavení do pomocného objektu
             Object pom = JAXB.unmarshal(store.getInputStream(), targetClass);
+            if (logger.isTraceEnabled()) {
+                logger.trace("<< loadFromXML");
+            }
             return (T) pom;
         } else {
-            logger.warn("Error loading XML configuration - given store doesn't exist or isn't readable");
-            throw new IOException("Error loading configuration (store is not ready)");
+            logger.warn("!! loadFromXML, can't read from: " + store);
+            throw new IOException("Can't read from: " + store);
         }
-
     }
 
-    /**
-     * Kopírování hodnot ze zdrojového objektu do cílového. Cílová třída musí byt typu zdrojové třídy.
-     * <ul>
-     * <li>Když je položka ve třídě označená jako {@link XmlTransient}, tak se přeskakuje.</li>
-     * <li>Když položka je typu {@link PersistentObject} a cílová položka není null, tak je metoda copyProperties
-     * rekurzivně spuštěna nad těmito hodnotami</li>
-     * <li>Jinak se provádí kopírování položky stylem <code>target.setXXX(source.getXXX())</code></li>
-     * <li>Pokud je nastaveny priznak <code>merge</code> jednotlive {@link java.util.Map mapy} a {@link java.util.Set
-     * sety} boudou spojeny</li>
-     * </ul>
-     * 
-     * @param source
-     *            zdrojový objekt
-     * @param target
-     *            cílový objekt
-     * @param editable
-     *            typ objektu
-     * @throws BeansException
-     *             když není možné získat informace o třídách cílového a zdrojového objektu
-     */
     private void copyProperties(Object source, Object target, Class<?> editable) throws BeansException {
         copyProperties(source, target, editable, false);
     }
 
-    /**
-     * Kopírování hodnot ze zdrojového objektu do cílového. Cílová třída musí byt typu zdrojové třídy.
-     * <ul>
-     * <li>Když je položka ve třídě označená jako {@link XmlTransient}, tak se přeskakuje.</li>
-     * <li>Když položka je typu {@link PersistentObject} a cílová položka není null, tak je metoda copyProperties
-     * rekurzivně spuštěna nad těmito hodnotami</li>
-     * <li>Jinak se provádí kopírování položky stylem <code>target.setXXX(source.getXXX())</code></li>
-     * <li>Pokud je nastaveny priznak <code>merge</code> jednotlive {@link java.util.Map mapy} a {@link java.util.Set
-     * sety} boudou spojeny</li>
-     * </ul>
-     * 
-     * @param source
-     *            zdrojový objekt
-     * @param target
-     *            cílový objekt
-     * @param editable
-     *            typ objektu
-     * @param merge
-     *            priznak, zda se maji data mergeovat
-     * @throws BeansException
-     *             když není možné získat informace o třídách cílového a zdrojového objektu
-     */
     @SuppressWarnings("rawtypes")
     private void copyProperties(Object source, Object target, Class<?> editable, boolean merge) throws BeansException {
-
-        Assert.notNull(source, "Zdroj nesmí být null");
-        Assert.notNull(target, "Cíl nesmí být null");
+        Assert.notNull(source);
+        Assert.notNull(target);
 
         Class<?> actualEditable = target.getClass();
         if (editable != null) {
             if (!editable.isInstance(target)) {
-                throw new IllegalArgumentException("Cílová třída  [" + target.getClass().getName()
-                        + "] není převoditelná na třídu [" + editable.getName() + "]");
+                throw new IllegalArgumentException("Target class  [" + target.getClass().getName()
+                        + "] isn't compatible with [" + editable.getName() + "]");
             }
             actualEditable = editable;
         }
@@ -447,7 +305,7 @@ public class PersistentStore {
                         }
 
                     } catch (Throwable ex) {
-                        throw new FatalBeanException("Není možné zkopírovat proměnné do cílové třídy.", ex);
+                        throw new FatalBeanException("There's problem with object construction", ex);
                     }
                 }
             }
@@ -456,7 +314,6 @@ public class PersistentStore {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private Map copy(Map source, Map dest, boolean merge) {
-        // TODO - neřeší to mapy map
         if (dest == null)
             dest = BeanUtils.instantiate(source.getClass());
 
@@ -493,14 +350,6 @@ public class PersistentStore {
             objectToStore.init();
     }
 
-    /**
-     * Kontrola zda třída clazz implementuje interface clazzInterface.
-     * 
-     * @param clazz
-     * @param clazzInterface
-     * @return
-     * @see org.springframework.util.TypeUtils zda nedela to same
-     */
     private boolean isInterface(Class<?> clazz, Class<?> clazzInterface) {
         if (clazz.getInterfaces() != null) {
             for (Class<?> clazz1 : clazz.getInterfaces()) {
@@ -509,6 +358,13 @@ public class PersistentStore {
             }
         }
         return false;
+    }
+
+    public void checkFilename(String filename) {
+        if (filename == null)
+            throw new IllegalArgumentException(filename);
+        if (!filename.matches("([A-Za-z-\\._0-9]+)\\.(xml)$"))
+            throw new IllegalArgumentException(filename);
     }
 
     @Required
@@ -521,17 +377,10 @@ public class PersistentStore {
         this.objectToStore = objectToStore;
     }
 
-    /**
-     * @return the saveToStore
-     */
     public boolean isSaveToStore() {
         return saveToStore;
     }
 
-    /**
-     * @param saveToStore
-     *            the saveToStore to set
-     */
     public void setSaveToStore(boolean saveToStore) {
         this.saveToStore = saveToStore;
     }

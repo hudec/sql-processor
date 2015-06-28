@@ -7,10 +7,12 @@ import java.util.Set;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * Implementace {@link XmlAdapter}, která serializuje a deserializuje set vnořený v mapě do a z XML pomoci JAXB.
+ * The JAXB serialization/deserialization.
  * 
- * @author Albert Sputa
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SetXmlAdapter extends XmlAdapter<SetType, Map<String, Set<Object>>> {
 
@@ -19,7 +21,6 @@ public class SetXmlAdapter extends XmlAdapter<SetType, Map<String, Set<Object>>>
         if (v == null || v.isEmpty())
             return null;
         SetType setType = new SetType();
-        // vytvoření seznamu z mapy
         for (String key : v.keySet()) {
             SetEntryType e = new SetEntryType();
             e.key = key;
@@ -34,7 +35,6 @@ public class SetXmlAdapter extends XmlAdapter<SetType, Map<String, Set<Object>>>
         if (v.list != null && v.list.isEmpty())
             return null;
         Map<String, Set<Object>> map = new HashMap<String, Set<Object>>(v.list.size());
-        // opětovné naplnění mapy ze seznamu
         for (SetEntryType e : v.list) {
             map.put(e.key, e.value);
         }

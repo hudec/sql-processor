@@ -3,24 +3,19 @@ package org.sqlproc.engine.config.store;
 import java.util.Set;
 
 /**
- * Definice typu položky pro serializaci/deserializaci položek ze setu pomoci JAXB.
+ * The type for JAXB serialization/deserialization.
  * 
- * @author Albert Sputa
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
  * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SetEntryType {
-    /**
-     * Klíč k obsahu mapy
-     */
+
     public String key;
-    /**
-     * Položky mapy, které už JAXB umí serializovat/deserializovat
-     */
+
     public Set<Object> value;
 
-    /**
-     * Defaultní konstruktor, pro volání z JAXB
-     */
     public SetEntryType() {
     }
 }
