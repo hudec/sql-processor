@@ -350,4 +350,16 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     public int resetProcedureEngineUsage(String name) {
         return super.resetProcedureEngineUsage(name);
     }
+
+    @Override
+    @ManagedOperation(description = "Persists the configuration into the external file.")
+    public void storeConfiguration() {
+        super.storeConfiguration();
+    }
+
+    @Override
+    @ManagedOperation(description = "Resets the state of the dynamic configuration instance.")
+    public void clearConfiguration() {
+        super.clearConfiguration();
+    }
 }

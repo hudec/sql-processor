@@ -143,7 +143,7 @@ public class SqlEngineConfiguration extends JaxbStore {
     }
 
     /**
-     * Persist the configuration into external file
+     * Persist the configuration into the external file.
      */
     public void store() {
         XmlEngineConfiguration config = new XmlEngineConfiguration(this);
@@ -151,7 +151,7 @@ public class SqlEngineConfiguration extends JaxbStore {
     }
 
     /**
-     * Persist the configuration into external file
+     * Reset the state of the dynamic configuration instance.
      */
     public void clear() {
         queryEngines = new ConcurrentHashMap<String, AtomicInteger>();

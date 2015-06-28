@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.sqlproc.engine.SqlEngine;
-import org.sqlproc.engine.config.SqlEngineConfiguration;
-import org.sqlproc.engine.config.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.config.SqlEngineConfiguration;
+import org.sqlproc.engine.config.SqlEngineConfiguration.NameValue;
 
 /**
  * The simplified JMX interface for the SQL Engine factory.
@@ -505,6 +505,27 @@ public class SqlSimpleFactoryMXBean {
         getConfiguration().setInitTreshold(initTreshold);
     }
 
+    /**
+     * Persists the configuration into the external file.
+     */
+    public void storeConfiguration() {
+        getConfiguration().store();
+    }
+
+    /**
+     * Resets the state of the dynamic configuration instance.
+     */
+    public void clearConfiguration() {
+        getConfiguration().clear();
+    }
+
+    /**
+     * Converts list
+     * 
+     * @param namevals
+     *            the input list
+     * @return the output list
+     */
     private List<String> toList(List<NameValue> namevals) {
         List<String> list = new ArrayList<String>();
         for (NameValue nameval : namevals)
