@@ -46,6 +46,8 @@ public class XmlEngineConfiguration {
     private Integer initTreshold;
     @XmlElement
     private Boolean initInUsageOrder;
+    @XmlElement
+    private Boolean initClearUsage;
 
     public XmlEngineConfiguration() {
     }
@@ -73,6 +75,7 @@ public class XmlEngineConfiguration {
         asyncInit = config.getAsyncInit();
         initTreshold = config.getInitTreshold();
         initInUsageOrder = config.getInitInUsageOrder();
+        initClearUsage = config.getInitClearUsage();
     }
 
     private ConcurrentHashMap<String, AtomicInteger> copyEng(List<EngineUsage> from) {
@@ -131,6 +134,10 @@ public class XmlEngineConfiguration {
 
     public Boolean getInitInUsageOrder() {
         return initInUsageOrder;
+    }
+
+    public Boolean getInitClearUsage() {
+        return initClearUsage;
     }
 
     @XmlRootElement(name = "usage")

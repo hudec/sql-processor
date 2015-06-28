@@ -122,6 +122,7 @@ public class SqlEngineConfiguration extends JaxbStore {
             this.asyncInit = xml.getAsyncInit();
             this.initTreshold = xml.getInitTreshold();
             this.initInUsageOrder = xml.getInitInUsageOrder();
+            this.initClearUsage = xml.getInitClearUsage();
         }
     }
 
