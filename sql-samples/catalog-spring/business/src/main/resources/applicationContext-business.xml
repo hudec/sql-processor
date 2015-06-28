@@ -72,9 +72,11 @@
         <property name="monitorName" value="catalog" />
     </bean>
 
-    <bean id="sqlConfiguration" class="org.sqlproc.engine.config.SqlEngineConfiguration">
+    <bean id="sqlConfiguration" class="org.sqlproc.engine.config.SqlEngineConfiguration" init-method="load">
         <constructor-arg value="/tmp"/>
         <constructor-arg value="catalog-config.xml"/>
+        <property name="lazyInit" ref="true" />
+        <property name="initClearUsage" ref="true" />
     </bean>
 
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">

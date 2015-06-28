@@ -35,29 +35,29 @@ public class SqlEngineConfiguration extends JaxbStore {
      * The container of initialized Query Engines' names (static or dynamic ones) together with the number of their
      * usage.
      */
-    private ConcurrentHashMap<String, AtomicInteger> queryEngines;
+    private ConcurrentHashMap<String, AtomicInteger> queryEngines = new ConcurrentHashMap<String, AtomicInteger>();
     /**
      * The container of initialized CRUD Engines' names (static or dynamic ones) together with the number of their
      * usage.
      */
-    private ConcurrentHashMap<String, AtomicInteger> crudEngines;
+    private ConcurrentHashMap<String, AtomicInteger> crudEngines = new ConcurrentHashMap<String, AtomicInteger>();
     /**
      * The container of initialized Procedure Engines' names (static or dynamic ones) together with the number of their
      * usage.
      */
-    private ConcurrentHashMap<String, AtomicInteger> procedureEngines;
+    private ConcurrentHashMap<String, AtomicInteger> procedureEngines = new ConcurrentHashMap<String, AtomicInteger>();
     /**
      * The container of initialized dynamic Query Engines' names together with their SQL statement.
      */
-    private ConcurrentHashMap<String, String> dynamicQueryEngines;
+    private ConcurrentHashMap<String, String> dynamicQueryEngines = new ConcurrentHashMap<String, String>();
     /**
      * The container of initialized dynamic CRUD Engines' names together with their SQL statement.
      */
-    private ConcurrentHashMap<String, String> dynamicCrudEngines;
+    private ConcurrentHashMap<String, String> dynamicCrudEngines = new ConcurrentHashMap<String, String>();
     /**
      * The container of initialized dynamic Procedure Engines' names together with their SQL statement.
      */
-    private ConcurrentHashMap<String, String> dynamicProcedureEngines;
+    private ConcurrentHashMap<String, String> dynamicProcedureEngines = new ConcurrentHashMap<String, String>();
     /**
      * This flag indicates to speed up the initialization process.
      */
@@ -74,11 +74,10 @@ public class SqlEngineConfiguration extends JaxbStore {
      * The most frequently used engines should be initialized preferentially.
      */
     private Boolean initInUsageOrder;
-
-    // /**
-    // * In the process of the dynamic configuration instantiation the persisted state should be ignored.
-    // */
-    // private Boolean skipPersistedState;
+    /**
+     * After the engines instantiations the users should be cleared.
+     */
+    private Boolean initClearUsage;
 
     /**
      * Default constructor.
@@ -101,44 +100,28 @@ public class SqlEngineConfiguration extends JaxbStore {
      *             in the case there's a problem with JAXB deserialization
      */
     public SqlEngineConfiguration(File directory, String fileName) throws IOException, JAXBException {
-        this(directory, fileName, false);
+        super(directory, fileName, XmlEngineConfiguration.class, XmlEngineConfiguration.EngineUsage.class,
+                XmlEngineConfiguration.EngineSql.class);
     }
 
     /**
-     * The constructor takes data from the persisted state in external file.
+     * Loads the persisted configuration.
      * 
-     * @param directory
-     *            the directory, where the persisted file is placed
-     * @param fileName
-     *            the name of the persisted file
-     * @param skipPersistedState
-     *            the indicator that in the process of the dynamic configuration instantiation the persisted state
-     *            should be ignored
-     * @throws IOException
-     *             in the case there's a I/O problem with the persisted file
      * @throws JAXBException
-     *             in the case there's a problem with JAXB deserialization
      */
-    public SqlEngineConfiguration(File directory, String fileName, boolean skipPersistedState) throws IOException,
-            JAXBException {
-        super(directory, fileName, XmlEngineConfiguration.class, XmlEngineConfiguration.EngineUsage.class,
-                XmlEngineConfiguration.EngineSql.class);
-        if (!skipPersistedState) {
-            XmlEngineConfiguration xml = (XmlEngineConfiguration) readFile();
-            if (xml != null) {
-                this.queryEngines = xml.getQueryEngines();
-                this.crudEngines = xml.getCrudEngines();
-                this.procedureEngines = xml.getProcedureEngines();
-                this.dynamicQueryEngines = xml.getDynamicQueryEngines();
-                this.dynamicCrudEngines = xml.getDynamicCrudEngines();
-                this.dynamicProcedureEngines = xml.getDynamicProcedureEngines();
-                this.lazyInit = xml.getLazyInit();
-                this.asyncInit = xml.getAsyncInit();
-                this.initTreshold = xml.getInitTreshold();
-                this.initInUsageOrder = xml.getInitInUsageOrder();
-            }
-        } else {
-            clear();
+    public void load() throws JAXBException {
+        XmlEngineConfiguration xml = (XmlEngineConfiguration) readFile();
+        if (xml != null) {
+            this.queryEngines = xml.getQueryEngines();
+            this.crudEngines = xml.getCrudEngines();
+            this.procedureEngines = xml.getProcedureEngines();
+            this.dynamicQueryEngines = xml.getDynamicQueryEngines();
+            this.dynamicCrudEngines = xml.getDynamicCrudEngines();
+            this.dynamicProcedureEngines = xml.getDynamicProcedureEngines();
+            this.lazyInit = xml.getLazyInit();
+            this.asyncInit = xml.getAsyncInit();
+            this.initTreshold = xml.getInitTreshold();
+            this.initInUsageOrder = xml.getInitInUsageOrder();
         }
     }
 
@@ -160,11 +143,20 @@ public class SqlEngineConfiguration extends JaxbStore {
         dynamicQueryEngines = new ConcurrentHashMap<String, String>();
         dynamicCrudEngines = new ConcurrentHashMap<String, String>();
         dynamicProcedureEngines = new ConcurrentHashMap<String, String>();
-        lazyInit = true;
-        asyncInit = false;
-        initTreshold = 1;
-        initInUsageOrder = false;
-        // skipPersistedState = false;
+        lazyInit = null;
+        asyncInit = null;
+        initTreshold = null;
+        initInUsageOrder = null;
+        initClearUsage = null;
+    }
+
+    /**
+     * Reset the engines' usage counters.
+     */
+    public void clearUsage() {
+        queryEngines = new ConcurrentHashMap<String, AtomicInteger>();
+        crudEngines = new ConcurrentHashMap<String, AtomicInteger>();
+        procedureEngines = new ConcurrentHashMap<String, AtomicInteger>();
     }
 
     /**
@@ -549,26 +541,24 @@ public class SqlEngineConfiguration extends JaxbStore {
         this.initInUsageOrder = initInUsageOrder;
     }
 
-    // /**
-    // * Returns the indicator that in the process of the dynamic configuration instantiation the persisted state should
-    // * be ignored
-    // *
-    // * @return the indicator that in the process of the dynamic configuration instantiation the persisted state should
-    // */
-    // public Boolean getSkipPersistedState() {
-    // return skipPersistedState;
-    // }
-    //
-    // /**
-    // * Sets the indicator that in the process of the dynamic configuration instantiation the persisted state should
-    // *
-    // * @param skipPersistedState
-    // * the indicator that in the process of the dynamic configuration instantiation the persisted state
-    // * should
-    // */
-    // public void setSkipPersistedState(Boolean skipPersistedState) {
-    // this.skipPersistedState = skipPersistedState;
-    // }
+    /**
+     * Returns the indicator that after the engines instantiations the users should be cleared
+     * 
+     * @return the indicator that after the engines instantiations the users should be cleared
+     */
+    public Boolean getInitClearUsage() {
+        return initClearUsage;
+    }
+
+    /**
+     * Sets the indicator that after the engines instantiations the users should be cleared
+     * 
+     * @param initClearUsage
+     *            the indicator that after the engines instantiations the users should be cleared
+     */
+    public void setInitClearUsage(Boolean initClearUsage) {
+        this.initClearUsage = initClearUsage;
+    }
 
     /**
      * The simple container.

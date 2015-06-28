@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.xml.bind.JAXBException;
+
 import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -526,6 +528,17 @@ public class SqlSimpleFactoryMXBean {
     }
 
     /**
+     * Loads the persisted configuration.
+     */
+    public void loadConfiguration() {
+        try {
+            getConfiguration().load();
+        } catch (JAXBException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /**
      * Persists the configuration into the external file.
      */
     public void storeConfiguration() {
@@ -537,6 +550,13 @@ public class SqlSimpleFactoryMXBean {
      */
     public void clearConfiguration() {
         getConfiguration().clear();
+    }
+
+    /**
+     * Reset the engines' usage counters.
+     */
+    public void clearConfigurationUsage() {
+        getConfiguration().clearUsage();
     }
 
     /**

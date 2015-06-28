@@ -16,7 +16,7 @@ public class TestConfigStore extends TestCase {
     @Test
     public void testStore() throws IOException, JAXBException {
 
-        SqlEngineConfiguration config = new SqlEngineConfiguration(new File("/tmp"), "sqlp-config.xml", true);
+        SqlEngineConfiguration config = new SqlEngineConfiguration(new File("/tmp"), "sqlp-config.xml");
         config.addQueryEngine("QE1");
         config.addCrudEngine("CE1");
         config.addProcedureEngine("PE1");
@@ -33,6 +33,7 @@ public class TestConfigStore extends TestCase {
         config.store();
 
         SqlEngineConfiguration config2 = new SqlEngineConfiguration(new File("/tmp"), "sqlp-config.xml");
+        config2.load();
         assertEquals(3, config2.getQueryEngines().size());
         AtomicInteger usage = config2.getQueryEngines().get("QE1");
         assertNotNull(usage);
@@ -60,6 +61,7 @@ public class TestConfigStore extends TestCase {
         assertEquals(2, config2.getInitTreshold().intValue());
 
         SqlEngineConfiguration config3 = new SqlEngineConfiguration(new File("/tmp"), "sqlp-config.xml");
+        config3.load();
         assertEquals(1, config3.getQueryEnginesToInit(2).size());
         assertEquals(1, config3.getCrudEnginesToInit(2).size());
         assertEquals(1, config3.getProcedureEnginesToInit(2).size());

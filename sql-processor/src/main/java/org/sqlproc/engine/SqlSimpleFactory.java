@@ -198,6 +198,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                                     logger.trace("== SqlSimpleFactory, initialized dynamic Procedure Engine "
                                             + e.getKey());
                             }
+                            if (configuration.getInitClearUsage() != null && configuration.getInitClearUsage())
+                                configuration.clearUsage();
                         }
                     }
                 }

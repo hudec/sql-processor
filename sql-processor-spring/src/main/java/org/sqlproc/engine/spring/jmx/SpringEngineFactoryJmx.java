@@ -352,6 +352,12 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     }
 
     @Override
+    @ManagedOperation(description = "Loads the persisted configuration.")
+    public void loadConfiguration() {
+        super.loadConfiguration();
+    }
+
+    @Override
     @ManagedOperation(description = "Persists the configuration into the external file.")
     public void storeConfiguration() {
         super.storeConfiguration();
@@ -361,5 +367,11 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
     @ManagedOperation(description = "Resets the state of the dynamic configuration instance.")
     public void clearConfiguration() {
         super.clearConfiguration();
+    }
+
+    @Override
+    @ManagedOperation(description = "Reset the engines' usage counters.")
+    public void clearConfigurationUsage() {
+        super.clearConfigurationUsage();
     }
 }
