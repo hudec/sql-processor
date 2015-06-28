@@ -174,12 +174,6 @@
                 <artifactId>spring-context</artifactId>
                 <version>${version.spring}</version>
             </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>${version.aspectjweaver}</version>
-                <!-- scope>runtime</scope-->
-            </dependency>
 
             <!-- TEST -->
             <dependency>

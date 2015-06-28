@@ -35,11 +35,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <!--scope>runtime</scope-->
-        </dependency>
 
         <!-- TEST -->
         <dependency>
