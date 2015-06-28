@@ -35,29 +35,29 @@ public class SqlEngineConfiguration extends JaxbStore {
      * The container of initialized Query Engines' names (static or dynamic ones) together with the number of their
      * usage.
      */
-    private ConcurrentHashMap<String, AtomicInteger> queryEngines = new ConcurrentHashMap<String, AtomicInteger>();
+    private ConcurrentHashMap<String, AtomicInteger> queryEngines;
     /**
      * The container of initialized CRUD Engines' names (static or dynamic ones) together with the number of their
      * usage.
      */
-    private ConcurrentHashMap<String, AtomicInteger> crudEngines = new ConcurrentHashMap<String, AtomicInteger>();
+    private ConcurrentHashMap<String, AtomicInteger> crudEngines;
     /**
      * The container of initialized Procedure Engines' names (static or dynamic ones) together with the number of their
      * usage.
      */
-    private ConcurrentHashMap<String, AtomicInteger> procedureEngines = new ConcurrentHashMap<String, AtomicInteger>();
+    private ConcurrentHashMap<String, AtomicInteger> procedureEngines;
     /**
      * The container of initialized dynamic Query Engines' names together with their SQL statement.
      */
-    private ConcurrentHashMap<String, String> dynamicQueryEngines = new ConcurrentHashMap<String, String>();
+    private ConcurrentHashMap<String, String> dynamicQueryEngines;
     /**
      * The container of initialized dynamic CRUD Engines' names together with their SQL statement.
      */
-    private ConcurrentHashMap<String, String> dynamicCrudEngines = new ConcurrentHashMap<String, String>();
+    private ConcurrentHashMap<String, String> dynamicCrudEngines;
     /**
      * The container of initialized dynamic Procedure Engines' names together with their SQL statement.
      */
-    private ConcurrentHashMap<String, String> dynamicProcedureEngines = new ConcurrentHashMap<String, String>();
+    private ConcurrentHashMap<String, String> dynamicProcedureEngines;
     /**
      * This flag indicates to speed up the initialization process.
      */
@@ -75,26 +75,96 @@ public class SqlEngineConfiguration extends JaxbStore {
      */
     private Boolean initInUsageOrder;
 
+    // /**
+    // * In the process of the dynamic configuration instantiation the persisted state should be ignored.
+    // */
+    // private Boolean skipPersistedState;
+
+    /**
+     * Default constructor.
+     */
     public SqlEngineConfiguration() {
         super();
+        clear();
     }
 
+    /**
+     * The constructor takes data from the persisted state in external file.
+     * 
+     * @param directory
+     *            the directory, where the persisted file is placed
+     * @param fileName
+     *            the name of the persisted file
+     * @throws IOException
+     *             in the case there's a I/O problem with the persisted file
+     * @throws JAXBException
+     *             in the case there's a problem with JAXB deserialization
+     */
     public SqlEngineConfiguration(File directory, String fileName) throws IOException, JAXBException {
+        this(directory, fileName, false);
+    }
+
+    /**
+     * The constructor takes data from the persisted state in external file.
+     * 
+     * @param directory
+     *            the directory, where the persisted file is placed
+     * @param fileName
+     *            the name of the persisted file
+     * @param skipPersistedState
+     *            the indicator that in the process of the dynamic configuration instantiation the persisted state
+     *            should be ignored
+     * @throws IOException
+     *             in the case there's a I/O problem with the persisted file
+     * @throws JAXBException
+     *             in the case there's a problem with JAXB deserialization
+     */
+    public SqlEngineConfiguration(File directory, String fileName, boolean skipPersistedState) throws IOException,
+            JAXBException {
         super(directory, fileName, XmlEngineConfiguration.class, XmlEngineConfiguration.EngineUsage.class,
                 XmlEngineConfiguration.EngineSql.class);
-        XmlEngineConfiguration xml = (XmlEngineConfiguration) readFile();
-        if (xml != null) {
-            this.queryEngines = xml.getQueryEngines();
-            this.crudEngines = xml.getCrudEngines();
-            this.procedureEngines = xml.getProcedureEngines();
-            this.dynamicQueryEngines = xml.getDynamicQueryEngines();
-            this.dynamicCrudEngines = xml.getDynamicCrudEngines();
-            this.dynamicProcedureEngines = xml.getDynamicProcedureEngines();
-            this.lazyInit = xml.getLazyInit();
-            this.asyncInit = xml.getAsyncInit();
-            this.initTreshold = xml.getInitTreshold();
-            this.initInUsageOrder = xml.getInitInUsageOrder();
+        if (!skipPersistedState) {
+            XmlEngineConfiguration xml = (XmlEngineConfiguration) readFile();
+            if (xml != null) {
+                this.queryEngines = xml.getQueryEngines();
+                this.crudEngines = xml.getCrudEngines();
+                this.procedureEngines = xml.getProcedureEngines();
+                this.dynamicQueryEngines = xml.getDynamicQueryEngines();
+                this.dynamicCrudEngines = xml.getDynamicCrudEngines();
+                this.dynamicProcedureEngines = xml.getDynamicProcedureEngines();
+                this.lazyInit = xml.getLazyInit();
+                this.asyncInit = xml.getAsyncInit();
+                this.initTreshold = xml.getInitTreshold();
+                this.initInUsageOrder = xml.getInitInUsageOrder();
+            }
+        } else {
+            clear();
         }
+    }
+
+    /**
+     * Persist the configuration into external file
+     */
+    public void store() {
+        XmlEngineConfiguration config = new XmlEngineConfiguration(this);
+        writeXml(config);
+    }
+
+    /**
+     * Persist the configuration into external file
+     */
+    public void clear() {
+        queryEngines = new ConcurrentHashMap<String, AtomicInteger>();
+        crudEngines = new ConcurrentHashMap<String, AtomicInteger>();
+        procedureEngines = new ConcurrentHashMap<String, AtomicInteger>();
+        dynamicQueryEngines = new ConcurrentHashMap<String, String>();
+        dynamicCrudEngines = new ConcurrentHashMap<String, String>();
+        dynamicProcedureEngines = new ConcurrentHashMap<String, String>();
+        lazyInit = true;
+        asyncInit = false;
+        initTreshold = 1;
+        initInUsageOrder = false;
+        // skipPersistedState = false;
     }
 
     /**
@@ -478,6 +548,27 @@ public class SqlEngineConfiguration extends JaxbStore {
     public void setInitInUsageOrder(Boolean initInUsageOrder) {
         this.initInUsageOrder = initInUsageOrder;
     }
+
+    // /**
+    // * Returns the indicator that in the process of the dynamic configuration instantiation the persisted state should
+    // * be ignored
+    // *
+    // * @return the indicator that in the process of the dynamic configuration instantiation the persisted state should
+    // */
+    // public Boolean getSkipPersistedState() {
+    // return skipPersistedState;
+    // }
+    //
+    // /**
+    // * Sets the indicator that in the process of the dynamic configuration instantiation the persisted state should
+    // *
+    // * @param skipPersistedState
+    // * the indicator that in the process of the dynamic configuration instantiation the persisted state
+    // * should
+    // */
+    // public void setSkipPersistedState(Boolean skipPersistedState) {
+    // this.skipPersistedState = skipPersistedState;
+    // }
 
     /**
      * The simple container.

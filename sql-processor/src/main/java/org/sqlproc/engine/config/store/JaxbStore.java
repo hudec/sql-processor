@@ -8,6 +8,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+/**
+ * This class is used only for the SQL Processor dynamic configuration serialization/deserialization.
+ * 
+ * <p>
+ * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
+ * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
+ */
 public class JaxbStore {
     private final File directory;
     private final String fileName;
