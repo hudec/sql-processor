@@ -12,7 +12,6 @@
 
     <context:annotation-config />
     <context:mbean-export/>
-    <aop:aspectj-autoproxy proxy-target-class="true" />
 
     <!-- define cache annotation driver - for DAO class proxy target class = true, for DAO interface false (default) -->
     <cache:annotation-driven proxy-target-class="true"/>
