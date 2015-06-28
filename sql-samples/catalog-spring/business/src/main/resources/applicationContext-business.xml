@@ -72,17 +72,9 @@
         <property name="monitorName" value="catalog" />
     </bean>
 
-    <bean class="org.sqlproc.engine.config.store.PersistentAspect">
-        <property name="persistentStore" ref="configStore" />
-    </bean>
-
-    <bean id="configStore" class="org.sqlproc.engine.config.store.jmx.PersistentStoreJmx" init-method="init">
-        <property name="store" value="file:catalog-config.xml" />
-        <property name="objectToStore" ref="sqlConfiguration" />
-        <property name="saveToStore" value="true" />
-    </bean>
-
     <bean id="sqlConfiguration" class="org.sqlproc.engine.config.SqlEngineConfiguration">
+        <constructor-arg value="/tmp"/>
+        <constructor-arg value="catalog-config.xml"/>
         <property name="queryEngines">
             <util:map map-class="java.util.concurrent.ConcurrentHashMap">
             </util:map>
@@ -110,6 +102,7 @@
         <property name="lazyInit" value="true"/>
         <property name="asyncInit" value="false"/>
         <property name="initTreshold" value="1"/>
+        <property name="initInUsageOrder" value="false"/>
     </bean>
 
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">

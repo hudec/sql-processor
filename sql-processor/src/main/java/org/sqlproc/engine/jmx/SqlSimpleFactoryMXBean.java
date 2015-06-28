@@ -58,8 +58,10 @@ public class SqlSimpleFactoryMXBean {
                 }
             }
         }
-        if (errors.length() == 0)
+        if (errors.length() == 0) {
+            storeConfiguration();
             return count;
+        }
         throw new RuntimeException(errors.append("/nInitialized engines: ").append(count).toString());
     }
 
@@ -92,8 +94,10 @@ public class SqlSimpleFactoryMXBean {
                 }
             }
         }
-        if (errors.length() == 0)
+        if (errors.length() == 0) {
+            storeConfiguration();
             return count;
+        }
         throw new RuntimeException(errors.append("/nInitialized engines: ").append(count).toString());
     }
 
@@ -126,8 +130,10 @@ public class SqlSimpleFactoryMXBean {
                 }
             }
         }
-        if (errors.length() == 0)
+        if (errors.length() == 0) {
+            storeConfiguration();
             return count;
+        }
         throw new RuntimeException(errors.append("/nInitialized engines: ").append(count).toString());
     }
 
@@ -149,8 +155,11 @@ public class SqlSimpleFactoryMXBean {
                 errors.append(ex.getMessage()).append("\n");
             }
         }
-        if (errors.length() == 0)
+        if (errors.length() == 0) {
+            storeConfiguration();
+
             return count;
+        }
         throw new RuntimeException(errors.append("/nReset engines: ").append(count).toString());
     }
 
@@ -172,8 +181,10 @@ public class SqlSimpleFactoryMXBean {
                 errors.append(ex.getMessage()).append("\n");
             }
         }
-        if (errors.length() == 0)
+        if (errors.length() == 0) {
+            storeConfiguration();
             return count;
+        }
         throw new RuntimeException(errors.append("/nReset engines: ").append(count).toString());
     }
 
@@ -195,8 +206,10 @@ public class SqlSimpleFactoryMXBean {
                 errors.append(ex.getMessage()).append("\n");
             }
         }
-        if (errors.length() == 0)
+        if (errors.length() == 0) {
+            storeConfiguration();
             return count;
+        }
         throw new RuntimeException(errors.append("/nReset engines: ").append(count).toString());
     }
 
@@ -211,6 +224,7 @@ public class SqlSimpleFactoryMXBean {
     public void newQueryEngine(String name, String sqlStatement) throws SqlEngineException {
         try {
             sqlEngineFactory.getDynamicQueryEngine(name, sqlStatement);
+            storeConfiguration();
         } catch (SqlEngineException ex) {
             throw new RuntimeException(ex.getMessage());
         }
@@ -227,6 +241,7 @@ public class SqlSimpleFactoryMXBean {
     public void newCrudEngine(String name, String sqlStatement) {
         try {
             sqlEngineFactory.getDynamicCrudEngine(name, sqlStatement);
+            storeConfiguration();
         } catch (SqlEngineException ex) {
             throw new RuntimeException(ex.getMessage());
         }
@@ -243,6 +258,7 @@ public class SqlSimpleFactoryMXBean {
     public void newProcedureEngine(String name, String sqlStatement) {
         try {
             sqlEngineFactory.getDynamicProcedureEngine(name, sqlStatement);
+            storeConfiguration();
         } catch (SqlEngineException ex) {
             throw new RuntimeException(ex.getMessage());
         }
@@ -442,6 +458,7 @@ public class SqlSimpleFactoryMXBean {
      */
     public void setLazyInit(boolean lazyInit) {
         getConfiguration().setLazyInit(lazyInit);
+        storeConfiguration();
     }
 
     /**
@@ -461,6 +478,7 @@ public class SqlSimpleFactoryMXBean {
      */
     public void setAsyncInit(Boolean asyncInit) {
         getConfiguration().setAsyncInit(asyncInit);
+        storeConfiguration();
     }
 
     /**
@@ -472,6 +490,19 @@ public class SqlSimpleFactoryMXBean {
      */
     public Integer getInitTreshold() {
         return getConfiguration().getInitTreshold();
+    }
+
+    /**
+     * Sets the initialization threshold. The engines, which usage is at least this number should be initialized
+     * directly
+     * 
+     * @param initTreshold
+     *            the initialization threshold. The engines, which usage is at least this number should be initialized
+     *            directly
+     */
+    public void setInitTreshold(Integer initTreshold) {
+        getConfiguration().setInitTreshold(initTreshold);
+        storeConfiguration();
     }
 
     /**
@@ -491,18 +522,7 @@ public class SqlSimpleFactoryMXBean {
      */
     public void setInitInUsageOrder(Boolean initInUsageOrder) {
         getConfiguration().setInitInUsageOrder(initInUsageOrder);
-    }
-
-    /**
-     * Sets the initialization threshold. The engines, which usage is at least this number should be initialized
-     * directly
-     * 
-     * @param initTreshold
-     *            the initialization threshold. The engines, which usage is at least this number should be initialized
-     *            directly
-     */
-    public void setInitTreshold(Integer initTreshold) {
-        getConfiguration().setInitTreshold(initTreshold);
+        storeConfiguration();
     }
 
     /**
@@ -621,6 +641,7 @@ public class SqlSimpleFactoryMXBean {
         if (usage == null)
             return 0;
         usage.set(0);
+        storeConfiguration();
         return usage.get();
     }
 
@@ -637,6 +658,7 @@ public class SqlSimpleFactoryMXBean {
         if (usage == null)
             return 0;
         usage.set(0);
+        storeConfiguration();
         return usage.get();
     }
 
@@ -653,6 +675,7 @@ public class SqlSimpleFactoryMXBean {
         if (usage == null)
             return 0;
         usage.set(0);
+        storeConfiguration();
         return usage.get();
     }
 
