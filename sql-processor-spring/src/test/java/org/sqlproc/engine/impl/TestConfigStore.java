@@ -3,9 +3,7 @@ package org.sqlproc.engine.impl;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.springframework.core.io.FileSystemResource;
 import org.sqlproc.engine.config.SqlEngineConfiguration;
-import org.sqlproc.engine.config.store.PersistentStore;
 
 public class TestConfigStore {
 
@@ -17,11 +15,11 @@ public class TestConfigStore {
         config.addProcedureEngine("PE1");
         config.setInitTreshold(2);
 
-        PersistentStore store = new PersistentStore();
-        store.setStore(new FileSystemResource("/tmp/sqlp-config.xml"));
-        store.setObjectToStore(config);
-        store.setSaveToStore(true);
-        store.init();
-        store.store();
+        // PersistentStore store = new PersistentStore();
+        // store.setStore(new FileSystemResource("/tmp/sqlp-config.xml"));
+        // store.setObjectToStore(config);
+        // store.setSaveToStore(true);
+        // store.init();
+        // store.store();
     }
 }

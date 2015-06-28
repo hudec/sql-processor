@@ -14,6 +14,13 @@ public class JaxbStore {
     private final JAXBContext xmlContext;
     private final File file;
 
+    protected JaxbStore() {
+        this.directory = null;
+        this.fileName = null;
+        this.xmlContext = null;
+        this.file = null;
+    }
+
     protected JaxbStore(File directory, String fileName, Class<?>... jaxbClasses) throws IOException, JAXBException {
         this.directory = directory;
         this.fileName = fileName;
@@ -28,22 +35,20 @@ public class JaxbStore {
     }
 
     protected void writeXml(Object xml) {
+        if (file == null)
+            return;
         try {
             Marshaller marshaller = this.xmlContext.createMarshaller();
             marshaller.marshal(xml, new File(this.directory, this.fileName));
         } catch (JAXBException ex) {
-            throw new IllegalStateException("Could not save inventory", ex);
+            throw new IllegalStateException("Could not save configuration", ex);
         }
     }
 
     protected Object readFile() throws JAXBException {
-        System.out.println("Reading xml data from " + file);
-
-        if (this.file.exists()) {
-            Unmarshaller unmarshaller = this.xmlContext.createUnmarshaller();
-            return unmarshaller.unmarshal(this.file);
-        } else {
+        if (file == null || !this.file.exists())
             return null;
-        }
+        Unmarshaller unmarshaller = this.xmlContext.createUnmarshaller();
+        return unmarshaller.unmarshal(this.file);
     }
 }

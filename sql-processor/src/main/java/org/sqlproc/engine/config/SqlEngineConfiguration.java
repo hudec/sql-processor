@@ -1,5 +1,7 @@
 package org.sqlproc.engine.config;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,7 +9,10 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.sqlproc.engine.config.store.PersistentObject;
+import javax.xml.bind.JAXBException;
+
+import org.sqlproc.engine.config.store.JaxbStore;
+import org.sqlproc.engine.config.store.XmlEngineConfiguration;
 
 /**
  * The dynamic configuration of the SQL Processor.
@@ -24,7 +29,7 @@ import org.sqlproc.engine.config.store.PersistentObject;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlEngineConfiguration implements PersistentObject {
+public class SqlEngineConfiguration extends JaxbStore {
 
     /**
      * The container of initialized Query Engines' names (static or dynamic ones) together with the number of their
@@ -69,6 +74,28 @@ public class SqlEngineConfiguration implements PersistentObject {
      * The most frequently used engines should be initialized preferentially.
      */
     private Boolean initInUsageOrder;
+
+    public SqlEngineConfiguration() {
+        super();
+    }
+
+    public SqlEngineConfiguration(File directory, String fileName) throws IOException, JAXBException {
+        super(directory, fileName, XmlEngineConfiguration.class, XmlEngineConfiguration.EngineUsage.class,
+                XmlEngineConfiguration.EngineSql.class);
+        XmlEngineConfiguration xml = (XmlEngineConfiguration) readFile();
+        if (xml != null) {
+            this.queryEngines = xml.getQueryEngines();
+            this.crudEngines = xml.getCrudEngines();
+            this.procedureEngines = xml.getProcedureEngines();
+            this.dynamicQueryEngines = xml.getDynamicQueryEngines();
+            this.dynamicCrudEngines = xml.getDynamicCrudEngines();
+            this.dynamicProcedureEngines = xml.getDynamicProcedureEngines();
+            this.lazyInit = xml.getLazyInit();
+            this.asyncInit = xml.getAsyncInit();
+            this.initTreshold = xml.getInitTreshold();
+            this.initInUsageOrder = xml.getInitInUsageOrder();
+        }
+    }
 
     /**
      * Adds the SQL Engine to the container of initialized engines.
@@ -529,24 +556,5 @@ public class SqlEngineConfiguration implements PersistentObject {
      */
     public List<NameValue> getProcedureEnginesToInit(Integer treshold) {
         return getEnginesToInit(procedureEngines, treshold);
-    }
-
-    @Override
-    public Class<?> getType() {
-        return SqlEngineConfiguration.class;
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public void empty() {
-        queryEngines.clear();
-        crudEngines.clear();
-        procedureEngines.clear();
-        dynamicQueryEngines.clear();
-        dynamicCrudEngines.clear();
-        dynamicProcedureEngines.clear();
     }
 }

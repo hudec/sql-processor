@@ -125,23 +125,8 @@ public class XmlEngineConfiguration {
         return initInUsageOrder;
     }
 
-    public SqlEngineConfiguration getConfiguration() {
-        SqlEngineConfiguration config = new SqlEngineConfiguration();
-        config.setQueryEngines(getQueryEngines());
-        config.setCrudEngines(getCrudEngines());
-        config.setProcedureEngines(getProcedureEngines());
-        config.setDynamicQueryEngines(getDynamicQueryEngines());
-        config.setDynamicCrudEngines(getDynamicCrudEngines());
-        config.setDynamicProcedureEngines(getDynamicProcedureEngines());
-        config.setLazyInit(getLazyInit());
-        config.setAsyncInit(getAsyncInit());
-        config.setInitTreshold(getInitTreshold());
-        config.setInitInUsageOrder(getInitInUsageOrder());
-        return config;
-    }
-
     @XmlRootElement(name = "usage")
-    private static class EngineUsage {
+    public static class EngineUsage {
         @XmlElement
         private String name;
 
@@ -166,7 +151,7 @@ public class XmlEngineConfiguration {
     }
 
     @XmlRootElement(name = "sql")
-    private static class EngineSql {
+    public static class EngineSql {
         @XmlElement
         private String name;
 
