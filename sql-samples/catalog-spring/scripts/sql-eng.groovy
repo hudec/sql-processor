@@ -55,6 +55,8 @@ class SqlEngine {
 	println "QueryEnginesToInit "+engine.getQueryEnginesToInit()
 	println "CrudEnginesToInit "+engine.getCrudEnginesToInit()
 	println "ProcedureEnginesToInit "+engine.getProcedureEnginesToInit()
+
+	engine.storeConfiguration()
     }
 
 

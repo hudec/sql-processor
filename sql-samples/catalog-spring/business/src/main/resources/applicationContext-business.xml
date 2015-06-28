@@ -75,34 +75,6 @@
     <bean id="sqlConfiguration" class="org.sqlproc.engine.config.SqlEngineConfiguration">
         <constructor-arg value="/tmp"/>
         <constructor-arg value="catalog-config.xml"/>
-        <property name="queryEngines">
-            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
-            </util:map>
-        </property>
-        <property name="crudEngines">
-            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
-            </util:map>
-        </property>
-        <property name="procedureEngines">
-            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
-            </util:map>
-        </property>
-        <property name="dynamicQueryEngines">
-            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
-            </util:map>
-        </property>
-        <property name="dynamicCrudEngines">
-            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
-            </util:map>
-        </property>
-        <property name="dynamicProcedureEngines">
-            <util:map map-class="java.util.concurrent.ConcurrentHashMap">
-            </util:map>
-        </property>
-        <property name="lazyInit" value="true"/>
-        <property name="asyncInit" value="false"/>
-        <property name="initTreshold" value="1"/>
-        <property name="initInUsageOrder" value="false"/>
     </bean>
 
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">
