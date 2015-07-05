@@ -1,7 +1,6 @@
 package org.sqlproc.engine;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -124,11 +123,11 @@ public class SqlProcessorLoader {
     /**
      * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
-    private Map<String, SqlEngine> engines = new HashMap<String, SqlEngine>();
+    private ConcurrentHashMap<String, SqlEngine> engines = new ConcurrentHashMap<String, SqlEngine>();
     /**
      * The collection of named dynamic SQL Engines (the primary SQL Processor class) instances.
      */
-    private Map<String, SqlEngine> dynamicEngines = new ConcurrentHashMap<String, SqlEngine>();
+    private ConcurrentHashMap<String, SqlEngine> dynamicEngines = new ConcurrentHashMap<String, SqlEngine>();
     /**
      * The collection of named META SQL queries.
      */
@@ -576,24 +575,18 @@ public class SqlProcessorLoader {
             SqlMetaStatement stmt = getStatements(engineType).get(name);
 
             if (stmt != null) {
-                if (!isLazyInit()) {
-                    sqlEngine = _getStaticEngine(name, engineType, stmt);
+                sqlEngine = createEngine(name, engineType, stmt, null);
+                SqlEngine sqlEnginePrev = engines.putIfAbsent(name, sqlEngine);
+                if (sqlEnginePrev != null) {
+                    sqlEngine = sqlEnginePrev;
                 } else {
-                    synchronized (stmt) {
-                        sqlEngine = _getStaticEngine(name, engineType, stmt);
-                    }
+                    Map<String, SqlProcessResult> processingCache;
+                    commonProcessingCache
+                            .put(name, processingCache = new ConcurrentHashMap<String, SqlProcessResult>());
+                    sqlEngine.setProcessingCache(processingCache);
                 }
             }
         }
-        return sqlEngine;
-    }
-
-    private SqlEngine _getStaticEngine(String name, EngineType engineType, SqlMetaStatement stmt) {
-        SqlEngine sqlEngine = createEngine(name, engineType, stmt, null);
-        engines.put(name, sqlEngine);
-        Map<String, SqlProcessResult> processingCache;
-        commonProcessingCache.put(name, processingCache = new ConcurrentHashMap<String, SqlProcessResult>());
-        sqlEngine.setProcessingCache(processingCache);
         return sqlEngine;
     }
 
