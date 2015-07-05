@@ -147,7 +147,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * Dynamic initialization, called mainly from the Spring configuration initialization.
      */
-    synchronized public void init() {
+    public void init() {
         if (processorLoader == null) {
             synchronized (this) {
                 if (processorLoader == null) {

@@ -571,21 +571,29 @@ public class SqlProcessorLoader {
     public SqlEngine getStaticEngine(String name, EngineType engineType) {
         dynamicEngines.remove(name);
         SqlEngine sqlEngine = engines.get(name);
-        Map<String, SqlMetaStatement> stmts = getStatements(engineType);
 
-        if (sqlEngine == null && stmts.containsKey(name)) {
-            SqlMetaStatement stmt = stmts.get(name);
+        if (sqlEngine == null) {
+            SqlMetaStatement stmt = getStatements(engineType).get(name);
 
-            synchronized (stmt) {
-                sqlEngine = engines.get(name);
-                if (sqlEngine == null) {
-                    sqlEngine = createEngine(name, engineType, stmt, null);
-                    engines.put(name, sqlEngine);
+            if (stmt != null) {
+                if (!isLazyInit()) {
+                    sqlEngine = _getStaticEngine(name, engineType, stmt);
+                } else {
+                    synchronized (stmt) {
+                        sqlEngine = _getStaticEngine(name, engineType, stmt);
+                    }
                 }
-                commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
-                sqlEngine.setProcessingCache(commonProcessingCache.get(name));
             }
         }
+        return sqlEngine;
+    }
+
+    private SqlEngine _getStaticEngine(String name, EngineType engineType, SqlMetaStatement stmt) {
+        SqlEngine sqlEngine = createEngine(name, engineType, stmt, null);
+        engines.put(name, sqlEngine);
+        Map<String, SqlProcessResult> processingCache;
+        commonProcessingCache.put(name, processingCache = new ConcurrentHashMap<String, SqlProcessResult>());
+        sqlEngine.setProcessingCache(processingCache);
         return sqlEngine;
     }
 

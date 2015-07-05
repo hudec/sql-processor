@@ -189,10 +189,8 @@ public class SqlEngineConfiguration extends JaxbStore {
      * @return the actual number of the engine's usage
      */
     protected int removeEngine(String name, ConcurrentHashMap<String, AtomicInteger> engines) {
-        synchronized (engines) {
-            AtomicInteger counter = engines.remove(name);
-            return (counter == null) ? 0 : counter.get();
-        }
+        AtomicInteger counter = engines.remove(name);
+        return (counter == null) ? 0 : counter.get();
     }
 
     /**
