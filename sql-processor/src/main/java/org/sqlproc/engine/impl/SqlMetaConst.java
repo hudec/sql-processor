@@ -305,19 +305,19 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             }
         } else if (obj.getClass().isEnum() && this.sqlType != null) {
             if (sqlType.getMetaType(ctx) == ctx.getTypeFactory().getEnumStringType()) {
-                Object o = SqlUtils.getEnumToValue(ctx, obj);
+                Object o = BeanUtils.getEnumToValue(ctx, obj);
                 if (o != null && o instanceof String)
                     return "'" + (String) o + "'";
                 else
                     return "'" + obj.toString() + "'";
             } else if (sqlType.getMetaType(ctx) == ctx.getTypeFactory().getEnumIntegerType()) {
-                Object o = SqlUtils.getEnumToValue(ctx, obj);
+                Object o = BeanUtils.getEnumToValue(ctx, obj);
                 if (o != null)
                     return o.toString();
                 else
                     return obj.toString();
             } else if (sqlType.getMetaType(ctx) == ctx.getTypeFactory().getDefaultType()) {
-                Object o = SqlUtils.getEnumToValue(ctx, obj);
+                Object o = BeanUtils.getEnumToValue(ctx, obj);
                 if (o != null && o instanceof Integer) {
                     return o.toString();
                 } else if (o != null && o instanceof String) {

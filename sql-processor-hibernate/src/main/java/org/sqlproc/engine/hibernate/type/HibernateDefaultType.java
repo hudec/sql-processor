@@ -283,7 +283,7 @@ public class HibernateDefaultType extends SqlMetaType {
                     resultValue = (Integer) ((BigDecimal) resultValue).intValue();
                 else if (resultValue != null && resultValue instanceof BigInteger)
                     resultValue = (Integer) ((BigInteger) resultValue).intValue();
-                Object enumInstance = SqlUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
+                Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
                 BeanUtils.simpleInvokeMethod(m, resultInstance, enumInstance);
             } else if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
@@ -324,7 +324,7 @@ public class HibernateDefaultType extends SqlMetaType {
         }
         if (!(inputValue instanceof Collection)) {
             if (inputType.isEnum()) {
-                Class clazz = SqlUtils.getEnumToClass(runtimeCtx, inputType);
+                Class clazz = BeanUtils.getEnumToClass(runtimeCtx, inputType);
                 if (clazz == String.class) {
                     HibernateTypeFactory.ENUM_STRING.setParameter(runtimeCtx, query, paramName, inputValue, inputType,
                             ingoreError);
@@ -359,7 +359,7 @@ public class HibernateDefaultType extends SqlMetaType {
                     break;
                 else
                     isEnum = true;
-                Object o = SqlUtils.getEnumToValue(runtimeCtx, val);
+                Object o = BeanUtils.getEnumToValue(runtimeCtx, val);
                 if (o != null) {
                     vals.add(o);
                 } else {

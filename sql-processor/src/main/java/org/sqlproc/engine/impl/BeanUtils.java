@@ -3,6 +3,8 @@ package org.sqlproc.engine.impl;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 
 import org.apache.commons.beanutils.ConstructorUtils;
@@ -10,6 +12,8 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 
 /**
@@ -97,6 +101,29 @@ public class BeanUtils {
         return null;
     }
 
+    public static class ReturnType {
+        Class<?> type;
+        Type genericType;
+        Class<?> typeClass;
+        String methodName;
+
+        ReturnType(Method m) {
+            methodName = m.getName();
+            type = m.getReturnType();
+            genericType = m.getGenericReturnType();
+            if (genericType != null && genericType instanceof ParameterizedType)
+                typeClass = (Class<?>) ((ParameterizedType) genericType).getActualTypeArguments()[0];
+        }
+    }
+
+    // used only for the output values handling, it's tested for the result null
+    public static ReturnType getGetterReturnType(Class<?> clazz, String attributeName) {
+        Method m = getGetter(clazz, attributeName);
+        if (m == null)
+            return null;
+        return new ReturnType(m);
+    }
+
     // used only for the output values handling, it's tested for the result null
     public static Method getGetter(Object bean, String attributeName) {
         PropertyDescriptor descriptor;
@@ -116,6 +143,14 @@ public class BeanUtils {
             return null;
         Method m = PropertyUtils.getReadMethod(descriptor);
         return m;
+    }
+
+    // used only for the output values handling, it's tested for the result null
+    public static ReturnType getGetterReturnType(Object bean, String attributeName) {
+        Method m = getGetter(bean, attributeName);
+        if (m == null)
+            return null;
+        return new ReturnType(m);
     }
 
     public static void setProperty(Object bean, String name, Object value) {
@@ -198,5 +233,65 @@ public class BeanUtils {
         } catch (InvocationTargetException e) {
             throw new SqlRuntimeException(e);
         }
+    }
+
+    public static Object invokeMethodIgnoreNoSuchMethod(Object obj, String methodName, Object arg) {
+        try {
+            return MethodUtils.invokeMethod(obj, methodName, arg);
+        } catch (NoSuchMethodException e) {
+            return null;
+        } catch (IllegalAccessException e) {
+            throw new SqlRuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new SqlRuntimeException(e);
+        }
+    }
+
+    // enums
+
+    public static Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object obj) {
+        if (obj == null)
+            return null;
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+            try {
+                return MethodUtils.invokeMethod(obj, methodName, null);
+            } catch (NoSuchMethodException e) {
+                continue;
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static Class getEnumToClass(SqlRuntimeContext runtimeCtx, Class clazz) {
+        if (clazz == null)
+            return null;
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+            Method m = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, new Class[] {});
+            if (m != null)
+                return m.getReturnType();
+        }
+        return null;
+    }
+
+    public static Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
+        if (val == null)
+            return null;
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
+            try {
+                return MethodUtils.invokeStaticMethod(objClass, methodName, val);
+            } catch (NoSuchMethodException e) {
+                continue;
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 }

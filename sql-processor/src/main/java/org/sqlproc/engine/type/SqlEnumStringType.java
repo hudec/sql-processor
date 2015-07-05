@@ -10,7 +10,6 @@ import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.BeanUtils;
-import org.sqlproc.engine.impl.SqlUtils;
 
 /**
  * The META type ENUMSTRING.
@@ -55,7 +54,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
         Class<?> attributeType = BeanUtils.getFieldType(resultInstance.getClass(), attributeName);
         Method m = BeanUtils.getSetter(resultInstance, attributeName, attributeType);
         if (m != null) {
-            Object enumInstance = SqlUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
+            Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
             BeanUtils.simpleInvokeMethod(m, resultInstance, enumInstance);
         } else if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
@@ -99,7 +98,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                                     + paramName);
                         }
                     } else {
-                        Object o = SqlUtils.getEnumToValue(runtimeCtx, val);
+                        Object o = BeanUtils.getEnumToValue(runtimeCtx, val);
                         if (o != null && o instanceof String) {
                             vals.add((String) o);
                         } else {
@@ -115,7 +114,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                 query.setParameterList(paramName, vals.toArray());
             }
         } else {
-            Object o = SqlUtils.getEnumToValue(runtimeCtx, inputValue);
+            Object o = BeanUtils.getEnumToValue(runtimeCtx, inputValue);
             if (o != null && o instanceof String) {
                 query.setParameter(paramName, (String) o, getProviderSqlType());
             } else

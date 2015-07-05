@@ -1,15 +1,13 @@
 package org.sqlproc.engine.plugin;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeContext;
-import org.sqlproc.engine.impl.SqlUtils;
+import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -93,15 +91,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             Object isNullObj = null;
             if (isEmptyUseMethodIsNull) {
-                try {
-                    isNullObj = MethodUtils.invokeMethod(parentObj, "isNull", attributeName);
-                } catch (NoSuchMethodException e) {
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
-
+                isNullObj = BeanUtils.invokeMethodIgnoreNoSuchMethod(parentObj, "isNull", attributeName);
             }
             if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
                 return true;
@@ -183,11 +173,11 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                     if (obj.toString().equals(inOutModifier)) {
                         return true;
                     } else if (sqlMetaType == runtimeCtx.getTypeFactory().getEnumStringType()) {
-                        return inOutModifier.equals(SqlUtils.getEnumToValue(runtimeCtx, obj));
+                        return inOutModifier.equals(BeanUtils.getEnumToValue(runtimeCtx, obj));
                     } else if (sqlMetaType == runtimeCtx.getTypeFactory().getEnumIntegerType()) {
-                        return inOutModifier.equals(SqlUtils.getEnumToValue(runtimeCtx, obj).toString());
+                        return inOutModifier.equals(BeanUtils.getEnumToValue(runtimeCtx, obj).toString());
                     } else {
-                        Object enumVal = SqlUtils.getEnumToValue(runtimeCtx, obj);
+                        Object enumVal = BeanUtils.getEnumToValue(runtimeCtx, obj);
                         if (enumVal.toString().equals(inOutModifier))
                             return true;
                         return false;
@@ -297,16 +287,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
-        Object result = null;
-        try {
-            result = MethodUtils.invokeMethod(parentObj, methodName, attributeName);
-        } catch (NoSuchMethodException e) {
-            return null;
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+        Object result = BeanUtils.invokeMethodIgnoreNoSuchMethod(parentObj, methodName, attributeName);
         if (result == null || !(result instanceof Boolean)) {
             return null;
         }

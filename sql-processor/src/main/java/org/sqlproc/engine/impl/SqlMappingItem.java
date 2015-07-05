@@ -1,7 +1,5 @@
 package org.sqlproc.engine.impl;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.impl.BeanUtils.ReturnType;
 import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -303,9 +302,9 @@ class SqlMappingItem implements SqlMetaElement {
                 SqlMappingAttribute attr = attributes.get(i);
                 String name = attr.getName();
 
-                Method m = BeanUtils.getGetter(objClass, name);
-                if (m != null) {
-                    objClass = m.getReturnType();
+                ReturnType rt = BeanUtils.getGetterReturnType(objClass, name);
+                if (rt != null) {
+                    objClass = rt.type;
                 } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                     logger.error("There's no getter for '" + name + "' in " + objClass
                             + ", complete attribute name is '" + attr.getFullName() + "'");
@@ -327,10 +326,8 @@ class SqlMappingItem implements SqlMetaElement {
                         String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
                                 + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
-                        if (typeClass == null) {
-                            ParameterizedType paramType = (ParameterizedType) m.getGenericReturnType();
-                            typeClass = (Class<?>) paramType.getActualTypeArguments()[0];
-                        }
+                        if (typeClass == null)
+                            typeClass = rt.typeClass;
                         if (typeClass != null) {
                             objClass = typeClass;
                         } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
@@ -422,14 +419,14 @@ class SqlMappingItem implements SqlMetaElement {
                         + identities.get(attr.getFullName()));
             }
 
-            Method m = BeanUtils.getGetter(obj, name);
-            if (m != null) {
-                Object nextObj = BeanUtils.invokeMethod(obj, m.getName(), null);
+            ReturnType rt = BeanUtils.getGetterReturnType(obj, name);
+            if (rt != null) {
+                Object nextObj = BeanUtils.invokeMethod(obj, rt.methodName, null);
                 if (nextObj == null) {
                     String typeName = values.get(attr.getFullName() + Modifiers.MODIFIER_TYPE);
                     Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                     if (typeClass == null) {
-                        Class<?> clazz = m.getReturnType();
+                        Class<?> clazz = rt.type;
                         if (clazz.isInterface()) {
                             if (clazz == List.class) {
                                 typeClass = ArrayList.class;
@@ -494,10 +491,8 @@ class SqlMappingItem implements SqlMetaElement {
                             else
                                 typeClass = moreResultClasses.get(typeName);
                         }
-                        if (typeClass == null) {
-                            ParameterizedType paramType = (ParameterizedType) m.getGenericReturnType();
-                            typeClass = (Class<?>) paramType.getActualTypeArguments()[0];
-                        }
+                        if (typeClass == null)
+                            typeClass = rt.typeClass;
                         if (typeClass != null) {
                             Object itemObj = BeanUtils.getInstance(typeClass);
                             if (itemObj != null) {

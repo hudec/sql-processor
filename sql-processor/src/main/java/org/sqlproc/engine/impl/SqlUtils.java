@@ -1,8 +1,6 @@
 package org.sqlproc.engine.impl;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -17,9 +15,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * SQL Processor utilities.
@@ -27,54 +23,6 @@ import org.sqlproc.engine.SqlRuntimeContext;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlUtils {
-
-    // enums
-
-    public static Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object obj) {
-        if (obj == null)
-            return null;
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
-            try {
-                return MethodUtils.invokeMethod(obj, methodName, null);
-            } catch (NoSuchMethodException e) {
-                continue;
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
-    }
-
-    @SuppressWarnings("rawtypes")
-    public static Class getEnumToClass(SqlRuntimeContext runtimeCtx, Class clazz) {
-        if (clazz == null)
-            return null;
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
-            Method m = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, new Class[] {});
-            if (m != null)
-                return m.getReturnType();
-        }
-        return null;
-    }
-
-    public static Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
-        if (val == null)
-            return null;
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
-            try {
-                return MethodUtils.invokeStaticMethod(objClass, methodName, val);
-            } catch (NoSuchMethodException e) {
-                continue;
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
-    }
 
     // miscs
 
