@@ -3,6 +3,7 @@ package org.sqlproc.engine.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlInputValue.Code;
 

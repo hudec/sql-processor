@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.sqlproc.engine.annotation.Beta;
-import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;

@@ -28,6 +28,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;

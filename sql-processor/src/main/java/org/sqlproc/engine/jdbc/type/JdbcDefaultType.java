@@ -11,10 +11,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
 

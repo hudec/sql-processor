@@ -3,10 +3,10 @@ package org.sqlproc.engine.type;
 import java.math.BigInteger;
 import java.util.Collection;
 
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.impl.BeanUtils;
 
 /**
  * The META types BIGINTEGER.

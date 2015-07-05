@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeContext;
-import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**

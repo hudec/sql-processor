@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.model.PhoneNumber;
 
 public class PhoneNumberType extends SqlInternalType {

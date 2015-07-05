@@ -23,6 +23,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;

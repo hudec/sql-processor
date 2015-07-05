@@ -1,4 +1,4 @@
-package org.sqlproc.engine.impl;
+package org.sqlproc.engine;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -12,9 +12,6 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.SqlFeature;
-import org.sqlproc.engine.SqlRuntimeContext;
-import org.sqlproc.engine.SqlRuntimeException;
 
 /**
  * Bean utilities.
@@ -102,12 +99,12 @@ public class BeanUtils {
     }
 
     public static class ReturnType {
-        Class<?> type;
-        Type genericType;
-        Class<?> typeClass;
-        String methodName;
+        public Class<?> type;
+        public Type genericType;
+        public Class<?> typeClass;
+        public String methodName;
 
-        ReturnType(Method m) {
+        public ReturnType(Method m) {
             methodName = m.getName();
             type = m.getReturnType();
             genericType = m.getGenericReturnType();

@@ -10,10 +10,11 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.impl.BeanUtils.ReturnType;
+import org.sqlproc.engine.BeanUtils.ReturnType;
 import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
