@@ -166,10 +166,10 @@ public class BeanUtils {
     }
 
     // used only for the output values handling, it's tested for the result null
-    public static Method getSetter(Object bean, String attributeName, Class<?>... classes) {
+    public static Method getSetter(Object bean, String attrName, Class<?>... attrTypes) {
         PropertyDescriptor descriptor;
         try {
-            descriptor = PropertyUtils.getPropertyDescriptor(bean, attributeName);
+            descriptor = PropertyUtils.getPropertyDescriptor(bean, attrName);
         } catch (IllegalAccessException e) {
             logger.error("getProperty", e);
             return null;
@@ -188,9 +188,9 @@ public class BeanUtils {
         if (m.getParameterTypes() == null || m.getParameterTypes().length != 1)
             return null;
         Class<?> parameterClass = m.getParameterTypes()[0];
-        if (classes == null)
+        if (attrTypes == null)
             return m;
-        for (Class<?> clazz : classes) {
+        for (Class<?> clazz : attrTypes) {
             if (clazz.isAssignableFrom(parameterClass))
                 return m;
         }
@@ -221,6 +221,16 @@ public class BeanUtils {
         } else
             result = null;
         return result;
+    }
+
+    public static boolean simpleInvokeSetter(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
+        Method m = getSetter(bean, attrName, attrTypes);
+        if (m != null) {
+            simpleInvokeMethod(m, bean, attrValue);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static Object invokeMethod(Object obj, String methodName, Object[] args) {

@@ -1,7 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.lang.reflect.Method;
-
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -49,26 +47,22 @@ public abstract class SqlByteArrayType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
         }
         if (resultValue instanceof byte[]) {
-            Method m = BeanUtils.getSetter(resultInstance, attributeName, byte[].class);
-            if (m != null) {
-                BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
+            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, byte[].class))
+                return;
+            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, SqlUtils.toBytes((byte[]) resultValue),
+                    Byte[].class))
+                return;
+            if (ingoreError) {
+                logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
+                        + getMetaTypes()[0]);
             } else {
-                m = BeanUtils.getSetter(resultInstance, attributeName, Byte[].class);
-                if (m != null) {
-                    BeanUtils.simpleInvokeMethod(m, resultInstance, SqlUtils.toBytes((byte[]) resultValue));
-                } else if (ingoreError) {
-                    logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
-                            + getMetaTypes()[0]);
-                } else {
-                    throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                            + ", META type is " + getMetaTypes()[0]);
-                }
+                throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
+                        + ", META type is " + getMetaTypes()[0]);
             }
         } else if (resultValue instanceof Byte[]) {
-            Method m = BeanUtils.getSetter(resultInstance, attributeName, Byte[].class);
-            if (m != null) {
-                BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
-            } else if (ingoreError) {
+            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, Byte[].class))
+                return;
+            if (ingoreError) {
                 logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
                         + getMetaTypes()[0]);
             } else {

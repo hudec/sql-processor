@@ -1,6 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -52,11 +51,10 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
         }
         Class<?> attributeType = BeanUtils.getFieldType(resultInstance.getClass(), attributeName);
-        Method m = BeanUtils.getSetter(resultInstance, attributeName, attributeType);
-        if (m != null) {
-            Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
-            BeanUtils.simpleInvokeMethod(m, resultInstance, enumInstance);
-        } else if (ingoreError) {
+        Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
+        if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, enumInstance, attributeType))
+            return;
+        if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
                     + getMetaTypes()[0]);
         } else {

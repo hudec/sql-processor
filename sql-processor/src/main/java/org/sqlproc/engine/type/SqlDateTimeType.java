@@ -1,6 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -50,20 +49,23 @@ public abstract class SqlDateTimeType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        Method m = BeanUtils.getSetter(resultInstance, attributeName, java.sql.Timestamp.class, java.util.Date.class);
-        if (m != null) {
-            if (resultValue instanceof java.sql.Timestamp) {
-                ((java.sql.Timestamp) resultValue).setNanos(0);
-                BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
-            } else if (resultValue instanceof java.util.Date) {
-                BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
-            } else if (ingoreError) {
-                logger.error("Incorrect datetime " + resultValue + " for " + attributeName + " in " + resultInstance);
-            } else {
-                throw new SqlRuntimeException("Incorrect datetime " + resultValue + " for " + attributeName + " in "
-                        + resultInstance);
-            }
+        if (resultValue instanceof java.sql.Timestamp) {
+            ((java.sql.Timestamp) resultValue).setNanos(0);
+            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+                    java.util.Date.class))
+                return;
+        } else if (resultValue instanceof java.util.Date) {
+            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+                    java.util.Date.class))
+                return;
         } else if (ingoreError) {
+            logger.error("Incorrect datetime " + resultValue + " for " + attributeName + " in " + resultInstance);
+            return;
+        } else {
+            throw new SqlRuntimeException("Incorrect datetime " + resultValue + " for " + attributeName + " in "
+                    + resultInstance);
+        }
+        if (ingoreError) {
             logger.error("There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
                     + getMetaTypes()[0]);
         } else {

@@ -1,6 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
 
 import org.sqlproc.engine.SqlQuery;
@@ -42,17 +41,16 @@ public abstract class SqlCharType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
+            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        Method m = BeanUtils.getSetter(resultInstance, attributeName, getClassTypes());
-        if (m != null)
-            BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
-        else if (ingoreError) {
+        if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, getClassTypes()))
+            return;
+        if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
                     + getMetaTypes()[0]);
         } else {

@@ -1,7 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Blob;
@@ -277,15 +276,15 @@ public class HibernateDefaultType extends SqlMetaType {
             }
         }
         if (attributeType.isEnum()) {
-            Method m = BeanUtils.getSetter(resultInstance, attributeName, attributeType);
-            if (m != null) {
-                if (resultValue != null && resultValue instanceof BigDecimal)
-                    resultValue = (Integer) ((BigDecimal) resultValue).intValue();
-                else if (resultValue != null && resultValue instanceof BigInteger)
-                    resultValue = (Integer) ((BigInteger) resultValue).intValue();
-                Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
-                BeanUtils.simpleInvokeMethod(m, resultInstance, enumInstance);
-            } else if (ingoreError) {
+            if (resultValue != null && resultValue instanceof BigDecimal)
+                resultValue = (Integer) ((BigDecimal) resultValue).intValue();
+            else if (resultValue != null && resultValue instanceof BigInteger)
+                resultValue = (Integer) ((BigInteger) resultValue).intValue();
+            Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
+
+            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, enumInstance, attributeType))
+                return;
+            if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
                         + ", META type is DEFAULT");
             } else {
@@ -293,16 +292,16 @@ public class HibernateDefaultType extends SqlMetaType {
                         + ", META type is DEFAULT");
             }
         } else {
-            Method m = BeanUtils.getSetter(resultInstance, attributeName, attributeType);
             if (resultValue != null) {
                 if (resultValue instanceof BigDecimal)
                     resultValue = SqlUtils.convertBigDecimal(attributeType, resultValue);
                 else if (resultValue instanceof BigInteger)
                     resultValue = SqlUtils.convertBigInteger(attributeType, resultValue);
             }
-            if (m != null) {
-                BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
-            } else if (ingoreError) {
+
+            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, attributeType))
+                return;
+            if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
                         + ", META type is DEFAULT");
             } else {

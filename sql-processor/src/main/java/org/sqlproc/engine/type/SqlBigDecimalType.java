@@ -1,6 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Collection;
 
@@ -50,10 +49,9 @@ public abstract class SqlBigDecimalType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        Method m = BeanUtils.getSetter(resultInstance, attributeName, getClassTypes());
-        if (m != null)
-            BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
-        else if (ingoreError) {
+        if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, getClassTypes()))
+            return;
+        if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
                     + getMetaTypes()[0]);
         } else {
