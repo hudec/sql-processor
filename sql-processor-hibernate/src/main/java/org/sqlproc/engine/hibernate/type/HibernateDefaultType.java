@@ -264,7 +264,7 @@ public class HibernateDefaultType extends SqlMetaType {
                     + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        Class<?> attributeType = BeanUtils.getFieldType(resultInstance.getClass(), attributeName);
+        Class<?> attributeType = BeanUtils.getAttributeType(resultInstance.getClass(), attributeName);
         if (attributeType == null) {
             if (ingoreError) {
                 logger.error("There's problem with attribute type for '" + attributeName + "' in " + resultInstance

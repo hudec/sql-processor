@@ -24,6 +24,7 @@ public class BeanUtils {
     private static ConcurrentHashMap<String, Class<?>> attrsType = new ConcurrentHashMap<String, Class<?>>();
     private static ConcurrentHashMap<String, Method> beansGetter = new ConcurrentHashMap<String, Method>();
     private static ConcurrentHashMap<String, GetterType> beansGetterType = new ConcurrentHashMap<String, GetterType>();
+    private static ConcurrentHashMap<String, Method> beansSetter = new ConcurrentHashMap<String, Method>();
 
     /**
      * The internal slf4j logger.
@@ -56,6 +57,24 @@ public class BeanUtils {
         }
     }
 
+    // descriptor
+
+    public static PropertyDescriptor getAttributeDescriptor(Class<?> clazz, String attrName, String calledFrom) {
+        PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clazz);
+        PropertyDescriptor descriptor = null;
+        if (descriptors != null) {
+            for (PropertyDescriptor _descriptor : descriptors) {
+                if (_descriptor.getName().equalsIgnoreCase(attrName)) {
+                    descriptor = _descriptor;
+                    break;
+                }
+            }
+        }
+        if (descriptor == null)
+            logger.error("There's no attribute " + attrName + " in " + clazz.getName());
+        return descriptor;
+    }
+
     // attributes
 
     public static Class<?> getAttributeType(Class<?> clazz, String attrName) {
@@ -64,18 +83,11 @@ public class BeanUtils {
         if (attrType != null)
             return attrType;
 
-        PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clazz);
-        if (descriptors != null) {
-            for (int i = 0; i < descriptors.length; i++) {
-                if (attrName.equals(descriptors[i].getName())) {
-                    attrType = (descriptors[i].getPropertyType());
-                    break;
-                }
-            }
-        }
-        if (attrType == null)
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName, "getAttributeType");
+        if (descriptor == null)
             return null;
 
+        attrType = descriptor.getPropertyType();
         Class<?> attrTypePrev = attrsType.putIfAbsent(keyName, attrType);
         if (attrTypePrev != null)
             return attrTypePrev;
@@ -96,15 +108,11 @@ public class BeanUtils {
         if (getter != null)
             return getter;
 
-        PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clazz);
-        if (descriptors != null) {
-            for (int i = 0; i < descriptors.length; i++) {
-                if (attrName.equals(descriptors[i].getName())) {
-                    getter = PropertyUtils.getReadMethod(descriptors[i]);
-                    break;
-                }
-            }
-        }
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName, "getGetter");
+        if (descriptor == null)
+            return null;
+
+        getter = PropertyUtils.getReadMethod(descriptor);
         if (getter == null)
             return null;
 
@@ -112,10 +120,6 @@ public class BeanUtils {
         if (getterPrev != null)
             return getterPrev;
         return getter;
-    }
-
-    public static Method getGetter(Object bean, String attrName) {
-        return getGetter(bean.getClass(), attrName);
     }
 
     public static class GetterType {
@@ -168,6 +172,60 @@ public class BeanUtils {
 
     // setters
 
+    private static String attrTypes2String(Class<?>... attrTypes) {
+        if (attrTypes == null || attrTypes.length == 0)
+            return "";
+        StringBuilder sb = new StringBuilder(".");
+        boolean first = true;
+        for (Class<?> attrType : attrTypes) {
+            if (first)
+                first = false;
+            else
+                sb.append(",");
+            sb.append(attrType.getName());
+        }
+        return sb.toString();
+    }
+
+    public static <E> Method getSetter(Class<E> clazz, String attrName, Class<?>... attrTypes) {
+        String keyName = clazz.getName() + "." + attrName + attrTypes2String(attrTypes);
+        Method _setter = beansSetter.get(keyName);
+        if (_setter != null)
+            return _setter;
+
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName, "getSetter");
+        if (descriptor == null)
+            return null;
+
+        _setter = PropertyUtils.getWriteMethod(descriptor);
+        if (_setter == null)
+            return null;
+        if (_setter.getParameterTypes() == null || _setter.getParameterTypes().length != 1)
+            return null;
+
+        Method setter = null;
+        if (attrTypes == null) {
+            return setter = _setter;
+        } else {
+            Class<?> setterType = _setter.getParameterTypes()[0];
+            for (Class<?> _clazz : attrTypes) {
+                if (_clazz.isAssignableFrom(setterType))
+                    setter = _setter;
+            }
+        }
+        if (setter == null)
+            return null;
+
+        Method setterPrev = beansSetter.putIfAbsent(keyName, setter);
+        if (setterPrev != null)
+            return setterPrev;
+        return setter;
+    }
+
+    public static <E> Method getSetter(Object bean, String attrName, Class<?>... attrTypes) {
+        return getSetter(bean.getClass(), attrName, attrTypes);
+    }
+
     public static void setProperty(Object bean, String name, Object value) {
         try {
             PropertyUtils.setSimpleProperty(bean, name, value);
@@ -180,64 +238,6 @@ public class BeanUtils {
         }
     }
 
-    // used only for the output values handling, it's tested for the result null
-    public static Method getSetter(Object bean, String attrName, Class<?>... attrTypes) {
-        PropertyDescriptor descriptor;
-        try {
-            descriptor = PropertyUtils.getPropertyDescriptor(bean, attrName);
-        } catch (IllegalAccessException e) {
-            logger.error("getProperty", e);
-            return null;
-        } catch (InvocationTargetException e) {
-            logger.error("getProperty", e);
-            return null;
-        } catch (NoSuchMethodException e) {
-            logger.error("getProperty", e);
-            return null;
-        }
-        if (descriptor == null)
-            return null;
-        Method m = PropertyUtils.getWriteMethod(descriptor);
-        if (m == null)
-            return null;
-        if (m.getParameterTypes() == null || m.getParameterTypes().length != 1)
-            return null;
-        Class<?> parameterClass = m.getParameterTypes()[0];
-        if (attrTypes == null)
-            return m;
-        for (Class<?> clazz : attrTypes) {
-            if (clazz.isAssignableFrom(parameterClass))
-                return m;
-        }
-        return null;
-    }
-
-    public static Object simpleInvokeMethod(Method m, Object obj, Object param) {
-        Object result;
-        if (m != null) {
-            try {
-                if (!m.isAccessible())
-                    m.setAccessible(true);
-                result = m.invoke(obj, param);
-            } catch (IllegalAccessException e) {
-                throw new SqlRuntimeException(e);
-            } catch (IllegalArgumentException e) {
-                StringBuilder sb = new StringBuilder("Not compatible output value of type ")
-                        .append((param != null) ? param.getClass() : "null");
-                sb.append(". The result class of type ").append((obj != null) ? obj.getClass() : "null");
-                sb.append(" for the method ").append(m.getName());
-                sb.append(" is expecting the paramater(s) of type(s) ").append(
-                        (m.getParameterTypes() != null) ? Arrays.asList(m.getParameterTypes()) : "empty");
-                sb.append(".");
-                throw new SqlRuntimeException(sb.toString(), e);
-            } catch (InvocationTargetException e) {
-                throw new SqlRuntimeException(e);
-            }
-        } else
-            result = null;
-        return result;
-    }
-
     public static boolean simpleInvokeSetter(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
         Method m = getSetter(bean, attrName, attrTypes);
         if (m != null) {
@@ -246,6 +246,31 @@ public class BeanUtils {
         } else {
             return false;
         }
+    }
+
+    // methods invocation
+
+    public static Object simpleInvokeMethod(Method m, Object obj, Object param) {
+        Object result = null;
+        try {
+            if (!m.isAccessible())
+                m.setAccessible(true);
+            result = m.invoke(obj, param);
+        } catch (IllegalAccessException e) {
+            throw new SqlRuntimeException(e);
+        } catch (IllegalArgumentException e) {
+            StringBuilder sb = new StringBuilder("Not compatible output value of type ").append((param != null) ? param
+                    .getClass() : "null");
+            sb.append(". The result class of type ").append((obj != null) ? obj.getClass() : "null");
+            sb.append(" for the method ").append(m.getName());
+            sb.append(" is expecting the paramater(s) of type(s) ").append(
+                    (m.getParameterTypes() != null) ? Arrays.asList(m.getParameterTypes()) : "empty");
+            sb.append(".");
+            throw new SqlRuntimeException(sb.toString(), e);
+        } catch (InvocationTargetException e) {
+            throw new SqlRuntimeException(e);
+        }
+        return result;
     }
 
     public static Object invokeMethod(Object obj, String methodName, Object[] args) {
