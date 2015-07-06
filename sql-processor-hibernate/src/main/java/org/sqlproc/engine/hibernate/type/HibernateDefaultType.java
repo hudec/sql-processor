@@ -282,7 +282,7 @@ public class HibernateDefaultType extends SqlMetaType {
                 resultValue = (Integer) ((BigInteger) resultValue).intValue();
             Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
 
-            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, enumInstance, attributeType))
+            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
@@ -299,7 +299,7 @@ public class HibernateDefaultType extends SqlMetaType {
                     resultValue = SqlUtils.convertBigInteger(attributeType, resultValue);
             }
 
-            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, attributeType))
+            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance

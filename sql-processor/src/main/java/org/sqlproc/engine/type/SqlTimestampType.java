@@ -48,7 +48,7 @@ public abstract class SqlTimestampType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
                 java.util.Date.class))
             return;
         if (ingoreError) {

@@ -158,6 +158,15 @@ public class BeanUtils {
         return getGetterType(bean.getClass(), attrName);
     }
 
+    public static Object simpleGetAttribute(Object bean, String attrName) {
+        Method m = getGetter(bean.getClass(), attrName);
+        if (m != null) {
+            return simpleInvokeMethod(m, bean, null);
+        } else {
+            return null;
+        }
+    }
+
     public static Object getAttribute(Object bean, String attrName) {
         try {
             return PropertyUtils.getSimpleProperty(bean, attrName);
@@ -187,7 +196,7 @@ public class BeanUtils {
         return sb.toString();
     }
 
-    public static <E> Method getSetter(Class<E> clazz, String attrName, Class<?>... attrTypes) {
+    public static Method getSetter(Class<?> clazz, String attrName, Class<?>... attrTypes) {
         String keyName = clazz.getName() + "." + attrName + attrTypes2String(attrTypes);
         Method _setter = beansSetter.get(keyName);
         if (_setter != null)
@@ -205,7 +214,7 @@ public class BeanUtils {
 
         Method setter = null;
         if (attrTypes == null) {
-            return setter = _setter;
+            setter = _setter;
         } else {
             Class<?> setterType = _setter.getParameterTypes()[0];
             for (Class<?> _clazz : attrTypes) {
@@ -222,23 +231,11 @@ public class BeanUtils {
         return setter;
     }
 
-    public static <E> Method getSetter(Object bean, String attrName, Class<?>... attrTypes) {
+    public static Method getSetter(Object bean, String attrName, Class<?>... attrTypes) {
         return getSetter(bean.getClass(), attrName, attrTypes);
     }
 
-    public static void setProperty(Object bean, String name, Object value) {
-        try {
-            PropertyUtils.setSimpleProperty(bean, name, value);
-        } catch (IllegalAccessException e) {
-            throw new SqlRuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new SqlRuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new SqlRuntimeException(e);
-        }
-    }
-
-    public static boolean simpleInvokeSetter(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
+    public static boolean simpleSetAttribute(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
         Method m = getSetter(bean, attrName, attrTypes);
         if (m != null) {
             simpleInvokeMethod(m, bean, attrValue);
@@ -248,18 +245,30 @@ public class BeanUtils {
         }
     }
 
+    public static void setAttribute(Object bean, String attrName, Object attrValue) {
+        try {
+            PropertyUtils.setSimpleProperty(bean, attrName, attrValue);
+        } catch (IllegalAccessException e) {
+            throw new SqlRuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new SqlRuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new SqlRuntimeException(e);
+        }
+    }
+
     // methods invocation
 
-    public static Object simpleInvokeMethod(Method m, Object obj, Object param) {
+    public static Object simpleInvokeMethod(Method m, Object obj, Object arg) {
         Object result = null;
         try {
             if (!m.isAccessible())
                 m.setAccessible(true);
-            result = m.invoke(obj, param);
+            result = m.invoke(obj, arg);
         } catch (IllegalAccessException e) {
             throw new SqlRuntimeException(e);
         } catch (IllegalArgumentException e) {
-            StringBuilder sb = new StringBuilder("Not compatible output value of type ").append((param != null) ? param
+            StringBuilder sb = new StringBuilder("Not compatible output value of type ").append((arg != null) ? arg
                     .getClass() : "null");
             sb.append(". The result class of type ").append((obj != null) ? obj.getClass() : "null");
             sb.append(" for the method ").append(m.getName());
@@ -273,11 +282,11 @@ public class BeanUtils {
         return result;
     }
 
-    public static Object invokeMethod(Object obj, String methodName, Object[] args) {
+    public static Object simpleInvokeMethod(Object bean, String methodName, Object arg) {
         try {
-            return MethodUtils.invokeMethod(obj, methodName, args);
+            return MethodUtils.invokeMethod(bean, methodName, arg);
         } catch (NoSuchMethodException e) {
-            throw new SqlRuntimeException(e);
+            return null;
         } catch (IllegalAccessException e) {
             throw new SqlRuntimeException(e);
         } catch (InvocationTargetException e) {
@@ -285,11 +294,11 @@ public class BeanUtils {
         }
     }
 
-    public static Object invokeMethodIgnoreNoSuchMethod(Object obj, String methodName, Object arg) {
+    public static Object invokeMethod(Object bean, String methodName, Object[] args) {
         try {
-            return MethodUtils.invokeMethod(obj, methodName, arg);
+            return MethodUtils.invokeMethod(bean, methodName, args);
         } catch (NoSuchMethodException e) {
-            return null;
+            throw new SqlRuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new SqlRuntimeException(e);
         } catch (InvocationTargetException e) {
@@ -299,12 +308,12 @@ public class BeanUtils {
 
     // enums
 
-    public static Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object obj) {
-        if (obj == null)
+    public static Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object bean) {
+        if (bean == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
             try {
-                return MethodUtils.invokeMethod(obj, methodName, null);
+                return MethodUtils.invokeMethod(bean, methodName, null);
             } catch (NoSuchMethodException e) {
                 continue;
             } catch (IllegalAccessException e) {
@@ -316,8 +325,7 @@ public class BeanUtils {
         return null;
     }
 
-    @SuppressWarnings("rawtypes")
-    public static Class getEnumToClass(SqlRuntimeContext runtimeCtx, Class clazz) {
+    public static Class<?> getEnumToClass(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
         if (clazz == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {

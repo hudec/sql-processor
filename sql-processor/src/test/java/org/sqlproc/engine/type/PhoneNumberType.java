@@ -1,6 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.lang.reflect.Method;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,8 +39,9 @@ public class PhoneNumberType extends SqlInternalType {
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
             Object resultValue, boolean ingoreError) throws SqlRuntimeException {
 
-        Method m = BeanUtils.getSetter(resultInstance, attributeName, PhoneNumber.class);
-        if (m == null) {
+        if (resultValue == null) {
+            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, null, PhoneNumber.class))
+                return;
             if (ingoreError) {
                 logger.error("There's no getter for " + attributeName + " in " + resultInstance
                         + ", META type is PhoneNumberType");
@@ -50,11 +50,6 @@ public class PhoneNumberType extends SqlInternalType {
                 throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
                         + ", META type is PhoneNumberType");
             }
-        }
-
-        if (resultValue == null) {
-            BeanUtils.simpleInvokeMethod(m, resultInstance, null);
-            return;
         }
 
         if (!(resultValue instanceof String)) {
@@ -76,11 +71,21 @@ public class PhoneNumberType extends SqlInternalType {
                 throw new SqlRuntimeException("Incorrect result phone number format '" + sPhoneNumber + "'");
             }
         }
-
         int area = Integer.parseInt(matcher.group(1));
         int exch = Integer.parseInt(matcher.group(2));
         int ext = Integer.parseInt(matcher.group(3));
-        BeanUtils.simpleInvokeMethod(m, resultInstance, new PhoneNumber(area, exch, ext));
+
+        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, new PhoneNumber(area, exch, ext),
+                PhoneNumber.class))
+            return;
+        if (ingoreError) {
+            logger.error("There's no getter for " + attributeName + " in " + resultInstance
+                    + ", META type is PhoneNumberType");
+            return;
+        } else {
+            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
+                    + ", META type is PhoneNumberType");
+        }
     }
 
     @Override

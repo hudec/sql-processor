@@ -51,11 +51,11 @@ public abstract class SqlDateTimeType extends SqlProviderType {
         }
         if (resultValue instanceof java.sql.Timestamp) {
             ((java.sql.Timestamp) resultValue).setNanos(0);
-            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
                     java.util.Date.class))
                 return;
         } else if (resultValue instanceof java.util.Date) {
-            if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
                     java.util.Date.class))
                 return;
         } else if (ingoreError) {

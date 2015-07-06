@@ -49,7 +49,7 @@ public abstract class SqlBlobType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, resultValue, getClassTypes()))
+        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, getClassTypes()))
             return;
         if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "

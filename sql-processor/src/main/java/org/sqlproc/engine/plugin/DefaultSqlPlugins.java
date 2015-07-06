@@ -91,7 +91,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             Object isNullObj = null;
             if (isEmptyUseMethodIsNull) {
-                isNullObj = BeanUtils.invokeMethodIgnoreNoSuchMethod(parentObj, "isNull", attributeName);
+                isNullObj = BeanUtils.simpleInvokeMethod(parentObj, "isNull", attributeName);
             }
             if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
                 return true;
@@ -287,7 +287,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
-        Object result = BeanUtils.invokeMethodIgnoreNoSuchMethod(parentObj, methodName, attributeName);
+        Object result = BeanUtils.simpleInvokeMethod(parentObj, methodName, attributeName);
         if (result == null || !(result instanceof Boolean)) {
             return null;
         }
