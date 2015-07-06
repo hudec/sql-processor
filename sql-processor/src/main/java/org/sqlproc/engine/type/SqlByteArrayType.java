@@ -47,10 +47,10 @@ public abstract class SqlByteArrayType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
         }
         if (resultValue instanceof byte[]) {
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, byte[].class))
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue, byte[].class))
                 return;
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, SqlUtils.toBytes((byte[]) resultValue),
-                    Byte[].class))
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName,
+                    SqlUtils.toBytes((byte[]) resultValue), Byte[].class))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
@@ -60,7 +60,7 @@ public abstract class SqlByteArrayType extends SqlProviderType {
                         + ", META type is " + getMetaTypes()[0]);
             }
         } else if (resultValue instanceof Byte[]) {
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, Byte[].class))
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue, Byte[].class))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "

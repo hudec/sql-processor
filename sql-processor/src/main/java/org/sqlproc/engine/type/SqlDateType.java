@@ -48,7 +48,7 @@ public abstract class SqlDateType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Date.class,
+        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue, java.sql.Date.class,
                 java.util.Date.class))
             return;
         if (ingoreError) {

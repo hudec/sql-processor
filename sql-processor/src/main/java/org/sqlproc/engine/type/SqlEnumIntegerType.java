@@ -50,9 +50,9 @@ public abstract class SqlEnumIntegerType extends SqlProviderType {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
         }
-        Class<?> attributeType = BeanUtils.getAttributeType(resultInstance.getClass(), attributeName);
+        Class<?> attributeType = BeanUtils.getAttributeType(runtimeCtx, resultInstance.getClass(), attributeName);
         Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
-        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
+        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, enumInstance, attributeType))
             return;
         if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "

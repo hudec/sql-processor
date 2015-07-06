@@ -85,7 +85,7 @@ public class JdbcDefaultType extends SqlMetaType {
                     + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        Class<?> attributeType = BeanUtils.getAttributeType(resultInstance.getClass(), attributeName);
+        Class<?> attributeType = BeanUtils.getAttributeType(runtimeCtx, resultInstance.getClass(), attributeName);
         if (attributeType == null) {
             if (ingoreError) {
                 logger.error("There's problem with attribute type for '" + attributeName + "' in " + resultInstance
@@ -103,7 +103,7 @@ public class JdbcDefaultType extends SqlMetaType {
                 resultValue = (Integer) ((BigInteger) resultValue).intValue();
             Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
 
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, enumInstance, attributeType))
                 return;
             else if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
@@ -120,7 +120,7 @@ public class JdbcDefaultType extends SqlMetaType {
                     resultValue = SqlUtils.convertBigInteger(attributeType, resultValue);
             }
 
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue, attributeType))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance

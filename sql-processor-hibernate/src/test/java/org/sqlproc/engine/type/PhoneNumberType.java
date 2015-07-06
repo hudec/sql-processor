@@ -40,7 +40,7 @@ public class PhoneNumberType extends SqlInternalType {
             Object resultValue, boolean ingoreError) throws SqlRuntimeException {
 
         if (resultValue == null) {
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, null, PhoneNumber.class))
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, null, PhoneNumber.class))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for " + attributeName + " in " + resultInstance
@@ -75,7 +75,7 @@ public class PhoneNumberType extends SqlInternalType {
         int exch = Integer.parseInt(matcher.group(2));
         int ext = Integer.parseInt(matcher.group(3));
 
-        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, new PhoneNumber(area, exch, ext),
+        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, new PhoneNumber(area, exch, ext),
                 PhoneNumber.class))
             return;
         if (ingoreError) {

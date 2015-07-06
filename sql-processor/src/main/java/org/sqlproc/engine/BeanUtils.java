@@ -77,7 +77,7 @@ public class BeanUtils {
 
     // attributes
 
-    public static Class<?> getAttributeType(Class<?> clazz, String attrName) {
+    public static Class<?> getAttributeType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
         Class<?> attrType = attrsType.get(keyName);
         if (attrType != null)
@@ -94,15 +94,15 @@ public class BeanUtils {
         return attrType;
     }
 
-    public static boolean checkAttribute(Object bean, String attrName) {
-        if (getAttributeType(bean.getClass(), attrName) != null)
+    public static boolean checkAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
+        if (getAttributeType(runtimeCtx, bean.getClass(), attrName) != null)
             return true;
         return false;
     }
 
     // getters
 
-    private static Method getGetter(Class<?> clazz, String attrName) {
+    private static Method getGetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
         Method getter = beansGetter.get(keyName);
         if (getter != null)
@@ -137,13 +137,13 @@ public class BeanUtils {
         }
     }
 
-    public static GetterType getGetterType(Class<?> clazz, String attrName) {
+    public static GetterType getGetterType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
         GetterType getterType = beansGetterType.get(keyName);
         if (getterType != null)
             return getterType;
 
-        Method m = getGetter(clazz, attrName);
+        Method m = getGetter(runtimeCtx, clazz, attrName);
         if (m == null)
             return null;
 
@@ -154,11 +154,11 @@ public class BeanUtils {
         return getterType;
     }
 
-    public static GetterType getGetterType(Object bean, String attrName) {
-        return getGetterType(bean.getClass(), attrName);
+    public static GetterType getGetterType(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
+        return getGetterType(runtimeCtx, bean.getClass(), attrName);
     }
 
-    public static Object getAttribute(Object bean, String attrName) {
+    public static Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
         try {
             return PropertyUtils.getSimpleProperty(bean, attrName);
         } catch (IllegalAccessException e) {
@@ -187,7 +187,7 @@ public class BeanUtils {
         return sb.toString();
     }
 
-    public static Method getSetter(Class<?> clazz, String attrName, Class<?>... attrTypes) {
+    public static Method getSetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, Class<?>... attrTypes) {
         String keyName = clazz.getName() + "." + attrName + attrTypes2String(attrTypes);
         Method _setter = beansSetter.get(keyName);
         if (_setter != null)
@@ -222,21 +222,22 @@ public class BeanUtils {
         return setter;
     }
 
-    public static Method getSetter(Object bean, String attrName, Class<?>... attrTypes) {
-        return getSetter(bean.getClass(), attrName, attrTypes);
+    public static Method getSetter(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Class<?>... attrTypes) {
+        return getSetter(runtimeCtx, bean.getClass(), attrName, attrTypes);
     }
 
-    public static boolean simpleSetAttribute(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
-        Method m = getSetter(bean, attrName, attrTypes);
+    public static boolean simpleSetAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName,
+            Object attrValue, Class<?>... attrTypes) {
+        Method m = getSetter(runtimeCtx, bean, attrName, attrTypes);
         if (m != null) {
-            simpleInvokeMethod(bean, m, attrValue);
+            simpleInvokeMethod(runtimeCtx, bean, m, attrValue);
             return true;
         } else {
             return false;
         }
     }
 
-    public static void setAttribute(Object bean, String attrName, Object attrValue) {
+    public static void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue) {
         try {
             PropertyUtils.setSimpleProperty(bean, attrName, attrValue);
         } catch (IllegalAccessException e) {
@@ -250,7 +251,7 @@ public class BeanUtils {
 
     // methods invocation
 
-    public static Object simpleInvokeMethod(Object bean, Method m, Object arg) {
+    public static Object simpleInvokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method m, Object arg) {
         Object result = null;
         try {
             if (!m.isAccessible())
@@ -273,7 +274,7 @@ public class BeanUtils {
         return result;
     }
 
-    public static Object simpleInvokeMethod(Object bean, String methodName, Object arg) {
+    public static Object simpleInvokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object arg) {
         try {
             return MethodUtils.invokeMethod(bean, methodName, arg);
         } catch (NoSuchMethodException e) {
@@ -285,7 +286,7 @@ public class BeanUtils {
         }
     }
 
-    public static Object invokeMethod(Object bean, String methodName, Object[] args) {
+    public static Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object[] args) {
         try {
             return MethodUtils.invokeMethod(bean, methodName, args);
         } catch (NoSuchMethodException e) {

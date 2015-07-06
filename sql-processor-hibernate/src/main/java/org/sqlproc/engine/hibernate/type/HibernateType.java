@@ -94,14 +94,16 @@ public class HibernateType extends SqlMetaType {
                     + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null) + ", hibernateType=" + hibernateType);
         }
-        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, hibernateType.getReturnedClass()))
+        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
+                hibernateType.getReturnedClass()))
             return;
         if (hibernateType instanceof PrimitiveType)
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue,
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
                     ((PrimitiveType) hibernateType).getPrimitiveClass()))
                 return;
         if (hibernateType.getReturnedClass() == java.util.Date.class)
-            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class))
+            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
+                    java.sql.Timestamp.class))
                 return;
         if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance

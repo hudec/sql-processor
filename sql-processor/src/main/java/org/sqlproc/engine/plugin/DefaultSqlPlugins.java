@@ -35,7 +35,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                     + ", inSqlSetOrInsert=" + inSqlSetOrInsert);
         }
 
-        Boolean delegatedResult = callMethod(attributeName, parentObj, values);
+        Boolean delegatedResult = callMethod(runtimeCtx, attributeName, parentObj, values);
         if (delegatedResult != null) {
             return delegatedResult;
         }
@@ -91,7 +91,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             Object isNullObj = null;
             if (isEmptyUseMethodIsNull) {
-                isNullObj = BeanUtils.simpleInvokeMethod(parentObj, "isNull", attributeName);
+                isNullObj = BeanUtils.simpleInvokeMethod(runtimeCtx, parentObj, "isNull", attributeName);
             }
             if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
                 return true;
@@ -141,7 +141,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     public boolean isTrue(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values) {
 
-        Boolean delegatedResult = callMethod(attributeName, parentObj, values);
+        Boolean delegatedResult = callMethod(runtimeCtx, attributeName, parentObj, values);
         if (delegatedResult != null) {
             return delegatedResult;
         }
@@ -276,7 +276,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         }
     }
 
-    private Boolean callMethod(String attributeName, Object parentObj, Map<String, String> values) {
+    private Boolean callMethod(SqlRuntimeContext runtimeCtx, String attributeName, Object parentObj,
+            Map<String, String> values) {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> callMethod attributeName=" + attributeName + ", parentObj=" + parentObj + ", values="
                     + values);
@@ -287,7 +288,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
-        Object result = BeanUtils.simpleInvokeMethod(parentObj, methodName, attributeName);
+        Object result = BeanUtils.simpleInvokeMethod(runtimeCtx, parentObj, methodName, attributeName);
         if (result == null || !(result instanceof Boolean)) {
             return null;
         }

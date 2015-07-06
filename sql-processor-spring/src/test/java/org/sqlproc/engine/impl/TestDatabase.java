@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.dbcp.PoolableConnection;
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
@@ -332,25 +331,5 @@ public abstract class TestDatabase extends DatabaseTestCase {
             }
         });
 
-    }
-
-    public static class DbConnection extends DatabaseConnection {
-
-        Connection wrapperConnection;
-
-        public DbConnection(Connection connection) throws DatabaseUnitException {
-            super(((PoolableConnection) ((Connection) BeanUtils.getAttribute(connection, "delegate"))).getDelegate());
-            wrapperConnection = connection;
-        }
-
-        public DbConnection(Connection connection, String schema) throws DatabaseUnitException {
-            super(((PoolableConnection) ((Connection) BeanUtils.getAttribute(connection, "delegate"))).getDelegate());
-            wrapperConnection = connection;
-        }
-
-        @Override
-        public void close() throws SQLException {
-            wrapperConnection.close();
-        }
     }
 }

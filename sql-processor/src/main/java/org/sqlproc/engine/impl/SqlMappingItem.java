@@ -303,7 +303,7 @@ class SqlMappingItem implements SqlMetaElement {
                 SqlMappingAttribute attr = attributes.get(i);
                 String name = attr.getName();
 
-                GetterType rt = BeanUtils.getGetterType(objClass, name);
+                GetterType rt = BeanUtils.getGetterType(ctx, objClass, name);
                 if (rt != null) {
                     objClass = rt.type;
                 } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
@@ -350,7 +350,7 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 }
             }
-            Class<?> attributeType = BeanUtils.getAttributeType(objClass, getName());
+            Class<?> attributeType = BeanUtils.getAttributeType(ctx, objClass, getName());
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", attributeType=" + attributeType);
@@ -420,9 +420,9 @@ class SqlMappingItem implements SqlMetaElement {
                         + identities.get(attr.getFullName()));
             }
 
-            GetterType rt = BeanUtils.getGetterType(obj, name);
+            GetterType rt = BeanUtils.getGetterType(ctx, obj, name);
             if (rt != null) {
-                Object nextObj = BeanUtils.invokeMethod(obj, rt.methodName, null);
+                Object nextObj = BeanUtils.invokeMethod(ctx, obj, rt.methodName, null);
                 if (nextObj == null) {
                     String typeName = values.get(attr.getFullName() + Modifiers.MODIFIER_TYPE);
                     Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
@@ -463,7 +463,7 @@ class SqlMappingItem implements SqlMetaElement {
                         else
                             nextObj = BeanUtils.getInstance(typeClass);
                         if (nextObj != null) {
-                            BeanUtils.setAttribute(obj, name, nextObj);
+                            BeanUtils.setAttribute(ctx, obj, name, nextObj);
                         } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                             logger.error("There's problem to instantiate " + typeClass
                                     + ", complete attribute name is '" + attr.getFullName()
