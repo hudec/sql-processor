@@ -158,15 +158,6 @@ public class BeanUtils {
         return getGetterType(bean.getClass(), attrName);
     }
 
-    public static Object simpleGetAttribute(Object bean, String attrName) {
-        Method m = getGetter(bean.getClass(), attrName);
-        if (m != null) {
-            return simpleInvokeMethod(bean, m, null);
-        } else {
-            return null;
-        }
-    }
-
     public static Object getAttribute(Object bean, String attrName) {
         try {
             return PropertyUtils.getSimpleProperty(bean, attrName);
