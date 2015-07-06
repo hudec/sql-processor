@@ -262,7 +262,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
 
             } else if (attributeType != null) {
                 Class<?> origAttributeType = attributeType;
-                attributeType = BeanUtils.getFieldType(attributeType, attributeName);
+                attributeType = BeanUtils.getAttributeType(attributeType, attributeName);
                 if (attributeType == null) {
                     if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
                         logger.error("There's no attribute '" + attributeName + "' for " + origAttributeType);
@@ -282,7 +282,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             // break;
             if (obj != null) {
                 parentObj = obj;
-                obj = BeanUtils.getProperty(obj, item);
+                obj = BeanUtils.getAttribute(obj, item);
             }
             if (obj == null && lastAttributeName == null) {
                 lastAttributeName = attributeName;
@@ -402,7 +402,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             attributeName = item;
             if (obj != null) {
                 parentObj = obj;
-                obj = BeanUtils.getProperty(obj, item);
+                obj = BeanUtils.getAttribute(obj, item);
             }
         }
 

@@ -14,7 +14,7 @@ import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.BeanUtils.ReturnType;
+import org.sqlproc.engine.BeanUtils.GetterType;
 import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -303,7 +303,7 @@ class SqlMappingItem implements SqlMetaElement {
                 SqlMappingAttribute attr = attributes.get(i);
                 String name = attr.getName();
 
-                ReturnType rt = BeanUtils.getGetterReturnType(objClass, name);
+                GetterType rt = BeanUtils.getGetterType(objClass, name);
                 if (rt != null) {
                     objClass = rt.type;
                 } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
@@ -350,7 +350,7 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 }
             }
-            Class<?> attributeType = BeanUtils.getFieldType(objClass, getName());
+            Class<?> attributeType = BeanUtils.getAttributeType(objClass, getName());
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", attributeType=" + attributeType);
@@ -420,7 +420,7 @@ class SqlMappingItem implements SqlMetaElement {
                         + identities.get(attr.getFullName()));
             }
 
-            ReturnType rt = BeanUtils.getGetterReturnType(obj, name);
+            GetterType rt = BeanUtils.getGetterType(obj, name);
             if (rt != null) {
                 Object nextObj = BeanUtils.invokeMethod(obj, rt.methodName, null);
                 if (nextObj == null) {

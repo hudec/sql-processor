@@ -354,7 +354,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                 attributeName = item;
                 if (obj != null) {
                     parentObj = obj;
-                    obj = BeanUtils.getProperty(obj, item);
+                    obj = BeanUtils.getAttribute(obj, item);
                 }
             }
         }
@@ -399,7 +399,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * @return the static input attribute type
      */
     Class<?> getFieldType(SqlProcessContext ctx, Class<?> attributeType, String attributeName) {
-        return BeanUtils.getFieldType(attributeType, attributeName);
+        return BeanUtils.getAttributeType(attributeType, attributeName);
     }
 
     /**
@@ -414,6 +414,6 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * @return the static input attribute value
      */
     Object getProperty(SqlProcessContext ctx, Object obj, String item) {
-        return BeanUtils.getProperty(obj, item);
+        return BeanUtils.getAttribute(obj, item);
     }
 }

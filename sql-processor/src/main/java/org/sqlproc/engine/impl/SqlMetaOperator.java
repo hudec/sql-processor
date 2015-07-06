@@ -95,7 +95,7 @@ class SqlMetaOperator extends SqlMetaConst {
     Class<?> getFieldType(SqlProcessContext ctx, Class<?> attributeType, String attributeName) {
         if (attributeName.indexOf("@") >= 0 || attributeName.indexOf("?") >= 0)
             return String.class;
-        return BeanUtils.getFieldType(attributeType, attributeName);
+        return BeanUtils.getAttributeType(attributeType, attributeName);
     }
 
     /**
@@ -121,14 +121,14 @@ class SqlMetaOperator extends SqlMetaConst {
                 name = item;
             }
         }
-        Object result = (BeanUtils.checkProperty(obj, name)) ? BeanUtils.getProperty(obj, name) : null;
+        Object result = (BeanUtils.checkAttribute(obj, name)) ? BeanUtils.getAttribute(obj, name) : null;
         if (result != null || prefix == null || suffix == null)
             return result;
         suffix = SqlUtils.firstLowerCase(suffix);
-        Object o = (BeanUtils.checkProperty(obj, suffix)) ? BeanUtils.getProperty(obj, suffix) : null;
+        Object o = (BeanUtils.checkAttribute(obj, suffix)) ? BeanUtils.getAttribute(obj, suffix) : null;
         if (o == null || !(o instanceof Map)) {
             suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
-            o = (BeanUtils.checkProperty(obj, suffix)) ? BeanUtils.getProperty(obj, suffix) : null;
+            o = (BeanUtils.checkAttribute(obj, suffix)) ? BeanUtils.getAttribute(obj, suffix) : null;
             if (o == null || !(o instanceof Map)) {
                 return null;
             }

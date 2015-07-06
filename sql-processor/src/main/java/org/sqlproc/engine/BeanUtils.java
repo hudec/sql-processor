@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.beanutils.MethodUtils;
@@ -20,13 +21,17 @@ import org.slf4j.LoggerFactory;
  */
 public class BeanUtils {
 
+    private static ConcurrentHashMap<String, Class<?>> attrsType = new ConcurrentHashMap<String, Class<?>>();
+    private static ConcurrentHashMap<String, Method> beansGetter = new ConcurrentHashMap<String, Method>();
+    private static ConcurrentHashMap<String, GetterType> beansGetterType = new ConcurrentHashMap<String, GetterType>();
+
     /**
      * The internal slf4j logger.
      */
     static final Logger logger = LoggerFactory.getLogger(BeanUtils.class);
 
-    // used only for the output values handling, it's tested for the result null
-    @SuppressWarnings("unchecked")
+    // instances
+
     public static <E> E getInstance(Class<E> clazz) {
         try {
             int isAstract = clazz.getModifiers() & 0x0400;
@@ -51,60 +56,75 @@ public class BeanUtils {
         }
     }
 
-    public static Class<?> getFieldType(Class<?> clazz, String name) {
+    // attributes
+
+    public static Class<?> getAttributeType(Class<?> clazz, String attrName) {
+        String keyName = clazz.getName() + "." + attrName;
+        Class<?> attrType = attrsType.get(keyName);
+        if (attrType != null)
+            return attrType;
+
         PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clazz);
         if (descriptors != null) {
             for (int i = 0; i < descriptors.length; i++) {
-                if (name.equals(descriptors[i].getName())) {
-                    return (descriptors[i].getPropertyType());
+                if (attrName.equals(descriptors[i].getName())) {
+                    attrType = (descriptors[i].getPropertyType());
+                    break;
                 }
             }
         }
-        return null;
+        if (attrType == null)
+            return null;
+
+        Class<?> attrTypePrev = attrsType.putIfAbsent(keyName, attrType);
+        if (attrTypePrev != null)
+            return attrTypePrev;
+        return attrType;
     }
 
-    // used only for the input values handling
-    public static Object getProperty(Object bean, String name) {
-        try {
-            return PropertyUtils.getSimpleProperty(bean, name);
-        } catch (IllegalAccessException e) {
-            throw new SqlRuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new SqlRuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new SqlRuntimeException(e);
-        }
-    }
-
-    public static boolean checkProperty(Object bean, String name) {
-        PropertyDescriptor[] props = PropertyUtils.getPropertyDescriptors(bean);
-        for (PropertyDescriptor prop : props) {
-            if (prop.getName().equals(name))
-                return true;
-        }
+    public static boolean checkAttribute(Object bean, String attrName) {
+        if (getAttributeType(bean.getClass(), attrName) != null)
+            return true;
         return false;
     }
 
-    // used only for the output values handling, it's tested for the result null
-    public static Method getGetter(Class<?> clazz, String attributeName) {
+    // getters
+
+    private static Method getGetter(Class<?> clazz, String attrName) {
+        String keyName = clazz.getName() + "." + attrName;
+        Method getter = beansGetter.get(keyName);
+        if (getter != null)
+            return getter;
+
         PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clazz);
         if (descriptors != null) {
             for (int i = 0; i < descriptors.length; i++) {
-                if (attributeName.equals(descriptors[i].getName())) {
-                    return PropertyUtils.getReadMethod(descriptors[i]);
+                if (attrName.equals(descriptors[i].getName())) {
+                    getter = PropertyUtils.getReadMethod(descriptors[i]);
+                    break;
                 }
             }
         }
-        return null;
+        if (getter == null)
+            return null;
+
+        Method getterPrev = beansGetter.putIfAbsent(keyName, getter);
+        if (getterPrev != null)
+            return getterPrev;
+        return getter;
     }
 
-    public static class ReturnType {
+    public static Method getGetter(Object bean, String attrName) {
+        return getGetter(bean.getClass(), attrName);
+    }
+
+    public static class GetterType {
         public Class<?> type;
         public Type genericType;
         public Class<?> typeClass;
         public String methodName;
 
-        public ReturnType(Method m) {
+        public GetterType(Method m) {
             methodName = m.getName();
             type = m.getReturnType();
             genericType = m.getGenericReturnType();
@@ -113,42 +133,40 @@ public class BeanUtils {
         }
     }
 
-    // used only for the output values handling, it's tested for the result null
-    public static ReturnType getGetterReturnType(Class<?> clazz, String attributeName) {
-        Method m = getGetter(clazz, attributeName);
+    public static GetterType getGetterType(Class<?> clazz, String attrName) {
+        String keyName = clazz.getName() + "." + attrName;
+        GetterType getterType = beansGetterType.get(keyName);
+        if (getterType != null)
+            return getterType;
+
+        Method m = getGetter(clazz, attrName);
         if (m == null)
             return null;
-        return new ReturnType(m);
+
+        getterType = new GetterType(m);
+        GetterType getterTypePrev = beansGetterType.putIfAbsent(keyName, getterType);
+        if (getterTypePrev != null)
+            return getterTypePrev;
+        return getterType;
     }
 
-    // used only for the output values handling, it's tested for the result null
-    public static Method getGetter(Object bean, String attributeName) {
-        PropertyDescriptor descriptor;
+    public static GetterType getGetterType(Object bean, String attrName) {
+        return getGetterType(bean.getClass(), attrName);
+    }
+
+    public static Object getAttribute(Object bean, String attrName) {
         try {
-            descriptor = PropertyUtils.getPropertyDescriptor(bean, attributeName);
+            return PropertyUtils.getSimpleProperty(bean, attrName);
         } catch (IllegalAccessException e) {
-            logger.error("getProperty", e);
-            return null;
+            throw new SqlRuntimeException(e);
         } catch (InvocationTargetException e) {
-            logger.error("getProperty", e);
-            return null;
+            throw new SqlRuntimeException(e);
         } catch (NoSuchMethodException e) {
-            logger.error("getProperty", e);
-            return null;
+            throw new SqlRuntimeException(e);
         }
-        if (descriptor == null)
-            return null;
-        Method m = PropertyUtils.getReadMethod(descriptor);
-        return m;
     }
 
-    // used only for the output values handling, it's tested for the result null
-    public static ReturnType getGetterReturnType(Object bean, String attributeName) {
-        Method m = getGetter(bean, attributeName);
-        if (m == null)
-            return null;
-        return new ReturnType(m);
-    }
+    // setters
 
     public static void setProperty(Object bean, String name, Object value) {
         try {

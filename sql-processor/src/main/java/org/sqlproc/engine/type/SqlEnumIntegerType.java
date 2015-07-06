@@ -50,7 +50,7 @@ public abstract class SqlEnumIntegerType extends SqlProviderType {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
         }
-        Class<?> attributeType = BeanUtils.getFieldType(resultInstance.getClass(), attributeName);
+        Class<?> attributeType = BeanUtils.getAttributeType(resultInstance.getClass(), attributeName);
         Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
         if (BeanUtils.simpleInvokeSetter(resultInstance, attributeName, enumInstance, attributeType))
             return;

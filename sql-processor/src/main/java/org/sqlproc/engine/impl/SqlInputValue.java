@@ -247,7 +247,7 @@ class SqlInputValue {
             String[] ss = (sqlInputValue.fullInputName != null) ? sqlInputValue.fullInputName.split(",")
                     : new String[] { sqlInputValue.inputName };
             for (int i = 0; i < ss.length; i++) {
-                this.inputValue = BeanUtils.getProperty((i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
+                this.inputValue = BeanUtils.getAttribute((i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
                 if (i < ss.length - 1)
                     this.parentInputValue = this.inputValue;
             }
