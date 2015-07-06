@@ -161,7 +161,7 @@ public class BeanUtils {
     public static Object simpleGetAttribute(Object bean, String attrName) {
         Method m = getGetter(bean.getClass(), attrName);
         if (m != null) {
-            return simpleInvokeMethod(m, bean, null);
+            return simpleInvokeMethod(bean, m, null);
         } else {
             return null;
         }
@@ -238,7 +238,7 @@ public class BeanUtils {
     public static boolean simpleSetAttribute(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
         Method m = getSetter(bean, attrName, attrTypes);
         if (m != null) {
-            simpleInvokeMethod(m, bean, attrValue);
+            simpleInvokeMethod(bean, m, attrValue);
             return true;
         } else {
             return false;
@@ -259,18 +259,18 @@ public class BeanUtils {
 
     // methods invocation
 
-    public static Object simpleInvokeMethod(Method m, Object obj, Object arg) {
+    public static Object simpleInvokeMethod(Object bean, Method m, Object arg) {
         Object result = null;
         try {
             if (!m.isAccessible())
                 m.setAccessible(true);
-            result = m.invoke(obj, arg);
+            result = m.invoke(bean, arg);
         } catch (IllegalAccessException e) {
             throw new SqlRuntimeException(e);
         } catch (IllegalArgumentException e) {
             StringBuilder sb = new StringBuilder("Not compatible output value of type ").append((arg != null) ? arg
                     .getClass() : "null");
-            sb.append(". The result class of type ").append((obj != null) ? obj.getClass() : "null");
+            sb.append(". The result class of type ").append((bean != null) ? bean.getClass() : "null");
             sb.append(" for the method ").append(m.getName());
             sb.append(" is expecting the paramater(s) of type(s) ").append(
                     (m.getParameterTypes() != null) ? Arrays.asList(m.getParameterTypes()) : "empty");

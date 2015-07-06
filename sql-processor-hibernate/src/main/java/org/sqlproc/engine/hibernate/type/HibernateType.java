@@ -1,7 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.HashMap;
@@ -95,14 +94,16 @@ public class HibernateType extends SqlMetaType {
                     + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null) + ", hibernateType=" + hibernateType);
         }
-        Method m = BeanUtils.getSetter(resultInstance, attributeName, hibernateType.getReturnedClass());
-        if (m == null && hibernateType instanceof PrimitiveType)
-            m = BeanUtils.getSetter(resultInstance, attributeName, ((PrimitiveType) hibernateType).getPrimitiveClass());
-        if (m == null && hibernateType.getReturnedClass() == java.util.Date.class)
-            m = BeanUtils.getSetter(resultInstance, attributeName, java.sql.Timestamp.class);
-        if (m != null) {
-            BeanUtils.simpleInvokeMethod(m, resultInstance, resultValue);
-        } else if (ingoreError) {
+        if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, hibernateType.getReturnedClass()))
+            return;
+        if (hibernateType instanceof PrimitiveType)
+            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue,
+                    ((PrimitiveType) hibernateType).getPrimitiveClass()))
+                return;
+        if (hibernateType.getReturnedClass() == java.util.Date.class)
+            if (BeanUtils.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class))
+                return;
+        if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance
                     + ", META type is HIBERNATE");
         } else {
