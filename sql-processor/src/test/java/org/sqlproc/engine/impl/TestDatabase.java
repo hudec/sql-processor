@@ -22,7 +22,6 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
@@ -111,7 +110,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         DatabaseConfig config = connection.getConfig();
         if (containsProperty(testProperties, DATATYPE_FACTORY)) {
             Class clazz = Class.forName(testProperties.getProperty(DATATYPE_FACTORY));
-            config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, BeanUtils.getInstance(clazz));
+            config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, clazz.getConstructor().newInstance());
         }
         return connection;
     }

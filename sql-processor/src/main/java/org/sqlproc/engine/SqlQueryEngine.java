@@ -827,7 +827,7 @@ public class SqlQueryEngine extends SqlEngine {
             for (@SuppressWarnings("rawtypes")
             Iterator i$ = list.iterator(); i$.hasNext();) {
                 Object resultRow = i$.next();
-                execute(resultRow, resultClass, sqlControl, null, ids, isPrimitiveWrapper);
+                execute(runtimeContext, resultRow, resultClass, sqlControl, null, ids, isPrimitiveWrapper);
             }
             return rows;
         }
@@ -841,7 +841,8 @@ public class SqlQueryEngine extends SqlEngine {
 
                 @Override
                 public boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException {
-                    return execute(resultRow, resultClass, sqlControl, sqlRowProcessor, ids, isPrimitiveWrapper);
+                    return execute(runtimeContext, resultRow, resultClass, sqlControl, sqlRowProcessor, ids,
+                            isPrimitiveWrapper);
                 }
 
             });
@@ -854,8 +855,9 @@ public class SqlQueryEngine extends SqlEngine {
             return (Integer) query.unique(runtimeContext);
         }
 
-        boolean execute(Object resultRow, final Class<E> resultClass, final SqlControl sqlControl,
-                final SqlRowProcessor<E> sqlRowProcessor, Map<String, Object> ids, boolean isPrimitiveWrapper) {
+        boolean execute(final SqlRuntimeContext runtimeContext, Object resultRow, final Class<E> resultClass,
+                final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor, Map<String, Object> ids,
+                boolean isPrimitiveWrapper) {
 
             E resultInstance = null;
 
@@ -879,7 +881,7 @@ public class SqlQueryEngine extends SqlEngine {
 
             if (changedIdentity) {
                 if (!isPrimitiveWrapper) {
-                    resultInstance = BeanUtils.getInstance(resultClass);
+                    resultInstance = (E) BeanUtils.getInstance(runtimeContext, resultClass);
                     if (resultInstance == null) {
                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                     }

@@ -1,15 +1,14 @@
 package org.sqlproc.engine;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
@@ -20,9 +19,8 @@ import org.slf4j.LoggerFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class BeanUtils {
+public class BeanUtilsOld {
 
-    private static ConcurrentHashMap<String, Constructor<?>> beansConstructor = new ConcurrentHashMap<String, Constructor<?>>();
     private static ConcurrentHashMap<String, Class<?>> attrsType = new ConcurrentHashMap<String, Class<?>>();
     private static ConcurrentHashMap<String, Method> beansGetter = new ConcurrentHashMap<String, Method>();
     private static ConcurrentHashMap<String, GetterType> beansGetterType = new ConcurrentHashMap<String, GetterType>();
@@ -31,79 +29,30 @@ public class BeanUtils {
     /**
      * The internal slf4j logger.
      */
-    static final Logger logger = LoggerFactory.getLogger(BeanUtils.class);
+    static final Logger logger = LoggerFactory.getLogger(BeanUtilsOld.class);
 
     // instances
 
-    public static Constructor<?> getInstanceConstructor(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
-        String keyName = clazz.getName();
-        Constructor<?> ctor = beansConstructor.get(keyName);
-        if (ctor != null)
-            return ctor;
-
-        if ((clazz.getModifiers() & 0x0400) != 0) {
-            logger.warn("getInstance: " + clazz + " is abstract");
-            return null;
-        }
+    public static <E> E getInstance(Class<E> clazz) {
         try {
-            ctor = clazz.getConstructor();
-            try {
-                ctor.setAccessible(true);
-            } catch (SecurityException se) {
+            int isAstract = clazz.getModifiers() & 0x0400;
+            if (isAstract != 0) {
+                logger.warn("getInstance: " + clazz + " is abstract");
+                return null;
             }
+            Object o = ConstructorUtils.invokeConstructor(clazz, (Object[]) null);
+            return (E) o;
         } catch (NoSuchMethodException e) {
-            logger.warn("getInstance: " + clazz + " " + e.getMessage());
-        } catch (SecurityException e) {
-            logger.warn("getInstance: " + clazz + " " + e.getMessage());
-        }
-        if (ctor == null) {
-            Constructor<?>[] ctors = clazz.getConstructors();
-            for (int i = 0, size = ctors.length; i < size; i++) {
-                Class<?>[] ctorParams = ctors[i].getParameterTypes();
-                if (ctorParams.length == 0) {
-                    if (Modifier.isPublic(ctor.getModifiers())) {
-                        Class<?> _clazz = ctor.getDeclaringClass();
-                        if (Modifier.isPublic(_clazz.getModifiers()))
-                            ctor = ctors[i];
-                    }
-                    if (ctor != null) {
-                        try {
-                            ctor.setAccessible(true);
-                        } catch (SecurityException se) {
-                        }
-                    }
-                }
-            }
-        }
-        if (ctor == null)
-            return null;
-
-        Constructor<?> ctorPrev = beansConstructor.putIfAbsent(keyName, ctor);
-        if (ctorPrev != null)
-            return ctorPrev;
-        return ctor;
-    }
-
-    public static Object getInstance(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
-
-        Constructor<?> ctor = getInstanceConstructor(runtimeCtx, clazz);
-        if (ctor == null) {
-            logger.warn("getInstance: " + clazz + " can't get constructor");
-        }
-
-        try {
-            return ctor.newInstance();
-        } catch (InstantiationException e) {
-            logger.error("getInstance: " + clazz, e);
+            logger.error("getInstance", e);
             return null;
         } catch (IllegalAccessException e) {
-            logger.error("getInstance: " + clazz, e);
-            return null;
-        } catch (IllegalArgumentException e) {
-            logger.error("getInstance: " + clazz, e);
+            logger.error("getInstance", e);
             return null;
         } catch (InvocationTargetException e) {
-            logger.error("getInstance: " + clazz, e);
+            logger.error("getInstance", e);
+            return null;
+        } catch (InstantiationException e) {
+            logger.error("getInstance", e);
             return null;
         }
     }

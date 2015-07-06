@@ -27,7 +27,6 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlFilesLoader;
 import org.sqlproc.engine.SqlProcedureEngine;
@@ -123,7 +122,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         DatabaseConfig config = connection.getConfig();
         if (containsProperty(testProperties, DATATYPE_FACTORY)) {
             Class clazz = Class.forName(testProperties.getProperty(DATATYPE_FACTORY));
-            config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, BeanUtils.getInstance(clazz));
+            config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, clazz.getConstructor().newInstance());
         }
         return connection;
     }

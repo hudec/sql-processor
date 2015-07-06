@@ -459,9 +459,9 @@ class SqlMappingItem implements SqlMetaElement {
                             }
                         }
                         if (typeClass2 != null && typeClass.isAssignableFrom(typeClass2))
-                            nextObj = BeanUtils.getInstance(typeClass2);
+                            nextObj = BeanUtils.getInstance(ctx, typeClass2);
                         else
-                            nextObj = BeanUtils.getInstance(typeClass);
+                            nextObj = BeanUtils.getInstance(ctx, typeClass);
                         if (nextObj != null) {
                             BeanUtils.setAttribute(ctx, obj, name, nextObj);
                         } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
@@ -495,7 +495,7 @@ class SqlMappingItem implements SqlMetaElement {
                         if (typeClass == null)
                             typeClass = rt.typeClass;
                         if (typeClass != null) {
-                            Object itemObj = BeanUtils.getInstance(typeClass);
+                            Object itemObj = BeanUtils.getInstance(ctx, typeClass);
                             if (itemObj != null) {
                                 ((Collection) nextObj).add(itemObj);
                                 idsProcessed.put(idsKey, itemObj);
