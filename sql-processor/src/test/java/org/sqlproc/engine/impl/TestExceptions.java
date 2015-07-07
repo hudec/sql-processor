@@ -77,8 +77,9 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's problem with attribute type for 'first'");
+            assertContains(e.getMessage(), "'first'");
         }
+
     }
 
     @Test
@@ -90,7 +91,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "Property 'name' has no setter method");
+            assertContains(e.getMessage(), "'name'");
         }
 
     }
@@ -104,7 +105,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's no setter for 'id'", "There's no setter for id");
+            assertContains(e.getMessage(), "'id'");
         }
 
     }
@@ -118,7 +119,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's problem with attribute type for 'id'");
+            assertContains(e.getMessage(), "'id'");
         }
 
     }
@@ -132,7 +133,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's no getter for 'name'");
+            assertContains(e.getMessage(), "'name'");
         }
 
     }
@@ -146,7 +147,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's no attribute 'last'");
+            assertContains(e.getMessage(), "'last'");
         }
 
     }
@@ -160,7 +161,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's no attribute 'sex'");
+            assertContains(e.getMessage(), "'sex'");
         }
 
     }
@@ -174,7 +175,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's no attribute 'first'");
+            assertContains(e.getMessage(), "'first'");
         }
 
     }
@@ -202,7 +203,7 @@ public class TestExceptions extends TestDatabase {
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
-            assertContains(e.getMessage(), "There's no attribute 'id'");
+            assertContains(e.getMessage(), "'id'");
         }
 
     }
