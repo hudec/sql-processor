@@ -1,5 +1,9 @@
 package org.sqlproc.engine;
 
+import java.beans.BeanInfo;
+import java.beans.IndexedPropertyDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -22,11 +26,12 @@ import org.slf4j.LoggerFactory;
  */
 public class BeanUtils {
 
-    private static ConcurrentHashMap<String, Constructor<?>> beansConstructor = new ConcurrentHashMap<String, Constructor<?>>();
-    private static ConcurrentHashMap<String, Class<?>> attrsType = new ConcurrentHashMap<String, Class<?>>();
-    private static ConcurrentHashMap<String, Method> beansGetter = new ConcurrentHashMap<String, Method>();
-    private static ConcurrentHashMap<String, GetterType> beansGetterType = new ConcurrentHashMap<String, GetterType>();
-    private static ConcurrentHashMap<String, Method> beansSetter = new ConcurrentHashMap<String, Method>();
+    private static ConcurrentHashMap<String, Constructor<?>> constructors = new ConcurrentHashMap<String, Constructor<?>>();
+    private static ConcurrentHashMap<String, PropertyDescriptor[]> descriptors = new ConcurrentHashMap<String, PropertyDescriptor[]>();
+    private static ConcurrentHashMap<String, Class<?>> types = new ConcurrentHashMap<String, Class<?>>();
+    private static ConcurrentHashMap<String, Method> getters = new ConcurrentHashMap<String, Method>();
+    private static ConcurrentHashMap<String, GetterType> typeGetters = new ConcurrentHashMap<String, GetterType>();
+    private static ConcurrentHashMap<String, Method> setters = new ConcurrentHashMap<String, Method>();
 
     /**
      * The internal slf4j logger.
@@ -35,9 +40,9 @@ public class BeanUtils {
 
     // instances
 
-    public static Constructor<?> getInstanceConstructor(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
+    private static Constructor<?> getInstanceConstructor(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
         String keyName = clazz.getName();
-        Constructor<?> ctor = beansConstructor.get(keyName);
+        Constructor<?> ctor = constructors.get(keyName);
         if (ctor != null)
             return ctor;
 
@@ -50,6 +55,7 @@ public class BeanUtils {
             try {
                 ctor.setAccessible(true);
             } catch (SecurityException se) {
+                logger.warn("getInstance: " + clazz + " " + se.getMessage());
             }
         } catch (NoSuchMethodException e) {
             logger.warn("getInstance: " + clazz + " " + e.getMessage());
@@ -70,6 +76,7 @@ public class BeanUtils {
                         try {
                             ctor.setAccessible(true);
                         } catch (SecurityException se) {
+                            logger.warn("getInstance: " + clazz + " " + se.getMessage());
                         }
                     }
                 }
@@ -78,14 +85,13 @@ public class BeanUtils {
         if (ctor == null)
             return null;
 
-        Constructor<?> ctorPrev = beansConstructor.putIfAbsent(keyName, ctor);
+        Constructor<?> ctorPrev = constructors.putIfAbsent(keyName, ctor);
         if (ctorPrev != null)
             return ctorPrev;
         return ctor;
     }
 
     public static Object getInstance(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
-
         Constructor<?> ctor = getInstanceConstructor(runtimeCtx, clazz);
         if (ctor == null) {
             logger.warn("getInstance: " + clazz + " can't get constructor");
@@ -108,11 +114,37 @@ public class BeanUtils {
         }
     }
 
-    // descriptor
+    private static PropertyDescriptor[] getDescriptors(Class<?> clazz) {
+        String keyName = clazz.getName();
+        PropertyDescriptor[] _descriptors = descriptors.get(keyName);
+        if (_descriptors != null)
+            return _descriptors;
 
-    public static PropertyDescriptor getAttributeDescriptor(Class<?> clazz, String attrName, String calledFrom) {
-        PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(clazz);
+        BeanInfo beanInfo = null;
+        try {
+            beanInfo = Introspector.getBeanInfo(clazz);
+        } catch (IntrospectionException e) {
+            logger.error("getDescriptors: " + clazz, e);
+            return null;
+        }
+
+        _descriptors = beanInfo.getPropertyDescriptors();
+        for (PropertyDescriptor pd : _descriptors) {
+            if (pd instanceof IndexedPropertyDescriptor) {
+                logger.warn("getDescriptors: " + clazz + " unsupported IndexedPropertyDescriptor "
+                        + pd.getDisplayName());
+            }
+        }
+
+        PropertyDescriptor[] _descriptorsPrev = descriptors.putIfAbsent(keyName, _descriptors);
+        if (_descriptorsPrev != null)
+            return _descriptorsPrev;
+        return _descriptors;
+    }
+
+    private static PropertyDescriptor getAttributeDescriptor(Class<?> clazz, String attrName) {
         PropertyDescriptor descriptor = null;
+        PropertyDescriptor[] descriptors = getDescriptors(clazz);
         if (descriptors != null) {
             for (PropertyDescriptor _descriptor : descriptors) {
                 if (_descriptor.getName().equalsIgnoreCase(attrName)) {
@@ -121,32 +153,38 @@ public class BeanUtils {
                 }
             }
         }
-        if (descriptor == null)
-            logger.error("There's no attribute " + attrName + " in " + clazz.getName());
         return descriptor;
     }
 
     // attributes
 
     public static Class<?> getAttributeType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+        return getAttributeType(runtimeCtx, clazz, attrName, false);
+    }
+
+    private static Class<?> getAttributeType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName,
+            boolean onlyCheck) {
         String keyName = clazz.getName() + "." + attrName;
-        Class<?> attrType = attrsType.get(keyName);
+        Class<?> attrType = types.get(keyName);
         if (attrType != null)
             return attrType;
 
-        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName, "getAttributeType");
-        if (descriptor == null)
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
+        if (descriptor == null) {
+            if (!onlyCheck)
+                logger.error("There's no attribute " + attrName + " in " + clazz.getName());
             return null;
+        }
 
         attrType = descriptor.getPropertyType();
-        Class<?> attrTypePrev = attrsType.putIfAbsent(keyName, attrType);
+        Class<?> attrTypePrev = types.putIfAbsent(keyName, attrType);
         if (attrTypePrev != null)
             return attrTypePrev;
         return attrType;
     }
 
     public static boolean checkAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
-        if (getAttributeType(runtimeCtx, bean.getClass(), attrName) != null)
+        if (getAttributeType(runtimeCtx, bean.getClass(), attrName, true) != null)
             return true;
         return false;
     }
@@ -155,11 +193,11 @@ public class BeanUtils {
 
     private static Method getGetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
-        Method getter = beansGetter.get(keyName);
+        Method getter = getters.get(keyName);
         if (getter != null)
             return getter;
 
-        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName, "getGetter");
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
         if (descriptor == null)
             return null;
 
@@ -167,7 +205,7 @@ public class BeanUtils {
         if (getter == null)
             return null;
 
-        Method getterPrev = beansGetter.putIfAbsent(keyName, getter);
+        Method getterPrev = getters.putIfAbsent(keyName, getter);
         if (getterPrev != null)
             return getterPrev;
         return getter;
@@ -190,7 +228,7 @@ public class BeanUtils {
 
     public static GetterType getGetterType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
-        GetterType getterType = beansGetterType.get(keyName);
+        GetterType getterType = typeGetters.get(keyName);
         if (getterType != null)
             return getterType;
 
@@ -199,7 +237,7 @@ public class BeanUtils {
             return null;
 
         getterType = new GetterType(m);
-        GetterType getterTypePrev = beansGetterType.putIfAbsent(keyName, getterType);
+        GetterType getterTypePrev = typeGetters.putIfAbsent(keyName, getterType);
         if (getterTypePrev != null)
             return getterTypePrev;
         return getterType;
@@ -240,11 +278,11 @@ public class BeanUtils {
 
     public static Method getSetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, Class<?>... attrTypes) {
         String keyName = clazz.getName() + "." + attrName + attrTypes2String(attrTypes);
-        Method _setter = beansSetter.get(keyName);
+        Method _setter = setters.get(keyName);
         if (_setter != null)
             return _setter;
 
-        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName, "getSetter");
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
         if (descriptor == null)
             return null;
 
@@ -267,7 +305,7 @@ public class BeanUtils {
         if (setter == null)
             return null;
 
-        Method setterPrev = beansSetter.putIfAbsent(keyName, setter);
+        Method setterPrev = setters.putIfAbsent(keyName, setter);
         if (setterPrev != null)
             return setterPrev;
         return setter;
