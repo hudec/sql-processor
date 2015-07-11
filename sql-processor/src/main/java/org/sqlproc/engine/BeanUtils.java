@@ -14,7 +14,6 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -179,7 +178,7 @@ public class BeanUtils {
 
     // getters
 
-    private static Method getGetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+    private static Method getGetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, boolean onlyCheck) {
         String keyName = clazz.getName() + "." + attrName;
         Method getter = getters.get(keyName);
         if (getter != null)
@@ -187,11 +186,12 @@ public class BeanUtils {
 
         PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
         if (descriptor == null) {
-            logger.error("getGetter: there's no attribute " + attrName + " in " + clazz.getName());
+            if (!onlyCheck)
+                logger.error("getGetter: there's no attribute " + attrName + " in " + clazz.getName());
             return null;
         }
 
-        getter = getMethod(clazz, descriptor.getReadMethod());
+        getter = getMethod(clazz, descriptor.getReadMethod(), onlyCheck);
         if (getter == null)
             return null;
 
@@ -222,7 +222,7 @@ public class BeanUtils {
         if (getterType != null)
             return getterType;
 
-        Method m = getGetter(runtimeCtx, clazz, attrName);
+        Method m = getGetter(runtimeCtx, clazz, attrName, false);
         if (m == null)
             return null;
 
@@ -238,34 +238,40 @@ public class BeanUtils {
     }
 
     public static boolean checkAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
-        return getGetter(runtimeCtx, bean.getClass(), attrName) != null;
+        return getGetter(runtimeCtx, bean.getClass(), attrName, true) != null;
     }
 
     public static Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
-        Method getter = getGetter(runtimeCtx, bean.getClass(), attrName);
+        Method getter = getGetter(runtimeCtx, bean.getClass(), attrName, true);
         if (getter == null)
-            throw new SqlRuntimeException("getAttribute NoSuchMethodException: there's no getter for '" + attrName
+            throw new SqlRuntimeException("getAttribute(NoSuchMethodException): there's no getter for '" + attrName
                     + "' in " + bean.getClass());
-        return invokeMethod(runtimeCtx, bean, getter, null);
+        return invokeMethod(runtimeCtx, bean, getter);
     }
 
     // setters
 
-    public static Method getSetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, Class<?>... attrTypes) {
+    private static Method getSetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, boolean onlyCheck,
+            Class<?>... attrTypes) {
         String keyName = clazz.getName() + "." + attrName + attrTypes2String(attrTypes);
         Method _setter = setters.get(keyName);
         if (_setter != null)
             return _setter;
 
         PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
-        if (descriptor == null)
-            return null;
+        if (descriptor == null) {
+            if (!onlyCheck)
+                logger.error("getSetter: there's no attribute " + attrName + " in " + clazz.getName());
+        }
 
-        _setter = getMethod(clazz, descriptor.getWriteMethod());
+        _setter = getMethod(clazz, descriptor.getWriteMethod(), onlyCheck);
         if (_setter == null)
             return null;
-        if (_setter.getParameterTypes() == null || _setter.getParameterTypes().length != 1)
+        if (_setter.getParameterTypes() == null || _setter.getParameterTypes().length != 1) {
+            if (!onlyCheck)
+                logger.error("getSetter: there's no setter " + attrName + " in " + clazz.getName());
             return null;
+        }
 
         Method setter = null;
         if (attrTypes == null || attrTypes.length == 0) {
@@ -277,8 +283,11 @@ public class BeanUtils {
                     setter = _setter;
             }
         }
-        if (setter == null)
+        if (setter == null) {
+            if (!onlyCheck)
+                logger.error("getSetter: there's no setter " + attrName + " in " + clazz.getName());
             return null;
+        }
 
         Method setterPrev = setters.putIfAbsent(keyName, setter);
         if (setterPrev != null)
@@ -286,13 +295,14 @@ public class BeanUtils {
         return setter;
     }
 
-    public static Method getSetter(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Class<?>... attrTypes) {
-        return getSetter(runtimeCtx, bean.getClass(), attrName, attrTypes);
+    private static Method getSetter(SqlRuntimeContext runtimeCtx, Object bean, String attrName, boolean onlyCheck,
+            Class<?>... attrTypes) {
+        return getSetter(runtimeCtx, bean.getClass(), attrName, onlyCheck, attrTypes);
     }
 
     public static boolean simpleSetAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName,
             Object attrValue, Class<?>... attrTypes) {
-        Method setter = getSetter(runtimeCtx, bean, attrName, attrTypes);
+        Method setter = getSetter(runtimeCtx, bean, attrName, true, attrTypes);
         if (setter != null) {
             invokeMethod(runtimeCtx, bean, setter, attrValue);
             return true;
@@ -302,22 +312,23 @@ public class BeanUtils {
     }
 
     public static void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue) {
-        Method setter = getSetter(runtimeCtx, bean, attrName);
+        Method setter = getSetter(runtimeCtx, bean, attrName, true);
         if (setter == null)
-            throw new SqlRuntimeException("setAttribute NoSuchMethodException: there's no setter for '" + attrName
+            throw new SqlRuntimeException("setAttribute(NoSuchMethodException): there's no setter for '" + attrName
                     + "' in " + bean.getClass());
         invokeMethod(runtimeCtx, bean, setter, attrValue);
     }
 
     // methods invocation
 
-    private static Method getMethod(Class<?> clazz, Method method) {
+    private static Method getMethod(Class<?> clazz, Method method, boolean onlyCheck) {
 
         if (method == null)
             return null;
 
         if (!Modifier.isPublic(method.getModifiers())) {
-            logger.error("getMethod: " + method.toString() + " in " + clazz.getName() + " is not public");
+            if (!onlyCheck)
+                logger.error("getMethod: " + method.toString() + " in " + clazz.getName() + " is not public");
             return null;
         }
 
@@ -327,8 +338,9 @@ public class BeanUtils {
         } else {
             sameClass = clazz.equals(method.getDeclaringClass());
             if (!method.getDeclaringClass().isAssignableFrom(clazz)) {
-                logger.error("getMethod: " + clazz.getName() + " is not assignable from "
-                        + method.getDeclaringClass().getName());
+                if (!onlyCheck)
+                    logger.error("getMethod: " + clazz.getName() + " is not assignable from "
+                            + method.getDeclaringClass().getName());
                 return null;
             }
         }
@@ -350,7 +362,8 @@ public class BeanUtils {
         if (_method == null)
             _method = getSuperclassMethod(clazz, methodName, parameterTypes);
         if (_method == null)
-            logger.error("getMethod: there's no method " + method.toString() + " in " + clazz.getName());
+            if (!onlyCheck)
+                logger.error("getMethod: there's no method " + method.toString() + " in " + clazz.getName());
         return _method;
     }
 
@@ -397,7 +410,7 @@ public class BeanUtils {
         return null;
     }
 
-    private static Method getMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes) {
+    private static Method getMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes, boolean onlyCheck) {
 
         String keyName = clazz.getName() + "." + methodName + attrTypes2String(parameterTypes);
         Method method = methods.get(keyName);
@@ -414,7 +427,8 @@ public class BeanUtils {
             }
             return method;
         } catch (NoSuchMethodException e) {
-            logger.warn("getMethod: there's no method " + methodName + " in " + clazz.getName());
+            if (!onlyCheck)
+                logger.warn("getMethod: there's no method " + methodName + " in " + clazz.getName());
         }
 
         for (Method _method : clazz.getMethods()) {
@@ -430,7 +444,7 @@ public class BeanUtils {
                         }
                     }
                     if (match) {
-                        method = getMethod(clazz, _method);
+                        method = getMethod(clazz, _method, onlyCheck);
                         if (method != null)
                             break;
                     }
@@ -439,7 +453,8 @@ public class BeanUtils {
         }
 
         if (method == null) {
-            logger.error("getMethod: there's no method " + methodName + " in " + clazz.getName());
+            if (!onlyCheck)
+                logger.error("getMethod: there's no method " + methodName + " in " + clazz.getName());
         } else {
             Method methodPrev = methods.putIfAbsent(keyName, method);
             if (methodPrev != null)
@@ -518,18 +533,29 @@ public class BeanUtils {
         }
     }
 
-    public static boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object arg) {
-        Object[] args = toArray(arg);
+    public static boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
         Class<?>[] parameterTypes = toParameterTypes(args);
-        return getMethod(bean.getClass(), methodName, parameterTypes) != null;
+        return getMethod(clazz, methodName, parameterTypes, true) != null;
+    }
+
+    public static boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
+        return checkMethod(runtimeCtx, bean.getClass(), methodName, args);
+    }
+
+    public static Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
+        return invokeMethod(runtimeCtx, clazz, null, methodName, args);
     }
 
     public static Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
+        return invokeMethod(runtimeCtx, bean.getClass(), bean, methodName, args);
+    }
+
+    private static Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object bean, String methodName,
+            Object... args) {
         Class<?>[] parameterTypes = toParameterTypes(args);
-        Method method = getMethod(bean.getClass(), methodName, parameterTypes);
+        Method method = getMethod(clazz, methodName, parameterTypes, true);
         if (method == null) {
-            throw new SqlRuntimeException("simpleInvokeMethod NoSuchMethodException: there's no method for '"
-                    + methodName + "' in " + bean.getClass());
+            throw new SqlRuntimeException(debugInfo("invokeMethod(NoSuchMethodException)", bean, method, args));
         }
 
         try {
@@ -549,15 +575,8 @@ public class BeanUtils {
         if (bean == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
-            try {
-                return MethodUtils.invokeMethod(bean, methodName, null);
-            } catch (NoSuchMethodException e) {
-                continue;
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
+            if (checkMethod(runtimeCtx, bean, methodName))
+                return invokeMethod(runtimeCtx, bean, methodName);
         }
         return null;
     }
@@ -566,7 +585,7 @@ public class BeanUtils {
         if (clazz == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
-            Method method = getMethod(clazz, methodName, new Class[] {});
+            Method method = getMethod(clazz, methodName, new Class[] {}, true);
             if (method != null)
                 return method.getReturnType();
         }
@@ -577,15 +596,8 @@ public class BeanUtils {
         if (val == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
-            try {
-                return MethodUtils.invokeStaticMethod(objClass, methodName, val);
-            } catch (NoSuchMethodException e) {
-                continue;
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
+            if (checkMethod(runtimeCtx, objClass, methodName, val))
+                return invokeMethod(runtimeCtx, objClass, methodName, val);
         }
         return null;
     }
