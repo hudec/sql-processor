@@ -2,8 +2,8 @@
 
 <project name="sql-processor-version" default="change-version" basedir=".">
 	
-	<property name="version.from" value="2.5.1-SNAPSHOT"/>
-	<property name="version.to" value="2.5.2-SNAPSHOT"/>
+	<property name="version.from" value="2.7.1-SNAPSHOT"/>
+	<property name="version.to" value="2.8.0-SNAPSHOT"/>
 	
 	<target name="change-version">
 		<replace dir="../" token="${version.from}" value="${version.to}">
