@@ -288,8 +288,16 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
-        Object result = (runtimeCtx.checkMethod(parentObj, methodName, attributeName)) ? runtimeCtx.invokeMethod(
-                parentObj, methodName, attributeName) : null;
+        Object result = null;
+        if (methodName.equals("isDef")) {
+            Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName) ? runtimeCtx.getAttribute(
+                    parentObj, attributeName) != null : null;
+            result = (runtimeCtx.checkMethod(parentObj, methodName, attributeName, isAttributeNotNull)) ? runtimeCtx
+                    .invokeMethod(parentObj, methodName, attributeName, isAttributeNotNull) : null;
+        } else {
+            result = (runtimeCtx.checkMethod(parentObj, methodName, attributeName)) ? runtimeCtx.invokeMethod(
+                    parentObj, methodName, attributeName) : null;
+        }
         if (result == null || !(result instanceof Boolean)) {
             return null;
         }
