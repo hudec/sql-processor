@@ -269,6 +269,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
         if (descriptor == null) {
             if (!onlyCheck)
                 logger.error("getSetter: there's no attribute " + attrName + " in " + clazz.getName());
+            return null;
         }
 
         _setter = getMethod(clazz, descriptor.getWriteMethod(), onlyCheck);

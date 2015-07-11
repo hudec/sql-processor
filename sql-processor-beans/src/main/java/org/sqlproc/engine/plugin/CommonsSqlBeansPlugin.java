@@ -167,6 +167,7 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
         if (_setter == null) {
             if (!onlyCheck)
                 logger.error("getSetter: there's no setter " + attrName + " in " + clazz.getName());
+            return null;
         }
         if (_setter.getParameterTypes() == null || _setter.getParameterTypes().length != 1) {
             if (!onlyCheck)
@@ -194,7 +195,7 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
     }
 
     protected Method getSetter(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Class<?>... attrTypes) {
-        return getSetter(runtimeCtx, bean.getClass(), attrName, attrTypes);
+        return getSetter(runtimeCtx, bean.getClass(), attrName, true, attrTypes);
     }
 
     /**

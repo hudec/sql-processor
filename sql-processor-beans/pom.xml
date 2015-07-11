@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>sql-processor</artifactId>
+    <artifactId>sql-processor-beans</artifactId>
     <packaging>jar</packaging>
-    <name>SQL Processor, Core Module</name>
-    <description>SQL Processor, Core Module</description>
+    <name>SQL Processor, Beans Utils</name>
+    <description>SQL Processor, Beans Utils</description>
 
     <parent>
         <groupId>org.sqlproc</groupId>
@@ -30,20 +30,23 @@
     </build>
 
     <dependencies>
-        <!-- ANTLR -->
+        <!-- SQL PROCESSOR -->
         <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr-runtime</artifactId>
+            <groupId>org.sqlproc</groupId>
+            <artifactId>sql-processor</artifactId>
+            <version>2.7.1-SNAPSHOT</version>
         </dependency>
 
         <!-- LOG -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+
+        <!-- REFLECTION -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
         </dependency>
 
         <!-- TEST -->
