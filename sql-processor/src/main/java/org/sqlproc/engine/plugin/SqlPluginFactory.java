@@ -1,5 +1,6 @@
 package org.sqlproc.engine.plugin;
 
+
 /**
  * The factory definition, which can be used to construct the SQL Processor plugins instances.
  * 
@@ -55,4 +56,11 @@ public interface SqlPluginFactory {
      * @return the SQL Processor plugin devoted to possible SQL query/command modification just before it is executed
      */
     public SqlExecutionPlugin getSqlExecutionPlugin();
+
+    /**
+     * Returns the SQL Processor plugin devoted to beans handling.
+     * 
+     * @return the SQL Processor plugin devoted to beans handling
+     */
+    public SqlBeansPlugin getSqlBeansPlugin();
 }

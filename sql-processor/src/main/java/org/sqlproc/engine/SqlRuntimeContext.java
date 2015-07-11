@@ -1,5 +1,6 @@
 package org.sqlproc.engine;
 
+import org.sqlproc.engine.plugin.SqlBeansPlugin.GetterType;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -79,4 +80,34 @@ public interface SqlRuntimeContext {
      * @return the factory for the SQL Processor plugins
      */
     SqlPluginFactory getPluginFactory();
+
+    Object getInstance(Class<?> clazz);
+
+    Class<?> getAttributeType(Class<?> clazz, String attrName);
+
+    GetterType getGetterType(Class<?> clazz, String attrName);
+
+    GetterType getGetterType(Object bean, String attrName);
+
+    boolean checkAttribute(Object bean, String attrName);
+
+    Object getAttribute(Object bean, String attrName);
+
+    boolean simpleSetAttribute(Object bean, String attrName, Object attrValue, Class<?>... attrTypes);
+
+    void setAttribute(Object bean, String attrName, Object attrValue);
+
+    boolean checkMethod(Class<?> clazz, String methodName, Object... args);
+
+    boolean checkMethod(Object bean, String methodName, Object... args);
+
+    Object invokeMethod(Class<?> clazz, String methodName, Object... args);
+
+    Object invokeMethod(Object bean, String methodName, Object... args);
+
+    Object getEnumToValue(Object bean);
+
+    Class<?> getEnumToClass(Class<?> clazz);
+
+    Object getValueToEnum(Class<?> objClass, Object val);
 }

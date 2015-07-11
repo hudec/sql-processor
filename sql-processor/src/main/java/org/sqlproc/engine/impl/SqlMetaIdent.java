@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.plugin.Modifiers;
@@ -262,7 +261,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
 
             } else if (attributeType != null) {
                 Class<?> origAttributeType = attributeType;
-                attributeType = BeanUtils.getAttributeType(ctx, attributeType, attributeName);
+                attributeType = ctx.getAttributeType(attributeType, attributeName);
                 if (attributeType == null) {
                     if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
                         logger.error("There's no attribute '" + attributeName + "' for " + origAttributeType);
@@ -282,7 +281,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             // break;
             if (obj != null) {
                 parentObj = obj;
-                obj = BeanUtils.getAttribute(ctx, obj, item);
+                obj = ctx.getAttribute(obj, item);
             }
             if (obj == null && lastAttributeName == null) {
                 lastAttributeName = attributeName;
@@ -402,7 +401,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             attributeName = item;
             if (obj != null) {
                 parentObj = obj;
-                obj = BeanUtils.getAttribute(ctx, obj, item);
+                obj = ctx.getAttribute(obj, item);
             }
         }
 

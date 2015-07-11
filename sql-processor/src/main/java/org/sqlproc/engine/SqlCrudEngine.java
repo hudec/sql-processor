@@ -547,7 +547,7 @@ public class SqlCrudEngine extends SqlEngine {
                 if (resultInstance != null) {
                     throw new SqlProcessorException("There's no unique result");
                 }
-                resultInstance = (E) BeanUtils.getInstance(mappingResult.getRuntimeContext(), resultClass);
+                resultInstance = (E) mappingResult.getRuntimeContext().getInstance(resultClass);
                 if (resultInstance == null) {
                     throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                 }

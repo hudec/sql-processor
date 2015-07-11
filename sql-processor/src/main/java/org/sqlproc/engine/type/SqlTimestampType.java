@@ -2,7 +2,6 @@ package org.sqlproc.engine.type;
 
 import java.util.Date;
 
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -48,8 +47,8 @@ public abstract class SqlTimestampType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
-                java.sql.Timestamp.class, java.util.Date.class))
+        if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+                java.util.Date.class))
             return;
         if (ingoreError) {
             logger.error("There's no setter for " + attributeName + " in " + resultInstance + ", META type is "

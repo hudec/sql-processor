@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.hibernate.type.StringType;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -40,7 +39,7 @@ public class PhoneNumberType extends SqlInternalType {
             Object resultValue, boolean ingoreError) throws SqlRuntimeException {
 
         if (resultValue == null) {
-            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, null, PhoneNumber.class))
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, null, PhoneNumber.class))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for " + attributeName + " in " + resultInstance
@@ -75,7 +74,7 @@ public class PhoneNumberType extends SqlInternalType {
         int exch = Integer.parseInt(matcher.group(2));
         int ext = Integer.parseInt(matcher.group(3));
 
-        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, new PhoneNumber(area, exch, ext),
+        if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, new PhoneNumber(area, exch, ext),
                 PhoneNumber.class))
             return;
         if (ingoreError) {

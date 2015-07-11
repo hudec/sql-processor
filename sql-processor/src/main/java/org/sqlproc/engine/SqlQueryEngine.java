@@ -881,7 +881,7 @@ public class SqlQueryEngine extends SqlEngine {
 
             if (changedIdentity) {
                 if (!isPrimitiveWrapper) {
-                    resultInstance = (E) BeanUtils.getInstance(runtimeContext, resultClass);
+                    resultInstance = (E) runtimeContext.getInstance(resultClass);
                     if (resultInstance == null) {
                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                     }

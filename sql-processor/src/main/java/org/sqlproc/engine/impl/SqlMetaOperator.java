@@ -3,7 +3,6 @@ package org.sqlproc.engine.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.impl.SqlInputValue.Code;
 
@@ -95,7 +94,7 @@ class SqlMetaOperator extends SqlMetaConst {
     Class<?> getFieldType(SqlProcessContext ctx, Class<?> attributeType, String attributeName) {
         if (attributeName.indexOf("@") >= 0 || attributeName.indexOf("?") >= 0)
             return String.class;
-        return BeanUtils.getAttributeType(ctx, attributeType, attributeName);
+        return ctx.getAttributeType(attributeType, attributeName);
     }
 
     /**
@@ -121,14 +120,14 @@ class SqlMetaOperator extends SqlMetaConst {
                 name = item;
             }
         }
-        Object result = (BeanUtils.checkAttribute(ctx, obj, name)) ? BeanUtils.getAttribute(ctx, obj, name) : null;
+        Object result = (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
         if (result != null || prefix == null || suffix == null)
             return result;
         suffix = SqlUtils.firstLowerCase(suffix);
-        Object o = (BeanUtils.checkAttribute(ctx, obj, suffix)) ? BeanUtils.getAttribute(ctx, obj, suffix) : null;
+        Object o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
         if (o == null || !(o instanceof Map)) {
             suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
-            o = (BeanUtils.checkAttribute(ctx, obj, suffix)) ? BeanUtils.getAttribute(ctx, obj, suffix) : null;
+            o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
             if (o == null || !(o instanceof Map)) {
                 return null;
             }

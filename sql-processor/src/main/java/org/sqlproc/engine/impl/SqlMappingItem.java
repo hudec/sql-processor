@@ -10,12 +10,11 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.BeanUtils;
-import org.sqlproc.engine.BeanUtils.GetterType;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.plugin.Modifiers;
+import org.sqlproc.engine.plugin.SqlBeansPlugin.GetterType;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
 
@@ -303,7 +302,7 @@ class SqlMappingItem implements SqlMetaElement {
                 SqlMappingAttribute attr = attributes.get(i);
                 String name = attr.getName();
 
-                GetterType rt = BeanUtils.getGetterType(ctx, objClass, name);
+                GetterType rt = ctx.getGetterType(objClass, name);
                 if (rt != null) {
                     objClass = rt.type;
                 } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
@@ -350,7 +349,7 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 }
             }
-            Class<?> attributeType = BeanUtils.getAttributeType(ctx, objClass, getName());
+            Class<?> attributeType = ctx.getAttributeType(objClass, getName());
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", attributeType=" + attributeType);
@@ -420,9 +419,9 @@ class SqlMappingItem implements SqlMetaElement {
                         + identities.get(attr.getFullName()));
             }
 
-            GetterType rt = BeanUtils.getGetterType(ctx, obj, name);
+            GetterType rt = ctx.getGetterType(obj, name);
             if (rt != null) {
-                Object nextObj = BeanUtils.invokeMethod(ctx, obj, rt.methodName, null);
+                Object nextObj = ctx.invokeMethod(obj, rt.methodName, null);
                 if (nextObj == null) {
                     String typeName = values.get(attr.getFullName() + Modifiers.MODIFIER_TYPE);
                     Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
@@ -459,11 +458,11 @@ class SqlMappingItem implements SqlMetaElement {
                             }
                         }
                         if (typeClass2 != null && typeClass.isAssignableFrom(typeClass2))
-                            nextObj = BeanUtils.getInstance(ctx, typeClass2);
+                            nextObj = ctx.getInstance(typeClass2);
                         else
-                            nextObj = BeanUtils.getInstance(ctx, typeClass);
+                            nextObj = ctx.getInstance(typeClass);
                         if (nextObj != null) {
-                            BeanUtils.setAttribute(ctx, obj, name, nextObj);
+                            ctx.setAttribute(obj, name, nextObj);
                         } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                             logger.error("There's problem to instantiate " + typeClass
                                     + ", complete attribute name is '" + attr.getFullName()
@@ -495,7 +494,7 @@ class SqlMappingItem implements SqlMetaElement {
                         if (typeClass == null)
                             typeClass = rt.typeClass;
                         if (typeClass != null) {
-                            Object itemObj = BeanUtils.getInstance(ctx, typeClass);
+                            Object itemObj = ctx.getInstance(typeClass);
                             if (itemObj != null) {
                                 ((Collection) nextObj).add(itemObj);
                                 idsProcessed.put(idsKey, itemObj);

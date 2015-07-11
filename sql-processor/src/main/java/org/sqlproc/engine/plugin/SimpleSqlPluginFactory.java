@@ -48,6 +48,11 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     private DefaultSqlPlugins defaultSqlPlugins;
 
     /**
+     * The SQL Processor plugin devoted to beans handlingstandard implementation.
+     */
+    private DefaultSqlBeansPlugin defaultSqlBeansPlugin;
+
+    /**
      * The SQL Processor plugin devoted to evaluate the boolean value of the logical expression.
      */
     private IsTruePlugin isTruePlugin;
@@ -83,10 +88,16 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     private SqlExecutionPlugin sqlExecutionPlugin;
 
     /**
+     * The SQL Processor plugin devoted to beans handling.
+     */
+    private SqlBeansPlugin sqlBeansPlugin;
+
+    /**
      * The private constructor.
      */
     private SimpleSqlPluginFactory() {
         defaultSqlPlugins = new DefaultSqlPlugins();
+        defaultSqlBeansPlugin = new DefaultSqlBeansPlugin();
     }
 
     /**
@@ -152,6 +163,14 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     @Override
     public SqlExecutionPlugin getSqlExecutionPlugin() {
         return (sqlExecutionPlugin != null) ? sqlExecutionPlugin : defaultSqlPlugins;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlBeansPlugin getSqlBeansPlugin() {
+        return (sqlBeansPlugin != null) ? sqlBeansPlugin : defaultSqlBeansPlugin;
     }
 
     /**
@@ -224,4 +243,13 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
         this.sqlExecutionPlugin = sqlExecutionPlugin;
     }
 
+    /**
+     * Sets the SQL Processor plugin devoted to beans handling
+     * 
+     * @param sqlBeansPlugin
+     *            the SQL Processor plugin devoted to beans handling
+     */
+    public void setSqlBeansPlugin(SqlBeansPlugin sqlBeansPlugin) {
+        this.sqlBeansPlugin = sqlBeansPlugin;
+    }
 }

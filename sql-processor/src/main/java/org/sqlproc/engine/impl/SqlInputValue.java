@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -247,7 +246,7 @@ class SqlInputValue {
             String[] ss = (sqlInputValue.fullInputName != null) ? sqlInputValue.fullInputName.split(",")
                     : new String[] { sqlInputValue.inputName };
             for (int i = 0; i < ss.length; i++) {
-                this.inputValue = BeanUtils.getAttribute(ctx, (i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
+                this.inputValue = ctx.getAttribute((i == 0) ? dynamicInputValues : this.inputValue, ss[i]);
                 if (i < ss.length - 1)
                     this.parentInputValue = this.inputValue;
             }

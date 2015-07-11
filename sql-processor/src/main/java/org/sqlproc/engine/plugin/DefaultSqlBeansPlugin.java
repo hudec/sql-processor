@@ -1,4 +1,4 @@
-package org.sqlproc.engine;
+package org.sqlproc.engine.plugin;
 
 import java.beans.BeanInfo;
 import java.beans.IndexedPropertyDescriptor;
@@ -9,37 +9,38 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRuntimeContext;
+import org.sqlproc.engine.SqlRuntimeException;
 
 /**
  * Bean utilities.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class BeanUtils {
+public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
 
-    private static ConcurrentHashMap<String, Constructor<?>> constructors = new ConcurrentHashMap<String, Constructor<?>>();
-    private static ConcurrentHashMap<String, PropertyDescriptor[]> descriptors = new ConcurrentHashMap<String, PropertyDescriptor[]>();
-    private static ConcurrentHashMap<String, Class<?>> types = new ConcurrentHashMap<String, Class<?>>();
-    private static ConcurrentHashMap<String, Method> getters = new ConcurrentHashMap<String, Method>();
-    private static ConcurrentHashMap<String, GetterType> typeGetters = new ConcurrentHashMap<String, GetterType>();
-    private static ConcurrentHashMap<String, Method> setters = new ConcurrentHashMap<String, Method>();
-    private static ConcurrentHashMap<String, Method> methods = new ConcurrentHashMap<String, Method>();
+    protected ConcurrentHashMap<String, Constructor<?>> constructors = new ConcurrentHashMap<String, Constructor<?>>();
+    protected ConcurrentHashMap<String, PropertyDescriptor[]> descriptors = new ConcurrentHashMap<String, PropertyDescriptor[]>();
+    protected ConcurrentHashMap<String, Class<?>> types = new ConcurrentHashMap<String, Class<?>>();
+    protected ConcurrentHashMap<String, Method> getters = new ConcurrentHashMap<String, Method>();
+    protected ConcurrentHashMap<String, GetterType> typeGetters = new ConcurrentHashMap<String, GetterType>();
+    protected ConcurrentHashMap<String, Method> setters = new ConcurrentHashMap<String, Method>();
+    protected ConcurrentHashMap<String, Method> methods = new ConcurrentHashMap<String, Method>();
 
     /**
      * The internal slf4j logger.
      */
-    static final Logger logger = LoggerFactory.getLogger(BeanUtils.class);
+    final Logger logger = LoggerFactory.getLogger(DefaultSqlBeansPlugin.class);
 
     // instances
 
-    private static Constructor<?> getInstanceConstructor(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
+    protected Constructor<?> getInstanceConstructor(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
         String keyName = clazz.getName();
         Constructor<?> ctor = constructors.get(keyName);
         if (ctor != null)
@@ -90,7 +91,11 @@ public class BeanUtils {
         return ctor;
     }
 
-    public static Object getInstance(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getInstance(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
         Constructor<?> ctor = getInstanceConstructor(runtimeCtx, clazz);
         if (ctor == null) {
             logger.warn("getInstance: " + clazz + " can't get constructor");
@@ -113,7 +118,7 @@ public class BeanUtils {
         }
     }
 
-    private static PropertyDescriptor[] getDescriptors(Class<?> clazz) {
+    protected PropertyDescriptor[] getDescriptors(Class<?> clazz) {
         String keyName = clazz.getName();
         PropertyDescriptor[] _descriptors = descriptors.get(keyName);
         if (_descriptors != null)
@@ -141,7 +146,7 @@ public class BeanUtils {
         return _descriptors;
     }
 
-    private static PropertyDescriptor getAttributeDescriptor(Class<?> clazz, String attrName) {
+    protected PropertyDescriptor getAttributeDescriptor(Class<?> clazz, String attrName) {
         PropertyDescriptor descriptor = null;
         PropertyDescriptor[] descriptors = getDescriptors(clazz);
         if (descriptors != null) {
@@ -157,7 +162,8 @@ public class BeanUtils {
 
     // attributes
 
-    public static Class<?> getAttributeType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+    @Override
+    public Class<?> getAttributeType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
         Class<?> attrType = types.get(keyName);
         if (attrType != null)
@@ -178,7 +184,7 @@ public class BeanUtils {
 
     // getters
 
-    private static Method getGetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, boolean onlyCheck) {
+    protected Method getGetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, boolean onlyCheck) {
         String keyName = clazz.getName() + "." + attrName;
         Method getter = getters.get(keyName);
         if (getter != null)
@@ -201,22 +207,11 @@ public class BeanUtils {
         return getter;
     }
 
-    public static class GetterType {
-        public Class<?> type;
-        public Type genericType;
-        public Class<?> typeClass;
-        public String methodName;
-
-        public GetterType(Method m) {
-            methodName = m.getName();
-            type = m.getReturnType();
-            genericType = m.getGenericReturnType();
-            if (genericType != null && genericType instanceof ParameterizedType)
-                typeClass = (Class<?>) ((ParameterizedType) genericType).getActualTypeArguments()[0];
-        }
-    }
-
-    public static GetterType getGetterType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GetterType getGetterType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
         GetterType getterType = typeGetters.get(keyName);
         if (getterType != null)
@@ -233,15 +228,27 @@ public class BeanUtils {
         return getterType;
     }
 
-    public static GetterType getGetterType(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GetterType getGetterType(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
         return getGetterType(runtimeCtx, bean.getClass(), attrName);
     }
 
-    public static boolean checkAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
         return getGetter(runtimeCtx, bean.getClass(), attrName, true) != null;
     }
 
-    public static Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
         Method getter = getGetter(runtimeCtx, bean.getClass(), attrName, true);
         if (getter == null)
             throw new SqlRuntimeException("getAttribute(NoSuchMethodException): there's no getter for '" + attrName
@@ -251,7 +258,7 @@ public class BeanUtils {
 
     // setters
 
-    private static Method getSetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, boolean onlyCheck,
+    protected Method getSetter(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName, boolean onlyCheck,
             Class<?>... attrTypes) {
         String keyName = clazz.getName() + "." + attrName + attrTypes2String(attrTypes);
         Method _setter = setters.get(keyName);
@@ -295,13 +302,17 @@ public class BeanUtils {
         return setter;
     }
 
-    private static Method getSetter(SqlRuntimeContext runtimeCtx, Object bean, String attrName, boolean onlyCheck,
+    protected Method getSetter(SqlRuntimeContext runtimeCtx, Object bean, String attrName, boolean onlyCheck,
             Class<?>... attrTypes) {
         return getSetter(runtimeCtx, bean.getClass(), attrName, onlyCheck, attrTypes);
     }
 
-    public static boolean simpleSetAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName,
-            Object attrValue, Class<?>... attrTypes) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean simpleSetAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue,
+            Class<?>... attrTypes) {
         Method setter = getSetter(runtimeCtx, bean, attrName, true, attrTypes);
         if (setter != null) {
             invokeMethod(runtimeCtx, bean, setter, attrValue);
@@ -311,7 +322,11 @@ public class BeanUtils {
         }
     }
 
-    public static void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue) {
         Method setter = getSetter(runtimeCtx, bean, attrName, true);
         if (setter == null)
             throw new SqlRuntimeException("setAttribute(NoSuchMethodException): there's no setter for '" + attrName
@@ -321,7 +336,7 @@ public class BeanUtils {
 
     // methods invocation
 
-    private static Method getMethod(Class<?> clazz, Method method, boolean onlyCheck) {
+    protected Method getMethod(Class<?> clazz, Method method, boolean onlyCheck) {
 
         if (method == null)
             return null;
@@ -367,7 +382,7 @@ public class BeanUtils {
         return _method;
     }
 
-    private static Method getInterfaceMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes) {
+    protected Method getInterfaceMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes) {
 
         Method method = null;
 
@@ -394,7 +409,7 @@ public class BeanUtils {
         return null;
     }
 
-    private static Method getSuperclassMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes) {
+    protected Method getSuperclassMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes) {
 
         Class<?> parentClazz = clazz.getSuperclass();
         while (parentClazz != null) {
@@ -410,7 +425,7 @@ public class BeanUtils {
         return null;
     }
 
-    private static Method getMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes, boolean onlyCheck) {
+    protected Method getMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes, boolean onlyCheck) {
 
         String keyName = clazz.getName() + "." + methodName + attrTypes2String(parameterTypes);
         Method method = methods.get(keyName);
@@ -463,7 +478,7 @@ public class BeanUtils {
         return method;
     }
 
-    private static final boolean areTheSameParameters(Class<?> methodParameterType, Class<?> parameterType) {
+    protected final boolean areTheSameParameters(Class<?> methodParameterType, Class<?> parameterType) {
         if (methodParameterType.isAssignableFrom(parameterType)) {
             return true;
         }
@@ -476,7 +491,7 @@ public class BeanUtils {
         return false;
     }
 
-    private static Class<?> getPrimitiveWrapper(Class<?> primitiveType) {
+    protected Class<?> getPrimitiveWrapper(Class<?> primitiveType) {
         if (boolean.class.equals(primitiveType)) {
             return Boolean.class;
         } else if (float.class.equals(primitiveType)) {
@@ -499,23 +514,7 @@ public class BeanUtils {
         }
     }
 
-    public static class MethodResult {
-        Object result;
-        boolean noSuchMethod;
-        RuntimeException exception;
-
-        public MethodResult(Object result) {
-            this.result = result;
-            noSuchMethod = false;
-        }
-
-        public MethodResult() {
-            this.result = null;
-            noSuchMethod = true;
-        }
-    }
-
-    private static Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method method, Object... args) {
+    protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method method, Object... args) {
         try {
             if (!method.isAccessible())
                 try {
@@ -533,24 +532,40 @@ public class BeanUtils {
         }
     }
 
-    public static boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
         Class<?>[] parameterTypes = toParameterTypes(args);
         return getMethod(clazz, methodName, parameterTypes, true) != null;
     }
 
-    public static boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
         return checkMethod(runtimeCtx, bean.getClass(), methodName, args);
     }
 
-    public static Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
         return invokeMethod(runtimeCtx, clazz, null, methodName, args);
     }
 
-    public static Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
         return invokeMethod(runtimeCtx, bean.getClass(), bean, methodName, args);
     }
 
-    private static Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object bean, String methodName,
+    protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object bean, String methodName,
             Object... args) {
         Class<?>[] parameterTypes = toParameterTypes(args);
         Method method = getMethod(clazz, methodName, parameterTypes, true);
@@ -571,7 +586,11 @@ public class BeanUtils {
 
     // enums
 
-    public static Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object bean) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object bean) {
         if (bean == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
@@ -581,7 +600,11 @@ public class BeanUtils {
         return null;
     }
 
-    public static Class<?> getEnumToClass(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?> getEnumToClass(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
         if (clazz == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
@@ -592,7 +615,11 @@ public class BeanUtils {
         return null;
     }
 
-    public static Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
         if (val == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
@@ -604,7 +631,7 @@ public class BeanUtils {
 
     // misc
 
-    private static String attrTypes2String(Class<?>... attrTypes) {
+    protected String attrTypes2String(Class<?>... attrTypes) {
         if (attrTypes == null || attrTypes.length == 0)
             return "";
         StringBuilder sb = new StringBuilder(".");
@@ -619,7 +646,7 @@ public class BeanUtils {
         return sb.toString();
     }
 
-    private static Object[] toArray(Object arg) {
+    protected Object[] toArray(Object arg) {
         Object[] args = null;
         if (arg != null) {
             args = new Object[] { arg };
@@ -627,7 +654,7 @@ public class BeanUtils {
         return args;
     }
 
-    private static Class<?>[] toParameterTypes(Object[] args) {
+    protected Class<?>[] toParameterTypes(Object[] args) {
         if (args == null)
             return new Class[0];
         Class<?>[] parameterTypes = new Class[args.length];
@@ -637,7 +664,7 @@ public class BeanUtils {
         return parameterTypes;
     }
 
-    private static String debugInfo(String msg, Object bean, Method method, Object... args) {
+    protected String debugInfo(String msg, Object bean, Method method, Object... args) {
         StringBuilder sb = new StringBuilder(msg);
         sb.append(": bean=").append((bean != null) ? bean.getClass() : "null");
         sb.append(", method=").append((method != null) ? method.toString() : "null");

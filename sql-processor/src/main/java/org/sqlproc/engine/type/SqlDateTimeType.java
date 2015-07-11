@@ -3,7 +3,6 @@ package org.sqlproc.engine.type;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -51,12 +50,12 @@ public abstract class SqlDateTimeType extends SqlProviderType {
         }
         if (resultValue instanceof java.sql.Timestamp) {
             ((java.sql.Timestamp) resultValue).setNanos(0);
-            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
-                    java.sql.Timestamp.class, java.util.Date.class))
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+                    java.util.Date.class))
                 return;
         } else if (resultValue instanceof java.util.Date) {
-            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
-                    java.sql.Timestamp.class, java.util.Date.class))
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
+                    java.util.Date.class))
                 return;
         } else if (ingoreError) {
             logger.error("Incorrect datetime " + resultValue + " for " + attributeName + " in " + resultInstance);

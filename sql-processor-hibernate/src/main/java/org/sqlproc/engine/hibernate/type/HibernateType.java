@@ -11,7 +11,6 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -94,16 +93,14 @@ public class HibernateType extends SqlMetaType {
                     + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null) + ", hibernateType=" + hibernateType);
         }
-        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
-                hibernateType.getReturnedClass()))
+        if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, hibernateType.getReturnedClass()))
             return;
         if (hibernateType instanceof PrimitiveType)
-            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue,
                     ((PrimitiveType) hibernateType).getPrimitiveClass()))
                 return;
         if (hibernateType.getReturnedClass() == java.util.Date.class)
-            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue,
-                    java.sql.Timestamp.class))
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class))
                 return;
         if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance

@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.plugin.Modifiers;
@@ -306,19 +305,19 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             }
         } else if (obj.getClass().isEnum() && this.sqlType != null) {
             if (sqlType.getMetaType(ctx) == ctx.getTypeFactory().getEnumStringType()) {
-                Object o = BeanUtils.getEnumToValue(ctx, obj);
+                Object o = ctx.getEnumToValue(obj);
                 if (o != null && o instanceof String)
                     return "'" + (String) o + "'";
                 else
                     return "'" + obj.toString() + "'";
             } else if (sqlType.getMetaType(ctx) == ctx.getTypeFactory().getEnumIntegerType()) {
-                Object o = BeanUtils.getEnumToValue(ctx, obj);
+                Object o = ctx.getEnumToValue(obj);
                 if (o != null)
                     return o.toString();
                 else
                     return obj.toString();
             } else if (sqlType.getMetaType(ctx) == ctx.getTypeFactory().getDefaultType()) {
-                Object o = BeanUtils.getEnumToValue(ctx, obj);
+                Object o = ctx.getEnumToValue(obj);
                 if (o != null && o instanceof Integer) {
                     return o.toString();
                 } else if (o != null && o instanceof String) {
@@ -354,7 +353,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                 attributeName = item;
                 if (obj != null) {
                     parentObj = obj;
-                    obj = BeanUtils.getAttribute(ctx, obj, item);
+                    obj = ctx.getAttribute(obj, item);
                 }
             }
         }
@@ -399,7 +398,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * @return the static input attribute type
      */
     Class<?> getFieldType(SqlProcessContext ctx, Class<?> attributeType, String attributeName) {
-        return BeanUtils.getAttributeType(ctx, attributeType, attributeName);
+        return ctx.getAttributeType(attributeType, attributeName);
     }
 
     /**
@@ -414,6 +413,6 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
      * @return the static input attribute value
      */
     Object getProperty(SqlProcessContext ctx, Object obj, String item) {
-        return BeanUtils.getAttribute(ctx, obj, item);
+        return ctx.getAttribute(obj, item);
     }
 }

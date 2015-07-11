@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -85,7 +84,7 @@ public class JdbcDefaultType extends SqlMetaType {
                     + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        Class<?> attributeType = BeanUtils.getAttributeType(runtimeCtx, resultInstance.getClass(), attributeName);
+        Class<?> attributeType = runtimeCtx.getAttributeType(resultInstance.getClass(), attributeName);
         if (attributeType == null) {
             if (ingoreError) {
                 logger.error("There's problem with attribute type for '" + attributeName + "' in " + resultInstance
@@ -101,9 +100,9 @@ public class JdbcDefaultType extends SqlMetaType {
                 resultValue = (Integer) ((BigDecimal) resultValue).intValue();
             else if (resultValue != null && resultValue instanceof BigInteger)
                 resultValue = (Integer) ((BigInteger) resultValue).intValue();
-            Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
+            Object enumInstance = runtimeCtx.getValueToEnum(attributeType, resultValue);
 
-            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, enumInstance, attributeType))
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
                 return;
             else if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
@@ -120,7 +119,7 @@ public class JdbcDefaultType extends SqlMetaType {
                     resultValue = SqlUtils.convertBigInteger(attributeType, resultValue);
             }
 
-            if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue, attributeType))
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
                 return;
             if (ingoreError) {
                 logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
@@ -144,7 +143,7 @@ public class JdbcDefaultType extends SqlMetaType {
         }
         if (!(inputValue instanceof Collection)) {
             if (inputType.isEnum()) {
-                Class clazz = BeanUtils.getEnumToClass(runtimeCtx, inputType);
+                Class clazz = runtimeCtx.getEnumToClass(inputType);
                 if (clazz == String.class) {
                     JdbcTypeFactory.ENUM_STRING.setParameter(runtimeCtx, query, paramName, inputValue, inputType,
                             ingoreError);
@@ -179,7 +178,7 @@ public class JdbcDefaultType extends SqlMetaType {
                     break;
                 else
                     isEnum = true;
-                Object o = BeanUtils.getEnumToValue(runtimeCtx, val);
+                Object o = runtimeCtx.getEnumToValue(val);
                 if (o != null) {
                     vals.add(o);
                 } else {

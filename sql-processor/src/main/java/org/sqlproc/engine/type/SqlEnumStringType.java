@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -50,9 +49,9 @@ public abstract class SqlEnumStringType extends SqlProviderType {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
         }
-        Class<?> attributeType = BeanUtils.getAttributeType(runtimeCtx, resultInstance.getClass(), attributeName);
-        Object enumInstance = BeanUtils.getValueToEnum(runtimeCtx, attributeType, resultValue);
-        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, enumInstance, attributeType))
+        Class<?> attributeType = runtimeCtx.getAttributeType(resultInstance.getClass(), attributeName);
+        Object enumInstance = runtimeCtx.getValueToEnum(attributeType, resultValue);
+        if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
             return;
         if (ingoreError) {
             logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
@@ -96,7 +95,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                                     + paramName);
                         }
                     } else {
-                        Object o = BeanUtils.getEnumToValue(runtimeCtx, val);
+                        Object o = runtimeCtx.getEnumToValue(val);
                         if (o != null && o instanceof String) {
                             vals.add((String) o);
                         } else {
@@ -112,7 +111,7 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                 query.setParameterList(paramName, vals.toArray());
             }
         } else {
-            Object o = BeanUtils.getEnumToValue(runtimeCtx, inputValue);
+            Object o = runtimeCtx.getEnumToValue(inputValue);
             if (o != null && o instanceof String) {
                 query.setParameter(paramName, (String) o, getProviderSqlType());
             } else

@@ -406,7 +406,7 @@ public class SqlProcedureEngine extends SqlEngine {
         Iterator i$ = list.iterator(); i$.hasNext();) {
             Object resultRow = i$.next();
             resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
-            resultInstance = (E) BeanUtils.getInstance(mappingResult.getRuntimeContext(), resultClass);
+            resultInstance = (E) mappingResult.getRuntimeContext().getInstance(resultClass);
             if (resultInstance == null) {
                 throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
             }

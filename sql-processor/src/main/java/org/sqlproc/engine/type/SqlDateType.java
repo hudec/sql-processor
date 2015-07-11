@@ -2,7 +2,6 @@ package org.sqlproc.engine.type;
 
 import java.util.Date;
 
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -48,7 +47,7 @@ public abstract class SqlDateType extends SqlProviderType {
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
-        if (BeanUtils.simpleSetAttribute(runtimeCtx, resultInstance, attributeName, resultValue, java.sql.Date.class,
+        if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Date.class,
                 java.util.Date.class))
             return;
         if (ingoreError) {

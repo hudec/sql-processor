@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.BeanUtils;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -91,8 +90,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             Object isNullObj = null;
             if (isEmptyUseMethodIsNull) {
-                isNullObj = (BeanUtils.checkMethod(runtimeCtx, parentObj, "isNull", attributeName)) ? BeanUtils
-                        .invokeMethod(runtimeCtx, parentObj, "isNull", attributeName) : null;
+                isNullObj = (runtimeCtx.checkMethod(parentObj, "isNull", attributeName)) ? runtimeCtx.invokeMethod(
+                        parentObj, "isNull", attributeName) : null;
             }
             if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
                 return true;
@@ -174,11 +173,11 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                     if (obj.toString().equals(inOutModifier)) {
                         return true;
                     } else if (sqlMetaType == runtimeCtx.getTypeFactory().getEnumStringType()) {
-                        return inOutModifier.equals(BeanUtils.getEnumToValue(runtimeCtx, obj));
+                        return inOutModifier.equals(runtimeCtx.getEnumToValue(obj));
                     } else if (sqlMetaType == runtimeCtx.getTypeFactory().getEnumIntegerType()) {
-                        return inOutModifier.equals(BeanUtils.getEnumToValue(runtimeCtx, obj).toString());
+                        return inOutModifier.equals(runtimeCtx.getEnumToValue(obj).toString());
                     } else {
-                        Object enumVal = BeanUtils.getEnumToValue(runtimeCtx, obj);
+                        Object enumVal = runtimeCtx.getEnumToValue(obj);
                         if (enumVal.toString().equals(inOutModifier))
                             return true;
                         return false;
@@ -289,8 +288,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         String methodName = values.get(MODIFIER_CALL);
         if (methodName == null)
             return null;
-        Object result = (BeanUtils.checkMethod(runtimeCtx, parentObj, methodName, attributeName)) ? BeanUtils
-                .invokeMethod(runtimeCtx, parentObj, methodName, attributeName) : null;
+        Object result = (runtimeCtx.checkMethod(parentObj, methodName, attributeName)) ? runtimeCtx.invokeMethod(
+                parentObj, methodName, attributeName) : null;
         if (result == null || !(result instanceof Boolean)) {
             return null;
         }
