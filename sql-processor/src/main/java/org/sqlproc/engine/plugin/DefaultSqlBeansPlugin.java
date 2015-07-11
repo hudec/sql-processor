@@ -672,8 +672,9 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
             Class<?>[] parameterTypes = toParameterTypes(args);
             sb.append(", args=").append(attrTypes2String(parameterTypes));
         }
-        sb.append(", method params=").append(
-                (method.getParameterTypes() != null) ? Arrays.asList(method.getParameterTypes()) : "empty");
+        if (method != null)
+            sb.append(", method params=").append(
+                    (method.getParameterTypes() != null) ? Arrays.asList(method.getParameterTypes()) : "empty");
         return sb.toString();
     }
 }
