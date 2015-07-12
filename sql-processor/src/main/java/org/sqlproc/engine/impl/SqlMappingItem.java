@@ -349,7 +349,12 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 }
             }
-            Class<?> attributeType = ctx.getAttributeType(objClass, getName());
+            boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
+            Class<?> attributeType = null;
+            if (isPrimitiveWrapper)
+                attributeType = objClass;
+            else
+                attributeType = ctx.getAttributeType(objClass, getName());
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", attributeType=" + attributeType);
