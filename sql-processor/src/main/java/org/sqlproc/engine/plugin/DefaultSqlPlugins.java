@@ -22,6 +22,9 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      */
     final Logger logger = LoggerFactory.getLogger(getClass());
 
+    protected static final String METHOD_IS_NULL = "isNull";
+    protected static final String METHOD_IS_DEF = "isDef";
+
     /**
      * {@inheritDoc}
      */
@@ -90,8 +93,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             Object isNullObj = null;
             if (isEmptyUseMethodIsNull) {
-                isNullObj = (runtimeCtx.checkMethod(parentObj, "isNull", attributeName)) ? runtimeCtx.invokeMethod(
-                        parentObj, "isNull", attributeName) : null;
+                isNullObj = (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_NULL, String.class)) ? runtimeCtx
+                        .invokeMethod(parentObj, METHOD_IS_NULL, attributeName) : null;
             }
             if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
                 return true;
@@ -289,14 +292,18 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (methodName == null)
             return null;
         Object result = null;
-        if (methodName.equals("isDef")) {
-            Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName) ? runtimeCtx.getAttribute(
-                    parentObj, attributeName) != null : null;
-            result = (runtimeCtx.checkMethod(parentObj, methodName, attributeName, isAttributeNotNull)) ? runtimeCtx
-                    .invokeMethod(parentObj, methodName, attributeName, isAttributeNotNull) : null;
+        if (methodName.equals(METHOD_IS_DEF)) {
+            if (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class)) {
+                // to support old SQLMOP generated POJOs
+                result = runtimeCtx.invokeMethod(parentObj, methodName, attributeName);
+            } else if (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class, Boolean.class)) {
+                Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName) ? runtimeCtx
+                        .getAttribute(parentObj, attributeName) != null : null;
+                result = runtimeCtx.invokeMethod(parentObj, methodName, attributeName, isAttributeNotNull);
+            }
         } else {
-            result = (runtimeCtx.checkMethod(parentObj, methodName, attributeName)) ? runtimeCtx.invokeMethod(
-                    parentObj, methodName, attributeName) : null;
+            result = (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class)) ? runtimeCtx
+                    .invokeMethod(parentObj, methodName, attributeName) : null;
         }
         if (result == null || !(result instanceof Boolean)) {
             return null;

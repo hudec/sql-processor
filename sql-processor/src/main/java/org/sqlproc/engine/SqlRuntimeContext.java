@@ -97,7 +97,7 @@ public interface SqlRuntimeContext {
 
     void setAttribute(Object bean, String attrName, Object attrValue);
 
-    boolean checkMethod(Class<?> clazz, String methodName, Object... args);
+    boolean checkMethod(Class<?> clazz, String methodName, Class<?>... argTypes);
 
     boolean checkMethod(Object bean, String methodName, Object... args);
 

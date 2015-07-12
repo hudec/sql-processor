@@ -537,9 +537,8 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
-        Class<?>[] parameterTypes = toParameterTypes(args);
-        return getMethod(clazz, methodName, parameterTypes, true) != null;
+    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Class<?>... argTypes) {
+        return getMethod(clazz, methodName, argTypes, true) != null;
     }
 
     /**
@@ -547,7 +546,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      */
     @Override
     public boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
-        return checkMethod(runtimeCtx, bean.getClass(), methodName, args);
+        return getMethod(bean.getClass(), methodName, toParameterTypes(args), true) != null;
     }
 
     /**
@@ -595,7 +594,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
         if (bean == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
-            if (checkMethod(runtimeCtx, bean, methodName))
+            if (checkMethod(runtimeCtx, bean.getClass(), methodName))
                 return invokeMethod(runtimeCtx, bean, methodName);
         }
         return null;
@@ -624,7 +623,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
         if (val == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
-            if (checkMethod(runtimeCtx, objClass, methodName, val))
+            if (checkMethod(runtimeCtx, objClass, methodName, toParameterTypes(val)))
                 return invokeMethod(runtimeCtx, objClass, methodName, val);
         }
         return null;
@@ -653,6 +652,12 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
             args = new Object[] { arg };
         }
         return args;
+    }
+
+    protected Class<?>[] toParameterTypes(Object arg) {
+        if (arg == null)
+            return new Class[0];
+        return new Class[] { arg.getClass() };
     }
 
     protected Class<?>[] toParameterTypes(Object[] args) {

@@ -253,9 +253,8 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
-        Class<?>[] parameterTypes = toParameterTypes(args);
-        return MethodUtils.getMatchingAccessibleMethod(clazz, methodName, parameterTypes) != null;
+    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Class<?>... argTypes) {
+        return MethodUtils.getMatchingAccessibleMethod(clazz, methodName, argTypes) != null;
     }
 
     /**
@@ -263,7 +262,7 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
      */
     @Override
     public boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
-        return checkMethod(runtimeCtx, bean.getClass(), methodName, args);
+        return MethodUtils.getMatchingAccessibleMethod(bean.getClass(), methodName, toParameterTypes(args)) != null;
     }
 
     /**
@@ -370,6 +369,12 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
             args = new Object[] { arg };
         }
         return args;
+    }
+
+    protected Class<?>[] toParameterTypes(Object arg) {
+        if (arg == null)
+            return new Class[0];
+        return new Class[] { arg.getClass() };
     }
 
     protected Class<?>[] toParameterTypes(Object[] args) {

@@ -313,7 +313,7 @@ public class SqlProcessContext implements SqlRuntimeContext {
     }
 
     @Override
-    public boolean checkMethod(Class<?> clazz, String methodName, Object... args) {
+    public boolean checkMethod(Class<?> clazz, String methodName, Class<?>... args) {
         return getPluginFactory().getSqlBeansPlugin().checkMethod(this, clazz, methodName, args);
     }
 

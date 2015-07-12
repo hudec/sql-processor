@@ -40,7 +40,7 @@ public interface SqlBeansPlugin {
 
     public void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue);
 
-    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args);
+    public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Class<?>... argTypes);
 
     public boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args);
 
