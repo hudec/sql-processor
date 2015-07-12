@@ -22,6 +22,7 @@
         <version.junit>4.10</version.junit>
         <version.hsqldb>2.2.9</version.hsqldb>
         <version.oracle>10.2.0.4</version.oracle>
+        <version.beanutils>1.9.2</version.beanutils>
     </properties>
 
     <build>
@@ -121,6 +122,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${version.beanutils}</version>
         </dependency>
     </dependencies>
 

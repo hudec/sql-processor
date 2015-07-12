@@ -15,6 +15,7 @@
         <version.slf4j>1.7.2</version.slf4j>
         <version.junit>4.10</version.junit>
         <version.mssql>3.0</version.mssql>
+        <version.beanutils>1.9.2</version.beanutils>
     </properties>
 
     <build>
@@ -128,6 +129,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${version.beanutils}</version>
         </dependency>
     </dependencies>
 
