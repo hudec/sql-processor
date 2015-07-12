@@ -52,5 +52,5 @@ public interface SqlBeansPlugin {
 
     public Class<?> getEnumToClass(SqlRuntimeContext runtimeCtx, Class<?> clazz);
 
-    public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val);
+    public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object val);
 }

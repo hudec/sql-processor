@@ -329,12 +329,12 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
         return null;
     }
 
-    public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
+    public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object val) {
         if (val == null)
             return null;
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
             try {
-                return MethodUtils.invokeStaticMethod(objClass, methodName, val);
+                return MethodUtils.invokeStaticMethod(clazz, methodName, val);
             } catch (NoSuchMethodException e) {
                 continue;
             } catch (IllegalAccessException e) {

@@ -32,6 +32,8 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
     protected ConcurrentHashMap<String, GetterType> typeGetters = new ConcurrentHashMap<String, GetterType>();
     protected ConcurrentHashMap<String, Method> setters = new ConcurrentHashMap<String, Method>();
     protected ConcurrentHashMap<String, Method> methods = new ConcurrentHashMap<String, Method>();
+    protected ConcurrentHashMap<String, Method> enumsIn = new ConcurrentHashMap<String, Method>();
+    protected ConcurrentHashMap<String, Method> enumsOut = new ConcurrentHashMap<String, Method>();
 
     /**
      * The internal slf4j logger.
@@ -426,7 +428,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
         return null;
     }
 
-    protected Method getMethod(Class<?> clazz, String methodName, Class<?>[] parameterTypes, boolean onlyCheck) {
+    protected Method getMethod(Class<?> clazz, String methodName, boolean onlyCheck, Class<?>... parameterTypes) {
 
         String keyName = clazz.getName() + "." + methodName + attrTypes2String(parameterTypes);
         Method method = methods.get(keyName);
@@ -538,7 +540,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      */
     @Override
     public boolean checkMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Class<?>... argTypes) {
-        return getMethod(clazz, methodName, argTypes, true) != null;
+        return getMethod(clazz, methodName, true, argTypes) != null;
     }
 
     /**
@@ -546,7 +548,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      */
     @Override
     public boolean checkMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
-        return getMethod(bean.getClass(), methodName, toParameterTypes(args), true) != null;
+        return getMethod(bean.getClass(), methodName, true, toParameterTypes(args)) != null;
     }
 
     /**
@@ -568,7 +570,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
     protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object bean, String methodName,
             Object... args) {
         Class<?>[] parameterTypes = toParameterTypes(args);
-        Method method = getMethod(clazz, methodName, parameterTypes, true);
+        Method method = getMethod(clazz, methodName, true, parameterTypes);
         if (method == null) {
             throw new SqlRuntimeException(debugInfo("invokeMethod(NoSuchMethodException)", bean, method, args));
         }
@@ -593,11 +595,21 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
     public Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object bean) {
         if (bean == null)
             return null;
+        String keyName = bean.getClass().getName();
+        Method method = enumsIn.get(keyName);
+        if (method != null)
+            return invokeMethod(runtimeCtx, bean, method);
+
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
-            if (checkMethod(runtimeCtx, bean.getClass(), methodName))
-                return invokeMethod(runtimeCtx, bean, methodName);
+            method = getMethod(bean.getClass(), methodName, true);
+            if (method != null)
+                break;
         }
-        return null;
+        if (method == null)
+            return null;
+
+        enumsIn.put(keyName, method);
+        return invokeMethod(runtimeCtx, bean, method);
     }
 
     /**
@@ -607,26 +619,46 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
     public Class<?> getEnumToClass(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
         if (clazz == null)
             return null;
+        String keyName = clazz.getName();
+        Method method = enumsIn.get(keyName);
+        if (method != null)
+            return method.getReturnType();
+
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
-            Method method = getMethod(clazz, methodName, new Class[] {}, true);
+            method = getMethod(clazz, methodName, true);
             if (method != null)
-                return method.getReturnType();
+                break;
         }
-        return null;
+        if (method == null)
+            return null;
+
+        enumsIn.put(keyName, method);
+        return method.getReturnType();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> objClass, Object val) {
+    public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object val) {
         if (val == null)
             return null;
+        Class<?>[] parameterTypes = toParameterTypes(val);
+        String keyName = clazz.getName() + attrTypes2String(parameterTypes);
+        Method method = enumsOut.get(keyName);
+        if (method != null)
+            return invokeMethod(runtimeCtx, clazz, method, val);
+
         for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
-            if (checkMethod(runtimeCtx, objClass, methodName, toParameterTypes(val)))
-                return invokeMethod(runtimeCtx, objClass, methodName, val);
+            method = getMethod(clazz, methodName, true, parameterTypes);
+            if (method != null)
+                break;
         }
-        return null;
+        if (method == null)
+            return null;
+
+        enumsOut.put(keyName, method);
+        return invokeMethod(runtimeCtx, clazz, method, val);
     }
 
     // misc
