@@ -19,7 +19,7 @@ import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 
 /**
- * Bean utilities.
+ * Standard bean utilities implementation.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
@@ -250,7 +250,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
+    public Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) throws SqlRuntimeException {
         Method getter = getGetter(runtimeCtx, bean.getClass(), attrName, true);
         if (getter == null)
             throw new SqlRuntimeException("getAttribute(NoSuchMethodException): there's no getter for '" + attrName
@@ -329,7 +329,8 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue) {
+    public void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue)
+            throws SqlRuntimeException {
         Method setter = getSetter(runtimeCtx, bean, attrName, true);
         if (setter == null)
             throw new SqlRuntimeException("setAttribute(NoSuchMethodException): there's no setter for '" + attrName
@@ -555,7 +556,8 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
+    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args)
+            throws SqlRuntimeException {
         return invokeMethod(runtimeCtx, clazz, null, methodName, args);
     }
 
@@ -563,12 +565,13 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
+    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args)
+            throws SqlRuntimeException {
         return invokeMethod(runtimeCtx, bean.getClass(), bean, methodName, args);
     }
 
     protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object bean, String methodName,
-            Object... args) {
+            Object... args) throws SqlRuntimeException {
         Class<?>[] parameterTypes = toParameterTypes(args);
         Method method = getMethod(clazz, methodName, true, parameterTypes);
         if (method == null) {

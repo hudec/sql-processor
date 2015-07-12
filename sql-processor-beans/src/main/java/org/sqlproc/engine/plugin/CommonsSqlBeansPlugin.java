@@ -15,7 +15,7 @@ import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 
 /**
- * Bean utilities.
+ * Bean utilities implementation based on Apache commons library.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
@@ -141,7 +141,7 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) {
+    public Object getAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName) throws SqlRuntimeException {
         try {
             return PropertyUtils.getSimpleProperty(bean, attrName);
         } catch (IllegalAccessException e) {
@@ -217,7 +217,8 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue) {
+    public void setAttribute(SqlRuntimeContext runtimeCtx, Object bean, String attrName, Object attrValue)
+            throws SqlRuntimeException {
         try {
             PropertyUtils.setSimpleProperty(bean, attrName, attrValue);
         } catch (IllegalAccessException e) {
@@ -231,7 +232,8 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
 
     // methods invocation
 
-    protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method method, Object... args) {
+    protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method method, Object... args)
+            throws SqlRuntimeException {
         try {
             if (!method.isAccessible())
                 try {
@@ -269,7 +271,8 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args) {
+    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, String methodName, Object... args)
+            throws SqlRuntimeException {
         return invokeMethod(runtimeCtx, clazz, null, methodName, args);
     }
 
@@ -277,12 +280,13 @@ public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
      * {@inheritDoc}
      */
     @Override
-    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args) {
+    public Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, String methodName, Object... args)
+            throws SqlRuntimeException {
         return invokeMethod(runtimeCtx, bean.getClass(), bean, methodName, args);
     }
 
     protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object bean, String methodName,
-            Object... args) {
+            Object... args) throws SqlRuntimeException {
         try {
             if (bean == null)
                 return MethodUtils.invokeStaticMethod(clazz, methodName, args);
