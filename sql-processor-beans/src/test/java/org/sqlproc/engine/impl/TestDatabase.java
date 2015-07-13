@@ -29,9 +29,9 @@ import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
-import org.sqlproc.engine.plugin.CommonsSqlBeansPlugin;
+import org.sqlproc.engine.plugin.CommonsBeanUtilsPlugin;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
-import org.sqlproc.engine.plugin.SqlBeansPlugin;
+import org.sqlproc.engine.plugin.BeanUtilsPlugin;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.PhoneNumberType;
 import org.sqlproc.engine.type.SqlInternalType;
@@ -61,7 +61,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static List<String> ddlDropDb;
     protected static boolean dbCreated = false;
     protected static SqlValidatorFactory validatorFactory;
-    protected static SqlBeansPlugin beansPlugin = new CommonsSqlBeansPlugin();
+    protected static BeanUtilsPlugin beansPlugin = new CommonsBeanUtilsPlugin();
 
     protected static List<SqlInternalType> customTypes = new ArrayList<SqlInternalType>();
     static {

@@ -12,7 +12,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface SqlBeansPlugin {
+public interface BeanUtilsPlugin {
 
     /**
      * Holder for the getter types (standard and generic ones).

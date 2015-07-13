@@ -23,7 +23,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
+public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
 
     protected ConcurrentHashMap<String, Constructor<?>> constructors = new ConcurrentHashMap<String, Constructor<?>>();
     protected ConcurrentHashMap<String, PropertyDescriptor[]> descriptors = new ConcurrentHashMap<String, PropertyDescriptor[]>();
@@ -38,7 +38,7 @@ public class DefaultSqlBeansPlugin implements SqlBeansPlugin {
     /**
      * The internal slf4j logger.
      */
-    final Logger logger = LoggerFactory.getLogger(DefaultSqlBeansPlugin.class);
+    final Logger logger = LoggerFactory.getLogger(DefaultBeanUtilsPlugin.class);
 
     // instances
 

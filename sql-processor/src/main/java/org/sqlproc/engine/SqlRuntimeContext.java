@@ -1,6 +1,6 @@
 package org.sqlproc.engine;
 
-import org.sqlproc.engine.plugin.SqlBeansPlugin.GetterType;
+import org.sqlproc.engine.plugin.BeanUtilsPlugin.GetterType;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 

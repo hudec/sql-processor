@@ -14,7 +14,7 @@ import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.plugin.Modifiers;
-import org.sqlproc.engine.plugin.SqlBeansPlugin.GetterType;
+import org.sqlproc.engine.plugin.BeanUtilsPlugin.GetterType;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
 

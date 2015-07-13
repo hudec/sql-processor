@@ -62,5 +62,5 @@ public interface SqlPluginFactory {
      * 
      * @return the SQL Processor plugin devoted to beans handling
      */
-    public SqlBeansPlugin getSqlBeansPlugin();
+    public BeanUtilsPlugin getSqlBeansPlugin();
 }

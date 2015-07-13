@@ -10,7 +10,7 @@ import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlRuntimeContext;
-import org.sqlproc.engine.plugin.SqlBeansPlugin.GetterType;
+import org.sqlproc.engine.plugin.BeanUtilsPlugin.GetterType;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
 

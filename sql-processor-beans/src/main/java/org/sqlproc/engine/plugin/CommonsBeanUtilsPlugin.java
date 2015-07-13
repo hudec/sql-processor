@@ -19,12 +19,12 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class CommonsSqlBeansPlugin implements SqlBeansPlugin {
+public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
 
     /**
      * The internal slf4j logger.
      */
-    final Logger logger = LoggerFactory.getLogger(CommonsSqlBeansPlugin.class);
+    final Logger logger = LoggerFactory.getLogger(CommonsBeanUtilsPlugin.class);
 
     // instances
 
