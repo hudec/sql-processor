@@ -12,8 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
-import java.lang.reflect.InvocationTargetException;
-import org.apache.commons.beanutils.MethodUtils;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -273,31 +271,15 @@ public class Person implements Serializable {
 		return nullValues.contains(attribute.name());
 	}
 
-	public Boolean isDef(String attrName) {
-		if (attrName == null)
-			throw new IllegalArgumentException();
-		if (nullValues.contains(attrName))
-			return true;
-		try {
-			Object result = MethodUtils.invokeMethod(this, "get" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
-			return (result != null) ? true : false;
-		} catch (NoSuchMethodException e) {
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e);
-		}
-		try {
-			Object result = MethodUtils.invokeMethod(this, "is" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
-			return (result != null) ? true : false;
-		} catch (NoSuchMethodException e) {
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e);
-		}
-		return false;
-	}
+    public Boolean isDef(final String attrName, final Boolean isAttrNotNull) {
+        if (attrName == null)
+            throw new IllegalArgumentException();
+        if (nullValues.contains(attrName))
+            return true;
+        if (isAttrNotNull != null)
+            return isAttrNotNull;
+        return false;
+    }
 
 	public void clearAllNull() {
 		nullValues = new HashSet<String>();
