@@ -5,6 +5,7 @@ import org.sample.model.person.Contact;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
@@ -154,6 +155,31 @@ public class ContactDao {
   
   public List<Contact> list(final Contact contact) {
     return list(contact, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl, final SqlRowProcessor<Contact> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query contact: " + contact + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    //sqlControl = getMoreResultClasses(contact, sqlControl);
+    int rownums = sqlEngineContact.query(sqlSession, Contact.class, contact, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query contact size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Contact contact, SqlControl sqlControl, final SqlRowProcessor<Contact> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), contact, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Contact contact, final SqlRowProcessor<Contact> sqlRowProcessor) {
+    return query(sqlSession, contact, null, sqlRowProcessor);
+  }
+  
+  public int query(final Contact contact, final SqlRowProcessor<Contact> sqlRowProcessor) {
+    return query(contact, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {

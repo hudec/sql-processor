@@ -5,6 +5,7 @@ import org.sample.model.auth.UserSession;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
@@ -148,6 +149,31 @@ public class UserSessionDao {
   
   public List<UserSession> list(final UserSession userSession) {
     return list(userSession, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final UserSession userSession, SqlControl sqlControl, final SqlRowProcessor<UserSession> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query userSession: " + userSession + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineUserSession = sqlEngineFactory.getCheckedQueryEngine("SELECT_USER_SESSION");
+    //sqlControl = getMoreResultClasses(userSession, sqlControl);
+    int rownums = sqlEngineUserSession.query(sqlSession, UserSession.class, userSession, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query userSession size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final UserSession userSession, SqlControl sqlControl, final SqlRowProcessor<UserSession> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), userSession, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final UserSession userSession, final SqlRowProcessor<UserSession> sqlRowProcessor) {
+    return query(sqlSession, userSession, null, sqlRowProcessor);
+  }
+  
+  public int query(final UserSession userSession, final SqlRowProcessor<UserSession> sqlRowProcessor) {
+    return query(userSession, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final UserSession userSession, SqlControl sqlControl) {

@@ -1,12 +1,14 @@
 package org.sample.web.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.sample.model.auth.AuthUser;
@@ -14,7 +16,6 @@ import org.sample.model.person.Person;
 import org.sample.web.form.PersonForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.impl.BeanUtils;
 import org.sqlproc.engine.impl.SqlStandardControl;
 
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
@@ -54,7 +55,7 @@ public class BeanExtJsUtils {
 
     public <E> E buildFormFromFilters(List<Filter> filters, Class<E> formClass) throws Exception {
 
-        E form = BeanUtils.getInstance(formClass);
+        E form = (E) getInstance(formClass);
 
         for (Filter filter : filters) {
             String value = ((StringFilter) filter).getValue();
@@ -68,7 +69,7 @@ public class BeanExtJsUtils {
 
     public <E> E buildFormFromParams(Map<String, Object> params, Class<E> formClass) throws Exception {
 
-        E form = BeanUtils.getInstance(formClass);
+        E form = (E) getInstance(formClass);
 
         for (Entry<String, Object> p : params.entrySet()) {
             String key = p.getKey();
@@ -160,5 +161,28 @@ public class BeanExtJsUtils {
         if (last < name.length())
             result = result + name.substring(last).toUpperCase();
         return result;
+    }
+
+    public Object getInstance(Class<?> clazz) {
+        try {
+            int isAstract = clazz.getModifiers() & 0x0400;
+            if (isAstract != 0) {
+                logger.warn("getInstance: " + clazz + " is abstract");
+                return null;
+            }
+            return ConstructorUtils.invokeConstructor(clazz, (Object[]) null);
+        } catch (NoSuchMethodException e) {
+            logger.error("getInstance", e);
+            return null;
+        } catch (IllegalAccessException e) {
+            logger.error("getInstance", e);
+            return null;
+        } catch (InvocationTargetException e) {
+            logger.error("getInstance", e);
+            return null;
+        } catch (InstantiationException e) {
+            logger.error("getInstance", e);
+            return null;
+        }
     }
 }

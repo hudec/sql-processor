@@ -1,6 +1,6 @@
 resolve-pojo-on;
 database-is-online;
-database-jdbc-driver :org.hsqldb.jdbcDriver;
+database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:auth";
 database-login-username sa;
 database-login-password "";
@@ -11,7 +11,7 @@ pojogen-generate-wrappers;
 // POJO helpers' methods
 pojogen-generate-methods toString equals hashCode isDef toInit;
 // POJO are serializable
-pojogen-implements-interfaces :java.io.Serializable;
+pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 
 //pojogen-make-it-final;
 // rename enums

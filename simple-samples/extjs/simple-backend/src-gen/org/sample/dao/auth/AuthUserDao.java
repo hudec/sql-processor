@@ -5,6 +5,7 @@ import org.sample.model.auth.AuthUser;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
@@ -154,6 +155,31 @@ public class AuthUserDao {
   
   public List<AuthUser> list(final AuthUser authUser) {
     return list(authUser, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final AuthUser authUser, SqlControl sqlControl, final SqlRowProcessor<AuthUser> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query authUser: " + authUser + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineAuthUser = sqlEngineFactory.getCheckedQueryEngine("SELECT_AUTH_USER");
+    //sqlControl = getMoreResultClasses(authUser, sqlControl);
+    int rownums = sqlEngineAuthUser.query(sqlSession, AuthUser.class, authUser, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query authUser size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final AuthUser authUser, SqlControl sqlControl, final SqlRowProcessor<AuthUser> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), authUser, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final AuthUser authUser, final SqlRowProcessor<AuthUser> sqlRowProcessor) {
+    return query(sqlSession, authUser, null, sqlRowProcessor);
+  }
+  
+  public int query(final AuthUser authUser, final SqlRowProcessor<AuthUser> sqlRowProcessor) {
+    return query(authUser, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final AuthUser authUser, SqlControl sqlControl) {

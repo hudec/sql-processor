@@ -27,6 +27,7 @@
         <version.ehcache>2.5.0</version.ehcache>
         <version.cglib>2.2.2</version.cglib>
         <version.mysql>5.1.21</version.mysql>
+        <version.beanutils>1.9.2</version.beanutils>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.debug>true</maven.compiler.debug>
@@ -311,6 +312,12 @@
             <groupId>org.cloudfoundry</groupId>
             <artifactId>cloudfoundry-runtime</artifactId>
             <version>0.8.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${version.beanutils}</version>
         </dependency>
     </dependencies>
 

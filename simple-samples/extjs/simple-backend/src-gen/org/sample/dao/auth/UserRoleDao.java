@@ -5,6 +5,7 @@ import org.sample.model.auth.UserRole;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
@@ -154,6 +155,31 @@ public class UserRoleDao {
   
   public List<UserRole> list(final UserRole userRole) {
     return list(userRole, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final UserRole userRole, SqlControl sqlControl, final SqlRowProcessor<UserRole> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query userRole: " + userRole + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineUserRole = sqlEngineFactory.getCheckedQueryEngine("SELECT_USER_ROLE");
+    //sqlControl = getMoreResultClasses(userRole, sqlControl);
+    int rownums = sqlEngineUserRole.query(sqlSession, UserRole.class, userRole, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query userRole size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final UserRole userRole, SqlControl sqlControl, final SqlRowProcessor<UserRole> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), userRole, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final UserRole userRole, final SqlRowProcessor<UserRole> sqlRowProcessor) {
+    return query(sqlSession, userRole, null, sqlRowProcessor);
+  }
+  
+  public int query(final UserRole userRole, final SqlRowProcessor<UserRole> sqlRowProcessor) {
+    return query(userRole, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final UserRole userRole, SqlControl sqlControl) {

@@ -133,6 +133,16 @@ public class UserRole implements Serializable {
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
   @JsonIgnore
+  public Set<String> getInitAssociations() {
+    return this.initAssociations;
+  }
+  
+  @JsonIgnore
+  public void setInitAssociations(final Set<String> initAssociations) {
+    this.initAssociations = initAssociations;
+  }
+  
+  @JsonIgnore
   public void setInit(final UserRole.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();

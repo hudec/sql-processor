@@ -190,29 +190,13 @@ public class AuthRole implements Serializable {
     return nullValues.contains(attrName);
   }
   
-  public Boolean isDef(final String attrName) {
+  public Boolean isDef(final String attrName, final Boolean isAttrNotNull) {
     if (attrName == null)
     	throw new IllegalArgumentException();
     if (nullValues.contains(attrName))
     	return true;
-    try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "get" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
-    	return (result != null) ? true : false;
-    } catch (NoSuchMethodException e) {
-    } catch (IllegalAccessException e) {
-    	throw new RuntimeException(e);
-    } catch (java.lang.reflect.InvocationTargetException e) {
-    	throw new RuntimeException(e);
-    }
-    try {
-    	Object result = org.apache.commons.beanutils.MethodUtils.invokeMethod(this, "is" + attrName.substring(0, 1).toUpperCase() + attrName.substring(1, attrName.length()), null);
-    	return (result != null) ? true : false;
-    } catch (NoSuchMethodException e) {
-    } catch (IllegalAccessException e) {
-    	throw new RuntimeException(e);
-    } catch (java.lang.reflect.InvocationTargetException e) {
-    	throw new RuntimeException(e);
-    }
+    if (isAttrNotNull != null)
+    	return isAttrNotNull;
     return false;
   }
   

@@ -5,6 +5,7 @@ import org.sample.model.person.Relative;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
@@ -148,6 +149,31 @@ public class RelativeDao {
   
   public List<Relative> list(final Relative relative) {
     return list(relative, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Relative relative, SqlControl sqlControl, final SqlRowProcessor<Relative> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query relative: " + relative + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineRelative = sqlEngineFactory.getCheckedQueryEngine("SELECT_RELATIVE");
+    //sqlControl = getMoreResultClasses(relative, sqlControl);
+    int rownums = sqlEngineRelative.query(sqlSession, Relative.class, relative, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query relative size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Relative relative, SqlControl sqlControl, final SqlRowProcessor<Relative> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), relative, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Relative relative, final SqlRowProcessor<Relative> sqlRowProcessor) {
+    return query(sqlSession, relative, null, sqlRowProcessor);
+  }
+  
+  public int query(final Relative relative, final SqlRowProcessor<Relative> sqlRowProcessor) {
+    return query(relative, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Relative relative, SqlControl sqlControl) {

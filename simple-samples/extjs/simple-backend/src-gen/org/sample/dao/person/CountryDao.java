@@ -5,6 +5,7 @@ import org.sample.model.person.Country;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
 
@@ -148,6 +149,31 @@ public class CountryDao {
   
   public List<Country> list(final Country country) {
     return list(country, null);
+  }
+  
+  public int query(final SqlSession sqlSession, final Country country, SqlControl sqlControl, final SqlRowProcessor<Country> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query country: " + country + " " + sqlControl);
+    }
+    org.sqlproc.engine.SqlQueryEngine sqlEngineCountry = sqlEngineFactory.getCheckedQueryEngine("SELECT_COUNTRY");
+    //sqlControl = getMoreResultClasses(country, sqlControl);
+    int rownums = sqlEngineCountry.query(sqlSession, Country.class, country, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query country size: " + rownums);
+    }
+    return rownums;
+  }
+  
+  public int query(final Country country, SqlControl sqlControl, final SqlRowProcessor<Country> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), country, sqlControl, sqlRowProcessor);
+  }
+  
+  public int query(final SqlSession sqlSession, final Country country, final SqlRowProcessor<Country> sqlRowProcessor) {
+    return query(sqlSession, country, null, sqlRowProcessor);
+  }
+  
+  public int query(final Country country, final SqlRowProcessor<Country> sqlRowProcessor) {
+    return query(country, null, sqlRowProcessor);
   }
   
   public int count(final SqlSession sqlSession, final Country country, SqlControl sqlControl) {
