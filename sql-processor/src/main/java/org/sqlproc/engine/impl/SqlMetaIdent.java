@@ -219,8 +219,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         String sequenceName = values.get(SqlSequencePlugin.MODIFIER_SEQUENCE);
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
         String identityGenerator = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_GENERATOR);
-        String identityGeneratorValue = (identityGenerator != null) ? ctx.getFeature("IDGEN_" + identityGenerator)
-                : null;
+        String identityGeneratorValue = (identityGenerator != null) ? ctx.getFeature(SqlFeature.IDGEN + "_"
+                + identityGenerator) : null;
         if (identityGeneratorValue != null) {
             int ix = identityGeneratorValue.indexOf("=");
             if (ix >= 0) {

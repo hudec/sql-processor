@@ -448,6 +448,10 @@ public interface SqlFeature {
      */
     public static final String DB2_DEFAULT_IDSEL = "SELECT identity_val_local() FROM SYSIBM.DUAL";
     /**
+     * <code>IDGEN</code> is the key for the SQL query pattern used to obtain the value of identities or sequences.
+     */
+    public static final String IDGEN = "IDGEN";
+    /**
      * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
      */
     public static final String DEFAULT_VERSION_COLUMN = "version";
