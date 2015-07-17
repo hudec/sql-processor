@@ -101,6 +101,7 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
         Constructor<?> ctor = getInstanceConstructor(runtimeCtx, clazz);
         if (ctor == null) {
             logger.warn("getInstance: " + clazz + " can't get constructor");
+            return null;
         }
 
         try {

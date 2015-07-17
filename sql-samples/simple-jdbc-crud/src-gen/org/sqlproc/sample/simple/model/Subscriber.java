@@ -198,20 +198,13 @@ public class Subscriber implements Serializable {
     return nullValues.contains(attrName);
   }
   
-  public Boolean isDef(final String attrName) {
+  public Boolean isDef(final String attrName, final Boolean isAttrNotNull) {
     if (attrName == null)
     	throw new IllegalArgumentException();
     if (nullValues.contains(attrName))
     	return true;
-    try {
-    	Object result = org.apache.commons.beanutils.PropertyUtils.getSimpleProperty(this, attrName);
-    	return (result != null) ? true : false;
-    } catch (IllegalAccessException e) {
-    	throw new RuntimeException(e);
-    } catch (java.lang.reflect.InvocationTargetException e) {
-    	throw new RuntimeException(e);
-    } catch (NoSuchMethodException e) {
-    }
+    if (isAttrNotNull != null)
+    	return isAttrNotNull;
     return false;
   }
   
@@ -228,6 +221,14 @@ public class Subscriber implements Serializable {
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
+  
+  public Set<String> getInitAssociations() {
+    return this.initAssociations;
+  }
+  
+  public void setInitAssociations(final Set<String> initAssociations) {
+    this.initAssociations = initAssociations;
+  }
   
   public void setInit(final Subscriber.Association... associations) {
     if (associations == null)

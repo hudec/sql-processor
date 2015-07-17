@@ -7,7 +7,7 @@ import org.sqlproc.sample.simple.model.Performer;
 
 @Pojo
 @SuppressWarnings("all")
-public class Media implements Serializable {
+public abstract class Media implements Serializable {
   private final static long serialVersionUID = 1L;
   
   public final static int ORDER_BY_ID = 1;
@@ -164,20 +164,13 @@ public class Media implements Serializable {
     return nullValues.contains(attrName);
   }
   
-  public Boolean isDef(final String attrName) {
+  public Boolean isDef(final String attrName, final Boolean isAttrNotNull) {
     if (attrName == null)
     	throw new IllegalArgumentException();
     if (nullValues.contains(attrName))
     	return true;
-    try {
-    	Object result = org.apache.commons.beanutils.PropertyUtils.getSimpleProperty(this, attrName);
-    	return (result != null) ? true : false;
-    } catch (IllegalAccessException e) {
-    	throw new RuntimeException(e);
-    } catch (java.lang.reflect.InvocationTargetException e) {
-    	throw new RuntimeException(e);
-    } catch (NoSuchMethodException e) {
-    }
+    if (isAttrNotNull != null)
+    	return isAttrNotNull;
     return false;
   }
   
@@ -190,6 +183,14 @@ public class Media implements Serializable {
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
+  
+  public Set<String> getInitAssociations() {
+    return this.initAssociations;
+  }
+  
+  public void setInitAssociations(final Set<String> initAssociations) {
+    this.initAssociations = initAssociations;
+  }
   
   public void setInit(final Media.Association... associations) {
     if (associations == null)

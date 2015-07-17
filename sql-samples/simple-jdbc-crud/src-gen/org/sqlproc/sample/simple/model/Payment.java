@@ -106,6 +106,14 @@ public class Payment implements Serializable {
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
   
+  public Set<String> getInitAssociations() {
+    return this.initAssociations;
+  }
+  
+  public void setInitAssociations(final Set<String> initAssociations) {
+    this.initAssociations = initAssociations;
+  }
+  
   public void setInit(final Payment.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();

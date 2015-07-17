@@ -27,7 +27,6 @@
         <!-- version.joda-time>2.8.1-SNAPSHOT</version.joda-time>
         <version.joda-time-hibernate>1.2</version.joda-time-hibernate-->
         <version.javassist>3.12.1.GA</version.javassist>
-        <version.beanutils>1.9.2</version.beanutils>
     </properties>
 
 
@@ -140,11 +139,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${version.beanutils}</version>
         </dependency>
     </dependencies>
 

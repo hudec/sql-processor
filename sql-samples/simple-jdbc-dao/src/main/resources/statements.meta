@@ -218,13 +218,13 @@ INSERT_LIBRARY(CRUD,final=,in=Library,out=Library,tab=library)=
   {= values (:id(seq=SIMPLE_SEQUENCE), :name, :version) }
 ;
 
-GET_LIBRARY(CRUD,final=,in=Library,out=Library,tab=library=l,tab=subscriber=s,tab=physicalMedia=p)=
+GET_LIBRARY(CRUD,final=,in=Library,out=Library,tab=library=l,tab=physicalMedia=p,tab=subscriber=s)=
   select %l.ID @id(id), %l.NAME @name, %l.VERSION @version
-         {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name, %s.VERSION @subscribers.version }
          {? :catalog(call=toInit) | , %p.ID @catalog.id(id), %p.LOCATION @catalog.location, %p.MEDIA @catalog.media.id, %p.LIBRARY @catalog.library.id, %p.VERSION @catalog.version }
+         {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name, %s.VERSION @subscribers.version }
   from %%LIBRARY l
-  {? :subscribers(call=toInit) | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
   {? :catalog(call=toInit) | left join %%PHYSICAL_MEDIA p on %l.ID = %p.LIBRARY }
+  {? :subscribers(call=toInit) | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
   {= where
     {& %l.ID = :id }
     {& %l.NAME = :name }
@@ -251,13 +251,13 @@ DELETE_LIBRARY(CRUD,final=,in=Library,out=Library,tab=library)=
   }
 ;
 
-SELECT_LIBRARY(QRY,final=,in=Library,out=Library,tab=library=l,tab=subscriber=s,tab=physicalMedia=p)=
+SELECT_LIBRARY(QRY,final=,in=Library,out=Library,tab=library=l,tab=physicalMedia=p,tab=subscriber=s)=
   select %l.ID @id(id), %l.NAME @name, %l.VERSION @version
-         {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name, %s.VERSION @subscribers.version }
          {? :catalog(call=toInit) | , %p.ID @catalog.id(id), %p.LOCATION @catalog.location, %p.MEDIA @catalog.media.id, %p.LIBRARY @catalog.library.id, %p.VERSION @catalog.version }
+         {? :subscribers(call=toInit) | , %s.ID @subscribers.id(id), %s.LIBRARY @subscribers.library.id, %s.CONTACT @subscribers.contact.id, %s.NAME @subscribers.name, %s.VERSION @subscribers.version }
   from %%LIBRARY l
-  {? :subscribers(call=toInit) | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
   {? :catalog(call=toInit) | left join %%PHYSICAL_MEDIA p on %l.ID = %p.LIBRARY }
+  {? :subscribers(call=toInit) | left join %%SUBSCRIBER s on %l.ID = %s.LIBRARY }
   {= where
     {& %l.ID = :id }
     {& UPPER(%l.NAME) like :+name }
@@ -430,13 +430,13 @@ INSERT_PERFORMER(CRUD,final=,in=Performer,out=Performer,tab=performer)=
   {= values (:id(seq=SIMPLE_SEQUENCE), :person.id, :ver) }
 ;
 
-GET_PERFORMER(CRUD,final=,in=Performer,out=Performer,tab=performer=p,tab=person=p1,tab=media=m,tab=movie=m1,tab=book=b)=
+GET_PERFORMER(CRUD,final=,in=Performer,out=Performer,tab=performer=p,tab=media=m,tab=movie=m1,tab=book=b,tab=person=p1)=
   select %p.ID @id(id), %p.PERSON_ID @person.id(id), %p.VER @ver
-         {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn, %p1.VERSION @person.version }
          {? :work(call=toInit) | , %m1.MEDIA_ID @work(gtype=movie)id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work(gtype=book)id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id, %m.VERSION @work.version }
+         {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn, %p1.VERSION @person.version }
   from %%PERFORMER p
-  {? :person(call=toInit) | left join %%PERSON p1 on %p.PERSON_ID = %p1.ID }
   {? :work(call=toInit) | left join %%MEDIA m on %p.ID = %m.AUTHOR left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
+  {? :person(call=toInit) | left join %%PERSON p1 on %p.PERSON_ID = %p1.ID }
   {= where
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }
@@ -463,13 +463,13 @@ DELETE_PERFORMER(CRUD,final=,in=Performer,out=Performer,tab=performer)=
   }
 ;
 
-SELECT_PERFORMER(QRY,final=,in=Performer,out=Performer,tab=performer=p,tab=person=p1,tab=media=m,tab=movie=m1,tab=book=b)=
+SELECT_PERFORMER(QRY,final=,in=Performer,out=Performer,tab=performer=p,tab=media=m,tab=movie=m1,tab=book=b,tab=person=p1)=
   select %p.ID @id(id), %p.PERSON_ID @person.id(id), %p.VER @ver
-         {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn, %p1.VERSION @person.version }
          {? :work(call=toInit) | , %m1.MEDIA_ID @work(gtype=movie)id(id), %m1.URLIMDB @work.urlimdb, %m1.PLAYLENGTH @work.playlength, %b.MEDIA_ID @work(gtype=book)id(id), %b.ISBN @work.newIsbn, %m.ID @work.id(id), %m.TITLE @work.title, %m.AUTHOR @work.author.id, %m.VERSION @work.version }
+         {? :person(call=toInit) | , %p1.FIRST_NAME @person.firstName, %p1.LAST_NAME @person.lastName, %p1.DATE_OF_BIRTH @person.dateOfBirth, %p1.SSN @person.ssn, %p1.VERSION @person.version }
   from %%PERFORMER p
-  {? :person(call=toInit) | left join %%PERSON p1 on %p.PERSON_ID = %p1.ID }
   {? :work(call=toInit) | left join %%MEDIA m on %p.ID = %m.AUTHOR left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
+  {? :person(call=toInit) | left join %%PERSON p1 on %p.PERSON_ID = %p1.ID }
   {= where
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }
@@ -483,13 +483,13 @@ INSERT_PERSON(CRUD,final=,in=Person,out=Person,tab=person)=
   {= values (:id(seq=SIMPLE_SEQUENCE), :firstName, :lastName, :dateOfBirth, :ssn, :version) }
 ;
 
-GET_PERSON(CRUD,final=,in=Person,out=Person,tab=person=p,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b,tab=contact=c)=
+GET_PERSON(CRUD,final=,in=Person,out=Person,tab=person=p,tab=contact=c,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn, %p.VERSION @version
-         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id, %m.VERSION @library.version }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber(type=phone), %c.VERSION @contacts.version }
+         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id, %m.VERSION @library.version }
   from %%PERSON p
-  {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
   {= where
     {& %p.ID = :id }
     {& %p.FIRST_NAME = :firstName }
@@ -522,13 +522,13 @@ DELETE_PERSON(CRUD,final=,in=Person,out=Person,tab=person)=
   }
 ;
 
-SELECT_PERSON(QRY,final=,in=Person,out=Person,tab=person=p,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b,tab=contact=c)=
+SELECT_PERSON(QRY,final=,in=Person,out=Person,tab=person=p,tab=contact=c,tab=personLibrary=p1,tab=media=m,tab=movie=m1,tab=book=b)=
   select %p.ID @id(id), %p.FIRST_NAME @firstName, %p.LAST_NAME @lastName, %p.DATE_OF_BIRTH @dateOfBirth, %p.SSN @ssn, %p.VERSION @version
-         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id, %m.VERSION @library.version }
          {? :contacts(call=toInit) | , %c.ID @contacts.id(id), %c.PERSON_ID @contacts.person.id, %c.ADDRESS @contacts.address, %c.PHONE_NUMBER @contacts.phoneNumber(type=phone), %c.VERSION @contacts.version }
+         {? :library(call=toInit) | , %m1.MEDIA_ID @library(gtype=movie)id(id), %m1.URLIMDB @library.urlimdb, %m1.PLAYLENGTH @library.playlength, %b.MEDIA_ID @library(gtype=book)id(id), %b.ISBN @library.newIsbn, %m.ID @library.id(id), %m.TITLE @library.title, %m.AUTHOR @library.author.id, %m.VERSION @library.version }
   from %%PERSON p
-  {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
   {? :contacts(call=toInit) | left join %%CONTACT c on %p.ID = %c.PERSON_ID }
+  {? :library(call=toInit) | left join %%PERSON_LIBRARY p1 on %p.ID = %p1.PERSON_ID left join %%MEDIA m on %p1.MEDIA_ID = %m.ID left join %%MOVIE m1 on %m.ID = %m1.MEDIA_ID left join %%BOOK b on %m.ID = %b.MEDIA_ID }
   {= where
     {& %p.ID = :id }
     {& UPPER(%p.FIRST_NAME) like :+firstName }
@@ -649,15 +649,15 @@ INSERT_SUBSCRIBER(CRUD,final=,in=Subscriber,out=Subscriber,tab=subscriber)=
   {= values (:id(seq=SIMPLE_SEQUENCE), :library.id, :contact.id, :name, :version) }
 ;
 
-GET_SUBSCRIBER(CRUD,final=,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=library=l,tab=billingDetails=b,tab=contact=c)=
+GET_SUBSCRIBER(CRUD,final=,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=billingDetails=b,tab=contact=c,tab=library=l)=
   select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact.id(id), %s.NAME @name, %s.VERSION @version
-         {? :library(call=toInit) | , %l.NAME @library.name, %l.VERSION @library.version }
          {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.VERSION @billingDetails.version, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
          {? :contact(call=toInit) | , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber(type=phone), %c.VERSION @contact.version }
+         {? :library(call=toInit) | , %l.NAME @library.name, %l.VERSION @library.version }
   from %%SUBSCRIBER s
-  {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
   {? :billingDetails(call=toInit) | left join %%BILLING_DETAILS b on %s.ID = %b.SUBSCRIBER }
   {? :contact(call=toInit) | left join %%CONTACT c on %s.CONTACT = %c.ID }
+  {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
   {= where
     {& %s.ID = :id }
     {& %s.LIBRARY = :library.id }
@@ -688,15 +688,15 @@ DELETE_SUBSCRIBER(CRUD,final=,in=Subscriber,out=Subscriber,tab=subscriber)=
   }
 ;
 
-SELECT_SUBSCRIBER(QRY,final=,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=library=l,tab=billingDetails=b,tab=contact=c)=
+SELECT_SUBSCRIBER(QRY,final=,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=billingDetails=b,tab=contact=c,tab=library=l)=
   select %s.ID @id(id), %s.LIBRARY @library.id(id), %s.CONTACT @contact.id(id), %s.NAME @name, %s.VERSION @version
-         {? :library(call=toInit) | , %l.NAME @library.name, %l.VERSION @library.version }
          {? :billingDetails(call=toInit) | , %b.TYPE @billingDetails(discr)type, %b.ID @billingDetails.id(id), %b.SUBSCRIBER @billingDetails.subscriber.id, %b.VERSION @billingDetails.version, %b.CC_NUMBER @billingDetails.ccNumber, %b.BA_ACCOUNT @billingDetails.baAccount }
          {? :contact(call=toInit) | , %c.PERSON_ID @contact.person.id, %c.ADDRESS @contact.address, %c.PHONE_NUMBER @contact.phoneNumber(type=phone), %c.VERSION @contact.version }
+         {? :library(call=toInit) | , %l.NAME @library.name, %l.VERSION @library.version }
   from %%SUBSCRIBER s
-  {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
   {? :billingDetails(call=toInit) | left join %%BILLING_DETAILS b on %s.ID = %b.SUBSCRIBER }
   {? :contact(call=toInit) | left join %%CONTACT c on %s.CONTACT = %c.ID }
+  {? :library(call=toInit) | left join %%LIBRARY l on %s.LIBRARY = %l.ID }
   {= where
     {& %s.ID = :id }
     {& %s.LIBRARY = :library.id }
