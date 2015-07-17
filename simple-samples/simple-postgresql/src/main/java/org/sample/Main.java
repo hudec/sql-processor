@@ -38,7 +38,7 @@ public class Main {
     private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/simple";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
-    private static final String DB_TYPE = SqlFeature.POSTGRESQL;
+    private static final SqlFeature DB_TYPE = SqlFeature.POSTGRESQL;
     private static final String DB_DDL = "postgresql.ddl";
     private static final String[] DB_CLEAR = new String[] { "delete from CONTACT", "delete from PERSON" };
 

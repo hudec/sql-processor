@@ -40,7 +40,7 @@ public class Main {
     private static final String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
-    private static final String DB_TYPE = SqlFeature.ORACLE;
+    private static final SqlFeature DB_TYPE = SqlFeature.ORACLE;
     private static final String DB_DDL = "oracle.ddl";
     private static final String[] DB_CLEAR = new String[] { "delete from contact", "delete from person" };
 

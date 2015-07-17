@@ -44,7 +44,7 @@ public class Main {
     private static final String DB_URL = "jdbc:hsqldb:mem:sqlproc";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
-    private static final String DB_TYPE = SqlFeature.HSQLDB;
+    private static final SqlFeature DB_TYPE = SqlFeature.HSQLDB;
     private static final String DB_DDL = "hsqldb.ddl";
     private static final String[] DB_CLEAR = null;
 

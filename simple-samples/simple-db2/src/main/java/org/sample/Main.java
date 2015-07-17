@@ -38,7 +38,7 @@ public class Main {
     private static final String DB_URL = "jdbc:db2://db2:50001/simple:deferPrepares=0;progressiveStreaming=2;";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
-    private static final String DB_TYPE = SqlFeature.DB2;
+    private static final SqlFeature DB_TYPE = SqlFeature.DB2;
     private static final String DB_DDL = "db2.ddl";
     private static final String[] DB_CLEAR = new String[] { "delete from contact", "delete from person" };
 

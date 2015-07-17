@@ -37,7 +37,7 @@ public class Main {
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple?zeroDateTimeBehavior=convertToNull";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
-    private static final String DB_TYPE = SqlFeature.MYSQL;
+    private static final SqlFeature DB_TYPE = SqlFeature.MYSQL;
     private static final String DB_DDL = "mysql.ddl";
     private static final String[] DB_CLEAR = new String[] { "delete from CONTACT", "delete from PERSON" };
 

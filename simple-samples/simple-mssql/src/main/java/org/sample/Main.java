@@ -28,7 +28,7 @@ public class Main {
     private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=simple;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true;";
     private static final String DB_USER = "HUDEC";
     private static final String DB_PASSWORD = "passwd";
-    private static final String DB_TYPE = SqlFeature.MSSQL;
+    private static final SqlFeature DB_TYPE = SqlFeature.MSSQL;
     private static final String DB_DDL = "mysql.ddl";
     private static final String[] DB_CLEAR = new String[] { "delete from CONTACT", "delete from PERSON" };
 

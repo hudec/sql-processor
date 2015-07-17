@@ -41,7 +41,7 @@ public class Main {
     private static final String DB_URL = "jdbc:informix-sqli://localhost:1556/simple:informixserver=popel_ais3";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
-    private static final String DB_TYPE = SqlFeature.INFORMIX;
+    private static final SqlFeature DB_TYPE = SqlFeature.INFORMIX;
     private static final String DB_DDL = "informix.ddl";
     private static final String[] DB_CLEAR = new String[] { "delete from contact", "delete from person" };
 

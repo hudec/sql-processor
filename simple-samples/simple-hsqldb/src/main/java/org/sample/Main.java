@@ -47,7 +47,7 @@ public class Main {
     private static final String DB_URL = "jdbc:hsqldb:mem:sqlproc";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
-    private static final String DB_TYPE = SqlFeature.HSQLDB;
+    private static final SqlFeature DB_TYPE = SqlFeature.HSQLDB;
     private static final String DB_DDL = "hsqldb.ddl";
     private static final String[] DB_CLEAR = null;
 
@@ -287,7 +287,6 @@ public class Main {
         Assert.assertEquals("Janicek", list.get(2).getLastName());
         Assert.assertEquals("Jansky", list.get(3).getLastName());
 
-
         // list from-to people with associations
         sqlc = new SqlStandardControl();
         sqlc.setAscOrder(Person.ORDER_BY_ID);
@@ -323,7 +322,7 @@ public class Main {
         Assert.assertEquals("Honzovsky", list.get(1).getLastName());
         Assert.assertEquals("Honzicek", list.get(2).getLastName());
         Assert.assertEquals("Andrejcek", list.get(3).getLastName());
-        
+
         // query people with associations
         SqlRowProcessor<Person> srp = new SqlRowProcessor<Person>() {
 

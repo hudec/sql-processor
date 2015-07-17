@@ -515,6 +515,16 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * Sets the name of the filter to filter the META SQL statements, mapping rules and optional features.
+     * 
+     * @param filter
+     *            the name of the filter to filter the META SQL statements, mapping rules and optional features
+     */
+    public void setFilter(SqlFeature filter) {
+        this.filter = filter.name();
+    }
+
+    /**
      * Returns the monitor factory used in the process of the SQL Monitor instances creation.
      * 
      * @return the monitor factory used in the process of the SQL Monitor instances creation
