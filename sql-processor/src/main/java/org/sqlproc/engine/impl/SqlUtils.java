@@ -1,6 +1,5 @@
 package org.sqlproc.engine.impl;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -136,39 +135,16 @@ public class SqlUtils {
     }
 
     // default features
-    public static Map<String, Object> getDefaultFeatures(String filterPrefix) {
+    public static Map<String, Object> getDefaultFeatures(String filter) {
         Map<String, Object> features = new HashMap<String, Object>();
 
-        if (filterPrefix != null && !filterPrefix.endsWith("_"))
-            filterPrefix = filterPrefix + "_";
-        String fullPrefix = filterPrefix != null ? filterPrefix + "DEFAULT_" : null;
-        int fullPrefixLength = fullPrefix != null ? fullPrefix.length() : 0;
-        String shortPrefix = "DEFAULT_";
-        int shortPrefixLength = shortPrefix.length();
-        for (Field f : SqlFeature.class.getDeclaredFields()) {
-            if (fullPrefix != null) {
-                if (f.getName().startsWith(fullPrefix)) {
-                    String featureName = f.getName().substring(fullPrefixLength);
-                    if (features.get(featureName) == null) {
-                        try {
-                            features.put(featureName, f.get(null));
-                        } catch (IllegalArgumentException e) {
-                        } catch (IllegalAccessException e) {
-                        }
-                    }
-                }
-            }
-            if (f.getName().startsWith(shortPrefix)) {
-                String featureName = f.getName().substring(shortPrefixLength);
-                if (features.get(featureName) == null) {
-                    try {
-                        features.put(featureName, f.get(null));
-                    } catch (IllegalArgumentException e) {
-                    } catch (IllegalAccessException e) {
-                    }
-                }
-            }
+        features.putAll(SqlDefaultFeatures.FEATURES);
+        if (filter != null) {
+            Map<String, Object> filteredFeatures = SqlDefaultFeatures.FILTERED_FEATURES.get(filter);
+            if (filteredFeatures != null)
+                features.putAll(filteredFeatures);
         }
+
         return features;
     }
 

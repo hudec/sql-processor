@@ -407,7 +407,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (ix < 0)
             return sequence;
         if (SqlSequencePlugin.MODIFIER_SEQUENCE.equals(sequenceName))
-            return sequence.substring(0, ix) + SqlFeature.DEFAULT_SEQ_NAME + sequence.substring(ix + 2);
+            return sequence.substring(0, ix) + runtimeCtx.getFeature(SqlFeature.SEQ_NAME) + sequence.substring(ix + 2);
         else
             return sequence.substring(0, ix) + sequenceName + sequence.substring(ix + 2);
     }
