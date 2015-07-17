@@ -8,7 +8,7 @@ import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 
 @Pojo
 @SuppressWarnings("all")
-public abstract class Media extends BaseModelImpl implements Serializable {
+public class Media extends BaseModelImpl implements Serializable {
   private final static long serialVersionUID = 1L;
   
   public final static int ORDER_BY_ID = 1;

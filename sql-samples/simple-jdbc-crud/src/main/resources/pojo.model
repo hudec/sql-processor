@@ -54,7 +54,7 @@ package org.sqlproc.sample.simple.model {
     }
 
     #Serializable(1) #Index(1,id) #Index(2,author) #Equals(id) #HashCode(id) #ToString(id,title)
-    abstract #Pojo Media {
+    #Pojo Media {
         #PrimaryKey
         #Attr Long id
         #Required

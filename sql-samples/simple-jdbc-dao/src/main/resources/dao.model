@@ -24,6 +24,10 @@ package org.sqlproc.sample.simple.dao {
     final #Dao LibraryDao {
     }
 
+    #CRUD(org.sqlproc.sample.simple.model.Media) #Query(org.sqlproc.sample.simple.model.Media)
+    final #Dao MediaDao {
+    }
+
     #CRUD(org.sqlproc.sample.simple.model.Movie) #Query(org.sqlproc.sample.simple.model.Movie)
     final #Dao MovieDao {
     }

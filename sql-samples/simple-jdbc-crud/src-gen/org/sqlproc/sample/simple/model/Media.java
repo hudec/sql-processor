@@ -7,7 +7,7 @@ import org.sqlproc.sample.simple.model.Performer;
 
 @Pojo
 @SuppressWarnings("all")
-public abstract class Media implements Serializable {
+public class Media implements Serializable {
   private final static long serialVersionUID = 1L;
   
   public final static int ORDER_BY_ID = 1;
