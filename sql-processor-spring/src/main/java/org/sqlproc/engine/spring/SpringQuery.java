@@ -385,7 +385,7 @@ public class SpringQuery implements SqlQuery {
     private boolean isSetJDBCIdentity() {
         for (String identityName : identities) {
             IdentitySetter identitySetter = identitySetters.get(identityName);
-            if (identitySetter.getIdentitySelect().equals(SqlFeature.IDSEL_JDBC)) {
+            if (identitySetter.getIdentitySelect().equals(SqlFeature.JDBC.name())) {
                 return true;
             }
         }

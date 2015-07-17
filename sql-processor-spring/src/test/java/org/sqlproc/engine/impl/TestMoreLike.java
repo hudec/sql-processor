@@ -56,7 +56,7 @@ public class TestMoreLike extends TestDatabase {
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
 
-        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
+        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL.name(), Boolean.TRUE);
         list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
         assertEquals(1, list.size());
     }
@@ -98,7 +98,7 @@ public class TestMoreLike extends TestDatabase {
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
 
-        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
+        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL.name(), Boolean.TRUE);
         list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
         assertEquals(1, list.size());
     }
@@ -202,7 +202,7 @@ public class TestMoreLike extends TestDatabase {
         pf.getName().setFirst("ie");
         pf.getName().setLast("ro");
         SqlStandardControl sqlControl = new SqlStandardControl();
-        sqlControl.setFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL, Boolean.TRUE);
+        sqlControl.setFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.name(), Boolean.TRUE);
         sqlControl.setAscOrder(1);
 
         String sql = sqlEngine.getSql(pf, sqlControl);
@@ -236,7 +236,7 @@ public class TestMoreLike extends TestDatabase {
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
 
-        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
+        sqlEngine.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL.name(), Boolean.TRUE);
         list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
         assertEquals(1, list.size());
     }
@@ -252,7 +252,7 @@ public class TestMoreLike extends TestDatabase {
         pf.getName().setFirst("ie");
         pf.getName().setLast("ro");
         SqlStandardControl sqlControl = new SqlStandardControl();
-        sqlControl.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL, Boolean.TRUE);
+        sqlControl.setFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL.name(), Boolean.TRUE);
         sqlControl.setAscOrder(1);
 
         String sql = sqlEngine.getSql(pf, sqlControl);

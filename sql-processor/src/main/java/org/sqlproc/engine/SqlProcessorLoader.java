@@ -9,11 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.impl.SqlDefaultFeatures;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
 import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlProcessor;
-import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlComposedTypeFactory;
 import org.sqlproc.engine.type.SqlInternalType;
@@ -394,7 +394,7 @@ public class SqlProcessorLoader {
                     Arrays.asList(onlyStatements)) : null;
 
             filter = (filter != null) ? filter.toUpperCase() : null;
-            Map<String, Object> defaultFeatures = SqlUtils.getDefaultFeatures(filter);
+            Map<String, Object> defaultFeatures = SqlDefaultFeatures.getFilteredFeatures(filter);
 
             StringBuilder errors = new StringBuilder();
             SqlProcessor processor = null;

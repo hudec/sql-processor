@@ -87,7 +87,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (inSqlSetOrInsert) {
             boolean isEmptyUseMethodIsNull = false;
             if (obj == null && attributeName != null && parentObj != null) {
-                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL.name());
                 if (o != null && o instanceof Boolean && ((Boolean) o))
                     isEmptyUseMethodIsNull = true;
             }
@@ -101,7 +101,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             boolean isEmptyForNull = isEmptyUseMethodIsNull;
             if (isEmpty(obj, values)) {
-                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_FOR_NULL);
+                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_FOR_NULL.name());
                 if (o != null && o instanceof Boolean && ((Boolean) o))
                     isEmptyForNull = true;
                 if (!isEmptyForNull)
@@ -263,17 +263,17 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             return null;
         if (firstResult != null && firstResult > 0) {
             limitType.alsoFirst = true;
-            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO_ORDERED) : runtimeCtx
-                    .getFeature(SqlFeature.LIMIT_FROM_TO);
+            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO_ORDERED.name())
+                    : runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO.name());
             if (limitPattern == null && ordered)
-                limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO);
+                limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO.name());
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         } else {
-            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_TO_ORDERED) : runtimeCtx
-                    .getFeature(SqlFeature.LIMIT_TO);
+            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_TO_ORDERED.name()) : runtimeCtx
+                    .getFeature(SqlFeature.LIMIT_TO.name());
             if (limitPattern == null && ordered)
-                limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_TO);
+                limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_TO.name());
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         }
@@ -374,7 +374,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     @Override
     public String identitySelect(SqlRuntimeContext runtimeCtx, String identitySelectName, Class<?> inputValueType) {
         String identityName = (SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT.equals(identitySelectName)) ? SqlFeature.IDSEL
-                : identitySelectName;
+                .name() : identitySelectName;
         String identitySelect = null;
         if (inputValueType != null)
             identitySelect = runtimeCtx.getFeature(identityName + "_" + inputValueType.getSimpleName());
@@ -400,14 +400,15 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (sequence == null)
             sequence = runtimeCtx.getFeature(SqlFeature.SEQ + "_" + sequenceName);
         if (sequence == null)
-            sequence = runtimeCtx.getFeature(SqlFeature.SEQ);
+            sequence = runtimeCtx.getFeature(SqlFeature.SEQ.name());
         if (sequence == null)
             return null;
         int ix = sequence.indexOf("$n");
         if (ix < 0)
             return sequence;
         if (SqlSequencePlugin.MODIFIER_SEQUENCE.equals(sequenceName))
-            return sequence.substring(0, ix) + runtimeCtx.getFeature(SqlFeature.SEQ_NAME) + sequence.substring(ix + 2);
+            return sequence.substring(0, ix) + runtimeCtx.getFeature(SqlFeature.SEQ_NAME.name())
+                    + sequence.substring(ix + 2);
         else
             return sequence.substring(0, ix) + sequenceName + sequence.substring(ix + 2);
     }

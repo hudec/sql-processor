@@ -4,9 +4,9 @@ import static org.sqlproc.engine.SqlFeature.DB2;
 import static org.sqlproc.engine.SqlFeature.HSQLDB;
 import static org.sqlproc.engine.SqlFeature.IDSEL;
 import static org.sqlproc.engine.SqlFeature.IDSEL_Integer;
-import static org.sqlproc.engine.SqlFeature.IDSEL_JDBC;
 import static org.sqlproc.engine.SqlFeature.IDSEL_Long;
 import static org.sqlproc.engine.SqlFeature.INFORMIX;
+import static org.sqlproc.engine.SqlFeature.JDBC;
 import static org.sqlproc.engine.SqlFeature.LIKE_STRING;
 import static org.sqlproc.engine.SqlFeature.LIMIT_FROM_TO;
 import static org.sqlproc.engine.SqlFeature.LIMIT_FROM_TO_ORDERED;
@@ -30,6 +30,9 @@ import static org.sqlproc.engine.SqlFeature.WILDCARD_CHARACTER;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.sqlproc.engine.SqlFeature;
 
 /**
  * The default optional features.
@@ -41,17 +44,17 @@ import java.util.Map;
  */
 public class SqlDefaultFeatures {
 
-    public static final Map<String, Object> FEATURES = new HashMap<String, Object>();
-    public static final Map<String, Map<String, Object>> FILTERED_FEATURES = new HashMap<String, Map<String, Object>>();
+    public static final Map<SqlFeature, Object> FEATURES = new HashMap<SqlFeature, Object>();
+    public static final Map<String, Map<SqlFeature, Object>> FILTERED_FEATURES = new HashMap<String, Map<SqlFeature, Object>>();
 
     static {
-        FILTERED_FEATURES.put(ORACLE, new HashMap<String, Object>());
-        FILTERED_FEATURES.put(HSQLDB, new HashMap<String, Object>());
-        FILTERED_FEATURES.put(MYSQL, new HashMap<String, Object>());
-        FILTERED_FEATURES.put(POSTGRESQL, new HashMap<String, Object>());
-        FILTERED_FEATURES.put(INFORMIX, new HashMap<String, Object>());
-        FILTERED_FEATURES.put(MSSQL, new HashMap<String, Object>());
-        FILTERED_FEATURES.put(DB2, new HashMap<String, Object>());
+        FILTERED_FEATURES.put(ORACLE.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(HSQLDB.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(MYSQL.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(POSTGRESQL.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(INFORMIX.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(MSSQL.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(DB2.name(), new HashMap<SqlFeature, Object>());
     }
 
     static {
@@ -95,98 +98,98 @@ public class SqlDefaultFeatures {
          * in the case the filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance
          * creation.
          */
-        FILTERED_FEATURES.get(HSQLDB).put(LIMIT_FROM_TO, "$S offset $F limit $M");
+        FILTERED_FEATURES.get(HSQLDB.name()).put(LIMIT_FROM_TO, "$S offset $F limit $M");
         /**
          * <code>HSQLDB_DEFAULT_LIMIT_FROM_TO_ORDERED</code> is the default value related to the key
          * <code>LIMIT_FROM_TO_ORDERED</code> in the case the filter value <code>HSQLDB</code> is used for the
          * {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(HSQLDB).put(LIMIT_FROM_TO_ORDERED, "$S offset $F limit $M using index");
+        FILTERED_FEATURES.get(HSQLDB.name()).put(LIMIT_FROM_TO_ORDERED, "$S offset $F limit $M using index");
         /**
          * <code>HSQLDB_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the
          * case the filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(HSQLDB).put(LIMIT_TO, "$S limit $M");
+        FILTERED_FEATURES.get(HSQLDB.name()).put(LIMIT_TO, "$S limit $M");
         /**
          * <code>HSQLDB_DEFAULT_LIMIT_TO_ORDERED</code> is the default value related to the key
          * <code>LIMIT_TO_ORDERED</code> in the case the filter value <code>HSQLDB</code> is used for the
          * {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(HSQLDB).put(LIMIT_TO_ORDERED, "$S limit $M using index");
+        FILTERED_FEATURES.get(HSQLDB.name()).put(LIMIT_TO_ORDERED, "$S limit $M using index");
         /**
          * <code>ORACLE_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code>
          * in the case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance
          * creation.
          */
-        FILTERED_FEATURES.get(ORACLE).put(LIMIT_FROM_TO,
+        FILTERED_FEATURES.get(ORACLE.name()).put(LIMIT_FROM_TO,
                 "select * from ( select row_.*, rownum rownum_ from ($S) row_ where rownum <= $m) where rownum_ > $F");
         /**
          * <code>ORACLE_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the
          * case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(ORACLE).put(LIMIT_TO, "select * from ($S) where rownum <= $m");
+        FILTERED_FEATURES.get(ORACLE.name()).put(LIMIT_TO, "select * from ($S) where rownum <= $m");
         /**
          * <code>MYSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code>
          * in the case the filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(MYSQL).put(LIMIT_FROM_TO, "$S limit $F, $M");
+        FILTERED_FEATURES.get(MYSQL.name()).put(LIMIT_FROM_TO, "$S limit $F, $M");
         /**
          * <code>MYSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
          * the filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(MYSQL).put(LIMIT_TO, "$S limit $M");
+        FILTERED_FEATURES.get(MYSQL.name()).put(LIMIT_TO, "$S limit $M");
         /**
          * <code>POSTGRESQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
          * <code>LIMIT_FROM_TO</code> in the case the filter value <code>POSTGRESQL</code> is used for the
          * {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(POSTGRESQL).put(LIMIT_FROM_TO, "$S limit $M offset $F");
+        FILTERED_FEATURES.get(POSTGRESQL.name()).put(LIMIT_FROM_TO, "$S limit $M offset $F");
         /**
          * <code>POSTGRESQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the
          * case the filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(POSTGRESQL).put(LIMIT_TO, "$S limit $M");
+        FILTERED_FEATURES.get(POSTGRESQL.name()).put(LIMIT_TO, "$S limit $M");
         /**
          * <code>INFORMIX_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key
          * <code>LIMIT_FROM_TO</code> in the case the filter value <code>INFORMIX</code> is used for the
          * {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(INFORMIX).put(LIMIT_FROM_TO, "select skip $F first $M $s");
+        FILTERED_FEATURES.get(INFORMIX.name()).put(LIMIT_FROM_TO, "select skip $F first $M $s");
         /**
          * <code>INFORMIX_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the
          * case the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(INFORMIX).put(LIMIT_TO, "select first $M $s");
+        FILTERED_FEATURES.get(INFORMIX.name()).put(LIMIT_TO, "select first $M $s");
         /**
          * Version for MS SQL Server 2012: <code>MSSQL_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the
          * key <code>LIMIT_FROM_TO</code> in the case the filter value <code>MSSQL</code> is used for the
          * {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(MSSQL).put(LIMIT_FROM_TO, "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY");
+        FILTERED_FEATURES.get(MSSQL.name()).put(LIMIT_FROM_TO, "$S OFFSET ($F) ROWS FETCH NEXT ($M) ROWS ONLY");
         /**
          * <code>MSSQL_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
          * the filter value <code>MSSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(MSSQL).put(LIMIT_TO, "select top ($M) $s");
+        FILTERED_FEATURES.get(MSSQL.name()).put(LIMIT_TO, "select top ($M) $s");
         /**
          * <code>DB2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
          * the case the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
         FILTERED_FEATURES
-                .get(DB2)
+                .get(DB2.name())
                 .put(LIMIT_FROM_TO,
                         "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m and rownum_ > $F");
         /**
          * <code>DB2_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
          * the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(DB2).put(LIMIT_TO,
+        FILTERED_FEATURES.get(DB2.name()).put(LIMIT_TO,
                 "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m");
         /**
          * <code>HSQLDB_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the
          * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(HSQLDB).put(SEQ, "call next value for $n");
+        FILTERED_FEATURES.get(HSQLDB.name()).put(SEQ, "call next value for $n");
         /**
          * <code>MYSQL_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the
          * filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
@@ -198,22 +201,22 @@ public class SqlDefaultFeatures {
          * <code>ORACLE_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the
          * filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(ORACLE).put(SEQ, "select $n.nextval from dual");
+        FILTERED_FEATURES.get(ORACLE.name()).put(SEQ, "select $n.nextval from dual");
         /**
          * <code>POSTGRESQL_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the
          * filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(POSTGRESQL).put(SEQ, "select nextval('$n')");
+        FILTERED_FEATURES.get(POSTGRESQL.name()).put(SEQ, "select nextval('$n')");
         /**
          * <code>INFORMIX_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the
          * filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(INFORMIX).put(SEQ, "SELECT FIRST 1 $n.NEXTVAL FROM systables");
+        FILTERED_FEATURES.get(INFORMIX.name()).put(SEQ, "SELECT FIRST 1 $n.NEXTVAL FROM systables");
         /**
          * <code>DB2_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
          * value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(DB2).put(SEQ, "values nextval for $n");
+        FILTERED_FEATURES.get(DB2.name()).put(SEQ, "values nextval for $n");
         /**
          * <code>DEFAULT_SEQ_NAME</code> is the default sequence name.
          */
@@ -222,36 +225,36 @@ public class SqlDefaultFeatures {
          * <code>HSQLDB_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
          * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(HSQLDB).put(IDSEL, "call identity()");
+        FILTERED_FEATURES.get(HSQLDB.name()).put(IDSEL, "call identity()");
         /**
          * <code>MYSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
          * filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(MYSQL).put(IDSEL, "select last_insert_id()");
+        FILTERED_FEATURES.get(MYSQL.name()).put(IDSEL, "select last_insert_id()");
         /**
          * <code>POSTGRESQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case
          * the filter value <code>POSTGRESQL</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
         // TODO $t - table name, $c - column name
-        FILTERED_FEATURES.get(POSTGRESQL).put(IDSEL, "select currval(pg_get_serial_sequence('$t','$c'))");
+        FILTERED_FEATURES.get(POSTGRESQL.name()).put(IDSEL, "select currval(pg_get_serial_sequence('$t','$c'))");
         /**
          * <code>INFORMIX_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case
          * the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(INFORMIX).put(IDSEL, "SELECT FIRST 1 dbinfo('bigserial') FROM systables");
+        FILTERED_FEATURES.get(INFORMIX.name()).put(IDSEL, "SELECT FIRST 1 dbinfo('bigserial') FROM systables");
         /**
          * <code>INFORMIX_DEFAULT_IDSEL_Long</code> is the default value related to the key <code>IDSEL</code> in the
          * case the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
         // public static final String INFORMIX_DEFAULT_IDSEL_Long,
         // "select dbinfo('serial8') from informix.systables where tabid=1");
-        FILTERED_FEATURES.get(INFORMIX).put(IDSEL_Long,
+        FILTERED_FEATURES.get(INFORMIX.name()).put(IDSEL_Long,
                 "select dbinfo('bigserial') from informix.systables where tabid=1");
         /**
          * <code>INFORMIX_DEFAULT_IDSEL_Integer</code> is the default value related to the key <code>IDSEL</code> in the
          * case the filter value <code>INFORMIX</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(INFORMIX).put(IDSEL_Integer,
+        FILTERED_FEATURES.get(INFORMIX.name()).put(IDSEL_Integer,
                 "select dbinfo('sqlca.sqlerrd1') from informix.systables where tabid=1");
         /**
          * <code>MSSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
@@ -259,12 +262,12 @@ public class SqlDefaultFeatures {
          * <p/>
          * The default value is {@link #IDSEL_JDBC}.
          */
-        FILTERED_FEATURES.get(MSSQL).put(IDSEL, IDSEL_JDBC);
+        FILTERED_FEATURES.get(MSSQL.name()).put(IDSEL, JDBC.name());
         /**
          * /** <code>DB2_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
          * filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES.get(DB2).put(IDSEL, "SELECT identity_val_local() FROM SYSIBM.DUAL");
+        FILTERED_FEATURES.get(DB2.name()).put(IDSEL, "SELECT identity_val_local() FROM SYSIBM.DUAL");
         /**
          * <code>DEFAULT_VERSION_COLUMN</code> is the default name of the column devoted to the optimistic locking.
          */
@@ -281,5 +284,24 @@ public class SqlDefaultFeatures {
          * This is the default value related to the key <code>LOG_SQL_COMMAND_FOR_EXCEPTION</code> .
          */
         FEATURES.put(LOG_SQL_COMMAND_FOR_EXCEPTION, Boolean.FALSE);
+    }
+
+    // default features
+    public static Map<String, Object> getFilteredFeatures(String filter) {
+        Map<String, Object> features = new HashMap<String, Object>();
+
+        for (Entry<SqlFeature, Object> entry : SqlDefaultFeatures.FEATURES.entrySet()) {
+            features.put(entry.getKey().name(), entry.getValue());
+        }
+        if (filter != null) {
+            Map<SqlFeature, Object> filteredFeatures = SqlDefaultFeatures.FILTERED_FEATURES.get(filter);
+            if (filteredFeatures != null) {
+                for (Entry<SqlFeature, Object> entry : filteredFeatures.entrySet()) {
+                    features.put(entry.getKey().name(), entry.getValue());
+                }
+            }
+        }
+
+        return features;
     }
 }

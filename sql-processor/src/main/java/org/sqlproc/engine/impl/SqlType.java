@@ -77,7 +77,7 @@ class SqlType {
         if (logger.isDebugEnabled())
             logger.debug("setResult " + metaType + " " + attributeName + " " + resultValue);
         getMetaType(ctx).setResult(ctx, resultInstance, attributeName, resultValue,
-                ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT));
+                ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name()));
     }
 
     /**
@@ -99,7 +99,7 @@ class SqlType {
         if (logger.isDebugEnabled())
             logger.debug("setParameter " + metaType + " " + paramName + " " + inputValue);
         getMetaType(ctx).setParameter(ctx, query, paramName, inputValue, inputType,
-                ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN));
+                ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN.name()));
     }
 
     /**

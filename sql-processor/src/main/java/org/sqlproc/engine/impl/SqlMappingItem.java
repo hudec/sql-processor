@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.plugin.BeanUtilsPlugin.GetterType;
+import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
 
@@ -169,7 +169,7 @@ class SqlMappingItem implements SqlMetaElement {
     boolean isIdentity(SqlProcessContext ctx) {
         if (identity)
             return true;
-        String id = ctx.getFeature(SqlFeature.ID);
+        String id = ctx.getFeature(SqlFeature.ID.name());
         if (id != null && id.equalsIgnoreCase(getName()))
             return true;
         return false;
@@ -305,7 +305,7 @@ class SqlMappingItem implements SqlMetaElement {
                 GetterType rt = ctx.getGetterType(objClass, name);
                 if (rt != null) {
                     objClass = rt.type;
-                } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name())) {
                     logger.error("There's no getter for '" + name + "' in " + objClass
                             + ", complete attribute name is '" + attr.getFullName() + "'");
                     exit = true;
@@ -330,7 +330,7 @@ class SqlMappingItem implements SqlMetaElement {
                             typeClass = rt.typeClass;
                         if (typeClass != null) {
                             objClass = typeClass;
-                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name())) {
                             logger.error("There's no generic type defined for collection " + objClass
                                     + ", complete attribute name is '" + attr.getFullName()
                                     + "', possible type name is " + typeName);
@@ -437,7 +437,7 @@ class SqlMappingItem implements SqlMetaElement {
                                 typeClass = ArrayList.class;
                             } else if (clazz == Set.class) {
                                 typeClass = HashSet.class;
-                            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name())) {
                                 logger.error("There's no type defined for collection " + clazz
                                         + ", complete attribute name is '" + attr.getFullName()
                                         + "', possible type name is " + typeName);
@@ -468,7 +468,7 @@ class SqlMappingItem implements SqlMetaElement {
                             nextObj = ctx.getInstance(typeClass);
                         if (nextObj != null) {
                             ctx.setAttribute(obj, name, nextObj);
-                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name())) {
                             logger.error("There's problem to instantiate " + typeClass
                                     + ", complete attribute name is '" + attr.getFullName()
                                     + "', possible type name is " + typeName);
@@ -504,7 +504,7 @@ class SqlMappingItem implements SqlMetaElement {
                                 ((Collection) nextObj).add(itemObj);
                                 idsProcessed.put(idsKey, itemObj);
                                 nextObj = itemObj;
-                            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name())) {
                                 logger.error("There's problem to instantiate " + typeClass
                                         + ", complete attribute name is " + attr.getFullName()
                                         + ", possible type name is " + typeName);
@@ -514,7 +514,7 @@ class SqlMappingItem implements SqlMetaElement {
                                         + ", complete attribute name is " + attr.getFullName()
                                         + ", possible type name is " + typeName);
                             }
-                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name())) {
                             logger.error("There's no generic type defined for collection " + nextObj
                                     + ", complete attribute name is " + attr.getFullName() + ", possible type name is "
                                     + typeName);
@@ -527,7 +527,7 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 }
                 obj = nextObj;
-            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT.name())) {
                 logger.error("There's no getter for " + name + " in " + obj + ", complete attribute name is "
                         + attr.getFullName());
                 exit = true;

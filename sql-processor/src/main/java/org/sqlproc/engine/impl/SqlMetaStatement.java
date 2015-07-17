@@ -213,7 +213,7 @@ public class SqlMetaStatement implements SqlMetaElement {
             SqlEngine sqlEngine) {
         SqlProcessContext ctx = new SqlProcessContext(sqlStatementType, dynamicInputValues, sqlControl, sqlEngine);
         SqlProcessResult result = this.process(ctx);
-        result.setLogError(ctx.isFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION));
+        result.setLogError(ctx.isFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION.name()));
         return result;
     }
 
@@ -244,7 +244,7 @@ public class SqlMetaStatement implements SqlMetaElement {
             }
         }
         if (ctx.getOrder() != null && !ctx.getOrder().isEmpty() && orderByResult.isEmpty()) {
-            if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
+            if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN.name())) {
                 logger.error("There's no order statement for " + ctx.getOrder().toString());
             } else {
                 throw new SqlRuntimeException("There's no order statement for " + ctx.getOrder().toString());

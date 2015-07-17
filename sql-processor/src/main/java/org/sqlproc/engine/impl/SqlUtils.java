@@ -134,20 +134,6 @@ public class SqlUtils {
         return cal.getTime();
     }
 
-    // default features
-    public static Map<String, Object> getDefaultFeatures(String filter) {
-        Map<String, Object> features = new HashMap<String, Object>();
-
-        features.putAll(SqlDefaultFeatures.FEATURES);
-        if (filter != null) {
-            Map<String, Object> filteredFeatures = SqlDefaultFeatures.FILTERED_FEATURES.get(filter);
-            if (filteredFeatures != null)
-                features.putAll(filteredFeatures);
-        }
-
-        return features;
-    }
-
     // identifiers
     public static String getIdsKey(Object[] resultValues, Map<String, SqlMappingIdentity> identities, String fullName) {
         String idsKey = "";
@@ -271,19 +257,19 @@ public class SqlUtils {
 
     public static Set<String> oppositeFeatures(String featureName) {
         Set<String> oppositeFeatures = new HashSet<String>();
-        if (SqlFeature.SURROUND_QUERY_LIKE_FULL.equals(featureName)) {
-            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
-            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS);
-        } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.equals(featureName)) {
-            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL);
-            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS);
-        } else if (SqlFeature.REPLACE_LIKE_CHARS.equals(featureName)) {
-            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL);
-            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL);
-        } else if (SqlFeature.EMPTY_FOR_NULL.equals(featureName)) {
-            oppositeFeatures.add(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
-        } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.equals(featureName)) {
-            oppositeFeatures.add(SqlFeature.EMPTY_FOR_NULL);
+        if (SqlFeature.SURROUND_QUERY_LIKE_FULL.name().equals(featureName)) {
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.name());
+            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS.name());
+        } else if (SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.name().equals(featureName)) {
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL.name());
+            oppositeFeatures.add(SqlFeature.REPLACE_LIKE_CHARS.name());
+        } else if (SqlFeature.REPLACE_LIKE_CHARS.name().equals(featureName)) {
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_FULL.name());
+            oppositeFeatures.add(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.name());
+        } else if (SqlFeature.EMPTY_FOR_NULL.name().equals(featureName)) {
+            oppositeFeatures.add(SqlFeature.EMPTY_USE_METHOD_IS_NULL.name());
+        } else if (SqlFeature.EMPTY_USE_METHOD_IS_NULL.name().equals(featureName)) {
+            oppositeFeatures.add(SqlFeature.EMPTY_FOR_NULL.name());
         }
         return oppositeFeatures;
     }

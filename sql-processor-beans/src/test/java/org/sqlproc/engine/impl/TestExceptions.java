@@ -57,7 +57,7 @@ public class TestExceptions extends TestDatabase {
             assertContains(e.getMessage(), "SQL '");
         }
 
-        sqlEngine.setFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION, Boolean.TRUE);
+        sqlEngine.setFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION.name(), Boolean.TRUE);
 
         try {
             List<Person> list = sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);

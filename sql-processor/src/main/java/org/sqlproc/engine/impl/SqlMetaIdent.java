@@ -263,7 +263,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 Class<?> origAttributeType = attributeType;
                 attributeType = ctx.getAttributeType(attributeType, attributeName);
                 if (attributeType == null) {
-                    if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
+                    if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN.name())) {
                         logger.error("There's no attribute '" + attributeName + "' for " + origAttributeType);
                     } else {
                         throw new SqlRuntimeException("There's no attribute '" + attributeName + "' for "
@@ -321,7 +321,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     parentObj, attributeType, sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID));
             result.addInputValue(sname.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
-            result.setSql(new StringBuilder(ctx.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
+            result.setSql(new StringBuilder(ctx.isFeature(SqlFeature.JDBC.name()) ? "?" : sname.toString()));
         } else if (identitySelect != null) {
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(ctx, SqlInputValue.Type.IDENTITY_SELECT, obj,
@@ -354,7 +354,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
 
                         if (objItem != null) {
                             String attributeNameItem = sname.toString() + "_" + (i++);
-                            ss.append(ctx.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
+                            ss.append(ctx.isFeature(SqlFeature.JDBC.name()) ? "?" : attributeNameItem);
                             result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX), new SqlInputValue(ctx,
                                     SqlInputValue.Type.PROVIDED, objItem, parentObj, objItem.getClass(),
                                     caseConversion, inOutMode, sqlType, null, null));
@@ -375,7 +375,7 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                 if (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT) {
                     result.addOutValue(attributeName, sqlInputValue);
                 }
-                result.setSql(new StringBuilder(ctx.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
+                result.setSql(new StringBuilder(ctx.isFeature(SqlFeature.JDBC.name()) ? "?" : sname.toString()));
             }
         }
 

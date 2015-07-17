@@ -604,7 +604,7 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
         if (method != null)
             return invokeMethod(runtimeCtx, bean, method);
 
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN.name())) {
             method = getMethod(bean.getClass(), methodName, true);
             if (method != null)
                 break;
@@ -628,7 +628,7 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
         if (method != null)
             return method.getReturnType();
 
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN.name())) {
             method = getMethod(clazz, methodName, true);
             if (method != null)
                 break;
@@ -653,7 +653,7 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
         if (method != null)
             return invokeMethod(runtimeCtx, clazz, method, val);
 
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT.name())) {
             method = getMethod(clazz, methodName, true, parameterTypes);
             if (method != null)
                 break;

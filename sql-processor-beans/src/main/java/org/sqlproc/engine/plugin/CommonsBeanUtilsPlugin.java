@@ -308,7 +308,7 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
     public Object getEnumToValue(SqlRuntimeContext runtimeCtx, Object bean) {
         if (bean == null)
             return null;
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN.name())) {
             try {
                 return MethodUtils.invokeMethod(bean, methodName, null);
             } catch (NoSuchMethodException e) {
@@ -325,7 +325,7 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
     public Class<?> getEnumToClass(SqlRuntimeContext runtimeCtx, Class<?> clazz) {
         if (clazz == null)
             return null;
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_IN.name())) {
             Method m = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, new Class[] {});
             if (m != null)
                 return m.getReturnType();
@@ -336,7 +336,7 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
     public Object getValueToEnum(SqlRuntimeContext runtimeCtx, Class<?> clazz, Object val) {
         if (val == null)
             return null;
-        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT)) {
+        for (String methodName : runtimeCtx.getFeatures(SqlFeature.METHODS_ENUM_OUT.name())) {
             try {
                 return MethodUtils.invokeStaticMethod(clazz, methodName, val);
             } catch (NoSuchMethodException e) {

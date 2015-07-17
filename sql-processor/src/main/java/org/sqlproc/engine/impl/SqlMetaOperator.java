@@ -126,7 +126,7 @@ class SqlMetaOperator extends SqlMetaConst {
         suffix = SqlUtils.firstLowerCase(suffix);
         Object o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
         if (o == null || !(o instanceof Map)) {
-            suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
+            suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP.name());
             o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
             if (o == null || !(o instanceof Map)) {
                 return null;
