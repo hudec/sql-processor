@@ -50,7 +50,7 @@ public class Main {
     private static final SqlFeature DB_TYPE = SqlFeature.HSQLDB;
     private static final String DDL_SETUP = "hsqldb.ddl";
     private static final String DDL_CLEAR = "hsqldb0.ddl";
-    private static final Integer REPEAT = 10;
+    private static final Integer REPEAT = 32000;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

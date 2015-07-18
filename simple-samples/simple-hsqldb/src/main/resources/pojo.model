@@ -137,7 +137,7 @@ package org.sample.model {
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
-        #Attr short newid
+        #Attr long newid
         #Attr java.util.Date dateOfBirth
         #Attr String ssn
         #Attr String firstName

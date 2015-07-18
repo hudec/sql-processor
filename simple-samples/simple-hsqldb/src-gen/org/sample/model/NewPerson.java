@@ -9,17 +9,17 @@ import org.sqlproc.engine.annotation.Pojo;
 public class NewPerson implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private short newid;
+  private long newid;
   
-  public short getNewid() {
+  public long getNewid() {
     return this.newid;
   }
   
-  public void setNewid(final short newid) {
+  public void setNewid(final long newid) {
     this.newid = newid;
   }
   
-  public NewPerson _setNewid(final short newid) {
+  public NewPerson _setNewid(final long newid) {
     this.newid = newid;
     return this;
   }
