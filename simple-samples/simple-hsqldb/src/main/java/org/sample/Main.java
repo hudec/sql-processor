@@ -48,15 +48,17 @@ public class Main {
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
     private static final SqlFeature DB_TYPE = SqlFeature.HSQLDB;
-    private static final String DB_DDL = "hsqldb.ddl";
-    private static final String[] DB_CLEAR = null;
+    private static final String DDL_SETUP = "hsqldb.ddl";
+    private static final String DDL_CLEAR = "hsqldb0.ddl";
+    private static final Integer REPEAT = 10;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private Connection connection;
     private SqlSessionFactory sessionFactory;
     private JdbcEngineFactory sqlFactory;
-    private List<String> ddls;
+    private List<String> ddlSetup;
+    private List<String> ddlClear;
 
     static {
         try {
@@ -73,7 +75,8 @@ public class Main {
         factory.setValidatorFactory(new SampleValidator.SampleValidatorFactory());
         this.sqlFactory = factory;
 
-        ddls = DDLLoader.getDDLs(this.getClass(), DB_DDL);
+        ddlSetup = DDLLoader.getDDLs(this.getClass(), DDL_SETUP);
+        ddlClear = DDLLoader.getDDLs(this.getClass(), DDL_CLEAR);
         connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         sessionFactory = new JdbcSessionFactory(connection);
 
@@ -85,9 +88,12 @@ public class Main {
         newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
     }
 
-    public void setupDb() throws SQLException {
+    public void setupDb(boolean clear) throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch((DB_CLEAR != null) ? DB_CLEAR : ddls.toArray(new String[0]));
+        if (clear)
+            sqlSession.executeBatch(ddlClear.toArray(new String[0]));
+        else
+            sqlSession.executeBatch(ddlSetup.toArray(new String[0]));
     }
 
     private ContactDao contactDao;
@@ -123,8 +129,8 @@ public class Main {
         return personDao.get(person, ssc);
     }
 
-    public void run(boolean dynamic) throws Exception {
-        setupDb();
+    public void run(boolean dynamic, boolean clear) throws Exception {
+        setupDb(clear);
 
         Person person, p;
         Contact contact, c;
@@ -451,27 +457,33 @@ public class Main {
         }
         if (dynamic) {
             SqlCrudEngine updatePersonEngine = sqlFactory.getDynamicCrudEngine("UPDATE_PERSON", SQL_UPDATE_PERSON);
-            logger.info("DYNAMIC SQL ENGINE " + updatePersonEngine);
+            // logger.info("DYNAMIC SQL ENGINE " + updatePersonEngine);
             Assert.assertNotSame(this.updatePersonEngine, updatePersonEngine);
             Assert.assertSame(updatePersonEngine, sqlFactory.getCrudEngine("UPDATE_PERSON"));
         } else {
             SqlCrudEngine updatePersonEngine = sqlFactory.getStaticCrudEngine("UPDATE_PERSON");
-            logger.info("STATIC SQL ENGINE " + this.updatePersonEngine);
+            // logger.info("STATIC SQL ENGINE " + this.updatePersonEngine);
             Assert.assertSame(this.updatePersonEngine, updatePersonEngine);
             Assert.assertSame(updatePersonEngine, sqlFactory.getCrudEngine("UPDATE_PERSON"));
         }
     }
 
     public static void main(String[] args) throws Exception {
+        long start = System.currentTimeMillis();
         Main main = new Main();
-        main.modifyPersonUpdate(false);
-        main.run(false);
-        main.modifyPersonUpdate(true);
-        main.run(true);
-        main.sqlFactory.setLazyInit(true);
-        main.modifyPersonUpdate(false);
-        main.run(false);
-        main.modifyPersonUpdate(true);
-        main.run(true);
+        for (int i = 0; i < REPEAT; i++) {
+            System.out.print(".");
+            main.modifyPersonUpdate(false);
+            main.run(false, i > 0);
+            main.modifyPersonUpdate(true);
+            main.run(true, true);
+            main.sqlFactory.setLazyInit(true);
+            main.modifyPersonUpdate(false);
+            main.run(false, true);
+            main.modifyPersonUpdate(true);
+            main.run(true, true);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("\nDuration for " + REPEAT + ": " + (end - start) / 1000);
     }
 }
