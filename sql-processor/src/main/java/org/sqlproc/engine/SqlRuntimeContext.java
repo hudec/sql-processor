@@ -68,24 +68,6 @@ public interface SqlRuntimeContext {
     Object getFeatureAsObject(SqlFeature feature);
 
     /**
-     * Convenient method to obtain a feature based on the name.
-     * 
-     * @param feature
-     *            the feature
-     * @return value of the feature
-     */
-    Object getRawFeature(SqlFeature feature);
-
-    /**
-     * Convenient method to obtain a feature based on the name.
-     * 
-     * @param name
-     *            name of the feature
-     * @return value of the feature
-     */
-    Object getRawFeature(String name);
-
-    /**
      * Returns the factory responsible for the META types construction.
      * 
      * @return the factory for the META types construction

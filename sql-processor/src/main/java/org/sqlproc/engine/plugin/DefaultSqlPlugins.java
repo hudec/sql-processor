@@ -87,7 +87,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (inSqlSetOrInsert) {
             boolean isEmptyUseMethodIsNull = false;
             if (obj == null && attributeName != null && parentObj != null) {
-                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
+                Object o = runtimeCtx.getFeatureAsObject(SqlFeature.EMPTY_USE_METHOD_IS_NULL);
                 if (o != null && o instanceof Boolean && ((Boolean) o))
                     isEmptyUseMethodIsNull = true;
             }
@@ -101,7 +101,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             boolean isEmptyForNull = isEmptyUseMethodIsNull;
             if (isEmpty(obj, values)) {
-                Object o = runtimeCtx.getRawFeature(SqlFeature.EMPTY_FOR_NULL);
+                Object o = runtimeCtx.getFeatureAsObject(SqlFeature.EMPTY_FOR_NULL);
                 if (o != null && o instanceof Boolean && ((Boolean) o))
                     isEmptyForNull = true;
                 if (!isEmptyForNull)

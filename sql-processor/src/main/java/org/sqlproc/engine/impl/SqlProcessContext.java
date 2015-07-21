@@ -200,18 +200,24 @@ public class SqlProcessContext implements SqlRuntimeContext {
     }
 
     /**
-     * {@inheritDoc}
+     * Convenient method to obtain a feature based on the name.
+     * 
+     * @param feature
+     *            the feature
+     * @return value of the feature
      */
-    @Override
-    public Object getRawFeature(SqlFeature feature) {
+    protected Object getRawFeature(SqlFeature feature) {
         return getRawFeature(feature.name());
     }
 
     /**
-     * {@inheritDoc}
+     * Convenient method to obtain a feature based on the name.
+     * 
+     * @param name
+     *            name of the feature
+     * @return value of the feature
      */
-    @Override
-    public Object getRawFeature(String name) {
+    protected Object getRawFeature(String name) {
         Map<String, Object> runtimeFeatures = SqlEngine.getFeatures(sqlControl);
         if (runtimeFeatures != null && runtimeFeatures.containsKey(name))
             return runtimeFeatures.get(name);
