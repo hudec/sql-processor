@@ -506,6 +506,10 @@ public class SqlProcessor {
 
     private static final String IDGEN = SqlFeature.IDGEN.name() + "_";
     private static final int lIDGEN = IDGEN.length();
+    private static final String SEQ = SqlFeature.SEQ.name() + "_";
+    private static final int lSEQ = SEQ.length();
+    private static final String IDSEL = SqlFeature.IDSEL.name() + "_";
+    private static final int lIDSEL = IDSEL.length();
 
     /**
      * Adds a new optional feature. It's used internally by the ANTLR parser.
@@ -531,7 +535,14 @@ public class SqlProcessor {
         if (ss.length > 1) {
             name = ss[0] + "###" + ss[1];
         } else if (name.startsWith(IDGEN)) {
+            // temporary fix
             name = SqlFeature.IDGEN.name() + "###" + name.substring(lIDGEN);
+        } else if (name.startsWith(SEQ)) {
+            // temporary fix
+            name = SqlFeature.SEQ.name() + "###" + name.substring(lSEQ);
+        } else if (name.startsWith(IDSEL)) {
+            // temporary fix
+            name = SqlFeature.IDSEL.name() + "###" + name.substring(lIDSEL);
         }
 
         FeatureType.valueOf(type);

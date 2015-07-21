@@ -382,14 +382,14 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (identitySelect != null)
             return identitySelect;
         if (inputValueType != null)
-            identitySelect = runtimeCtx.getFeature(SqlFeature.IDSEL + "_" + identityName + "_"
-                    + inputValueType.getSimpleName());
+            identitySelect = runtimeCtx.getFeature(SqlFeature.IDSEL,
+                    identityName + "_" + inputValueType.getSimpleName());
         if (identitySelect != null)
             return identitySelect;
         identitySelect = runtimeCtx.getFeature(identityName);
         if (identitySelect != null)
             return identitySelect;
-        return runtimeCtx.getFeature(SqlFeature.IDSEL + "_" + identityName);
+        return runtimeCtx.getFeature(SqlFeature.IDSEL, identityName);
     }
 
     /**
@@ -400,7 +400,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         // TODO - refactor
         String sequence = runtimeCtx.getFeature(sequenceName);
         if (sequence == null)
-            sequence = runtimeCtx.getFeature(SqlFeature.SEQ + "_" + sequenceName);
+            sequence = runtimeCtx.getFeature(SqlFeature.SEQ, sequenceName);
         if (sequence == null)
             sequence = runtimeCtx.getFeature(SqlFeature.SEQ);
         if (sequence == null)
