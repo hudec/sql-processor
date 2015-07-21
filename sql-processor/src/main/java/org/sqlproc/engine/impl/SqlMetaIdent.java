@@ -220,8 +220,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         String identitySelectName = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT);
         String identityGenerator = values.get(SqlIdentityPlugin.MODIFIER_IDENTITY_GENERATOR);
         // TODO - refactor
-        String identityGeneratorValue = (identityGenerator != null) ? ctx.getFeature(SqlFeature.IDGEN + "_"
-                + identityGenerator) : null;
+        String identityGeneratorValue = (identityGenerator != null) ? ctx.getFeature(SqlFeature.IDGEN,
+                identityGenerator) : null;
         if (identityGeneratorValue != null) {
             int ix = identityGeneratorValue.indexOf("=");
             if (ix >= 0) {

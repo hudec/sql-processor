@@ -153,6 +153,15 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * {@inheritDoc}
      */
     @Override
+    public String getFeature(SqlFeature feature, String specName) {
+        Object o = getRawFeature(feature.name() + "###" + specName);
+        return (o != null && o instanceof String) ? (String) o : null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String[] getFeatures(String name) {
         Object o = getRawFeature(name);
         if (o != null && o instanceof String[])

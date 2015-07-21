@@ -32,6 +32,17 @@ public interface SqlRuntimeContext {
     String getFeature(SqlFeature feature);
 
     /**
+     * Convenient method to obtain a String feature based on the name.
+     * 
+     * @param feature
+     *            the feature
+     * @param specName
+     *            the specific name
+     * @return value of the feature
+     */
+    String getFeature(SqlFeature feature, String specName);
+
+    /**
      * Convenient method to obtain a String array features based on the name.
      * 
      * @param feature

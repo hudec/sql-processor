@@ -504,6 +504,9 @@ public class SqlProcessor {
         return null;
     }
 
+    private static final String IDGEN = SqlFeature.IDGEN.name() + "_";
+    private static final int lIDGEN = IDGEN.length();
+
     /**
      * Adds a new optional feature. It's used internally by the ANTLR parser.
      * 
@@ -524,6 +527,13 @@ public class SqlProcessor {
      */
     public boolean addFeature(String type, String name, String feature, List<ErrorMsg> errors,
             List<String> activeFilters, String... filters) {
+        String[] ss = name.split("=");
+        if (ss.length > 1) {
+            name = ss[0] + "###" + ss[1];
+        } else if (name.startsWith(IDGEN)) {
+            name = SqlFeature.IDGEN.name() + "###" + name.substring(lIDGEN);
+        }
+
         FeatureType.valueOf(type);
         if (errors != null && !errors.isEmpty()) {
             this.errors.addAll(errors);
