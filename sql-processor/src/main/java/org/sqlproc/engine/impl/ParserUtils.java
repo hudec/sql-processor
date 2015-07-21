@@ -9,7 +9,6 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.plugin.Modifiers;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -283,9 +282,9 @@ class ParserUtils {
         if (name != null && name.length() > 0) {
             List<String> elements = new ArrayList<String>();
             if (name.equals("="))
-                elements.add("@" + SqlFeature.OPERATOR_ATTRIBUTE);
+                elements.add("@");
             else
-                elements.add("?" + name);
+                elements.add("@" + name);
             SqlMetaOperator identOperator = new SqlMetaOperator(dynamicInputValue, new ArrayList<String>(elements));
             return identOperator;
         }

@@ -105,22 +105,19 @@ class SqlMetaOperator extends SqlMetaConst {
         String prefix = null;
         String suffix = null;
         String name = null;
-        int ix = item.indexOf("?");
+        int ix = item.indexOf("@");
         if (ix >= 0) {
-            prefix = item.substring(0, ix);
-            suffix = item.substring(ix + 1);
-            name = prefix + suffix;
-        } else {
-            ix = item.indexOf("@");
-            if (ix >= 0) {
+            if (ix < item.length() - 1) {
                 prefix = item.substring(0, ix);
-                // TODO - refactor
-                suffix = ctx.getFeature(item.substring(ix + 1));
+                suffix = item.substring(ix + 1);
                 name = prefix + suffix;
             } else {
-                name = item;
+                prefix = item.substring(0, ix);
+                suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE);
+                name = prefix + suffix;
             }
-        }
+        } else
+            name = item;
         Object result = (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
         if (result != null || prefix == null || suffix == null)
             return result;
