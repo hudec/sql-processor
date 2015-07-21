@@ -165,6 +165,53 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
 
     // attributes
 
+    // TODO into test
+    // public static class Test {
+    // private int cDom;
+    // private int CByt;
+    //
+    // public int getcDom() {
+    // return cDom;
+    // }
+    //
+    // public void setcDom(int cDom) {
+    // this.cDom = cDom;
+    // }
+    //
+    // public int getCByt() {
+    // return CByt;
+    // }
+    //
+    // public void setCByt(int cByt) {
+    // CByt = cByt;
+    // }
+    // }
+    //
+    // public static void main(String[] args) {
+    // DefaultBeanUtilsPlugin plugin = new DefaultBeanUtilsPlugin();
+    // Class<?> cdc = plugin.getAttributeType(null, Test.class, "cDom");
+    // System.out.println("cdc " + cdc);
+    // Class<?> cbc = plugin.getAttributeType(null, Test.class, "CByt");
+    // System.out.println("cbc " + cbc);
+    // Method cdg = plugin.getGetter(null, Test.class, "cDom", false);
+    // System.out.println("cdg " + cdg);
+    // Method cbg = plugin.getGetter(null, Test.class, "CByt", false);
+    // System.out.println("cbg " + cbg);
+    // Method cds = plugin.getSetter(null, Test.class, "cDom", false);
+    // System.out.println("cds " + cds);
+    // Method cbs = plugin.getSetter(null, Test.class, "CByt", false);
+    // System.out.println("cbs " + cbs);
+    // Test test = new Test();
+    // Object cdi = plugin.invokeMethod(null, test, "setcDom", 1);
+    // System.out.println("cdi " + cdi);
+    // Object cd = plugin.invokeMethod(null, test, "getcDom");
+    // System.out.println("cd " + cd);
+    // Object cbi = plugin.invokeMethod(null, test, "setCByt", 2);
+    // System.out.println("cbi " + cbi);
+    // Object cb = plugin.invokeMethod(null, test, "getCByt");
+    // System.out.println("cb " + cb);
+    // }
+
     @Override
     public Class<?> getAttributeType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;

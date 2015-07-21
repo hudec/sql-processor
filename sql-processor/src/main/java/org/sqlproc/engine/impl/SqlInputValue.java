@@ -302,7 +302,7 @@ class SqlInputValue {
                 public String getIdentitySelect() {
                     return SqlInputValue.this.identitySelect;
                 }
-            }, inputValueType, ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN.name()));
+            }, inputValueType, ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN));
         } else if (inOutMode == Mode.IN || inOutMode == Mode.INOUT) {
             Object o = this.inputValue;
             if (inputValue instanceof String) {

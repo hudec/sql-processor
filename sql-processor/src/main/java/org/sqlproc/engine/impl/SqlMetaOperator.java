@@ -114,6 +114,7 @@ class SqlMetaOperator extends SqlMetaConst {
             ix = item.indexOf("@");
             if (ix >= 0) {
                 prefix = item.substring(0, ix);
+                // TODO - refactor
                 suffix = ctx.getFeature(item.substring(ix + 1));
                 name = prefix + suffix;
             } else {
@@ -126,7 +127,7 @@ class SqlMetaOperator extends SqlMetaConst {
         suffix = SqlUtils.firstLowerCase(suffix);
         Object o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
         if (o == null || !(o instanceof Map)) {
-            suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP.name());
+            suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
             o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
             if (o == null || !(o instanceof Map)) {
                 return null;

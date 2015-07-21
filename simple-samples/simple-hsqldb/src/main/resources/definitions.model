@@ -1,6 +1,7 @@
 resolve-pojo-on; 
 database-is-online;
 generate-from-to;
+case-format-library Guava;
 //verify-resources - statements.meta;
 database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:hsqldb";

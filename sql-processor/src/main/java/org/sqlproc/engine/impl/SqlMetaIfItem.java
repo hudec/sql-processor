@@ -97,29 +97,29 @@ class SqlMetaIfItem implements SqlMetaElement {
                 result.addOutValues(itemResult.getOutValues());
                 if (item instanceof SqlMetaIdent
                         && like
-                        && (ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.name()) || ctx
-                                .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL.name()))) {
+                        && (ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL) || ctx
+                                .isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL))) {
                     for (String ident : itemResult.getInputValues()) {
-                        itemResult.getInputValue(ident).setLike(ctx.getFeature(SqlFeature.WILDCARD_CHARACTER.name()),
-                                ctx.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN.name()),
-                                ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.name()));
+                        itemResult.getInputValue(ident).setLike(ctx.getFeature(SqlFeature.WILDCARD_CHARACTER),
+                                ctx.getFeatureAsInt(SqlFeature.SURROUND_QUERY_MIN_LEN),
+                                ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL));
                     }
                 } else if (item instanceof SqlMetaIdent && like
-                        && ctx.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS.name()) != null) {
+                        && ctx.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null) {
                     for (String ident : itemResult.getInputValues()) {
                         itemResult.getInputValue(ident).setReplaceChars(
-                                (Map<String, String>) ctx.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS.name()));
+                                (Map<String, String>) ctx.getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS));
                     }
                 } else if (item instanceof SqlMetaText
-                        && (ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL.name())
-                                || ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL.name()) || ctx
-                                .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS.name()) != null)
+                        && (ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_PARTIAL)
+                                || ctx.isFeature(SqlFeature.SURROUND_QUERY_LIKE_FULL) || ctx
+                                .getFeatureAsObject(SqlFeature.REPLACE_LIKE_CHARS) != null)
                         && itemResult.getSql().toString().trim().toLowerCase()
-                                .endsWith(ctx.getFeature(SqlFeature.LIKE_STRING.name()))) {
-                    String replaceLike = ctx.getFeature(SqlFeature.REPLACE_LIKE_STRING.name());
+                                .endsWith(ctx.getFeature(SqlFeature.LIKE_STRING))) {
+                    String replaceLike = ctx.getFeature(SqlFeature.REPLACE_LIKE_STRING);
                     if (replaceLike != null) {
                         itemResult.setSql(new StringBuilder(itemResult.getSql().toString().toLowerCase()
-                                .replace(ctx.getFeature(SqlFeature.LIKE_STRING.name()), replaceLike)));
+                                .replace(ctx.getFeature(SqlFeature.LIKE_STRING), replaceLike)));
                     }
                     like = true;
                 } else {

@@ -221,7 +221,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                     Class<?> origAttributeType = attributeType;
                     attributeType = getFieldType(ctx, attributeType, attributeName);
                     if (attributeType == null) {
-                        if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN.name())) {
+                        if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
                             logger.error("There's no attribute '" + attributeName + "' for " + origAttributeType);
                         } else {
                             throw new SqlRuntimeException("There's no attribute '" + attributeName + "' for "

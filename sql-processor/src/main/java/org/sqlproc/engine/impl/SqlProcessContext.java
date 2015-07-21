@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlEngine;
+import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.plugin.BeanUtilsPlugin.GetterType;
@@ -143,6 +144,15 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * {@inheritDoc}
      */
     @Override
+    public String getFeature(SqlFeature feature) {
+        Object o = getRawFeature(feature);
+        return (o != null && o instanceof String) ? (String) o : null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String[] getFeatures(String name) {
         Object o = getRawFeature(name);
         if (o != null && o instanceof String[])
@@ -156,8 +166,8 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * {@inheritDoc}
      */
     @Override
-    public boolean isFeature(String name) {
-        Object o = getRawFeature(name);
+    public boolean isFeature(SqlFeature feature) {
+        Object o = getRawFeature(feature.name());
         return (o != null && o instanceof Boolean && ((Boolean) o)) ? true : false;
     }
 
@@ -165,10 +175,10 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * {@inheritDoc}
      */
     @Override
-    public Integer getFeatureAsInt(String name) {
-        Object o = getRawFeature(name);
-        if (o == null)
-            o = getRawFeature("DEFAULT_" + name);
+    public Integer getFeatureAsInt(SqlFeature feature) {
+        Object o = getRawFeature(feature.name());
+        // if (o == null)
+        // o = getRawFeature("DEFAULT_" + name);
         if (o == null || !(o instanceof String))
             return null;
         try {
@@ -182,11 +192,19 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * {@inheritDoc}
      */
     @Override
-    public Object getFeatureAsObject(String name) {
-        Object o = getRawFeature(name);
-        if (o == null)
-            o = getRawFeature("DEFAULT_" + name);
+    public Object getFeatureAsObject(SqlFeature feature) {
+        Object o = getRawFeature(feature.name());
+        // if (o == null)
+        // o = getRawFeature("DEFAULT_" + name);
         return o;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getRawFeature(SqlFeature feature) {
+        return getRawFeature(feature.name());
     }
 
     /**
@@ -247,6 +265,7 @@ public class SqlProcessContext implements SqlRuntimeContext {
     /**
      * {@inheritDoc}
      */
+    @Override
     public SqlTypeFactory getTypeFactory() {
         return sqlEngine.getTypeFactory();
     }
@@ -254,8 +273,129 @@ public class SqlProcessContext implements SqlRuntimeContext {
     /**
      * {@inheritDoc}
      */
+    @Override
     public SqlPluginFactory getPluginFactory() {
         return sqlEngine.getPluginFactory();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getInstance(Class<?> clazz) {
+        return getPluginFactory().getSqlBeansPlugin().getInstance(this, clazz);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?> getAttributeType(Class<?> clazz, String attrName) {
+        return getPluginFactory().getSqlBeansPlugin().getAttributeType(this, clazz, attrName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GetterType getGetterType(Class<?> clazz, String attrName) {
+        return getPluginFactory().getSqlBeansPlugin().getGetterType(this, clazz, attrName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GetterType getGetterType(Object bean, String attrName) {
+        return getPluginFactory().getSqlBeansPlugin().getGetterType(this, bean, attrName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkAttribute(Object bean, String attrName) {
+        return getPluginFactory().getSqlBeansPlugin().checkAttribute(this, bean, attrName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getAttribute(Object bean, String attrName) {
+        return getPluginFactory().getSqlBeansPlugin().getAttribute(this, bean, attrName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean simpleSetAttribute(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
+        return getPluginFactory().getSqlBeansPlugin().simpleSetAttribute(this, bean, attrName, attrValue, attrTypes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setAttribute(Object bean, String attrName, Object attrValue) {
+        getPluginFactory().getSqlBeansPlugin().setAttribute(this, bean, attrName, attrValue);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkMethod(Class<?> clazz, String methodName, Class<?>... args) {
+        return getPluginFactory().getSqlBeansPlugin().checkMethod(this, clazz, methodName, args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkMethod(Object bean, String methodName, Object... args) {
+        return getPluginFactory().getSqlBeansPlugin().checkMethod(this, bean, methodName, args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object invokeMethod(Class<?> clazz, String methodName, Object... args) {
+        return getPluginFactory().getSqlBeansPlugin().invokeMethod(this, clazz, methodName, args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object invokeMethod(Object bean, String methodName, Object... args) {
+        return getPluginFactory().getSqlBeansPlugin().invokeMethod(this, bean, methodName, args);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getEnumToValue(Object bean) {
+        return getPluginFactory().getSqlBeansPlugin().getEnumToValue(this, bean);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?> getEnumToClass(Class<?> clazz) {
+        return getPluginFactory().getSqlBeansPlugin().getEnumToClass(this, clazz);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getValueToEnum(Class<?> objClass, Object val) {
+        return getPluginFactory().getSqlBeansPlugin().getValueToEnum(this, objClass, val);
     }
 
     /**
@@ -270,80 +410,5 @@ public class SqlProcessContext implements SqlRuntimeContext {
         sb.append(", sqlControl=").append((sqlControl != null) ? sqlControl.toString() : null);
         sb.append(", sqlEngine=").append(sqlEngine);
         return sb.append("]").toString();
-    }
-
-    @Override
-    public Object getInstance(Class<?> clazz) {
-        return getPluginFactory().getSqlBeansPlugin().getInstance(this, clazz);
-    }
-
-    @Override
-    public Class<?> getAttributeType(Class<?> clazz, String attrName) {
-        return getPluginFactory().getSqlBeansPlugin().getAttributeType(this, clazz, attrName);
-    }
-
-    @Override
-    public GetterType getGetterType(Class<?> clazz, String attrName) {
-        return getPluginFactory().getSqlBeansPlugin().getGetterType(this, clazz, attrName);
-    }
-
-    @Override
-    public GetterType getGetterType(Object bean, String attrName) {
-        return getPluginFactory().getSqlBeansPlugin().getGetterType(this, bean, attrName);
-    }
-
-    @Override
-    public boolean checkAttribute(Object bean, String attrName) {
-        return getPluginFactory().getSqlBeansPlugin().checkAttribute(this, bean, attrName);
-    }
-
-    @Override
-    public Object getAttribute(Object bean, String attrName) {
-        return getPluginFactory().getSqlBeansPlugin().getAttribute(this, bean, attrName);
-    }
-
-    @Override
-    public boolean simpleSetAttribute(Object bean, String attrName, Object attrValue, Class<?>... attrTypes) {
-        return getPluginFactory().getSqlBeansPlugin().simpleSetAttribute(this, bean, attrName, attrValue, attrTypes);
-    }
-
-    @Override
-    public void setAttribute(Object bean, String attrName, Object attrValue) {
-        getPluginFactory().getSqlBeansPlugin().setAttribute(this, bean, attrName, attrValue);
-    }
-
-    @Override
-    public boolean checkMethod(Class<?> clazz, String methodName, Class<?>... args) {
-        return getPluginFactory().getSqlBeansPlugin().checkMethod(this, clazz, methodName, args);
-    }
-
-    @Override
-    public boolean checkMethod(Object bean, String methodName, Object... args) {
-        return getPluginFactory().getSqlBeansPlugin().checkMethod(this, bean, methodName, args);
-    }
-
-    @Override
-    public Object invokeMethod(Class<?> clazz, String methodName, Object... args) {
-        return getPluginFactory().getSqlBeansPlugin().invokeMethod(this, clazz, methodName, args);
-    }
-
-    @Override
-    public Object invokeMethod(Object bean, String methodName, Object... args) {
-        return getPluginFactory().getSqlBeansPlugin().invokeMethod(this, bean, methodName, args);
-    }
-
-    @Override
-    public Object getEnumToValue(Object bean) {
-        return getPluginFactory().getSqlBeansPlugin().getEnumToValue(this, bean);
-    }
-
-    @Override
-    public Class<?> getEnumToClass(Class<?> clazz) {
-        return getPluginFactory().getSqlBeansPlugin().getEnumToClass(this, clazz);
-    }
-
-    @Override
-    public Object getValueToEnum(Class<?> objClass, Object val) {
-        return getPluginFactory().getSqlBeansPlugin().getValueToEnum(this, objClass, val);
     }
 }
