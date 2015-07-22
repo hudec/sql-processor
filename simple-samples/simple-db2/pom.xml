@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sample</groupId>
     <artifactId>simple-db2</artifactId>
-    <version>2.9.0-SNAPSHOT</version>
+    <version>2.9.0</version>
     <packaging>jar</packaging>
     <name>SQL Processor Sample, Simple JDBC</name>
 
     <properties>
-        <version.sql-processor>2.9.0-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>2.9.0</version.sql-processor>
         <version.antlr>3.4</version.antlr>
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.2</version.slf4j>
