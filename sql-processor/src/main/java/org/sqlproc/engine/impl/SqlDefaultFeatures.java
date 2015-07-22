@@ -286,7 +286,13 @@ public class SqlDefaultFeatures {
         FEATURES.put(LOG_SQL_COMMAND_FOR_EXCEPTION, Boolean.FALSE);
     }
 
-    // default features
+    /**
+     * Returns filtered features. For example the features can be specific ones for given database.
+     * 
+     * @param filter
+     *            the filter (for example the database name)
+     * @return the specific features
+     */
     public static Map<String, Object> getFilteredFeatures(String filter) {
         Map<String, Object> features = new HashMap<String, Object>();
 
