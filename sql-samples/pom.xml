@@ -26,6 +26,10 @@
         <connection>scm:git:git@github.com:hudec/sql-processor.git</connection>
         <developerConnection>scm:git:git@github.com:hudec/sql-processor.git</developerConnection>
     </scm>
+    
+    <properties>
+        <version.sql-processor-eclipse>2.3.5</version.sql-processor-eclipse>
+    </properties>
 
     <profiles>
         <profile>
@@ -34,7 +38,7 @@
                 <dependency>
                     <groupId>org.sqlproc.meta</groupId>
                     <artifactId>sqlmeta</artifactId>
-                    <version>2.3.3</version>
+                    <version>${version.sql-processor-eclipse}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -43,7 +47,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.2.1</version>
                         <configuration>
                             <executable>java</executable>
                             <classpathScope>runtime</classpathScope>
@@ -80,7 +83,7 @@
                 <dependency>
                     <groupId>org.sqlproc.model</groupId>
                     <artifactId>sqlmodel</artifactId>
-                    <version>2.3.3</version>
+                    <version>${version.sql-processor-eclipse}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -89,7 +92,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.2.1</version>
                         <configuration>
                             <executable>java</executable>
                             <classpathScope>runtime</classpathScope>
@@ -128,7 +130,7 @@
                 <dependency>
                     <groupId>org.sqlproc.model</groupId>
                     <artifactId>sqlmodel</artifactId>
-                    <version>2.3.3</version>
+                    <version>${version.sql-processor-eclipse}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -137,7 +139,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.2.1</version>
                         <configuration>
                             <executable>java</executable>
                             <classpathScope>runtime</classpathScope>

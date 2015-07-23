@@ -22,11 +22,11 @@
         <version.antlr>3.5.2</version.antlr>
         <version.spring>4.1.6.RELEASE</version.spring>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.2</version.slf4j>
-        <version.junit>4.10</version.junit>
+        <version.slf4j>1.7.12</version.slf4j>
+        <version.junit>4.12</version.junit>
         <version.cglib>2.2.2</version.cglib>
         <version.oracle>10.2.0.4</version.oracle>
-        <version.hsqldb>2.2.9</version.hsqldb>
+        <version.hsqldb>2.3.2</version.hsqldb>
         <version.servlet-api>2.5</version.servlet-api>
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.javassist>3.12.1.GA</version.javassist>
@@ -46,7 +46,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -58,14 +57,12 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.17</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <forkMode>once</forkMode>
@@ -79,7 +76,6 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>tomcat-maven-plugin</artifactId>
-                    <version>2.0</version>
                     <executions>
                         <execution>
                             <phase>install</phase>
@@ -96,12 +92,10 @@
 
                 <plugin>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.mortbay.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
-                    <version>8.1.15.v20140411</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -112,7 +106,7 @@
             <dependency>
                 <groupId>org.sqlproc.samples</groupId>
                 <artifactId>catalog-spring-business</artifactId>
-                <version>3.0.0-SNAPSHOT</version>
+                <version>${version.sql-processor}</version>
                 <type>jar</type>
             </dependency>
             <dependency>

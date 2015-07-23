@@ -20,10 +20,10 @@
         <version.spring>4.1.6.RELEASE</version.spring>
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.2</version.slf4j>
-        <version.junit>4.10</version.junit>
-        <version.dbunit>2.4.9</version.dbunit>
-        <version.hsqldb>2.2.9</version.hsqldb>
+        <version.slf4j>1.7.12</version.slf4j>
+        <version.junit>4.12</version.junit>
+        <version.dbunit>2.5.1</version.dbunit>
+        <version.hsqldb>2.3.2</version.hsqldb>
     </properties>
 
 
@@ -31,7 +31,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -43,14 +42,12 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4.3</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <forkMode>once</forkMode>
@@ -60,7 +57,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -140,7 +136,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>${version.junit}</version>
         </dependency>
     </dependencies>
 
