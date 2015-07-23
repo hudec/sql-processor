@@ -16,7 +16,7 @@
         <version.junit>4.12</version.junit>
         <version.oracle>11.2.0.3</version.oracle>
         <version.validation>1.1.0.Final</version.validation>
-        <version.hibarnate.validator>4.3.1.Final</version.hibarnate.validator>
+        <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
         <version.beanutils>1.9.2</version.beanutils>
         <version.sql-processor-eclipse>2.3.5</version.sql-processor-eclipse>
     </properties>
@@ -138,7 +138,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${version.hibarnate.validator}</version>
+            <version>${version.hibernate.validator}</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
