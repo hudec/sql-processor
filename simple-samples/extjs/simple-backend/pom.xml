@@ -6,22 +6,18 @@
     <version>3.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <prerequisites>
-        <maven>3.0.0</maven>
-    </prerequisites>
-
     <name>SQL Processor Simple Web</name>
 
     <properties>
         <version.sql-processor>3.0.0-SNAPSHOT</version.sql-processor>
-        <version.antlr>3.4</version.antlr>
+        <version.antlr>3.5.2</version.antlr>
         <spring.version>3.2.2.RELEASE</spring.version>
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.2</version.slf4j>
-        <version.junit>4.10</version.junit>
+        <version.slf4j>1.7.12</version.slf4j>
+        <version.junit>4.12</version.junit>
         <version.dbunit>2.4.9</version.dbunit>
-        <version.hsqldb>2.2.9</version.hsqldb>
+        <version.hsqldb>2.3.2</version.hsqldb>
         <hibernatevalidator.version>5.0.0.Final</hibernatevalidator.version>
         <eds.version>1.3.4</eds.version>
         <version.ehcache>2.5.0</version.ehcache>
@@ -45,7 +41,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.8</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -64,7 +59,6 @@
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -75,43 +69,36 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.14.1</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.7</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>2.4</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.2</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <warName>simple-backend</warName>
                     <packagingExcludes>WEB-INF/classes/RunDemoOnTomcat*</packagingExcludes>
@@ -121,7 +108,6 @@
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
                 <configuration>
                     <path>/</path>
                     <port>8080</port>
@@ -131,7 +117,6 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.25</version>
             </plugin>
         </plugins>
 

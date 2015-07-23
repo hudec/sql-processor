@@ -15,7 +15,6 @@
         <version.slf4j>1.7.12</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.postgresql>9.2-1002.jdbc4</version.postgresql>
-        <version.beanutils>1.9.2</version.beanutils>
         <version.sql-processor-eclipse>2.3.5</version.sql-processor-eclipse>
     </properties>
 
@@ -126,11 +125,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${version.beanutils}</version>
         </dependency>
     </dependencies>
 
