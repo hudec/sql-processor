@@ -133,16 +133,3 @@ FUN_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
 FUN_NEW_PERSON_RET_RS(OUT,out=Person)=
   ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth GENDER$gender SSN$ssn
 ;
-
-// Model statistics
-// Tables=2
-// Columns=11
-// Primary Keys=2
-// Exports=1
-// Imports=1
-// Indexes=3
-// Check Constraints=2
-// Procedures=4
-// Procedures Columns=20
-// Functions=2
-// Functions Columns=8
