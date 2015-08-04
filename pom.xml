@@ -38,7 +38,7 @@
         <version.oracle>10.2.0.4</version.oracle>
         <version.mysql>5.1.18</version.mysql>
         <version.postgresql>9.1-901.jdbc4</version.postgresql>
-        <version.informix>3.5</version.informix>
+        <version.informix>4.1</version.informix>
         <version.mssql>4.1</version.mssql>
         <version.db2>3.52.95</version.db2>
         <version.beanutils>1.9.2</version.beanutils>
