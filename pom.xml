@@ -386,6 +386,35 @@
             </dependencies>
         </profile>
         <profile>
+            <id>informix</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
+                <db.driver>com.informix.jdbc.IfxDriver</db.driver>
+                <db.url>jdbc:informix-sqli://localhost:1556/sql:informixserver=popel_ais3;DB_LOCALE=en_US.57372</db.url>
+                <db.username>sql</db.username>
+                <db.password>sql123</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB />
+                <DDL_DROP_DB />
+                <DB_TYPE>INFORMIX</DB_TYPE>
+                <DATATYPE_FACTORY>org.sqlproc.engine.type.InformixDbUnitDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.ibm.informix</groupId>
+                    <artifactId>ifxjdbc</artifactId>
+                    <version>${version.informix}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.ibm.informix</groupId>
+                    <artifactId>ifxjdbcx</artifactId>
+                    <version>${version.informix}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>informix-bamboo</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
