@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -132,6 +133,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * The overall configuration, which can be persisted.
      */
     private SqlEngineConfiguration configuration;
+    /**
+     * The asynchronous SQL Processor engines initialization executor. It can be a Spring TaskExecutor.
+     */
+    private Executor executor;
 
     /**
      * Creates a new instance with no default values.
@@ -209,22 +214,18 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         }
 
                         if (!isLazyInit()) {
-                            ExecutorService executor = (getAsyncInitThreads() > 0) ? Executors
-                                    .newFixedThreadPool(getAsyncInitThreads()) : null;
-                            processorLoader.init(executor, null, null, null);
-                            if (executor != null)
-                                executor.shutdown();
+                            Executor _executor = getExecutor();
+                            processorLoader.init(_executor, null, null, null);
+                            shutdownExecutor(_executor);
                         }
 
                         if (isLazyInit() && configuration != null) {
-                            ExecutorService executor = (getAsyncInitThreads() > 0) ? Executors
-                                    .newFixedThreadPool(getAsyncInitThreads()) : null;
-                            processorLoader.init(executor,
+                            Executor _executor = getExecutor();
+                            processorLoader.init(_executor,
                                     configuration.getQueryEnginesToInit(configuration.getInitTreshold()).keySet(),
                                     configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
                                     configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
-                            if (executor != null)
-                                executor.shutdown();
+                            shutdownExecutor(_executor);
                         }
 
                         if (configuration != null && configuration.getInitClearUsage() != null
@@ -789,5 +790,39 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setConfiguration(SqlEngineConfiguration configuration) {
         this.configuration = configuration;
+    }
+
+    /**
+     * Returns the asynchronous SQL Processor engines initialization executor. It can be a Spring TaskExecutor or null
+     * for the case of synchronous SQL Processor engines initialization.
+     * 
+     * @return the asynchronous SQL Processor engines initialization executor
+     */
+    protected Executor getExecutor() {
+        return (executor != null) ? executor : ((getAsyncInitThreads() > 0) ? Executors
+                .newFixedThreadPool(getAsyncInitThreads()) : null);
+    }
+
+    /**
+     * Sets the asynchronous SQL Processor engines initialization executor. It can be a Spring TaskExecutor or null for
+     * the case of synchronous SQL Processor engines initialization.
+     * 
+     * @param executor
+     *            the asynchronous SQL Processor engines initialization executor
+     */
+    public void setExecutor(Executor executor) {
+        this.executor = executor;
+    }
+
+    /**
+     * Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be
+     * accepted.
+     * 
+     * @param executor
+     *            the asynchronous SQL Processor engines initialization executor to shutdown
+     */
+    protected void shutdownExecutor(Executor executor) {
+        if (executor != null && executor instanceof ExecutorService)
+            ((ExecutorService) executor).shutdown();
     }
 }
