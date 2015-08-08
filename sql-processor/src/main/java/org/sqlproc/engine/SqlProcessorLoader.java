@@ -545,6 +545,9 @@ public class SqlProcessorLoader {
 
         @Override
         public String call() throws Exception {
+            if (logger.isTraceEnabled()) {
+                logger.trace(">> AsyncEngineInit, name=" + name + ", type=" + engineType);
+            }
             try {
                 getEngine(name, engineType);
                 asyncInitResult.put(name, null);
@@ -552,6 +555,9 @@ public class SqlProcessorLoader {
             } catch (SqlEngineException ex) {
                 String msg = ex.getMessage();
                 asyncInitResult.put(name, msg);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("!! AsyncEngineInit, name=" + name + ", error=" + msg);
+                }
                 return msg;
             }
         }

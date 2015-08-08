@@ -62,4 +62,30 @@ public class JdbcEngineFactory extends SqlSimpleFactory {
         setJdbc(true);
         setTypeFactory(JdbcTypeFactory.getInstance());
     }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public JdbcEngineFactory(int asyncInitThreads) {
+        super(asyncInitThreads);
+        setJdbc(true);
+        setTypeFactory(JdbcTypeFactory.getInstance());
+    }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public JdbcEngineFactory(boolean lazyInit, int asyncInitThreads) {
+        super(lazyInit, asyncInitThreads);
+        setJdbc(true);
+        setTypeFactory(JdbcTypeFactory.getInstance());
+    }
 }
