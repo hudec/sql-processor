@@ -124,6 +124,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     private Boolean lazyInit;
     /**
+     * The number of threads used for asynchronous initialization.
+     */
+    private Integer asyncInitThreads;
+    /**
      * The overall configuration, which can be persisted.
      */
     private SqlEngineConfiguration configuration;
@@ -145,6 +149,29 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * Creates a new instance with no default values.
+     * 
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public SqlSimpleFactory(int asyncInitThreads) {
+        this.asyncInitThreads = asyncInitThreads;
+    }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public SqlSimpleFactory(boolean lazyInit, int asyncInitThreads) {
+        this.lazyInit = lazyInit;
+        this.asyncInitThreads = asyncInitThreads;
+    }
+
+    /**
      * Dynamic initialization, called mainly from the Spring configuration initialization.
      */
     public void init() {
@@ -160,7 +187,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, validatorFactory, customTypes, isLazyInit(), onlyStatements);
+                                monitorFactory, validatorFactory, customTypes, isLazyInit(), getAsyncInitThreads(),
+                                onlyStatements);
                         if (isLazyInit() && configuration != null) {
                             // TODO - asynchronously based on option
                             for (NameValue nameval : configuration.getQueryEnginesToInit(configuration
@@ -627,9 +655,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
-     * Returns the indicator to speed up the initialization process
-     * 
-     * @return the indicator to speed up the initialization process
+     * {@inheritDoc}
      */
     @Override
     public boolean isLazyInit() {
@@ -646,6 +672,28 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setLazyInit(boolean lazyInit) {
         this.lazyInit = lazyInit;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getAsyncInitThreads() {
+        if (configuration != null && configuration.getAsyncInitThreads() != null)
+            return configuration.getAsyncInitThreads();
+        if (asyncInitThreads != null)
+            return asyncInitThreads;
+        return 0;
+    }
+
+    /**
+     * Sets the number of threads used for asynchronous initialization
+     * 
+     * @param asyncInitThreads
+     *            the number of threads used for asynchronous initialization
+     */
+    public void setAsyncInitThreads(int asyncInitThreads) {
+        this.asyncInitThreads = asyncInitThreads;
     }
 
     /**

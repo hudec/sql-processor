@@ -41,7 +41,7 @@ public class XmlEngineConfiguration {
     @XmlElement
     private Boolean lazyInit;
     @XmlElement
-    private Boolean asyncInit;
+    private Integer asyncInitThreads;
     @XmlElement
     private Integer initTreshold;
     @XmlElement
@@ -72,7 +72,7 @@ public class XmlEngineConfiguration {
         copyDyn(config.getDynamicProcedureEngines(), dynamicProcedureEngines = new ArrayList<EngineSql>());
 
         lazyInit = config.getLazyInit();
-        asyncInit = config.getAsyncInit();
+        asyncInitThreads = config.getAsyncInitThreads();
         initTreshold = config.getInitTreshold();
         initInUsageOrder = config.getInitInUsageOrder();
         initClearUsage = config.getInitClearUsage();
@@ -124,8 +124,8 @@ public class XmlEngineConfiguration {
         return lazyInit;
     }
 
-    public Boolean getAsyncInit() {
-        return asyncInit;
+    public Integer getAsyncInitThreads() {
+        return asyncInitThreads;
     }
 
     public Integer getInitTreshold() {

@@ -63,9 +63,9 @@ public class SqlEngineConfiguration extends JaxbStore {
      */
     private Boolean lazyInit;
     /**
-     * This flag indicates the initialization process should be done asynchronously.
+     * The number of threads used for asynchronous initialization.
      */
-    private Boolean asyncInit;
+    private Integer asyncInitThreads;
     /**
      * The engines, which usage is at least this number should be initialized directly.
      */
@@ -119,7 +119,7 @@ public class SqlEngineConfiguration extends JaxbStore {
             this.dynamicCrudEngines = xml.getDynamicCrudEngines();
             this.dynamicProcedureEngines = xml.getDynamicProcedureEngines();
             this.lazyInit = xml.getLazyInit();
-            this.asyncInit = xml.getAsyncInit();
+            this.asyncInitThreads = xml.getAsyncInitThreads();
             this.initTreshold = xml.getInitTreshold();
             this.initInUsageOrder = xml.getInitInUsageOrder();
             this.initClearUsage = xml.getInitClearUsage();
@@ -145,7 +145,7 @@ public class SqlEngineConfiguration extends JaxbStore {
         dynamicCrudEngines = new ConcurrentHashMap<String, String>();
         dynamicProcedureEngines = new ConcurrentHashMap<String, String>();
         lazyInit = null;
-        asyncInit = null;
+        asyncInitThreads = null;
         initTreshold = null;
         initInUsageOrder = null;
         initClearUsage = null;
@@ -480,22 +480,22 @@ public class SqlEngineConfiguration extends JaxbStore {
     }
 
     /**
-     * Returns the indicator the initialization process should be done asynchronously
+     * Returns the number of threads used for asynchronous initialization
      * 
-     * @return the indicator the initialization process should be done asynchronously
+     * @return the number of threads used for asynchronous initialization
      */
-    public Boolean getAsyncInit() {
-        return asyncInit;
+    public Integer getAsyncInitThreads() {
+        return asyncInitThreads;
     }
 
     /**
-     * Sets the indicator the initialization process should be done asynchronously
+     * Sets the number of threads used for asynchronous initialization
      * 
-     * @param asyncInit
-     *            the indicator the initialization process should be done asynchronously
+     * @param asyncInitThreads
+     *            the number of threads used for asynchronous initialization
      */
-    public void setAsyncInit(Boolean asyncInit) {
-        this.asyncInit = asyncInit;
+    public void setAsyncInitThreads(Integer asyncInitThreads) {
+        this.asyncInitThreads = asyncInitThreads;
     }
 
     /**

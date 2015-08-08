@@ -215,18 +215,18 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Returns the indicator the initialization process should be done asynchronously.")
-    public Boolean getAsyncInit() {
-        return super.getAsyncInit();
+    public Integer getAsyncInitThreads() {
+        return super.getAsyncInitThreads();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @ManagedOperation(description = "Sets the indicator the initialization process should be done asynchronously")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "asyncInit", description = "The indicator the initialization process should be done asynchronously.") })
-    public void setAsyncInit(Boolean asyncInit) {
-        super.setAsyncInit(asyncInit);
+    @ManagedOperation(description = "Sets the number of threads used for asynchronous initialization")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "asyncInitThreads", description = "The number of threads used for asynchronous initialization.") })
+    public void setAsyncInitThreads(Integer asyncInitThreads) {
+        super.setAsyncInitThreads(asyncInitThreads);
     }
 
     /**

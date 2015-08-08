@@ -464,22 +464,22 @@ public class SqlSimpleFactoryMXBean {
     }
 
     /**
-     * Returns the indicator the initialization process should be done asynchronously
+     * Returns the number of threads used for asynchronous initialization
      * 
-     * @return the indicator the initialization process should be done asynchronously
+     * @return the number of threads used for asynchronous initialization
      */
-    public Boolean getAsyncInit() {
-        return getConfiguration().getAsyncInit();
+    public Integer getAsyncInitThreads() {
+        return getConfiguration().getAsyncInitThreads();
     }
 
     /**
-     * Sets the indicator the initialization process should be done asynchronously
+     * Sets the number of threads used for asynchronous initialization
      * 
-     * @param asyncInit
-     *            the indicator the initialization process should be done asynchronously
+     * @param asyncInitThreads
+     *            the number of threads used for asynchronous initialization
      */
-    public void setAsyncInit(Boolean asyncInit) {
-        getConfiguration().setAsyncInit(asyncInit);
+    public void setAsyncInitThreads(Integer asyncInitThreads) {
+        getConfiguration().setAsyncInitThreads(asyncInitThreads);
         storeConfiguration();
     }
 

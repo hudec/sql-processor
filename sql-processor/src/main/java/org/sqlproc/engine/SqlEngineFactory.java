@@ -197,6 +197,13 @@ public interface SqlEngineFactory {
     public boolean isLazyInit();
 
     /**
+     * Returns the number of threads used for asynchronous initialization
+     * 
+     * @return the number of threads used for asynchronous initialization
+     */
+    public int getAsyncInitThreads();
+
+    /**
      * Returns the collection of names of all initialized/constructed static SQL Engine instances.
      * 
      * @return The collection of all initialized static SQL Engine instances' names
