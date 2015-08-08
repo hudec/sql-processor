@@ -214,7 +214,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         }
 
                         if (executor == null)
-                            postInit();
+                            _init();
                     }
                 }
             }
@@ -227,24 +227,27 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     public void postInit() {
         if (getLoader() == null)
             init();
-        if (executor != null) {
-            if (!isLazyInit()) {
-                Executor _executor = getExecutor();
-                processorLoader.init(_executor, null, null, null);
-                shutdownExecutor(_executor);
-            }
+        if (executor != null)
+            _init();
+    }
 
-            if (isLazyInit() && configuration != null) {
-                Executor _executor = getExecutor();
-                processorLoader.init(_executor, configuration.getQueryEnginesToInit(configuration.getInitTreshold())
-                        .keySet(), configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
-                        configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
-                shutdownExecutor(_executor);
-            }
-
-            if (configuration != null && configuration.getInitClearUsage() != null && configuration.getInitClearUsage())
-                configuration.clearUsage();
+    private void _init() {
+        if (!isLazyInit()) {
+            Executor _executor = getExecutor();
+            processorLoader.init(_executor, null, null, null);
+            shutdownExecutor(_executor);
         }
+
+        if (isLazyInit() && configuration != null) {
+            Executor _executor = getExecutor();
+            processorLoader.init(_executor, configuration.getQueryEnginesToInit(configuration.getInitTreshold())
+                    .keySet(), configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
+                    configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
+            shutdownExecutor(_executor);
+        }
+
+        if (configuration != null && configuration.getInitClearUsage() != null && configuration.getInitClearUsage())
+            configuration.clearUsage();
     }
 
     /**
