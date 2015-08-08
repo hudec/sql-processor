@@ -451,8 +451,14 @@ public class SqlProcessorLoader {
      * 
      * @param executor
      *            The asynchronous executor. In the case it is null, the initialization is provided in synchronous mode.
+     * @param sqlsToInit
+     *            The SQL engine names to initialize.
+     * @param crudsToInit
+     *            The CRUD engine names to initialize.
+     * @param callsToInit
+     *            The Procedure engine names to initialize.
      */
-    public void init(Executor executor) {
+    public void init(Executor executor, Set<String> sqlsToInit, Set<String> crudsToInit, Set<String> callsToInit) {
         if (logger.isTraceEnabled()) {
             logger.trace(">> init, executor=" + executor);
         }
@@ -460,20 +466,24 @@ public class SqlProcessorLoader {
 
         try {
             if (executor != null) {
-                for (String name : sqls.keySet()) {
+                Set<String> names = (sqlsToInit != null) ? sqlsToInit : sqls.keySet();
+                for (String name : names) {
                     AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Query, enginesInitErrors);
                     executor.execute(aei);
                 }
-                for (String name : cruds.keySet()) {
+                names = (crudsToInit != null) ? crudsToInit : cruds.keySet();
+                for (String name : names) {
                     AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Crud, enginesInitErrors);
                     executor.execute(aei);
                 }
-                for (String name : calls.keySet()) {
+                names = (callsToInit != null) ? callsToInit : calls.keySet();
+                for (String name : names) {
                     AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Procedure, enginesInitErrors);
                     executor.execute(aei);
                 }
             } else {
-                for (String name : sqls.keySet()) {
+                Set<String> names = (sqlsToInit != null) ? sqlsToInit : sqls.keySet();
+                for (String name : names) {
                     try {
                         getEngine(name, EngineType.Query);
                     } catch (SqlEngineException ex) {
@@ -484,7 +494,8 @@ public class SqlProcessorLoader {
                         }
                     }
                 }
-                for (String name : cruds.keySet()) {
+                names = (crudsToInit != null) ? crudsToInit : cruds.keySet();
+                for (String name : names) {
                     try {
                         getEngine(name, EngineType.Crud);
                     } catch (SqlEngineException ex) {
@@ -495,7 +506,8 @@ public class SqlProcessorLoader {
                         }
                     }
                 }
-                for (String name : calls.keySet()) {
+                names = (callsToInit != null) ? callsToInit : calls.keySet();
+                for (String name : names) {
                     try {
                         getEngine(name, EngineType.Procedure);
                     } catch (SqlEngineException ex) {
@@ -517,15 +529,6 @@ public class SqlProcessorLoader {
                 logger.trace("<< init");
             }
         }
-    }
-
-    /**
-     * Returns the indicator, the asynchronous initialization is done
-     * 
-     * @return
-     */
-    public boolean isAsyncInitDone() {
-        return sqls.size() + cruds.size() + calls.size() == enginesInitErrors.size();
     }
 
     /**
@@ -586,7 +589,6 @@ public class SqlProcessorLoader {
             }
             try {
                 getEngine(name, engineType);
-                enginesInitErrors.put(name, null);
             } catch (SqlEngineException ex) {
                 String msg = ex.getMessage();
                 enginesInitErrors.put(name, msg);

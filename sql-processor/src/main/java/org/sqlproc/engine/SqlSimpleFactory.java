@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlProcessorLoader.EngineType;
 import org.sqlproc.engine.config.SqlEngineConfiguration;
-import org.sqlproc.engine.config.SqlEngineConfiguration.NameValue;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlInternalType;
@@ -190,53 +189,47 @@ public class SqlSimpleFactory implements SqlEngineFactory {
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
                                 monitorFactory, validatorFactory, customTypes, isLazyInit(), onlyStatements);
-                        if (isLazyInit()) {
+
+                        if (configuration != null) {
+                            for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet()) {
+                                processorLoader.getDynamicEngine(e.getKey(), EngineType.Query, e.getValue());
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== init, initialized dynamic Query Engine " + e.getKey());
+                            }
+                            for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet()) {
+                                processorLoader.getDynamicEngine(e.getKey(), EngineType.Crud, e.getValue());
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== init, initialized dynamic CRUD Engine " + e.getKey());
+                            }
+                            for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet()) {
+                                processorLoader.getDynamicEngine(e.getKey(), EngineType.Procedure, e.getValue());
+                                if (logger.isTraceEnabled())
+                                    logger.trace("== init, initialized dynamic Procedure Engine " + e.getKey());
+                            }
+                        }
+
+                        if (!isLazyInit()) {
                             ExecutorService executor = (getAsyncInitThreads() > 0) ? Executors
                                     .newFixedThreadPool(getAsyncInitThreads()) : null;
-                            processorLoader.init(executor);
+                            processorLoader.init(executor, null, null, null);
                             if (executor != null)
                                 executor.shutdown();
                         }
+
                         if (isLazyInit() && configuration != null) {
-                            // TODO - asynchronously based on option
-                            for (NameValue nameval : configuration.getQueryEnginesToInit(configuration
-                                    .getInitTreshold())) {
-                                getQueryEngine(nameval.name);
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== SqlSimpleFactory, initialized static Query Engine " + nameval.name);
-                            }
-                            for (NameValue nameval : configuration
-                                    .getCrudEnginesToInit(configuration.getInitTreshold())) {
-                                getCrudEngine(nameval.name);
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== SqlSimpleFactory, initialized static CRUD Engine " + nameval.name);
-                            }
-                            for (NameValue nameval : configuration.getProcedureEnginesToInit(configuration
-                                    .getInitTreshold())) {
-                                getProcedureEngine(nameval.name);
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== SqlSimpleFactory, initialized static Procedure Engine "
-                                            + nameval.name);
-                            }
-                            for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet()) {
-                                getDynamicQueryEngine(e.getKey(), e.getValue());
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== SqlSimpleFactory, initialized dynamic Query Engine " + e.getKey());
-                            }
-                            for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet()) {
-                                getDynamicCrudEngine(e.getKey(), e.getValue());
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== SqlSimpleFactory, initialized dynamic CRUD Engine " + e.getKey());
-                            }
-                            for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet()) {
-                                getDynamicProcedureEngine(e.getKey(), e.getValue());
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== SqlSimpleFactory, initialized dynamic Procedure Engine "
-                                            + e.getKey());
-                            }
-                            if (configuration.getInitClearUsage() != null && configuration.getInitClearUsage())
-                                configuration.clearUsage();
+                            ExecutorService executor = (getAsyncInitThreads() > 0) ? Executors
+                                    .newFixedThreadPool(getAsyncInitThreads()) : null;
+                            processorLoader.init(executor,
+                                    configuration.getQueryEnginesToInit(configuration.getInitTreshold()).keySet(),
+                                    configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
+                                    configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
+                            if (executor != null)
+                                executor.shutdown();
                         }
+
+                        if (configuration != null && configuration.getInitClearUsage() != null
+                                && configuration.getInitClearUsage())
+                            configuration.clearUsage();
                     }
                 }
             }

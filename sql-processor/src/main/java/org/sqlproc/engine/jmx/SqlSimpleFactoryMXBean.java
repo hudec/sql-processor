@@ -3,6 +3,8 @@ package org.sqlproc.engine.jmx;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.bind.JAXBException;
@@ -11,7 +13,6 @@ import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlEngineException;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.config.SqlEngineConfiguration;
-import org.sqlproc.engine.config.SqlEngineConfiguration.NameValue;
 
 /**
  * The simplified JMX interface for the SQL Engine factory.
@@ -562,14 +563,15 @@ public class SqlSimpleFactoryMXBean {
     /**
      * Converts list
      * 
-     * @param namevals
+     * @param map
      *            the input list
      * @return the output list
      */
-    private List<String> toList(List<NameValue> namevals) {
+    private List<String> toList(Map<String, Integer> map) {
         List<String> list = new ArrayList<String>();
-        for (NameValue nameval : namevals)
-            list.add(nameval.name);
+        for (Entry<String, Integer> e : map.entrySet()) {
+            list.add(e.getKey() + ":" + e.getValue());
+        }
         return list;
     }
 

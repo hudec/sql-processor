@@ -2,10 +2,9 @@ package org.sqlproc.engine.config;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -591,15 +590,16 @@ public class SqlEngineConfiguration extends JaxbStore {
      *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Query Engines' names, which has to be initialized
      */
-    protected List<NameValue> getEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines, Integer treshold) {
-        List<NameValue> list = new ArrayList<NameValue>();
+    protected Map<String, Integer> getEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines, Integer treshold) {
+        Map<String, Integer> map = new TreeMap<String, Integer>();
         for (Entry<String, AtomicInteger> e : engines.entrySet()) {
             if (initTreshold == null || e.getValue().get() >= initTreshold)
-                list.add(new NameValue(e.getKey(), e.getValue().get()));
+                map.put(e.getKey(), e.getValue().get());
         }
-        if (initInUsageOrder != null && initInUsageOrder)
-            Collections.sort(list);
-        return list;
+        // TODO
+        // if (initInUsageOrder != null && initInUsageOrder)
+        // Collections.sort(list);
+        return map;
     }
 
     /**
@@ -610,7 +610,7 @@ public class SqlEngineConfiguration extends JaxbStore {
      *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Query Engines' names, which has to be initialized
      */
-    public List<NameValue> getQueryEnginesToInit(Integer treshold) {
+    public Map<String, Integer> getQueryEnginesToInit(Integer treshold) {
         return getEnginesToInit(queryEngines, treshold);
     }
 
@@ -622,7 +622,7 @@ public class SqlEngineConfiguration extends JaxbStore {
      *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the CRUD Engines' names, which has to be initialized
      */
-    public List<NameValue> getCrudEnginesToInit(Integer treshold) {
+    public Map<String, Integer> getCrudEnginesToInit(Integer treshold) {
         return getEnginesToInit(crudEngines, treshold);
     }
 
@@ -634,7 +634,7 @@ public class SqlEngineConfiguration extends JaxbStore {
      *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Procedure Engines' names, which has to be initialized
      */
-    public List<NameValue> getProcedureEnginesToInit(Integer treshold) {
+    public Map<String, Integer> getProcedureEnginesToInit(Integer treshold) {
         return getEnginesToInit(procedureEngines, treshold);
     }
 }
