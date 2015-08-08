@@ -3,6 +3,7 @@ package org.sqlproc.engine;
 import java.util.Collection;
 import java.util.Map;
 
+import org.sqlproc.engine.annotation.Beta;
 import org.sqlproc.engine.config.SqlEngineConfiguration;
 
 /**
@@ -201,6 +202,7 @@ public interface SqlEngineFactory {
      * 
      * @return the number of threads used for asynchronous initialization
      */
+    @Beta
     public int getAsyncInitThreads();
 
     /**
@@ -237,4 +239,13 @@ public interface SqlEngineFactory {
      * @return the overall dynamic configuration
      */
     public SqlEngineConfiguration getConfiguration();
+
+    /**
+     * Returns result of asynchronous initialization. For every engine, for which there's error in the initialization
+     * process there a error message. In the case there's no error, it result is null;
+     * 
+     * @return result of asynchronous initialization
+     */
+    @Beta
+    public String getAsyncInitErrors();
 }

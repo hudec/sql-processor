@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,6 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.annotation.Beta;
 import org.sqlproc.engine.impl.SqlDefaultFeatures;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
@@ -470,29 +472,15 @@ public class SqlProcessorLoader {
                         throw new SqlEngineException(errors.toString());
 
                 } else {
-                    ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors
-                            .newFixedThreadPool(getAsyncInitThreads());
-                    List<Future<String>> errorsList = new ArrayList<>();
-                    for (String name : sqls.keySet()) {
-                        AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Query, asyncInitResult);
-                        errorsList.add(executor.submit(aei));
-                    }
-                    for (String name : cruds.keySet()) {
-                        AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Crud, asyncInitResult);
-                        errorsList.add(executor.submit(aei));
-                    }
-                    for (String name : calls.keySet()) {
-                        AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Procedure, asyncInitResult);
-                        errorsList.add(executor.submit(aei));
-                    }
-                    executor.shutdown();
+                    doAsyncInit();
                 }
             }
         } finally {
 
             if (logger.isDebugEnabled()) {
                 long end = System.currentTimeMillis();
-                logger.debug("== SqlProcessorLoader, lazyInit=" + lazyInit + ", duration in ms=" + (end - start));
+                logger.debug("== SqlProcessorLoader, lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads
+                        + ", duration in ms=" + (end - start));
             }
             if (logger.isTraceEnabled()) {
                 logger.trace("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
@@ -501,12 +489,48 @@ public class SqlProcessorLoader {
         }
     }
 
+    /**
+     * The result of asynchronous initialization. For every engine, for which there's error in the initialization
+     * process there a error message.
+     */
     private ConcurrentHashMap<String, String> asyncInitResult = new ConcurrentHashMap<String, String>();
 
+    /**
+     * Returns the indicator, the asynchronous initialization is done
+     * 
+     * @return
+     */
     public boolean isAsyncInitDone() {
         return sqls.size() + cruds.size() + calls.size() == asyncInitResult.size();
     }
 
+    /**
+     * Returns result of asynchronous initialization. For every engine, for which there's error in the initialization
+     * process there a error message. In the case there's no error, it result is null;
+     * 
+     * @return result of asynchronous initialization
+     */
+    public String getAsyncInitErrors() {
+        if (getAsyncInitThreads() == 0)
+            throw new SqlEngineException("The asynchronous initialization was not established");
+        if (!isAsyncInitDone())
+            throw new SqlEngineException("The asynchronous initialization is not finished");
+        StringBuilder sb = new StringBuilder();
+        boolean isError = false;
+        for (Entry<String, String> e : asyncInitResult.entrySet()) {
+            if (e.getValue() != null) {
+                if (isError)
+                    sb.append("\n");
+                sb.append(e.getKey() + ": " + e.getValue());
+                isError = true;
+            }
+        }
+        if (isError)
+            return sb.toString();
+        return null;
+    }
+
+    @Beta
     private class AsyncEngineInit implements Callable<String> {
 
         private String name;
@@ -531,6 +555,25 @@ public class SqlProcessorLoader {
                 return msg;
             }
         }
+    }
+
+    @Beta
+    private void doAsyncInit() {
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(getAsyncInitThreads());
+        List<Future<String>> errorsList = new ArrayList<>();
+        for (String name : sqls.keySet()) {
+            AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Query, asyncInitResult);
+            errorsList.add(executor.submit(aei));
+        }
+        for (String name : cruds.keySet()) {
+            AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Crud, asyncInitResult);
+            errorsList.add(executor.submit(aei));
+        }
+        for (String name : calls.keySet()) {
+            AsyncEngineInit aei = new AsyncEngineInit(name, EngineType.Procedure, asyncInitResult);
+            errorsList.add(executor.submit(aei));
+        }
+        executor.shutdown();
     }
 
     /**

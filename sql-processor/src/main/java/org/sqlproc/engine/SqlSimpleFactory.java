@@ -760,6 +760,14 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
+    public String getAsyncInitErrors() {
+        return getLoader().getAsyncInitErrors();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public SqlEngineConfiguration getConfiguration() {
         return configuration;
     }
