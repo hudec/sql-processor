@@ -1,5 +1,7 @@
 package org.sqlproc.engine.spring;
 
+import javax.annotation.PostConstruct;
+
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlSimpleFactory;
@@ -61,5 +63,36 @@ public class SpringEngineFactory extends SqlSimpleFactory {
         super(lazyInit);
         setJdbc(true);
         setTypeFactory(JdbcTypeFactory.getInstance());
+    }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public SpringEngineFactory(int asyncInitThreads) {
+        super(asyncInitThreads);
+        setJdbc(true);
+        setTypeFactory(JdbcTypeFactory.getInstance());
+    }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public SpringEngineFactory(boolean lazyInit, int asyncInitThreads) {
+        super(lazyInit, asyncInitThreads);
+        setJdbc(true);
+        setTypeFactory(JdbcTypeFactory.getInstance());
+    }
+
+    @PostConstruct
+    public void postInit() {
+        super.postInit();
     }
 }

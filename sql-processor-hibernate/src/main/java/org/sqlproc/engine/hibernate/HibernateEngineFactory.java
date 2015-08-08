@@ -64,4 +64,30 @@ public class HibernateEngineFactory extends SqlSimpleFactory {
         setJdbc(false);
         setTypeFactory(HibernateTypeFactory.getInstance());
     }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public HibernateEngineFactory(int asyncInitThreads) {
+        super(asyncInitThreads);
+        setJdbc(false);
+        setTypeFactory(HibernateTypeFactory.getInstance());
+    }
+
+    /**
+     * Creates a new instance with no default values.
+     * 
+     * @param lazyInit
+     *            this flag indicates to speed up the initialization process.
+     * @param asyncInitThreads
+     *            number of threads used for asynchronous initialization
+     */
+    public HibernateEngineFactory(boolean lazyInit, int asyncInitThreads) {
+        super(lazyInit, asyncInitThreads);
+        setJdbc(false);
+        setTypeFactory(HibernateTypeFactory.getInstance());
+    }
 }
