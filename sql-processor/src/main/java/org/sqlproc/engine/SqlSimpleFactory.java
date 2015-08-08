@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -187,8 +189,14 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, validatorFactory, customTypes, isLazyInit(), getAsyncInitThreads(),
-                                onlyStatements);
+                                monitorFactory, validatorFactory, customTypes, isLazyInit(), onlyStatements);
+                        if (isLazyInit()) {
+                            ExecutorService executor = (getAsyncInitThreads() > 0) ? Executors
+                                    .newFixedThreadPool(getAsyncInitThreads()) : null;
+                            processorLoader.init(executor);
+                            if (executor != null)
+                                executor.shutdown();
+                        }
                         if (isLazyInit() && configuration != null) {
                             // TODO - asynchronously based on option
                             for (NameValue nameval : configuration.getQueryEnginesToInit(configuration
@@ -760,8 +768,16 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
-    public String getAsyncInitErrors() {
-        return getLoader().getAsyncInitErrors();
+    public Map<String, String> getEnginesInitErrors() {
+        return getLoader().getEnginesInitErrors();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getEnginesInitErrorsMsg() {
+        return getLoader().getEnginesInitErrorsMsg();
     }
 
     /**

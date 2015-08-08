@@ -241,11 +241,18 @@ public interface SqlEngineFactory {
     public SqlEngineConfiguration getConfiguration();
 
     /**
-     * Returns result of asynchronous initialization. For every engine, for which there's error in the initialization
-     * process there a error message. In the case there's no error, it result is null;
+     * Returns the result of engines initialization process. For every engine, for which there's error in the
+     * initialization process there a error message. In the case there's no error, the result message is null.
      * 
-     * @return result of asynchronous initialization
+     * @return the result of engines initialization process
      */
-    @Beta
-    public String getAsyncInitErrors();
+    public Map<String, String> getEnginesInitErrors();
+
+    /**
+     * Returns the result of engines initialization process. For every engine, for which there's error in the
+     * initialization process there a error message. In the case there's no error, the result message is null.
+     * 
+     * @return the result of engines initialization process
+     */
+    public String getEnginesInitErrorsMsg();
 }
