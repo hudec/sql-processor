@@ -727,32 +727,96 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> getNames() {
-        return getLoader().getEngines().keySet();
+    public Collection<String> getQueryNames() {
+        return getLoader().getEngines(EngineType.Query).keySet();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> getDynamicNames() {
-        return getLoader().getDynamicEngines().keySet();
+    public Collection<String> getQueryDynamicNames() {
+        return getLoader().getDynamicEngines(EngineType.Query).keySet();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Map<String, SqlEngine> getEngines() {
-        return getLoader().getEngines();
+    public Map<String, SqlEngine> getQueryEngines() {
+        return getLoader().getEngines(EngineType.Query);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Map<String, SqlEngine> getDynamicEngines() {
-        return getLoader().getDynamicEngines();
+    public Map<String, SqlEngine> getQueryDynamicEngines() {
+        return getLoader().getDynamicEngines(EngineType.Query);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getCrudNames() {
+        return getLoader().getEngines(EngineType.Crud).keySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getCrudDynamicNames() {
+        return getLoader().getDynamicEngines(EngineType.Crud).keySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getCrudEngines() {
+        return getLoader().getEngines(EngineType.Crud);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getCrudDynamicEngines() {
+        return getLoader().getDynamicEngines(EngineType.Crud);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getProcedureNames() {
+        return getLoader().getEngines(EngineType.Procedure).keySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getProcedureDynamicNames() {
+        return getLoader().getDynamicEngines(EngineType.Procedure).keySet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getProcedureEngines() {
+        return getLoader().getEngines(EngineType.Procedure);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, SqlEngine> getProcedureDynamicEngines() {
+        return getLoader().getDynamicEngines(EngineType.Procedure);
     }
 
     /**

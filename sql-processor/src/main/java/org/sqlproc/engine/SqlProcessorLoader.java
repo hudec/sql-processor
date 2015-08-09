@@ -102,6 +102,20 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
  */
 public class SqlProcessorLoader {
 
+    static class Engine {
+        ConcurrentHashMap<String, SqlEngine> sqls = new ConcurrentHashMap<String, SqlEngine>();
+        ConcurrentHashMap<String, SqlEngine> cruds = new ConcurrentHashMap<String, SqlEngine>();
+        ConcurrentHashMap<String, SqlEngine> calls = new ConcurrentHashMap<String, SqlEngine>();
+
+        ConcurrentHashMap<String, SqlEngine> get(EngineType type) {
+            if (type == EngineType.Query)
+                return sqls;
+            if (type == EngineType.Crud)
+                return cruds;
+            return calls;
+        }
+    }
+
     /**
      * The internal slf4j logger.
      */
@@ -126,11 +140,11 @@ public class SqlProcessorLoader {
     /**
      * The collection of named SQL Engines (the primary SQL Processor class) instances.
      */
-    private ConcurrentHashMap<String, SqlEngine> engines = new ConcurrentHashMap<String, SqlEngine>();
+    private Engine engines = new Engine();
     /**
      * The collection of named dynamic SQL Engines (the primary SQL Processor class) instances.
      */
-    private ConcurrentHashMap<String, SqlEngine> dynamicEngines = new ConcurrentHashMap<String, SqlEngine>();
+    private Engine dynamicEngines = new Engine();
     /**
      * The collection of named META SQL queries.
      */
@@ -614,12 +628,26 @@ public class SqlProcessorLoader {
         }
     }
 
-    public Map<String, SqlEngine> getEngines() {
-        return engines;
+    /**
+     * Returns all static engines of the required type
+     * 
+     * @param engineType
+     *            the required SQL Engine type
+     * @return a container of initialized engines
+     */
+    public Map<String, SqlEngine> getEngines(EngineType engineType) {
+        return engines.get(engineType);
     }
 
-    public Map<String, SqlEngine> getDynamicEngines() {
-        return dynamicEngines;
+    /**
+     * Returns all dynamic engines of the required type
+     * 
+     * @param engineType
+     *            the required SQL Engine type
+     * @return a container of initialized engines
+     */
+    public Map<String, SqlEngine> getDynamicEngines(EngineType engineType) {
+        return dynamicEngines.get(engineType);
     }
 
     /**
@@ -692,15 +720,15 @@ public class SqlProcessorLoader {
      *             in the case the instance can't be created
      */
     public SqlEngine getStaticEngine(String name, EngineType engineType) {
-        dynamicEngines.remove(name);
-        SqlEngine sqlEngine = engines.get(name);
+        dynamicEngines.get(engineType).remove(name);
+        SqlEngine sqlEngine = engines.get(engineType).get(name);
 
         if (sqlEngine == null) {
             SqlMetaStatement stmt = getStatements(engineType).get(name);
 
             if (stmt != null) {
                 sqlEngine = createEngine(name, engineType, stmt, null);
-                SqlEngine sqlEnginePrev = engines.putIfAbsent(name, sqlEngine);
+                SqlEngine sqlEnginePrev = engines.get(engineType).putIfAbsent(name, sqlEngine);
                 if (sqlEnginePrev != null) {
                     sqlEngine = sqlEnginePrev;
                 } else {
@@ -734,7 +762,7 @@ public class SqlProcessorLoader {
         if (sqlStatement == null)
             throw new SqlEngineException("SQL statement for SQL Engine " + name + " is null");
         SqlEngine sqlEngine = createEngine(name, engineType, null, sqlStatement);
-        dynamicEngines.put(name, sqlEngine);
+        dynamicEngines.get(engineType).put(name, sqlEngine);
         commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
         sqlEngine.setProcessingCache(commonProcessingCache.get(name));
         return sqlEngine;
@@ -752,7 +780,7 @@ public class SqlProcessorLoader {
      *             in the case the instance can't be created
      */
     public SqlEngine getEngine(String name, EngineType engineType) {
-        SqlEngine sqlEngine = dynamicEngines.get(name);
+        SqlEngine sqlEngine = dynamicEngines.get(engineType).get(name);
         if (sqlEngine != null)
             return sqlEngine;
         return getStaticEngine(name, engineType);

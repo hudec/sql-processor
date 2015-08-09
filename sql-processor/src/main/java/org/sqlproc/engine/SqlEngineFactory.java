@@ -206,32 +206,88 @@ public interface SqlEngineFactory {
     public int getAsyncInitThreads();
 
     /**
-     * Returns the collection of names of all initialized/constructed static SQL Engine instances.
-     * 
-     * @return The collection of all initialized static SQL Engine instances' names
+     * Returns the collection of names of all initialized/constructed static SQL Query Engine instances.
+     *
+     * @return The collection of all initialized static SQL Query Engine instances' names
      */
-    public Collection<String> getNames();
+    public Collection<String> getQueryNames();
 
     /**
-     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
-     * 
-     * @return The collection of all initialized dynamic SQL Engine instances' names
+     * Returns the collection of names of all initialized/constructed dynamic SQL Query Engine instances.
+     *
+     * @return The collection of all initialized dynamic SQL Query Engine instances' names
      */
-    public Collection<String> getDynamicNames();
+    public Collection<String> getQueryDynamicNames();
 
     /**
-     * Returns the collection of named dynamic SQL Engines (the primary SQL Processor class) instances.
-     * 
-     * @return The collection of named dynamic SQL Engines (the primary SQL Processor class) instances
+     * Returns the collection of named dynamic SQL Query Engines (the primary SQL Processor class) instances.
+     *
+     * @return The collection of named dynamic SQL Query Engines (the primary SQL Processor class) instances
      */
-    public Map<String, SqlEngine> getEngines();
+    public Map<String, SqlEngine> getQueryEngines();
 
     /**
-     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
-     * 
-     * @return The collection of all initialized dynamic SQL Engine instances' names
+     * Returns the collection of names of all initialized/constructed dynamic SQL Query Engine instances.
+     *
+     * @return The collection of all initialized dynamic SQL Query Engine instances' names
      */
-    public Map<String, SqlEngine> getDynamicEngines();
+    public Map<String, SqlEngine> getQueryDynamicEngines();
+
+    /**
+     * Returns the collection of names of all initialized/constructed static SQL CRUD Engine instances.
+     *
+     * @return The collection of all initialized static SQL CRUD Engine instances' names
+     */
+    public Collection<String> getCrudNames();
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL CRUD Engine instances.
+     *
+     * @return The collection of all initialized dynamic SQL CRUD Engine instances' names
+     */
+    public Collection<String> getCrudDynamicNames();
+
+    /**
+     * Returns the collection of named dynamic SQL CRUD Engines (the primary SQL Processor class) instances.
+     *
+     * @return The collection of named dynamic SQL CRUD Engines (the primary SQL Processor class) instances
+     */
+    public Map<String, SqlEngine> getCrudEngines();
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL CRUD Engine instances.
+     *
+     * @return The collection of all initialized dynamic SQL CRUD Engine instances' names
+     */
+    public Map<String, SqlEngine> getCrudDynamicEngines();
+
+    /**
+     * Returns the collection of names of all initialized/constructed static SQL Procedure Engine instances.
+     *
+     * @return The collection of all initialized static SQL Procedure Engine instances' names
+     */
+    public Collection<String> getProcedureNames();
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL Procedure Engine instances.
+     *
+     * @return The collection of all initialized dynamic SQL Procedure Engine instances' names
+     */
+    public Collection<String> getProcedureDynamicNames();
+
+    /**
+     * Returns the collection of named dynamic SQL Procedure Engines (the primary SQL Processor class) instances.
+     *
+     * @return The collection of named dynamic SQL Procedure Engines (the primary SQL Processor class) instances
+     */
+    public Map<String, SqlEngine> getProcedureEngines();
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL Procedure Engine instances.
+     *
+     * @return The collection of all initialized dynamic SQL Procedure Engine instances' names
+     */
+    public Map<String, SqlEngine> getProcedureDynamicEngines();
 
     /**
      * Returns the overall dynamic configuration

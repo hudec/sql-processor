@@ -43,7 +43,7 @@ public class SqlSimpleFactoryMXBean {
         int count = 0;
         StringBuilder errors = new StringBuilder();
         if ("*".equals(names)) {
-            for (String name : sqlEngineFactory.getNames()) {
+            for (String name : sqlEngineFactory.getQueryNames()) {
                 try {
                     sqlEngineFactory.getCheckedQueryEngine(name);
                     count++;
@@ -79,7 +79,7 @@ public class SqlSimpleFactoryMXBean {
         int count = 0;
         StringBuilder errors = new StringBuilder();
         if ("*".equals(names)) {
-            for (String name : sqlEngineFactory.getNames()) {
+            for (String name : sqlEngineFactory.getCrudNames()) {
                 try {
                     sqlEngineFactory.getCheckedCrudEngine(name);
                     count++;
@@ -115,7 +115,7 @@ public class SqlSimpleFactoryMXBean {
         int count = 0;
         StringBuilder errors = new StringBuilder();
         if ("*".equals(names)) {
-            for (String name : sqlEngineFactory.getNames()) {
+            for (String name : sqlEngineFactory.getProcedureNames()) {
                 try {
                     sqlEngineFactory.getCheckedProcedureEngine(name);
                     count++;
@@ -268,25 +268,73 @@ public class SqlSimpleFactoryMXBean {
     }
 
     /**
-     * Returns the collection of names of all initialized/constructed static SQL Engine instances.
+     * Returns the collection of names of all initialized/constructed static SQL Query Engine instances.
      * 
-     * @return The collection of all initialized static SQL Engine instances' names
+     * @return The collection of all initialized static SQL Query Engine instances' names
      */
-    public List<String> getNames() {
+    public List<String> getQueryNames() {
         List<String> list = new ArrayList<String>();
-        list.addAll(sqlEngineFactory.getNames());
+        list.addAll(sqlEngineFactory.getQueryNames());
         Collections.sort(list);
         return list;
     }
 
     /**
-     * Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.
+     * Returns the collection of names of all initialized/constructed dynamic SQL Query Engine instances.
      * 
-     * @return The collection of all initialized dynamic SQL Engine instances' names
+     * @return The collection of all initialized dynamic SQL Query Engine instances' names
      */
-    public List<String> getDynamicNames() {
+    public List<String> getQueryDynamicNames() {
         List<String> list = new ArrayList<String>();
-        list.addAll(sqlEngineFactory.getDynamicNames());
+        list.addAll(sqlEngineFactory.getQueryDynamicNames());
+        Collections.sort(list);
+        return list;
+    }
+
+    /**
+     * Returns the collection of names of all initialized/constructed static SQL CRUD Engine instances.
+     * 
+     * @return The collection of all initialized static SQL CRUD Engine instances' names
+     */
+    public List<String> getCrudNames() {
+        List<String> list = new ArrayList<String>();
+        list.addAll(sqlEngineFactory.getCrudNames());
+        Collections.sort(list);
+        return list;
+    }
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL CRUD Engine instances.
+     * 
+     * @return The collection of all initialized dynamic SQL CRUD Engine instances' names
+     */
+    public List<String> getCrudDynamicNames() {
+        List<String> list = new ArrayList<String>();
+        list.addAll(sqlEngineFactory.getCrudDynamicNames());
+        Collections.sort(list);
+        return list;
+    }
+
+    /**
+     * Returns the collection of names of all initialized/constructed static SQL ProcedureEngine instances.
+     * 
+     * @return The collection of all initialized static SQL ProcedureEngine instances' names
+     */
+    public List<String> getProcedureNames() {
+        List<String> list = new ArrayList<String>();
+        list.addAll(sqlEngineFactory.getProcedureNames());
+        Collections.sort(list);
+        return list;
+    }
+
+    /**
+     * Returns the collection of names of all initialized/constructed dynamic SQL ProcedureEngine instances.
+     * 
+     * @return The collection of all initialized dynamic SQL ProcedureEngine instances' names
+     */
+    public List<String> getProcedureDynamicNames() {
+        List<String> list = new ArrayList<String>();
+        list.addAll(sqlEngineFactory.getProcedureDynamicNames());
         Collections.sort(list);
         return list;
     }

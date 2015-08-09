@@ -123,18 +123,54 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
-    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Engine instances.")
-    public List<String> getNames() {
-        return super.getNames();
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Query Engine instances.")
+    public List<String> getQueryNames() {
+        return super.getQueryNames();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed dynamic SQL Engine instances.")
-    public List<String> getDynamicNames() {
-        return super.getDynamicNames();
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed dynamic SQL Query Engine instances.")
+    public List<String> getQueryDynamicNames() {
+        return super.getQueryDynamicNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Crud Engine instances.")
+    public List<String> getCrudNames() {
+        return super.getCrudNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed dynamic SQL Crud Engine instances.")
+    public List<String> getCrudDynamicNames() {
+        return super.getCrudDynamicNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed static SQL Procedure Engine instances.")
+    public List<String> getProcedureNames() {
+        return super.getProcedureNames();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the collection of names of all initialized/constructed dynamic SQL Procedure Engine instances.")
+    public List<String> getProcedureDynamicNames() {
+        return super.getProcedureDynamicNames();
     }
 
     /**
