@@ -75,10 +75,14 @@
         <constructor-arg value="/tmp"/>
         <constructor-arg value="catalog-config.xml"/>
         <property name="lazyInit" value="true" />
-        <property name="initClearUsage" value="true" />
+        <property name="initTreshold" value="1" />
     </bean>
 
-    <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory">
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5" />
+    </bean>
+
+    <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory" init-method="init">
         <property name="metaFilesNames">
             <list>
                 <value>statements.meta</value>
@@ -87,6 +91,7 @@
         <property name="filter" value="${db.type}" />
         <property name="monitorFactory" ref="sqlMonitorFactory"/>
         <property name="configuration" ref="sqlConfiguration"/>
+        <property name="executor" ref="taskExecutor" />
     </bean>
 
 
