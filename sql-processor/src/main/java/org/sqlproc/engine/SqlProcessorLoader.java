@@ -102,6 +102,16 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
  */
 public class SqlProcessorLoader {
 
+    /**
+     * The SQL Engine types
+     */
+    public enum EngineType {
+        Query, Crud, Procedure
+    }
+
+    /**
+     * The SQL Processor initialized engines
+     */
     static class Engine {
         ConcurrentHashMap<String, SqlEngine> sqls = new ConcurrentHashMap<>();
         ConcurrentHashMap<String, SqlEngine> cruds = new ConcurrentHashMap<>();
@@ -116,6 +126,9 @@ public class SqlProcessorLoader {
         }
     }
 
+    /**
+     * The SQL Processor processing cache
+     */
     static class Cache {
         ConcurrentHashMap<String, Map<String, SqlProcessResult>> sqls = new ConcurrentHashMap<>();
         ConcurrentHashMap<String, Map<String, SqlProcessResult>> cruds = new ConcurrentHashMap<>();
@@ -518,7 +531,7 @@ public class SqlProcessorLoader {
                         getEngine(name, EngineType.Query);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
-                        enginesInitErrors.put(name, msg);
+                        enginesInitErrors.put(EngineType.Query.name() + ":" + name, msg);
                         logger.warn("!! init, name={}, error={}", name, msg);
                     }
                 }
@@ -530,7 +543,7 @@ public class SqlProcessorLoader {
                         getEngine(name, EngineType.Crud);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
-                        enginesInitErrors.put(name, msg);
+                        enginesInitErrors.put(EngineType.Crud.name() + ":" + name, msg);
                         logger.warn("!! init, name={}, error={}", name, msg);
                     }
                 }
@@ -542,7 +555,7 @@ public class SqlProcessorLoader {
                         getEngine(name, EngineType.Procedure);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
-                        enginesInitErrors.put(name, msg);
+                        enginesInitErrors.put(EngineType.Procedure.name() + ":" + name, msg);
                         logger.warn("!! init, name={}, error={}", name, msg);
                     }
                 }
@@ -617,7 +630,7 @@ public class SqlProcessorLoader {
                 getEngine(name, engineType);
             } catch (SqlEngineException ex) {
                 String msg = ex.getMessage();
-                enginesInitErrors.put(name, msg);
+                enginesInitErrors.put(engineType.name() + ":" + name, msg);
                 logger.warn("!! init, name={}, error={}", name, msg);
             }
         }
@@ -662,13 +675,6 @@ public class SqlProcessorLoader {
      */
     public Map<String, SqlEngine> getDynamicEngines(EngineType engineType) {
         return dynamicEngines.get(engineType);
-    }
-
-    /**
-     * The SQL Engine types
-     */
-    public enum EngineType {
-        Query, Crud, Procedure
     }
 
     /**

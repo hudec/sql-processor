@@ -2,6 +2,9 @@ package org.sqlproc.engine.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -591,14 +594,23 @@ public class SqlEngineConfiguration extends JaxbStore {
      * @return the container of the Query Engines' names, which has to be initialized
      */
     protected Map<String, Integer> getEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines, Integer treshold) {
-        Map<String, Integer> map = new TreeMap<String, Integer>();
-        for (Entry<String, AtomicInteger> e : engines.entrySet()) {
-            if (initTreshold == null || e.getValue().get() >= initTreshold)
-                map.put(e.getKey(), e.getValue().get());
+        Map<String, Integer> map;
+        if (initInUsageOrder != null && initInUsageOrder) {
+            map = new LinkedHashMap<String, Integer>();
+            List<NameValue> list = new ArrayList<NameValue>();
+            for (Entry<String, AtomicInteger> e : engines.entrySet()) {
+                if (initTreshold == null || e.getValue().get() >= initTreshold)
+                    list.add(new NameValue(e.getKey(), e.getValue().get()));
+            }
+            for (NameValue nv : list)
+                map.put(nv.name, nv.value);
+        } else {
+            map = new TreeMap<String, Integer>();
+            for (Entry<String, AtomicInteger> e : engines.entrySet()) {
+                if (initTreshold == null || e.getValue().get() >= initTreshold)
+                    map.put(e.getKey(), e.getValue().get());
+            }
         }
-        // TODO
-        // if (initInUsageOrder != null && initInUsageOrder)
-        // Collections.sort(list);
         return map;
     }
 
