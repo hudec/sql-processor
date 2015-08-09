@@ -103,11 +103,25 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
 public class SqlProcessorLoader {
 
     static class Engine {
-        ConcurrentHashMap<String, SqlEngine> sqls = new ConcurrentHashMap<String, SqlEngine>();
-        ConcurrentHashMap<String, SqlEngine> cruds = new ConcurrentHashMap<String, SqlEngine>();
-        ConcurrentHashMap<String, SqlEngine> calls = new ConcurrentHashMap<String, SqlEngine>();
+        ConcurrentHashMap<String, SqlEngine> sqls = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, SqlEngine> cruds = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, SqlEngine> calls = new ConcurrentHashMap<>();
 
         ConcurrentHashMap<String, SqlEngine> get(EngineType type) {
+            if (type == EngineType.Query)
+                return sqls;
+            if (type == EngineType.Crud)
+                return cruds;
+            return calls;
+        }
+    }
+
+    static class Cache {
+        ConcurrentHashMap<String, Map<String, SqlProcessResult>> sqls = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, Map<String, SqlProcessResult>> cruds = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, Map<String, SqlProcessResult>> calls = new ConcurrentHashMap<>();
+
+        ConcurrentHashMap<String, Map<String, SqlProcessResult>> get(EngineType type) {
             if (type == EngineType.Query)
                 return sqls;
             if (type == EngineType.Crud)
@@ -180,7 +194,7 @@ public class SqlProcessorLoader {
     /**
      * The processing cache used for {@link SqlProcessResult} instances.
      */
-    private Map<String, Map<String, SqlProcessResult>> commonProcessingCache = new ConcurrentHashMap<String, Map<String, SqlProcessResult>>();
+    private Cache processingCache = new Cache();
 
     /**
      * Creates a new instance of the SqlProcessorLoader from the String content repository (which is in fact a
@@ -732,10 +746,10 @@ public class SqlProcessorLoader {
                 if (sqlEnginePrev != null) {
                     sqlEngine = sqlEnginePrev;
                 } else {
-                    Map<String, SqlProcessResult> processingCache;
-                    commonProcessingCache
-                            .put(name, processingCache = new ConcurrentHashMap<String, SqlProcessResult>());
-                    sqlEngine.setProcessingCache(processingCache);
+                    Map<String, SqlProcessResult> _processingCache;
+                    processingCache.get(engineType).put(name,
+                            _processingCache = new ConcurrentHashMap<String, SqlProcessResult>());
+                    sqlEngine.setProcessingCache(_processingCache);
                 }
             }
         }
@@ -763,8 +777,8 @@ public class SqlProcessorLoader {
             throw new SqlEngineException("SQL statement for SQL Engine " + name + " is null");
         SqlEngine sqlEngine = createEngine(name, engineType, null, sqlStatement);
         dynamicEngines.get(engineType).put(name, sqlEngine);
-        commonProcessingCache.put(name, new ConcurrentHashMap<String, SqlProcessResult>());
-        sqlEngine.setProcessingCache(commonProcessingCache.get(name));
+        processingCache.get(engineType).put(name, new ConcurrentHashMap<String, SqlProcessResult>());
+        sqlEngine.setProcessingCache(processingCache.get(engineType).get(name));
         return sqlEngine;
     }
 
