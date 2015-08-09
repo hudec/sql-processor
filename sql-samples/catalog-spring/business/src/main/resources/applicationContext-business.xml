@@ -71,7 +71,7 @@
         <property name="monitorName" value="catalog" />
     </bean>
 
-    <bean id="sqlConfiguration" class="org.sqlproc.engine.config.SqlEngineConfiguration" init-method="load">
+    <bean id="sqlConfiguration" class="org.sqlproc.engine.config.SqlEngineConfiguration" init-method="load" destroy-method="store">
         <constructor-arg value="/tmp"/>
         <constructor-arg value="catalog-config.xml"/>
         <property name="lazyInit" value="true" />

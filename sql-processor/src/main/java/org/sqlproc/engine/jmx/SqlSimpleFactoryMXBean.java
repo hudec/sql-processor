@@ -577,6 +577,25 @@ public class SqlSimpleFactoryMXBean {
     }
 
     /**
+     * Returns the flag indicating the asynchronous SQL Processor engines initialization has been finished.
+     * 
+     * @return the flag indicating the asynchronous SQL Processor engines initialization has been finished
+     */
+    public Boolean isAsyncInitFinished() {
+        return sqlEngineFactory.isAsyncInitFinished();
+    }
+
+    /**
+     * Returns the result of engines initialization process. For every engine, for which there's error in the
+     * initialization process there a error message. In the case there's no error, the result message is null.
+     * 
+     * @return the result of engines initialization process
+     */
+    public String getEnginesInitErrors() {
+        return sqlEngineFactory.getEnginesInitErrorsMsg();
+    }
+
+    /**
      * Loads the persisted configuration.
      */
     public void loadConfiguration() {

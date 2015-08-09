@@ -139,6 +139,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * The asynchronous SQL Processor engines initialization executor. It can be a Spring TaskExecutor.
      */
     private Executor executor;
+    /**
+     * The flag indicating the asynchronous SQL Processor engines initialization has been finished.
+     */
+    private Boolean executorTerminated;
 
     /**
      * Creates a new instance with no default values.
@@ -215,7 +219,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         if (!isLazyInit()) {
                             Executor _executor = getExecutor();
                             processorLoader.init(_executor, null, null, null);
-                            shutdownExecutor(_executor);
+                            if (_executor != null && _executor instanceof ExecutorService)
+                                ((ExecutorService) _executor).shutdown();
                         }
 
                         if (isLazyInit() && configuration != null) {
@@ -224,7 +229,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                                     configuration.getQueryEnginesToInit(configuration.getInitTreshold()).keySet(),
                                     configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
                                     configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
-                            shutdownExecutor(_executor);
+                            if (_executor != null && _executor instanceof ExecutorService)
+                                ((ExecutorService) _executor).shutdown();
                         }
 
                         if (configuration != null && configuration.getInitClearUsage() != null
@@ -688,6 +694,14 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isAsyncInitFinished() {
+        return executorTerminated;
+    }
+
+    /**
      * Sets the number of threads used for asynchronous initialization
      * 
      * @param asyncInitThreads
@@ -861,9 +875,13 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     public static class SqlThreadPoolExecutor extends ThreadPoolExecutor {
 
         protected final Logger logger = LoggerFactory.getLogger(getClass());
+        protected SqlSimpleFactory factory;
 
-        public SqlThreadPoolExecutor(int corePoolSize) {
+        public SqlThreadPoolExecutor(int corePoolSize, SqlSimpleFactory factory) {
             super(corePoolSize, corePoolSize, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+            this.factory = factory;
+            if (factory != null)
+                factory.executorTerminated = false;
         }
 
         @Override
@@ -878,6 +896,8 @@ public class SqlSimpleFactory implements SqlEngineFactory {
         protected void terminated() {
             logger.warn("== terminated");
             super.terminated();
+            if (factory != null)
+                factory.executorTerminated = true;
         }
     }
 
@@ -888,8 +908,12 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * @return the asynchronous SQL Processor engines initialization executor
      */
     protected Executor getExecutor() {
-        return (executor != null) ? executor : ((getAsyncInitThreads() > 0) ? new SqlThreadPoolExecutor(
-                getAsyncInitThreads()) : null);
+        if (executor != null)
+            return executor;
+        if (getAsyncInitThreads() > 0) {
+            return new SqlThreadPoolExecutor(getAsyncInitThreads(), this);
+        }
+        return null;
     }
 
     /**
@@ -901,17 +925,5 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     public void setExecutor(Executor executor) {
         this.executor = executor;
-    }
-
-    /**
-     * Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be
-     * accepted.
-     * 
-     * @param executor
-     *            the asynchronous SQL Processor engines initialization executor to shutdown
-     */
-    protected void shutdownExecutor(Executor executor) {
-        if (executor != null && executor instanceof ExecutorService)
-            ((ExecutorService) executor).shutdown();
     }
 }

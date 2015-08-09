@@ -304,6 +304,24 @@ public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
+    @ManagedOperation(description = "Returns the flag indicating the asynchronous SQL Processor engines initialization has been finished.")
+    public Boolean isAsyncInitFinished() {
+        return super.isAsyncInitFinished();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the result of engines initialization process.")
+    public String getEnginesInitErrors() {
+        return super.getEnginesInitErrors();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @ManagedOperation(description = "Returns the container of the Query Engines' names, which has to be initialized.")
     public List<String> getQueryEnginesToInit() {
         return super.getQueryEnginesToInit();

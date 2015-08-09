@@ -206,6 +206,14 @@ public interface SqlEngineFactory {
     public int getAsyncInitThreads();
 
     /**
+     * Returns the flag indicating the asynchronous SQL Processor engines initialization has been finished.
+     * 
+     * @return the flag indicating the asynchronous SQL Processor engines initialization has been finished
+     */
+    @Beta
+    public Boolean isAsyncInitFinished();
+
+    /**
      * Returns the collection of names of all initialized/constructed static SQL Query Engine instances.
      *
      * @return The collection of all initialized static SQL Query Engine instances' names
