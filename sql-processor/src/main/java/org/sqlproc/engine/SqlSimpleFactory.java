@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -854,14 +856,40 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     }
 
     /**
+     * The customized ThreadPoolExecutor.
+     */
+    public static class SqlThreadPoolExecutor extends ThreadPoolExecutor {
+
+        protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+        public SqlThreadPoolExecutor(int corePoolSize) {
+            super(corePoolSize, corePoolSize, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        }
+
+        @Override
+        public void shutdown() {
+            logger.warn("== shutdown: executed tasks: {}", getCompletedTaskCount());
+            logger.warn("== shutdown: running tasks: {}", getActiveCount());
+            logger.warn("== shutdown: pending tasks:, {}", getQueue().size());
+            super.shutdown();
+        }
+
+        @Override
+        protected void terminated() {
+            logger.warn("== terminated");
+            super.terminated();
+        }
+    }
+
+    /**
      * Returns the asynchronous SQL Processor engines initialization executor. It can be a Spring TaskExecutor or null
      * for the case of synchronous SQL Processor engines initialization.
      * 
      * @return the asynchronous SQL Processor engines initialization executor
      */
     protected Executor getExecutor() {
-        return (executor != null) ? executor : ((getAsyncInitThreads() > 0) ? Executors
-                .newFixedThreadPool(getAsyncInitThreads()) : null);
+        return (executor != null) ? executor : ((getAsyncInitThreads() > 0) ? new SqlThreadPoolExecutor(
+                getAsyncInitThreads()) : null);
     }
 
     /**

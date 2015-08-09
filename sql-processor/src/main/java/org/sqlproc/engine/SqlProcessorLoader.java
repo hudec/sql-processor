@@ -500,9 +500,10 @@ public class SqlProcessorLoader {
      *            The Procedure engine names to initialize.
      */
     public void init(Executor executor, Set<String> sqlsToInit, Set<String> crudsToInit, Set<String> callsToInit) {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">> init, executor=" + executor);
-        }
+        if (executor != null)
+            logger.warn(">> init, executor {}", executor);
+        else
+            logger.trace(">> init");
         long start = System.currentTimeMillis();
 
         try {
