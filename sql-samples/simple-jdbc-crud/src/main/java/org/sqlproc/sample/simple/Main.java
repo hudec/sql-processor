@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
@@ -48,8 +46,6 @@ import org.sqlproc.sample.simple.type.PhoneNumberType;
 
 public class Main {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     private Connection connection;
     private SqlSessionFactory sessionFactory;
     private SqlEngineFactory sqlFactory;
@@ -64,10 +60,11 @@ public class Main {
     }
 
     public Main() throws SQLException {
-        JdbcEngineFactory factory = new JdbcEngineFactory();
+        JdbcEngineFactory factory = new JdbcEngineFactory(5);
         factory.setMetaFilesNames("statements.meta");
         factory.addCustomType(new PhoneNumberType());
         factory.setFilter(SqlFeature.HSQLDB);
+        factory.init();
         this.sqlFactory = factory;
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");

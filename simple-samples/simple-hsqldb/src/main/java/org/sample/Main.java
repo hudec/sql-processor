@@ -69,7 +69,7 @@ public class Main {
     }
 
     public Main() throws SQLException {
-        JdbcEngineFactory factory = new JdbcEngineFactory(5);
+        JdbcEngineFactory factory = new JdbcEngineFactory();
         factory.setMetaFilesNames("statements.meta");
         factory.setFilter(DB_TYPE);
         factory.setValidatorFactory(new SampleValidator.SampleValidatorFactory());
@@ -86,9 +86,6 @@ public class Main {
         anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
         newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
         newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
-
-        // async init
-        factory.init();
     }
 
     public void setupDb(boolean clear) throws SQLException {

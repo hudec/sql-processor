@@ -198,23 +198,36 @@ public class SqlSimpleFactory implements SqlEngineFactory {
                         if (configuration != null) {
                             for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet()) {
                                 processorLoader.getDynamicEngine(e.getKey(), EngineType.Query, e.getValue());
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== init, initialized dynamic Query Engine " + e.getKey());
+                                logger.warn("== init, initialized dynamic Query Engine {}", e.getKey());
                             }
                             for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet()) {
                                 processorLoader.getDynamicEngine(e.getKey(), EngineType.Crud, e.getValue());
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== init, initialized dynamic CRUD Engine " + e.getKey());
+                                logger.warn("== init, initialized dynamic CRUD Engine {}", e.getKey());
                             }
                             for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet()) {
                                 processorLoader.getDynamicEngine(e.getKey(), EngineType.Procedure, e.getValue());
-                                if (logger.isTraceEnabled())
-                                    logger.trace("== init, initialized dynamic Procedure Engine " + e.getKey());
+                                logger.warn("== init, initialized dynamic Procedure Engine {}", e.getKey());
                             }
                         }
 
-                        if (executor == null)
-                            _init();
+                        if (!isLazyInit()) {
+                            Executor _executor = getExecutor();
+                            processorLoader.init(_executor, null, null, null);
+                            shutdownExecutor(_executor);
+                        }
+
+                        if (isLazyInit() && configuration != null) {
+                            Executor _executor = getExecutor();
+                            processorLoader.init(_executor,
+                                    configuration.getQueryEnginesToInit(configuration.getInitTreshold()).keySet(),
+                                    configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
+                                    configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
+                            shutdownExecutor(_executor);
+                        }
+
+                        if (configuration != null && configuration.getInitClearUsage() != null
+                                && configuration.getInitClearUsage())
+                            configuration.clearUsage();
                     }
                 }
             }
@@ -224,30 +237,10 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * Conditional dynamic initialization, called mainly from the Spring configuration initialization.
      */
-    public void postInit() {
-        if (getLoader() == null)
+    public void init0() {
+        if (getLoader() == null) {
             init();
-        if (executor != null)
-            _init();
-    }
-
-    private void _init() {
-        if (!isLazyInit()) {
-            Executor _executor = getExecutor();
-            processorLoader.init(_executor, null, null, null);
-            shutdownExecutor(_executor);
         }
-
-        if (isLazyInit() && configuration != null) {
-            Executor _executor = getExecutor();
-            processorLoader.init(_executor, configuration.getQueryEnginesToInit(configuration.getInitTreshold())
-                    .keySet(), configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
-                    configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
-            shutdownExecutor(_executor);
-        }
-
-        if (configuration != null && configuration.getInitClearUsage() != null && configuration.getInitClearUsage())
-            configuration.clearUsage();
     }
 
     /**
@@ -255,7 +248,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getQueryEngine(String name) {
-        postInit();
+        init0();
         SqlQueryEngine sqlEngine = (SqlQueryEngine) getLoader().getEngine(name, EngineType.Query);
         if (sqlEngine != null && configuration != null)
             configuration.addQueryEngine(name);
@@ -267,7 +260,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getCrudEngine(String name) {
-        postInit();
+        init0();
         SqlCrudEngine sqlEngine = (SqlCrudEngine) getLoader().getEngine(name, EngineType.Crud);
         if (sqlEngine != null && configuration != null)
             configuration.addCrudEngine(name);
@@ -279,7 +272,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getProcedureEngine(String name) {
-        postInit();
+        init0();
         SqlProcedureEngine sqlEngine = (SqlProcedureEngine) getLoader().getEngine(name, EngineType.Procedure);
         if (sqlEngine != null && configuration != null)
             configuration.addProcedureEngine(name);
@@ -291,7 +284,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getStaticQueryEngine(String name) {
-        postInit();
+        init0();
         SqlQueryEngine sqlEngine = (SqlQueryEngine) getLoader().getStaticEngine(name, EngineType.Query);
         if (sqlEngine != null && configuration != null) {
             configuration.addQueryEngine(name);
@@ -305,7 +298,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getStaticCrudEngine(String name) {
-        postInit();
+        init0();
         SqlCrudEngine sqlEngine = (SqlCrudEngine) getLoader().getStaticEngine(name, EngineType.Crud);
         if (sqlEngine != null && configuration != null) {
             configuration.addCrudEngine(name);
@@ -319,7 +312,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getStaticProcedureEngine(String name) {
-        postInit();
+        init0();
         SqlProcedureEngine sqlEngine = (SqlProcedureEngine) getLoader().getStaticEngine(name, EngineType.Procedure);
         if (sqlEngine != null && configuration != null) {
             configuration.addProcedureEngine(name);
@@ -408,7 +401,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlQueryEngine getDynamicQueryEngine(String name, String sqlStatement) throws SqlEngineException {
-        postInit();
+        init0();
         SqlQueryEngine sqlEngine = (SqlQueryEngine) getLoader().getDynamicEngine(name, EngineType.Query, sqlStatement);
         if (sqlEngine != null && configuration != null)
             configuration.addDynamicQueryEngine(name, sqlStatement);
@@ -420,7 +413,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlCrudEngine getDynamicCrudEngine(String name, String sqlStatement) {
-        postInit();
+        init0();
         SqlCrudEngine sqlEngine = (SqlCrudEngine) getLoader().getDynamicEngine(name, EngineType.Crud, sqlStatement);
         if (sqlEngine != null && configuration != null)
             configuration.addDynamicCrudEngine(name, sqlStatement);
@@ -432,7 +425,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      */
     @Override
     public SqlProcedureEngine getDynamicProcedureEngine(String name, String sqlStatement) {
-        postInit();
+        init0();
         SqlProcedureEngine sqlEngine = (SqlProcedureEngine) getLoader().getDynamicEngine(name, EngineType.Procedure,
                 sqlStatement);
         if (sqlEngine != null && configuration != null)

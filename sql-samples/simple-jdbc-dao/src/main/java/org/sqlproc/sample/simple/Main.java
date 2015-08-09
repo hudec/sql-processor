@@ -6,11 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
@@ -46,16 +43,13 @@ import org.sqlproc.sample.simple.model.Subscriber;
 
 public class Main {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     private SqlSessionFactory sessionFactory;
-    private SqlEngineFactory sqlFactory;
     private List<String> ddls;
+    private ApplicationContext context;
 
     public Main() throws SQLException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        context = new ClassPathXmlApplicationContext("applicationContext.xml");
         sessionFactory = context.getBean("sessionFactory", SqlSessionFactory.class);
-        sqlFactory = context.getBean("sqlFactory", SqlEngineFactory.class);
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
 
         bankAccountDao = context.getBean("bankAccountDao", BankAccountDao.class);

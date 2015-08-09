@@ -1,7 +1,5 @@
 package org.sqlproc.engine.spring;
 
-import javax.annotation.PostConstruct;
-
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlSimpleFactory;
@@ -91,8 +89,8 @@ public class SpringEngineFactory extends SqlSimpleFactory {
         setTypeFactory(JdbcTypeFactory.getInstance());
     }
 
-    @PostConstruct
-    public void postInit() {
-        super.postInit();
-    }
+    // @PostConstruct
+    // public void asyncInitEngines() {
+    // super.postInit();
+    // }
 }

@@ -23,11 +23,13 @@
         <constructor-arg ref="jdbcTemplate" />
     </bean>
 
-    <!-- bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-    <tx:annotation-driven transaction-manager="transactionManager" /-->
+    <!-- bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> <property 
+        name="dataSource" ref="dataSource" /> </bean> <tx:annotation-driven transaction-manager="transactionManager" / -->
 
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5" />
+    </bean>
+    
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory" init-method="init">
         <property name="metaFilesNames">
             <list>
@@ -40,6 +42,7 @@
             </list>
         </property>
         <property name="filter" value="HSQLDB" />
+        <property name="executor" ref="taskExecutor" />
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">

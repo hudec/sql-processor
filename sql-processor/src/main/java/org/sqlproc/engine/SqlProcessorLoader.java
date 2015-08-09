@@ -485,37 +485,37 @@ public class SqlProcessorLoader {
                 Set<String> names = (sqlsToInit != null) ? sqlsToInit : sqls.keySet();
                 for (String name : names) {
                     try {
+                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Query, Thread
+                                .currentThread().getName());
                         getEngine(name, EngineType.Query);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
                         enginesInitErrors.put(name, msg);
-                        if (logger.isDebugEnabled()) {
-                            logger.debug("!! init, name=" + name + ", error=" + msg);
-                        }
+                        logger.warn("!! init, name={}, error={}", name, msg);
                     }
                 }
                 names = (crudsToInit != null) ? crudsToInit : cruds.keySet();
                 for (String name : names) {
                     try {
+                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Crud, Thread
+                                .currentThread().getName());
                         getEngine(name, EngineType.Crud);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
                         enginesInitErrors.put(name, msg);
-                        if (logger.isDebugEnabled()) {
-                            logger.debug("!! init, name=" + name + ", error=" + msg);
-                        }
+                        logger.warn("!! init, name={}, error={}", name, msg);
                     }
                 }
                 names = (callsToInit != null) ? callsToInit : calls.keySet();
                 for (String name : names) {
                     try {
+                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Procedure, Thread
+                                .currentThread().getName());
                         getEngine(name, EngineType.Procedure);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
                         enginesInitErrors.put(name, msg);
-                        if (logger.isDebugEnabled()) {
-                            logger.debug("!! init, name=" + name + ", error=" + msg);
-                        }
+                        logger.warn("!! init, name={}, error={}", name, msg);
                     }
                 }
             }
@@ -584,17 +584,13 @@ public class SqlProcessorLoader {
 
         @Override
         public void run() {
-            if (logger.isTraceEnabled()) {
-                logger.trace("== init, name=" + name + ", type=" + engineType);
-            }
+            logger.info("== async init, name={}, type={} in {}", name, engineType, Thread.currentThread().getName());
             try {
                 getEngine(name, engineType);
             } catch (SqlEngineException ex) {
                 String msg = ex.getMessage();
                 enginesInitErrors.put(name, msg);
-                if (logger.isDebugEnabled()) {
-                    logger.debug("!! init, name=" + name + ", error=" + msg);
-                }
+                logger.warn("!! init, name={}, error={}", name, msg);
             }
         }
     }
