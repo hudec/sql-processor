@@ -1,6 +1,5 @@
 package org.sqlproc.engine.config;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -101,7 +100,7 @@ public class SqlEngineConfiguration extends JaxbStore {
      * @throws JAXBException
      *             in the case there's a problem with JAXB deserialization
      */
-    public SqlEngineConfiguration(File directory, String fileName) throws IOException, JAXBException {
+    public SqlEngineConfiguration(String directory, String fileName) throws IOException, JAXBException {
         super(directory, fileName, XmlEngineConfiguration.class, XmlEngineConfiguration.EngineUsage.class,
                 XmlEngineConfiguration.EngineSql.class);
     }

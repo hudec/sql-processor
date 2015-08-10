@@ -17,7 +17,7 @@ import javax.xml.bind.Unmarshaller;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class JaxbStore {
-    private final File directory;
+    private final String directory;
     private final String fileName;
     private final JAXBContext xmlContext;
     private final File file;
@@ -29,17 +29,31 @@ public class JaxbStore {
         this.file = null;
     }
 
-    protected JaxbStore(File directory, String fileName, Class<?>... jaxbClasses) throws IOException, JAXBException {
-        this.directory = directory;
-        this.fileName = fileName;
+    protected JaxbStore(String directory, String fileName, Class<?>... jaxbClasses) throws IOException, JAXBException {
+        this.directory = substitute(directory);
+        this.fileName = substitute(fileName);
         this.xmlContext = JAXBContext.newInstance(jaxbClasses);
 
-        this.directory.mkdirs();
-        if (!this.directory.exists()) {
+        File dir = new File(directory);
+        dir.mkdirs();
+        if (!dir.exists()) {
             throw new IOException("Could not create data directory: " + this.directory);
         }
 
-        this.file = new File(this.directory, this.fileName);
+        this.file = new File(dir, this.fileName);
+    }
+
+    protected static String substitute(String s) {
+        int ix = s.indexOf("${");
+        int ix2 = (ix >= 0) ? s.indexOf("}", ix) : -1;
+        if (ix < 0 || ix2 < 0)
+            return s;
+        String toSubstitute = s.substring(ix + 2, ix + ix2);
+        String substituted = System.getenv(toSubstitute);
+        if (substituted == null)
+            return s;
+        String result = s.substring(0, ix) + substituted + s.substring(ix + ix2 + 1);
+        return result;
     }
 
     protected void writeXml(Object xml) {

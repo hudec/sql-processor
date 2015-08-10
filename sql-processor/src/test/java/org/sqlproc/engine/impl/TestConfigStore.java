@@ -1,6 +1,5 @@
 package org.sqlproc.engine.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,7 +15,7 @@ public class TestConfigStore extends TestCase {
     @Test
     public void testStore() throws IOException, JAXBException {
 
-        SqlEngineConfiguration config = new SqlEngineConfiguration(new File("/tmp"), "sqlp-config.xml");
+        SqlEngineConfiguration config = new SqlEngineConfiguration("/tmp", "sqlp-config.xml");
         config.addQueryEngine("QE1");
         config.addCrudEngine("CE1");
         config.addProcedureEngine("PE1");
@@ -32,7 +31,7 @@ public class TestConfigStore extends TestCase {
         config.setInitTreshold(2);
         config.store();
 
-        SqlEngineConfiguration config2 = new SqlEngineConfiguration(new File("/tmp"), "sqlp-config.xml");
+        SqlEngineConfiguration config2 = new SqlEngineConfiguration("/tmp", "sqlp-config.xml");
         config2.load();
         assertEquals(3, config2.getQueryEngines().size());
         AtomicInteger usage = config2.getQueryEngines().get("QE1");
@@ -60,7 +59,7 @@ public class TestConfigStore extends TestCase {
         assertNotNull(config2.getInitTreshold());
         assertEquals(2, config2.getInitTreshold().intValue());
 
-        SqlEngineConfiguration config3 = new SqlEngineConfiguration(new File("/tmp"), "sqlp-config.xml");
+        SqlEngineConfiguration config3 = new SqlEngineConfiguration("/tmp", "sqlp-config.xml");
         config3.load();
         assertEquals(1, config3.getQueryEnginesToInit(2).size());
         assertEquals(1, config3.getCrudEnginesToInit(2).size());
