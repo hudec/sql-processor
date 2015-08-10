@@ -51,6 +51,8 @@ public class JaxbStore {
         String toSubstitute = s.substring(ix + 2, ix + ix2);
         String substituted = System.getenv(toSubstitute);
         if (substituted == null)
+            substituted = System.getProperty(toSubstitute);
+        if (substituted == null)
             return s;
         String result = s.substring(0, ix) + substituted + s.substring(ix + ix2 + 1);
         return result;
