@@ -11,6 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,14 +90,6 @@ public class SqlEngineConfiguration extends JaxbStore {
     private Boolean initClearUsage;
 
     /**
-     * Default constructor.
-     */
-    public SqlEngineConfiguration() {
-        super();
-        clear();
-    }
-
-    /**
      * The constructor takes data from the persisted state in external file.
      * 
      * @param directory
@@ -110,6 +104,27 @@ public class SqlEngineConfiguration extends JaxbStore {
     public SqlEngineConfiguration(String directory, String fileName) throws IOException, JAXBException {
         super(directory, fileName, XmlEngineConfiguration.class, XmlEngineConfiguration.EngineUsage.class,
                 XmlEngineConfiguration.EngineSql.class);
+    }
+
+    /**
+     * The constructor takes data from the persisted state in external file.
+     * 
+     * @param directory
+     *            the directory, where the persisted file is placed
+     * @param fileName
+     *            the name of the persisted file
+     * @param marshaller
+     *            the marshaller
+     * @param unmarshaller
+     *            the unmarshaller
+     * @throws IOException
+     *             in the case there's a I/O problem with the persisted file
+     * @throws JAXBException
+     *             in the case there's a problem with JAXB deserialization
+     */
+    public SqlEngineConfiguration(String directory, String fileName, Marshaller marshaller, Unmarshaller unmarshaller)
+            throws IOException, JAXBException {
+        super(directory, fileName, marshaller, unmarshaller);
     }
 
     /**

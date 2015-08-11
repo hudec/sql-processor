@@ -29,19 +29,33 @@ public class JaxbStore {
     private final String directory;
     private final String fileName;
     private final JAXBContext xmlContext;
+    private final Marshaller marshaller;
+    private final Unmarshaller unmarshaller;
     private final File file;
-
-    protected JaxbStore() {
-        this.directory = null;
-        this.fileName = null;
-        this.xmlContext = null;
-        this.file = null;
-    }
 
     protected JaxbStore(String directory, String fileName, Class<?>... jaxbClasses) throws IOException, JAXBException {
         this.directory = substitute(directory);
         this.fileName = substitute(fileName);
         this.xmlContext = JAXBContext.newInstance(jaxbClasses);
+        this.marshaller = null;
+        this.unmarshaller = null;
+
+        File dir = new File(this.directory);
+        dir.mkdirs();
+        if (!dir.exists()) {
+            throw new IOException("Could not create data directory: " + this.directory);
+        }
+
+        this.file = new File(dir, this.fileName);
+    }
+
+    protected JaxbStore(String directory, String fileName, Marshaller marshaller, Unmarshaller unmarshaller)
+            throws IOException, JAXBException {
+        this.directory = substitute(directory);
+        this.fileName = substitute(fileName);
+        this.xmlContext = null;
+        this.marshaller = marshaller;
+        this.unmarshaller = unmarshaller;
 
         File dir = new File(this.directory);
         dir.mkdirs();
@@ -73,7 +87,7 @@ public class JaxbStore {
             return;
         logger.warn("=== writeXml xml={}", xml);
         try {
-            Marshaller marshaller = this.xmlContext.createMarshaller();
+            Marshaller marshaller = (this.marshaller != null) ? this.marshaller : this.xmlContext.createMarshaller();
             marshaller.marshal(xml, this.file);
         } catch (JAXBException ex) {
             throw new IllegalStateException("Could not save configuration", ex);
@@ -88,7 +102,8 @@ public class JaxbStore {
         logger.warn("=== readXml xmlContext={}", xmlContext);
         Object xml = null;
         try {
-            Unmarshaller unmarshaller = this.xmlContext.createUnmarshaller();
+            Unmarshaller unmarshaller = (this.unmarshaller != null) ? this.unmarshaller : this.xmlContext
+                    .createUnmarshaller();
             xml = unmarshaller.unmarshal(this.file);
         } catch (JAXBException ex) {
             throw new IllegalStateException("Could not read configuration", ex);
