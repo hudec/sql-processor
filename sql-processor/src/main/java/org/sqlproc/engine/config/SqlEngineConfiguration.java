@@ -11,13 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.config.store.JaxbStore;
 import org.sqlproc.engine.config.store.XmlEngineConfiguration;
+import org.sqlproc.engine.impl.config.store.SimpleJaxbStore;
 
 /**
  * The dynamic configuration of the SQL Processor.
@@ -34,7 +33,7 @@ import org.sqlproc.engine.config.store.XmlEngineConfiguration;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlEngineConfiguration extends JaxbStore {
+public class SqlEngineConfiguration {
 
     /**
      * The internal slf4j logger.
@@ -90,6 +89,11 @@ public class SqlEngineConfiguration extends JaxbStore {
     private Boolean initClearUsage;
 
     /**
+     * The store to persist this configuration;
+     */
+    private JaxbStore jaxbStore;
+
+    /**
      * The constructor takes data from the persisted state in external file.
      * 
      * @param directory
@@ -102,8 +106,8 @@ public class SqlEngineConfiguration extends JaxbStore {
      *             in the case there's a problem with JAXB deserialization
      */
     public SqlEngineConfiguration(String directory, String fileName) throws IOException, JAXBException {
-        super(directory, fileName, XmlEngineConfiguration.class, XmlEngineConfiguration.EngineUsage.class,
-                XmlEngineConfiguration.EngineSql.class);
+        jaxbStore = new SimpleJaxbStore(directory, fileName, XmlEngineConfiguration.class,
+                XmlEngineConfiguration.EngineUsage.class, XmlEngineConfiguration.EngineSql.class);
     }
 
     /**
@@ -113,18 +117,13 @@ public class SqlEngineConfiguration extends JaxbStore {
      *            the directory, where the persisted file is placed
      * @param fileName
      *            the name of the persisted file
-     * @param marshaller
-     *            the marshaller
-     * @param unmarshaller
-     *            the unmarshaller
      * @throws IOException
      *             in the case there's a I/O problem with the persisted file
      * @throws JAXBException
      *             in the case there's a problem with JAXB deserialization
      */
-    public SqlEngineConfiguration(String directory, String fileName, Marshaller marshaller, Unmarshaller unmarshaller)
-            throws IOException, JAXBException {
-        super(directory, fileName, marshaller, unmarshaller);
+    public SqlEngineConfiguration(JaxbStore jaxbStore) {
+        this.jaxbStore = jaxbStore;
     }
 
     /**
@@ -134,7 +133,7 @@ public class SqlEngineConfiguration extends JaxbStore {
      */
     public void load() throws JAXBException {
         logger.warn(">>> load");
-        XmlEngineConfiguration xml = (XmlEngineConfiguration) readXml();
+        XmlEngineConfiguration xml = (XmlEngineConfiguration) jaxbStore.readXml();
         logger.warn("=== load xml={}", xml);
         if (xml != null) {
             this.queryEngines = xml.getQueryEngines();
@@ -159,7 +158,7 @@ public class SqlEngineConfiguration extends JaxbStore {
         logger.warn(">>> store this={}", this);
         XmlEngineConfiguration xml = new XmlEngineConfiguration(this);
         logger.warn("=== store xml={}", xml);
-        writeXml(xml);
+        jaxbStore.writeXml(xml);
         logger.warn("<<< store");
     }
 
