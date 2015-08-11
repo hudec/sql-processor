@@ -189,4 +189,13 @@ public class XmlEngineConfiguration {
             return sql;
         }
     }
+
+    @Override
+    public String toString() {
+        return "XmlEngineConfiguration [queryEngines=" + queryEngines + ", crudEngines=" + crudEngines
+                + ", procedureEngines=" + procedureEngines + ", dynamicQueryEngines=" + dynamicQueryEngines
+                + ", dynamicCrudEngines=" + dynamicCrudEngines + ", dynamicProcedureEngines=" + dynamicProcedureEngines
+                + ", lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads + ", initTreshold="
+                + initTreshold + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage + "]";
+    }
 }

@@ -12,6 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.xml.bind.JAXBException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.config.store.JaxbStore;
 import org.sqlproc.engine.config.store.XmlEngineConfiguration;
 
@@ -31,6 +33,11 @@ import org.sqlproc.engine.config.store.XmlEngineConfiguration;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class SqlEngineConfiguration extends JaxbStore {
+
+    /**
+     * The internal slf4j logger.
+     */
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * The container of initialized Query Engines' names (static or dynamic ones) together with the number of their
@@ -111,7 +118,9 @@ public class SqlEngineConfiguration extends JaxbStore {
      * @throws JAXBException
      */
     public void load() throws JAXBException {
-        XmlEngineConfiguration xml = (XmlEngineConfiguration) readFile();
+        logger.warn(">>> load");
+        XmlEngineConfiguration xml = (XmlEngineConfiguration) readXml();
+        logger.warn("=== load xml={}", xml);
         if (xml != null) {
             this.queryEngines = xml.getQueryEngines();
             this.crudEngines = xml.getCrudEngines();
@@ -125,14 +134,18 @@ public class SqlEngineConfiguration extends JaxbStore {
             this.initInUsageOrder = xml.getInitInUsageOrder();
             this.initClearUsage = xml.getInitClearUsage();
         }
+        logger.warn("<<< load this={}", this);
     }
 
     /**
      * Persist the configuration into the external file.
      */
     public void store() {
-        XmlEngineConfiguration config = new XmlEngineConfiguration(this);
-        writeXml(config);
+        logger.warn(">>> store this={}", this);
+        XmlEngineConfiguration xml = new XmlEngineConfiguration(this);
+        logger.warn("=== store xml={}", xml);
+        writeXml(xml);
+        logger.warn("<<< store");
     }
 
     /**
@@ -647,5 +660,14 @@ public class SqlEngineConfiguration extends JaxbStore {
      */
     public Map<String, Integer> getProcedureEnginesToInit(Integer treshold) {
         return getEnginesToInit(procedureEngines, treshold);
+    }
+
+    @Override
+    public String toString() {
+        return "SqlEngineConfiguration [queryEngines=" + queryEngines + ", crudEngines=" + crudEngines
+                + ", procedureEngines=" + procedureEngines + ", dynamicQueryEngines=" + dynamicQueryEngines
+                + ", dynamicCrudEngines=" + dynamicCrudEngines + ", dynamicProcedureEngines=" + dynamicProcedureEngines
+                + ", lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads + ", initTreshold="
+                + initTreshold + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage + "]";
     }
 }

@@ -8,6 +8,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * This class is used only for the SQL Processor dynamic configuration serialization/deserialization.
  * 
@@ -17,6 +20,12 @@ import javax.xml.bind.Unmarshaller;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class JaxbStore {
+
+    /**
+     * The internal slf4j logger.
+     */
+    final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final String directory;
     private final String fileName;
     private final JAXBContext xmlContext;
@@ -59,20 +68,32 @@ public class JaxbStore {
     }
 
     protected void writeXml(Object xml) {
+        logger.warn(">>> writeXml file={}, dir={}", file, directory);
         if (file == null)
             return;
+        logger.warn("=== writeXml xml={}", xml);
         try {
             Marshaller marshaller = this.xmlContext.createMarshaller();
-            marshaller.marshal(xml, new File(this.directory, this.fileName));
+            marshaller.marshal(xml, this.file);
         } catch (JAXBException ex) {
             throw new IllegalStateException("Could not save configuration", ex);
         }
+        logger.warn("<<< writeXml xmlContext={}", xmlContext);
     }
 
-    protected Object readFile() throws JAXBException {
+    protected Object readXml() {
+        logger.warn(">>> readXml file={}, dir={}", file, directory);
         if (file == null || !this.file.exists())
             return null;
-        Unmarshaller unmarshaller = this.xmlContext.createUnmarshaller();
-        return unmarshaller.unmarshal(this.file);
+        logger.warn("=== readXml xmlContext={}", xmlContext);
+        Object xml = null;
+        try {
+            Unmarshaller unmarshaller = this.xmlContext.createUnmarshaller();
+            xml = unmarshaller.unmarshal(this.file);
+        } catch (JAXBException ex) {
+            throw new IllegalStateException("Could not read configuration", ex);
+        }
+        logger.warn("<<< readXml xml={}", xml);
+        return xml;
     }
 }
