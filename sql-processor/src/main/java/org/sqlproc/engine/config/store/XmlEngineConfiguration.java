@@ -163,6 +163,11 @@ public class XmlEngineConfiguration {
         public int getUsage() {
             return usage;
         }
+
+        @Override
+        public String toString() {
+            return "EngineUsage [name=" + name + ", usage=" + usage + "]";
+        }
     }
 
     @XmlRootElement(name = "sql")
@@ -187,6 +192,11 @@ public class XmlEngineConfiguration {
 
         public String getSql() {
             return sql;
+        }
+
+        @Override
+        public String toString() {
+            return "EngineSql [name=" + name + ", sql=" + sql + "]";
         }
     }
 

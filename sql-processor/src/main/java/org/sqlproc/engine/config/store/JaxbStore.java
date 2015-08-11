@@ -43,7 +43,7 @@ public class JaxbStore {
         this.fileName = substitute(fileName);
         this.xmlContext = JAXBContext.newInstance(jaxbClasses);
 
-        File dir = new File(directory);
+        File dir = new File(this.directory);
         dir.mkdirs();
         if (!dir.exists()) {
             throw new IOException("Could not create data directory: " + this.directory);
