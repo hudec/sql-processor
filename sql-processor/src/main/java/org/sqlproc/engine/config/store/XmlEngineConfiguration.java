@@ -85,6 +85,21 @@ public class XmlEngineConfiguration {
         initClearUsage = config.getInitClearUsage();
     }
 
+    public void toConfig(SqlEngineConfiguration config) {
+        config.setQueryEngines(getQueryEngines());
+        config.setCrudEngines(getCrudEngines());
+        config.setProcedureEngines(getProcedureEngines());
+        config.setDynamicQueryEngines(getDynamicQueryEngines());
+        config.setDynamicCrudEngines(getDynamicCrudEngines());
+        config.setDynamicProcedureEngines(getDynamicProcedureEngines());
+        config.setLazyInit(getLazyInit());
+        config.setAsyncInitThreads(getAsyncInitThreads());
+        config.setInitTreshold(getInitTreshold());
+        config.setInitInUsageOrder(getInitInUsageOrder());
+        config.setInitClearUsage(getInitClearUsage());
+
+    }
+
     private ConcurrentHashMap<String, AtomicInteger> copyEng(List<EngineUsage> from) {
         ConcurrentHashMap<String, AtomicInteger> engines = new ConcurrentHashMap<String, AtomicInteger>();
         if (from == null)

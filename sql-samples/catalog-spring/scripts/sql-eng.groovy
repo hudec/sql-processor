@@ -39,10 +39,10 @@ class SqlEngine {
         println engine  // Outputs all attributes and operations.
 
 	println "-----------------------------"
-	println "Names "+engine.getNames()
-	println "DynamicNames "+engine.getDynamicNames()
+	//println "Names "+engine.getNames()
+	//println "DynamicNames "+engine.getDynamicNames()
 	println "LazyInit "+engine.isLazyInit()
-	println "AsyncInit "+engine.getAsyncInit()
+	println "AsyncInitThreads "+engine.getAsyncInitThreads()
 	println "InitTreshold "+engine.getInitTreshold()
 	println "initCrudEngines GET_ITEM "+engine.initCrudEngines("GET_ITEM")
 	println "QueryEnginesToInit "+engine.getQueryEnginesToInit()

@@ -10,7 +10,6 @@ import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.config.store.JaxbStore;
 
 /**
  * This class is used only for the SQL Processor dynamic configuration serialization/deserialization.
@@ -20,7 +19,7 @@ import org.sqlproc.engine.config.store.JaxbStore;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SimpleJaxbStore implements JaxbStore {
+public class SimpleJaxbStore {
 
     /**
      * The internal slf4j logger.
@@ -62,7 +61,6 @@ public class SimpleJaxbStore implements JaxbStore {
         return result;
     }
 
-    @Override
     public void writeXml(Object xml) {
         logger.warn(">>> writeXml file={}, dir={}", file, directory);
         if (file == null)
@@ -77,7 +75,6 @@ public class SimpleJaxbStore implements JaxbStore {
         logger.warn("<<< writeXml xmlContext={}", xmlContext);
     }
 
-    @Override
     public Object readXml() {
         logger.warn(">>> readXml file={}, dir={}", file, directory);
         if (file == null || !this.file.exists())

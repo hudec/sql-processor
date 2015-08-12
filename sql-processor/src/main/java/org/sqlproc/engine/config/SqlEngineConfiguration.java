@@ -14,9 +14,9 @@ import javax.xml.bind.JAXBException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sqlproc.engine.config.store.JaxbStore;
+import org.sqlproc.engine.config.store.SqlEngineConfigurationStore;
 import org.sqlproc.engine.config.store.XmlEngineConfiguration;
-import org.sqlproc.engine.impl.config.store.SimpleJaxbStore;
+import org.sqlproc.engine.impl.config.store.SimpleEngineConfigurationStore;
 
 /**
  * The dynamic configuration of the SQL Processor.
@@ -91,7 +91,7 @@ public class SqlEngineConfiguration {
     /**
      * The store to persist this configuration;
      */
-    private JaxbStore jaxbStore;
+    private SqlEngineConfigurationStore store;
 
     /**
      * The constructor takes data from the persisted state in external file.
@@ -106,7 +106,7 @@ public class SqlEngineConfiguration {
      *             in the case there's a problem with JAXB deserialization
      */
     public SqlEngineConfiguration(String directory, String fileName) throws IOException, JAXBException {
-        jaxbStore = new SimpleJaxbStore(directory, fileName, XmlEngineConfiguration.class,
+        store = new SimpleEngineConfigurationStore(directory, fileName, XmlEngineConfiguration.class,
                 XmlEngineConfiguration.EngineUsage.class, XmlEngineConfiguration.EngineSql.class);
     }
 
@@ -122,8 +122,8 @@ public class SqlEngineConfiguration {
      * @throws JAXBException
      *             in the case there's a problem with JAXB deserialization
      */
-    public SqlEngineConfiguration(JaxbStore jaxbStore) {
-        this.jaxbStore = jaxbStore;
+    public SqlEngineConfiguration(SqlEngineConfigurationStore jaxbStore) {
+        this.store = jaxbStore;
     }
 
     /**
@@ -133,21 +133,8 @@ public class SqlEngineConfiguration {
      */
     public void load() throws JAXBException {
         logger.warn(">>> load");
-        XmlEngineConfiguration xml = (XmlEngineConfiguration) jaxbStore.readXml();
-        logger.warn("=== load xml={}", xml);
-        if (xml != null) {
-            this.queryEngines = xml.getQueryEngines();
-            this.crudEngines = xml.getCrudEngines();
-            this.procedureEngines = xml.getProcedureEngines();
-            this.dynamicQueryEngines = xml.getDynamicQueryEngines();
-            this.dynamicCrudEngines = xml.getDynamicCrudEngines();
-            this.dynamicProcedureEngines = xml.getDynamicProcedureEngines();
-            this.lazyInit = xml.getLazyInit();
-            this.asyncInitThreads = xml.getAsyncInitThreads();
-            this.initTreshold = xml.getInitTreshold();
-            this.initInUsageOrder = xml.getInitInUsageOrder();
-            this.initClearUsage = xml.getInitClearUsage();
-        }
+        boolean ok = store.readConfig(this);
+        logger.warn("=== load ok={}", ok);
         logger.warn("<<< load this={}", this);
     }
 
@@ -156,9 +143,7 @@ public class SqlEngineConfiguration {
      */
     public void store() {
         logger.warn(">>> store this={}", this);
-        XmlEngineConfiguration xml = new XmlEngineConfiguration(this);
-        logger.warn("=== store xml={}", xml);
-        jaxbStore.writeXml(xml);
+        store.writeConfig(this);
         logger.warn("<<< store");
     }
 

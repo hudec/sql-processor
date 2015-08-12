@@ -1,5 +1,7 @@
 package org.sqlproc.engine.config.store;
 
+import org.sqlproc.engine.config.SqlEngineConfiguration;
+
 /**
  * This class is used only for the SQL Processor dynamic configuration serialization/deserialization.
  * 
@@ -8,9 +10,9 @@ package org.sqlproc.engine.config.store;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public interface JaxbStore {
+public interface SqlEngineConfigurationStore {
 
-    public void writeXml(Object xml);
+    public void writeConfig(SqlEngineConfiguration config);
 
-    public Object readXml();
+    public boolean readConfig(SqlEngineConfiguration config);
 }
