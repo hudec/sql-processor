@@ -50,6 +50,13 @@ public class XmlEngineConfiguration {
     private Boolean initClearUsage;
 
     public XmlEngineConfiguration() {
+        queryEngines = new ArrayList<EngineUsage>();
+        crudEngines = new ArrayList<EngineUsage>();
+        procedureEngines = new ArrayList<EngineUsage>();
+
+        dynamicQueryEngines = new ArrayList<EngineSql>();
+        dynamicCrudEngines = new ArrayList<EngineSql>();
+        dynamicProcedureEngines = new ArrayList<EngineSql>();
     }
 
     private void copyEng(ConcurrentHashMap<String, AtomicInteger> from, List<EngineUsage> to) {
