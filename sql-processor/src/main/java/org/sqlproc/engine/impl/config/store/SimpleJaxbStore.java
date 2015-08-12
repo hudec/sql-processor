@@ -61,10 +61,10 @@ public class SimpleJaxbStore {
         return result;
     }
 
-    public void writeXml(Object xml) {
+    public boolean writeXml(Object xml) {
         logger.warn(">>> writeXml file={}, dir={}", file, directory);
         if (file == null)
-            return;
+            return false;
         logger.warn("=== writeXml xml={}", xml);
         try {
             Marshaller marshaller = this.xmlContext.createMarshaller();
@@ -73,6 +73,7 @@ public class SimpleJaxbStore {
             throw new IllegalStateException("Could not save configuration", ex);
         }
         logger.warn("<<< writeXml xmlContext={}", xmlContext);
+        return true;
     }
 
     public Object readXml() {

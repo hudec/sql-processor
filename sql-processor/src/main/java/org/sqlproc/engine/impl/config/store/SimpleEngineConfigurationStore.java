@@ -24,9 +24,9 @@ public class SimpleEngineConfigurationStore extends SimpleJaxbStore implements S
     }
 
     @Override
-    public void writeConfig(SqlEngineConfiguration config) {
+    public boolean writeConfig(SqlEngineConfiguration config) {
         XmlEngineConfiguration xml = new XmlEngineConfiguration(config);
-        writeXml(xml);
+        return writeXml(xml);
     }
 
     @Override

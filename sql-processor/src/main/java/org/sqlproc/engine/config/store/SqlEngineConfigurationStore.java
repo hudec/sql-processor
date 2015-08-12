@@ -12,7 +12,7 @@ import org.sqlproc.engine.config.SqlEngineConfiguration;
  */
 public interface SqlEngineConfigurationStore {
 
-    public void writeConfig(SqlEngineConfiguration config);
+    public boolean writeConfig(SqlEngineConfiguration config);
 
     public boolean readConfig(SqlEngineConfiguration config);
 }
