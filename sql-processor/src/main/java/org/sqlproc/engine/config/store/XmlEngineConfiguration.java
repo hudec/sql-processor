@@ -24,29 +24,18 @@ import org.sqlproc.engine.config.SqlEngineConfiguration;
 @XmlRootElement(name = "sqlp-configuration")
 public class XmlEngineConfiguration {
 
-    @XmlElementWrapper(name = "queries")
     private List<EngineUsage> queryEngines;
-    @XmlElementWrapper(name = "cruds")
     private List<EngineUsage> crudEngines;
-    @XmlElementWrapper(name = "procedures")
     private List<EngineUsage> procedureEngines;
 
-    @XmlElementWrapper(name = "dynamicQueries")
     private List<EngineSql> dynamicQueryEngines;
-    @XmlElementWrapper(name = "dynamicCruds")
     private List<EngineSql> dynamicCrudEngines;
-    @XmlElementWrapper(name = "dynamicProcedures")
     private List<EngineSql> dynamicProcedureEngines;
 
-    @XmlElement
     private Boolean lazyInit;
-    @XmlElement
     private Integer asyncInitThreads;
-    @XmlElement
     private Integer initTreshold;
-    @XmlElement
     private Boolean initInUsageOrder;
-    @XmlElement
     private Boolean initClearUsage;
 
     public XmlEngineConfiguration() {
@@ -86,12 +75,12 @@ public class XmlEngineConfiguration {
     }
 
     public void toConfig(SqlEngineConfiguration config) {
-        config.setQueryEngines(getQueryEngines());
-        config.setCrudEngines(getCrudEngines());
-        config.setProcedureEngines(getProcedureEngines());
-        config.setDynamicQueryEngines(getDynamicQueryEngines());
-        config.setDynamicCrudEngines(getDynamicCrudEngines());
-        config.setDynamicProcedureEngines(getDynamicProcedureEngines());
+        config.setQueryEngines(copyEng(queryEngines));
+        config.setCrudEngines(copyEng(crudEngines));
+        config.setProcedureEngines(copyEng(procedureEngines));
+        config.setDynamicQueryEngines(copyDyn(dynamicQueryEngines));
+        config.setDynamicCrudEngines(copyDyn(dynamicCrudEngines));
+        config.setDynamicProcedureEngines(copyDyn(dynamicProcedureEngines));
         config.setLazyInit(getLazyInit());
         config.setAsyncInitThreads(getAsyncInitThreads());
         config.setInitTreshold(getInitTreshold());
@@ -118,56 +107,10 @@ public class XmlEngineConfiguration {
         return engines;
     }
 
-    public ConcurrentHashMap<String, AtomicInteger> getQueryEngines() {
-        return copyEng(queryEngines);
-    }
-
-    public ConcurrentHashMap<String, AtomicInteger> getCrudEngines() {
-        return copyEng(crudEngines);
-    }
-
-    public ConcurrentHashMap<String, AtomicInteger> getProcedureEngines() {
-        return copyEng(procedureEngines);
-    }
-
-    public ConcurrentHashMap<String, String> getDynamicQueryEngines() {
-        return copyDyn(dynamicQueryEngines);
-    }
-
-    public ConcurrentHashMap<String, String> getDynamicCrudEngines() {
-        return copyDyn(dynamicCrudEngines);
-    }
-
-    public ConcurrentHashMap<String, String> getDynamicProcedureEngines() {
-        return copyDyn(dynamicProcedureEngines);
-    }
-
-    public Boolean getLazyInit() {
-        return lazyInit;
-    }
-
-    public Integer getAsyncInitThreads() {
-        return asyncInitThreads;
-    }
-
-    public Integer getInitTreshold() {
-        return initTreshold;
-    }
-
-    public Boolean getInitInUsageOrder() {
-        return initInUsageOrder;
-    }
-
-    public Boolean getInitClearUsage() {
-        return initClearUsage;
-    }
-
     @XmlRootElement(name = "usage")
     public static class EngineUsage {
-        @XmlElement
-        private String name;
 
-        @XmlAttribute
+        private String name;
         private int usage;
 
         public EngineUsage() {
@@ -178,12 +121,22 @@ public class XmlEngineConfiguration {
             this.usage = usage.get();
         }
 
+        @XmlElement
         public String getName() {
             return name;
         }
 
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @XmlAttribute
         public int getUsage() {
             return usage;
+        }
+
+        public void setUsage(int usage) {
+            this.usage = usage;
         }
 
         @Override
@@ -194,10 +147,8 @@ public class XmlEngineConfiguration {
 
     @XmlRootElement(name = "sql")
     public static class EngineSql {
-        @XmlElement
-        private String name;
 
-        @XmlAttribute
+        private String name;
         private String sql;
 
         public EngineSql() {
@@ -208,18 +159,127 @@ public class XmlEngineConfiguration {
             this.sql = sql;
         }
 
+        @XmlElement
         public String getName() {
             return name;
         }
 
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @XmlAttribute
         public String getSql() {
             return sql;
+        }
+
+        public void setSql(String sql) {
+            this.sql = sql;
         }
 
         @Override
         public String toString() {
             return "EngineSql [name=" + name + ", sql=" + sql + "]";
         }
+    }
+
+    @XmlElementWrapper(name = "queries")
+    public List<EngineUsage> getQueryEngines() {
+        return queryEngines;
+    }
+
+    public void setQueryEngines(List<EngineUsage> queryEngines) {
+        this.queryEngines = queryEngines;
+    }
+
+    @XmlElementWrapper(name = "cruds")
+    public List<EngineUsage> getCrudEngines() {
+        return crudEngines;
+    }
+
+    public void setCrudEngines(List<EngineUsage> crudEngines) {
+        this.crudEngines = crudEngines;
+    }
+
+    @XmlElementWrapper(name = "procedures")
+    public List<EngineUsage> getProcedureEngines() {
+        return procedureEngines;
+    }
+
+    public void setProcedureEngines(List<EngineUsage> procedureEngines) {
+        this.procedureEngines = procedureEngines;
+    }
+
+    @XmlElementWrapper(name = "dynamicQueries")
+    public List<EngineSql> getDynamicQueryEngines() {
+        return dynamicQueryEngines;
+    }
+
+    public void setDynamicQueryEngines(List<EngineSql> dynamicQueryEngines) {
+        this.dynamicQueryEngines = dynamicQueryEngines;
+    }
+
+    @XmlElementWrapper(name = "dynamicCruds")
+    public List<EngineSql> getDynamicCrudEngines() {
+        return dynamicCrudEngines;
+    }
+
+    public void setDynamicCrudEngines(List<EngineSql> dynamicCrudEngines) {
+        this.dynamicCrudEngines = dynamicCrudEngines;
+    }
+
+    @XmlElementWrapper(name = "dynamicProcedures")
+    public List<EngineSql> getDynamicProcedureEngines() {
+        return dynamicProcedureEngines;
+    }
+
+    public void setDynamicProcedureEngines(List<EngineSql> dynamicProcedureEngines) {
+        this.dynamicProcedureEngines = dynamicProcedureEngines;
+    }
+
+    @XmlElement
+    public Boolean getLazyInit() {
+        return lazyInit;
+    }
+
+    public void setLazyInit(Boolean lazyInit) {
+        this.lazyInit = lazyInit;
+    }
+
+    @XmlElement
+    public Integer getAsyncInitThreads() {
+        return asyncInitThreads;
+    }
+
+    public void setAsyncInitThreads(Integer asyncInitThreads) {
+        this.asyncInitThreads = asyncInitThreads;
+    }
+
+    @XmlElement
+    public Integer getInitTreshold() {
+        return initTreshold;
+    }
+
+    public void setInitTreshold(Integer initTreshold) {
+        this.initTreshold = initTreshold;
+    }
+
+    @XmlElement
+    public Boolean getInitInUsageOrder() {
+        return initInUsageOrder;
+    }
+
+    public void setInitInUsageOrder(Boolean initInUsageOrder) {
+        this.initInUsageOrder = initInUsageOrder;
+    }
+
+    @XmlElement
+    public Boolean getInitClearUsage() {
+        return initClearUsage;
+    }
+
+    public void setInitClearUsage(Boolean initClearUsage) {
+        this.initClearUsage = initClearUsage;
     }
 
     @Override
