@@ -12,6 +12,7 @@ import java.util.concurrent.Executor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.annotation.Beta;
+import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.impl.SqlDefaultFeatures;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
@@ -201,9 +202,9 @@ public class SqlProcessorLoader {
      */
     private Map<String, Set<String>> statementsFeaturesUnset;
     /**
-     * This flag indicates to speed up the initialization process.
+     * The overall configuration, which can be persisted.
      */
-    private Boolean lazyInit;
+    private SqlEngineConfiguration configuration;
     /**
      * The processing cache used for {@link SqlProcessResult} instances.
      */
@@ -375,7 +376,7 @@ public class SqlProcessorLoader {
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
             List<SqlInternalType> customTypes, String... onlyStatements) throws SqlEngineException {
-        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, validatorFactory, customTypes, false,
+        this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, validatorFactory, customTypes, null,
                 onlyStatements);
     }
 
@@ -402,8 +403,8 @@ public class SqlProcessorLoader {
      *            the validator factory used in the process of the SQL Monitor instances creation
      * @param customTypes
      *            the custom META types
-     * @param lazyInit
-     *            this flag indicates to speed up the initialization process
+     * @param config
+     *            the overall configuration, which can be persisted
      * @param onlyStatements
      *            only statements and rules with the names in this container are picked up from the properties
      *            repository
@@ -412,13 +413,12 @@ public class SqlProcessorLoader {
      */
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
-            List<SqlInternalType> customTypes, Boolean lazyInit, String... onlyStatements) throws SqlEngineException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">> SqlProcessorLoader, sbStatements=" + sbStatements + ", typeFactory=" + typeFactory
-                    + ", pluginFactory=" + pluginFactory + ", monitorFactory=" + monitorFactory + ", validatorFactory="
-                    + validatorFactory + ", filter=" + filter + ", customTypes=" + customTypes + ", lazyInit="
-                    + lazyInit + ", onlyStatements=" + onlyStatements);
-        }
+            List<SqlInternalType> customTypes, SqlEngineConfiguration configuration, String... onlyStatements)
+            throws SqlEngineException {
+        logger.trace(
+                ">> SqlProcessorLoader, sbStatements={}, typeFactory={}, pluginFactory={}, monitorFactory={}, validatorFactory={}, filter={}, customTypes={}, configuration={}, onlyStatements={}",
+                sbStatements, typeFactory, pluginFactory, monitorFactory, validatorFactory, filter, customTypes,
+                configuration, onlyStatements);
 
         long start = System.currentTimeMillis();
 
@@ -431,7 +431,7 @@ public class SqlProcessorLoader {
         this.pluginFactory = pluginFactory;
         this.validatorFactory = validatorFactory;
         this.monitorFactory = monitorFactory;
-        this.lazyInit = lazyInit;
+        this.configuration = configuration;
 
         try {
             Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
@@ -455,7 +455,8 @@ public class SqlProcessorLoader {
                 throw new SqlEngineException(errors.toString());
 
             if (!processor.getWarnings().isEmpty()) {
-                logger.warn("There're warnings in the process of statements parsing: " + processor.getWarnings());
+                logger.warn("== SqlProcessorLoader, there're warnings in the process of statements parsing: {}",
+                        processor.getWarnings());
             }
 
             sqls = processor.getMetaStatements(SqlProcessor.StatementType.QRY);
@@ -477,12 +478,10 @@ public class SqlProcessorLoader {
         } finally {
             if (logger.isDebugEnabled()) {
                 long end = System.currentTimeMillis();
-                logger.debug("== SqlProcessorLoader, lazyInit=" + lazyInit + ", duration in ms=" + (end - start));
+                logger.debug("== SqlProcessorLoader, lazyInit={}, duration in ms={}", isLazyInit(), (end - start));
             }
-            if (logger.isTraceEnabled()) {
-                logger.trace("<< SqlProcessorLoader, engines=" + engines + ", sqls=" + sqls + ", cruds=" + cruds
-                        + ", fields=" + outs + ", features=" + features);
-            }
+            logger.trace("<< SqlProcessorLoader, engines={}, sqls={}, cruds={}, fields={}, features={}", engines, sqls,
+                    cruds, outs, features);
         }
     }
 
@@ -824,11 +823,21 @@ public class SqlProcessorLoader {
     }
 
     /**
+     * Sets the overall dynamic configuration
+     * 
+     * @param configuration
+     *            the overall dynamic configuration
+     */
+    public void setConfiguration(SqlEngineConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    /**
      * Returns a flag which indicates the lazy initialization mode.
      * 
      * @return a flag which indicates the lazy initialization mode.
      */
     public boolean isLazyInit() {
-        return lazyInit != null && lazyInit;
+        return configuration != null && configuration.getLazyInit() != null && configuration.getLazyInit();
     }
 }

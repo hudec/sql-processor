@@ -94,6 +94,12 @@ public class SqlEngineConfiguration {
     private SqlEngineConfigurationStore store;
 
     /**
+     * The default constructor.
+     */
+    public SqlEngineConfiguration() {
+    }
+
+    /**
      * The constructor takes data from the persisted state in external file.
      * 
      * @param directory
@@ -132,19 +138,23 @@ public class SqlEngineConfiguration {
      * @throws JAXBException
      */
     public void load() throws JAXBException {
-        logger.warn(">>> load");
-        boolean ok = store.readConfig(this);
-        logger.warn("=== load ok={}", ok);
-        logger.warn("<<< load this={}", this);
+        if (store != null) {
+            logger.warn(">>> load");
+            boolean ok = store.readConfig(this);
+            logger.warn("=== load ok={}", ok);
+            logger.warn("<<< load this={}", this);
+        }
     }
 
     /**
      * Persist the configuration into the external file.
      */
     public void store() {
-        logger.warn(">>> store this={}", this);
-        store.writeConfig(this);
-        logger.warn("<<< store");
+        if (store != null) {
+            logger.warn(">>> store this={}", this);
+            store.writeConfig(this);
+            logger.warn("<<< store");
+        }
     }
 
     /**

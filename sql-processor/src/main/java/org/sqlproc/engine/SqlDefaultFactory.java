@@ -190,6 +190,8 @@ public class SqlDefaultFactory implements SqlEngineFactory {
         if (processorLoader == null) {
             synchronized (this) {
                 if (processorLoader == null) {
+                    if (configuration == null)
+                        setConfiguration(new SqlEngineConfiguration());
                     if (metaStatements != null || (metaFilesNames != null && !metaFilesNames.isEmpty())) {
                         if (metaStatements == null) {
                             metaStatements = SqlFilesLoader.getStatements(this.getClass(),
@@ -199,7 +201,7 @@ public class SqlDefaultFactory implements SqlEngineFactory {
                             metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
 
                         processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, validatorFactory, customTypes, isLazyInit(), onlyStatements);
+                                monitorFactory, validatorFactory, customTypes, configuration, onlyStatements);
 
                         if (configuration != null) {
                             for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet()) {
@@ -666,19 +668,7 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      */
     @Override
     public boolean isLazyInit() {
-        if (configuration != null && configuration.getLazyInit() != null)
-            return configuration.getLazyInit();
-        return lazyInit != null && lazyInit;
-    }
-
-    /**
-     * Sets the indicator to speed up the initialization process
-     * 
-     * @param lazyInit
-     *            the indicator to speed up the initialization process
-     */
-    public void setLazyInit(boolean lazyInit) {
-        this.lazyInit = lazyInit;
+        return configuration != null && configuration.getLazyInit() != null && configuration.getLazyInit();
     }
 
     /**
@@ -688,8 +678,6 @@ public class SqlDefaultFactory implements SqlEngineFactory {
     public int getAsyncInitThreads() {
         if (configuration != null && configuration.getAsyncInitThreads() != null)
             return configuration.getAsyncInitThreads();
-        if (asyncInitThreads != null)
-            return asyncInitThreads;
         return 0;
     }
 
@@ -699,16 +687,6 @@ public class SqlDefaultFactory implements SqlEngineFactory {
     @Override
     public Boolean isAsyncInitFinished() {
         return executorTerminated;
-    }
-
-    /**
-     * Sets the number of threads used for asynchronous initialization
-     * 
-     * @param asyncInitThreads
-     *            the number of threads used for asynchronous initialization
-     */
-    public void setAsyncInitThreads(int asyncInitThreads) {
-        this.asyncInitThreads = asyncInitThreads;
     }
 
     /**
@@ -867,6 +845,15 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      */
     public void setConfiguration(SqlEngineConfiguration configuration) {
         this.configuration = configuration;
+        if (configuration != null) {
+            if (configuration.getLazyInit() == null)
+                configuration.setLazyInit(lazyInit);
+            if (configuration.getAsyncInitThreads() == null)
+                configuration.setAsyncInitThreads(asyncInitThreads);
+        }
+        if (processorLoader != null) {
+            processorLoader.setConfiguration(configuration);
+        }
     }
 
     /**

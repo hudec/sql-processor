@@ -477,11 +477,12 @@ public class Main {
             main.run(false, i > 0);
             main.modifyPersonUpdate(true);
             main.run(true, true);
-            main.sqlFactory.setLazyInit(true);
-            main.modifyPersonUpdate(false);
-            main.run(false, true);
-            main.modifyPersonUpdate(true);
-            main.run(true, true);
+            // TODO
+            // main.sqlFactory.setLazyInit(true);
+            // main.modifyPersonUpdate(false);
+            // main.run(false, true);
+            // main.modifyPersonUpdate(true);
+            // main.run(true, true);
         }
         long end = System.currentTimeMillis();
         System.out.println("\nDuration for " + REPEAT + ": " + (end - start) / 1000);
