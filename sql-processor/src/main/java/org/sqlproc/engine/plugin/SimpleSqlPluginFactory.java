@@ -18,7 +18,7 @@ import org.sqlproc.engine.SqlProcessorLoader;
  * 
  *   &lt;bean id="typeFactory" class="org.sqlproc.engine.jdbc.type.JdbcTypeFactory" factory-method="getInstance" /&gt;
  * 
- *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.SqlSimpleFactory" init-method="init"&gt;
+ *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.SqlDefaultFactory" init-method="init"&gt;
  *     &lt;property name="metaFilesNames">
  *       &lt;list>
  *         &lt;value>statements.qry&lt;/value>

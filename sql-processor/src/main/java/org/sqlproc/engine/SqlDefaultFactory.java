@@ -35,7 +35,7 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
  *   ...
  *   &lt;bean id="typeFactory" class="org.sqlproc.engine.jdbc.type.JdbcTypeFactory" factory-method="getInstance" /&gt;
  * 
- *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.SqlSimpleFactory" init-method="init"&gt;
+ *   &lt;bean id="sqlFactory" class="org.sqlproc.engine.SqlDefaultFactory" init-method="init"&gt;
  *     &lt;property name="metaFilesNames">
  *       &lt;list>
  *         &lt;value>statements.qry&lt;/value>
@@ -65,7 +65,7 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlSimpleFactory implements SqlEngineFactory {
+public class SqlDefaultFactory implements SqlEngineFactory {
 
     /**
      * The internal slf4j logger.
@@ -147,7 +147,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     /**
      * Creates a new instance with no default values.
      */
-    public SqlSimpleFactory() {
+    public SqlDefaultFactory() {
     }
 
     /**
@@ -156,7 +156,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * @param lazyInit
      *            this flag indicates to speed up the initialization process.
      */
-    public SqlSimpleFactory(boolean lazyInit) {
+    public SqlDefaultFactory(boolean lazyInit) {
         this.lazyInit = lazyInit;
     }
 
@@ -166,7 +166,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * @param asyncInitThreads
      *            number of threads used for asynchronous initialization
      */
-    public SqlSimpleFactory(int asyncInitThreads) {
+    public SqlDefaultFactory(int asyncInitThreads) {
         this.asyncInitThreads = asyncInitThreads;
     }
 
@@ -178,7 +178,7 @@ public class SqlSimpleFactory implements SqlEngineFactory {
      * @param asyncInitThreads
      *            number of threads used for asynchronous initialization
      */
-    public SqlSimpleFactory(boolean lazyInit, int asyncInitThreads) {
+    public SqlDefaultFactory(boolean lazyInit, int asyncInitThreads) {
         this.lazyInit = lazyInit;
         this.asyncInitThreads = asyncInitThreads;
     }
@@ -875,9 +875,9 @@ public class SqlSimpleFactory implements SqlEngineFactory {
     public static class SqlThreadPoolExecutor extends ThreadPoolExecutor {
 
         protected final Logger logger = LoggerFactory.getLogger(getClass());
-        protected SqlSimpleFactory factory;
+        protected SqlDefaultFactory factory;
 
-        public SqlThreadPoolExecutor(int corePoolSize, SqlSimpleFactory factory) {
+        public SqlThreadPoolExecutor(int corePoolSize, SqlDefaultFactory factory) {
             super(corePoolSize, corePoolSize, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
             this.factory = factory;
             if (factory != null)

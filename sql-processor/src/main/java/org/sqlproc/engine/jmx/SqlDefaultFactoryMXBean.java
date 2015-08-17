@@ -25,7 +25,7 @@ import org.sqlproc.engine.config.SqlEngineConfiguration;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlSimpleFactoryMXBean {
+public class SqlDefaultFactoryMXBean {
 
     /**
      * The SQL Engine factory instance

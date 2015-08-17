@@ -35,7 +35,7 @@ import org.sqlproc.engine.validation.SqlValidatorFactory;
  * </ul>
  * 
  * <p>
- * This is rather a low level helper class. For more simple approach please see {@link SqlSimpleFactory}
+ * This is rather a low level helper class. For more simple approach please see {@link SqlDefaultFactory}
  * 
  * <p>
  * All the statements with the name <code>name(QRY)</code> are parsed as the META SQL queries using the ANTLR based

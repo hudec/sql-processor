@@ -7,7 +7,7 @@ import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.jmx.export.annotation.ManagedOperationParameters;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.sqlproc.engine.SqlEngineException;
-import org.sqlproc.engine.jmx.SqlSimpleFactoryMXBean;
+import org.sqlproc.engine.jmx.SqlDefaultFactoryMXBean;
 
 /**
  * The implementation of the simplified JMX interface for the SQL Engine factory.
@@ -21,7 +21,7 @@ import org.sqlproc.engine.jmx.SqlSimpleFactoryMXBean;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 @ManagedResource(objectName = "sql-processor:type=Engine", description = "The simplified JMX interface for the SQL Engine factory.")
-public class SpringEngineFactoryJmx extends SqlSimpleFactoryMXBean {
+public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
 
     /**
      * {@inheritDoc}

@@ -2,7 +2,7 @@ package org.sqlproc.engine.hibernate;
 
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlProcessorLoader;
-import org.sqlproc.engine.SqlSimpleFactory;
+import org.sqlproc.engine.SqlDefaultFactory;
 import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
 
 /**
@@ -42,7 +42,7 @@ import org.sqlproc.engine.hibernate.type.HibernateTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class HibernateEngineFactory extends SqlSimpleFactory {
+public class HibernateEngineFactory extends SqlDefaultFactory {
 
     /**
      * Creates a new instance with default values for the Hibernate stack.

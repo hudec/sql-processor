@@ -26,7 +26,7 @@ import org.sqlproc.engine.impl.config.store.SimpleEngineConfigurationStore;
  * configuration can be also persisted using the sql-processor-spring.
  * 
  * The configuration can be dynamically changed using the JMX interface
- * {@link org.sqlproc.engine.jmx.SqlSimpleFactoryMXBean}.
+ * {@link org.sqlproc.engine.jmx.SqlDefaultFactoryMXBean}.
  * 
  * <p>
  * For more info please see the <a href="https://github.com/hudec/sql-processor/wiki">Tutorials</a>.
