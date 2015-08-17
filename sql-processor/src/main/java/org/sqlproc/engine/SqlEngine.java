@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.impl.SqlEmptyMonitor;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
@@ -83,6 +84,10 @@ public abstract class SqlEngine {
      * The processing cache used for {@link SqlProcessResult} instances.
      */
     protected Map<String, SqlProcessResult> processingCache = new ConcurrentHashMap<String, SqlProcessResult>();
+    /**
+     * The overall configuration, which can be persisted.
+     */
+    private SqlEngineConfiguration configuration;
 
     /**
      * Creates a new instance of the SqlEngine from one META SQL statement and one SQL Mapping rule instance. Both
@@ -105,9 +110,12 @@ public abstract class SqlEngine {
      *            the factory for the META types construction
      * @param pluginFactory
      *            the factory for the SQL Processor plugins
+     * @param configuration
+     *            the overall configuration, which can be persisted
      */
     public SqlEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
-            Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
+            Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            SqlEngineConfiguration configuration) {
         this.name = name;
         this.statement = statement;
         this.mapping = mapping;
@@ -118,6 +126,7 @@ public abstract class SqlEngine {
         this.monitor = (monitor != null) ? monitor : new SqlEmptyMonitor();
         this.typeFactory = typeFactory;
         this.pluginFactory = (pluginFactory != null) ? pluginFactory : SimpleSqlPluginFactory.getInstance();
+        this.configuration = configuration;
     }
 
     /**

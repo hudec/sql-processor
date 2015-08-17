@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
 import org.sqlproc.engine.impl.SqlMetaStatement;
@@ -95,7 +96,7 @@ public class SqlCrudEngine extends SqlEngine {
             throws SqlEngineException {
 
         super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, null, null, typeFactory,
-                pluginFactory);
+                pluginFactory, null);
     }
 
     /**
@@ -125,7 +126,7 @@ public class SqlCrudEngine extends SqlEngine {
             SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) throws SqlEngineException {
 
         super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), null, monitor, features, typeFactory,
-                pluginFactory);
+                pluginFactory, null);
     }
 
     /**
@@ -146,7 +147,7 @@ public class SqlCrudEngine extends SqlEngine {
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlTypeFactory typeFactory,
             SqlPluginFactory pluginFactory) {
 
-        super(name, statement, null, null, null, typeFactory, pluginFactory);
+        super(name, statement, null, null, null, typeFactory, pluginFactory, null);
     }
 
     /**
@@ -172,7 +173,7 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMonitor monitor, Map<String, Object> features,
             SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
-        super(name, statement, null, monitor, features, typeFactory, pluginFactory);
+        super(name, statement, null, monitor, features, typeFactory, pluginFactory, null);
     }
 
     /**
@@ -200,7 +201,38 @@ public class SqlCrudEngine extends SqlEngine {
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
             Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
-        super(name, statement, mapping, monitor, features, typeFactory, pluginFactory);
+        super(name, statement, mapping, monitor, features, typeFactory, pluginFactory, null);
+    }
+
+    /**
+     * Creates a new instance of the SqlCrudEngine from one META SQL statement instance. This instance is already
+     * pre-compiled using the ANTLR parsers. This is the recommended usage for the runtime performance optimization.
+     * This constructor is devoted to be used from the custom loader, which is able to read all statements definitions
+     * from an external meta statements file and create the named SqlCrudEngine instances. Compared to the previous
+     * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
+     * can be involved.
+     * 
+     * @param name
+     *            the name of this SQL Engine instance
+     * @param statement
+     *            the pre-compiled META SQL CRUD statement
+     * @param mapping
+     *            the pre-compiled SQL mapping rule
+     * @param monitor
+     *            the SQL Monitor for the runtime statistics gathering
+     * @param features
+     *            the optional SQL Processor features
+     * @param typeFactory
+     *            the factory for the META types construction
+     * @param pluginFactory
+     *            the factory for the SQL Processor plugins
+     * @param configuration
+     *            the overall configuration, which can be persisted
+     */
+    public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
+            Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
+            SqlEngineConfiguration configuration) {
+        super(name, statement, mapping, monitor, features, typeFactory, pluginFactory, configuration);
     }
 
     /**

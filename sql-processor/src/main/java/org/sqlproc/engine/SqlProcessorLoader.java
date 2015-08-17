@@ -403,7 +403,7 @@ public class SqlProcessorLoader {
      *            the validator factory used in the process of the SQL Monitor instances creation
      * @param customTypes
      *            the custom META types
-     * @param config
+     * @param configuration
      *            the overall configuration, which can be persisted
      * @param onlyStatements
      *            only statements and rules with the names in this container are picked up from the properties
@@ -716,13 +716,13 @@ public class SqlProcessorLoader {
         SqlEngine sqlEngine;
         if (engineType == EngineType.Query)
             sqlEngine = new SqlQueryEngine(name, stmt2, mapping, monitor, features, this.composedTypeFactory,
-                    this.pluginFactory);
+                    this.pluginFactory, this.configuration);
         else if (engineType == EngineType.Crud)
             sqlEngine = new SqlCrudEngine(name, stmt2, mapping, monitor, features, this.composedTypeFactory,
-                    this.pluginFactory);
+                    this.pluginFactory, this.configuration);
         else
             sqlEngine = new SqlProcedureEngine(name, stmt2, mapping, monitor, features, this.composedTypeFactory,
-                    this.pluginFactory);
+                    this.pluginFactory, this.configuration);
         sqlEngine.setValidator((validatorFactory != null) ? validatorFactory.getSqlValidator() : null);
         loadStatementFeatures(name, sqlEngine);
         return sqlEngine;
