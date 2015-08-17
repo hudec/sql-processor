@@ -2,10 +2,12 @@ package org.sqlproc.engine.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.config.store.SqlEngineConfigurationStore;
 import org.sqlproc.engine.config.store.XmlEngineConfiguration;
+import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.config.store.SimpleEngineConfigurationStore;
 
 /**
@@ -87,6 +90,18 @@ public class SqlEngineConfiguration {
      * After the engines instantiations the users should be cleared.
      */
     private Boolean initClearUsage;
+    /**
+     * The processing cache can be used for {@link SqlProcessResult} instances.
+     */
+    private Boolean useProcessingCache;
+    /**
+     * Positive list of engines, for which the processing cache can be used.
+     */
+    private Set<String> doProcessingCacheEngines = new HashSet<String>();
+    /**
+     * Negative list of engines, for which the processing cache can be used.
+     */
+    private Set<String> dontProcessingCacheEngines = new HashSet<String>();
 
     /**
      * The store to persist this configuration;
@@ -172,6 +187,9 @@ public class SqlEngineConfiguration {
         initTreshold = null;
         initInUsageOrder = null;
         initClearUsage = null;
+        useProcessingCache = null;
+        doProcessingCacheEngines = new HashSet<String>();
+        dontProcessingCacheEngines = new HashSet<String>();
     }
 
     /**
@@ -580,6 +598,63 @@ public class SqlEngineConfiguration {
      */
     public void setInitClearUsage(Boolean initClearUsage) {
         this.initClearUsage = initClearUsage;
+    }
+
+    /**
+     * Returns the indicator that the processing cache can be used
+     * 
+     * @return the indicator that the processing cache can be used
+     */
+    public Boolean getUseProcessingCache() {
+        return useProcessingCache;
+    }
+
+    /**
+     * Sets the indicator that the processing cache can be used
+     * 
+     * @param useProcessingCache
+     *            the indicator that the processing cache can be used
+     */
+    public void setUseProcessingCache(Boolean useProcessingCache) {
+        this.useProcessingCache = useProcessingCache;
+    }
+
+    /**
+     * Returns the list of engines, for which the processing cache can be used
+     * 
+     * @return the list of engines, for which the processing cache can be used
+     */
+    public Set<String> getDoProcessingCacheEngines() {
+        return doProcessingCacheEngines;
+    }
+
+    /**
+     * Sets the list of engines, for which the processing cache can be used
+     * 
+     * @param doProcessingCacheEngines
+     *            the list of engines, for which the processing cache can be used
+     */
+    public void setDoProcessingCacheEngines(Set<String> doProcessingCacheEngines) {
+        this.doProcessingCacheEngines = doProcessingCacheEngines;
+    }
+
+    /**
+     * Returns the list of engines, for which the processing cache can't be used
+     * 
+     * @return the list of engines, for which the processing cache can't be used
+     */
+    public Set<String> getDontProcessingCacheEngines() {
+        return dontProcessingCacheEngines;
+    }
+
+    /**
+     * Sets the list of engines, for which the processing cache can't be used
+     * 
+     * @param doProcessingCacheEngines
+     *            the list of engines, for which the processing cache can't be used
+     */
+    public void setDontProcessingCacheEngines(Set<String> dontProcessingCacheEngines) {
+        this.dontProcessingCacheEngines = dontProcessingCacheEngines;
     }
 
     /**

@@ -402,7 +402,19 @@ public abstract class SqlEngine {
      */
     protected SqlProcessResult process(Type sqlStatementType, Object dynamicInputValues, SqlControl sqlControl) {
         SqlProcessResult processResult = null;
-        String processingId = getProcessingId(sqlControl);
+        String processingId = null;
+        if (configuration != null && configuration.getUseProcessingCache() != null
+                && configuration.getUseProcessingCache()) {
+            if (!configuration.getDoProcessingCacheEngines().isEmpty()) {
+                if (configuration.getDoProcessingCacheEngines().contains(name))
+                    processingId = getProcessingId(sqlControl);
+            } else if (!configuration.getDontProcessingCacheEngines().isEmpty()) {
+                if (!configuration.getDontProcessingCacheEngines().contains(name))
+                    processingId = getProcessingId(sqlControl);
+            } else {
+                processingId = getProcessingId(sqlControl);
+            }
+        }
         if (processingId != null)
             processResult = processingCache.get(processingId);
         if (processResult != null) {
