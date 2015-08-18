@@ -285,7 +285,7 @@ metaSql [SqlMetaStatement metaStatement]
 		(BOR metaIfItem=ifSql[null] {if(!$meta::skip) metaAndOr.addElement(metaIfItem);})* {if(!$meta::skip) metaStatement.addElement(metaAndOr);}
 	| EQUALS WS* fragmentType=IDENT {sqlFragment = new SqlMetaSqlFragment(fragmentType.getText());} metaIfItem=ifSql[null] {if(!$meta::skip) sqlFragment.addElement(metaIfItem);} 
 		{if(!$meta::skip) metaStatement.addElement(sqlFragment);}
-	| HASH orderId=NUMBER {metaOrd = new SqlMetaOrd(Integer.parseInt(orderId.getText()));} ordSql[metaOrd] {if(!$meta::skip) metaStatement.addElement(metaOrd);}
+	| HASH orderId=(NUMBER | IDENT) {metaOrd = new SqlMetaOrd(orderId.getText());} ordSql[metaOrd] {if(!$meta::skip) metaStatement.addElement(metaOrd);}
 	;
 	
 ifSql [SqlMetaIfItem metaIfItemIn] returns[SqlMetaIfItem metaIfItem]

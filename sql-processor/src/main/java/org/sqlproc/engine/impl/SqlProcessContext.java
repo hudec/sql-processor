@@ -251,13 +251,13 @@ public class SqlProcessContext implements SqlRuntimeContext {
      *            the order number
      * @return the index of the ordering directive
      */
-    int getOrderIndex(int orderId) {
+    int getOrderIndex(String orderId) {
         List<SqlOrder> order = getOrder();
         if (order == null || order.isEmpty())
             return -1;
         for (int i = 0; i < order.size(); i++) {
             SqlOrder sqlOrder = order.get(i);
-            if (sqlOrder.getOrderId() == orderId)
+            if (sqlOrder.getOrderId().equals(orderId))
                 return i;
         }
         return -1;

@@ -152,6 +152,26 @@ FORM_BASIC(OUT)=
   version$version(type=Long)
 ;
 
+FORM_BASIC_ORDER(QRY)=
+  select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
+  p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION
+  from PERSON p
+  where 1=1
+  {& p.id = :id}
+  {& p.NAME_FIRST = :name.first | p.NAME_LAST = :name.last | p.SSN_NUMBER = :ssn.number}
+  {& p.SSN_COUNTRY = :ssn.country | p.BIRTHDATE = :birthDate | p.SEX = :sex.value}
+  {& p.CREATEDDATE = :createdDate | p.LASTUPDATEDBY = :lastUpdatedBy | p.LASTUPDATED = :lastUpdated}
+  {& p.CREATEDBY = :createdBy}
+  {& p.VERSION = :version}
+  {#A order by id}
+;
+FORM_BASIC_ORDER(OUT)=
+  id$id(type=Long) first$name.first(type=string) last$name.last(type=string) ssn$ssn.number(type=string)
+  country$ssn.country(type=estring) birthDate$birthDate(type=date) sex$sex(type=estring) createdDate$createdDate(type=date)
+  createdBy$createdBy(type=string) lastUpdated$lastUpdated(type=date) lastUpdatedBy$lastUpdatedBy(type=string)
+  version$version(type=Long)
+;
+
 FORM_BASIC_2(QRY)=
   select p.ID @id, p.NAME_FIRST @name.first, p.NAME_LAST @name.last, p.SSN_NUMBER @ssn.number, p.SSN_COUNTRY @ssn.country,
   p.BIRTHDATE @birthDate(type=date), p.SEX @sex, p.CREATEDDATE @createdDate, p.CREATEDBY @createdBy, p.LASTUPDATED @lastUpdated(type=date),

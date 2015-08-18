@@ -167,6 +167,64 @@ public class TestBasic extends TestDatabase {
     }
 
     @Test
+    public void testFormBasicOrder() {
+        SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_ORDER");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        PersonForm pf = new PersonForm();
+        pf.setId(2L);
+        pf.setName(new PersonNameForm());
+        pf.getName().setFirst("Pierce");
+        // pf.getName().setLast("Brosnan");
+        // pf.setSsn(new Ssn());
+        // pf.getSsn().setNumber("123456");
+        // pf.getSsn().setCountry("us");
+        // try { pf.setBirthDate(sdf.parse("1953-05-16 00:00:00"); } catch
+        // (Exception ex) {fail();}
+        pf.setSex(Gender.MALE);
+        pf.setLastUpdatedBy("dbunit");
+        try {
+            pf.setLastUpdated(sdf.parse("2006-12-08 00:00:00"));
+        } catch (Exception ex) {
+            fail();
+        }
+        pf.setVersion(1L);
+
+        String sql = sqlEngine.getSql(pf, null, SqlOrder.getAscOrder("A"));
+        logger.info(sql);
+        assertContains(sql, "AND  p.id =");
+        assertContains(sql, "AND  p.NAME_FIRST =");
+        // assertContains(sql, "AND  p.NAME_LAST =");
+        // assertContains(sql, "AND  p.SSN_NUMBER =");
+        // assertContains(sql, "p.SSN_COUNTRY =");
+        assertContains(sql, "AND  p.SEX =");
+        // assertContains(sql, "AND  p.LASTUPDATED =");
+        assertContains(sql, "AND  p.LASTUPDATEDBY =");
+        // assertContains(sql, "AND  p.BIRTHDATE =");
+        assertContains(sql, "AND  p.VERSION =");
+        assertContains(sql, "order by id ASC");
+
+        List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlOrder.getAscOrder("A"), 0, 0, 0);
+
+        assertEquals(1, list.size());
+        Person p = list.get(0);
+        assertEquals(new Long(2), p.getId());
+        assertEquals("1953-05-16", p.getBirthDate().toString());
+        assertEquals(null, p.getCreatedDate());
+        assertEquals(null, p.getCreatedBy());
+        assertEquals("2006-12-08 00:00:00", sdf.format(p.getLastUpdated()));
+        assertEquals("dbunit", p.getLastUpdatedBy());
+        assertEquals(new Long(1), p.getVersion());
+        assertEquals(Gender.MALE, p.getSex());
+        assertNotNull(p.getSsn());
+        assertEquals("123456", p.getSsn().getNumber());
+        assertEquals(Country.UNITED_STATES, p.getSsn().getCountry());
+        assertNotNull(p.getName());
+        assertEquals("Pierce", p.getName().getFirst());
+        assertEquals("Brosnan", p.getName().getLast());
+    }
+
+    @Test
     public void testFormBasicNull() {
         SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC");
 

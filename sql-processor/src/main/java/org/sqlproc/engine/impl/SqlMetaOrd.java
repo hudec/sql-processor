@@ -36,7 +36,7 @@ class SqlMetaOrd implements SqlMetaElement {
     /**
      * The ordering id. This value should correspond to the order number in META SQL {#NNN order by ...}.
      */
-    int id = -1;
+    String id = null;
 
     /**
      * Creates a new instance. It's used from inside ANTLR parser.
@@ -44,7 +44,7 @@ class SqlMetaOrd implements SqlMetaElement {
      * @param id
      *            the ordering id, which corresponds to the order number in META SQL {#NNN order by ...}
      */
-    SqlMetaOrd(int id) {
+    SqlMetaOrd(String id) {
         this.elements = new ArrayList<SqlMetaSimple>();
         this.id = id;
     }
@@ -89,7 +89,7 @@ class SqlMetaOrd implements SqlMetaElement {
     public SqlProcessResult process(SqlProcessContext ctx) {
         SqlProcessResult result = new SqlProcessResult(ctx);
         int orderIndex = ctx.getOrderIndex(this.id);
-        if (orderIndex >= 0) {
+        if (orderIndex != -1) {
             result.addTrue();
             result.setOrderIndex(orderIndex);
             StringBuilder s = new StringBuilder();

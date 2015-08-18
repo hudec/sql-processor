@@ -73,7 +73,7 @@ public class SqlOrder {
     /**
      * The ordering id. This value should correspond to the order number in the META SQL query {#NNN order by ...}.
      */
-    private int orderId;
+    private String orderId;
     /**
      * The ordering direction (no ordering, ascending or descending).
      */
@@ -108,9 +108,31 @@ public class SqlOrder {
      * 
      * @param orderId
      *            the ordering id
+     * @return the ordering directive list with one ascending ordering directive
+     */
+    public static SqlOrder getAscOrder(String orderId) {
+        return new SqlOrder().addAscOrder(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
      * @return the ordering directive list with one descending ordering directive
      */
     public static SqlOrder getDescOrder(int orderId) {
+        return new SqlOrder().addDescOrder(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list with one descending ordering directive
+     */
+    public static SqlOrder getDescOrder(String orderId) {
         return new SqlOrder().addDescOrder(orderId);
     }
 
@@ -138,6 +160,18 @@ public class SqlOrder {
      * @return the updated ordering directive list
      */
     public SqlOrder addAscOrder(int orderId) {
+        orders.add(new SqlOrder("" + orderId, Order.ASC));
+        return this;
+    }
+
+    /**
+     * Adds one more ascending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
+    public SqlOrder addAscOrder(String orderId) {
         orders.add(new SqlOrder(orderId, Order.ASC));
         return this;
     }
@@ -150,6 +184,18 @@ public class SqlOrder {
      * @return the updated ordering directive list
      */
     public SqlOrder addDescOrder(int orderId) {
+        orders.add(new SqlOrder("" + orderId, Order.DESC));
+        return this;
+    }
+
+    /**
+     * Adds one more descending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
+    public SqlOrder addDescOrder(String orderId) {
         orders.add(new SqlOrder(orderId, Order.DESC));
         return this;
     }
@@ -163,9 +209,9 @@ public class SqlOrder {
      */
     public SqlOrder addOrder(int orderId) {
         if (orderId > 0)
-            orders.add(new SqlOrder(orderId, Order.ASC));
+            orders.add(new SqlOrder("" + orderId, Order.ASC));
         else if (orderId < 0)
-            orders.add(new SqlOrder(-orderId, Order.DESC));
+            orders.add(new SqlOrder("" + (-orderId), Order.DESC));
         return this;
     }
 
@@ -186,7 +232,7 @@ public class SqlOrder {
      * @param orderDirection
      *            the ordering direction
      */
-    private SqlOrder(int orderId, Order orderDirection) {
+    private SqlOrder(String orderId, Order orderDirection) {
         this.orderId = orderId;
         this.orderDirection = orderDirection;
     }
@@ -197,7 +243,7 @@ public class SqlOrder {
      * 
      * @return the ordering id
      */
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
