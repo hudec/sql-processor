@@ -769,6 +769,170 @@ public class SqlDefaultFactoryMXBean {
     }
 
     /**
+     * Returns the indicator that the processing cache can be used
+     * 
+     * @return the indicator that the processing cache can be used
+     */
+    public Boolean getUseProcessingCache() {
+        return getConfiguration().getUseProcessingCache();
+    }
+
+    /**
+     * Sets the indicator that the processing cache can be used
+     * 
+     * @param useProcessingCache
+     *            the indicator that the processing cache can be used
+     */
+    public void setUseProcessingCache(Boolean useProcessingCache) {
+        getConfiguration().setUseProcessingCache(useProcessingCache);
+        storeConfiguration();
+    }
+
+    /**
+     * Returns the list of engines, for which the processing cache can be used
+     * 
+     * @return the list of engines, for which the processing cache can be used
+     */
+    public List<String> getDoProcessingCacheEngines() {
+        ArrayList<String> list = new ArrayList<>();
+        list.addAll(getConfiguration().getDoProcessingCacheEngines());
+        return list;
+    }
+
+    /**
+     * Updates the positive processing cache.
+     * 
+     * @param names
+     *            the names of the required SQL Query Engines instances
+     * @return the number of successfully engines added to positive processing cache
+     */
+    public int initDoProcessingCache(String names) {
+        int count = 0;
+        StringBuilder errors = new StringBuilder();
+        for (String name : names.split(",")) {
+            try {
+                getConfiguration().getDoProcessingCacheEngines().add(name);
+                count++;
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
+        }
+        if (errors.length() == 0) {
+            storeConfiguration();
+            return count;
+        }
+        throw new RuntimeException(errors.append("/nEngines for processing cache: ").append(count).toString());
+    }
+
+    /**
+     * Updates the positive processing cache.
+     * 
+     * @param names
+     *            the names of the required SQL Query Engines instances to be removed
+     * @return the number of successfully engines removed from positive processing cache
+     */
+    public int resetDoProcessingCache(String names) {
+        int count = 0;
+        StringBuilder errors = new StringBuilder();
+        if ("*".equals(names)) {
+            try {
+                count = getConfiguration().getDoProcessingCacheEngines().size();
+                getConfiguration().getDoProcessingCacheEngines().clear();
+                count++;
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
+        } else {
+            for (String name : names.split(",")) {
+                try {
+                    getConfiguration().getDoProcessingCacheEngines().remove(name);
+                    count++;
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
+            }
+        }
+        if (errors.length() == 0) {
+            storeConfiguration();
+
+            return count;
+        }
+        throw new RuntimeException(errors.append("/nRemoved engines from processing cache: ").append(count).toString());
+    }
+
+    /**
+     * Returns the list of engines, for which the processing cache can't be used
+     * 
+     * @return the list of engines, for which the processing cache can't be used
+     */
+    public List<String> getDontProcessingCacheEngines() {
+        ArrayList<String> list = new ArrayList<>();
+        list.addAll(getConfiguration().getDontProcessingCacheEngines());
+        return list;
+    }
+
+    /**
+     * Updates the negative processing cache.
+     * 
+     * @param names
+     *            the names of the required SQL Query Engines instances to be excluded
+     * @return the number of successfully engines added to negative processing cache
+     */
+    public int initDontProcessingCache(String names) {
+        int count = 0;
+        StringBuilder errors = new StringBuilder();
+        for (String name : names.split(",")) {
+            try {
+                getConfiguration().getDontProcessingCacheEngines().add(name);
+                count++;
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
+        }
+        if (errors.length() == 0) {
+            storeConfiguration();
+            return count;
+        }
+        throw new RuntimeException(errors.append("/nEngines not for processing cache: ").append(count).toString());
+    }
+
+    /**
+     * Updates the negative processing cache.
+     * 
+     * @param names
+     *            the names of the required SQL Query Engines instances to be reset
+     * @return the number of successfully engines removed from negative processing cache
+     */
+    public int resetDontProcessingCache(String names) {
+        int count = 0;
+        StringBuilder errors = new StringBuilder();
+        if ("*".equals(names)) {
+            try {
+                count = getConfiguration().getDontProcessingCacheEngines().size();
+                getConfiguration().getDoProcessingCacheEngines().clear();
+                count++;
+            } catch (SqlEngineException ex) {
+                errors.append(ex.getMessage()).append("\n");
+            }
+        } else {
+            for (String name : names.split(",")) {
+                try {
+                    getConfiguration().getDontProcessingCacheEngines().remove(name);
+                    count++;
+                } catch (SqlEngineException ex) {
+                    errors.append(ex.getMessage()).append("\n");
+                }
+            }
+        }
+        if (errors.length() == 0) {
+            storeConfiguration();
+
+            return count;
+        }
+        throw new RuntimeException(errors.append("/nReset engines for processing cache: ").append(count).toString());
+    }
+
+    /**
      * Sets the SQL Engine factory instance
      * 
      * @param sqlEngineFactory

@@ -405,27 +405,113 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
         return super.resetProcedureEngineUsage(name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ManagedOperation(description = "Loads the persisted configuration.")
     public void loadConfiguration() {
         super.loadConfiguration();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ManagedOperation(description = "Persists the configuration into the external file.")
     public void storeConfiguration() {
         super.storeConfiguration();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ManagedOperation(description = "Resets the state of the dynamic configuration instance.")
     public void clearConfiguration() {
         super.clearConfiguration();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ManagedOperation(description = "Reset the engines' usage counters.")
     public void clearConfigurationUsage() {
         super.clearConfigurationUsage();
+    }
+
+    @Override
+    @ManagedOperation(description = "Returns the indicator that the processing cache can be used.")
+    public Boolean getUseProcessingCache() {
+        return super.getUseProcessingCache();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Sets the indicator that the processing cache can be used.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "useProcessingCache", description = "The indicator that the processing cache can be used") })
+    public void setUseProcessingCache(Boolean useProcessingCache) {
+        super.setUseProcessingCache(useProcessingCache);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the negative processing cache.")
+    public List<String> getDoProcessingCacheEngines() {
+        return super.getDoProcessingCacheEngines();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Updates the positive processing cache.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    public int initDoProcessingCache(String names) {
+        return super.initDoProcessingCache(names);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Updates the positive processing cache.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    public int resetDoProcessingCache(String names) {
+        return super.resetDoProcessingCache(names);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the negative processing cache.")
+    public List<String> getDontProcessingCacheEngines() {
+        return super.getDontProcessingCacheEngines();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Updates the negative processing cache.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    public int initDontProcessingCache(String names) {
+        return super.initDontProcessingCache(names);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Updates the negative processing cache.")
+    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    public int resetDontProcessingCache(String names) {
+        return super.resetDontProcessingCache(names);
     }
 }

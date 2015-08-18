@@ -1,6 +1,7 @@
 package org.sqlproc.engine.config.store;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,13 +25,13 @@ import org.sqlproc.engine.config.SqlEngineConfiguration;
 @XmlRootElement(name = "sqlp-configuration")
 public class XmlEngineConfiguration {
 
-    private List<EngineUsage> queryEngines;
-    private List<EngineUsage> crudEngines;
-    private List<EngineUsage> procedureEngines;
+    private List<EngineUsage> queryEngines = new ArrayList<EngineUsage>();
+    private List<EngineUsage> crudEngines = new ArrayList<EngineUsage>();
+    private List<EngineUsage> procedureEngines = new ArrayList<EngineUsage>();
 
-    private List<EngineSql> dynamicQueryEngines;
-    private List<EngineSql> dynamicCrudEngines;
-    private List<EngineSql> dynamicProcedureEngines;
+    private List<EngineSql> dynamicQueryEngines = new ArrayList<EngineSql>();
+    private List<EngineSql> dynamicCrudEngines = new ArrayList<EngineSql>();
+    private List<EngineSql> dynamicProcedureEngines = new ArrayList<EngineSql>();
 
     private Boolean lazyInit;
     private Integer asyncInitThreads;
@@ -38,40 +39,31 @@ public class XmlEngineConfiguration {
     private Boolean initInUsageOrder;
     private Boolean initClearUsage;
 
+    private Boolean useProcessingCache;
+    private List<String> doProcessingCacheEngines = new ArrayList<>();
+    private List<String> dontProcessingCacheEngines = new ArrayList<>();
+
     public XmlEngineConfiguration() {
-        queryEngines = new ArrayList<EngineUsage>();
-        crudEngines = new ArrayList<EngineUsage>();
-        procedureEngines = new ArrayList<EngineUsage>();
-
-        dynamicQueryEngines = new ArrayList<EngineSql>();
-        dynamicCrudEngines = new ArrayList<EngineSql>();
-        dynamicProcedureEngines = new ArrayList<EngineSql>();
-    }
-
-    private void copyEng(ConcurrentHashMap<String, AtomicInteger> from, List<EngineUsage> to) {
-        for (Entry<String, AtomicInteger> e : from.entrySet())
-            to.add(new EngineUsage(e.getKey(), e.getValue()));
-    }
-
-    private void copyDyn(ConcurrentHashMap<String, String> from, List<EngineSql> to) {
-        for (Entry<String, String> e : from.entrySet())
-            to.add(new EngineSql(e.getKey(), e.getValue()));
     }
 
     public XmlEngineConfiguration(SqlEngineConfiguration config) {
-        copyEng(config.getQueryEngines(), queryEngines = new ArrayList<EngineUsage>());
-        copyEng(config.getCrudEngines(), crudEngines = new ArrayList<EngineUsage>());
-        copyEng(config.getProcedureEngines(), procedureEngines = new ArrayList<EngineUsage>());
+        copyEng(config.getQueryEngines(), queryEngines);
+        copyEng(config.getCrudEngines(), crudEngines);
+        copyEng(config.getProcedureEngines(), procedureEngines);
 
-        copyDyn(config.getDynamicQueryEngines(), dynamicQueryEngines = new ArrayList<EngineSql>());
-        copyDyn(config.getDynamicCrudEngines(), dynamicCrudEngines = new ArrayList<EngineSql>());
-        copyDyn(config.getDynamicProcedureEngines(), dynamicProcedureEngines = new ArrayList<EngineSql>());
+        copyDyn(config.getDynamicQueryEngines(), dynamicQueryEngines);
+        copyDyn(config.getDynamicCrudEngines(), dynamicCrudEngines);
+        copyDyn(config.getDynamicProcedureEngines(), dynamicProcedureEngines);
 
         lazyInit = config.getLazyInit();
         asyncInitThreads = config.getAsyncInitThreads();
         initTreshold = config.getInitTreshold();
         initInUsageOrder = config.getInitInUsageOrder();
         initClearUsage = config.getInitClearUsage();
+
+        useProcessingCache = config.getUseProcessingCache();
+        doProcessingCacheEngines.addAll(config.getDoProcessingCacheEngines());
+        dontProcessingCacheEngines.addAll(config.getDontProcessingCacheEngines());
     }
 
     public void toConfig(SqlEngineConfiguration config) {
@@ -86,25 +78,11 @@ public class XmlEngineConfiguration {
         config.setInitTreshold(getInitTreshold());
         config.setInitInUsageOrder(getInitInUsageOrder());
         config.setInitClearUsage(getInitClearUsage());
-
-    }
-
-    private ConcurrentHashMap<String, AtomicInteger> copyEng(List<EngineUsage> from) {
-        ConcurrentHashMap<String, AtomicInteger> engines = new ConcurrentHashMap<String, AtomicInteger>();
-        if (from == null)
-            return engines;
-        for (EngineUsage e : from)
-            engines.put(e.getName(), new AtomicInteger(e.getUsage()));
-        return engines;
-    }
-
-    private ConcurrentHashMap<String, String> copyDyn(List<EngineSql> from) {
-        ConcurrentHashMap<String, String> engines = new ConcurrentHashMap<String, String>();
-        if (from == null)
-            return engines;
-        for (EngineSql e : from)
-            engines.put(e.getName(), e.getSql());
-        return engines;
+        config.setUseProcessingCache(getUseProcessingCache());
+        config.setDoProcessingCacheEngines(new HashSet<String>());
+        config.getDoProcessingCacheEngines().addAll(doProcessingCacheEngines);
+        config.setDontProcessingCacheEngines(new HashSet<String>());
+        config.getDontProcessingCacheEngines().addAll(dontProcessingCacheEngines);
     }
 
     @XmlRootElement(name = "usage")
@@ -282,12 +260,69 @@ public class XmlEngineConfiguration {
         this.initClearUsage = initClearUsage;
     }
 
+    @XmlElement
+    public Boolean getUseProcessingCache() {
+        return useProcessingCache;
+    }
+
+    public void setUseProcessingCache(Boolean useProcessingCache) {
+        this.useProcessingCache = useProcessingCache;
+    }
+
+    @XmlElementWrapper(name = "doProcessingCache")
+    public List<String> getDoProcessingCacheEngines() {
+        return doProcessingCacheEngines;
+    }
+
+    public void setDoProcessingCacheEngines(List<String> doProcessingCacheEngines) {
+        this.doProcessingCacheEngines = doProcessingCacheEngines;
+    }
+
+    @XmlElementWrapper(name = "dontProcessingCache")
+    public List<String> getDontProcessingCacheEngines() {
+        return dontProcessingCacheEngines;
+    }
+
+    public void setDontProcessingCacheEngines(List<String> dontProcessingCacheEngines) {
+        this.dontProcessingCacheEngines = dontProcessingCacheEngines;
+    }
+
     @Override
     public String toString() {
         return "XmlEngineConfiguration [queryEngines=" + queryEngines + ", crudEngines=" + crudEngines
                 + ", procedureEngines=" + procedureEngines + ", dynamicQueryEngines=" + dynamicQueryEngines
                 + ", dynamicCrudEngines=" + dynamicCrudEngines + ", dynamicProcedureEngines=" + dynamicProcedureEngines
                 + ", lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads + ", initTreshold="
-                + initTreshold + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage + "]";
+                + initTreshold + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage
+                + ", useProcessingCache=" + useProcessingCache + ", doProcessingCacheEngines="
+                + doProcessingCacheEngines + ", dontProcessingCacheEngines=" + dontProcessingCacheEngines + "]";
+    }
+
+    private void copyEng(ConcurrentHashMap<String, AtomicInteger> from, List<EngineUsage> to) {
+        for (Entry<String, AtomicInteger> e : from.entrySet())
+            to.add(new EngineUsage(e.getKey(), e.getValue()));
+    }
+
+    private void copyDyn(ConcurrentHashMap<String, String> from, List<EngineSql> to) {
+        for (Entry<String, String> e : from.entrySet())
+            to.add(new EngineSql(e.getKey(), e.getValue()));
+    }
+
+    private ConcurrentHashMap<String, AtomicInteger> copyEng(List<EngineUsage> from) {
+        ConcurrentHashMap<String, AtomicInteger> engines = new ConcurrentHashMap<String, AtomicInteger>();
+        if (from == null)
+            return engines;
+        for (EngineUsage e : from)
+            engines.put(e.getName(), new AtomicInteger(e.getUsage()));
+        return engines;
+    }
+
+    private ConcurrentHashMap<String, String> copyDyn(List<EngineSql> from) {
+        ConcurrentHashMap<String, String> engines = new ConcurrentHashMap<String, String>();
+        if (from == null)
+            return engines;
+        for (EngineSql e : from)
+            engines.put(e.getName(), e.getSql());
+        return engines;
     }
 }
