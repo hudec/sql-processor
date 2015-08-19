@@ -6,7 +6,7 @@ package org.sample.model {
 
     #Serializable(1)
     #Enum ContactType {
-        #Values(HOME = 0,BUSINESS = 1,ABROAD = 2)
+        #Values(ABROAD = 2,BUSINESS = 1,HOME = 0)
         #Attr Integer value
     }
 
@@ -18,7 +18,7 @@ package org.sample.model {
 
     #Serializable(1)
     #Enum PersonGender {
-        #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+        #Values(FEMALE = "F",MALE = "M",UNKNOWN = "0")
         #Attr String value
     }
 

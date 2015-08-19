@@ -4,11 +4,11 @@ import java.util.Map;
 
 @SuppressWarnings("all")
 public enum ContactType {
-  HOME(0),
+  ABROAD(2),
   
   BUSINESS(1),
   
-  ABROAD(2);
+  HOME(0);
   private static Map<Integer, ContactType> identifierMap =  identifierMapBuild();
   
   public static Map<Integer, ContactType> identifierMapBuild() {
