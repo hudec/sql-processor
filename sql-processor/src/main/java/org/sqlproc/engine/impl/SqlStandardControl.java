@@ -221,7 +221,33 @@ public class SqlStandardControl implements SqlControl {
      *            the ordering directive
      * @return this instance
      */
+    public SqlStandardControl setAscOrder(String order) {
+        this.order = SqlOrder.getAscOrder(order);
+        return this;
+    }
+
+    /**
+     * Sets the ordering directive list. Using the class SqlOrder the ordering rules can be chained. Every ordering rule
+     * in this chain should correspond to one META SQL ordering statement.
+     * 
+     * @param order
+     *            the ordering directive
+     * @return this instance
+     */
     public SqlStandardControl setDescOrder(int order) {
+        this.order = SqlOrder.getDescOrder(order);
+        return this;
+    }
+
+    /**
+     * Sets the ordering directive list. Using the class SqlOrder the ordering rules can be chained. Every ordering rule
+     * in this chain should correspond to one META SQL ordering statement.
+     * 
+     * @param order
+     *            the ordering directive
+     * @return this instance
+     */
+    public SqlStandardControl setDescOrder(String order) {
         this.order = SqlOrder.getDescOrder(order);
         return this;
     }

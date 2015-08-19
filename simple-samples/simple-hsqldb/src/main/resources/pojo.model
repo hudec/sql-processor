@@ -25,11 +25,11 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
-        #PrimaryKey() #Index(1)
+        #PrimaryKey() #Index
         // The technical primary key
         #Attr Long id
         @NotNull
-        #ToInit #Required #Index(2)
+        #ToInit #Required #Index
         // The owner of this contact
         #Attr Person person
         @NotNull
@@ -72,7 +72,7 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     // The personal information
     #Pojo Person {
-        #PrimaryKey() #Index(1)
+        #PrimaryKey() #Index
         // The technical primary key
         #Attr Long id
         @NotNull
@@ -82,7 +82,7 @@ package org.sample.model {
         #Attr String firstName
         @NotNull
         @Size(max = 100)
-        #Required #Index(2)
+        #Required #Index
         // The surname
         #Attr String lastName
         #IsDef
@@ -107,7 +107,7 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles)
     // The detailed personal information
     #Pojo PersonDetail {
-        #ToInit #PrimaryKey(id,Long) #Index(2)
+        #ToInit #PrimaryKey(id,Long) #Index
         // The technical primary key
         #Attr Person id
         #PrimaryKey(value,Integer)
@@ -153,4 +153,17 @@ package org.sample.model {
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=4
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=3
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }
