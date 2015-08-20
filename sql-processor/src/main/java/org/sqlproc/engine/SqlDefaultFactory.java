@@ -672,6 +672,16 @@ public class SqlDefaultFactory implements SqlEngineFactory {
     }
 
     /**
+     * Sets the indicator to speed up the initialization process
+     * 
+     * @param lazyInit
+     *            the indicator to speed up the initialization process
+     */
+    public void setLazyInit(Boolean lazyInit) {
+        this.lazyInit = lazyInit;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -679,6 +689,16 @@ public class SqlDefaultFactory implements SqlEngineFactory {
         if (configuration != null && configuration.getAsyncInitThreads() != null)
             return configuration.getAsyncInitThreads();
         return 0;
+    }
+
+    /**
+     * Sets the number of threads used for asynchronous initialization
+     * 
+     * @param asyncInitThreads
+     *            the number of threads used for asynchronous initialization
+     */
+    public void setAsyncInitThreads(Integer asyncInitThreads) {
+        this.asyncInitThreads = asyncInitThreads;
     }
 
     /**
