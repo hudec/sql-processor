@@ -10,14 +10,14 @@
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.sql-processor>3.1.0</version.sql-processor>
+        <version.sql-processor>3.1.1-SNAPSHOT</version.sql-processor>
 
         <version.antlr>3.5.2</version.antlr>
         <version.spring>4.1.6.RELEASE</version.spring>
@@ -32,7 +32,7 @@
         <version.javassist>3.12.1.GA</version.javassist>
         <version.wicket>1.5.7</version.wicket>
         <version.ehcache>2.5.0</version.ehcache>
-        <version.javasimon>3.1.0</version.javasimon>
+        <version.javasimon>3.1.1-SNAPSHOT</version.javasimon>
     </properties>
 
     <modules>
