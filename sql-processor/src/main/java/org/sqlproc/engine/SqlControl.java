@@ -23,6 +23,16 @@ public interface SqlControl {
     public Object getStaticInputValues();
 
     /**
+     * The object used for the SQL update statement dynamic input values. This enables to split input values into value
+     * used for WHERE fragment and for UPDATE fragment of the SQL statement. In the case this parameter is null, the
+     * dynamicInputValues parameter for {@link SqlCrudEngine#update(SqlSession, Object, SqlControl)} holds all input
+     * values.
+     * 
+     * @return the object used for the SQL update statement dynamic input values (UPDATE fragment)
+     */
+    public Object getDynamicUpdateValues();
+
+    /**
      * Returns the max SQL execution time. This parameter can help to protect production system against ineffective SQL
      * query commands. The value is in milliseconds.
      * 

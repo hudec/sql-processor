@@ -204,13 +204,13 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
     @Override
     public SqlProcessResult process(SqlProcessContext ctx) {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> process : dynamicInputValues=" + ctx.dynamicInputValues + ", class="
-                    + ((ctx.dynamicInputValues != null) ? ctx.dynamicInputValues.getClass() : null) + ", sqlType="
-                    + sqlType);
+            logger.trace(">>> process : dynamicInputValues=" + ctx.getDynamicInputValues() + ", class="
+                    + ((ctx.getDynamicInputValues() != null) ? ctx.getDynamicInputValues().getClass() : null)
+                    + ", sqlType=" + sqlType);
         }
 
         SqlProcessResult result = new SqlProcessResult(ctx);
-        Object obj = ctx.dynamicInputValues;
+        Object obj = ctx.getDynamicInputValues();
         Object parentObj = null;
         StringBuilder sname = new StringBuilder(elements.size() * 32);
         StringBuilder fname = new StringBuilder(elements.size() * 32);
@@ -338,7 +338,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                         .isNotEmpty(ctx, lastAttributeName, obj, parentObj,
                                 (sqlType == null) ? null : sqlType.getMetaType(ctx),
                                 (sqlType == null) ? null : sqlType.getValue(),
-                                ctx.inSqlSetOrInsert || ctx.sqlStatementType == SqlMetaStatement.Type.CALL, values));
+                                ctx.isInSetOrInsert() || ctx.getSqlStatementType() == SqlMetaStatement.Type.CALL,
+                                values));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
             }
@@ -389,13 +390,13 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
     @Override
     public boolean processExpression(SqlProcessContext ctx) {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> processExpression : dynamicInputValues=" + ctx.dynamicInputValues + ", class="
-                    + ((ctx.dynamicInputValues != null) ? ctx.dynamicInputValues.getClass() : null) + ", sqlType="
-                    + sqlType);
+            logger.trace(">>> processExpression : dynamicInputValues=" + ctx.getDynamicInputValues() + ", class="
+                    + ((ctx.getDynamicInputValues() != null) ? ctx.getDynamicInputValues().getClass() : null)
+                    + ", sqlType=" + sqlType);
         }
 
         Object parentObj = null;
-        Object obj = ctx.dynamicInputValues;
+        Object obj = ctx.getDynamicInputValues();
         String attributeName = null;
 
         for (String item : this.elements) {

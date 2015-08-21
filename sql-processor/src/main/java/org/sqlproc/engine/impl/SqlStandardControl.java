@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.sqlproc.engine.SqlControl;
+import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlOrder;
+import org.sqlproc.engine.SqlSession;
 
 /**
  * The compound parameters controlling the META SQL execution.
@@ -23,6 +25,13 @@ public class SqlStandardControl implements SqlControl {
      * SQL prepared statement are picked up using the reflection API.
      */
     private Object staticInputValues;
+    /**
+     * The object used for the SQL update statement dynamic input values. This enables to split input values into value
+     * used for WHERE fragment and for UPDATE fragment of the SQL statement. In the case this parameter is null, the
+     * dynamicInputValues parameter for {@link SqlCrudEngine#update(SqlSession, Object, SqlControl)} holds all input
+     * values.
+     */
+    private Object dynamicUpdateValues;
     /**
      * The max SQL execution time. This parameter can help to protect production system against ineffective SQL query
      * commands. The value is in milliseconds.
@@ -83,6 +92,7 @@ public class SqlStandardControl implements SqlControl {
     public SqlStandardControl(SqlControl sqlControl) {
         if (sqlControl != null) {
             setStaticInputValues(sqlControl.getStaticInputValues());
+            setDynamicUpdateValues(sqlControl.getDynamicUpdateValues());
             setFirstResult(sqlControl.getFirstResult());
             setMaxResults(sqlControl.getMaxResults());
             setMaxTimeout(sqlControl.getMaxTimeout());
@@ -113,6 +123,28 @@ public class SqlStandardControl implements SqlControl {
      */
     public SqlStandardControl setStaticInputValues(Object staticInputValues) {
         this.staticInputValues = staticInputValues;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object getDynamicUpdateValues() {
+        return dynamicUpdateValues;
+    }
+
+    /**
+     * Sets the object used for the SQL update statement dynamic input values. This enables to split input values into
+     * value used for WHERE fragment and for UPDATE fragment of the SQL statement. In the case this parameter is null,
+     * the dynamicInputValues parameter for {@link SqlCrudEngine#update(SqlSession, Object, SqlControl)} holds all input
+     * values.
+     * 
+     * @param dynamicUpdateValues
+     *            the object used for the SQL update statement dynamic input values (UPDATE fragment)
+     * @return this instance
+     */
+    public SqlStandardControl setDynamicUpdateValues(Object dynamicUpdateValues) {
+        this.dynamicUpdateValues = dynamicUpdateValues;
         return this;
     }
 
@@ -367,9 +399,9 @@ public class SqlStandardControl implements SqlControl {
      */
     @Override
     public String toString() {
-        return "SqlStandardControl [staticInputValues=" + staticInputValues + ", maxTimeout=" + maxTimeout
-                + ", firstResult=" + firstResult + ", maxResults=" + maxResults + ", order=" + order
-                + ", moreResultClasses=" + moreResultClasses + ", features=" + features + ", processingId="
-                + processingId + "]";
+        return "SqlStandardControl [staticInputValues=" + staticInputValues + ", dynamicUpdateValues="
+                + dynamicUpdateValues + ", maxTimeout=" + maxTimeout + ", firstResult=" + firstResult + ", maxResults="
+                + maxResults + ", order=" + order + ", moreResultClasses=" + moreResultClasses + ", features="
+                + features + ", processingId=" + processingId + ", fetchSize=" + fetchSize + "]";
     }
 }

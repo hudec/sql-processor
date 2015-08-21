@@ -134,17 +134,15 @@ public class SqlEngineConfiguration {
     /**
      * The constructor takes data from the persisted state in external file.
      * 
-     * @param directory
-     *            the directory, where the persisted file is placed
-     * @param fileName
-     *            the name of the persisted file
+     * @param store
+     *            the store to persist this configuration
      * @throws IOException
      *             in the case there's a I/O problem with the persisted file
      * @throws JAXBException
      *             in the case there's a problem with JAXB deserialization
      */
-    public SqlEngineConfiguration(SqlEngineConfigurationStore jaxbStore) {
-        this.store = jaxbStore;
+    public SqlEngineConfiguration(SqlEngineConfigurationStore store) {
+        this.store = store;
     }
 
     /**
@@ -650,7 +648,7 @@ public class SqlEngineConfiguration {
     /**
      * Sets the list of engines, for which the processing cache can't be used
      * 
-     * @param doProcessingCacheEngines
+     * @param dontProcessingCacheEngines
      *            the list of engines, for which the processing cache can't be used
      */
     public void setDontProcessingCacheEngines(Set<String> dontProcessingCacheEngines) {

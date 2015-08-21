@@ -247,7 +247,7 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                         .getIsEmptyPlugin()
                         .isNotEmpty(ctx, attributeName, obj, parentObj,
                                 (sqlType == null) ? null : sqlType.getMetaType(ctx),
-                                (sqlType == null) ? null : sqlType.getValue(), ctx.inSqlSetOrInsert, values));
+                                (sqlType == null) ? null : sqlType.getValue(), ctx.isInSetOrInsert(), values));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
         }

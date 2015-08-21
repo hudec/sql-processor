@@ -11,6 +11,7 @@ import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlRuntimeContext;
+import org.sqlproc.engine.impl.SqlMetaSqlFragment.Type;
 import org.sqlproc.engine.plugin.BeanUtilsPlugin.GetterType;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -29,27 +30,27 @@ public class SqlProcessContext implements SqlRuntimeContext {
     /**
      * The SQL command type.
      */
-    SqlMetaStatement.Type sqlStatementType;
+    private SqlMetaStatement.Type sqlStatementType;
     /**
      * The SQL statement dynamic parameters.
      */
-    Object dynamicInputValues;
+    private Object dynamicInputValues;
     /**
      * The compound parameters controlling the META SQL execution.
      */
-    SqlControl sqlControl;
+    private SqlControl sqlControl;
     /**
      * The primary SQL Processor class for the META SQL execution.
      */
-    SqlEngine sqlEngine;
+    private SqlEngine sqlEngine;
     /**
-     * An indicator, that the processing is inside of the special SQL fragment - SET or VALUES.
+     * The type of the META SQL fragment.
      */
-    boolean inSqlSetOrInsert;
+    private Type sqlFragmentType;
     /**
      * Unset features in the runtime.
      */
-    Set<String> oppositeNames = new HashSet<String>();
+    private Set<String> oppositeNames = new HashSet<String>();
 
     /**
      * Creates a new instance.
@@ -119,6 +120,11 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * @return the SQL statement dynamic parameters
      */
     public Object getDynamicInputValues() {
+        if (sqlFragmentType != Type.SET)
+            return dynamicInputValues;
+        Object dynamicUpdateValues = SqlEngine.getDynamicUpdateValues(sqlControl);
+        if (dynamicUpdateValues != null)
+            return dynamicUpdateValues;
         return dynamicInputValues;
     }
 
@@ -128,7 +134,26 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * @return the SQL statement static parameters
      */
     public Object getStaticInputValues() {
-        return sqlEngine.getStaticInputValues(sqlControl);
+        return SqlEngine.getStaticInputValues(sqlControl);
+    }
+
+    /**
+     * Sets the type of the META SQL fragment.
+     * 
+     * @param sqlFragmentType
+     *            the type of the META SQL fragment
+     */
+    public void setSqlFragmentType(Type sqlFragmentType) {
+        this.sqlFragmentType = sqlFragmentType;
+    }
+
+    /**
+     * Returns the indicator the SET or VALUES fragment of META SQL is in process
+     * 
+     * @return the indicator the SET or VALUES fragment of META SQL is in process
+     */
+    public boolean isInSetOrInsert() {
+        return sqlFragmentType == Type.SET || sqlFragmentType == Type.VALUES;
     }
 
     /**

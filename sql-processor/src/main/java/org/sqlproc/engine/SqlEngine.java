@@ -184,6 +184,20 @@ public abstract class SqlEngine {
      * 
      * @param sqlControl
      *            the compound parameters controlling the META SQL execution
+     * @return the object used for the SQL update statement dynamic input values
+     */
+    public static Object getDynamicUpdateValues(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getDynamicUpdateValues();
+    }
+
+    /**
+     * The helper to prevent the NPE
+     * 
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
      * @return the max SQL execution time
      */
     public static Integer getMaxTimeout(SqlControl sqlControl) {

@@ -127,18 +127,18 @@ class SqlMetaSqlFragment implements SqlMetaElement {
             s.delete(0, s.length());
             s.append(WHERE_PREFIX).append(rest);
 
-        } else if (type == Type.SET && ctx.sqlStatementType == SqlMetaStatement.Type.UPDATE) {
+        } else if (type == Type.SET && ctx.getSqlStatementType() == SqlMetaStatement.Type.UPDATE) {
             Matcher matcher = patternSet.matcher(s);
             String fragment = (matcher.matches()) ? matcher.group(1) : s.toString();
             s.delete(0, s.length());
             s.append(SET_PREFIX).append(fragment);
 
-        } else if (type == Type.VALUES && ctx.sqlStatementType == SqlMetaStatement.Type.CREATE) {
+        } else if (type == Type.VALUES && ctx.getSqlStatementType() == SqlMetaStatement.Type.CREATE) {
             Matcher matcher = patternValues.matcher(s);
             String fragment = (matcher.matches()) ? matcher.group(1) : s.toString();
             s.delete(0, s.length());
             s.append(VALUES_PREFIX).append("(").append(fragment).append(")");
-        } else if (type == Type.COLUMNS && ctx.sqlStatementType == SqlMetaStatement.Type.CREATE) {
+        } else if (type == Type.COLUMNS && ctx.getSqlStatementType() == SqlMetaStatement.Type.CREATE) {
             Matcher matcher = patternColumns.matcher(s);
             String fragment = (matcher.matches()) ? matcher.group(1) : s.toString();
             s.delete(0, s.length());
@@ -153,8 +153,7 @@ class SqlMetaSqlFragment implements SqlMetaElement {
     public SqlProcessResult process(SqlProcessContext ctx) {
         SqlProcessResult result = new SqlProcessResult(ctx);
         result.setSql(new StringBuilder());
-        if (type == Type.SET || type == Type.VALUES)
-            ctx.inSqlSetOrInsert = true;
+        ctx.setSqlFragmentType(type);
         for (SqlMetaIfItem item : this.elements) {
             SqlProcessResult itemResult = item.process(ctx);
             if (itemResult.isAdd()) {
@@ -170,7 +169,7 @@ class SqlMetaSqlFragment implements SqlMetaElement {
         if (result.isAdd()) {
             handleSqlFragment(result.getSql(), ctx);
         }
-        ctx.inSqlSetOrInsert = false;
+        ctx.setSqlFragmentType(null);
         return result;
     }
 }
