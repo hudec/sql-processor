@@ -61,7 +61,7 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
   {#ID order by %c.ID }
   {#PERSON order by %c.PERSON_ID }
 ;
- 
+
 INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
   insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
@@ -205,16 +205,3 @@ PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
 PROC_NEW_PERSON_RET_RS(OUT,out=NewPersonRetRsResult)=
   FIRST_NAME$firstName SSN$ssn GENDER$gender DATE_OF_BIRTH$dateOfBirth ID$id LAST_NAME$lastName
 ;
-
-// Model statistics
-// Tables=3
-// Columns=18
-// Primary Keys=4
-// Exports=2
-// Imports=2
-// Indexes=6
-// Check Constraints=3
-// Procedures=3
-// Procedures Columns=12
-// Functions=1
-// Functions Columns=1
