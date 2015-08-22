@@ -5,19 +5,19 @@ BASE="$HOME/git/sql-processor/sql-samples"
 run()
 {
 	cd $1
-	mvn7 exec:exec -P db2mo
+	mvn exec:exec -P db2mo
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	mvn7 exec:exec -P db2me
+	mvn exec:exec -P db2me
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	mvn7 exec:exec -P mo2ja
+	mvn exec:exec -P mo2ja
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	mvn6 clean install exec:java
+	mvn clean install exec:java
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi

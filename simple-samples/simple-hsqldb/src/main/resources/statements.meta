@@ -61,7 +61,7 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
   {#ID order by %c.ID }
   {#PERSON order by %c.PERSON_ID }
 ;
-
+ 
 INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
   insert into %%PERSON (%ID, %FIRST_NAME, %LAST_NAME, %DATE_OF_BIRTH, %GENDER, %SSN)
   {= values (:id(idgen=COMMON,id=ID), :firstName, :lastName, :dateOfBirth, :gender, :ssn) }
