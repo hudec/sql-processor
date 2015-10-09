@@ -250,7 +250,7 @@ public class Main {
         Assert.assertEquals("Honzovsky", list.get(2).getLastName());
         Assert.assertEquals("Janicek", list.get(3).getLastName());
         Assert.assertEquals("Jansky", list.get(4).getLastName());
-        list = personDao.list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
+        list = personDao.list(person, new SqlStandardControl().setAscOrderNullsLast(Person.ORDER_BY_LAST_NAME));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzovsky", list.get(2).getLastName());
         person = new Person();

@@ -78,6 +78,10 @@ class SqlMetaOrd implements SqlMetaElement {
             return new StringBuilder(ss).append(" ASC");
         else if (orderDirrection == SqlOrder.Order.DESC)
             return new StringBuilder(ss).append(" DESC");
+        else if (orderDirrection == SqlOrder.Order.ASC_NULLS_LAST)
+            return new StringBuilder(ss).append(" ASC NULLS LAST");
+        else if (orderDirrection == SqlOrder.Order.DESC_NULLS_FIRST)
+            return new StringBuilder(ss).append(" DESC NULLS FIRST");
         else
             return new StringBuilder(ss);
     }

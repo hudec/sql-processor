@@ -67,7 +67,15 @@ public class SqlOrder {
         /**
          * descending ordering
          */
-        DESC
+        DESC,
+        /**
+         * ascending ordering, NULL values should be returned after non-NULL values
+         */
+        ASC_NULLS_LAST,
+        /**
+         * descending ordering, NULL values should be returned before non-NULL values
+         */
+        DESC_NULLS_FIRST
     }
 
     /**
@@ -110,8 +118,30 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one ascending ordering directive
      */
+    public static SqlOrder getAscOrderNullsLast(int orderId) {
+        return new SqlOrder().addAscOrderNullsLast(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list with one ascending ordering directive
+     */
     public static SqlOrder getAscOrder(String orderId) {
         return new SqlOrder().addAscOrder(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list with one ascending ordering directive
+     */
+    public static SqlOrder getAscOrderNullsLast(String orderId) {
+        return new SqlOrder().addAscOrderNullsLast(orderId);
     }
 
     /**
@@ -132,8 +162,30 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one descending ordering directive
      */
+    public static SqlOrder getDescOrderNullsFirst(int orderId) {
+        return new SqlOrder().addDescOrderNullsFirst(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list with one descending ordering directive
+     */
     public static SqlOrder getDescOrder(String orderId) {
         return new SqlOrder().addDescOrder(orderId);
+    }
+
+    /**
+     * The factory method.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list with one descending ordering directive
+     */
+    public static SqlOrder getDescOrderNullsFirst(String orderId) {
+        return new SqlOrder().addDescOrderNullsFirst(orderId);
     }
 
     /**
@@ -171,8 +223,32 @@ public class SqlOrder {
      *            the ordering id
      * @return the updated ordering directive list
      */
+    public SqlOrder addAscOrderNullsLast(int orderId) {
+        orders.add(new SqlOrder("" + orderId, Order.ASC_NULLS_LAST));
+        return this;
+    }
+
+    /**
+     * Adds one more ascending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
     public SqlOrder addAscOrder(String orderId) {
         orders.add(new SqlOrder(orderId, Order.ASC));
+        return this;
+    }
+
+    /**
+     * Adds one more ascending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
+    public SqlOrder addAscOrderNullsLast(String orderId) {
+        orders.add(new SqlOrder(orderId, Order.ASC_NULLS_LAST));
         return this;
     }
 
@@ -195,8 +271,32 @@ public class SqlOrder {
      *            the ordering id
      * @return the updated ordering directive list
      */
+    public SqlOrder addDescOrderNullsFirst(int orderId) {
+        orders.add(new SqlOrder("" + orderId, Order.DESC_NULLS_FIRST));
+        return this;
+    }
+
+    /**
+     * Adds one more descending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
     public SqlOrder addDescOrder(String orderId) {
         orders.add(new SqlOrder(orderId, Order.DESC));
+        return this;
+    }
+
+    /**
+     * Adds one more descending ordering directive into the list of ordering directives.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the updated ordering directive list
+     */
+    public SqlOrder addDescOrderNullsFirst(String orderId) {
+        orders.add(new SqlOrder(orderId, Order.DESC_NULLS_FIRST));
         return this;
     }
 
