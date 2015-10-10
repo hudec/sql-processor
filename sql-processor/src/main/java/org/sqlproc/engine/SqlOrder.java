@@ -69,13 +69,21 @@ public class SqlOrder {
          */
         DESC,
         /**
+         * ascending ordering, NULL values should be returned before non-NULL values
+         */
+        ASC_NULLS_FIRST,
+        /**
          * ascending ordering, NULL values should be returned after non-NULL values
          */
         ASC_NULLS_LAST,
         /**
          * descending ordering, NULL values should be returned before non-NULL values
          */
-        DESC_NULLS_FIRST
+        DESC_NULLS_FIRST,
+        /**
+         * descending ordering, NULL values should be returned after non-NULL values
+         */
+        DESC_NULLS_LAST
     }
 
     /**
