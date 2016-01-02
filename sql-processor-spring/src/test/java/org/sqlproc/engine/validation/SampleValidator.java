@@ -85,7 +85,7 @@ public class SampleValidator implements SqlValidator {
 
     public static class SampleValidatorFactory implements SqlValidatorFactory {
 
-        private volatile ValidatorFactory factory;
+        private static volatile ValidatorFactory factory;
 
         @Override
         public SqlValidator getSqlValidator() {
