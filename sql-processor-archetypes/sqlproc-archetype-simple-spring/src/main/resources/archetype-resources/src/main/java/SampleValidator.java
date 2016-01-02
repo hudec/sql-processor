@@ -10,6 +10,9 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.sample.SampleValidator;
+import org.sample.SampleValidator.SampleValidationContext;
+import org.sample.SampleValidator.SampleValidationResult;
 import org.sqlproc.engine.validation.SqlValidationContext;
 import org.sqlproc.engine.validation.SqlValidationResult;
 import org.sqlproc.engine.validation.SqlValidator;
@@ -28,14 +31,13 @@ public class SampleValidator implements SqlValidator {
         if (parentType == null || propertyName == null)
             return;
         SampleValidationContext<T> sampleContext = ((SampleValidationContext<T>) context);
-        Validator validator = sampleContext.getValidator();
         Set<ConstraintViolation<T>> constraintViolations = validator.validateValue(parentType, propertyName, value);
         sampleContext.addConstraintViolations(constraintViolations);
     }
 
     @Override
     public <T> SqlValidationContext<T> start(Class<T> parentType) {
-        return new SampleValidationContext<T>(validator);
+        return new SampleValidationContext<T>();
     }
 
     @Override
@@ -57,16 +59,7 @@ public class SampleValidator implements SqlValidator {
     }
 
     public static class SampleValidationContext<T> implements SqlValidationContext<T> {
-        Validator validator;
         Set<ConstraintViolation<T>> constraintViolations;
-
-        public SampleValidationContext(Validator validator) {
-            this.validator = validator;
-        }
-
-        public Validator getValidator() {
-            return validator;
-        }
 
         public void addConstraintViolations(Set<ConstraintViolation<T>> constraintViolations) {
             if (this.constraintViolations == null)
@@ -103,18 +96,17 @@ public class SampleValidator implements SqlValidator {
 
     public static class SampleValidatorFactory implements SqlValidatorFactory {
 
-        static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        volatile SampleValidator validator;
+        private volatile ValidatorFactory factory;
 
         @Override
         public SqlValidator getSqlValidator() {
-            if (validator == null) {
+            if (factory == null) {
                 synchronized (this) {
-                    if (validator == null)
-                        validator = new SampleValidator(factory.getValidator());
+                    if (factory == null)
+                        factory = Validation.buildDefaultValidatorFactory();
                 }
             }
-            return validator;
+            return new SampleValidator(factory.getValidator());
         }
     }
 }
