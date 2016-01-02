@@ -118,7 +118,7 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      * The helper class for the META SQL statements and mapping rules parsing. All artifacts are loaded from new grammar
      * based files.
      */
-    private SqlProcessorLoader processorLoader;
+    private volatile SqlProcessorLoader processorLoader;
     /**
      * The validator factory used in the process of the SQL Monitor instances creation.
      */
@@ -192,53 +192,56 @@ public class SqlDefaultFactory implements SqlEngineFactory {
                 if (processorLoader == null) {
                     if (configuration == null)
                         setConfiguration(new SqlEngineConfiguration());
-                    if (metaStatements != null || (metaFilesNames != null && !metaFilesNames.isEmpty())) {
-                        if (metaStatements == null) {
-                            metaStatements = SqlFilesLoader.getStatements(this.getClass(),
-                                    metaFilesNames.toArray(new String[0]));
-                        }
-                        if (jdbc)
-                            metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
-
-                        processorLoader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory, filter,
-                                monitorFactory, validatorFactory, customTypes, configuration, onlyStatements);
-
-                        if (configuration != null) {
-                            for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet()) {
-                                processorLoader.getDynamicEngine(e.getKey(), EngineType.Query, e.getValue());
-                                logger.warn("== init, initialized dynamic Query Engine {}", e.getKey());
-                            }
-                            for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet()) {
-                                processorLoader.getDynamicEngine(e.getKey(), EngineType.Crud, e.getValue());
-                                logger.warn("== init, initialized dynamic CRUD Engine {}", e.getKey());
-                            }
-                            for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet()) {
-                                processorLoader.getDynamicEngine(e.getKey(), EngineType.Procedure, e.getValue());
-                                logger.warn("== init, initialized dynamic Procedure Engine {}", e.getKey());
-                            }
-                        }
-
-                        if (!isLazyInit()) {
-                            Executor _executor = getExecutor();
-                            processorLoader.init(_executor, null, null, null);
-                            if (_executor != null && _executor instanceof ExecutorService)
-                                ((ExecutorService) _executor).shutdown();
-                        }
-
-                        if (isLazyInit() && configuration != null) {
-                            Executor _executor = getExecutor();
-                            processorLoader.init(_executor,
-                                    configuration.getQueryEnginesToInit(configuration.getInitTreshold()).keySet(),
-                                    configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
-                                    configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
-                            if (_executor != null && _executor instanceof ExecutorService)
-                                ((ExecutorService) _executor).shutdown();
-                        }
-
-                        if (configuration != null && configuration.getInitClearUsage() != null
-                                && configuration.getInitClearUsage())
-                            configuration.clearUsage();
+                    if (metaStatements == null && (metaFilesNames == null || metaFilesNames.isEmpty())) {
+                        throw new SqlProcessorException("There are no META SQL statements");
                     }
+                    if (metaStatements == null) {
+                        metaStatements = SqlFilesLoader.getStatements(this.getClass(),
+                                metaFilesNames.toArray(new String[0]));
+                    }
+                    if (jdbc)
+                        metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
+
+                    SqlProcessorLoader loader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory,
+                            filter, monitorFactory, validatorFactory, customTypes, configuration, onlyStatements);
+
+                    if (configuration != null) {
+                        for (Entry<String, String> e : configuration.getDynamicQueryEngines().entrySet()) {
+                            loader.getDynamicEngine(e.getKey(), EngineType.Query, e.getValue());
+                            logger.warn("== init, initialized dynamic Query Engine {}", e.getKey());
+                        }
+                        for (Entry<String, String> e : configuration.getDynamicCrudEngines().entrySet()) {
+                            loader.getDynamicEngine(e.getKey(), EngineType.Crud, e.getValue());
+                            logger.warn("== init, initialized dynamic CRUD Engine {}", e.getKey());
+                        }
+                        for (Entry<String, String> e : configuration.getDynamicProcedureEngines().entrySet()) {
+                            loader.getDynamicEngine(e.getKey(), EngineType.Procedure, e.getValue());
+                            logger.warn("== init, initialized dynamic Procedure Engine {}", e.getKey());
+                        }
+                    }
+
+                    if (!isLazyInit()) {
+                        Executor _executor = getExecutor();
+                        loader.init(_executor, null, null, null);
+                        if (_executor != null && _executor instanceof ExecutorService)
+                            ((ExecutorService) _executor).shutdown();
+                    }
+
+                    if (isLazyInit() && configuration != null) {
+                        Executor _executor = getExecutor();
+                        loader.init(_executor, configuration.getQueryEnginesToInit(configuration.getInitTreshold())
+                                .keySet(),
+                                configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
+                                configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
+                        if (_executor != null && _executor instanceof ExecutorService)
+                            ((ExecutorService) _executor).shutdown();
+                    }
+
+                    if (configuration != null && configuration.getInitClearUsage() != null
+                            && configuration.getInitClearUsage())
+                        configuration.clearUsage();
+
+                    processorLoader = loader;
                 }
             }
         }
