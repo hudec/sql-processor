@@ -197,6 +197,15 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
 
     boolean debug = false;
 
+    public static void main(String args[]) {
+        String s1 = "select     o.id id, o.platnost platnost, o.druh druh, o.posledni_zmena posledniZmena, o.pohlavi pohlavi, o.rodinny_stav kod_1902, o.datum_narozeni datumNarozeni, o.misto_narozeni_cr_id mistoNarozeniCrId, o.misto_narozeni_cr_typ mistoNarozeniCrTyp, o.misto_narozeni_svet_stat mistoNarozeniSvetStat, o.adresa_pobytu adresaPobytu, o.adresa_pobytu_druh adresaPobytuDruh, o.datum_umrti datumUmrti, o.misto_umrti_cr_id mistoUmrtiCrId, o.misto_umrti_cr_typ mistoUmrtiCrTyp, o.misto_umrti_svet_stat mistoUmrtiSvetStat, o.matka_id id_1903, o.otec_id id_1904, o.verze verze, o.aifo aifo, o.aifo_kontrola aifoKontrola, o.jmeno jmeno, o.prijmeni prijmeni, o.r_prijmeni rPrijmeni, o.rodne_cislo rodneCislo, o.misto_narozeni_svet_misto mistoNarozeniSvetMisto, o.misto_umrti_svet_misto mistoUmrtiSvetMisto , o13.id id_2394, o13.polozka polozka_2395, o13.stav stav_2396, o13.typzm typzm_2397, o13.datum_od datumOd_2398, o13.datum_od_fiktivni datumOdFiktivni_2399, o13.ts ts_2400, o13.uid uid_2401 , r.text_m textM_3037, r.text_f textF_3038     from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ?";
+        // String s2 =
+        // "select count(     o.id) as vysledek from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ? ";
+        DefaultSqlPlugins plugins = new DefaultSqlPlugins();
+        String s3 = plugins.sqlCount("test", new StringBuilder(s1));
+        System.out.println("'" + s3 + "'");
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -204,16 +213,16 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     public String sqlCount(String name, StringBuilder sql) {
         if (debug)
             System.out.println("sql " + sql);
-        String s = sql.toString().toUpperCase();
+        String _sql = sql.toString();
+        String s = _sql.toUpperCase();
         int start = s.indexOf("ID");
         int end = s.indexOf("FROM");
         if (debug)
             System.out.println("start " + start);
         if (debug)
             System.out.println("end " + end);
-        StringBuilder sb = sql;
         if (start < 0 || end < 0 || start > end)
-            return "select count(*) as vysledek from (" + sb.toString() + ") derived";
+            return "select count(*) as vysledek from (" + _sql + ") derived";
         int l = start + 2;
         for (; l < end; l++) {
             char c = s.charAt(l);
@@ -225,8 +234,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         }
         if (debug)
             System.out.println("l " + l);
-        String s1 = sb.substring(0, l);
-        String s2 = sb.substring(end);
+        String s1 = _sql.substring(0, l);
+        String s2 = _sql.substring(end);
         if (debug)
             System.out.println("s1 " + s1);
         if (debug)
@@ -235,7 +244,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (debug)
             System.out.println("start " + start);
         if (start < 0)
-            return "select count(*) as vysledek from (" + sb.toString() + ") derived";
+            return "select count(*) as vysledek from (" + _sql + ") derived";
         end = (s1.indexOf(",") < 0) ? start + 6 : s1.indexOf(",") + 1;
         if (debug)
             System.out.println("end " + end);
