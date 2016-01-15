@@ -199,11 +199,14 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
 
     public static void main(String args[]) {
         String s1 = "select     o.id id, o.platnost platnost, o.druh druh, o.posledni_zmena posledniZmena, o.pohlavi pohlavi, o.rodinny_stav kod_1902, o.datum_narozeni datumNarozeni, o.misto_narozeni_cr_id mistoNarozeniCrId, o.misto_narozeni_cr_typ mistoNarozeniCrTyp, o.misto_narozeni_svet_stat mistoNarozeniSvetStat, o.adresa_pobytu adresaPobytu, o.adresa_pobytu_druh adresaPobytuDruh, o.datum_umrti datumUmrti, o.misto_umrti_cr_id mistoUmrtiCrId, o.misto_umrti_cr_typ mistoUmrtiCrTyp, o.misto_umrti_svet_stat mistoUmrtiSvetStat, o.matka_id id_1903, o.otec_id id_1904, o.verze verze, o.aifo aifo, o.aifo_kontrola aifoKontrola, o.jmeno jmeno, o.prijmeni prijmeni, o.r_prijmeni rPrijmeni, o.rodne_cislo rodneCislo, o.misto_narozeni_svet_misto mistoNarozeniSvetMisto, o.misto_umrti_svet_misto mistoUmrtiSvetMisto , o13.id id_2394, o13.polozka polozka_2395, o13.stav stav_2396, o13.typzm typzm_2397, o13.datum_od datumOd_2398, o13.datum_od_fiktivni datumOdFiktivni_2399, o13.ts ts_2400, o13.uid uid_2401 , r.text_m textM_3037, r.text_f textF_3038     from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ?";
+        String s2 = "select distinct    o.id id, o.platnost platnost, o.druh druh, o.posledni_zmena posledniZmena, o.pohlavi pohlavi, o.rodinny_stav kod_1902, o.datum_narozeni datumNarozeni, o.misto_narozeni_cr_id mistoNarozeniCrId, o.misto_narozeni_cr_typ mistoNarozeniCrTyp, o.misto_narozeni_svet_stat mistoNarozeniSvetStat, o.adresa_pobytu adresaPobytu, o.adresa_pobytu_druh adresaPobytuDruh, o.datum_umrti datumUmrti, o.misto_umrti_cr_id mistoUmrtiCrId, o.misto_umrti_cr_typ mistoUmrtiCrTyp, o.misto_umrti_svet_stat mistoUmrtiSvetStat, o.matka_id id_1903, o.otec_id id_1904, o.verze verze, o.aifo aifo, o.aifo_kontrola aifoKontrola, o.jmeno jmeno, o.prijmeni prijmeni, o.r_prijmeni rPrijmeni, o.rodne_cislo rodneCislo, o.misto_narozeni_svet_misto mistoNarozeniSvetMisto, o.misto_umrti_svet_misto mistoUmrtiSvetMisto , o13.id id_2394, o13.polozka polozka_2395, o13.stav stav_2396, o13.typzm typzm_2397, o13.datum_od datumOd_2398, o13.datum_od_fiktivni datumOdFiktivni_2399, o13.ts ts_2400, o13.uid uid_2401 , r.text_m textM_3037, r.text_f textF_3038     from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ?";
         // String s2 =
         // "select count(     o.id) as vysledek from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ? ";
         DefaultSqlPlugins plugins = new DefaultSqlPlugins();
         String s3 = plugins.sqlCount("test", new StringBuilder(s1));
         System.out.println("'" + s3 + "'");
+        String s4 = plugins.sqlCount("test", new StringBuilder(s2));
+        System.out.println("'" + s4 + "'");
     }
 
     /**
@@ -250,11 +253,25 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             System.out.println("end " + end);
         String s11 = s1.substring(0, start);
         String s12 = s1.substring(end);
+        String distinct = "distinct ";
+        int idistinct = s12.toUpperCase().indexOf("DISTINCT");
+        if (idistinct >= 0) {
+            distinct = "";
+            if (idistinct > 0) {
+                for (int k = 0; k < idistinct; k++) {
+                    char c = s12.charAt(k);
+                    if (!Character.isSpace(c)) {
+                        distinct = "distinct ";
+                        break;
+                    }
+                }
+            }
+        }
         if (debug)
             System.out.println("s11 " + s11);
         if (debug)
             System.out.println("s12 " + s12);
-        String result = s11 + "select count(distinct" + s12 + ") as vysledek " + s2;
+        String result = s11 + "select count(" + distinct + s12 + ") as vysledek " + s2;
         if (debug)
             System.out.println("result " + result);
         return result;
