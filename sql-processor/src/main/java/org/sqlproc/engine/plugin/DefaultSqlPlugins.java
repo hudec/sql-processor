@@ -31,7 +31,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     @Override
     public boolean isNotEmpty(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, boolean inSqlSetOrInsert, Map<String, String> values)
-            throws IllegalArgumentException {
+                    throws IllegalArgumentException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> isNotEmpty attributeName=" + attributeName + ", obj=" + obj + ", parentObj=" + parentObj
                     + ", inSqlSetOrInsert=" + inSqlSetOrInsert);
@@ -93,8 +93,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             }
             Object isNullObj = null;
             if (isEmptyUseMethodIsNull) {
-                isNullObj = (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_NULL, String.class)) ? runtimeCtx
-                        .invokeMethod(parentObj, METHOD_IS_NULL, attributeName) : null;
+                isNullObj = (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_NULL, String.class))
+                        ? runtimeCtx.invokeMethod(parentObj, METHOD_IS_NULL, attributeName) : null;
             }
             if (isNullObj != null && isNullObj instanceof Boolean && ((Boolean) isNullObj)) {
                 return true;
@@ -197,83 +197,61 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
 
     boolean debug = false;
 
-    public static void main(String args[]) {
-        String s1 = "select     o.id id, o.platnost platnost, o.druh druh, o.posledni_zmena posledniZmena, o.pohlavi pohlavi, o.rodinny_stav kod_1902, o.datum_narozeni datumNarozeni, o.misto_narozeni_cr_id mistoNarozeniCrId, o.misto_narozeni_cr_typ mistoNarozeniCrTyp, o.misto_narozeni_svet_stat mistoNarozeniSvetStat, o.adresa_pobytu adresaPobytu, o.adresa_pobytu_druh adresaPobytuDruh, o.datum_umrti datumUmrti, o.misto_umrti_cr_id mistoUmrtiCrId, o.misto_umrti_cr_typ mistoUmrtiCrTyp, o.misto_umrti_svet_stat mistoUmrtiSvetStat, o.matka_id id_1903, o.otec_id id_1904, o.verze verze, o.aifo aifo, o.aifo_kontrola aifoKontrola, o.jmeno jmeno, o.prijmeni prijmeni, o.r_prijmeni rPrijmeni, o.rodne_cislo rodneCislo, o.misto_narozeni_svet_misto mistoNarozeniSvetMisto, o.misto_umrti_svet_misto mistoUmrtiSvetMisto , o13.id id_2394, o13.polozka polozka_2395, o13.stav stav_2396, o13.typzm typzm_2397, o13.datum_od datumOd_2398, o13.datum_od_fiktivni datumOdFiktivni_2399, o13.ts ts_2400, o13.uid uid_2401 , r.text_m textM_3037, r.text_f textF_3038     from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ?";
-        String s2 = "select distinct    o.id id, o.platnost platnost, o.druh druh, o.posledni_zmena posledniZmena, o.pohlavi pohlavi, o.rodinny_stav kod_1902, o.datum_narozeni datumNarozeni, o.misto_narozeni_cr_id mistoNarozeniCrId, o.misto_narozeni_cr_typ mistoNarozeniCrTyp, o.misto_narozeni_svet_stat mistoNarozeniSvetStat, o.adresa_pobytu adresaPobytu, o.adresa_pobytu_druh adresaPobytuDruh, o.datum_umrti datumUmrti, o.misto_umrti_cr_id mistoUmrtiCrId, o.misto_umrti_cr_typ mistoUmrtiCrTyp, o.misto_umrti_svet_stat mistoUmrtiSvetStat, o.matka_id id_1903, o.otec_id id_1904, o.verze verze, o.aifo aifo, o.aifo_kontrola aifoKontrola, o.jmeno jmeno, o.prijmeni prijmeni, o.r_prijmeni rPrijmeni, o.rodne_cislo rodneCislo, o.misto_narozeni_svet_misto mistoNarozeniSvetMisto, o.misto_umrti_svet_misto mistoUmrtiSvetMisto , o13.id id_2394, o13.polozka polozka_2395, o13.stav stav_2396, o13.typzm typzm_2397, o13.datum_od datumOd_2398, o13.datum_od_fiktivni datumOdFiktivni_2399, o13.ts ts_2400, o13.uid uid_2401 , r.text_m textM_3037, r.text_f textF_3038     from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ?";
-        // String s2 =
-        // "select count(     o.id) as vysledek from obyvatel o                                                           left join obyvatel_stav o13 on o.id = o13.id left join rodinny_stav r on o.rodinny_stav = r.kod   WHERE o.platnost = ? AND  o.rodne_cislo = ? ";
-        DefaultSqlPlugins plugins = new DefaultSqlPlugins();
-        String s3 = plugins.sqlCount("test", new StringBuilder(s1));
-        System.out.println("'" + s3 + "'");
-        String s4 = plugins.sqlCount("test", new StringBuilder(s2));
-        System.out.println("'" + s4 + "'");
-    }
+    private static final String ID = "ID";
+    private static final int L_ID = ID.length();
+    private static final String FROM = "FROM";
+    private static final String SELECT = "SELECT";
+    private static final int L_SELECT = SELECT.length();
+    private static final String DISTINCT = "DISTINCT";
+    private static final String CMD_DISTINCT = "distinct ";
 
     /**
      * {@inheritDoc}
      */
     @Override
     public String sqlCount(String name, StringBuilder sql) {
-        if (debug)
-            System.out.println("sql " + sql);
-        String _sql = sql.toString();
-        String s = _sql.toUpperCase();
-        int start = s.indexOf("ID");
-        int end = s.indexOf("FROM");
-        if (debug)
-            System.out.println("start " + start);
-        if (debug)
-            System.out.println("end " + end);
-        if (start < 0 || end < 0 || start > end)
-            return "select count(*) as vysledek from (" + _sql + ") derived";
-        int l = start + 2;
-        for (; l < end; l++) {
-            char c = s.charAt(l);
+        String sqlStr = sql.toString();
+        String sqlUpper = sqlStr.toUpperCase();
+        int ixID = sqlUpper.indexOf(ID);
+        int ixFROM = sqlUpper.indexOf(FROM);
+        if (ixID < 0 || ixFROM < 0 || ixID > ixFROM)
+            return "select count(*) as vysledek from (" + sqlStr + ") derived";
+
+        int ixAfterID = ixID + L_ID;
+        for (; ixAfterID < ixFROM; ixAfterID++) {
+            char c = sqlUpper.charAt(ixAfterID);
             if (c == '_')
                 continue;
             if (c >= 'A' && c <= 'Z')
                 continue;
             break;
         }
-        if (debug)
-            System.out.println("l " + l);
-        String s1 = _sql.substring(0, l);
-        String s2 = _sql.substring(end);
-        if (debug)
-            System.out.println("s1 " + s1);
-        if (debug)
-            System.out.println("s2 " + s2);
-        start = s1.toUpperCase().indexOf("SELECT");
-        if (debug)
-            System.out.println("start " + start);
-        if (start < 0)
-            return "select count(*) as vysledek from (" + _sql + ") derived";
-        end = (s1.indexOf(",") < 0) ? start + 6 : s1.indexOf(",") + 1;
-        if (debug)
-            System.out.println("end " + end);
-        String s11 = s1.substring(0, start);
-        String s12 = s1.substring(end);
-        String distinct = "distinct ";
-        int idistinct = s12.toUpperCase().indexOf("DISTINCT");
-        if (idistinct >= 0) {
+        String sqlSelectID = sqlStr.substring(0, ixAfterID);
+        String sqlFROM = sqlStr.substring(ixFROM);
+        int ixSELECT = sqlSelectID.toUpperCase().indexOf(SELECT);
+        if (ixSELECT < 0)
+            return "select count(*) as vysledek from (" + sqlStr + ") derived";
+
+        String sqlBeforeSELECT = sqlSelectID.substring(0, ixSELECT);
+        int ixCOMMA = sqlSelectID.indexOf(",");
+        int ixAfterSELECTBeforeCOMMA = (ixCOMMA < 0) ? ixSELECT + L_SELECT : ixCOMMA + 1;
+        String sqlID = sqlSelectID.substring(ixAfterSELECTBeforeCOMMA);
+
+        String distinct = CMD_DISTINCT;
+        int ixDISTINCT = sqlID.toUpperCase().indexOf(DISTINCT);
+        if (ixDISTINCT >= 0) {
             distinct = "";
-            if (idistinct > 0) {
-                for (int k = 0; k < idistinct; k++) {
-                    char c = s12.charAt(k);
-                    if (!Character.isSpace(c)) {
-                        distinct = "distinct ";
+            if (ixDISTINCT > 0) {
+                for (int i = 0; i < ixDISTINCT; i++) {
+                    char c = sqlID.charAt(i);
+                    if (!Character.isWhitespace(c)) {
+                        distinct = CMD_DISTINCT;
                         break;
                     }
                 }
             }
         }
-        if (debug)
-            System.out.println("s11 " + s11);
-        if (debug)
-            System.out.println("s12 " + s12);
-        String result = s11 + "select count(" + distinct + s12 + ") as vysledek " + s2;
-        if (debug)
-            System.out.println("result " + result);
+        String result = sqlBeforeSELECT + "select count(" + distinct + sqlID + ") as vysledek " + sqlFROM;
         return result;
     }
 
@@ -289,15 +267,15 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             return null;
         if (firstResult != null && firstResult > 0) {
             limitType.alsoFirst = true;
-            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO_ORDERED) : runtimeCtx
-                    .getFeature(SqlFeature.LIMIT_FROM_TO);
+            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO_ORDERED)
+                    : runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO);
             if (limitPattern == null && ordered)
                 limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_FROM_TO);
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
             return limitType;
         } else {
-            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_TO_ORDERED) : runtimeCtx
-                    .getFeature(SqlFeature.LIMIT_TO);
+            String limitPattern = (ordered) ? runtimeCtx.getFeature(SqlFeature.LIMIT_TO_ORDERED)
+                    : runtimeCtx.getFeature(SqlFeature.LIMIT_TO);
             if (limitPattern == null && ordered)
                 limitPattern = runtimeCtx.getFeature(SqlFeature.LIMIT_TO);
             limitType = limitQuery(limitPattern, limitType, queryString, queryResult, firstResult, maxResults);
@@ -323,13 +301,13 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 // to support old SQLMOP generated POJOs
                 result = runtimeCtx.invokeMethod(parentObj, methodName, attributeName);
             } else if (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class, Boolean.class)) {
-                Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName) ? runtimeCtx
-                        .getAttribute(parentObj, attributeName) != null : null;
+                Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName)
+                        ? runtimeCtx.getAttribute(parentObj, attributeName) != null : null;
                 result = runtimeCtx.invokeMethod(parentObj, methodName, attributeName, isAttributeNotNull);
             }
         } else {
-            result = (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class)) ? runtimeCtx
-                    .invokeMethod(parentObj, methodName, attributeName) : null;
+            result = (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class))
+                    ? runtimeCtx.invokeMethod(parentObj, methodName, attributeName) : null;
         }
         if (result == null || !(result instanceof Boolean)) {
             return null;
@@ -400,8 +378,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     @Override
     public String identitySelect(SqlRuntimeContext runtimeCtx, String identitySelectName, Class<?> inputValueType) {
         // TODO - refactor
-        String identityName = (SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT.equals(identitySelectName)) ? SqlFeature.IDSEL
-                .name() : identitySelectName;
+        String identityName = (SqlIdentityPlugin.MODIFIER_IDENTITY_SELECT.equals(identitySelectName))
+                ? SqlFeature.IDSEL.name() : identitySelectName;
         String identitySelect = null;
         if (inputValueType != null)
             identitySelect = runtimeCtx.getFeature(identityName + "_" + inputValueType.getSimpleName());
