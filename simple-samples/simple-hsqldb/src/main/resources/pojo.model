@@ -21,7 +21,7 @@ package org.sample.model {
         #Values(FEMALE = "F",MALE = "M",UNKNOWN = "0")
         #Attr String value
     }
- 
+
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {

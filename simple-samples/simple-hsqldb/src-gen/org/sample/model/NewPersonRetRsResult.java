@@ -330,7 +330,7 @@ public class NewPersonRetRsResult implements Serializable {
   
   public String getProcessingId(final Object... moreAttributes) {
     StringBuilder result = new StringBuilder();
-    result.append(",BASE:").append(hashCodeForAttributes());
+    result.append("BASE:").append(hashCodeForAttributes());
     result.append(",DEF:").append(hashCodeForNulls());
     result.append(",OPER:").append(hashCodeForOperators());
     if (moreAttributes != null)

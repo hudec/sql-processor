@@ -82,7 +82,6 @@ public class Main {
         sqlFactory.setValidatorFactory(new SampleValidator.SampleValidatorFactory());
         sqlFactory.setPluginFactory(sqlPluginFactory);
         sqlFactory.setConfiguration(configuration);
-        ;
 
         ddlSetup = DDLLoader.getDDLs(this.getClass(), DDL_SETUP);
         ddlClear = DDLLoader.getDDLs(this.getClass(), DDL_CLEAR);

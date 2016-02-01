@@ -476,7 +476,7 @@ public class PersonDetail implements Serializable {
   
   public String getProcessingId(final Object... moreAttributes) {
     StringBuilder result = new StringBuilder();
-    result.append(",BASE:").append(hashCodeForAttributes());
+    result.append("BASE:").append(hashCodeForAttributes());
     result.append(",DEF:").append(hashCodeForNulls());
     result.append(",ASSOC:").append(hashCodeForAssociations());
     result.append(",OPER:").append(hashCodeForOperators());
