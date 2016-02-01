@@ -279,20 +279,6 @@ public abstract class SqlEngine {
 
     /**
      * The helper to prevent the NPE
-     * 
-     * @param sqlControl
-     *            the compound parameters controlling the META SQL execution
-     * @return the unique ID of the executed statement based on the input values combination
-     */
-    public static String getProcessingId(SqlControl sqlControl) {
-        if (sqlControl == null)
-            return null;
-        else
-            return sqlControl.getProcessingId();
-    }
-
-    /**
-     * The helper to prevent the NPE
      *
      * @param sqlControl
      *            the compound parameters controlling the META SQL execution
@@ -419,15 +405,19 @@ public abstract class SqlEngine {
         String processingId = null;
         if (configuration != null && configuration.getUseProcessingCache() != null
                 && configuration.getUseProcessingCache()) {
+            boolean doGetProcessingId = false;
             if (!configuration.getDoProcessingCacheEngines().isEmpty()) {
                 if (configuration.getDoProcessingCacheEngines().contains(name))
-                    processingId = getProcessingId(sqlControl);
+                    doGetProcessingId = true;
             } else if (!configuration.getDontProcessingCacheEngines().isEmpty()) {
                 if (!configuration.getDontProcessingCacheEngines().contains(name))
-                    processingId = getProcessingId(sqlControl);
+                    doGetProcessingId = true;
             } else {
-                processingId = getProcessingId(sqlControl);
+                doGetProcessingId = true;
             }
+            if (doGetProcessingId)
+                processingId = pluginFactory.getSqlProcessingIdPlugin().getProcessingId(name, dynamicInputValues,
+                        sqlControl);
         }
         if (processingId != null)
             processResult = processingCache.get(processingId);

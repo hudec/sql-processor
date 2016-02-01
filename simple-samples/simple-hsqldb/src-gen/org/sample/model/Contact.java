@@ -171,9 +171,17 @@ public class Contact implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
     int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
+    result = 31 * result + ((id != null) ? id.hashCode() : 0);
+    return result;
+  }
+  
+  public int hashCodeForAttributes() {
+    int result = 1;
+    result = 31 * result + ((id != null) ? id.hashCode() : 0);
+    result = 31 * result + ((address != null) ? address.hashCode() : 0);
+    result = 31 * result + ((phoneNumber != null) ? phoneNumber.hashCode() : 0);
+    result = 31 * result + ((xNote != null) ? xNote.hashCode() : 0);
     return result;
   }
   
@@ -268,6 +276,16 @@ public class Contact implements Serializable {
     nullValues = new java.util.HashSet<String>();
   }
   
+  public int hashCodeForNulls() {
+    if (nullValues == null)
+    	return 0;
+    int result = 1;
+    for (Attribute attribute : Attribute.values()) {
+    	result = 31 * result + (nullValues.contains(attribute.name()) ? attribute.name().hashCode() : 0);
+    }
+    return result;
+  }
+  
   public enum Association {
     person;
   }
@@ -344,6 +362,16 @@ public class Contact implements Serializable {
   
   public void clearAllInit() {
     initAssociations = new java.util.HashSet<String>();
+  }
+  
+  public int hashCodeForAssociations() {
+    if (initAssociations == null)
+    	return 0;
+    int result = 1;
+    for (Association association : Association.values()) {
+    	result = 31 * result + (initAssociations.contains(association.name()) ? association.name().hashCode() : 0);
+    }
+    return result;
   }
   
   public enum OpAttribute {
@@ -444,5 +472,26 @@ public class Contact implements Serializable {
   
   public void clearAllOps() {
     operators = new java.util.HashMap<String, String>();
+  }
+  
+  public int hashCodeForOperators() {
+    if (operators == null)
+    	return 0;
+    int result = 1;
+    for (OpAttribute opAttribute : OpAttribute.values()) {
+    	result = 31 * result + (operators.containsKey(opAttribute.name()) ? operators.get(opAttribute.name()).hashCode() : 0);
+    }
+    return result;
+  }
+  
+  public String getProcessingId(final Object... moreAttributes) {
+    StringBuilder result = new StringBuilder();
+    result.append(",BASE:").append(hashCodeForAttributes());
+    result.append(",DEF:").append(hashCodeForNulls());
+    result.append(",ASSOC:").append(hashCodeForAssociations());
+    result.append(",OPER:").append(hashCodeForOperators());
+    if (moreAttributes != null)
+    	result.append(",MORE:").append(java.util.Arrays.hashCode(moreAttributes));
+    return result.toString();
   }
 }

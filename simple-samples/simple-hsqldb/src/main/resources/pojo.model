@@ -21,8 +21,8 @@ package org.sample.model {
         #Values(FEMALE = "F",MALE = "M",UNKNOWN = "0")
         #Attr String value
     }
-
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote)
+ 
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
         #PrimaryKey() #Index
@@ -53,7 +53,7 @@ package org.sample.model {
         #Attr java.util.List <Long> ids
     }
 
-    #Operators #Serializable(1) #ToString(firstName,ssn,gender,dateOfBirth,id,lastName)
+    #Operators #Serializable(1) #ToString(firstName,ssn,gender,dateOfBirth,id,lastName) #ProcId(firstName,ssn,gender,dateOfBirth,id,lastName)
     #Pojo NewPersonRetRsResult {
         #IsDef
         #Attr String firstName
@@ -69,7 +69,7 @@ package org.sample.model {
         #Attr String lastName
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,ssn)
     // The personal information
     #Pojo Person {
         #PrimaryKey() #Index
@@ -104,7 +104,7 @@ package org.sample.model {
         #Attr java.util.List <Long> ids
     }
 
-    #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles)
+    #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles) #ProcId(weight,height,disposition,titles)
     // The detailed personal information
     #Pojo PersonDetail {
         #ToInit #PrimaryKey(id,Long) #Index
@@ -153,4 +153,17 @@ package org.sample.model {
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=4
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=3
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }

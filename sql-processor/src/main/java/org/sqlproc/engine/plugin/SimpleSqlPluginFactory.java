@@ -93,6 +93,11 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     private BeanUtilsPlugin sqlBeansPlugin;
 
     /**
+     * The SQL Processor plugin devoted to the META SQL execution optimization.
+     */
+    private SqlProcessingIdPlugin sqlProcessingIdPlugin;
+
+    /**
      * The private constructor.
      */
     private SimpleSqlPluginFactory() {
@@ -174,6 +179,14 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public SqlProcessingIdPlugin getSqlProcessingIdPlugin() {
+        return (sqlProcessingIdPlugin != null) ? sqlProcessingIdPlugin : defaultSqlPlugins;
+    }
+
+    /**
      * Sets the SQL Processor plugin devoted to evaluate the boolean value of the logical expression.
      * 
      * @param isTruePlugin
@@ -251,5 +264,15 @@ public class SimpleSqlPluginFactory implements SqlPluginFactory {
      */
     public void setSqlBeansPlugin(BeanUtilsPlugin sqlBeansPlugin) {
         this.sqlBeansPlugin = sqlBeansPlugin;
+    }
+
+    /**
+     * Sets the SQL Processor plugin devoted to the META SQL execution optimization
+     * 
+     * @param sqlProcessingIdPlugin
+     *            the SQL Processor plugin devoted to the META SQL execution optimization
+     */
+    public void setSqlProcessingIdPlugin(SqlProcessingIdPlugin sqlProcessingIdPlugin) {
+        this.sqlProcessingIdPlugin = sqlProcessingIdPlugin;
     }
 }

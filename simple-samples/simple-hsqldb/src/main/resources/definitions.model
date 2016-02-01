@@ -25,7 +25,7 @@ pojogen-types-for-procedure NEW_PERSON NEWID->long;
 // native types
 pojogen-generate-wrappers;
 // POJO helpers' methods
-pojogen-generate-methods toString equals hashCode isDef toInit;
+pojogen-generate-methods toString equals hashCode isDef toInit procId;
 // POJO are serializable
 pojogen-implements-interfaces java.io.Serializable;
 // can't overwrite existing POJO 

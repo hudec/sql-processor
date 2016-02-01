@@ -102,6 +102,17 @@ public class NewPersonRetRsResult implements Serializable {
     return this;
   }
   
+  public int hashCodeForAttributes() {
+    int result = 1;
+    result = 31 * result + ((firstName != null) ? firstName.hashCode() : 0);
+    result = 31 * result + ((ssn != null) ? ssn.hashCode() : 0);
+    result = 31 * result + ((gender != null) ? gender.hashCode() : 0);
+    result = 31 * result + ((dateOfBirth != null) ? dateOfBirth.hashCode() : 0);
+    result = 31 * result + ((id != null) ? id.hashCode() : 0);
+    result = 31 * result + ((lastName != null) ? lastName.hashCode() : 0);
+    return result;
+  }
+  
   @Override
   public String toString() {
     return "NewPersonRetRsResult [firstName=" + firstName + ", ssn=" + ssn + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + "]";
@@ -201,6 +212,16 @@ public class NewPersonRetRsResult implements Serializable {
     nullValues = new java.util.HashSet<String>();
   }
   
+  public int hashCodeForNulls() {
+    if (nullValues == null)
+    	return 0;
+    int result = 1;
+    for (Attribute attribute : Attribute.values()) {
+    	result = 31 * result + (nullValues.contains(attribute.name()) ? attribute.name().hashCode() : 0);
+    }
+    return result;
+  }
+  
   public enum OpAttribute {
     firstName,
     
@@ -295,5 +316,25 @@ public class NewPersonRetRsResult implements Serializable {
   
   public void clearAllOps() {
     operators = new java.util.HashMap<String, String>();
+  }
+  
+  public int hashCodeForOperators() {
+    if (operators == null)
+    	return 0;
+    int result = 1;
+    for (OpAttribute opAttribute : OpAttribute.values()) {
+    	result = 31 * result + (operators.containsKey(opAttribute.name()) ? operators.get(opAttribute.name()).hashCode() : 0);
+    }
+    return result;
+  }
+  
+  public String getProcessingId(final Object... moreAttributes) {
+    StringBuilder result = new StringBuilder();
+    result.append(",BASE:").append(hashCodeForAttributes());
+    result.append(",DEF:").append(hashCodeForNulls());
+    result.append(",OPER:").append(hashCodeForOperators());
+    if (moreAttributes != null)
+    	result.append(",MORE:").append(java.util.Arrays.hashCode(moreAttributes));
+    return result.toString();
   }
 }

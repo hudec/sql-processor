@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.type.SqlMetaType;
@@ -15,7 +16,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
 public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountPlugin, SqlFromToPlugin,
-        SqlSequencePlugin, SqlIdentityPlugin, SqlExecutionPlugin {
+        SqlSequencePlugin, SqlIdentityPlugin, SqlExecutionPlugin, SqlProcessingIdPlugin {
 
     /**
      * The internal slf4j logger.
@@ -426,5 +427,16 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (queryString == null)
             return null;
         return queryString.trim();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProcessingId(String name, Object dynamicInputValues, SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        else
+            return sqlControl.getProcessingId();
     }
 }

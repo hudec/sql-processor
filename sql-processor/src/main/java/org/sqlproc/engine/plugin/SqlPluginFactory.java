@@ -1,6 +1,5 @@
 package org.sqlproc.engine.plugin;
 
-
 /**
  * The factory definition, which can be used to construct the SQL Processor plugins instances.
  * 
@@ -63,4 +62,11 @@ public interface SqlPluginFactory {
      * @return the SQL Processor plugin devoted to beans handling
      */
     public BeanUtilsPlugin getSqlBeansPlugin();
+
+    /**
+     * Returns the SQL Processor plugin devoted to the META SQL execution optimization.
+     * 
+     * @return the SQL Processor plugin devoted to the META SQL execution optimization
+     */
+    public SqlProcessingIdPlugin getSqlProcessingIdPlugin();
 }
