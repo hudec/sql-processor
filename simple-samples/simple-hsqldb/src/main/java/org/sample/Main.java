@@ -35,9 +35,11 @@ import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
+import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.engine.validation.SqlValidationException;
 
@@ -69,11 +71,18 @@ public class Main {
     }
 
     public Main() throws SQLException {
-        JdbcEngineFactory factory = new JdbcEngineFactory();
-        factory.setMetaFilesNames("statements.meta");
-        factory.setFilter(DB_TYPE);
-        factory.setValidatorFactory(new SampleValidator.SampleValidatorFactory());
-        this.sqlFactory = factory;
+        SimpleSqlPluginFactory sqlPluginFactory = (SimpleSqlPluginFactory) SimpleSqlPluginFactory.getInstance();
+        sqlPluginFactory.setSqlProcessingIdPlugin(new SampleSqlProcessingIdPlugin());
+        SqlEngineConfiguration configuration = new SqlEngineConfiguration();
+        configuration.setUseProcessingCache(true);
+
+        sqlFactory = new JdbcEngineFactory();
+        sqlFactory.setMetaFilesNames("statements.meta");
+        sqlFactory.setFilter(DB_TYPE);
+        sqlFactory.setValidatorFactory(new SampleValidator.SampleValidatorFactory());
+        sqlFactory.setPluginFactory(sqlPluginFactory);
+        sqlFactory.setConfiguration(configuration);
+        ;
 
         ddlSetup = DDLLoader.getDDLs(this.getClass(), DDL_SETUP);
         ddlClear = DDLLoader.getDDLs(this.getClass(), DDL_CLEAR);
@@ -152,8 +161,8 @@ public class Main {
         Assert.assertEquals("Jan", p.getFirstName());
         Assert.assertEquals("Jan address 1", p.getContacts().get(0).getAddress());
 
-        Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
-                ._setAddress("Janik address 1")._setType(ContactType.BUSINESS),
+        Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE),
+                new Contact()._setAddress("Janik address 1")._setType(ContactType.BUSINESS),
                 new Contact()._setAddress("Janik address 2")._setType(ContactType.BUSINESS));
         PersonDetail janikd = new PersonDetail()._setId(janik)._setType(PersonDetailType.I1);
         personDetailDao.insert(janikd);
@@ -163,9 +172,9 @@ public class Main {
         Assert.assertEquals("Janik", p.getFirstName());
         Assert.assertEquals("Janik address 1", p.getContacts().get(0).getAddress());
 
-        Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
-                ._setAddress("Honza address 1")._setType(ContactType.HOME), new Contact()
-                ._setAddress("Honza address 2")._setType(ContactType.BUSINESS));
+        Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE),
+                new Contact()._setAddress("Honza address 1")._setType(ContactType.HOME),
+                new Contact()._setAddress("Honza address 2")._setType(ContactType.BUSINESS));
         PersonDetail honzad = new PersonDetail()._setId(honza)._setType(PersonDetailType.I2);
         personDetailDao.insert(honzad);
         honzad = new PersonDetail()._setId(honza)._setType(PersonDetailType.I3);
@@ -174,15 +183,14 @@ public class Main {
         Assert.assertEquals("Honza", p.getFirstName());
         Assert.assertEquals("Honza address 2", p.getContacts().get(1).getAddress());
 
-        Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE), new Contact()
-                ._setAddress("Honzik address 1")._setType(ContactType.HOME),
+        Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE),
+                new Contact()._setAddress("Honzik address 1")._setType(ContactType.HOME),
                 new Contact()._setAddress("Honzik address 2")._setType(ContactType.BUSINESS));
         p = getPerson(honzik.getId(), Person.Association.contacts);
         Assert.assertEquals("Honzik", p.getFirstName());
         Assert.assertEquals(2, p.getContacts().size());
 
-        Person andrej = insertPersonContacts(
-                new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
+        Person andrej = insertPersonContacts(new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
                 new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
                         ._setType(ContactType.BUSINESS),
                 new Contact()._setAddress("Andrej address 2")._setPhoneNumber("444-555-6666")
@@ -391,7 +399,8 @@ public class Main {
         contact.setPhoneNumber("444-555-6666");
         listc = contactDao.list(contact);
         c = listc.get(0);
-        c.setPhoneNumber("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901");
+        c.setPhoneNumber(
+                "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901");
         try {
             contactDao.update(c);
             Assert.fail();
