@@ -475,6 +475,8 @@ public class PersonDetail implements Serializable {
   }
   
   public String getProcessingId(final Object... moreAttributes) {
+    if (ids != null)
+    	return null;
     StringBuilder result = new StringBuilder();
     result.append("BASE:").append(hashCodeForAttributes());
     result.append(",DEF:").append(hashCodeForNulls());
