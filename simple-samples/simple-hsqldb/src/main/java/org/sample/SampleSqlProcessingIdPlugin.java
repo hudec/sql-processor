@@ -26,7 +26,7 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
         if (processingId != null) {
             logger.info("name {}, id provided {}, input {}", name, processingId,
                     (dynamicInputValues != null ? dynamicInputValues.getClass() : null));
-            if (name.startsWith("INSERT"))
+            if (name.toUpperCase().startsWith("INSERT"))
                 return processingId;
 
             // docasna kontrola, jestli skutecne je processingId korektne pouzit
