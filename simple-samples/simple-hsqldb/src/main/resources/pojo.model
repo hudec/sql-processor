@@ -22,7 +22,7 @@ package org.sample.model {
         #Attr String value
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,address,phoneNumber,xNote)
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,person,type,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
         #PrimaryKey() #Index
@@ -69,7 +69,7 @@ package org.sample.model {
         #Attr String lastName
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,ssn)
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,gender,ssn)
     // The personal information
     #Pojo Person {
         #PrimaryKey() #Index
@@ -104,7 +104,7 @@ package org.sample.model {
         #Attr java.util.List <Long> ids
     }
 
-    #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles) #ProcId(weight,height,disposition,titles)
+    #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles) #ProcId(id,type,weight,height,disposition,titles)
     // The detailed personal information
     #Pojo PersonDetail {
         #ToInit #PrimaryKey(id,Long) #Index

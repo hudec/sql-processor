@@ -162,15 +162,6 @@ public class PersonDetail implements Serializable {
     return result;
   }
   
-  public int hashCodeForAttributes() {
-    int result = 1;
-    result = 31 * result + ((weight != null) ? weight.hashCode() : 0);
-    result = 31 * result + ((height != null) ? height.hashCode() : 0);
-    result = 31 * result + ((disposition != null) ? disposition.hashCode() : 0);
-    result = 31 * result + ((titles != null) ? titles.hashCode() : 0);
-    return result;
-  }
-  
   @Override
   public String toString() {
     return "PersonDetail [type=" + type + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + "]";
@@ -475,8 +466,22 @@ public class PersonDetail implements Serializable {
   }
   
   public String getProcessingId(final Object... moreAttributes) {
+    if (ids != null)
+    	return null;
     StringBuilder result = new StringBuilder();
-    result.append("BASE:").append(hashCodeForAttributes());
+    result.append("BASE:");
+    if (id != null)
+    	result.append(id).append("@");
+    if (type != null)
+    	result.append(type).append("@");
+    if (weight != null)
+    	result.append(weight).append("@");
+    if (height != null)
+    	result.append(height).append("@");
+    if (disposition != null)
+    	result.append(disposition).append("@");
+    if (titles != null)
+    	result.append(titles).append("@");
     result.append(",DEF:").append(hashCodeForNulls());
     result.append(",ASSOC:").append(hashCodeForAssociations());
     result.append(",OPER:").append(hashCodeForOperators());

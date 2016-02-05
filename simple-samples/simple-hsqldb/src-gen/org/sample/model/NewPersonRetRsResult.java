@@ -102,17 +102,6 @@ public class NewPersonRetRsResult implements Serializable {
     return this;
   }
   
-  public int hashCodeForAttributes() {
-    int result = 1;
-    result = 31 * result + ((firstName != null) ? firstName.hashCode() : 0);
-    result = 31 * result + ((ssn != null) ? ssn.hashCode() : 0);
-    result = 31 * result + ((gender != null) ? gender.hashCode() : 0);
-    result = 31 * result + ((dateOfBirth != null) ? dateOfBirth.hashCode() : 0);
-    result = 31 * result + ((id != null) ? id.hashCode() : 0);
-    result = 31 * result + ((lastName != null) ? lastName.hashCode() : 0);
-    return result;
-  }
-  
   @Override
   public String toString() {
     return "NewPersonRetRsResult [firstName=" + firstName + ", ssn=" + ssn + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + "]";
@@ -330,7 +319,19 @@ public class NewPersonRetRsResult implements Serializable {
   
   public String getProcessingId(final Object... moreAttributes) {
     StringBuilder result = new StringBuilder();
-    result.append("BASE:").append(hashCodeForAttributes());
+    result.append("BASE:");
+    if (firstName != null)
+    	result.append(firstName).append("@");
+    if (ssn != null)
+    	result.append(ssn).append("@");
+    if (gender != null)
+    	result.append(gender).append("@");
+    if (dateOfBirth != null)
+    	result.append(dateOfBirth).append("@");
+    if (id != null)
+    	result.append(id).append("@");
+    if (lastName != null)
+    	result.append(lastName).append("@");
     result.append(",DEF:").append(hashCodeForNulls());
     result.append(",OPER:").append(hashCodeForOperators());
     if (moreAttributes != null)
