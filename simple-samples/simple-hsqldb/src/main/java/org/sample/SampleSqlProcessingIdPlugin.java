@@ -69,5 +69,4 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
                 (sqlControl != null ? sqlControl.getProcessingId() : null));
         return processingId;
     }
-
 }
