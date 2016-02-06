@@ -40,12 +40,9 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
                     logger.info("=== name {}, id {}", name, dynProcessingId);
                     String cachedProcessingId = processingIds.get(processingId);
                     if (cachedProcessingId == null)
-                        cachedProcessingId = processingIds.put(processingId, dynProcessingId);
-                    if (cachedProcessingId != null) {
-                        if (!cachedProcessingId.equals(dynProcessingId))
-                            throw new RuntimeException(
-                                    "nutno prozkoumat " + cachedProcessingId + " <> " + dynProcessingId);
-                    }
+                        cachedProcessingId = processingIds.put(processingId, cachedProcessingId = dynProcessingId);
+                    else if (!cachedProcessingId.equals(dynProcessingId))
+                        throw new RuntimeException("nutno prozkoumat " + cachedProcessingId + " <> " + dynProcessingId);
                 }
             } catch (NoSuchMethodException | IllegalAccessException e) {
                 logger.error("getProcessingId", e);
