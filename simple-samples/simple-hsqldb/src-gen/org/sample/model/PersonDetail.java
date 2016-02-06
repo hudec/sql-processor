@@ -138,6 +138,23 @@ public class PersonDetail implements Serializable {
     return this;
   }
   
+  public StringBuilder getProcessingIdForAttributes() {
+    StringBuilder result = new StringBuilder("PersonDetail");
+    if (id != null)
+    	result.append("@").append("id");
+    if (type != null)
+    	result.append("@").append("type");
+    if (weight != null)
+    	result.append("@").append("weight");
+    if (height != null)
+    	result.append("@").append("height");
+    if (disposition != null)
+    	result.append("@").append("disposition");
+    if (titles != null)
+    	result.append("@").append("titles");
+    return result;
+  }
+  
   @Override
   public boolean equals(final Object obj) {
     if (this == obj)
@@ -257,12 +274,13 @@ public class PersonDetail implements Serializable {
     nullValues = new java.util.HashSet<String>();
   }
   
-  public int hashCodeForNulls() {
+  public StringBuilder getProcessingIdForNulls() {
     if (nullValues == null || nullValues.isEmpty())
-    	return 0;
-    int result = 1;
+    	return null;
+    StringBuilder result = new StringBuilder("NULL");
     for (Attribute attribute : Attribute.values()) {
-    	result = 31 * result + (nullValues.contains(attribute.name()) ? attribute.name().hashCode() : 0);
+    	if (nullValues.contains(attribute.name()))
+    		result.append("@").append(attribute.name());
     }
     return result;
   }
@@ -345,12 +363,13 @@ public class PersonDetail implements Serializable {
     initAssociations = new java.util.HashSet<String>();
   }
   
-  public int hashCodeForAssociations() {
+  public StringBuilder getProcessingIdForAssociations() {
     if (initAssociations == null || initAssociations.isEmpty())
-    	return 0;
-    int result = 1;
+    	return null;
+    StringBuilder result = new StringBuilder("ASSOC");
     for (Association association : Association.values()) {
-    	result = 31 * result + (initAssociations.contains(association.name()) ? association.name().hashCode() : 0);
+    	if (initAssociations.contains(association.name()))
+    		result.append("@").append(association.name());
     }
     return result;
   }
@@ -455,38 +474,35 @@ public class PersonDetail implements Serializable {
     operators = new java.util.HashMap<String, String>();
   }
   
-  public int hashCodeForOperators() {
+  public StringBuilder getProcessingIdForOperators() {
     if (operators == null || operators.isEmpty())
-    	return 0;
-    int result = 1;
+    	return null;
+    StringBuilder result = new StringBuilder("OPER");
     for (OpAttribute opAttribute : OpAttribute.values()) {
-    	result = 31 * result + (operators.containsKey(opAttribute.name()) ? operators.get(opAttribute.name()).hashCode() : 0);
+    	if (operators.containsKey(opAttribute.name()))
+    		result.append("@").append(opAttribute.name()).append("=").append(operators.get(opAttribute.name()));
     }
     return result;
   }
   
-  public String getProcessingId(final Object... moreAttributes) {
+  public String getProcessingId(final String... moreAttributes) {
     if (ids != null && !ids.isEmpty())
     	return null;
-    StringBuilder result = new StringBuilder();
-    result.append("BASE:");
-    if (id != null)
-    	result.append("id").append("@");
-    if (type != null)
-    	result.append("type").append("@");
-    if (weight != null)
-    	result.append("weight").append("@");
-    if (height != null)
-    	result.append("height").append("@");
-    if (disposition != null)
-    	result.append("disposition").append("@");
-    if (titles != null)
-    	result.append("titles").append("@");
-    result.append(",DEF:").append(hashCodeForNulls());
-    result.append(",ASSOC:").append(hashCodeForAssociations());
-    result.append(",OPER:").append(hashCodeForOperators());
-    if (moreAttributes != null)
-    	result.append(",MORE:").append(java.util.Arrays.hashCode(moreAttributes));
+    StringBuilder result = getProcessingIdForAttributes();
+    StringBuilder processingIdForNulls = getProcessingIdForNulls();
+    if (processingIdForNulls != null)
+    	result.append(",").append(processingIdForNulls);
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+    if (processingIdForAssociations != null)
+    	result.append(",").append(processingIdForAssociations);
+    StringBuilder processingIdForOperators = getProcessingIdForOperators();
+    if (processingIdForOperators != null)
+    	result.append(",").append(processingIdForOperators);
+    if (moreAttributes != null && moreAttributes.length > 0) {
+    	result.append(",MORE");
+    	for (String moreAttr : moreAttributes)
+    		result.append("@").append(moreAttr);
+    }
     return result.toString();
   }
 }

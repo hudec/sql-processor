@@ -102,6 +102,23 @@ public class NewPersonRetRsResult implements Serializable {
     return this;
   }
   
+  public StringBuilder getProcessingIdForAttributes() {
+    StringBuilder result = new StringBuilder("NewPersonRetRsResult");
+    if (firstName != null)
+    	result.append("@").append("firstName");
+    if (ssn != null)
+    	result.append("@").append("ssn");
+    if (gender != null)
+    	result.append("@").append("gender");
+    if (dateOfBirth != null)
+    	result.append("@").append("dateOfBirth");
+    if (id != null)
+    	result.append("@").append("id");
+    if (lastName != null)
+    	result.append("@").append("lastName");
+    return result;
+  }
+  
   @Override
   public String toString() {
     return "NewPersonRetRsResult [firstName=" + firstName + ", ssn=" + ssn + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + "]";
@@ -201,12 +218,13 @@ public class NewPersonRetRsResult implements Serializable {
     nullValues = new java.util.HashSet<String>();
   }
   
-  public int hashCodeForNulls() {
+  public StringBuilder getProcessingIdForNulls() {
     if (nullValues == null || nullValues.isEmpty())
-    	return 0;
-    int result = 1;
+    	return null;
+    StringBuilder result = new StringBuilder("NULL");
     for (Attribute attribute : Attribute.values()) {
-    	result = 31 * result + (nullValues.contains(attribute.name()) ? attribute.name().hashCode() : 0);
+    	if (nullValues.contains(attribute.name()))
+    		result.append("@").append(attribute.name());
     }
     return result;
   }
@@ -307,35 +325,30 @@ public class NewPersonRetRsResult implements Serializable {
     operators = new java.util.HashMap<String, String>();
   }
   
-  public int hashCodeForOperators() {
+  public StringBuilder getProcessingIdForOperators() {
     if (operators == null || operators.isEmpty())
-    	return 0;
-    int result = 1;
+    	return null;
+    StringBuilder result = new StringBuilder("OPER");
     for (OpAttribute opAttribute : OpAttribute.values()) {
-    	result = 31 * result + (operators.containsKey(opAttribute.name()) ? operators.get(opAttribute.name()).hashCode() : 0);
+    	if (operators.containsKey(opAttribute.name()))
+    		result.append("@").append(opAttribute.name()).append("=").append(operators.get(opAttribute.name()));
     }
     return result;
   }
   
-  public String getProcessingId(final Object... moreAttributes) {
-    StringBuilder result = new StringBuilder();
-    result.append("BASE:");
-    if (firstName != null)
-    	result.append("firstName").append("@");
-    if (ssn != null)
-    	result.append("ssn").append("@");
-    if (gender != null)
-    	result.append("gender").append("@");
-    if (dateOfBirth != null)
-    	result.append("dateOfBirth").append("@");
-    if (id != null)
-    	result.append("id").append("@");
-    if (lastName != null)
-    	result.append("lastName").append("@");
-    result.append(",DEF:").append(hashCodeForNulls());
-    result.append(",OPER:").append(hashCodeForOperators());
-    if (moreAttributes != null)
-    	result.append(",MORE:").append(java.util.Arrays.hashCode(moreAttributes));
+  public String getProcessingId(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes();
+    StringBuilder processingIdForNulls = getProcessingIdForNulls();
+    if (processingIdForNulls != null)
+    	result.append(",").append(processingIdForNulls);
+    StringBuilder processingIdForOperators = getProcessingIdForOperators();
+    if (processingIdForOperators != null)
+    	result.append(",").append(processingIdForOperators);
+    if (moreAttributes != null && moreAttributes.length > 0) {
+    	result.append(",MORE");
+    	for (String moreAttr : moreAttributes)
+    		result.append("@").append(moreAttr);
+    }
     return result.toString();
   }
 }
