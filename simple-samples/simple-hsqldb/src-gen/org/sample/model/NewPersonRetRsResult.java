@@ -202,7 +202,7 @@ public class NewPersonRetRsResult implements Serializable {
   }
   
   public int hashCodeForNulls() {
-    if (nullValues == null)
+    if (nullValues == null || nullValues.isEmpty())
     	return 0;
     int result = 1;
     for (Attribute attribute : Attribute.values()) {
@@ -308,7 +308,7 @@ public class NewPersonRetRsResult implements Serializable {
   }
   
   public int hashCodeForOperators() {
-    if (operators == null)
+    if (operators == null || operators.isEmpty())
     	return 0;
     int result = 1;
     for (OpAttribute opAttribute : OpAttribute.values()) {
@@ -321,17 +321,17 @@ public class NewPersonRetRsResult implements Serializable {
     StringBuilder result = new StringBuilder();
     result.append("BASE:");
     if (firstName != null)
-    	result.append(firstName).append("@");
+    	result.append("firstName").append("@");
     if (ssn != null)
-    	result.append(ssn).append("@");
+    	result.append("ssn").append("@");
     if (gender != null)
-    	result.append(gender).append("@");
+    	result.append("gender").append("@");
     if (dateOfBirth != null)
-    	result.append(dateOfBirth).append("@");
+    	result.append("dateOfBirth").append("@");
     if (id != null)
-    	result.append(id).append("@");
+    	result.append("id").append("@");
     if (lastName != null)
-    	result.append(lastName).append("@");
+    	result.append("lastName").append("@");
     result.append(",DEF:").append(hashCodeForNulls());
     result.append(",OPER:").append(hashCodeForOperators());
     if (moreAttributes != null)

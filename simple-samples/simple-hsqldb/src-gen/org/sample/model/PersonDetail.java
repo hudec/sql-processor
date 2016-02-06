@@ -258,7 +258,7 @@ public class PersonDetail implements Serializable {
   }
   
   public int hashCodeForNulls() {
-    if (nullValues == null)
+    if (nullValues == null || nullValues.isEmpty())
     	return 0;
     int result = 1;
     for (Attribute attribute : Attribute.values()) {
@@ -346,7 +346,7 @@ public class PersonDetail implements Serializable {
   }
   
   public int hashCodeForAssociations() {
-    if (initAssociations == null)
+    if (initAssociations == null || initAssociations.isEmpty())
     	return 0;
     int result = 1;
     for (Association association : Association.values()) {
@@ -456,7 +456,7 @@ public class PersonDetail implements Serializable {
   }
   
   public int hashCodeForOperators() {
-    if (operators == null)
+    if (operators == null || operators.isEmpty())
     	return 0;
     int result = 1;
     for (OpAttribute opAttribute : OpAttribute.values()) {
@@ -466,22 +466,22 @@ public class PersonDetail implements Serializable {
   }
   
   public String getProcessingId(final Object... moreAttributes) {
-    if (ids != null)
+    if (ids != null && !ids.isEmpty())
     	return null;
     StringBuilder result = new StringBuilder();
     result.append("BASE:");
     if (id != null)
-    	result.append(id).append("@");
+    	result.append("id").append("@");
     if (type != null)
-    	result.append(type).append("@");
+    	result.append("type").append("@");
     if (weight != null)
-    	result.append(weight).append("@");
+    	result.append("weight").append("@");
     if (height != null)
-    	result.append(height).append("@");
+    	result.append("height").append("@");
     if (disposition != null)
-    	result.append(disposition).append("@");
+    	result.append("disposition").append("@");
     if (titles != null)
-    	result.append(titles).append("@");
+    	result.append("titles").append("@");
     result.append(",DEF:").append(hashCodeForNulls());
     result.append(",ASSOC:").append(hashCodeForAssociations());
     result.append(",OPER:").append(hashCodeForOperators());

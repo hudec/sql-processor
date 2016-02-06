@@ -1,11 +1,11 @@
 package org.sample;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.sample.model.Contact;
 import org.sample.model.Person;
 import org.slf4j.Logger;
@@ -17,56 +17,62 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Map<String, String> processingIds = new ConcurrentHashMap<>();
+    private final MethodHandles.Lookup lookup = MethodHandles.lookup();
+    private final MethodType mt = MethodType.methodType(String.class, Object[].class);
 
     @Override
     public String getProcessingId(String name, Object dynamicInputValues, SqlControl sqlControl) {
 
         String processingId = sqlControl != null ? sqlControl.getProcessingId() : null;
 
+        logger.info(">>> name {}, id provided {}, input {}", name, processingId,
+                (dynamicInputValues != null ? dynamicInputValues.getClass() : null));
+
         if (processingId != null) {
-            logger.info("name {}, id provided {}, input {}", name, processingId,
-                    (dynamicInputValues != null ? dynamicInputValues.getClass() : null));
-            if (name.toUpperCase().startsWith("INSERT"))
-                return processingId;
 
-            Method gpiMethod = MethodUtils.getAccessibleMethod(dynamicInputValues.getClass(), "getProcessingId",
-                    new Class[] { Object[].class });
-
-            if (gpiMethod != null) {
-                Object[] firstMax = new Object[] {
-                        new Integer[] { (sqlControl != null ? sqlControl.getFirstResult() : null),
-                                (sqlControl != null ? sqlControl.getMaxResults() : null) } };
-                try {
-                    String dynProcessingId = (String) gpiMethod.invoke(dynamicInputValues, firstMax);
-                    if (dynProcessingId != null) {
-                        String cachedProcessingId = processingIds.get(processingId);
-                        if (cachedProcessingId == null)
-                            cachedProcessingId = processingIds.put(processingId, dynProcessingId);
-                        if (cachedProcessingId != null) {
-                            if (!cachedProcessingId.equals(dynProcessingId))
-                                throw new RuntimeException(
-                                        "nutno prozkoumat " + cachedProcessingId + "<>" + dynProcessingId);
-                        }
+            try {
+                MethodHandle mh = lookup.findVirtual(dynamicInputValues.getClass(), "getProcessingId", mt);
+                String dynProcessingId = null;
+                dynProcessingId = (String) mh.invoke(dynamicInputValues, getProcessingId(sqlControl));
+                if (dynProcessingId != null) {
+                    String cachedProcessingId = processingIds.get(processingId);
+                    if (cachedProcessingId == null)
+                        cachedProcessingId = processingIds.put(processingId, dynProcessingId);
+                    if (cachedProcessingId != null) {
+                        if (!cachedProcessingId.equals(dynProcessingId))
+                            throw new RuntimeException(
+                                    "nutno prozkoumat " + cachedProcessingId + " <> " + dynProcessingId);
                     }
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    logger.error("getProcessingId", e);
                 }
-            } else {
-                logger.warn("Neni getProcessingId pro " + dynamicInputValues);
+            } catch (NoSuchMethodException | IllegalAccessException e) {
+                logger.error("getProcessingId", e);
+            } catch (Throwable e) {
+                logger.error("getProcessingId", e);
             }
-
-            return processingId;
+        } else {
+            if (name.toUpperCase().startsWith("INSERT")) {
+                processingId = name;
+            } else if (dynamicInputValues instanceof Person) {
+                processingId = ((Person) dynamicInputValues).getProcessingId(getProcessingId(sqlControl));
+            } else if (dynamicInputValues instanceof Contact) {
+                processingId = ((Contact) dynamicInputValues).getProcessingId(getProcessingId(sqlControl));
+            }
         }
 
-        Integer[] firstMax = { (sqlControl != null ? sqlControl.getFirstResult() : null),
-                (sqlControl != null ? sqlControl.getMaxResults() : null) };
-        if (dynamicInputValues instanceof Contact)
-            processingId = ((Contact) dynamicInputValues).getProcessingId(firstMax);
-        else if (dynamicInputValues instanceof Person)
-            processingId = ((Person) dynamicInputValues).getProcessingId(firstMax);
-        logger.info("name {}, id {}, input {}, sqlcid {}", name, processingId,
-                (dynamicInputValues != null ? dynamicInputValues.getClass() : null),
-                (sqlControl != null ? sqlControl.getProcessingId() : null));
+        logger.info("<<< name {}, id {}", name, processingId);
         return processingId;
+    }
+
+    String getProcessingId(SqlControl sqlControl) {
+        if (sqlControl == null)
+            return null;
+        StringBuilder result = new StringBuilder("SQLC:");
+        if (sqlControl.getFirstResult() != null)
+            result.append("FST").append(sqlControl.getFirstResult()).append("@");
+        if (sqlControl.getMaxResults() != null)
+            result.append("MAX").append(sqlControl.getMaxResults()).append("@");
+        if (sqlControl.getOrder() != null)
+            result.append(sqlControl.getOrder().toString());
+        return result.toString();
     }
 }

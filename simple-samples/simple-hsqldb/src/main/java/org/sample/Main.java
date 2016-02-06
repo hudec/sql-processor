@@ -112,10 +112,9 @@ public class Main {
     private NewPersonRetRsDao newPersonRetRsDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
-        Person p = personDao.insert(person, new SqlStandardControl().setProcessingId("insertPerson"));
+        Person p = personDao.insert(person);
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact._setPerson(p),
-                    new SqlStandardControl().setProcessingId("insertContact"));
+            Contact c = contactDao.insert(contact._setPerson(p));
             p.getContacts().add(c);
         }
         return p;
