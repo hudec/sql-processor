@@ -188,9 +188,7 @@ public class Contact implements Serializable {
   
   @Override
   public int hashCode() {
-    int result = 1;
-    result = 31 * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
