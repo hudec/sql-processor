@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Assert;
 import org.sample.dao.AnHourBeforeDao;
@@ -30,6 +32,7 @@ import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
+import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlRowProcessor;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -58,6 +61,7 @@ public class Main {
 
     private Connection connection;
     private SqlSessionFactory sessionFactory;
+    private SqlEngineConfiguration configuration;
     private JdbcEngineFactory sqlFactory;
     private List<String> ddlSetup;
     private List<String> ddlClear;
@@ -73,7 +77,7 @@ public class Main {
     public Main() throws SQLException {
         SimpleSqlPluginFactory sqlPluginFactory = (SimpleSqlPluginFactory) SimpleSqlPluginFactory.getInstance();
         sqlPluginFactory.setSqlProcessingIdPlugin(new SampleSqlProcessingIdPlugin());
-        SqlEngineConfiguration configuration = new SqlEngineConfiguration();
+        configuration = new SqlEngineConfiguration();
         configuration.setUseProcessingCache(true);
 
         sqlFactory = new JdbcEngineFactory();
@@ -436,6 +440,25 @@ public class Main {
         Assert.assertNotNull(list2);
         Assert.assertEquals(1, list2.size());
         Assert.assertNotNull(list2.get(0).getId());
+
+        for (Entry<String, SqlEngine> e : sqlFactory.getQueryEngines().entrySet()) {
+            System.out.println(e.getKey());
+            for (Entry<String, AtomicLong> ee : e.getValue().getProcessingCacheStatistics().entrySet()) {
+                System.out.println("  " + ee.getValue() + " = " + ee.getKey());
+            }
+        }
+        for (Entry<String, SqlEngine> e : sqlFactory.getCrudEngines().entrySet()) {
+            System.out.println(e.getKey());
+            for (Entry<String, AtomicLong> ee : e.getValue().getProcessingCacheStatistics().entrySet()) {
+                System.out.println("  " + ee.getValue() + " = " + ee.getKey());
+            }
+        }
+        for (Entry<String, SqlEngine> e : sqlFactory.getProcedureEngines().entrySet()) {
+            System.out.println(e.getKey());
+            for (Entry<String, AtomicLong> ee : e.getValue().getProcessingCacheStatistics().entrySet()) {
+                System.out.println("  " + ee.getValue() + " = " + ee.getKey());
+            }
+        }
     }
 
     public java.sql.Timestamp getAge(int year, int month, int day) {

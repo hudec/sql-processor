@@ -131,11 +131,11 @@ public class SqlProcessorLoader {
      * The SQL Processor processing cache
      */
     static class Cache {
-        ConcurrentHashMap<String, Map<String, SqlProcessResult>> sqls = new ConcurrentHashMap<>();
-        ConcurrentHashMap<String, Map<String, SqlProcessResult>> cruds = new ConcurrentHashMap<>();
-        ConcurrentHashMap<String, Map<String, SqlProcessResult>> calls = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, ConcurrentHashMap<String, SqlProcessResult>> sqls = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, ConcurrentHashMap<String, SqlProcessResult>> cruds = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, ConcurrentHashMap<String, SqlProcessResult>> calls = new ConcurrentHashMap<>();
 
-        ConcurrentHashMap<String, Map<String, SqlProcessResult>> get(EngineType type) {
+        ConcurrentHashMap<String, ConcurrentHashMap<String, SqlProcessResult>> get(EngineType type) {
             if (type == EngineType.Query)
                 return sqls;
             if (type == EngineType.Crud)
@@ -414,7 +414,7 @@ public class SqlProcessorLoader {
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
             List<SqlInternalType> customTypes, SqlEngineConfiguration configuration, String... onlyStatements)
-            throws SqlEngineException {
+                    throws SqlEngineException {
         logger.trace(
                 ">> SqlProcessorLoader, sbStatements={}, typeFactory={}, pluginFactory={}, monitorFactory={}, validatorFactory={}, filter={}, customTypes={}, configuration={}, onlyStatements={}",
                 sbStatements, typeFactory, pluginFactory, monitorFactory, validatorFactory, filter, customTypes,
@@ -434,8 +434,8 @@ public class SqlProcessorLoader {
         this.configuration = configuration;
 
         try {
-            Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0) ? new HashSet<String>(
-                    Arrays.asList(onlyStatements)) : null;
+            Set<String> setSelectQueries = (onlyStatements != null && onlyStatements.length > 0)
+                    ? new HashSet<String>(Arrays.asList(onlyStatements)) : null;
 
             filter = (filter != null) ? filter.toUpperCase() : null;
             Map<String, Object> defaultFeatures = SqlDefaultFeatures.getFilteredFeatures(filter);
@@ -444,9 +444,11 @@ public class SqlProcessorLoader {
             SqlProcessor processor = null;
 
             try {
-                processor = (isLazyInit()) ? SqlProcessor.getLazyInstance(sbStatements, composedTypeFactory,
-                        defaultFeatures, setSelectQueries, filter) : SqlProcessor.getInstance(sbStatements,
-                        composedTypeFactory, defaultFeatures, setSelectQueries, filter);
+                processor = (isLazyInit())
+                        ? SqlProcessor.getLazyInstance(sbStatements, composedTypeFactory, defaultFeatures,
+                                setSelectQueries, filter)
+                        : SqlProcessor.getInstance(sbStatements, composedTypeFactory, defaultFeatures, setSelectQueries,
+                                filter);
             } catch (SqlEngineException see) {
                 errors.append(see.getMessage());
             }
@@ -526,8 +528,8 @@ public class SqlProcessorLoader {
                 Set<String> names = (sqlsToInit != null) ? sqlsToInit : sqls.keySet();
                 for (String name : names) {
                     try {
-                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Query, Thread
-                                .currentThread().getName());
+                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Query,
+                                Thread.currentThread().getName());
                         getEngine(name, EngineType.Query);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
@@ -538,8 +540,8 @@ public class SqlProcessorLoader {
                 names = (crudsToInit != null) ? crudsToInit : cruds.keySet();
                 for (String name : names) {
                     try {
-                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Crud, Thread
-                                .currentThread().getName());
+                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Crud,
+                                Thread.currentThread().getName());
                         getEngine(name, EngineType.Crud);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
@@ -550,8 +552,8 @@ public class SqlProcessorLoader {
                 names = (callsToInit != null) ? callsToInit : calls.keySet();
                 for (String name : names) {
                     try {
-                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Procedure, Thread
-                                .currentThread().getName());
+                        logger.info("== sync init, name={}, type={} in {}", name, EngineType.Procedure,
+                                Thread.currentThread().getName());
                         getEngine(name, EngineType.Procedure);
                     } catch (SqlEngineException ex) {
                         String msg = ex.getMessage();
@@ -617,7 +619,8 @@ public class SqlProcessorLoader {
         private EngineType engineType;
         private ConcurrentHashMap<String, String> enginesInitErrors;
 
-        public AsyncEngineInit(String name, EngineType engineType, ConcurrentHashMap<String, String> enginesInitErrors) {
+        public AsyncEngineInit(String name, EngineType engineType,
+                ConcurrentHashMap<String, String> enginesInitErrors) {
             this.name = name;
             this.engineType = engineType;
             this.enginesInitErrors = enginesInitErrors;
@@ -752,7 +755,7 @@ public class SqlProcessorLoader {
                 if (sqlEnginePrev != null) {
                     sqlEngine = sqlEnginePrev;
                 } else {
-                    Map<String, SqlProcessResult> _processingCache;
+                    ConcurrentHashMap<String, SqlProcessResult> _processingCache;
                     processingCache.get(engineType).put(name,
                             _processingCache = new ConcurrentHashMap<String, SqlProcessResult>());
                     sqlEngine.setProcessingCache(_processingCache);

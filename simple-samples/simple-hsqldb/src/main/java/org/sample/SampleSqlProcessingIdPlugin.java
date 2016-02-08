@@ -3,7 +3,6 @@ package org.sample;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.sample.model.Contact;
@@ -17,7 +16,7 @@ import org.sqlproc.engine.plugin.SqlProcessingIdPlugin;
 public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final Map<String, String> processingIds = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, String> processingIds = new ConcurrentHashMap<>();
     private final MethodHandles.Lookup lookup = MethodHandles.lookup();
     private final MethodType mt = MethodType.methodType(String.class, String[].class);
 
@@ -38,10 +37,19 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
                         : mh.invoke(dynamicInputValues));
                 if (dynProcessingId != null) {
                     logger.info("=== name {}, id {}", name, dynProcessingId);
+                    boolean badCachedValue = false;
                     String cachedProcessingId = processingIds.get(processingId);
-                    if (cachedProcessingId == null)
-                        cachedProcessingId = processingIds.put(processingId, cachedProcessingId = dynProcessingId);
-                    else if (!cachedProcessingId.equals(dynProcessingId))
+                    if (cachedProcessingId != null) {
+                        if (!cachedProcessingId.equals(dynProcessingId))
+                            badCachedValue = true;
+                    } else {
+                        cachedProcessingId = processingIds.putIfAbsent(processingId, dynProcessingId);
+                        if (cachedProcessingId != null) {
+                            if (!cachedProcessingId.equals(dynProcessingId))
+                                badCachedValue = true;
+                        }
+                    }
+                    if (badCachedValue)
                         throw new RuntimeException("nutno prozkoumat " + cachedProcessingId + " <> " + dynProcessingId);
                 }
             } catch (NoSuchMethodException | IllegalAccessException e) {

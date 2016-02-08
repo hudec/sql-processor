@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +84,13 @@ public abstract class SqlEngine {
     /**
      * The processing cache used for {@link SqlProcessResult} instances.
      */
-    protected Map<String, SqlProcessResult> processingCache = new ConcurrentHashMap<String, SqlProcessResult>();
+    protected ConcurrentHashMap<String, SqlProcessResult> processingCache = new ConcurrentHashMap<String, SqlProcessResult>();
+
+    /**
+     * The processing cache statistics.
+     */
+    protected ConcurrentHashMap<String, AtomicLong> processingCacheStatistics = new ConcurrentHashMap<String, AtomicLong>();
+
     /**
      * The overall configuration, which can be persisted.
      */
@@ -366,7 +373,7 @@ public abstract class SqlEngine {
      * 
      * @return the processing cache used for {@link SqlProcessResult} instances.
      */
-    public Map<String, SqlProcessResult> getProcessingCache() {
+    public ConcurrentHashMap<String, SqlProcessResult> getProcessingCache() {
         return processingCache;
     }
 
@@ -376,8 +383,27 @@ public abstract class SqlEngine {
      * @param processingCache
      *            the processing cache used for {@link SqlProcessResult} instances.
      */
-    public void setProcessingCache(Map<String, SqlProcessResult> processingCache) {
+    public void setProcessingCache(ConcurrentHashMap<String, SqlProcessResult> processingCache) {
         this.processingCache = processingCache;
+    }
+
+    /**
+     * Returns the processing cache statistics.
+     * 
+     * @return the processing cache statistics
+     */
+    public ConcurrentHashMap<String, AtomicLong> getProcessingCacheStatistics() {
+        return processingCacheStatistics;
+    }
+
+    /**
+     * Sets the processing cache statistics.
+     * 
+     * @param processingCacheStatistics
+     *            the processing cache statistics
+     */
+    public void setProcessingCacheStatistics(ConcurrentHashMap<String, AtomicLong> processingCacheStatistics) {
+        this.processingCacheStatistics = processingCacheStatistics;
     }
 
     /**
@@ -422,12 +448,16 @@ public abstract class SqlEngine {
         if (processingId != null)
             processResult = processingCache.get(processingId);
         if (processResult != null) {
+            processingCacheStatistics.get(processingId).incrementAndGet();
             return new SqlProcessResult(processResult, dynamicInputValues, sqlControl);
         }
         processResult = statement.process(sqlStatementType, dynamicInputValues, sqlControl, this);
-        if (processingId != null)
-            processingCache.put(processingId, processResult);
-        return processResult;
-
+        if (processingId == null)
+            return processResult;
+        AtomicLong firstCounter = processingCacheStatistics.putIfAbsent(processingId, new AtomicLong(1L));
+        if (firstCounter != null)
+            processingCacheStatistics.get(processingId).addAndGet(firstCounter.get());
+        SqlProcessResult firstProcessResult = processingCache.putIfAbsent(processingId, processResult);
+        return firstProcessResult != null ? firstProcessResult : processResult;
     }
 }
