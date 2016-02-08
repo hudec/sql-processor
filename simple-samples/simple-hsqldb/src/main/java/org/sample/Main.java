@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Assert;
@@ -441,19 +443,26 @@ public class Main {
         Assert.assertEquals(1, list2.size());
         Assert.assertNotNull(list2.get(0).getId());
 
-        for (Entry<String, SqlEngine> e : sqlFactory.getQueryEngines().entrySet()) {
-            System.out.println(e.getKey());
-            for (Entry<String, AtomicLong> ee : e.getValue().getProcessingCacheStatistics().entrySet()) {
-                System.out.println("  " + ee.getValue() + " = " + ee.getKey());
-            }
+        printEnginesUsageStatistics(configuration.getQueryEngines());
+        printProcessingCacheStatistics(sqlFactory.getQueryEngines());
+        System.out.println();
+        printEnginesUsageStatistics(configuration.getCrudEngines());
+        printProcessingCacheStatistics(sqlFactory.getCrudEngines());
+        System.out.println();
+        printEnginesUsageStatistics(configuration.getProcedureEngines());
+        printProcessingCacheStatistics(sqlFactory.getProcedureEngines());
+    }
+
+    public void printEnginesUsageStatistics(Map<String, AtomicInteger> engines) {
+        for (Entry<String, AtomicInteger> e : engines.entrySet()) {
+            System.out.println(e.getValue() + " = " + e.getKey());
         }
-        for (Entry<String, SqlEngine> e : sqlFactory.getCrudEngines().entrySet()) {
-            System.out.println(e.getKey());
-            for (Entry<String, AtomicLong> ee : e.getValue().getProcessingCacheStatistics().entrySet()) {
-                System.out.println("  " + ee.getValue() + " = " + ee.getKey());
-            }
-        }
-        for (Entry<String, SqlEngine> e : sqlFactory.getProcedureEngines().entrySet()) {
+    }
+
+    public void printProcessingCacheStatistics(Map<String, SqlEngine> engines) {
+        for (Entry<String, SqlEngine> e : engines.entrySet()) {
+            if (e.getValue().getProcessingCacheStatistics().isEmpty())
+                continue;
             System.out.println(e.getKey());
             for (Entry<String, AtomicLong> ee : e.getValue().getProcessingCacheStatistics().entrySet()) {
                 System.out.println("  " + ee.getValue() + " = " + ee.getKey());
@@ -515,6 +524,6 @@ public class Main {
             // main.run(true, true);
         }
         long end = System.currentTimeMillis();
-        System.out.println("\nDuration for " + REPEAT + ": " + (end - start) / 1000);
+        System.out.println("\nDuration for " + REPEAT + ": " + (end - start));
     }
 }
