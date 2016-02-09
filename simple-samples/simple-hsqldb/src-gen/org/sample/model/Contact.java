@@ -160,7 +160,7 @@ public class Contact implements Serializable {
     if (id != null)
     	result.append("@").append("id");
     if (person != null)
-    	result.append("@").append("person");
+    	result.append("@").append("{").append(person.getProcessingIdForAttributes()).append("}");
     if (type != null)
     	result.append("@").append("type");
     if (address != null)

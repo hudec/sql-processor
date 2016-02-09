@@ -29,7 +29,7 @@ package org.sample.model {
         // The technical primary key
         #Attr Long id
         @NotNull
-        #ToInit #Required #Index
+        #ToInit #Required #Index #IsPojo
         // The owner of this contact
         #Attr Person person
         @NotNull
@@ -60,7 +60,7 @@ package org.sample.model {
         #IsDef
         #Attr String ssn
         #IsDef
-        #Attr org.sample.model.PersonGender gender
+        #Attr PersonGender gender
         #IsDef
         #Attr java.util.Date dateOfBirth
         #IsDef
@@ -107,7 +107,7 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles) #ProcId(id,type,weight,height,disposition,titles)
     // The detailed personal information
     #Pojo PersonDetail {
-        #ToInit #PrimaryKey(id,Long) #Index
+        #ToInit #PrimaryKey(id,Long) #Index #IsPojo
         // The technical primary key
         #Attr Person id
         #PrimaryKey(value,Integer)

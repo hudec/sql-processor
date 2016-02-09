@@ -141,7 +141,7 @@ public class PersonDetail implements Serializable {
   public StringBuilder getProcessingIdForAttributes() {
     StringBuilder result = new StringBuilder("PersonDetail");
     if (id != null)
-    	result.append("@").append("id");
+    	result.append("@").append("{").append(id.getProcessingIdForAttributes()).append("}");
     if (type != null)
     	result.append("@").append("type");
     if (weight != null)
