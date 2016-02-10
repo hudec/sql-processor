@@ -21,5 +21,6 @@ public interface SqlProcessingIdPlugin extends Modifiers {
      *            The compound parameters controlling the META SQL execution
      * @return the unique ID for processing case
      */
-    public String getProcessingId(String name, Object dynamicInputValues, SqlControl sqlControl);
+    public String getProcessingId(String name, Object dynamicInputValues, SqlControl sqlControl,
+            Boolean useDynamicProcessingCache);
 }

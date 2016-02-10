@@ -433,7 +433,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      * {@inheritDoc}
      */
     @Override
-    public String getProcessingId(String name, Object dynamicInputValues, SqlControl sqlControl) {
+    public String getProcessingId(String name, Object dynamicInputValues, SqlControl sqlControl,
+            Boolean useDynamicProcessingCache) {
         if (sqlControl == null)
             return null;
         else

@@ -95,6 +95,10 @@ public class SqlEngineConfiguration {
      */
     private Boolean useProcessingCache;
     /**
+     * The processing cache can be used for {@link SqlProcessResult} instances dynamically.
+     */
+    private Boolean useDynamicProcessingCache;
+    /**
      * Positive list of engines, for which the processing cache can be used.
      */
     private Set<String> doProcessingCacheEngines = new HashSet<String>();
@@ -186,6 +190,7 @@ public class SqlEngineConfiguration {
         initInUsageOrder = null;
         initClearUsage = null;
         useProcessingCache = null;
+        useDynamicProcessingCache = null;
         doProcessingCacheEngines = new HashSet<String>();
         dontProcessingCacheEngines = new HashSet<String>();
     }
@@ -618,6 +623,25 @@ public class SqlEngineConfiguration {
     }
 
     /**
+     * Returns the indicator that the processing cache can be used dynamically
+     * 
+     * @return the indicator that the processing cache can be used dynamically
+     */
+    public Boolean getUseDynamicProcessingCache() {
+        return useDynamicProcessingCache;
+    }
+
+    /**
+     * Sets the indicator that the processing cache can be used for dynamically
+     * 
+     * @param useDynamicProcessingCache
+     *            the indicator that the processing cache can be used dynamically
+     */
+    public void setUseDynamicProcessingCache(Boolean useDynamicProcessingCache) {
+        this.useDynamicProcessingCache = useDynamicProcessingCache;
+    }
+
+    /**
      * Returns the list of engines, for which the processing cache can be used
      * 
      * @return the list of engines, for which the processing cache can be used
@@ -687,7 +711,8 @@ public class SqlEngineConfiguration {
      *            the engines, which usage is at least this number should be initialized directly
      * @return the container of the Query Engines' names, which has to be initialized
      */
-    protected Map<String, Integer> getEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines, Integer treshold) {
+    protected Map<String, Integer> getEnginesToInit(ConcurrentHashMap<String, AtomicInteger> engines,
+            Integer treshold) {
         Map<String, Integer> map;
         if (initInUsageOrder != null && initInUsageOrder) {
             map = new LinkedHashMap<String, Integer>();
@@ -749,7 +774,7 @@ public class SqlEngineConfiguration {
         return "SqlEngineConfiguration [queryEngines=" + queryEngines + ", crudEngines=" + crudEngines
                 + ", procedureEngines=" + procedureEngines + ", dynamicQueryEngines=" + dynamicQueryEngines
                 + ", dynamicCrudEngines=" + dynamicCrudEngines + ", dynamicProcedureEngines=" + dynamicProcedureEngines
-                + ", lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads + ", initTreshold="
-                + initTreshold + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage + "]";
+                + ", lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads + ", initTreshold=" + initTreshold
+                + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage + "]";
     }
 }

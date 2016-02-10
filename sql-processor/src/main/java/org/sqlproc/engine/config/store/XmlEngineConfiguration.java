@@ -40,6 +40,7 @@ public class XmlEngineConfiguration {
     private Boolean initClearUsage;
 
     private Boolean useProcessingCache;
+    private Boolean useDynamicProcessingCache;
     private List<String> doProcessingCacheEngines = new ArrayList<>();
     private List<String> dontProcessingCacheEngines = new ArrayList<>();
 
@@ -62,6 +63,7 @@ public class XmlEngineConfiguration {
         initClearUsage = config.getInitClearUsage();
 
         useProcessingCache = config.getUseProcessingCache();
+        useDynamicProcessingCache = config.getUseDynamicProcessingCache();
         doProcessingCacheEngines.addAll(config.getDoProcessingCacheEngines());
         dontProcessingCacheEngines.addAll(config.getDontProcessingCacheEngines());
     }
@@ -79,6 +81,7 @@ public class XmlEngineConfiguration {
         config.setInitInUsageOrder(getInitInUsageOrder());
         config.setInitClearUsage(getInitClearUsage());
         config.setUseProcessingCache(getUseProcessingCache());
+        config.setUseDynamicProcessingCache(getUseDynamicProcessingCache());
         config.setDoProcessingCacheEngines(new HashSet<String>());
         config.getDoProcessingCacheEngines().addAll(doProcessingCacheEngines);
         config.setDontProcessingCacheEngines(new HashSet<String>());
@@ -269,6 +272,15 @@ public class XmlEngineConfiguration {
         this.useProcessingCache = useProcessingCache;
     }
 
+    @XmlElement
+    public Boolean getUseDynamicProcessingCache() {
+        return useDynamicProcessingCache;
+    }
+
+    public void setUseDynamicProcessingCache(Boolean useDynamicProcessingCache) {
+        this.useDynamicProcessingCache = useDynamicProcessingCache;
+    }
+
     @XmlElementWrapper(name = "doProcessingCache")
     public List<String> getDoProcessingCacheEngines() {
         return doProcessingCacheEngines;
@@ -292,10 +304,11 @@ public class XmlEngineConfiguration {
         return "XmlEngineConfiguration [queryEngines=" + queryEngines + ", crudEngines=" + crudEngines
                 + ", procedureEngines=" + procedureEngines + ", dynamicQueryEngines=" + dynamicQueryEngines
                 + ", dynamicCrudEngines=" + dynamicCrudEngines + ", dynamicProcedureEngines=" + dynamicProcedureEngines
-                + ", lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads + ", initTreshold="
-                + initTreshold + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage
-                + ", useProcessingCache=" + useProcessingCache + ", doProcessingCacheEngines="
-                + doProcessingCacheEngines + ", dontProcessingCacheEngines=" + dontProcessingCacheEngines + "]";
+                + ", lazyInit=" + lazyInit + ", asyncInitThreads=" + asyncInitThreads + ", initTreshold=" + initTreshold
+                + ", initInUsageOrder=" + initInUsageOrder + ", initClearUsage=" + initClearUsage
+                + ", useProcessingCache=" + useProcessingCache + ", useDynamicProcessingCache="
+                + useDynamicProcessingCache + ", doProcessingCacheEngines=" + doProcessingCacheEngines
+                + ", dontProcessingCacheEngines=" + dontProcessingCacheEngines + "]";
     }
 
     private void copyEng(ConcurrentHashMap<String, AtomicInteger> from, List<EngineUsage> to) {

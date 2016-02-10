@@ -443,7 +443,7 @@ public abstract class SqlEngine {
             }
             if (doGetProcessingId)
                 processingId = pluginFactory.getSqlProcessingIdPlugin().getProcessingId(name, dynamicInputValues,
-                        sqlControl);
+                        sqlControl, configuration.getUseDynamicProcessingCache());
         }
         if (processingId != null)
             processResult = processingCache.get(processingId);

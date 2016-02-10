@@ -28,7 +28,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "In the case the SQL Query Engines are not initialized, a new static instances are established in the cache.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
     public int initQueryEngines(String names) {
         return super.initQueryEngines(names);
     }
@@ -38,7 +39,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "In the case the SQL CRUD Engines are not initialized, a new static instances are established in the cache.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
     public int initCrudEngines(String names) {
         return super.initCrudEngines(names);
     }
@@ -48,7 +50,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "In the case the SQL Procedure Engines are not initialized, a new static instances are established in the cache.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
     public int initProcedureEngines(String names) {
         return super.initProcedureEngines(names);
     }
@@ -58,7 +61,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL Query Engine is in the cache, the static one is re-established.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the required SQL Query Engines instances") })
     public int resetQueryEngines(String names) {
         return super.resetQueryEngines(names);
     }
@@ -68,7 +72,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL CRUD Engine is in the cache, the static one is re-established.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the required SQL CRUD Engines instances") })
     public int resetCrudEngines(String names) {
         return super.resetCrudEngines(names);
     }
@@ -78,7 +83,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "In the case any dynamic SQL Procedure Engine is in the cache, the static one is re-established.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the required SQL Procedure Engines instances") })
     public int resetProcedureEngines(String names) {
         return super.resetProcedureEngines(names);
     }
@@ -241,7 +247,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Sets the indicator to speed up the initialization process.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "lazyInit", description = "The indicator to speed up the initialization process.") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "lazyInit", description = "The indicator to speed up the initialization process.") })
     public void setLazyInit(boolean lazyInit) {
         super.setLazyInit(lazyInit);
     }
@@ -260,7 +267,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Sets the number of threads used for asynchronous initialization")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "asyncInitThreads", description = "The number of threads used for asynchronous initialization.") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "asyncInitThreads", description = "The number of threads used for asynchronous initialization.") })
     public void setAsyncInitThreads(Integer asyncInitThreads) {
         super.setAsyncInitThreads(asyncInitThreads);
     }
@@ -279,7 +287,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Sets the initialization threshold. The engines, which usage is at least this number should be initialized directly.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "initTreshold", description = "The initialization threshold.") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "initTreshold", description = "The initialization threshold.") })
     public void setInitTreshold(Integer initTreshold) {
         super.setInitTreshold(initTreshold);
     }
@@ -295,7 +304,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
 
     @Override
     @ManagedOperation(description = "Sets the indicator that the most frequently used engines should be initialized preferentially.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "initTreshold", description = "The indicator value.") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "initTreshold", description = "The indicator value.") })
     public void setInitInUsageOrder(Boolean initInUsageOrder) {
         super.setInitInUsageOrder(initInUsageOrder);
     }
@@ -350,7 +360,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Returns the Query Engine usage number.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Query Engine") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "name", description = "The name of the SQL Query Engine") })
     public int getQueryEngineUsage(String name) {
         return super.getQueryEngineUsage(name);
     }
@@ -360,7 +371,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Returns the CRUD Engine usage number.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL CRUD Engine") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "name", description = "The name of the SQL CRUD Engine") })
     public int getCrudEngineUsage(String name) {
         return super.getCrudEngineUsage(name);
     }
@@ -370,7 +382,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Returns the Procedure Engine usage number.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Procedure Engine") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "name", description = "The name of the SQL Procedure Engine") })
     public int getProcedureEngineUsage(String name) {
         return super.getProcedureEngineUsage(name);
     }
@@ -380,7 +393,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Resets the Query Engine usage number.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Query Engine") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "name", description = "The name of the SQL Query Engine") })
     public int resetQueryEngineUsage(String name) {
         return super.resetQueryEngineUsage(name);
     }
@@ -390,7 +404,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Resets the CRUD Engine usage number.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL CRUD Engine") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "name", description = "The name of the SQL CRUD Engine") })
     public int resetCrudEngineUsage(String name) {
         return super.resetCrudEngineUsage(name);
     }
@@ -400,7 +415,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Resets the Procedure Engine usage number.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "name", description = "The name of the SQL Procedure Engine") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "name", description = "The name of the SQL Procedure Engine") })
     public int resetProcedureEngineUsage(String name) {
         return super.resetProcedureEngineUsage(name);
     }
@@ -452,9 +468,27 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Sets the indicator that the processing cache can be used.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "useProcessingCache", description = "The indicator that the processing cache can be used") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "useProcessingCache", description = "The indicator that the processing cache can be used") })
     public void setUseProcessingCache(Boolean useProcessingCache) {
         super.setUseProcessingCache(useProcessingCache);
+    }
+
+    @Override
+    @ManagedOperation(description = "Returns the indicator that the processing cache can be used dynamically.")
+    public Boolean getUseDynamicProcessingCache() {
+        return super.getUseDynamicProcessingCache();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Sets the indicator that the processing cache can be used dynamically.")
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "useDynamicProcessingCache", description = "The indicator that the processing cache can be used dynamically") })
+    public void setUseDynamicProcessingCache(Boolean useDynamicProcessingCache) {
+        super.setUseDynamicProcessingCache(useDynamicProcessingCache);
     }
 
     /**
@@ -471,7 +505,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Updates the positive processing cache.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
     public int initDoProcessingCache(String names) {
         return super.initDoProcessingCache(names);
     }
@@ -481,7 +516,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Updates the positive processing cache.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
     public int resetDoProcessingCache(String names) {
         return super.resetDoProcessingCache(names);
     }
@@ -500,7 +536,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Updates the negative processing cache.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
     public int initDontProcessingCache(String names) {
         return super.initDontProcessingCache(names);
     }
@@ -510,7 +547,8 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      */
     @Override
     @ManagedOperation(description = "Updates the negative processing cache.")
-    @ManagedOperationParameters({ @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
+    @ManagedOperationParameters({
+            @ManagedOperationParameter(name = "names", description = "The names of the SQL Query Engines instances") })
     public int resetDontProcessingCache(String names) {
         return super.resetDontProcessingCache(names);
     }

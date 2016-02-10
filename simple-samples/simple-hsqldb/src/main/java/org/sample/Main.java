@@ -81,6 +81,7 @@ public class Main {
         sqlPluginFactory.setSqlProcessingIdPlugin(new SampleSqlProcessingIdPlugin());
         configuration = new SqlEngineConfiguration();
         configuration.setUseProcessingCache(true);
+        configuration.setUseDynamicProcessingCache(true);
 
         sqlFactory = new JdbcEngineFactory();
         sqlFactory.setMetaFilesNames("statements.meta");

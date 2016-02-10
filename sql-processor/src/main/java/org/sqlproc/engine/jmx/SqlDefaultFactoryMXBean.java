@@ -789,6 +789,26 @@ public class SqlDefaultFactoryMXBean {
     }
 
     /**
+     * Returns the indicator that the processing cache can be used dynamically
+     * 
+     * @return the indicator that the processing cache can be used dynamically
+     */
+    public Boolean getUseDynamicProcessingCache() {
+        return getConfiguration().getUseDynamicProcessingCache();
+    }
+
+    /**
+     * Sets the indicator that the processing cache can be used dynamically
+     * 
+     * @param useProcessingCache
+     *            the indicator that the processing cache can be used dynamically
+     */
+    public void setUseDynamicProcessingCache(Boolean useDynamicProcessingCache) {
+        getConfiguration().setUseDynamicProcessingCache(useDynamicProcessingCache);
+        storeConfiguration();
+    }
+
+    /**
      * Returns the list of engines, for which the processing cache can be used
      * 
      * @return the list of engines, for which the processing cache can be used
