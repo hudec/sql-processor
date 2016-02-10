@@ -99,6 +99,9 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
         ConcurrentHashMap<String, String> processingIds = isStatic ? staticProcessingIds : dynamicProcessingIds;
         Set<String> processingIdsNoCache = isStatic ? staticProcessingIdsNoCache : dynamicProcessingIdsNoCache;
 
+        if (name.toUpperCase().startsWith("INSERT"))
+            return name;
+
         try {
             if (processingIdsNoCache.contains(name) && isStatic)
                 return null;
