@@ -870,7 +870,7 @@ public class SqlDefaultFactoryMXBean {
     /**
      * Sets the indicator that the processing cache can be used dynamically
      * 
-     * @param useProcessingCache
+     * @param useDynamicProcessingCache
      *            the indicator that the processing cache can be used dynamically
      */
     public void setUseDynamicProcessingCache(Boolean useDynamicProcessingCache) {
