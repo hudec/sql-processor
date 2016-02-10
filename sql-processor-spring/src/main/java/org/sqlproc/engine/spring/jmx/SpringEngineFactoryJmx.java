@@ -210,6 +210,33 @@ public class SpringEngineFactoryJmx extends SqlDefaultFactoryMXBean {
      * {@inheritDoc}
      */
     @Override
+    @ManagedOperation(description = "Returns the processing cache statistics used for the selected SQL Query Engine.")
+    public List<String> getQueryEngineProcessingCacheStatistics(String name) {
+        return super.getQueryEngineProcessingCacheStatistics(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the processing cache statistics used for the selected SQL CRUD Engine.")
+    public List<String> getCrudEngineProcessingCacheStatistics(String name) {
+        return super.getCrudEngineProcessingCacheStatistics(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ManagedOperation(description = "Returns the processing cache statistics used for the selected SQL Procedure Engine.")
+    public List<String> getProcedureEngineProcessingCacheStatistics(String name) {
+        return super.getProcedureEngineProcessingCacheStatistics(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     @ManagedOperation(description = "Clears the processing cache used for the selected SQL Query Engine.")
     public int resetQueryEngineProcessingCache(String name, String names) {
         return super.resetQueryEngineProcessingCache(name, names);

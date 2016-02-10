@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.xml.bind.JAXBException;
 
@@ -403,6 +404,72 @@ public class SqlDefaultFactoryMXBean {
     }
 
     /**
+     * Returns the processing cache statistics used for the selected SQL Query Engine
+     * 
+     * @param name
+     *            the name of the required SQL Query Engine
+     * @return the processing cache statistics used for the selected SQL Query Engine or the error message
+     */
+    public List<String> getQueryEngineProcessingCacheStatistics(String name) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedQueryEngine(name);
+            List<String> list = new ArrayList<String>();
+            for (Entry<String, AtomicLong> e : engine.getProcessingCacheStatistics().entrySet())
+                list.add(e.getKey() + "=" + e.getValue().get());
+            Collections.sort(list);
+            return list;
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        throw new RuntimeException(errors.toString());
+    }
+
+    /**
+     * Returns the processing cache statistics used for the selected SQL CRUD Engine
+     * 
+     * @param name
+     *            the name of the required SQL CRUD Engine
+     * @return the processing cache statistics used for the selected SQL CRUD Engine or the error message
+     */
+    public List<String> getCrudEngineProcessingCacheStatistics(String name) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedCrudEngine(name);
+            List<String> list = new ArrayList<String>();
+            for (Entry<String, AtomicLong> e : engine.getProcessingCacheStatistics().entrySet())
+                list.add(e.getKey() + "=" + e.getValue().get());
+            Collections.sort(list);
+            return list;
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        throw new RuntimeException(errors.toString());
+    }
+
+    /**
+     * Returns the processing cache statistics used for the selected SQL Procedure Engine
+     * 
+     * @param name
+     *            the name of the required SQL Procedure Engine
+     * @return the processing cache statistics used for the selected SQL Procedure Engine or the error message
+     */
+    public List<String> getProcedureEngineProcessingCacheStatistics(String name) {
+        StringBuilder errors = new StringBuilder();
+        try {
+            SqlEngine engine = sqlEngineFactory.getCheckedProcedureEngine(name);
+            List<String> list = new ArrayList<String>();
+            for (Entry<String, AtomicLong> e : engine.getProcessingCacheStatistics().entrySet())
+                list.add(e.getKey() + "=" + e.getValue().get());
+            Collections.sort(list);
+            return list;
+        } catch (SqlEngineException ex) {
+            errors.append(ex.getMessage()).append("\n");
+        }
+        throw new RuntimeException(errors.toString());
+    }
+
+    /**
      * Clears the processing cache used for the selected SQL Query Engine
      * 
      * @param name
@@ -418,6 +485,7 @@ public class SqlDefaultFactoryMXBean {
             SqlEngine engine = sqlEngineFactory.getCheckedQueryEngine(name);
             for (String name0 : names.split(",")) {
                 engine.getProcessingCache().remove(name0);
+                engine.getProcessingCacheStatistics().remove(name0);
                 count++;
             }
         } catch (SqlEngineException ex) {
@@ -444,6 +512,7 @@ public class SqlDefaultFactoryMXBean {
             SqlEngine engine = sqlEngineFactory.getCheckedCrudEngine(name);
             for (String name0 : names.split(",")) {
                 engine.getProcessingCache().remove(name0);
+                engine.getProcessingCacheStatistics().remove(name0);
                 count++;
             }
         } catch (SqlEngineException ex) {
@@ -470,6 +539,7 @@ public class SqlDefaultFactoryMXBean {
             SqlEngine engine = sqlEngineFactory.getCheckedProcedureEngine(name);
             for (String name0 : names.split(",")) {
                 engine.getProcessingCache().remove(name0);
+                engine.getProcessingCacheStatistics().remove(name0);
                 count++;
             }
         } catch (SqlEngineException ex) {
