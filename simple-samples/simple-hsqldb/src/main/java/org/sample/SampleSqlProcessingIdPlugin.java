@@ -103,9 +103,14 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
             if (processingIdsNoCache.contains(name) && isStatic)
                 return null;
 
-            MethodHandle mh = lookup.findVirtual(dynamicInputValues.getClass(), "getProcessingId", mt);
-            String dynProcessingId = (String) (pIdSqlc != null ? mh.invoke(dynamicInputValues, pIdSqlc)
-                    : mh.invoke(dynamicInputValues));
+            String dynProcessingId;
+            if (dynamicInputValues == null) {
+                dynProcessingId = pIdSqlc != null ? processingId + "@" + pIdSqlc : processingId;
+            } else {
+                MethodHandle mh = lookup.findVirtual(dynamicInputValues.getClass(), "getProcessingId", mt);
+                dynProcessingId = (String) (pIdSqlc != null ? mh.invoke(dynamicInputValues, pIdSqlc)
+                        : mh.invoke(dynamicInputValues));
+            }
             if (sysout)
                 System.out.println("=== " + name + ", id " + dynProcessingId);
             else
@@ -139,18 +144,27 @@ public class SampleSqlProcessingIdPlugin implements SqlProcessingIdPlugin {
                 else
                     return dynProcessingId;
             }
-        } catch (NoSuchMethodException | IllegalAccessException e) {
+        } catch (NoSuchMethodException |
+
+        IllegalAccessException e)
+
+        {
             if (sysout)
                 System.out.println("??? " + name + ", chybi getProcessingId");
             else
                 logger.warn("??? {}, chybi getProcessingId", name);
             skipProcessingIds.add(processingId);
             return null;
-        } catch (Throwable e) {
+        } catch (
+
+        Throwable e)
+
+        {
             logger.error(name, e);
             return null;
         }
         return processingId;
+
     }
 
     String getProcessingId(SqlControl sqlControl) {
