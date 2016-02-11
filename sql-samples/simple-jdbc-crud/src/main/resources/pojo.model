@@ -1,33 +1,33 @@
 package org.sqlproc.sample.simple.model {
 
 
-    #InheritanceChild(BA) #Serializable(1) #ToString(baAccount)
+    #InheritanceChild(BA) #Serializable(1) #ToString(baAccount) #ProcId(baAccount)
     #Pojo BankAccount extends BillingDetails {
         #IsDef
         #Attr String baAccount
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,subscriber) #Equals(id) #HashCode(id) #ToString(id,type)
+    #Serializable(1) #Index(id) #Index(subscriber) #Equals(id) #HashCode(id) #ToString(id,type) #ProcId(id,subscriber,type)
     abstract #Pojo BillingDetails {
         #PrimaryKey
         #Attr Long id
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Subscriber subscriber
         #InheritanceDiscriminator #Required
         #Attr String type
     }
 
-    #Serializable(1) #ToString(newIsbn)
+    #Serializable(1) #ToString(newIsbn) #ProcId(newIsbn)
     #Pojo NewBook extends Media {
         #Required
         #Attr String newIsbn
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,person) #Index(3,address,person) #Index(4,address) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber)
+    #Serializable(1) #Index(address) #Index(address,person) #Index(id) #Index(person) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber) #ProcId(id,person,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey
         #Attr Long id
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Person person
         #Required
         #Attr String address
@@ -35,13 +35,13 @@ package org.sqlproc.sample.simple.model {
         #Attr org.sqlproc.sample.simple.model.PhoneNumber phoneNumber
     }
 
-    #InheritanceChild(CC) #Serializable(1) #ToString(ccNumber)
+    #InheritanceChild(CC) #Serializable(1) #ToString(ccNumber) #ProcId(ccNumber)
     #Pojo CreditCard extends BillingDetails {
         #IsDef
         #Attr Long ccNumber
     }
 
-    #Serializable(1) #Index(1,id) #Equals(id) #HashCode(id) #ToString(id,name)
+    #Serializable(1) #Index(id) #Equals(id) #HashCode(id) #ToString(id,name) #ProcId(id,name)
     #Pojo Library {
         #PrimaryKey
         #Attr Long id
@@ -53,17 +53,17 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Subscriber> subscribers
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,author) #Equals(id) #HashCode(id) #ToString(id,title)
+    #Serializable(1) #Index(author) #Index(id) #Equals(id) #HashCode(id) #ToString(id,title) #ProcId(id,title,author)
     #Pojo Media {
         #PrimaryKey
         #Attr Long id
         #Required
         #Attr String title
-        #IsDef #ToInit
+        #IsDef #ToInit #IsPojo
         #Attr Performer author
     }
 
-    #Serializable(1) #ToString(urlimdb,playlength)
+    #Serializable(1) #ToString(urlimdb,playlength) #ProcId(urlimdb,playlength)
     #Pojo Movie extends Media {
         #Required
         #Attr String urlimdb
@@ -71,27 +71,27 @@ package org.sqlproc.sample.simple.model {
         #Attr Integer playlength
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,billingDetails) #Equals(id) #HashCode(id) #ToString(id,paid)
+    #Serializable(1) #Index(billingDetails) #Index(id) #Equals(id) #HashCode(id) #ToString(id,paid) #ProcId(id,billingDetails,paid)
     #Pojo Payment {
         #PrimaryKey
         #Attr Long id
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr BillingDetails billingDetails
         #Required
         #Attr java.sql.Timestamp paid
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,person) #Equals(id) #HashCode(id) #ToString(id)
+    #Serializable(1) #Index(id) #Index(person) #Equals(id) #HashCode(id) #ToString(id) #ProcId(id,person)
     #Pojo Performer {
         #PrimaryKey
         #Attr Long id
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Person person
         #ToInit
         #Attr java.util.List <Media> work
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,lastName,firstName) #Index(3,lastName) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,ssn,passport)
+    #Serializable(1) #Index(id) #Index(lastName) #Index(lastName,firstName) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,ssn,passport) #ProcId(id,firstName,lastName,dateOfBirth,ssn,passport)
     #Pojo Person {
         #PrimaryKey
         #Attr Long id
@@ -111,7 +111,7 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Media> library
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,personId) #Index(3,mediaId) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId)
+    #Serializable(1) #Index(id) #Index(mediaId) #Index(personId) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId) #ProcId(id,personId,mediaId)
     #Pojo PersonLibrary {
         #PrimaryKey
         #Attr Long id
@@ -121,29 +121,42 @@ package org.sqlproc.sample.simple.model {
         #Attr Long mediaId
     }
 
-    #Serializable(1) #Index(1,id) #Equals(id) #HashCode(id) #ToString(id,location)
+    #Serializable(1) #Index(id) #Equals(id) #HashCode(id) #ToString(id,location) #ProcId(id,location,media,library)
     #Pojo PhysicalMedia {
         #PrimaryKey
         #Attr Long id
         #Required
         #Attr String location
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Media media
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Library library
     }
 
-    #Serializable(1) #Index(1,id) #Index(2,library) #Equals(id) #HashCode(id) #ToString(id,name)
+    #Serializable(1) #Index(id) #Index(library) #Equals(id) #HashCode(id) #ToString(id,name) #ProcId(id,library,contact,name)
     #Pojo Subscriber {
         #PrimaryKey
         #Attr Long id
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Library library
-        #IsDef #ToInit
+        #IsDef #ToInit #IsPojo
         #Attr Contact contact
         #Required
         #Attr String name
         #ToInit
         #Attr java.util.List <BillingDetails> billingDetails
     }
+
+// Model statistics
+// Tables=12
+// Columns=40
+// Primary Keys=10
+// Exports=10
+// Imports=10
+// Indexes=24
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0
 }

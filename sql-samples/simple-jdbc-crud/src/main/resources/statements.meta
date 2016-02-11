@@ -99,7 +99,6 @@ SELECT_NEW_BOOK(QRY,in=NewBook,out=NewBook,tab=book=b,tab=media=m,tab=performer=
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
   }
-  {#1 order by %b.MEDIA_ID }
 ;
 
 INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
@@ -150,10 +149,10 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER = :phoneNumber(type=phone) }
   }
-  {#1 order by %c.ID }
-  {#2 order by %c.PERSON_ID }
-  {#3 order by %c.ADDRESS, %c.PERSON_ID }
-  {#4 order by %c.ADDRESS }
+  {#ADDRESS order by %c.ADDRESS }
+  {#ADDRESS_PERSON order by %c.ADDRESS, %c.PERSON_ID }
+  {#ID order by %c.ID }
+  {#PERSON order by %c.PERSON_ID }
 ;
 
 INSERT_CREDIT_CARD(CRUD,in=CreditCard,out=CreditCard,tab=billingDetails)=
@@ -252,7 +251,7 @@ SELECT_LIBRARY(QRY,in=Library,out=Library,tab=library=l,tab=physicalMedia=p,tab=
     {& %l.ID = :id }
     {& UPPER(%l.NAME) like :+name }
   }
-  {#1 order by %l.ID }
+  {#ID order by %l.ID }
 ;
 
 INSERT_MEDIA(CRUD,in=Media,out=Media,tab=media)=
@@ -300,8 +299,8 @@ SELECT_MEDIA(QRY,in=Media,out=Media,tab=media=m,tab=performer=p)=
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
   }
-  {#1 order by %m.ID }
-  {#2 order by %m.AUTHOR }
+  {#AUTHOR order by %m.AUTHOR }
+  {#ID order by %m.ID }
 ;
 
 INSERT_MOVIE(CRUD,in=Movie,out=Movie,tab=movie)=
@@ -357,7 +356,6 @@ SELECT_MOVIE(QRY,in=Movie,out=Movie,tab=movie=m,tab=media=m1,tab=performer=p)=
     {& UPPER(%m1.TITLE) like :+title }
     {& %m1.AUTHOR = :author.id }
   }
-  {#1 order by %m.MEDIA_ID }
 ;
 
 INSERT_PAYMENT(CRUD,in=Payment,out=Payment,tab=payment)=
@@ -405,8 +403,8 @@ SELECT_PAYMENT(QRY,in=Payment,out=Payment,tab=payment=p,tab=billingDetails=b)=
     {& %p.BILLING_DETAILS = :billingDetails.id }
     {& %p.PAID = :paid }
   }
-  {#1 order by %p.ID }
-  {#2 order by %p.BILLING_DETAILS }
+  {#BILLING_DETAILS order by %p.BILLING_DETAILS }
+  {#ID order by %p.ID }
 ;
 
 INSERT_PERFORMER(CRUD,in=Performer,out=Performer,tab=performer)=
@@ -455,8 +453,8 @@ SELECT_PERFORMER(QRY,in=Performer,out=Performer,tab=performer=p,tab=media=m,tab=
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }
   }
-  {#1 order by %p.ID }
-  {#2 order by %p.PERSON_ID }
+  {#ID order by %p.ID }
+  {#PERSON order by %p.PERSON_ID }
 ;
 
 INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
@@ -514,9 +512,9 @@ SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c,tab=personLibr
     {& %p.DATE_OF_BIRTH = :dateOfBirth }
     {& UPPER(%p.SSN) like :+ssn }
   }
-  {#1 order by %p.ID }
-  {#2 order by %p.LAST_NAME, %p.FIRST_NAME }
-  {#3 order by %p.LAST_NAME }
+  {#ID order by %p.ID }
+  {#LAST_NAME order by %p.LAST_NAME }
+  {#LAST_NAME_FIRST_NAME order by %p.LAST_NAME, %p.FIRST_NAME }
 ;
 
 INSERT_PERSON_LIBRARY(CRUD,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
@@ -560,9 +558,9 @@ SELECT_PERSON_LIBRARY(QRY,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
     {& %PERSON_ID = :personId }
     {& %MEDIA_ID = :mediaId }
   }
-  {#1 order by %ID }
-  {#2 order by %PERSON_ID }
-  {#3 order by %MEDIA_ID }
+  {#ID order by %ID }
+  {#MEDIA_ID order by %MEDIA_ID }
+  {#PERSON_ID order by %PERSON_ID }
 ;
 
 INSERT_PHYSICAL_MEDIA(CRUD,in=PhysicalMedia,out=PhysicalMedia,tab=physicalMedia)=
@@ -617,7 +615,7 @@ SELECT_PHYSICAL_MEDIA(QRY,in=PhysicalMedia,out=PhysicalMedia,tab=physicalMedia=p
     {& %p.MEDIA = :media.id }
     {& %p.LIBRARY = :library.id }
   }
-  {#1 order by %p.ID }
+  {#ID order by %p.ID }
 ;
 
 INSERT_SUBSCRIBER(CRUD,in=Subscriber,out=Subscriber,tab=subscriber)=
@@ -676,6 +674,19 @@ SELECT_SUBSCRIBER(QRY,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=billingD
     {& %s.CONTACT = :contact.id }
     {& UPPER(%s.NAME) like :+name }
   }
-  {#1 order by %s.ID }
-  {#2 order by %s.LIBRARY }
+  {#ID order by %s.ID }
+  {#LIBRARY order by %s.LIBRARY }
 ;
+
+// Model statistics
+// Tables=12
+// Columns=40
+// Primary Keys=10
+// Exports=10
+// Imports=10
+// Indexes=24
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0

@@ -2,17 +2,17 @@ package org.sqlproc.sample.simple.model {
 
     extends org.sqlproc.sample.simple.model.impl.BaseModelImpl
 
-    #InheritanceChild(BA) #Serializable(1) #ToString(baAccount)
+    #InheritanceChild(BA) #Serializable(1) #ToString(baAccount) #ProcId(baAccount)
     final #Pojo BankAccount extends BillingDetails {
         #IsDef
         #Attr String baAccount
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,version) #ProcId(id,subscriber,type,version)
     final abstract #Pojo BillingDetails {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #ToInit #Required #Index(2)
+        #ToInit #Required #Index #IsPojo
         #Attr Subscriber subscriber
         #InheritanceDiscriminator #Required
         #Attr String type
@@ -20,17 +20,17 @@ package org.sqlproc.sample.simple.model {
         #Attr Integer version
     }
 
-    #Serializable(1) #ToString(newIsbn)
+    #Serializable(1) #ToString(newIsbn) #ProcId(newIsbn)
     final #Pojo NewBook extends Media {
         #Required
         #Attr String newIsbn
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber,version) #ProcId(id,person,address,phoneNumber,version)
     final #Pojo Contact {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #ToInit #Required #Index(2)
+        #ToInit #Required #Index #IsPojo
         #Attr Person person
         #Required
         #Attr String address
@@ -40,15 +40,15 @@ package org.sqlproc.sample.simple.model {
         #Attr Integer version
     }
 
-    #InheritanceChild(CC) #Serializable(1) #ToString(ccNumber)
+    #InheritanceChild(CC) #Serializable(1) #ToString(ccNumber) #ProcId(ccNumber)
     final #Pojo CreditCard extends BillingDetails {
         #IsDef
         #Attr Long ccNumber
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name,version) #ProcId(id,name,version)
     final #Pojo Library {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
         #Required
         #Attr String name
@@ -60,19 +60,19 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Subscriber> subscribers
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,title,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,title,version) #ProcId(id,title,author,version)
     final #Pojo Media {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
         #Required
         #Attr String title
-        #IsDef #ToInit #Index(2)
+        #IsDef #ToInit #Index #IsPojo
         #Attr Performer author
         #Version
         #Attr Integer version
     }
 
-    #Serializable(1) #ToString(urlimdb,playlength)
+    #Serializable(1) #ToString(urlimdb,playlength) #ProcId(urlimdb,playlength)
     final #Pojo Movie extends Media {
         #Required
         #Attr String urlimdb
@@ -80,11 +80,11 @@ package org.sqlproc.sample.simple.model {
         #Attr Integer playlength
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,paid,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,paid,version) #ProcId(id,billingDetails,paid,version)
     final #Pojo Payment {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #ToInit #Required #Index(2)
+        #ToInit #Required #Index #IsPojo
         #Attr BillingDetails billingDetails
         #Required
         #Attr java.sql.Timestamp paid
@@ -92,11 +92,11 @@ package org.sqlproc.sample.simple.model {
         #Attr Integer version
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,ver)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,ver) #ProcId(id,person,ver)
     final #Pojo Performer {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #ToInit #Required #Index(2)
+        #ToInit #Required #Index #IsPojo
         #Attr Person person
         #Version
         #Attr Integer ver
@@ -104,13 +104,13 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Media> work
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,ssn,version,passport)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,ssn,version,passport) #ProcId(id,firstName,lastName,dateOfBirth,ssn,version,passport)
     final #Pojo Person {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
         #Required
         #Attr String firstName
-        #Required #Index(2)
+        #Required #Index
         #Attr String lastName
         #IsDef
         #Attr java.util.Date dateOfBirth
@@ -126,37 +126,37 @@ package org.sqlproc.sample.simple.model {
         #Attr java.util.List <Media> library
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId) #ProcId(id,personId,mediaId)
     final #Pojo PersonLibrary {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #Required #Index(2)
+        #Required #Index
         #Attr Long personId
-        #Required #Index(3)
+        #Required #Index
         #Attr Long mediaId
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,location,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,location,version) #ProcId(id,location,media,library,version)
     final #Pojo PhysicalMedia {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
         #Required
         #Attr String location
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Media media
-        #ToInit #Required
+        #ToInit #Required #IsPojo
         #Attr Library library
         #Version
         #Attr Integer version
     }
 
-    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name,version)
+    #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name,version) #ProcId(id,library,contact,name,version)
     final #Pojo Subscriber {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #ToInit #Required #Index(2)
+        #ToInit #Required #Index #IsPojo
         #Attr Library library
-        #IsDef #ToInit
+        #IsDef #ToInit #IsPojo
         #Attr Contact contact
         #Required
         #Attr String name
@@ -165,4 +165,17 @@ package org.sqlproc.sample.simple.model {
         #ToInit
         #Attr java.util.List <BillingDetails> billingDetails
     }
+
+// Model statistics
+// Tables=12
+// Columns=49
+// Primary Keys=10
+// Exports=10
+// Imports=10
+// Indexes=21
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0
 }

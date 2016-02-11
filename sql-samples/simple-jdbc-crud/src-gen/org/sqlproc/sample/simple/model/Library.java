@@ -12,7 +12,7 @@ import org.sqlproc.sample.simple.model.Subscriber;
 public class Library implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   public Library() {
   }
@@ -82,6 +82,15 @@ public class Library implements Serializable {
     return this;
   }
   
+  public StringBuilder getProcessingIdForAttributes() {
+    StringBuilder result = new StringBuilder("Library");
+    if (id != null)
+    	result.append("@").append("id");
+    if (name != null)
+    	result.append("@").append("name");
+    return result;
+  }
+  
   @Override
   public boolean equals(final Object obj) {
     if (this == obj)
@@ -98,10 +107,7 @@ public class Library implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
@@ -191,5 +197,29 @@ public class Library implements Serializable {
   
   public void clearAllInit() {
     initAssociations = new java.util.HashSet<String>();
+  }
+  
+  public StringBuilder getProcessingIdForAssociations() {
+    if (initAssociations == null || initAssociations.isEmpty())
+    	return null;
+    StringBuilder result = new StringBuilder("ASSOC");
+    for (Association association : Association.values()) {
+    	if (initAssociations.contains(association.name()))
+    		result.append("@").append(association.name());
+    }
+    return result;
+  }
+  
+  public String getProcessingId(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes();
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+    if (processingIdForAssociations != null)
+    	result.append(",").append(processingIdForAssociations);
+    if (moreAttributes != null && moreAttributes.length > 0) {
+    	result.append(",MORE");
+    	for (String moreAttr : moreAttributes)
+    		result.append("@").append(moreAttr);
+    }
+    return result.toString();
   }
 }

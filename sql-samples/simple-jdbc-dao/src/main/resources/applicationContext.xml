@@ -29,6 +29,12 @@
     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="5" />
     </bean>
+
+	<bean id="sqlProcessingIdPlugin" class="org.sqlproc.sample.simple.SampleSqlProcessingIdPlugin"/>
+	
+	<bean id="pluginFactory" class="org.sqlproc.engine.plugin.SimpleSqlPluginFactory" factory-method="getInstance" >
+    	<property name="sqlProcessingIdPlugin" ref="sqlProcessingIdPlugin" />
+    </bean>
     
     <bean id="sqlFactory" class="org.sqlproc.engine.spring.SpringEngineFactory" init-method="init">
         <property name="metaFilesNames">
@@ -43,6 +49,7 @@
         </property>
         <property name="filter" value="HSQLDB" />
         <property name="executor" ref="taskExecutor" />
+		<property name="pluginFactory" ref="pluginFactory"/>
     </bean>
 
     <bean id="dao" autowire="byType" abstract="true">

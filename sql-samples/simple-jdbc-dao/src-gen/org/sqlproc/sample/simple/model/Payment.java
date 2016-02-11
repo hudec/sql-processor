@@ -12,9 +12,9 @@ import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 public class Payment extends BaseModelImpl implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
-  public final static int ORDER_BY_BILLING_DETAILS = 2;
+  public final static String ORDER_BY_BILLING_DETAILS = "BILLING_DETAILS";
   
   public Payment() {
   }
@@ -85,6 +85,19 @@ public class Payment extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  public StringBuilder getProcessingIdForAttributes() {
+    StringBuilder result = new StringBuilder("Payment");
+    if (id != null)
+    	result.append("@").append("id");
+    if (billingDetails != null)
+    	result.append("@").append("{").append(billingDetails.getProcessingIdForAttributes()).append("}");
+    if (paid != null)
+    	result.append("@").append("paid");
+    if (version != null)
+    	result.append("@").append("version");
+    return result;
+  }
+  
   @Override
   public boolean equals(final Object obj) {
     if (this == obj)
@@ -101,10 +114,7 @@ public class Payment extends BaseModelImpl implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
@@ -192,5 +202,29 @@ public class Payment extends BaseModelImpl implements Serializable {
   
   public void clearAllInit() {
     initAssociations = new java.util.HashSet<String>();
+  }
+  
+  public StringBuilder getProcessingIdForAssociations() {
+    if (initAssociations == null || initAssociations.isEmpty())
+    	return null;
+    StringBuilder result = new StringBuilder("ASSOC");
+    for (Association association : Association.values()) {
+    	if (initAssociations.contains(association.name()))
+    		result.append("@").append(association.name());
+    }
+    return result;
+  }
+  
+  public String getProcessingId(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes();
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+    if (processingIdForAssociations != null)
+    	result.append(",").append(processingIdForAssociations);
+    if (moreAttributes != null && moreAttributes.length > 0) {
+    	result.append(",MORE");
+    	for (String moreAttr : moreAttributes)
+    		result.append("@").append(moreAttr);
+    }
+    return result.toString();
   }
 }

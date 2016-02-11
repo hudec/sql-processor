@@ -12,9 +12,11 @@ import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
+import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.sample.simple.dao.BankAccountDao;
 import org.sqlproc.sample.simple.dao.ContactDao;
@@ -48,7 +50,8 @@ public class Main {
 
     private Connection connection;
     private SqlSessionFactory sessionFactory;
-    private SqlEngineFactory sqlFactory;
+    private SqlEngineConfiguration configuration;
+    private JdbcEngineFactory sqlFactory;
     private List<String> ddls;
 
     static {
@@ -60,12 +63,17 @@ public class Main {
     }
 
     public Main() throws SQLException {
-        JdbcEngineFactory factory = new JdbcEngineFactory(5);
-        factory.setMetaFilesNames("statements.meta");
-        factory.addCustomType(new PhoneNumberType());
-        factory.setFilter(SqlFeature.HSQLDB);
-        factory.init();
-        this.sqlFactory = factory;
+        SimpleSqlPluginFactory sqlPluginFactory = (SimpleSqlPluginFactory) SimpleSqlPluginFactory.getInstance();
+        sqlPluginFactory.setSqlProcessingIdPlugin(new SampleSqlProcessingIdPlugin());
+        configuration = new SqlEngineConfiguration();
+        configuration.setUseProcessingCache(true);
+        configuration.setUseDynamicProcessingCache(true);
+
+        sqlFactory = new JdbcEngineFactory(5);
+        sqlFactory.setMetaFilesNames("statements.meta");
+        sqlFactory.addCustomType(new PhoneNumberType());
+        sqlFactory.setFilter(SqlFeature.HSQLDB);
+        sqlFactory.setConfiguration(configuration);
 
         ddls = DDLLoader.getDDLs(this.getClass(), "hsqldb.ddl");
         connection = DriverManager.getConnection("jdbc:hsqldb:mem:sqlproc", "sa", "");

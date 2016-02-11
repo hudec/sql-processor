@@ -102,7 +102,7 @@ SELECT_NEW_BOOK(QRY,final=,in=NewBook,out=NewBook,tab=book=b,tab=media=m,tab=per
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
   }
-  {#1 order by %b.MEDIA_ID }
+  {#ID order by %b.MEDIA_ID }
 ;
 
 INSERT_CONTACT(CRUD,final=,in=Contact,out=Contact,tab=contact)=
@@ -156,8 +156,8 @@ SELECT_CONTACT(QRY,final=,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER = :phoneNumber(type=phone) }
   }
-  {#1 order by %c.ID }
-  {#2 order by %c.PERSON_ID }
+  {#ID order by %c.ID }
+  {#PERSON order by %c.PERSON_ID }
 ;
 
 INSERT_CREDIT_CARD(CRUD,final=,in=CreditCard,out=CreditCard,tab=billingDetails)=
@@ -262,7 +262,7 @@ SELECT_LIBRARY(QRY,final=,in=Library,out=Library,tab=library=l,tab=physicalMedia
     {& %l.ID = :id }
     {& UPPER(%l.NAME) like :+name }
   }
-  {#1 order by %l.ID }
+  {#ID order by %l.ID }
 ;
 
 INSERT_MEDIA(CRUD,final=,in=Media,out=Media,tab=media)=
@@ -313,8 +313,8 @@ SELECT_MEDIA(QRY,final=,in=Media,out=Media,tab=media=m,tab=performer=p)=
     {& UPPER(%m.TITLE) like :+title }
     {& %m.AUTHOR = :author.id }
   }
-  {#1 order by %m.ID }
-  {#2 order by %m.AUTHOR }
+  {#ID order by %m.ID }
+  {#AUTHOR order by %m.AUTHOR }
 ;
 
 INSERT_MOVIE(CRUD,final=,in=Movie,out=Movie,tab=movie)=
@@ -370,7 +370,7 @@ SELECT_MOVIE(QRY,final=,in=Movie,out=Movie,tab=movie=m,tab=media=m1,tab=performe
     {& UPPER(%m1.TITLE) like :+title }
     {& %m1.AUTHOR = :author.id }
   }
-  {#1 order by %m.MEDIA_ID }
+  {#ID order by %m.MEDIA_ID }
 ;
 
 INSERT_PAYMENT(CRUD,final=,in=Payment,out=Payment,tab=payment)=
@@ -421,8 +421,8 @@ SELECT_PAYMENT(QRY,final=,in=Payment,out=Payment,tab=payment=p,tab=billingDetail
     {& %p.BILLING_DETAILS = :billingDetails.id }
     {& %p.PAID = :paid }
   }
-  {#1 order by %p.ID }
-  {#2 order by %p.BILLING_DETAILS }
+  {#ID order by %p.ID }
+  {#BILLING_DETAILS order by %p.BILLING_DETAILS }
 ;
 
 INSERT_PERFORMER(CRUD,final=,in=Performer,out=Performer,tab=performer)=
@@ -474,8 +474,8 @@ SELECT_PERFORMER(QRY,final=,in=Performer,out=Performer,tab=performer=p,tab=media
     {& %p.ID = :id }
     {& %p.PERSON_ID = :person.id }
   }
-  {#1 order by %p.ID }
-  {#2 order by %p.PERSON_ID }
+  {#ID order by %p.ID }
+  {#PERSON order by %p.PERSON_ID }
 ;
 
 INSERT_PERSON(CRUD,final=,in=Person,out=Person,tab=person)=
@@ -536,8 +536,8 @@ SELECT_PERSON(QRY,final=,in=Person,out=Person,tab=person=p,tab=contact=c,tab=per
     {& %p.DATE_OF_BIRTH = :dateOfBirth }
     {& UPPER(%p.SSN) like :+ssn }
   }
-  {#1 order by %p.ID }
-  {#2 order by %p.LAST_NAME }
+  {#ID order by %p.ID }
+  {#LAST_NAME order by %p.LAST_NAME }
 ;
 
 INSERT_PERSON_LIBRARY(CRUD,final=,in=PersonLibrary,out=PersonLibrary,tab=personLibrary)=
@@ -581,9 +581,9 @@ SELECT_PERSON_LIBRARY(QRY,final=,in=PersonLibrary,out=PersonLibrary,tab=personLi
     {& %PERSON_ID = :personId }
     {& %MEDIA_ID = :mediaId }
   }
-  {#1 order by %ID }
-  {#2 order by %PERSON_ID }
-  {#3 order by %MEDIA_ID }
+  {#ID order by %ID }
+  {#PERSON_ID order by %PERSON_ID }
+  {#MEDIA_ID order by %MEDIA_ID }
 ;
 
 INSERT_PHYSICAL_MEDIA(CRUD,final=,in=PhysicalMedia,out=PhysicalMedia,tab=physicalMedia)=
@@ -641,7 +641,7 @@ SELECT_PHYSICAL_MEDIA(QRY,final=,in=PhysicalMedia,out=PhysicalMedia,tab=physical
     {& %p.MEDIA = :media.id }
     {& %p.LIBRARY = :library.id }
   }
-  {#1 order by %p.ID }
+  {#ID order by %p.ID }
 ;
 
 INSERT_SUBSCRIBER(CRUD,final=,in=Subscriber,out=Subscriber,tab=subscriber)=
@@ -703,6 +703,19 @@ SELECT_SUBSCRIBER(QRY,final=,in=Subscriber,out=Subscriber,tab=subscriber=s,tab=b
     {& %s.CONTACT = :contact.id }
     {& UPPER(%s.NAME) like :+name }
   }
-  {#1 order by %s.ID }
-  {#2 order by %s.LIBRARY }
+  {#ID order by %s.ID }
+  {#LIBRARY order by %s.LIBRARY }
 ;
+
+// Model statistics
+// Tables=12
+// Columns=49
+// Primary Keys=10
+// Exports=10
+// Imports=10
+// Indexes=21
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0

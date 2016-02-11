@@ -9,11 +9,11 @@ import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 public class PersonLibrary extends BaseModelImpl implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
-  public final static int ORDER_BY_PERSON_ID = 2;
+  public final static String ORDER_BY_PERSON_ID = "PERSON_ID";
   
-  public final static int ORDER_BY_MEDIA_ID = 3;
+  public final static String ORDER_BY_MEDIA_ID = "MEDIA_ID";
   
   public PersonLibrary() {
   }
@@ -69,6 +69,17 @@ public class PersonLibrary extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  public StringBuilder getProcessingIdForAttributes() {
+    StringBuilder result = new StringBuilder("PersonLibrary");
+    if (id != null)
+    	result.append("@").append("id");
+    if (personId != null)
+    	result.append("@").append("personId");
+    if (mediaId != null)
+    	result.append("@").append("mediaId");
+    return result;
+  }
+  
   @Override
   public boolean equals(final Object obj) {
     if (this == obj)
@@ -85,10 +96,7 @@ public class PersonLibrary extends BaseModelImpl implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
@@ -98,5 +106,15 @@ public class PersonLibrary extends BaseModelImpl implements Serializable {
   
   public String toStringFull() {
     return "PersonLibrary [id=" + id + ", personId=" + personId + ", mediaId=" + mediaId + "]";
+  }
+  
+  public String getProcessingId(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes();
+    if (moreAttributes != null && moreAttributes.length > 0) {
+    	result.append(",MORE");
+    	for (String moreAttr : moreAttributes)
+    		result.append("@").append(moreAttr);
+    }
+    return result.toString();
   }
 }

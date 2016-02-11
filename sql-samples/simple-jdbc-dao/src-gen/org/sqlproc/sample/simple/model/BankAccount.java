@@ -33,6 +33,14 @@ public class BankAccount extends BillingDetails implements Serializable {
     return this;
   }
   
+  public StringBuilder getProcessingIdForAttributes() {
+    StringBuilder result = new StringBuilder("BankAccount");
+    if (baAccount != null)
+    	result.append("@").append("baAccount");
+    result.append("@@").append(super.getProcessingIdForAttributes());
+    return result;
+  }
+  
   @Override
   public String toString() {
     return "BankAccount [baAccount=" + baAccount + "]";
@@ -122,6 +130,17 @@ public class BankAccount extends BillingDetails implements Serializable {
     nullValues = new java.util.HashSet<String>();
   }
   
+  public StringBuilder getProcessingIdForNulls() {
+    if (nullValues == null || nullValues.isEmpty())
+    	return null;
+    StringBuilder result = new StringBuilder("NULL");
+    for (Attribute attribute : Attribute.values()) {
+    	if (nullValues.contains(attribute.name()))
+    		result.append("@").append(attribute.name());
+    }
+    return result;
+  }
+  
   public enum Association {
     subscriber;
   }
@@ -198,5 +217,32 @@ public class BankAccount extends BillingDetails implements Serializable {
   
   public void clearAllInit() {
     initAssociations = new java.util.HashSet<String>();
+  }
+  
+  public StringBuilder getProcessingIdForAssociations() {
+    if (initAssociations == null || initAssociations.isEmpty())
+    	return null;
+    StringBuilder result = new StringBuilder("ASSOC");
+    for (Association association : Association.values()) {
+    	if (initAssociations.contains(association.name()))
+    		result.append("@").append(association.name());
+    }
+    return result;
+  }
+  
+  public String getProcessingId(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes();
+    StringBuilder processingIdForNulls = getProcessingIdForNulls();
+    if (processingIdForNulls != null)
+    	result.append(",").append(processingIdForNulls);
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+    if (processingIdForAssociations != null)
+    	result.append(",").append(processingIdForAssociations);
+    if (moreAttributes != null && moreAttributes.length > 0) {
+    	result.append(",MORE");
+    	for (String moreAttr : moreAttributes)
+    		result.append("@").append(moreAttr);
+    }
+    return result.toString();
   }
 }

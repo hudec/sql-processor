@@ -60,7 +60,7 @@ package org.sample.model {
         #IsDef
         #Attr String ssn
         #IsDef
-        #Attr PersonGender gender
+        #Attr org.sample.model.PersonGender gender
         #IsDef
         #Attr java.util.Date dateOfBirth
         #IsDef

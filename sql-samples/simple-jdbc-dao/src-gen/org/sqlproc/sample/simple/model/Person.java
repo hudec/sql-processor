@@ -14,9 +14,9 @@ import org.sqlproc.sample.simple.model.impl.BaseModelImpl;
 public class Person extends BaseModelImpl implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
-  public final static int ORDER_BY_LAST_NAME = 2;
+  public final static String ORDER_BY_LAST_NAME = "LAST_NAME";
   
   public Person() {
   }
@@ -162,6 +162,25 @@ public class Person extends BaseModelImpl implements Serializable {
     return this;
   }
   
+  public StringBuilder getProcessingIdForAttributes() {
+    StringBuilder result = new StringBuilder("Person");
+    if (id != null)
+    	result.append("@").append("id");
+    if (firstName != null)
+    	result.append("@").append("firstName");
+    if (lastName != null)
+    	result.append("@").append("lastName");
+    if (dateOfBirth != null)
+    	result.append("@").append("dateOfBirth");
+    if (ssn != null)
+    	result.append("@").append("ssn");
+    if (version != null)
+    	result.append("@").append("version");
+    if (passport != null)
+    	result.append("@").append("passport");
+    return result;
+  }
+  
   @Override
   public boolean equals(final Object obj) {
     if (this == obj)
@@ -178,10 +197,7 @@ public class Person extends BaseModelImpl implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
@@ -277,6 +293,17 @@ public class Person extends BaseModelImpl implements Serializable {
     nullValues = new java.util.HashSet<String>();
   }
   
+  public StringBuilder getProcessingIdForNulls() {
+    if (nullValues == null || nullValues.isEmpty())
+    	return null;
+    StringBuilder result = new StringBuilder("NULL");
+    for (Attribute attribute : Attribute.values()) {
+    	if (nullValues.contains(attribute.name()))
+    		result.append("@").append(attribute.name());
+    }
+    return result;
+  }
+  
   public enum Association {
     contacts,
     
@@ -355,5 +382,32 @@ public class Person extends BaseModelImpl implements Serializable {
   
   public void clearAllInit() {
     initAssociations = new java.util.HashSet<String>();
+  }
+  
+  public StringBuilder getProcessingIdForAssociations() {
+    if (initAssociations == null || initAssociations.isEmpty())
+    	return null;
+    StringBuilder result = new StringBuilder("ASSOC");
+    for (Association association : Association.values()) {
+    	if (initAssociations.contains(association.name()))
+    		result.append("@").append(association.name());
+    }
+    return result;
+  }
+  
+  public String getProcessingId(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes();
+    StringBuilder processingIdForNulls = getProcessingIdForNulls();
+    if (processingIdForNulls != null)
+    	result.append(",").append(processingIdForNulls);
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+    if (processingIdForAssociations != null)
+    	result.append(",").append(processingIdForAssociations);
+    if (moreAttributes != null && moreAttributes.length > 0) {
+    	result.append(",MORE");
+    	for (String moreAttr : moreAttributes)
+    		result.append("@").append(moreAttr);
+    }
+    return result.toString();
   }
 }

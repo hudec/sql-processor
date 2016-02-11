@@ -51,4 +51,17 @@ package org.sqlproc.sample.simple.dao {
     #InheritanceHandler(billingDetails,"BA"=org.sqlproc.sample.simple.model.BankAccount,"CC"=org.sqlproc.sample.simple.model.CreditCard) #CRUD(org.sqlproc.sample.simple.model.Subscriber) #Query(org.sqlproc.sample.simple.model.Subscriber)
     #Dao SubscriberDao {
     }
+
+// Model statistics
+// Tables=12
+// Columns=40
+// Primary Keys=10
+// Exports=10
+// Imports=10
+// Indexes=24
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0
 }
