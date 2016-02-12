@@ -90,3 +90,7 @@ pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
 pojo Person org.sample.model.Person;
 pojo PersonDetail org.sample.model.PersonDetail;
 
+//database-debug-level DEBUG;
+//pojogen-debug-level DEBUG;
+//daogen-debug-level DEBUG;
+//metagen-debug-level DEBUG;

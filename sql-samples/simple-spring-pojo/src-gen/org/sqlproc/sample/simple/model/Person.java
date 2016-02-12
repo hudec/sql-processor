@@ -11,7 +11,7 @@ import org.sqlproc.sample.simple.model.Media;
 public class Person implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   public Person() {
   }
@@ -51,21 +51,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  private List<Media> library = new java.util.ArrayList<Media>();
-  
-  public List<Media> getLibrary() {
-    return this.library;
-  }
-  
-  public void setLibrary(final List<Media> library) {
-    this.library = library;
-  }
-  
-  public Person _setLibrary(final List<Media> library) {
-    this.library = library;
-    return this;
-  }
-  
   private List<Contact> contacts = new java.util.ArrayList<Contact>();
   
   public List<Contact> getContacts() {
@@ -78,6 +63,21 @@ public class Person implements Serializable {
   
   public Person _setContacts(final List<Contact> contacts) {
     this.contacts = contacts;
+    return this;
+  }
+  
+  private List<Media> library = new java.util.ArrayList<Media>();
+  
+  public List<Media> getLibrary() {
+    return this.library;
+  }
+  
+  public void setLibrary(final List<Media> library) {
+    this.library = library;
+  }
+  
+  public Person _setLibrary(final List<Media> library) {
+    this.library = library;
     return this;
   }
   
@@ -97,10 +97,7 @@ public class Person implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
@@ -109,6 +106,6 @@ public class Person implements Serializable {
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", name=" + name + ", library=" + library + ", contacts=" + contacts + "]";
+    return "Person [id=" + id + ", name=" + name + ", contacts=" + contacts + ", library=" + library + "]";
   }
 }

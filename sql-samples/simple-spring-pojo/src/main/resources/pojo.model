@@ -1,7 +1,6 @@
 package org.sqlproc.sample.simple.model {
 
 
-
     #InheritanceChild(BA)
     #Serializable(1)
     #ToString(baAccount)
@@ -15,10 +14,11 @@ package org.sqlproc.sample.simple.model {
     #ToString(id,type)
     abstract #Pojo BillingDetails {
         #PrimaryKey
-        #Index(1)
+        #Index
         #Attr Long id
         #Required
-        #Index(2)
+        #Index
+        #IsPojo
         #Attr Subscriber subscriber
         #InheritanceDiscriminator
         #Required
@@ -35,13 +35,14 @@ package org.sqlproc.sample.simple.model {
     #Serializable(1)
     #Equals(id)
     #HashCode(id)
-    #ToString(id,phoneNumber,address)
+    #ToString(id,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey
-        #Index(1)
+        #Index
         #Attr Long id
         #Required
-        #Index(2)
+        #Index
+        #IsPojo
         #Attr Person person
         #Required
         #Attr String address
@@ -61,7 +62,7 @@ package org.sqlproc.sample.simple.model {
     #ToString(id,name)
     #Pojo Library {
         #PrimaryKey
-        #Index(1)
+        #Index
         #Attr Long id
         #Required
         #Attr String name
@@ -74,14 +75,14 @@ package org.sqlproc.sample.simple.model {
     #ToString(id,title)
     abstract #Pojo Media {
         #PrimaryKey
-        #Index(1)
+        #Index
         #Attr Long id
         #Required
         #Attr String title
     }
 
     #Serializable(1)
-    #ToString(playlength,urlimdb)
+    #ToString(urlimdb,playlength)
     #Pojo Movie extends Media {
         #Required
         #Attr String urlimdb
@@ -95,40 +96,41 @@ package org.sqlproc.sample.simple.model {
     #ToString(id,name)
     #Pojo Person {
         #PrimaryKey
-        #Index(1)
+        #Index
         #Attr Long id
         #Required
         #Attr String name
-        #Attr java.util.List <Media> library
         #Attr java.util.List <Contact> contacts
+        #Attr java.util.List <Media> library
     }
 
     #Serializable(1)
     #Equals(id)
     #HashCode(id)
-    #ToString(mediaId,id,personId)
+    #ToString(id,personId,mediaId)
     #Pojo PersonLibrary {
         #PrimaryKey
-        #Index(1)
+        #Index
         #Attr Long id
         #Required
-        #Index(2)
+        #Index
         #Attr Long personId
         #Required
-        #Index(3)
+        #Index
         #Attr Long mediaId
     }
 
     #Serializable(1)
     #Equals(id)
     #HashCode(id)
-    #ToString(id,name,contact)
+    #ToString(id,contact,name)
     #Pojo Subscriber {
         #PrimaryKey
-        #Index(1)
+        #Index
         #Attr Long id
         #Required
-        #Index(2)
+        #Index
+        #IsPojo
         #Attr Library library
         #Attr Long contact
         #Required

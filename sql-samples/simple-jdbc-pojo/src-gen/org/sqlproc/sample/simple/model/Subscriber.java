@@ -11,9 +11,9 @@ import org.sqlproc.sample.simple.model.Library;
 public class Subscriber implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
-  public final static int ORDER_BY_LIBRARY = 2;
+  public final static String ORDER_BY_LIBRARY = "LIBRARY";
   
   public Subscriber() {
   }
@@ -115,10 +115,7 @@ public class Subscriber implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override

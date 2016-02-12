@@ -164,6 +164,8 @@
                                     <dependency>org.slf4j:slf4j-api</dependency>
                                 </classpath>
                                 <argument>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</argument>
+                                <argument>-control</argument>
+                                <argument>definitions.model</argument>
                                 <argument>-models</argument>
                                 <argument>pojo.model,form.model</argument>
                                 <argument>-source</argument>

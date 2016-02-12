@@ -8,9 +8,9 @@ package org.sqlproc.sample.simple.model {
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type)
     abstract #Pojo BillingDetails {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #Required #Index(2)
+        #Required #Index #IsPojo
         #Attr Subscriber subscriber
         #InheritanceDiscriminator #Required
         #Attr String type
@@ -24,9 +24,9 @@ package org.sqlproc.sample.simple.model {
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,address,phoneNumber)
     #Pojo Contact {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #Required #Index(2)
+        #Required #Index #IsPojo
         #Attr Person person
         #Required
         #Attr String address
@@ -40,7 +40,7 @@ package org.sqlproc.sample.simple.model {
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name)
     #Pojo Library {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
         #Required
         #Attr String name
@@ -49,7 +49,7 @@ package org.sqlproc.sample.simple.model {
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,title)
     abstract #Pojo Media {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
         #Required
         #Attr String title
@@ -65,7 +65,7 @@ package org.sqlproc.sample.simple.model {
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,name)
     #Pojo Person {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
         #Required
         #Attr String name
@@ -75,19 +75,19 @@ package org.sqlproc.sample.simple.model {
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,personId,mediaId)
     #Pojo PersonLibrary {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #Required #Index(2)
+        #Required #Index
         #Attr Long personId
-        #Required #Index(3)
+        #Required #Index
         #Attr Long mediaId
     }
 
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,contact,name)
     #Pojo Subscriber {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         #Attr Long id
-        #Required #Index(2)
+        #Required #Index #IsPojo
         #Attr Library library
         #Attr Long contact
         #Required

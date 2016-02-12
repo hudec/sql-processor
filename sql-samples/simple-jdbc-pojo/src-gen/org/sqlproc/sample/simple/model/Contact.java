@@ -10,9 +10,9 @@ import org.sqlproc.sample.simple.model.PhoneNumber;
 public class Contact implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
-  public final static int ORDER_BY_PERSON = 2;
+  public final static String ORDER_BY_PERSON = "PERSON";
   
   public Contact() {
   }
@@ -99,10 +99,7 @@ public class Contact implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override

@@ -8,11 +8,11 @@ import org.sqlproc.engine.annotation.Pojo;
 public class PersonLibrary implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
-  public final static int ORDER_BY_PERSON_ID = 2;
+  public final static String ORDER_BY_PERSON_ID = "PERSON_ID";
   
-  public final static int ORDER_BY_MEDIA_ID = 3;
+  public final static String ORDER_BY_MEDIA_ID = "MEDIA_ID";
   
   public PersonLibrary() {
   }
@@ -84,15 +84,12 @@ public class PersonLibrary implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
   public String toString() {
-    return "PersonLibrary [mediaId=" + mediaId + ", id=" + id + ", personId=" + personId + "]";
+    return "PersonLibrary [id=" + id + ", personId=" + personId + ", mediaId=" + mediaId + "]";
   }
   
   public String toStringFull() {
