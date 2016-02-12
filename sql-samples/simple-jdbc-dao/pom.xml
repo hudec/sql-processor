@@ -23,7 +23,7 @@
         <version.slf4j>1.7.12</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.hsqldb>2.3.2</version.hsqldb>
-        <version.sql-processor-eclipse>2.3.5</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>2.5.0-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
     <build>

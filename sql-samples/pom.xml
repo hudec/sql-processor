@@ -28,7 +28,7 @@
     </scm>
     
     <properties>
-        <version.sql-processor-eclipse>2.4.0-SNAPSHOT</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>2.5.0-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
     <profiles>

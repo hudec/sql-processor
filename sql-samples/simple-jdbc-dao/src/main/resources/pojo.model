@@ -165,17 +165,4 @@ package org.sqlproc.sample.simple.model {
         #ToInit
         #Attr java.util.List <BillingDetails> billingDetails
     }
-
-// Model statistics
-// Tables=12
-// Columns=49
-// Primary Keys=10
-// Exports=10
-// Imports=10
-// Indexes=21
-// Check Constraints=0
-// Procedures=0
-// Procedures Columns=0
-// Functions=0
-// Functions Columns=0
 }
