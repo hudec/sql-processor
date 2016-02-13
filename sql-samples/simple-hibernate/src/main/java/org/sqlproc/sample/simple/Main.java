@@ -76,7 +76,7 @@ public class Main {
         SqlSession session = null;
         try {
             session = sessionFactory.getSqlSession();
-            List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+            List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(Person.Order.NAME.name()));
             logger.info("listSome size: " + list.size());
             return list;
         } finally {
@@ -90,7 +90,7 @@ public class Main {
         SqlSession session = null;
         try {
             session = sessionFactory.getSqlSession();
-            List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+            List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(Person.Order.NAME.name()));
             logger.info("listSome size: " + list.size());
             return list;
         } finally {
@@ -168,7 +168,7 @@ public class Main {
         SqlSession session = null;
         try {
             session = sessionFactory.getSqlSession();
-            List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.ASC_ORDER);
+            List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getAscOrder(Person.Order.NAME_ADDRESS.name()));
             logger.info("listSome size: " + list.size());
             return list;
         } finally {
@@ -236,7 +236,7 @@ public class Main {
             Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
             moreResultClasses.put("movie", Movie.class);
             moreResultClasses.put("book", Book.class);
-            List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER,
+            List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlOrder.getAscOrder(Person.Order.NAME_TITLE.name()),
                     moreResultClasses);
             logger.info("listSome size: " + list.size());
             return list;
@@ -273,7 +273,7 @@ public class Main {
         SqlSession session = null;
         try {
             session = sessionFactory.getSqlSession();
-            List<Person> list = sqlEngine.query(session, Person.class, contact, SqlQueryEngine.ASC_ORDER);
+            List<Person> list = sqlEngine.query(session, Person.class, contact, SqlOrder.getAscOrder(Contact.Order.NAME_ADDRESS.name()));
             logger.info("listCustom size: " + list.size());
             return list;
         } finally {
@@ -342,7 +342,7 @@ public class Main {
             Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
             moreResultClasses.put("BA", BankAccount.class);
             moreResultClasses.put("CC", CreditCard.class);
-            List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null, SqlQueryEngine.ASC_ORDER,
+            List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null, SqlOrder.getAscOrder(Subscriber.Order.ID.name()),
                     moreResultClasses);
             logger.info("listAllSubsribersWithBillingDetails size: " + list.size());
             return list;

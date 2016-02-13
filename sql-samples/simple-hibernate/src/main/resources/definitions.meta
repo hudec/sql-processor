@@ -1,16 +1,15 @@
 resolve-pojo-on;
 database-is-offline;
 
-pojo bankAccount org.sqlproc.sample.simple.model.BankAccount;
-pojo billingDetails org.sqlproc.sample.simple.model.BillingDetails;
-pojo book org.sqlproc.sample.simple.model.Book;
-pojo contact org.sqlproc.sample.simple.model.Contact;
-pojo creditCard org.sqlproc.sample.simple.model.CreditCard;
-pojo library org.sqlproc.sample.simple.model.Library;
-pojo media org.sqlproc.sample.simple.model.Media;
-pojo movie org.sqlproc.sample.simple.model.Movie;
-pojo person org.sqlproc.sample.simple.model.Person;
-pojo personLibrary org.sqlproc.sample.simple.model.PersonLibrary;
-pojo phoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
-pojo subscriber org.sqlproc.sample.simple.model.Subscriber;
-
+pojo BankAccount org.sqlproc.sample.simple.model.BankAccount;
+pojo BillingDetails org.sqlproc.sample.simple.model.BillingDetails;
+pojo Book org.sqlproc.sample.simple.model.Book;
+pojo Contact org.sqlproc.sample.simple.model.Contact;
+pojo CreditCard org.sqlproc.sample.simple.model.CreditCard;
+pojo Library org.sqlproc.sample.simple.model.Library;
+pojo Media org.sqlproc.sample.simple.model.Media;
+pojo Movie org.sqlproc.sample.simple.model.Movie;
+pojo Person org.sqlproc.sample.simple.model.Person;
+pojo PersonLibrary org.sqlproc.sample.simple.model.PersonLibrary;
+pojo PhoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
+pojo Subscriber org.sqlproc.sample.simple.model.Subscriber;
