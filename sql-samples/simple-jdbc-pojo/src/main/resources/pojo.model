@@ -67,7 +67,7 @@ package org.sqlproc.sample.simple.model {
     #Pojo Person {
         #PrimaryKey #Index
         #Attr Long id
-        #Required
+        #Required #Index
         #Attr String name
         #Attr java.util.List <Contact> contacts
         #Attr java.util.List <Media> library
@@ -94,4 +94,17 @@ package org.sqlproc.sample.simple.model {
         #Attr String name
         #Attr java.util.List <BillingDetails> billingDetails
     }
+
+// Model statistics
+// Tables=9
+// Columns=27
+// Primary Keys=7
+// Exports=7
+// Imports=7
+// Indexes=15
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0
 }

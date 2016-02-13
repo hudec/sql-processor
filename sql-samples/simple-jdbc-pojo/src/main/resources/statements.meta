@@ -8,8 +8,8 @@ ALL_PEOPLE(QRY,in=Person,out=Person,tab=person)=
    {& %ID = :id}
    {& UPPER(%NAME) = :+name}
   }
-  {#1 order by %ID}
-  {#2 order by %NAME}
+  {#ID order by %ID}
+  {#NAME order by %NAME}
 ;
 
 LIKE_PEOPLE(QRY,in=Person,out=Person,tab=person)=
@@ -19,8 +19,8 @@ LIKE_PEOPLE(QRY,in=Person,out=Person,tab=person)=
    {& %ID = :id}
    {& UPPER(%NAME) like :+name}
   }
-  {#1 order by %ID}
-  {#2 order by %NAME}
+  {#ID order by %ID}
+  {#NAME order by %NAME}
 ;
 
 INSERT_PERSON(CRUD,in=Person,tab=person)=
@@ -62,7 +62,7 @@ ALL_PEOPLE_AND_CONTACTS(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
    {& %p.ID = :id}
    {& UPPER(%p.NAME) like :+name}
   }
-  {#1 order by %p.NAME, %c.ADDRESS}
+  {#NAME_ADDRESS order by %p.NAME, %c.ADDRESS}
 ;
 
 ALL_PEOPLE_AND_CONTACTS2(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
@@ -72,7 +72,7 @@ ALL_PEOPLE_AND_CONTACTS2(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
    {& %p.ID = :id}
    {& UPPER(%p.NAME) like :+name}
   }
-  {#1 order by %p.NAME, %c.ADDRESS}
+  {#NAME_ADDRESS order by %p.NAME, %c.ADDRESS}
 ;
 
 INSERT_MEDIA(CRUD,in=Media,tab=media)=
@@ -106,7 +106,7 @@ ALL_PEOPLE_LIBRARY(QRY,in=Person,out=Person,tab=person=p,tab=personLibrary=l,tab
    {& %p.ID = :id}
    {& UPPER(%p.NAME) like :+name}
   }
-  {#1 order by %p.NAME, %m.TITLE}
+  {#NAME_TITLE order by %p.NAME, %m.TITLE}
 ;
 
 INSERT_CONTACT_CUSTOM(CRUD,in=Contact,tab=contact)=
@@ -122,7 +122,7 @@ ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,in=Contact,out=Person,tab=person=p,tab=contac
    {& %c.ID = :id}
    {& %c.PHONE_NUMBER = :phoneNumber(type=phone)}
   }
-  {#1 order by %p.NAME, %c.ADDRESS}
+  {#NAME_ADDRESS order by %p.NAME, %c.ADDRESS}
 ;
   
 INSERT_LIBRARY(CRUD,in=Library,tab=library)=
@@ -154,7 +154,7 @@ ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,in=Subscriber,out=Subscriber,tab=subscriber=
    {& UPPER(%s.NAME)=:+name}
 //   {& %bd.TYPE = :type}
   }
-  {#1 order by %s.ID, %bd.ID}
+  {#ID order by %s.ID, %bd.ID}
 ;
   
 SIMPLE_FUNCTION(CALL,in=FormSimpleFunction)=

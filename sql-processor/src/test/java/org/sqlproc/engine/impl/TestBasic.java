@@ -26,8 +26,10 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
-        assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
+        assertContains(sql,
+                "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
+        assertContains(sql,
+                "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by p.ID");
 
@@ -136,13 +138,13 @@ public class TestBasic extends TestDatabase {
         logger.info(sql);
         assertContains(sql, "AND  p.id =");
         assertContains(sql, "AND  p.NAME_FIRST =");
-        // assertContains(sql, "AND  p.NAME_LAST =");
-        // assertContains(sql, "AND  p.SSN_NUMBER =");
+        // assertContains(sql, "AND p.NAME_LAST =");
+        // assertContains(sql, "AND p.SSN_NUMBER =");
         // assertContains(sql, "p.SSN_COUNTRY =");
         assertContains(sql, "AND  p.SEX =");
-        // assertContains(sql, "AND  p.LASTUPDATED =");
+        // assertContains(sql, "AND p.LASTUPDATED =");
         assertContains(sql, "AND  p.LASTUPDATEDBY =");
-        // assertContains(sql, "AND  p.BIRTHDATE =");
+        // assertContains(sql, "AND p.BIRTHDATE =");
         assertContains(sql, "AND  p.VERSION =");
         assertContains(sql, "order by id ASC");
 
@@ -194,13 +196,13 @@ public class TestBasic extends TestDatabase {
         logger.info(sql);
         assertContains(sql, "AND  p.id =");
         assertContains(sql, "AND  p.NAME_FIRST =");
-        // assertContains(sql, "AND  p.NAME_LAST =");
-        // assertContains(sql, "AND  p.SSN_NUMBER =");
+        // assertContains(sql, "AND p.NAME_LAST =");
+        // assertContains(sql, "AND p.SSN_NUMBER =");
         // assertContains(sql, "p.SSN_COUNTRY =");
         assertContains(sql, "AND  p.SEX =");
-        // assertContains(sql, "AND  p.LASTUPDATED =");
+        // assertContains(sql, "AND p.LASTUPDATED =");
         assertContains(sql, "AND  p.LASTUPDATEDBY =");
-        // assertContains(sql, "AND  p.BIRTHDATE =");
+        // assertContains(sql, "AND p.BIRTHDATE =");
         assertContains(sql, "AND  p.VERSION =");
         assertContains(sql, "order by id ASC");
 
@@ -266,14 +268,14 @@ public class TestBasic extends TestDatabase {
         logger.info(sql);
         assertContains(sql, "AND  p.id =");
         assertContains(sql, "OR  p.NAME_FIRST =");
-        // assertContains(sql, "AND  p.NAME_LAST =");
-        // assertContains(sql, "AND  p.SSN_NUMBER =");
+        // assertContains(sql, "AND p.NAME_LAST =");
+        // assertContains(sql, "AND p.SSN_NUMBER =");
         // assertContains(sql, "p.SSN_COUNTRY =");
         assertContains(sql, "OR  p.SEX =");
-        // assertContains(sql, "AND  p.LASTUPDATED =");
+        // assertContains(sql, "AND p.LASTUPDATED =");
         assertContains(sql, "OR  p.LASTUPDATEDBY =");
-        // assertContains(sql, "AND  p.BIRTHDATE =");
-        // assertContains(sql, "AND  p.VERSION =");
+        // assertContains(sql, "AND p.BIRTHDATE =");
+        // assertContains(sql, "AND p.VERSION =");
         assertContains(sql, "order by id ASC");
 
         List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
@@ -324,13 +326,13 @@ public class TestBasic extends TestDatabase {
         logger.info(sql);
         assertContains(sql, "AND  p.id =");
         assertContains(sql, "AND  p.NAME_FIRST =");
-        // assertContains(sql, "AND  p.NAME_LAST =");
-        // assertContains(sql, "AND  p.SSN_NUMBER =");
+        // assertContains(sql, "AND p.NAME_LAST =");
+        // assertContains(sql, "AND p.SSN_NUMBER =");
         // assertContains(sql, "p.SSN_COUNTRY =");
         assertContains(sql, "AND  p.SEX =");
-        // assertContains(sql, "AND  p.LASTUPDATED =");
+        // assertContains(sql, "AND p.LASTUPDATED =");
         assertContains(sql, "AND  p.LASTUPDATEDBY =");
-        // assertContains(sql, "AND  p.BIRTHDATE =");
+        // assertContains(sql, "AND p.BIRTHDATE =");
         assertContains(sql, "AND  p.VERSION =");
         assertContains(sql, "order by id ASC");
 
@@ -382,14 +384,14 @@ public class TestBasic extends TestDatabase {
         logger.info(sql);
         assertContains(sql, "AND  p.id =");
         assertContains(sql, "OR  p.NAME_FIRST =");
-        // assertContains(sql, "AND  p.NAME_LAST =");
-        // assertContains(sql, "AND  p.SSN_NUMBER =");
+        // assertContains(sql, "AND p.NAME_LAST =");
+        // assertContains(sql, "AND p.SSN_NUMBER =");
         // assertContains(sql, "p.SSN_COUNTRY =");
         assertContains(sql, "OR  p.SEX =");
-        // assertContains(sql, "AND  p.LASTUPDATED =");
+        // assertContains(sql, "AND p.LASTUPDATED =");
         assertContains(sql, "OR  p.LASTUPDATEDBY =");
-        // assertContains(sql, "AND  p.BIRTHDATE =");
-        // assertContains(sql, "AND  p.VERSION =");
+        // assertContains(sql, "AND p.BIRTHDATE =");
+        // assertContains(sql, "AND p.VERSION =");
         assertContains(sql, "order by id ASC");
 
         List<Person> list = sqlEngine.query(session, Person.class, new Object(), pf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
@@ -513,8 +515,10 @@ public class TestBasic extends TestDatabase {
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
         logger.info(sql);
-        assertContains(sql, "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
-        assertContains(sql, "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
+        assertContains(sql,
+                "p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country");
+        assertContains(sql,
+                "p.BIRTHDATE, p.SEX, p.CREATEDDATE, p.CREATEDBY, p.LASTUPDATED, p.LASTUPDATEDBY, p.VERSION");
         assertContains(sql, "from PERSON p");
         assertContains(sql, "order by p.ID");
 

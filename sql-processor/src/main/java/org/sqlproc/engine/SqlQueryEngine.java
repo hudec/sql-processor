@@ -96,12 +96,56 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * The ordering directive list with one ascending ordering rule.
      */
-    public static final SqlOrder ASC_ORDER = SqlOrder.getAscOrder(1);
+    public static final SqlOrder ASC_ORDER = ASC_ORDER(1);
 
     /**
      * The ordering directive list with one descending ordering rule.
      */
-    public static final SqlOrder DESC_ORDER = SqlOrder.getDescOrder(1);
+    public static final SqlOrder DESC_ORDER = DESC_ORDER(1);
+
+    /**
+     * The ordering directive list with one ascending ordering rule.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list
+     */
+    public static SqlOrder ASC_ORDER(int orderId) {
+        return SqlOrder.getAscOrder(orderId);
+    };
+
+    /**
+     * The ordering directive list with one ascending ordering rule.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list
+     */
+    public static SqlOrder ASC_ORDER(String orderId) {
+        return SqlOrder.getAscOrder(orderId);
+    };
+
+    /**
+     * The ordering directive list with one descending ordering rule.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list
+     */
+    public static SqlOrder DESC_ORDER(int orderId) {
+        return SqlOrder.getDescOrder(orderId);
+    };
+
+    /**
+     * The ordering directive list with one descending ordering rule.
+     * 
+     * @param orderId
+     *            the ordering id
+     * @return the ordering directive list
+     */
+    public static SqlOrder DESC_ORDER(String orderId) {
+        return SqlOrder.getDescOrder(orderId);
+    };
 
     /**
      * Creates a new instance of the SqlQueryEngine from one META SQL query string and one SQL mapping rule string.
@@ -126,8 +170,9 @@ public class SqlQueryEngine extends SqlEngine {
     public SqlQueryEngine(String name, String statement, String mapping, SqlTypeFactory typeFactory,
             SqlPluginFactory pluginFactory) throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(name, mapping, typeFactory) : null, null, null, typeFactory, pluginFactory, null);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory),
+                (mapping != null) ? SqlMappingRule.getInstance(name, mapping, typeFactory) : null, null, null,
+                typeFactory, pluginFactory, null);
     }
 
     /**
@@ -157,10 +202,11 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public SqlQueryEngine(String name, String statement, String mapping, SqlMonitor monitor,
             Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory)
-            throws SqlEngineException {
+                    throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(name, mapping, typeFactory) : null, monitor, features, typeFactory, pluginFactory, null);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory),
+                (mapping != null) ? SqlMappingRule.getInstance(name, mapping, typeFactory) : null, monitor, features,
+                typeFactory, pluginFactory, null);
     }
 
     /**
@@ -251,8 +297,8 @@ public class SqlQueryEngine extends SqlEngine {
      * parameters description please see the most complex execution method {@link #query(SqlSession, Class resultClass,
      * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
-    public <E> List<E> query(SqlSession session, Class<E> resultClass) throws SqlProcessorException,
-            SqlRuntimeException {
+    public <E> List<E> query(SqlSession session, Class<E> resultClass)
+            throws SqlProcessorException, SqlRuntimeException {
         return query(session, resultClass, null, (SqlStandardControl) null);
     }
 
@@ -294,12 +340,11 @@ public class SqlQueryEngine extends SqlEngine {
      * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
-            Object staticInputValues, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
-            SqlRuntimeException {
+            Object staticInputValues, final Map<String, Class<?>> moreResultClasses)
+                    throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return query(session, resultClass, dynamicInputValues,
-                new SqlStandardControl().setStaticInputValues(staticInputValues)
-                        .setMoreResultClasses(moreResultClasses));
+        return query(session, resultClass, dynamicInputValues, new SqlStandardControl()
+                .setStaticInputValues(staticInputValues).setMoreResultClasses(moreResultClasses));
     }
 
     /**
@@ -321,14 +366,10 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, SqlOrder order, final Map<String, Class<?>> moreResultClasses)
-            throws SqlProcessorException, SqlRuntimeException {
+                    throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return query(
-                session,
-                resultClass,
-                dynamicInputValues,
-                new SqlStandardControl().setStaticInputValues(staticInputValues).setOrder(order)
-                        .setMoreResultClasses(moreResultClasses));
+        return query(session, resultClass, dynamicInputValues, new SqlStandardControl()
+                .setStaticInputValues(staticInputValues).setOrder(order).setMoreResultClasses(moreResultClasses));
     }
 
     /**
@@ -338,8 +379,8 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues, Integer firstResult,
             Integer maxResults) throws SqlProcessorException, SqlRuntimeException {
-        return query(session, resultClass, dynamicInputValues, new SqlStandardControl().setMaxResults(maxResults)
-                .setFirstResult(firstResult));
+        return query(session, resultClass, dynamicInputValues,
+                new SqlStandardControl().setMaxResults(maxResults).setFirstResult(firstResult));
     }
 
     /**
@@ -348,12 +389,11 @@ public class SqlQueryEngine extends SqlEngine {
      * Object, Object, SqlOrder, Integer, Integer, Integer, Map)} .
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
-            Object staticInputValues, Integer firstResult, Integer maxResults) throws SqlProcessorException,
-            SqlRuntimeException {
+            Object staticInputValues, Integer firstResult, Integer maxResults)
+                    throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return query(session, resultClass, dynamicInputValues,
-                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxResults(maxResults)
-                        .setFirstResult(firstResult));
+        return query(session, resultClass, dynamicInputValues, new SqlStandardControl()
+                .setStaticInputValues(staticInputValues).setMaxResults(maxResults).setFirstResult(firstResult));
     }
 
     /**
@@ -365,10 +405,7 @@ public class SqlQueryEngine extends SqlEngine {
             final Object staticInputValues, final SqlOrder order, final Integer maxTimeout, final Integer maxResults,
             final Integer firstResult) throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return query(
-                session,
-                resultClass,
-                dynamicInputValues,
+        return query(session, resultClass, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setOrder(order)
                         .setMaxTimeout(maxTimeout).setMaxResults(maxResults).setFirstResult(firstResult));
     }
@@ -422,13 +459,10 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final SqlOrder order, final Integer maxTimeout, final Integer maxResults,
-            final Integer firstResult, final Map<String, Class<?>> moreResultClasses) throws SqlProcessorException,
-            SqlRuntimeException {
+            final Integer firstResult, final Map<String, Class<?>> moreResultClasses)
+                    throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return query(
-                session,
-                resultClass,
-                dynamicInputValues,
+        return query(session, resultClass, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setOrder(order)
                         .setMaxTimeout(maxTimeout).setMaxResults(maxResults).setFirstResult(firstResult)
                         .setMoreResultClasses(moreResultClasses));
@@ -532,8 +566,8 @@ public class SqlQueryEngine extends SqlEngine {
      */
     @Beta
     public <E> Integer query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
-            final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor) throws SqlProcessorException,
-            SqlRuntimeException {
+            final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor)
+                    throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
@@ -584,8 +618,8 @@ public class SqlQueryEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #queryCount(SqlSession, Object, Object, SqlOrder, Integer)} .
      */
-    public int queryCount(SqlSession session, Object dynamicInputValues) throws SqlProcessorException,
-            SqlRuntimeException {
+    public int queryCount(SqlSession session, Object dynamicInputValues)
+            throws SqlProcessorException, SqlRuntimeException {
         return queryCount(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
@@ -597,7 +631,8 @@ public class SqlQueryEngine extends SqlEngine {
     public int queryCount(SqlSession session, Object dynamicInputValues, Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return queryCount(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues));
+        return queryCount(session, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues));
     }
 
     /**
@@ -744,8 +779,8 @@ public class SqlQueryEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    public String getSql(final Object dynamicInputValues, final SqlControl sqlControl) throws SqlProcessorException,
-            SqlRuntimeException {
+    public String getSql(final Object dynamicInputValues, final SqlControl sqlControl)
+            throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
@@ -850,7 +885,8 @@ public class SqlQueryEngine extends SqlEngine {
             return processResult.getRuntimeContext();
         }
 
-        List<E> execute(final Class<E> resultClass, final SqlControl sqlControl, final SqlRuntimeContext runtimeContext) {
+        List<E> execute(final Class<E> resultClass, final SqlControl sqlControl,
+                final SqlRuntimeContext runtimeContext) {
 
             Map<String, Object> ids = mappingResult.getIds();
 

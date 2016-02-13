@@ -13,6 +13,8 @@ public class Person implements Serializable {
   
   public final static String ORDER_BY_ID = "ID";
   
+  public final static String ORDER_BY_NAME = "NAME";
+  
   public Person() {
   }
   

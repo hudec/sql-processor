@@ -80,14 +80,14 @@ public class Main {
 
     public List<Person> listSome(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder("NAME"));
         logger.info("listSome size: " + list.size());
         return list;
     }
 
     public List<Person> listLike(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("LIKE_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder("NAME"));
         logger.info("listSome size: " + list.size());
         return list;
     }
