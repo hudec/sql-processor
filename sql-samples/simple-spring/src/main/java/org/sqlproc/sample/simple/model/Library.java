@@ -5,6 +5,10 @@ import org.sqlproc.engine.annotation.Pojo;
 @Pojo
 public class Library {
 
+    public enum Order {
+        NAME_TITLE;
+    }
+
     private Long id;
     private String name;
 

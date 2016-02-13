@@ -60,14 +60,16 @@ public class Main {
 
     public List<Person> listSome(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+        List<Person> list = sqlEngine.query(session, Person.class, person,
+                SqlOrder.getDescOrder(Person.Order.NAME.name()));
         logger.info("listSome size: " + list.size());
         return list;
     }
 
     public List<Person> listLike(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("LIKE_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlOrder.getDescOrder(2));
+        List<Person> list = sqlEngine.query(session, Person.class, person,
+                SqlOrder.getDescOrder(Person.Order.NAME.name()));
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -125,7 +127,8 @@ public class Main {
 
     public List<Person> listPeopleAndContacts(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.ASC_ORDER);
+        List<Person> list = sqlEngine.query(session, Person.class, person,
+                SqlOrder.getAscOrder(Person.Order.NAME_ADDRESS.name()));
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -165,8 +168,8 @@ public class Main {
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("movie", Movie.class);
         moreResultClasses.put("book", Book.class);
-        List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER,
-                moreResultClasses);
+        List<Person> list = sqlEngine.query(session, Person.class, null, null,
+                SqlOrder.getAscOrder(Library.Order.NAME_TITLE.name()), moreResultClasses);
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -194,7 +197,8 @@ public class Main {
     public List<Person> listCustom(SqlSession session, Contact contact) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS_CUSTOM");
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, contact, SqlQueryEngine.ASC_ORDER);
+            List<Person> list = sqlEngine.query(session, Person.class, contact,
+                    SqlOrder.getAscOrder(Contact.Order.NAME_ADDRESS.name()));
             logger.info("listCustom size: " + list.size());
             return list;
         } finally {
@@ -232,8 +236,8 @@ public class Main {
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("BA", BankAccount.class);
         moreResultClasses.put("CC", CreditCard.class);
-        List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null, SqlQueryEngine.ASC_ORDER,
-                moreResultClasses);
+        List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null,
+                SqlOrder.getAscOrder(Subscriber.Order.ID.name()), moreResultClasses);
         logger.info("listAllSubsribersWithBillingDetails size: " + list.size());
         return list;
     }
@@ -250,8 +254,8 @@ public class Main {
         // init
         Person jan = main.insert(session, new Person("Jan"), new Contact("Jan address 1"));
         Person janik = main.insert(session, new Person("Janik"), new Contact("Janik address 1"));
-        Person honza = main.insert(session, new Person("Honza"), new Contact("Honza address 1"), new Contact(
-                "Honza address 2"));
+        Person honza = main.insert(session, new Person("Honza"), new Contact("Honza address 1"),
+                new Contact("Honza address 2"));
         Person honzik = main.insert(session, new Person("Honzik"));
         Person andrej = main.insert2(session, new Person("Andrej"), new Contact("Andrej address 1"));
 
@@ -343,8 +347,8 @@ public class Main {
         Assert.assertEquals(4, list.size());
 
         // custom type
-        Person pepa = main.insertCustom(session, new Person("Pepa"), new Contact("Pepa address 1", new PhoneNumber(111,
-                222, 3333)));
+        Person pepa = main.insertCustom(session, new Person("Pepa"),
+                new Contact("Pepa address 1", new PhoneNumber(111, 222, 3333)));
         Contact contact = new Contact();
         contact.setHomePhone(new PhoneNumber(111, 222, 3333));
         list = main.listCustom(session, contact);
