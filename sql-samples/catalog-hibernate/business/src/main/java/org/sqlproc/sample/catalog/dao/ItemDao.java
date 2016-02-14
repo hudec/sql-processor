@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.catalog.form.ItemForm;
 import org.sqlproc.sample.catalog.model.Item;
+import org.sqlproc.sample.catalog.model.OrderIds;
 import org.sqlproc.sample.catalog.to.ItemTO;
 
 public class ItemDao {
@@ -44,8 +44,8 @@ public class ItemDao {
 
     public List<ItemTO> find(SqlSession session, ItemForm criteria) {
         logger.info("find: " + criteria);
-        return sqlFactory.getCheckedQueryEngine("ITEMS").query(session, ItemTO.class, criteria, null,
-                SqlOrder.getOrder(criteria.getOrder()), 0, criteria.getCount(), criteria.getFirst());
+        return sqlFactory.getCheckedQueryEngine("ITEMS").query(session, ItemTO.class, criteria, null, OrderIds.ASC_NAME,
+                0, criteria.getCount(), criteria.getFirst());
     }
 
     public int findCount(SqlSession session, ItemForm criteria) {

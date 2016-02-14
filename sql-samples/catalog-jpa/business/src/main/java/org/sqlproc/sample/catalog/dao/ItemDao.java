@@ -6,10 +6,10 @@ import java.util.List;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Required;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.sample.catalog.form.ItemForm;
 import org.sqlproc.sample.catalog.model.Item;
+import org.sqlproc.sample.catalog.model.OrderIds;
 import org.sqlproc.sample.catalog.to.ItemTO;
 
 public class ItemDao {
@@ -34,7 +34,7 @@ public class ItemDao {
 
     public List<ItemTO> find(SqlSession sqlSession, ItemForm criteria) {
         return sqlFactory.getCheckedQueryEngine("ITEMS").query(sqlSession, ItemTO.class, criteria, null,
-                SqlOrder.getOrder(criteria.getOrder()), 0, criteria.getCount(), criteria.getFirst());
+                OrderIds.ASC_NAME, 0, criteria.getCount(), criteria.getFirst());
     }
 
     public int findCount(SqlSession sqlSession, ItemForm criteria) {

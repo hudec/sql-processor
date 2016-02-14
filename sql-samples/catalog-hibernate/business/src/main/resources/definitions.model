@@ -21,3 +21,4 @@ compress-meta-directives;
 pojo Item org.sqlproc.sample.catalog.model.Item;
 pojo ItemForm org.sqlproc.sample.catalog.form.ItemForm;
 pojo ItemTO org.sqlproc.sample.catalog.to.ItemTO;
+pojo OrderIds org.sqlproc.sample.catalog.model.OrderIds;

@@ -20,7 +20,7 @@ import org.sqlproc.engine.annotation.Pojo;
 public class Item implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static int ORDER_BY_ITEMID = 1;
+  public final static String ORDER_BY_ITEMID = "1";
   
   public Item() {
   }
@@ -199,10 +199,7 @@ public class Item implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((itemid != null) ? itemid.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(itemid);
   }
   
   @Override

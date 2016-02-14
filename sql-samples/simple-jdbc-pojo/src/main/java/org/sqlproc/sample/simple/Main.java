@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
-import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
@@ -31,6 +30,7 @@ import org.sqlproc.sample.simple.model.CreditCard;
 import org.sqlproc.sample.simple.model.Library;
 import org.sqlproc.sample.simple.model.Media;
 import org.sqlproc.sample.simple.model.Movie;
+import org.sqlproc.sample.simple.model.OrderIds;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PersonLibrary;
 import org.sqlproc.sample.simple.model.PhoneNumber;
@@ -80,14 +80,14 @@ public class Main {
 
     public List<Person> listSome(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.DESC_ORDER("NAME"));
+        List<Person> list = sqlEngine.query(session, Person.class, person, OrderIds.DESC_NAME);
         logger.info("listSome size: " + list.size());
         return list;
     }
 
     public List<Person> listLike(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("LIKE_PEOPLE");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.DESC_ORDER("NAME"));
+        List<Person> list = sqlEngine.query(session, Person.class, person, OrderIds.DESC_NAME);
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -130,7 +130,7 @@ public class Main {
 
     public List<Person> listPeopleAndContacts(SqlSession session, Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS");
-        List<Person> list = sqlEngine.query(session, Person.class, person, SqlQueryEngine.ASC_ORDER("NAME_ADDRESS"));
+        List<Person> list = sqlEngine.query(session, Person.class, person, OrderIds.ASC_NAME_ADDRESS);
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -139,8 +139,8 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS2");
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("linked", LinkedList.class);
-        List<Person> list = sqlEngine.query(session, Person.class, person, null, SqlQueryEngine.ASC_ORDER("NAME_ADDRESS"),
-                moreResultClasses);
+        List<Person> list = sqlEngine.query(session, Person.class, person, null,
+                SqlQueryEngine.ASC_ORDER("NAME_ADDRESS"), moreResultClasses);
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -180,7 +180,7 @@ public class Main {
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("movie", Movie.class);
         moreResultClasses.put("book", Book.class);
-        List<Person> list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER("NAME_TITLE"),
+        List<Person> list = sqlEngine.query(session, Person.class, null, null, OrderIds.ASC_NAME_TITLE,
                 moreResultClasses);
         logger.info("listSome size: " + list.size());
         return list;
@@ -203,7 +203,7 @@ public class Main {
 
     public List<Person> listCustom(SqlSession session, Contact contact) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS_CUSTOM");
-        List<Person> list = sqlEngine.query(session, Person.class, contact, SqlQueryEngine.ASC_ORDER("NAME_ADDRESS"));
+        List<Person> list = sqlEngine.query(session, Person.class, contact, OrderIds.ASC_NAME_ADDRESS);
         logger.info("listCustom size: " + list.size());
         return list;
     }
@@ -237,7 +237,7 @@ public class Main {
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("BA", BankAccount.class);
         moreResultClasses.put("CC", CreditCard.class);
-        List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null, SqlQueryEngine.ASC_ORDER("ID"),
+        List<Subscriber> list = sqlEngine.query(session, Subscriber.class, null, null, OrderIds.ASC_ID,
                 moreResultClasses);
         logger.info("listAllSubsribersWithBillingDetails size: " + list.size());
         return list;
@@ -399,7 +399,7 @@ public class Main {
 
         Long id = main.callStoredProcedure(session, "Katka");
         Assert.assertNotNull(id);
-        
+
         System.out.println("OK");
     }
 }

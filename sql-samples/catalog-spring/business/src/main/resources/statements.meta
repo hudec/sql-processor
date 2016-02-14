@@ -1,7 +1,7 @@
 SURROUND_QUERY_LIKE_PARTIAL(BOPT)=false;
 SURROUND_QUERY_LIKE_FULL(BOPT)=true;
 
-ITEMS(QRY,in=ItemForm,out=ItemTO,tab=item)=
+ITEMS(QRY,in=ItemForm,out=ItemTO,tab=item,ix=OrderIds)=
   select @itemid, @productid, @name, @description, @imageurl, @imagethumburl,
          @image, @imagethumb, @price
   from %%ITEM
@@ -12,8 +12,8 @@ ITEMS(QRY,in=ItemForm,out=ItemTO,tab=item)=
    {& %PRICE >= :priceFrom}
    {& %PRICE <= :priceTo}
   }
-  {#1 order by %NAME}
-  {#2 order by %PRICE}
+  {#NAME order by %NAME}
+  {#PRICE order by %PRICE}
 ;
 
 GET_ITEM(CRUD,in=ItemForm,out=Item,tab=item)=
