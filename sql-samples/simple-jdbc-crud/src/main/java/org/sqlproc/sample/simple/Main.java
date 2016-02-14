@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
-import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
@@ -150,23 +149,23 @@ public class Main {
         main.setupDb();
 
         // insert
-        Person jan = main.insertPersonContacts(new Person("Jan", "Jánský"), new Contact()._setAddress("Jan address 1")
-                ._setPhoneNumber(new PhoneNumber(111, 222, 3333)));
+        Person jan = main.insertPersonContacts(new Person("Jan", "Jánský"),
+                new Contact()._setAddress("Jan address 1")._setPhoneNumber(new PhoneNumber(111, 222, 3333)));
         Person janik = main.insertPersonContacts(new Person("Janík", "Janíček"),
                 new Contact()._setAddress("Janik address 1"));
         Person honza = main.insertPersonContacts(new Person("Honza", "Honzovský"),
                 new Contact()._setAddress("Honza address 1"), new Contact()._setAddress("Honza address 2"));
         Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzíček"));
         Performer honzikp = main.performerDao.insert(new Performer()._setPerson(honzik));
-        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejček")._setSsn("123456789"), new Contact()
-                ._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
+        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejček")._setSsn("123456789"),
+                new Contact()._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
 
         Library lib = main.libraryDao.insert(new Library("Alexandria Library"));
-        Subscriber janikS = main.subscriberDao.insert(new Subscriber(lib, "Janik Subscr")._setContact(jan.getContacts()
-                .get(0)));
+        Subscriber janikS = main.subscriberDao
+                .insert(new Subscriber(lib, "Janik Subscr")._setContact(jan.getContacts().get(0)));
         lib.getSubscribers().add(janikS);
-        Subscriber honzaS = main.subscriberDao.insert(new Subscriber(lib, "Honza Subscr")._setContact(honza
-                .getContacts().get(0)));
+        Subscriber honzaS = main.subscriberDao
+                .insert(new Subscriber(lib, "Honza Subscr")._setContact(honza.getContacts().get(0)));
         lib.getSubscribers().add(honzaS);
 
         BankAccount bankAccount1 = main.bankAccountDao.insert(new BankAccount(janikS, "BA")._setBaAccount("account 1"));
@@ -177,11 +176,11 @@ public class Main {
         Payment payment1 = main.paymentDao.insert(new Payment(bankAccount1, new Timestamp(new Date().getTime())));
         Payment payment2 = main.paymentDao.insert(new Payment(creditCard1, new Timestamp(new Date().getTime())));
 
-        NewBook book1 = main.bookDao.insert((NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")
-                ._setAuthor(honzikp));
+        NewBook book1 = main.bookDao
+                .insert((NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzikp));
         NewBook book2 = main.bookDao.insert(new NewBook("The Three Musketeers", "978-1897093634"));
-        Movie movie1 = main.movieDao.insert((Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82)
-                ._setAuthor(honzikp));
+        Movie movie1 = main.movieDao
+                .insert((Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82)._setAuthor(honzikp));
         Movie movie2 = main.movieDao.insert(new Movie("Die Another Day", "def", 95));
 
         PhysicalMedia pbook1 = main.physicalMediaDao.insert(new PhysicalMedia("folder 001", book1, lib));
@@ -472,8 +471,8 @@ public class Main {
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzovský", list.get(1).getLastName());
         person = new Person();
-        list = main.personDao.list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME)
-                .setMaxResults(2));
+        list = main.personDao.list(person,
+                new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
 
         // delete
@@ -489,5 +488,7 @@ public class Main {
         Assert.assertEquals(1, count);
         count = main.libraryDao.delete(lib);
         Assert.assertEquals(1, count);
+
+        System.out.println("OK");
     }
 }
