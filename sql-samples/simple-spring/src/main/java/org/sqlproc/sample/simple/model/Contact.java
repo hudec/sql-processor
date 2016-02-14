@@ -5,10 +5,6 @@ import org.sqlproc.engine.annotation.Pojo;
 @Pojo
 public class Contact {
 
-    public enum Order {
-        NAME_ADDRESS;
-    }
-
     private Long id;
     private Long personId;
     private String address;

@@ -22,6 +22,7 @@ pojo FormSimpleFunction org.sqlproc.sample.simple.form.FormSimpleFunction;
 pojo Library org.sqlproc.sample.simple.model.Library;
 pojo Media org.sqlproc.sample.simple.model.Media;
 pojo Movie org.sqlproc.sample.simple.model.Movie;
+pojo OrderIds org.sqlproc.sample.simple.model.OrderIds;
 pojo Person org.sqlproc.sample.simple.model.Person;
 pojo PersonLibrary org.sqlproc.sample.simple.model.PersonLibrary;
 pojo PhoneNumber org.sqlproc.sample.simple.model.PhoneNumber;

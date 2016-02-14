@@ -7,8 +7,6 @@ import org.sqlproc.engine.annotation.Pojo;
 @Pojo
 public class Person {
 
-	public enum Order {ID, NAME, NAME_ADDRESS, NAME_TITLE}
-	
     private Long id;
     private String name;
     private List<Contact> contacts;

@@ -1,7 +1,7 @@
 SEQ1(OPT)=call NEXT VALUE FOR SIMPLE_SEQUENCE;
 SEL1(OPT)=call identity();
 
-ALL_PEOPLE(QRY,in=Person,out=Person,tab=person)=
+ALL_PEOPLE(QRY,in=Person,out=Person,tab=person,ix=OrderIds)=
   select %ID @id, %NAME @name
   from %%PERSON
   {= where
@@ -12,7 +12,7 @@ ALL_PEOPLE(QRY,in=Person,out=Person,tab=person)=
   {#NAME order by %NAME}
 ;
 
-LIKE_PEOPLE(QRY,in=Person,out=Person,tab=person)=
+LIKE_PEOPLE(QRY,in=Person,out=Person,tab=person,ix=OrderIds)=
   select %ID @id, %NAME @name
   from %%PERSON
   {= where
@@ -55,7 +55,7 @@ INSERT_CONTACT(CRUD,in=Contact,tab=contact)=
   {= values (:id(type=long,seq=SEQ1), :personId, :address) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
+ALL_PEOPLE_AND_CONTACTS(QRY,in=Person,out=Person,tab=person=p,tab=contact=c,ix=OrderIds)=
   select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts.id(type=long,id), %p.ID @contacts.personId, %c.ADDRESS @contacts.address
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where
@@ -65,7 +65,7 @@ ALL_PEOPLE_AND_CONTACTS(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
   {#NAME_ADDRESS order by %p.NAME, %c.ADDRESS}
 ;
 
-ALL_PEOPLE_AND_CONTACTS2(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
+ALL_PEOPLE_AND_CONTACTS2(QRY,in=Person,out=Person,tab=person=p,tab=contact=c,ix=OrderIds)=
   select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts=linked.id(type=long,id), %p.ID @contacts.personId, %c.ADDRESS @contacts.address
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID
   {= where
@@ -95,7 +95,7 @@ CREATE_LIBRARY(CRUD,in=PersonLibrary,tab=personLibrary)=
   {= values (:id(type=long,seq=SEQ1), :personId, :mediaId) }
 ;
 
-ALL_PEOPLE_LIBRARY(QRY,in=Person,out=Person,tab=person=p,tab=personLibrary=l,tab=media=m,tab=movie=mo,tab=book=bk)=
+ALL_PEOPLE_LIBRARY(QRY,in=Person,out=Person,tab=person=p,tab=personLibrary=l,tab=media=m,tab=movie=mo,tab=book=bk,ix=OrderIds)=
   select %p.ID @id(type=long,id), %p.NAME @name, %mo.MEDIA_ID @library(gtype=movie)id(type=long,id), %bk.MEDIA_ID @library(gtype=book)id(type=long,id),
   %m.TITLE @library.title, %mo.URLIMDB @library.urlIMDB, %mo.PLAYLENGTH @library.playLength, %bk.ISBN @library.isbn
   from %%PERSON p left join %%PERSON_LIBRARY l on %p.ID = %l.PERSON_ID
@@ -114,7 +114,7 @@ INSERT_CONTACT_CUSTOM(CRUD,in=Contact,tab=contact)=
   {= values (:id(type=long,seq=SEQ1), :personId, :address, :homePhone(type=phone)) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,in=Contact,out=Person,tab=person=p,tab=contact=c)=
+ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,in=Contact,out=Person,tab=person=p,tab=contact=c,ix=OrderIds)=
   select %p.ID @id(type=long,id), %p.NAME @name, %c.ID @contacts.id(type=long,id), %p.ID @contacts.personId, %c.ADDRESS @contacts.address,
   %c.PHONE_NUMBER @contacts.homePhone(type=phone)
   from %%PERSON p left join %%CONTACT c on %p.ID = %c.PERSON_ID

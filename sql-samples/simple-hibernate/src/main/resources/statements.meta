@@ -1,7 +1,7 @@
 SEQ1(OPT)=call NEXT VALUE FOR HIBERNATE_SEQUENCE;
 SEL1(OPT)=call identity();
 
-ALL_PEOPLE(QRY,in=Person,out=Person)=
+ALL_PEOPLE(QRY,in=Person,out=Person,ix=OrderIds)=
   select ID @id, NAME @name
   from PERSON
   {= where
@@ -12,7 +12,7 @@ ALL_PEOPLE(QRY,in=Person,out=Person)=
   {#NAME order by NAME}
 ;
 
-LIKE_PEOPLE(QRY,in=Person,out=Person)=
+LIKE_PEOPLE(QRY,in=Person,out=Person,ix=OrderIds)=
   select ID @id, NAME @name
   from PERSON
   {= where
@@ -55,7 +55,7 @@ INSERT_CONTACT(CRUD,in=Contact)=
   {= values (:id(type=long,seq=SEQ1), :personId, :address) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS(QRY,in=Person,out=Person)=
+ALL_PEOPLE_AND_CONTACTS(QRY,in=Person,out=Person,ix=OrderIds)=
   select p.ID @id(type=long,id), p.NAME @name, c.ID @contacts.id(type=long,id), p.ID @contacts.personId, c.ADDRESS @contacts.address
   from PERSON p left join CONTACT c on p.ID = c.PERSON_ID
   {= where
@@ -85,7 +85,7 @@ CREATE_LIBRARY(CRUD,in=PersonLibrary)=
   {= values (:id(type=long,seq=SEQ1), :personId, :mediaId) }
 ;
 
-ALL_PEOPLE_LIBRARY(QRY,in=Person,out=Person)=
+ALL_PEOPLE_LIBRARY(QRY,in=Person,out=Person,ix=OrderIds)=
   select p.ID @id(type=long,id), p.NAME @name, mo.MEDIA_ID @library(gtype=movie)id(type=long,id), bk.MEDIA_ID @library(gtype=book)id(type=long,id),
   m.TITLE @library.title, mo.URLIMDB @library.urlIMDB, mo.PLAYLENGTH @library.playLength, bk.ISBN @library.isbn
   from PERSON p left join PERSON_LIBRARY l on p.ID = l.PERSON_ID
@@ -104,7 +104,7 @@ INSERT_CONTACT_CUSTOM(CRUD,in=Contact)=
   {= values (:id(type=long,seq=SEQ1), :personId, :address, :homePhone(type=phone)) }
 ;
 
-ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,in=Contact,out=Person)=
+ALL_PEOPLE_AND_CONTACTS_CUSTOM(QRY,in=Contact,out=Person,ix=OrderIds)=
   select p.ID @id(type=long,id), p.NAME @name, c.ID @contacts.id(type=long,id), p.ID @contacts.personId, c.ADDRESS @contacts.address,
   c.PHONE_NUMBER @contacts.homePhone(type=phone)
   from PERSON p left join CONTACT c on p.ID = c.PERSON_ID

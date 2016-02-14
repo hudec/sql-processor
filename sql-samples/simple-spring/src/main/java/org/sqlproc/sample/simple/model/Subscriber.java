@@ -7,10 +7,6 @@ import org.sqlproc.engine.annotation.Pojo;
 @Pojo
 public class Subscriber {
 
-    public enum Order {
-        ID;
-    }
-
     private Long id;
     private String name;
     private Contact contact;
