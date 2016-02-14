@@ -115,6 +115,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one ascending ordering directive
      */
+    @Deprecated
     public static SqlOrder getAscOrder(int orderId) {
         return new SqlOrder().addAscOrder(orderId);
     }
@@ -126,6 +127,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one ascending ordering directive
      */
+    @Deprecated
     public static SqlOrder getAscOrderNullsLast(int orderId) {
         return new SqlOrder().addAscOrderNullsLast(orderId);
     }
@@ -159,6 +161,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one descending ordering directive
      */
+    @Deprecated
     public static SqlOrder getDescOrder(int orderId) {
         return new SqlOrder().addDescOrder(orderId);
     }
@@ -170,6 +173,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one descending ordering directive
      */
+    @Deprecated
     public static SqlOrder getDescOrderNullsFirst(int orderId) {
         return new SqlOrder().addDescOrderNullsFirst(orderId);
     }
@@ -203,6 +207,7 @@ public class SqlOrder {
      *            the ordering id. Can be a negative one for a descending ordering directive.
      * @return the ordering directive list with one ascending or descending ordering directive
      */
+    @Deprecated
     public static SqlOrder getOrder(int orderId) {
         if (orderId > 0)
             return new SqlOrder().addAscOrder(orderId);
@@ -219,6 +224,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the updated ordering directive list
      */
+    @Deprecated
     public SqlOrder addAscOrder(int orderId) {
         orders.add(new SqlOrder("" + orderId, Order.ASC));
         return this;
@@ -231,6 +237,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the updated ordering directive list
      */
+    @Deprecated
     public SqlOrder addAscOrderNullsLast(int orderId) {
         orders.add(new SqlOrder("" + orderId, Order.ASC_NULLS_LAST));
         return this;
@@ -267,6 +274,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the updated ordering directive list
      */
+    @Deprecated
     public SqlOrder addDescOrder(int orderId) {
         orders.add(new SqlOrder("" + orderId, Order.DESC));
         return this;
@@ -279,6 +287,7 @@ public class SqlOrder {
      *            the ordering id
      * @return the updated ordering directive list
      */
+    @Deprecated
     public SqlOrder addDescOrderNullsFirst(int orderId) {
         orders.add(new SqlOrder("" + orderId, Order.DESC_NULLS_FIRST));
         return this;
@@ -315,6 +324,7 @@ public class SqlOrder {
      *            the ordering id. Can be a negative one for a descending ordering directive.
      * @return the updated ordering directive list
      */
+    @Deprecated
     public SqlOrder addOrder(int orderId) {
         if (orderId > 0)
             orders.add(new SqlOrder("" + orderId, Order.ASC));

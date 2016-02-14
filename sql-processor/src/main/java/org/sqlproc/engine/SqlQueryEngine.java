@@ -96,23 +96,14 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * The ordering directive list with one ascending ordering rule.
      */
-    public static final SqlOrder ASC_ORDER = ASC_ORDER(1);
+    @Deprecated
+    public static final SqlOrder ASC_ORDER = SqlOrder.getAscOrder(1);
 
     /**
      * The ordering directive list with one descending ordering rule.
      */
-    public static final SqlOrder DESC_ORDER = DESC_ORDER(1);
-
-    /**
-     * The ordering directive list with one ascending ordering rule.
-     * 
-     * @param orderId
-     *            the ordering id
-     * @return the ordering directive list
-     */
-    public static SqlOrder ASC_ORDER(int orderId) {
-        return SqlOrder.getAscOrder(orderId);
-    };
+    @Deprecated
+    public static final SqlOrder DESC_ORDER = SqlOrder.getDescOrder(1);
 
     /**
      * The ordering directive list with one ascending ordering rule.
@@ -123,17 +114,6 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public static SqlOrder ASC_ORDER(String orderId) {
         return SqlOrder.getAscOrder(orderId);
-    };
-
-    /**
-     * The ordering directive list with one descending ordering rule.
-     * 
-     * @param orderId
-     *            the ordering id
-     * @return the ordering directive list
-     */
-    public static SqlOrder DESC_ORDER(int orderId) {
-        return SqlOrder.getDescOrder(orderId);
     };
 
     /**
