@@ -24,17 +24,17 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     setType(type);
   }
   
-  private Long id;
+  private long id;
   
-  public Long getId() {
+  public long getId() {
     return this.id;
   }
   
-  public void setId(final Long id) {
+  public void setId(final long id) {
     this.id = id;
   }
   
-  public BillingDetails _setId(final Long id) {
+  public BillingDetails _setId(final long id) {
     this.id = id;
     return this;
   }
@@ -86,8 +86,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
   
   public StringBuilder getProcessingIdForAttributes() {
     StringBuilder result = new StringBuilder("BillingDetails");
-    if (id != null)
-    	result.append("@").append("id");
+    result.append("@").append("id");
     if (subscriber != null)
     	result.append("@").append("{").append(subscriber.getProcessingIdForAttributes()).append("}");
     if (type != null)
@@ -106,7 +105,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     if (getClass() != obj.getClass())
     	return false;
     BillingDetails other = (BillingDetails) obj;
-    if (id == null || !id.equals(other.id))
+    if (id != other.id)
     	return false;
     return true;
   }
