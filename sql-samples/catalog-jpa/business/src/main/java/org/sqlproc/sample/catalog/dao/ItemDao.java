@@ -34,7 +34,7 @@ public class ItemDao {
 
     public List<ItemTO> find(SqlSession sqlSession, ItemForm criteria) {
         return sqlFactory.getCheckedQueryEngine("ITEMS").query(sqlSession, ItemTO.class, criteria, null,
-                OrderIds.ASC_NAME, 0, criteria.getCount(), criteria.getFirst());
+                OrderIds.getOrder(criteria.getOrder()), 0, criteria.getCount(), criteria.getFirst());
     }
 
     public int findCount(SqlSession sqlSession, ItemForm criteria) {

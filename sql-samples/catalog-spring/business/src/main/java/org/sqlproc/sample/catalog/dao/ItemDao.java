@@ -50,8 +50,8 @@ public class ItemDao {
 
     public List<ItemTO> find(SqlSession session, ItemForm criteria) {
         logger.info("find: " + criteria);
-        return sqlFactory.getCheckedQueryEngine("ITEMS").query(session, ItemTO.class, criteria, null, OrderIds.ASC_NAME,
-                0, criteria.getCount(), criteria.getFirst());
+        return sqlFactory.getCheckedQueryEngine("ITEMS").query(session, ItemTO.class, criteria, null,
+                OrderIds.getOrder(criteria.getOrder()), 0, criteria.getCount(), criteria.getFirst());
     }
 
     public int findCount(SqlSession session, ItemForm criteria) {

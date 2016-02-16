@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngineFactory;
+import org.sqlproc.engine.SqlOrder;
 import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
@@ -139,8 +140,8 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS2");
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("linked", LinkedList.class);
-        List<Person> list = sqlEngine.query(session, Person.class, person, null,
-                SqlQueryEngine.ASC_ORDER("NAME_ADDRESS"), moreResultClasses);
+        List<Person> list = sqlEngine.query(session, Person.class, person, null, SqlOrder.getAscOrder("NAME_ADDRESS"),
+                moreResultClasses);
         logger.info("listSome size: " + list.size());
         return list;
     }

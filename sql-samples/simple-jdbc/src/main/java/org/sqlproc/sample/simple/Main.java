@@ -19,6 +19,7 @@ import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
+import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
@@ -139,8 +140,10 @@ public class Main {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS2");
         Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
         moreResultClasses.put("linked", LinkedList.class);
-        List<Person> list = sqlEngine.query(session, Person.class, person, null, OrderIds.ASC_NAME_ADDRESS,
-                moreResultClasses);
+        SqlStandardControl sqlControl = new SqlStandardControl();
+        sqlControl.setMoreResultClasses(moreResultClasses);
+        sqlControl.setOrder(OrderIds.ASC_NAME_ADDRESS);
+        List<Person> list = sqlEngine.query(session, Person.class, person, sqlControl);
         logger.info("listSome size: " + list.size());
         return list;
     }
@@ -398,5 +401,7 @@ public class Main {
 
         Long id = main.callStoredProcedure(session, "Katka");
         Assert.assertNotNull(id);
+
+        System.out.println("OK");
     }
 }

@@ -465,5 +465,7 @@ public class Main {
 
         List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails();
         Assert.assertEquals(2, subscribers.size());
+
+        System.out.println("OK");
     }
 }

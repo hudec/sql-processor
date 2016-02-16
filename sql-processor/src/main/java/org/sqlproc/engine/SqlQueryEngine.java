@@ -106,28 +106,6 @@ public class SqlQueryEngine extends SqlEngine {
     public static final SqlOrder DESC_ORDER = SqlOrder.getDescOrder(1);
 
     /**
-     * The ordering directive list with one ascending ordering rule.
-     * 
-     * @param orderId
-     *            the ordering id
-     * @return the ordering directive list
-     */
-    public static SqlOrder ASC_ORDER(String orderId) {
-        return SqlOrder.getAscOrder(orderId);
-    };
-
-    /**
-     * The ordering directive list with one descending ordering rule.
-     * 
-     * @param orderId
-     *            the ordering id
-     * @return the ordering directive list
-     */
-    public static SqlOrder DESC_ORDER(String orderId) {
-        return SqlOrder.getDescOrder(orderId);
-    };
-
-    /**
      * Creates a new instance of the SqlQueryEngine from one META SQL query string and one SQL mapping rule string.
      * Constructor will call the internal ANTLR parsers for the query and the mapping rule instances construction. This
      * constructor is devoted to manual META SQL queries and mapping rules construction. More obvious is to put these
