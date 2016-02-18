@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.sample</groupId>
-	<artifactId>simple-hsqldb</artifactId>
+	<artifactId>simple-h2</artifactId>
 	<version>3.1.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>SQL Processor Sample, Simple JDBC</name>
@@ -14,7 +14,7 @@
 		<version.log4j>1.2.17</version.log4j>
 		<version.slf4j>1.7.12</version.slf4j>
 		<version.junit>4.12</version.junit>
-		<version.hsqldb>2.3.3</version.hsqldb>
+		<version.h2>1.4.190</version.h2>
 		<version.validation>1.1.0.Final</version.validation>
 		<version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
 		<version.sql-processor-eclipse>2.5.1-SNAPSHOT</version.sql-processor-eclipse>
@@ -118,9 +118,9 @@
 			<version>${version.slf4j}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>${version.hsqldb}</version>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${version.h2}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -162,7 +162,7 @@
 								<argument>-classpath</argument>
 								<classpath>
 									<dependency>org.sqlproc.meta:sqlmeta</dependency>
-									<dependency>org.hsqldb:hsqldb</dependency>
+									<dependency>com.h2database:h2</dependency>
 									<dependency>javax.validation:validation-api</dependency>
 									<dependency>org.sqlproc:sql-processor</dependency>
 									<dependency>org.slf4j:slf4j-api</dependency>
@@ -173,7 +173,7 @@
 								<argument>-sql</argument>
 								<argument>statements.meta</argument>
 								<argument>-ddl</argument>
-								<argument>hsqldb.ddl</argument>
+								<argument>h2.ddl</argument>
 								<argument>-source</argument>
 								<argument>src/main/resources</argument>
 								<argument>-target</argument>
@@ -207,7 +207,7 @@
 								<argument>-classpath</argument>
 								<classpath>
 									<dependency>org.sqlproc.model:sqlmodel</dependency>
-									<dependency>org.hsqldb:hsqldb</dependency>
+									<dependency>com.h2database:h2</dependency>
 									<dependency>javax.validation:validation-api</dependency>
 									<dependency>org.sqlproc:sql-processor</dependency>
 									<dependency>org.slf4j:slf4j-api</dependency>
@@ -220,7 +220,7 @@
 								<argument>-dao</argument>
 								<argument>dao.model</argument>
 								<argument>-ddl</argument>
-								<argument>hsqldb.ddl</argument>
+								<argument>h2.ddl</argument>
 								<argument>-source</argument>
 								<argument>src/main/resources</argument>
 								<argument>-target</argument>
@@ -254,7 +254,7 @@
 								<argument>-classpath</argument>
 								<classpath>
 									<dependency>org.sqlproc.model:sqlmodel</dependency>
-									<dependency>org.hsqldb:hsqldb</dependency>
+									<dependency>com.h2database:h2</dependency>
 									<dependency>javax.validation:validation-api</dependency>
 									<dependency>org.sqlproc:sql-processor</dependency>
 									<dependency>org.slf4j:slf4j-api</dependency>

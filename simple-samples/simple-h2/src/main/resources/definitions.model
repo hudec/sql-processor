@@ -1,0 +1,43 @@
+resolve-pojo-on; 
+
+database-is-online;
+database-jdbc-driver org.h2.Driver;
+database-has-url "jdbc:h2:mem:demo";
+database-login-username sa;
+database-login-password "";
+database-ddl-create h2.ddl; // should be located in the same directory as definitions.meta
+database-show-database-info "H2,1.4.190 (2015-10-11),1,4";
+database-show-driver-info "H2 JDBC Driver,1.4.190 (2015-10-11),1,4";
+database-take-comments;
+
+generate-from-to;
+compress-meta-directives;
+
+pojogen-package org.sample.model;
+pojogen-generate-wrappers;
+pojogen-generate-methods toString equals hashCode isDef toInit procId;
+pojogen-implements-interfaces java.io.Serializable;
+pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSINESS I2->ABROAD; 
+pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE I0->UNKNOWN; 
+pojogen-generate-operators;
+pojogen-generate-validation-annotations;
+
+metagen-global-identity COMMON - PERSON_DETAIL;
+metagen-table-sequence CONTACT SIMPLE_SEQUENCE;
+metagen-generate-idgenerators;
+metagen-like-columns PERSON FIRST_NAME LAST_NAME;
+metagen-not-like-columns;
+daogen-package org.sample.dao;
+
+table contact CONTACT;
+table person PERSON;
+table personDetail PERSON_DETAIL;
+
+pojo Contact org.sample.model.Contact;
+pojo Person org.sample.model.Person;
+pojo PersonDetail org.sample.model.PersonDetail;
+
+//database-debug-level DEBUG;
+//pojogen-debug-level DEBUG;
+//daogen-debug-level DEBUG;
+//metagen-debug-level DEBUG;

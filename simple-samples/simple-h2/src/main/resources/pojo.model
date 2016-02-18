@@ -1,0 +1,129 @@
+package org.sample.model {
+
+    import javax.validation.constraints.NotNull
+    import javax.validation.constraints.Size
+
+
+    #Serializable(1)
+    #Enum ContactType {
+        #Values(ABROAD = 2,BUSINESS = 1,HOME = 0)
+        #Attr Integer value
+    }
+
+    #Serializable(1)
+    #Enum PersonDetailType {
+        #Values(I0 = 0,I1 = 1,I2 = 2,I3 = 3,I4 = 4)
+        #Attr Integer value
+    }
+
+    #Serializable(1)
+    #Enum PersonGender {
+        #Values(FEMALE = "F",MALE = "M",UNKNOWN = "0")
+        #Attr String value
+    }
+
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,person,type,address,phoneNumber,xNote)
+    // The contact information
+    #Pojo Contact {
+        #PrimaryKey() #Index
+        // The technical primary key
+        #Attr Long id
+        @NotNull
+        #ToInit #Required #Index #IsPojo
+        // The owner of this contact
+        #Attr Person person
+        @NotNull
+        #Required
+        // The contact type: 0=home, 1=business, 2=abroad
+        #Attr ContactType type
+        @NotNull
+        @Size(max = 100)
+        #Required
+        // The address: city, street...
+        #Attr String address
+        @Size(max = 100)
+        #IsDef
+        // The phone number
+        #Attr String phoneNumber
+        @Size(max = 100)
+        #IsDef
+        // Any notes and remarks
+        #Attr String xNote
+        #Attr boolean onlyIds
+        #Attr java.util.List <Long> ids
+    }
+
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,gender,ssn)
+    // The personal information
+    #Pojo Person {
+        #PrimaryKey() #Index
+        // The technical primary key
+        #Attr Long id
+        @NotNull
+        @Size(max = 100)
+        #Required
+        // The first name
+        #Attr String firstName
+        @NotNull
+        @Size(max = 100)
+        #Required #Index
+        // The surname
+        #Attr String lastName
+        #IsDef
+        // The date of birth
+        #Attr java.util.Date dateOfBirth
+        @NotNull
+        #Required
+        // The gender: M=male, F=female, 0=other
+        #Attr PersonGender gender
+        @Size(max = 100)
+        #IsDef
+        // The social security number
+        #Attr String ssn
+        #ToInit
+        #Attr java.util.List <Contact> contacts
+        #ToInit
+        #Attr java.util.List <PersonDetail> personDetails
+        #Attr boolean onlyIds
+        #Attr java.util.List <Long> ids
+    }
+
+    #Operators #Serializable(1) #ToString(type,weight,height,disposition,titles) #ProcId(id,type,weight,height,disposition,titles)
+    // The detailed personal information
+    #Pojo PersonDetail {
+        @NotNull
+        #ToInit #Required #Index #IsPojo
+        // The technical primary key
+        #Attr Person id
+        @NotNull
+        #Required
+        #Attr PersonDetailType type
+        #IsDef
+        // The weight
+        #Attr Integer weight
+        #IsDef
+        // The height
+        #Attr Integer height
+        @Size(max = 200)
+        #IsDef
+        // The character
+        #Attr String disposition
+        @Size(max = 100)
+        #IsDef
+        // The titles
+        #Attr String titles
+    }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=2
+// Exports=2
+// Imports=2
+// Indexes=5
+// Check Constraints=3
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0
+}
