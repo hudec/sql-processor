@@ -47,9 +47,9 @@ public class Main {
     private static final String DB_URL = "jdbc:h2:mem:demo";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
-    private static final SqlFeature DB_TYPE = SqlFeature.HSQLDB;
-    private static final String DDL_SETUP = "hsqldb.ddl";
-    private static final String DDL_CLEAR = "hsqldb0.ddl";
+    private static final SqlFeature DB_TYPE = SqlFeature.H2;
+    private static final String DDL_SETUP = "h2.ddl";
+    private static final String DDL_CLEAR = "h20.ddl";
     private static final Integer REPEAT = 1;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());

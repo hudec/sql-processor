@@ -113,6 +113,10 @@ public enum SqlFeature {
      */
     DB2,
     /**
+     * The filter for H2 devoted optional features. It can be used for the construction of {@link SqlProcessorLoader}.
+     */
+    H2,
+    /**
      * <code>WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
      */
     WILDCARD_CHARACTER,

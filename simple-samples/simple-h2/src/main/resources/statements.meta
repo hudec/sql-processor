@@ -1,3 +1,5 @@
+SEQ=SIMPLE_SEQUENCE(OPT)=call next value for SIMPLE_SEQUENCE;
+IDSEL=COMMON(OPT)=call identity();
 
 INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER, %X_NOTE)
