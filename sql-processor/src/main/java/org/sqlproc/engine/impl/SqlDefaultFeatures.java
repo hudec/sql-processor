@@ -1,6 +1,7 @@
 package org.sqlproc.engine.impl;
 
 import static org.sqlproc.engine.SqlFeature.DB2;
+import static org.sqlproc.engine.SqlFeature.H2;
 import static org.sqlproc.engine.SqlFeature.HSQLDB;
 import static org.sqlproc.engine.SqlFeature.IDSEL;
 import static org.sqlproc.engine.SqlFeature.IDSEL_Integer;
@@ -50,6 +51,7 @@ public class SqlDefaultFeatures {
     static {
         FILTERED_FEATURES.put(ORACLE.name(), new HashMap<SqlFeature, Object>());
         FILTERED_FEATURES.put(HSQLDB.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(H2.name(), new HashMap<SqlFeature, Object>());
         FILTERED_FEATURES.put(MYSQL.name(), new HashMap<SqlFeature, Object>());
         FILTERED_FEATURES.put(POSTGRESQL.name(), new HashMap<SqlFeature, Object>());
         FILTERED_FEATURES.put(INFORMIX.name(), new HashMap<SqlFeature, Object>());
@@ -117,6 +119,16 @@ public class SqlDefaultFeatures {
          */
         FILTERED_FEATURES.get(HSQLDB.name()).put(LIMIT_TO_ORDERED, "$S limit $M using index");
         /**
+         * <code>H2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
+         * the case the filter value <code>H2</code> is used for the {@link SqlProcessorLoader} instance creation.
+         */
+        FILTERED_FEATURES.get(H2.name()).put(LIMIT_FROM_TO, "$S limit $M offset $F");
+        /**
+         * <code>H2_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
+         * the filter value <code>H2</code> is used for the {@link SqlProcessorLoader} instance creation.
+         */
+        FILTERED_FEATURES.get(H2.name()).put(LIMIT_TO, "$S limit $M");
+        /**
          * <code>ORACLE_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code>
          * in the case the filter value <code>ORACLE</code> is used for the {@link SqlProcessorLoader} instance
          * creation.
@@ -175,10 +187,8 @@ public class SqlDefaultFeatures {
          * <code>DB2_DEFAULT_LIMIT_FROM_TO</code> is the default value related to the key <code>LIMIT_FROM_TO</code> in
          * the case the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
-        FILTERED_FEATURES
-                .get(DB2.name())
-                .put(LIMIT_FROM_TO,
-                        "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m and rownum_ > $F");
+        FILTERED_FEATURES.get(DB2.name()).put(LIMIT_FROM_TO,
+                "select * from (select row_.*, rownumber() over() rownum_ from ($S) row_) where rownum_ <= $m and rownum_ > $F");
         /**
          * <code>DB2_DEFAULT_LIMIT_TO</code> is the default value related to the key <code>LIMIT_TO</code> in the case
          * the filter value <code>DB2</code> is used for the {@link SqlProcessorLoader} instance creation.
@@ -190,6 +200,11 @@ public class SqlDefaultFeatures {
          * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
         FILTERED_FEATURES.get(HSQLDB.name()).put(SEQ, "call next value for $n");
+        /**
+         * <code>H2_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the filter
+         * value <code>H2</code> is used for the {@link SqlProcessorLoader} instance creation.
+         */
+        FILTERED_FEATURES.get(H2.name()).put(SEQ, "call next value for $n");
         /**
          * <code>MYSQL_DEFAULT_SEQ</code> is the default value related to the key <code>SEQ</code> in the case the
          * filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
@@ -226,6 +241,11 @@ public class SqlDefaultFeatures {
          * filter value <code>HSQLDB</code> is used for the {@link SqlProcessorLoader} instance creation.
          */
         FILTERED_FEATURES.get(HSQLDB.name()).put(IDSEL, "call identity()");
+        /**
+         * <code>H2_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
+         * filter value <code>H2</code> is used for the {@link SqlProcessorLoader} instance creation.
+         */
+        FILTERED_FEATURES.get(H2.name()).put(IDSEL, "call identity()");
         /**
          * <code>MYSQL_DEFAULT_IDSEL</code> is the default value related to the key <code>IDSEL</code> in the case the
          * filter value <code>MYSQL</code> is used for the {@link SqlProcessorLoader} instance creation.
