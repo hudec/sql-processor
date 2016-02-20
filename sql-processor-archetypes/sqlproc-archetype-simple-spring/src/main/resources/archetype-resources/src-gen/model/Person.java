@@ -18,8 +18,8 @@ import java.util.HashMap;
 public class Person implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	public static final int ORDER_BY_ID = 1;
-	public static final int ORDER_BY_LAST_NAME = 2;
+    public static final String ORDER_BY_ID = "ID";
+    public static final String ORDER_BY_LAST_NAME = "LAST_NAME";
 	
 	public Person() {
 	}
