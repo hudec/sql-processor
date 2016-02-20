@@ -14,13 +14,13 @@ public class Country implements Serializable {
   private final static long serialVersionUID = 1L;
   
   @JsonIgnore
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   @JsonIgnore
-  public final static int ORDER_BY_CODE = 3;
+  public final static String ORDER_BY_CODE = "CODE";
   
   @JsonIgnore
-  public final static int ORDER_BY_NAME = 4;
+  public final static String ORDER_BY_NAME = "NAME";
   
   public Country() {
   }
@@ -91,15 +91,12 @@ public class Country implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
   public String toString() {
-    return "Country [id=" + id + ", name=" + name + ", code=" + code + "]";
+    return "Country [id=" + id + ", code=" + code + ", name=" + name + "]";
   }
   
   public String toStringFull() {

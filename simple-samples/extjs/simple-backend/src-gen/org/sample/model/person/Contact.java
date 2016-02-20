@@ -20,13 +20,13 @@ public class Contact implements Serializable {
   private final static long serialVersionUID = 1L;
   
   @JsonIgnore
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   @JsonIgnore
-  public final static int ORDER_BY_PERSON_ID = 2;
+  public final static String ORDER_BY_PERSON_ID = "PERSON_ID";
   
   @JsonIgnore
-  public final static int ORDER_BY_COUNTRY = 3;
+  public final static String ORDER_BY_COUNTRY = "COUNTRY";
   
   public Contact() {
   }
@@ -189,15 +189,12 @@ public class Contact implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", phoneNumber=" + phoneNumber + ", address=" + address + ", countryCode=" + countryCode + ", ctype=" + ctype + ", personId=" + personId + ", version=" + version + "]";
+    return "Contact [id=" + id + ", personId=" + personId + ", ctype=" + ctype + ", address=" + address + ", phoneNumber=" + phoneNumber + ", version=" + version + ", countryCode=" + countryCode + "]";
   }
   
   public String toStringFull() {

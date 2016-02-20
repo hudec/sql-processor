@@ -25,10 +25,10 @@ public class AuthUser implements Serializable {
   private final static long serialVersionUID = 1L;
   
   @JsonIgnore
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   @JsonIgnore
-  public final static int ORDER_BY_USERNAME = 2;
+  public final static String ORDER_BY_USERNAME = "USERNAME";
   
   public AuthUser() {
   }
@@ -183,15 +183,12 @@ public class AuthUser implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
   public String toString() {
-    return "AuthUser [id=" + id + ", lastLogin=" + lastLogin + ", username=" + username + ", email=" + email + ", name=" + name + ", password=" + password + ", version=" + version + "]";
+    return "AuthUser [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", email=" + email + ", lastLogin=" + lastLogin + ", version=" + version + "]";
   }
   
   public String toStringFull() {

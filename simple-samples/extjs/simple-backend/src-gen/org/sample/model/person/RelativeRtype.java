@@ -4,21 +4,21 @@ import java.util.Map;
 
 @SuppressWarnings("all")
 public enum RelativeRtype {
-  FATHER("F"),
-  
-  MOTHER("M"),
-  
-  SON("S"),
+  BROTHER("B"),
   
   DAUGHTER("D"),
   
+  FATHER("F"),
+  
   HUSBAND("H"),
   
-  WIFE("W"),
+  MOTHER("M"),
   
-  BROTHER("B"),
+  SISTER("I"),
   
-  SISTER("I");
+  SON("S"),
+  
+  WIFE("W");
   private static Map<String, RelativeRtype> identifierMap =  identifierMapBuild();
   
   public static Map<String, RelativeRtype> identifierMapBuild() {

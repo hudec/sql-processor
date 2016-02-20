@@ -29,10 +29,10 @@ public class Person implements Serializable {
   private final static long serialVersionUID = 1L;
   
   @JsonIgnore
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   @JsonIgnore
-  public final static int ORDER_BY_LAST_NAME = 2;
+  public final static String ORDER_BY_LAST_NAME = "LAST_NAME";
   
   public Person() {
   }
@@ -159,22 +159,6 @@ public class Person implements Serializable {
     return this;
   }
   
-  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Relative.class)
-  private List<Relative> relatives = new java.util.ArrayList<Relative>();
-  
-  public List<Relative> getRelatives() {
-    return this.relatives;
-  }
-  
-  public void setRelatives(final List<Relative> relatives) {
-    this.relatives = relatives;
-  }
-  
-  public Person _setRelatives(final List<Relative> relatives) {
-    this.relatives = relatives;
-    return this;
-  }
-  
   @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Contact.class)
   private List<Contact> contacts = new java.util.ArrayList<Contact>();
   
@@ -188,6 +172,22 @@ public class Person implements Serializable {
   
   public Person _setContacts(final List<Contact> contacts) {
     this.contacts = contacts;
+    return this;
+  }
+  
+  @ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Relative.class)
+  private List<Relative> relatives = new java.util.ArrayList<Relative>();
+  
+  public List<Relative> getRelatives() {
+    return this.relatives;
+  }
+  
+  public void setRelatives(final List<Relative> relatives) {
+    this.relatives = relatives;
+  }
+  
+  public Person _setRelatives(final List<Relative> relatives) {
+    this.relatives = relatives;
     return this;
   }
   
@@ -207,19 +207,16 @@ public class Person implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
   public String toString() {
-    return "Person [dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + ", ssn=" + ssn + ", gender=" + gender + ", firstName=" + firstName + ", version=" + version + "]";
+    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", version=" + version + "]";
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", version=" + version + ", relatives=" + relatives + ", contacts=" + contacts + "]";
+    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", version=" + version + ", contacts=" + contacts + ", relatives=" + relatives + "]";
   }
   
   public enum Attribute {
@@ -310,9 +307,9 @@ public class Person implements Serializable {
   }
   
   public enum Association {
-    relatives,
+    contacts,
     
-    contacts;
+    relatives;
   }
   
   private Set<String> initAssociations =  new java.util.HashSet<String>();
@@ -411,9 +408,9 @@ public class Person implements Serializable {
     
     version,
     
-    relatives,
+    contacts,
     
-    contacts;
+    relatives;
   }
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();

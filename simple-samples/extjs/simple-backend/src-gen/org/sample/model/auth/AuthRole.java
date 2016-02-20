@@ -16,7 +16,7 @@ public class AuthRole implements Serializable {
   private final static long serialVersionUID = 1L;
   
   @JsonIgnore
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   public AuthRole() {
   }
@@ -104,15 +104,12 @@ public class AuthRole implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override
   public String toString() {
-    return "AuthRole [id=" + id + ", description=" + description + ", name=" + name + ", version=" + version + "]";
+    return "AuthRole [id=" + id + ", name=" + name + ", description=" + description + ", version=" + version + "]";
   }
   
   public String toStringFull() {

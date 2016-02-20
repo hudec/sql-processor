@@ -17,13 +17,13 @@ public class UserRole implements Serializable {
   private final static long serialVersionUID = 1L;
   
   @JsonIgnore
-  public final static int ORDER_BY_ID = 1;
+  public final static String ORDER_BY_ID = "ID";
   
   @JsonIgnore
-  public final static int ORDER_BY_AUTH_USER_ID = 4;
+  public final static String ORDER_BY_AUTH_USER_ID = "AUTH_USER_ID";
   
   @JsonIgnore
-  public final static int ORDER_BY_AUTH_ROLE = 5;
+  public final static String ORDER_BY_AUTH_ROLE = "AUTH_ROLE";
   
   public UserRole() {
   }
@@ -111,10 +111,7 @@ public class UserRole implements Serializable {
   
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id != null) ? id.hashCode() : 0);
-    return result;
+    return java.util.Objects.hash(id);
   }
   
   @Override

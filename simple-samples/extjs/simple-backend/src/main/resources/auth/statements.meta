@@ -43,7 +43,7 @@ SELECT_AUTH_ROLE(QRY,in=AuthRole,out=AuthRole,tab=authRole)=
     {& UPPER(%NAME) like :+name }
     {& UPPER(%DESCRIPTION) like :+description }
   }
-  {#1 order by %ID }
+  {#ID order by %ID }
 ;
 
 INSERT_AUTH_USER(CRUD,in=AuthUser,out=AuthUser,tab=authUser)=
@@ -103,8 +103,8 @@ SELECT_AUTH_USER(QRY,in=AuthUser,out=AuthUser,tab=authUser=a,tab=userRole=u)=
     {& UPPER(%a.EMAIL) like :+email }
     {& %a.LAST_LOGIN ::= :lastLogin }
   }
-  {#1 order by %a.ID }
-  {#2 order by %a.USERNAME }
+  {#ID order by %a.ID }
+  {#USERNAME order by %a.USERNAME }
 ;
 
 INSERT_USER_ROLE(CRUD,in=UserRole,out=UserRole,tab=userRole)=
@@ -155,9 +155,9 @@ SELECT_USER_ROLE(QRY,in=UserRole,out=UserRole,tab=userRole=u,tab=authRole=a)=
     {& %u.AUTH_USER_ID ::= :authUserId }
     {& %u.AUTH_ROLE_ID ::= :authRole.id }
   }
-  {#1 order by %u.ID }
-  {#4 order by %u.AUTH_USER_ID }
-  {#5 order by %u.AUTH_ROLE_ID }
+  {#ID order by %u.ID }
+  {#AUTH_USER_ID order by %u.AUTH_USER_ID }
+  {#AUTH_ROLE order by %u.AUTH_ROLE_ID }
 ;
 
 INSERT_USER_SESSION(CRUD,in=UserSession,out=UserSession,tab=userSession)=
@@ -201,6 +201,19 @@ SELECT_USER_SESSION(QRY,in=UserSession,out=UserSession,tab=userSession)=
     {& %AUTH_USER_ID ::= :authUserId }
     {& %LAST_ACCESS ::= :lastAccess }
   }
-  {#1 order by %ID }
-  {#3 order by %AUTH_USER_ID }
+  {#ID order by %ID }
+  {#AUTH_USER_ID order by %AUTH_USER_ID }
 ;
+
+// Model statistics
+// Tables=4
+// Columns=18
+// Primary Keys=4
+// Exports=3
+// Imports=3
+// Indexes=11
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0
