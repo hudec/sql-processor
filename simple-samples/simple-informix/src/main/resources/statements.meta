@@ -1,6 +1,6 @@
-SEQ_simple_sequence(OPT)=SELECT FIRST 1 simple_sequence.NEXTVAL FROM systables;
-IDSEL_common_Long(OPT)=select dbinfo('bigserial') from informix.systables where tabid=1;
-IDSEL_common_Integer(OPT)=select dbinfo('sqlca.sqlerrd1') from informix.systables where tabid=1;
+SEQ=simple_sequence(OPT)=SELECT FIRST 1 simple_sequence.NEXTVAL FROM systables;
+IDSEL=common_Long(OPT)=select dbinfo('bigserial') from informix.systables where tabid=1;
+IDSEL=common_Integer(OPT)=select dbinfo('sqlca.sqlerrd1') from informix.systables where tabid=1;
 
 INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   insert into %%contact (%id, %person_id, %address, %type, %phone_number)
@@ -53,8 +53,8 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
     {& %c.type ::= :type }
     {& %c.phone_number ::= :phoneNumber }
   }
-  {#1 order by %c.id }
-  {#2 order by %c.person_id }
+  {#ID order by %c.id }
+  {#PERSON order by %c.person_id }
 ;
 
 INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
@@ -111,8 +111,8 @@ SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
     {& UPPER(%p.gender) like :+gender }
     {& UPPER(%p.ssn) like :+ssn }
   }
-  {#1 order by %p.id }
-  {#2 order by %p.last_name }
+  {#ID order by %p.id }
+  {#LAST_NAME order by %p.last_name }
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=

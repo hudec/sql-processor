@@ -3,13 +3,13 @@ package org.sample.model {
 
     #Serializable(1)
     #Enum ContactType {
-        #Values(HOME = 0,BUSINESS = 1)
+        #Values(BUSINESS = 1,HOME = 0)
         #Attr Integer value
     }
 
     #Serializable(1)
     #Enum PersonGender {
-        #Values(MALE = "M",FEMALE = "F")
+        #Values(FEMALE = "F",MALE = "M")
         #Attr String value
     }
 
@@ -20,18 +20,19 @@ package org.sample.model {
     #ToString(id,address,type,phoneNumber)
     #Pojo Contact {
         #PrimaryKey
-        #Index(1)
-        #Attr Integer id
+        #Index
+        #Attr Integer id // SERIAL(10)
         #ToInit
         #Required
-        #Index(2)
-        #Attr Person person
+        #Index
+        #IsPojo
+        #Attr Person person // BIGINT(19)
         #Required
-        #Attr String address
+        #Attr String address // VARCHAR(100)
         #IsDef
-        #Attr ContactType type
+        #Attr ContactType type // INTEGER(10)
         #IsDef
-        #Attr String phoneNumber
+        #Attr String phoneNumber // VARCHAR(100)
     }
 
     #Operators
@@ -39,17 +40,17 @@ package org.sample.model {
     #ToString(id,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRsResult {
         #IsDef
-        #Attr Integer id
+        #Attr Integer id // integer(4)
         #IsDef
-        #Attr java.util.Date dateOfBirth
+        #Attr java.util.Date dateOfBirth // date(4)
         #IsDef
-        #Attr String ssn
+        #Attr String ssn // varchar(100)
         #IsDef
-        #Attr String firstName
+        #Attr String firstName // varchar(100)
         #IsDef
-        #Attr String lastName
+        #Attr String lastName // varchar(100)
         #IsDef
-        #Attr String gender
+        #Attr String gender // varchar(1)
     }
 
     #Operators
@@ -59,53 +60,53 @@ package org.sample.model {
     #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     #Pojo Person {
         #PrimaryKey
-        #Index(1)
-        #Attr Long id
+        #Index
+        #Attr Long id // BIGSERIAL(19)
         #Required
-        #Attr String firstName
+        #Attr String firstName // VARCHAR(100)
         #Required
-        #Index(2)
-        #Attr String lastName
+        #Index
+        #Attr String lastName // VARCHAR(100)
         #IsDef
-        #Attr java.util.Date dateOfBirth
+        #Attr java.util.Date dateOfBirth // DATE(10)
         #Required
-        #Attr PersonGender gender
+        #Attr PersonGender gender // VARCHAR(1)
         #IsDef
-        #Attr String ssn
+        #Attr String ssn // VARCHAR(100)
         #ToInit
-        #Attr java.util.List <Contact> contacts
+        #Attr java.util.List <Contact> contacts // null
     }
 
     #Serializable(1)
     #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.sql.Timestamp t
+        #Attr java.sql.Timestamp t // datetime year to fraction(3)
     }
 
     #Serializable(1)
     #ToString(count)
     #Pojo FunLong {
-        #Attr Long count
+        #Attr Long count // bigint(8)
     }
 
     #Serializable(1)
     #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
-        #Attr Integer newid
-        #Attr java.util.Date dateOfBirth
-        #Attr String ssn
-        #Attr String firstName
-        #Attr String lastName
-        #Attr String gender
+        #Attr Integer newid // integer(4)
+        #Attr java.util.Date dateOfBirth // date(4)
+        #Attr String ssn // varchar(20)
+        #Attr String firstName // varchar(100)
+        #Attr String lastName // varchar(100)
+        #Attr String gender // varchar(1)
     }
 
     #Serializable(1)
     #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.util.Date dateOfBirth
-        #Attr String ssn
-        #Attr String firstName
-        #Attr String lastName
-        #Attr String gender
+        #Attr java.util.Date dateOfBirth // date(4)
+        #Attr String ssn // varchar(20)
+        #Attr String firstName // varchar(100)
+        #Attr String lastName // varchar(100)
+        #Attr String gender // varchar(1)
     }
 }
