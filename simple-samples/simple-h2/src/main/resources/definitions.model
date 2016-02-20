@@ -33,6 +33,11 @@ table contact CONTACT;
 table person PERSON;
 table personDetail PERSON_DETAIL;
 
+procedure anHourBefore AN_HOUR_BEFORE;
+function anHourBefore AN_HOUR_BEFORE;
+
+pojo AnHourBefore org.sample.model.AnHourBefore;
+pojo AnHourBeforeResult org.sample.model.AnHourBeforeResult;
 pojo Contact org.sample.model.Contact;
 pojo Person org.sample.model.Person;
 pojo PersonDetail org.sample.model.PersonDetail;

@@ -12,16 +12,7 @@ package org.sample.dao {
     #Dao PersonDetailDao {
     }
 
-// Model statistics
-// Tables=3
-// Columns=18
-// Primary Keys=2
-// Exports=2
-// Imports=2
-// Indexes=5
-// Check Constraints=0
-// Procedures=0
-// Procedures Columns=0
-// Functions=0
-// Functions Columns=0
+    #ProcedureCallQuery(java.util.List<org.sample.model.AnHourBeforeResult>,org.sample.model.AnHourBefore)
+    #Dao AnHourBeforeDao {
+    }
 }

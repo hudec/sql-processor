@@ -15,9 +15,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Assert;
+import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
 import org.sample.dao.PersonDao;
 import org.sample.dao.PersonDetailDao;
+import org.sample.model.AnHourBefore;
+import org.sample.model.AnHourBeforeResult;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
 import org.sample.model.Person;
@@ -91,7 +94,7 @@ public class Main {
         contactDao = new ContactDao(sqlFactory, sessionFactory);
         personDao = new PersonDao(sqlFactory, sessionFactory);
         personDetailDao = new PersonDetailDao(sqlFactory, sessionFactory);
-        // anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
+        anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
         // newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
         // newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
     }
@@ -107,7 +110,7 @@ public class Main {
     private ContactDao contactDao;
     private PersonDao personDao;
     private PersonDetailDao personDetailDao;
-    // private AnHourBeforeDao anHourBeforeDao;
+    private AnHourBeforeDao anHourBeforeDao;
     // private NewPersonDao newPersonDao;
     // private NewPersonRetRsDao newPersonRetRsDao;
 
@@ -409,6 +412,14 @@ public class Main {
         // delete
         count = personDao.delete(jan);
         Assert.assertEquals(1, count);
+
+        // function
+        AnHourBefore anHourBefore = new AnHourBefore();
+        anHourBefore.setP1(new java.sql.Timestamp(new Date().getTime()));
+        List<AnHourBeforeResult> anHourBeforeResult = anHourBeforeDao.anHourBefore(anHourBefore);
+        Assert.assertNotNull(anHourBeforeResult);
+        Assert.assertEquals(1, anHourBeforeResult.size());
+        System.out.println(anHourBeforeResult.get(0));
 
         printEnginesUsageStatistics(configuration.getQueryEngines());
         printProcessingCacheStatistics(sqlFactory.getQueryEngines());

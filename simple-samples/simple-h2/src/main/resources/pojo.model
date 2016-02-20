@@ -22,6 +22,12 @@ package org.sample.model {
         #Attr String value
     }
 
+    #Operators #Serializable(1) #ToString(p0) #ProcId(p0)
+    #Pojo AnHourBeforeResult {
+        #IsDef
+        #Attr java.sql.Timestamp p0
+    }
+
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,person,type,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
@@ -114,16 +120,8 @@ package org.sample.model {
         #Attr String titles
     }
 
-// Model statistics
-// Tables=3
-// Columns=18
-// Primary Keys=2
-// Exports=2
-// Imports=2
-// Indexes=5
-// Check Constraints=3
-// Procedures=0
-// Procedures Columns=0
-// Functions=0
-// Functions Columns=0
+    #Serializable(1) #ToString(p1)
+    #Pojo AnHourBefore {
+        #Attr java.sql.Timestamp p1
+    }
 }

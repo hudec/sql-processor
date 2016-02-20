@@ -183,15 +183,9 @@ SELECT_PERSON_DETAIL(QRY,in=PersonDetail,out=PersonDetail,tab=personDetail=p,tab
   {#ID order by %p.ID }
 ;
 
-// Model statistics
-// Tables=3
-// Columns=18
-// Primary Keys=2
-// Exports=2
-// Imports=2
-// Indexes=5
-// Check Constraints=0
-// Procedures=0
-// Procedures Columns=0
-// Functions=0
-// Functions Columns=0
+PROC_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
+  call AN_HOUR_BEFORE(:p1)
+;
+PROC_AN_HOUR_BEFORE(OUT,out=AnHourBeforeResult)=
+  1$p0
+;
