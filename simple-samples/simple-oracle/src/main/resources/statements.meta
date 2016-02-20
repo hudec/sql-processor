@@ -1,4 +1,4 @@
-SEQ_SIMPLE_SEQUENCE(OPT)=select SIMPLE_SEQUENCE.nextval from dual;
+SEQ=SIMPLE_SEQUENCE(OPT)=select SIMPLE_SEQUENCE.nextval from dual;
 
 INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER)
@@ -51,7 +51,7 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
     {& UPPER(%c.ADDRESS) like :+address }
     {& %c.PHONE_NUMBER ::= :phoneNumber }
   }
-  {#1 order by %c.ID }
+  {#ID order by %c.ID }
 ;
 
 INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
@@ -108,8 +108,8 @@ SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
     {& UPPER(%p.GENDER) like :+gender }
     {& UPPER(%p.SSN) like :+ssn }
   }
-  {#1 order by %p.ID }
-  {#2 order by %p.LAST_NAME }
+  {#ID order by %p.ID }
+  {#LAST_NAME order by %p.LAST_NAME }
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
