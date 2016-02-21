@@ -14,7 +14,7 @@
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.12</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.mysql>5.1.21</version.mysql>
+        <version.mysql>5.1.36</version.mysql>
         <version.sql-processor-eclipse>2.5.1</version.sql-processor-eclipse>
     </properties>
 

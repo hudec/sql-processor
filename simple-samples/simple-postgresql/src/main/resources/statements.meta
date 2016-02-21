@@ -1,8 +1,8 @@
-SEQ_contact_person_id_seq(OPT)=select nextval('contact_person_id_seq');
-SEQ_person_id_seq(OPT)=select nextval('person_id_seq');
-SEQ_contact_id_seq(OPT)=select nextval('contact_id_seq');
-IDSEL_PERSON(OPT)=select currval(pg_get_serial_sequence('person','id'));
-IDSEL_CONTACT(OPT)=select currval(pg_get_serial_sequence('contact','id'));
+SEQ=contact_person_id_seq(OPT)=select nextval('contact_person_id_seq');
+SEQ=person_id_seq(OPT)=select nextval('person_id_seq');
+SEQ=contact_id_seq(OPT)=select nextval('contact_id_seq');
+IDSEL=PERSON(OPT)=select currval(pg_get_serial_sequence('person','id'));
+IDSEL=CONTACT(OPT)=select currval(pg_get_serial_sequence('contact','id'));
 
 INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   insert into %%contact (%id, %person_id, %ctype, %address, %phone_number)
@@ -55,7 +55,7 @@ SELECT_CONTACT(QRY,in=Contact,out=Contact,tab=contact=c,tab=person=p)=
     {& UPPER(%c.address) like :+address }
     {& %c.phone_number ::= :phoneNumber }
   }
-  {#1 order by %c.id }
+  {#ID order by %c.id }
 ;
 
 INSERT_PERSON(CRUD,in=Person,out=Person,tab=person)=
@@ -112,8 +112,8 @@ SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
     {& UPPER(%p.gender) like :+gender }
     {& UPPER(%p.ssn) like :+ssn }
   }
-  {#1 order by %p.id }
-  {#2 order by %p.last_name }
+  {#ID order by %p.id }
+  {#LAST_NAME order by %p.last_name }
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=

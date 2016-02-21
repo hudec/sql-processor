@@ -14,8 +14,8 @@
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.12</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.postgresql>9.2-1002.jdbc4</version.postgresql>
-        <version.sql-processor-eclipse>2.3.5</version.sql-processor-eclipse>
+        <version.postgresql>9.4-1201-jdbc41</version.postgresql>
+        <version.sql-processor-eclipse>2.5.1</version.sql-processor-eclipse>
     </properties>
 
     <build>
@@ -117,7 +117,7 @@
             <version>${version.slf4j}</version>
         </dependency>
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${version.postgresql}</version>
         </dependency>

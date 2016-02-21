@@ -4,9 +4,9 @@ import java.util.Map;
 
 @SuppressWarnings("all")
 public enum PersonGender {
-  MALE("M"),
-  
   FEMALE("F"),
+  
+  MALE("M"),
   
   UNKNOWN("0");
   private static Map<String, PersonGender> identifierMap =  identifierMapBuild();
