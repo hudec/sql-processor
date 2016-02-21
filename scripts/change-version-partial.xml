@@ -2,8 +2,8 @@
 
 <project name="sql-processor-version" default="change-version" basedir=".">
 	
-	<property name="version.from" value="3.1.5"/>
-	<property name="version.to" value="3.1.6-SNAPSHOT"/>
+	<property name="version.from" value="3.1.6-SNAPSHOT"/>
+	<property name="version.to" value="3.1.6"/>
 	<property name="version.plugin.from" value="1.4.0-SNAPSHOT"/>
 	<property name="version.plugin.to" value="1.4.0"/>
 	<property name="version.plugin2.from" value="1.4.0.qualifier"/>
