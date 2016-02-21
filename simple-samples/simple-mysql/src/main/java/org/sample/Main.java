@@ -34,7 +34,8 @@ import org.sqlproc.engine.util.DDLLoader;
 
 public class Main {
 
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple?zeroDateTimeBehavior=convertToNull";
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple";
+    // private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple?zeroDateTimeBehavior=convertToNull";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
     private static final SqlFeature DB_TYPE = SqlFeature.MYSQL;
@@ -233,6 +234,7 @@ public class Main {
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());
 
+        main.connection.close();
         System.out.println("OK");
     }
 
