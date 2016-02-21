@@ -107,10 +107,10 @@ public class Main {
         // insert
         Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE), new Contact()
                 ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setCtype(ContactCtype.HOME));
-        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
-                ._setAddress("Janik address 1")._setCtype(ContactCtype.BUSINESS));
-        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
-                ._setAddress("Honza address 1")._setCtype(ContactCtype.HOME),
+        Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE),
+                new Contact()._setAddress("Janik address 1")._setCtype(ContactCtype.BUSINESS));
+        Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE),
+                new Contact()._setAddress("Honza address 1")._setCtype(ContactCtype.HOME),
                 new Contact()._setAddress("Honza address 2")._setCtype(ContactCtype.BUSINESS));
         Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
         Person andrej = main.insertPersonContacts(
@@ -175,8 +175,8 @@ public class Main {
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzovsky", list.get(2).getLastName());
         person = new Person();
-        list = main.personDao.list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME)
-                .setMaxResults(2));
+        list = main.personDao.list(person,
+                new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
 
         // count
@@ -232,6 +232,8 @@ public class Main {
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());
+
+        System.out.println("OK");
     }
 
     public static java.sql.Timestamp getAge(int year, int month, int day) {

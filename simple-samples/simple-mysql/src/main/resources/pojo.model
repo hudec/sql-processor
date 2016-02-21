@@ -3,69 +3,69 @@ package org.sample.model {
 
     #Serializable(1)
     #Enum ContactCtype {
-        #Values(HOME = "0",BUSINESS = "1",ABROAD = "2")
+        #Values(ABROAD = "2",BUSINESS = "1",HOME = "0")
         #Attr String value
     }
 
     #Serializable(1)
     #Enum PersonGender {
-        #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+        #Values(FEMALE = "F",MALE = "M",UNKNOWN = "0")
         #Attr String value
     }
 
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,ctype,address,phoneNumber)
     #Pojo Contact {
-        #PrimaryKey #Index(1)
-        #Attr Long id
-        #ToInit #Required #Index(2)
-        #Attr Person person
+        #PrimaryKey #Index
+        #Attr Long id // BIGINT(19)
+        #ToInit #Required #Index #IsPojo
+        #Attr Person person // BIGINT(19)
         #IsDef
-        #Attr ContactCtype ctype
+        #Attr ContactCtype ctype // ENUM(2)
         #IsDef
-        #Attr String address
+        #Attr String address // VARCHAR(100)
         #IsDef
-        #Attr String phoneNumber
+        #Attr String phoneNumber // VARCHAR(100)
     }
 
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     #Pojo Person {
-        #PrimaryKey #Index(1)
-        #Attr Long id
+        #PrimaryKey #Index
+        #Attr Long id // BIGINT(19)
         #Required
-        #Attr String firstName
-        #Required #Index(2)
-        #Attr String lastName
+        #Attr String firstName // VARCHAR(100)
+        #Required #Index
+        #Attr String lastName // VARCHAR(100)
         #IsDef
-        #Attr java.util.Date dateOfBirth
+        #Attr java.util.Date dateOfBirth // DATE(10)
         #Required
-        #Attr PersonGender gender
+        #Attr PersonGender gender // ENUM(2)
         #IsDef
-        #Attr String ssn
+        #Attr String ssn // VARCHAR(100)
         #ToInit
-        #Attr java.util.List <Contact> contacts
+        #Attr java.util.List <Contact> contacts // null
     }
 
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.sql.Timestamp t
+        #Attr java.sql.Timestamp t // TIMESTAMP(19)
     }
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
-        #Attr Integer newid
-        #Attr java.util.Date dateOfBirth
-        #Attr String ssn
-        #Attr String firstName
-        #Attr String lastName
-        #Attr String gender
+        #Attr Integer newid // INTEGER(10)
+        #Attr java.util.Date dateOfBirth // DATE(10)
+        #Attr String ssn // VARCHAR(20)
+        #Attr String firstName // VARCHAR(100)
+        #Attr String lastName // VARCHAR(100)
+        #Attr String gender // VARCHAR(1)
     }
 
     #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.util.Date dateOfBirth
-        #Attr String ssn
-        #Attr String firstName
-        #Attr String lastName
-        #Attr String gender
+        #Attr java.util.Date dateOfBirth // DATE(10)
+        #Attr String ssn // VARCHAR(20)
+        #Attr String firstName // VARCHAR(100)
+        #Attr String lastName // VARCHAR(100)
+        #Attr String gender // VARCHAR(1)
     }
 }
