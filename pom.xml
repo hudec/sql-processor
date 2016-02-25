@@ -419,7 +419,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
                 <db.driver>com.informix.jdbc.IfxDriver</db.driver>
-                <db.url>jdbc:informix-sqli://popel:1556/sql:informixserver=popel_ais3;DB_LOCALE=en_US.57372</db.url>
+                <db.url>jdbc:informix-sqli://prach:1556/sql:informixserver=popel_ais3;DB_LOCALE=en_US.57372</db.url>
                 <db.username>sql</db.username>
                 <db.password>sql</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
