@@ -1,5 +1,6 @@
 resolve-pojo-on; 
 database-is-online;
+new-pojo-validator;
 generate-from-to;
 case-format-library Guava;
 //verify-resources - statements.meta;
