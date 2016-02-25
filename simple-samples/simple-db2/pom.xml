@@ -15,6 +15,7 @@
         <version.junit>4.12</version.junit>
         <version.db2>10.1</version.db2>
         <version.beanutils>1.9.2</version.beanutils>
+        <version.sql-processor-eclipse>2.5.1</version.sql-processor-eclipse>
     </properties>
 
     <build>

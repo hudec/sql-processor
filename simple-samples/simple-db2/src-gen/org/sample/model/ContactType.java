@@ -4,9 +4,9 @@ import java.util.Map;
 
 @SuppressWarnings("all")
 public enum ContactType {
-  HOME(0),
+  BUSINESS(1),
   
-  BUSINESS(1);
+  HOME(0);
   private static Map<Integer, ContactType> identifierMap =  identifierMapBuild();
   
   public static Map<Integer, ContactType> identifierMapBuild() {
