@@ -1,4 +1,5 @@
 resolve-pojo-on;
+new-pojo-validator;
 database-is-offline;
 
 pojo BankAccount org.sqlproc.sample.simple.model.BankAccount;

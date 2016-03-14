@@ -1,4 +1,5 @@
 resolve-pojo-on;
+new-pojo-validator;
 database-is-online;
 database-jdbc-driver org.hsqldb.jdbcDriver;
 database-has-url "jdbc:hsqldb:mem:jdbccrud";

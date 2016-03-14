@@ -73,7 +73,7 @@ procedure newPersonRetRs NEW_PERSON_RET_RS;
 function anHourBefore AN_HOUR_BEFORE;
 
 pojogen-create-tables NEW_PERSON_RET_RS_RESULT;
-pojogen-create-columns NEW_PERSON_RET_RS_RESULT ID->java.lang.Long FIRST_NAME->java.lang.String 
+pojogen-create-columns NEW_PERSON_RET_RS_RESULT ID->java.lang.Long FIRST_NAME->java.lang.String
 LAST_NAME->java.lang.String DATE_OF_BIRTH->java.util.Date GENDER->::org.sample.model.PersonGender SSN->java.lang.String;
 
 metagen-function-result AN_HOUR_BEFORE stamp;
