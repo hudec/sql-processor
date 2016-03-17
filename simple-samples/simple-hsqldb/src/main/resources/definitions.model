@@ -93,6 +93,8 @@ is-pojo PersonDetail org.sample.model.PersonDetail;
 
 is-annotation XmlTransient javax.xml.bind.annotation.XmlTransient;
 pojogen-column-annotations ids XmlTransient - Person; 
+pojogen-getter-annotations ids XmlTransient - Contact; 
+pojogen-setter-annotations ids XmlTransient - PersonDetail; 
 
 //database-debug-level DEBUG;
 //pojogen-debug-level DEBUG;

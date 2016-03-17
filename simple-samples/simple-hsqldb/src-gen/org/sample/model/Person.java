@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 import org.sample.model.Contact;
 import org.sample.model.PersonDetail;
 import org.sample.model.PersonGender;
@@ -174,10 +175,12 @@ public class Person implements Serializable {
   
   private List<Long> ids = new java.util.ArrayList<Long>();
   
+  @XmlTransient
   public List<Long> getIds() {
     return this.ids;
   }
   
+  @XmlTransient
   public void setIds(final List<Long> ids) {
     this.ids = ids;
   }

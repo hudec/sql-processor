@@ -109,7 +109,6 @@ public class PersonDetail implements Serializable {
     return this;
   }
   
-  @XmlTransient
   private boolean onlyIds;
   
   public boolean isOnlyIds() {
@@ -125,8 +124,10 @@ public class PersonDetail implements Serializable {
     return this;
   }
   
+  @XmlTransient
   private List<Long> ids = new java.util.ArrayList<Long>();
   
+  @XmlTransient
   public List<Long> getIds() {
     return this.ids;
   }

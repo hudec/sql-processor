@@ -12,36 +12,6 @@ import org.sqlproc.engine.annotation.Pojo;
 public class NewPersonRetRsResult implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private String firstName;
-  
-  public String getFirstName() {
-    return this.firstName;
-  }
-  
-  public void setFirstName(final String firstName) {
-    this.firstName = firstName;
-  }
-  
-  public NewPersonRetRsResult _setFirstName(final String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
-  
-  private String ssn;
-  
-  public String getSsn() {
-    return this.ssn;
-  }
-  
-  public void setSsn(final String ssn) {
-    this.ssn = ssn;
-  }
-  
-  public NewPersonRetRsResult _setSsn(final String ssn) {
-    this.ssn = ssn;
-    return this;
-  }
-  
   private PersonGender gender;
   
   public PersonGender getGender() {
@@ -54,21 +24,6 @@ public class NewPersonRetRsResult implements Serializable {
   
   public NewPersonRetRsResult _setGender(final PersonGender gender) {
     this.gender = gender;
-    return this;
-  }
-  
-  private Date dateOfBirth;
-  
-  public Date getDateOfBirth() {
-    return this.dateOfBirth;
-  }
-  
-  public void setDateOfBirth(final Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
-  }
-  
-  public NewPersonRetRsResult _setDateOfBirth(final Date dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
     return this;
   }
   
@@ -102,44 +57,89 @@ public class NewPersonRetRsResult implements Serializable {
     return this;
   }
   
+  private Date dateOfBirth;
+  
+  public Date getDateOfBirth() {
+    return this.dateOfBirth;
+  }
+  
+  public void setDateOfBirth(final Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+  }
+  
+  public NewPersonRetRsResult _setDateOfBirth(final Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+    return this;
+  }
+  
+  private String firstName;
+  
+  public String getFirstName() {
+    return this.firstName;
+  }
+  
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
+  
+  public NewPersonRetRsResult _setFirstName(final String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+  
+  private String ssn;
+  
+  public String getSsn() {
+    return this.ssn;
+  }
+  
+  public void setSsn(final String ssn) {
+    this.ssn = ssn;
+  }
+  
+  public NewPersonRetRsResult _setSsn(final String ssn) {
+    this.ssn = ssn;
+    return this;
+  }
+  
   public StringBuilder getProcessingIdForAttributes() {
     StringBuilder result = new StringBuilder("NewPersonRetRsResult");
-    if (firstName != null)
-    	result.append("@").append("firstName");
-    if (ssn != null)
-    	result.append("@").append("ssn");
     if (gender != null)
     	result.append("@").append("gender");
-    if (dateOfBirth != null)
-    	result.append("@").append("dateOfBirth");
     if (id != null)
     	result.append("@").append("id");
     if (lastName != null)
     	result.append("@").append("lastName");
+    if (dateOfBirth != null)
+    	result.append("@").append("dateOfBirth");
+    if (firstName != null)
+    	result.append("@").append("firstName");
+    if (ssn != null)
+    	result.append("@").append("ssn");
     return result;
   }
   
   @Override
   public String toString() {
-    return "NewPersonRetRsResult [firstName=" + firstName + ", ssn=" + ssn + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + "]";
+    return "NewPersonRetRsResult [gender=" + gender + ", id=" + id + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", ssn=" + ssn + "]";
   }
   
   public String toStringFull() {
-    return "NewPersonRetRsResult [firstName=" + firstName + ", ssn=" + ssn + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", id=" + id + ", lastName=" + lastName + "]";
+    return "NewPersonRetRsResult [gender=" + gender + ", id=" + id + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", ssn=" + ssn + "]";
   }
   
   public enum Attribute {
-    firstName,
-    
-    ssn,
-    
     gender,
-    
-    dateOfBirth,
     
     id,
     
-    lastName;
+    lastName,
+    
+    dateOfBirth,
+    
+    firstName,
+    
+    ssn;
   }
   
   private Set<String> nullValues =  new java.util.HashSet<String>();
@@ -230,17 +230,17 @@ public class NewPersonRetRsResult implements Serializable {
   }
   
   public enum OpAttribute {
-    firstName,
-    
-    ssn,
-    
     gender,
-    
-    dateOfBirth,
     
     id,
     
-    lastName;
+    lastName,
+    
+    dateOfBirth,
+    
+    firstName,
+    
+    ssn;
   }
   
   private Map<String, String> operators =  new java.util.HashMap<String, String>();

@@ -49,25 +49,27 @@ package org.sample.model {
         #IsDef
         // Any notes and remarks
         #Attr String xNote
-        @javax.xml.bind.annotation.XmlTransient
         #Attr boolean onlyIds
+        #Attribute
+        #Setter
+        @javax.xml.bind.annotation.XmlTransient
         #Attr java.util.List <Long> ids
     }
 
-    #Operators #Serializable(1) #ToString(firstName,ssn,gender,dateOfBirth,id,lastName) #ProcId(firstName,ssn,gender,dateOfBirth,id,lastName)
+    #Operators #Serializable(1) #ToString(gender,id,lastName,dateOfBirth,firstName,ssn) #ProcId(gender,id,lastName,dateOfBirth,firstName,ssn)
     #Pojo NewPersonRetRsResult {
         #IsDef
-        #Attr String firstName
-        #IsDef
-        #Attr String ssn
-        #IsDef
         #Attr org.sample.model.PersonGender gender
-        #IsDef
-        #Attr java.util.Date dateOfBirth
         #IsDef
         #Attr Long id
         #IsDef
         #Attr String lastName
+        #IsDef
+        #Attr java.util.Date dateOfBirth
+        #IsDef
+        #Attr String firstName
+        #IsDef
+        #Attr String ssn
     }
 
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,gender,ssn)
@@ -102,6 +104,9 @@ package org.sample.model {
         #ToInit
         #Attr java.util.List <PersonDetail> personDetails
         #Attr boolean onlyIds
+        #Getter
+        #Setter
+        @javax.xml.bind.annotation.XmlTransient
         #Attr java.util.List <Long> ids
     }
 
@@ -127,8 +132,10 @@ package org.sample.model {
         #IsDef
         // The titles
         #Attr String titles
-        @javax.xml.bind.annotation.XmlTransient
         #Attr boolean onlyIds
+        #Attribute
+        #Getter
+        @javax.xml.bind.annotation.XmlTransient
         #Attr java.util.List <Long> ids
     }
 
@@ -155,4 +162,17 @@ package org.sample.model {
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=4
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=3
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }

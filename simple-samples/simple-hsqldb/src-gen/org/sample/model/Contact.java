@@ -126,7 +126,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  @XmlTransient
   private boolean onlyIds;
   
   public boolean isOnlyIds() {
@@ -142,12 +141,14 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @XmlTransient
   private List<Long> ids = new java.util.ArrayList<Long>();
   
   public List<Long> getIds() {
     return this.ids;
   }
   
+  @XmlTransient
   public void setIds(final List<Long> ids) {
     this.ids = ids;
   }
