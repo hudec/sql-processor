@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 import org.sample.model.Person;
 import org.sample.model.PersonDetailType;
 import org.sqlproc.engine.annotation.Pojo;
@@ -108,6 +109,7 @@ public class PersonDetail implements Serializable {
     return this;
   }
   
+  @XmlTransient
   private boolean onlyIds;
   
   public boolean isOnlyIds() {

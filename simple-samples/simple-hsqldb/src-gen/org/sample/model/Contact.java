@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 import org.sample.model.ContactType;
 import org.sample.model.Person;
 import org.sqlproc.engine.annotation.Pojo;
@@ -125,6 +126,7 @@ public class Contact implements Serializable {
     return this;
   }
   
+  @XmlTransient
   private boolean onlyIds;
   
   public boolean isOnlyIds() {

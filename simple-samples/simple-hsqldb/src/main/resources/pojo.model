@@ -49,6 +49,7 @@ package org.sample.model {
         #IsDef
         // Any notes and remarks
         #Attr String xNote
+        @javax.xml.bind.annotation.XmlTransient
         #Attr boolean onlyIds
         #Attr java.util.List <Long> ids
     }
@@ -126,6 +127,7 @@ package org.sample.model {
         #IsDef
         // The titles
         #Attr String titles
+        @javax.xml.bind.annotation.XmlTransient
         #Attr boolean onlyIds
         #Attr java.util.List <Long> ids
     }

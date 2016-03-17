@@ -64,13 +64,13 @@ metagen-not-like-columns;
 //daogen-make-it-final; 
 daogen-package org.sample.dao;
 
-table contact CONTACT;
-table person PERSON;
-table personDetail PERSON_DETAIL;
-procedure anHourBefore AN_HOUR_BEFORE;
-procedure newPerson NEW_PERSON;
-procedure newPersonRetRs NEW_PERSON_RET_RS;
-function anHourBefore AN_HOUR_BEFORE;
+is-table contact CONTACT;
+is-table person PERSON;
+is-table personDetail PERSON_DETAIL;
+is-procedure anHourBefore AN_HOUR_BEFORE;
+is-procedure newPerson NEW_PERSON;
+is-procedure newPersonRetRs NEW_PERSON_RET_RS;
+is-function anHourBefore AN_HOUR_BEFORE;
 
 pojogen-create-tables NEW_PERSON_RET_RS_RESULT;
 pojogen-create-columns NEW_PERSON_RET_RS_RESULT ID->java.lang.Long FIRST_NAME->java.lang.String
@@ -83,13 +83,16 @@ metagen-procedure-result-set NEW_PERSON_RET_RS NEW_PERSON_RET_RS_RESULT;
 
 compress-meta-directives;
 
-pojo AnHourBefore org.sample.model.AnHourBefore;
-pojo Contact org.sample.model.Contact;
-pojo NewPerson org.sample.model.NewPerson;
-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
-pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
-pojo Person org.sample.model.Person;
-pojo PersonDetail org.sample.model.PersonDetail;
+is-pojo AnHourBefore org.sample.model.AnHourBefore;
+is-pojo Contact org.sample.model.Contact;
+is-pojo NewPerson org.sample.model.NewPerson;
+is-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+is-pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
+is-pojo Person org.sample.model.Person;
+is-pojo PersonDetail org.sample.model.PersonDetail;
+
+is-annotation XmlTransient javax.xml.bind.annotation.XmlTransient;
+pojogen-column-annotations ids XmlTransient - Person; 
 
 //database-debug-level DEBUG;
 //pojogen-debug-level DEBUG;
