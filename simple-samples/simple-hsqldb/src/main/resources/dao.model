@@ -23,4 +23,17 @@ package org.sample.dao {
     #FunctionCall(java.sql.Timestamp,org.sample.model.AnHourBefore)
     #Dao AnHourBeforeDao {
     }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=4
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=3
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }

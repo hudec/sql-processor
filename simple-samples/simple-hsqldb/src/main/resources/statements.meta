@@ -203,5 +203,18 @@ PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
   call NEW_PERSON_RET_RS(:dateOfBirth, :ssn, :firstName, :lastName, :gender)
 ;
 PROC_NEW_PERSON_RET_RS(OUT,out=NewPersonRetRsResult)=
-  FIRST_NAME$firstName SSN$ssn GENDER$gender DATE_OF_BIRTH$dateOfBirth ID$id LAST_NAME$lastName
+  ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth GENDER$gender SSN$ssn
 ;
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=4
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=3
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1

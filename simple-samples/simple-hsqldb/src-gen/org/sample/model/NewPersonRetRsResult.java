@@ -12,21 +12,6 @@ import org.sqlproc.engine.annotation.Pojo;
 public class NewPersonRetRsResult implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private PersonGender gender;
-  
-  public PersonGender getGender() {
-    return this.gender;
-  }
-  
-  public void setGender(final PersonGender gender) {
-    this.gender = gender;
-  }
-  
-  public NewPersonRetRsResult _setGender(final PersonGender gender) {
-    this.gender = gender;
-    return this;
-  }
-  
   private Long id;
   
   public Long getId() {
@@ -39,6 +24,21 @@ public class NewPersonRetRsResult implements Serializable {
   
   public NewPersonRetRsResult _setId(final Long id) {
     this.id = id;
+    return this;
+  }
+  
+  private String firstName;
+  
+  public String getFirstName() {
+    return this.firstName;
+  }
+  
+  public void setFirstName(final String firstName) {
+    this.firstName = firstName;
+  }
+  
+  public NewPersonRetRsResult _setFirstName(final String firstName) {
+    this.firstName = firstName;
     return this;
   }
   
@@ -72,18 +72,18 @@ public class NewPersonRetRsResult implements Serializable {
     return this;
   }
   
-  private String firstName;
+  private PersonGender gender;
   
-  public String getFirstName() {
-    return this.firstName;
+  public PersonGender getGender() {
+    return this.gender;
   }
   
-  public void setFirstName(final String firstName) {
-    this.firstName = firstName;
+  public void setGender(final PersonGender gender) {
+    this.gender = gender;
   }
   
-  public NewPersonRetRsResult _setFirstName(final String firstName) {
-    this.firstName = firstName;
+  public NewPersonRetRsResult _setGender(final PersonGender gender) {
+    this.gender = gender;
     return this;
   }
   
@@ -104,16 +104,16 @@ public class NewPersonRetRsResult implements Serializable {
   
   public StringBuilder getProcessingIdForAttributes() {
     StringBuilder result = new StringBuilder("NewPersonRetRsResult");
-    if (gender != null)
-    	result.append("@").append("gender");
     if (id != null)
     	result.append("@").append("id");
+    if (firstName != null)
+    	result.append("@").append("firstName");
     if (lastName != null)
     	result.append("@").append("lastName");
     if (dateOfBirth != null)
     	result.append("@").append("dateOfBirth");
-    if (firstName != null)
-    	result.append("@").append("firstName");
+    if (gender != null)
+    	result.append("@").append("gender");
     if (ssn != null)
     	result.append("@").append("ssn");
     return result;
@@ -121,23 +121,23 @@ public class NewPersonRetRsResult implements Serializable {
   
   @Override
   public String toString() {
-    return "NewPersonRetRsResult [gender=" + gender + ", id=" + id + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", ssn=" + ssn + "]";
+    return "NewPersonRetRsResult [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + "]";
   }
   
   public String toStringFull() {
-    return "NewPersonRetRsResult [gender=" + gender + ", id=" + id + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", ssn=" + ssn + "]";
+    return "NewPersonRetRsResult [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + "]";
   }
   
   public enum Attribute {
-    gender,
-    
     id,
+    
+    firstName,
     
     lastName,
     
     dateOfBirth,
     
-    firstName,
+    gender,
     
     ssn;
   }
@@ -230,15 +230,15 @@ public class NewPersonRetRsResult implements Serializable {
   }
   
   public enum OpAttribute {
-    gender,
-    
     id,
+    
+    firstName,
     
     lastName,
     
     dateOfBirth,
     
-    firstName,
+    gender,
     
     ssn;
   }

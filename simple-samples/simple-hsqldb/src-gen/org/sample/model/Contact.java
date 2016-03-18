@@ -12,6 +12,7 @@ import org.sample.model.Person;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
+@XmlTransient
 @SuppressWarnings("all")
 public class Contact implements Serializable {
   private final static long serialVersionUID = 1L;

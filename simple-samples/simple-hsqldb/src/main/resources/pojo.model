@@ -22,6 +22,8 @@ package org.sample.model {
         #Attr String value
     }
 
+    #Standard
+    @javax.xml.bind.annotation.XmlTransient
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,person,type,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
@@ -56,18 +58,18 @@ package org.sample.model {
         #Attr java.util.List <Long> ids
     }
 
-    #Operators #Serializable(1) #ToString(gender,id,lastName,dateOfBirth,firstName,ssn) #ProcId(gender,id,lastName,dateOfBirth,firstName,ssn)
+    #Operators #Serializable(1) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,gender,ssn)
     #Pojo NewPersonRetRsResult {
         #IsDef
-        #Attr org.sample.model.PersonGender gender
-        #IsDef
         #Attr Long id
+        #IsDef
+        #Attr String firstName
         #IsDef
         #Attr String lastName
         #IsDef
         #Attr java.util.Date dateOfBirth
         #IsDef
-        #Attr String firstName
+        #Attr org.sample.model.PersonGender gender
         #IsDef
         #Attr String ssn
     }
