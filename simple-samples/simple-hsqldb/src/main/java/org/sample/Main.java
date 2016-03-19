@@ -385,19 +385,19 @@ public class Main {
         Assert.assertEquals(2, count);
 
         // operators
-//        contact = new Contact();
-//        contact.setPhoneNumber("444-555-6666");
-//        listc = contactDao.list(contact);
-//        Assert.assertEquals(2, listc.size());
-//        Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
-//        contact.setOp_("<>", Contact.OpAttribute.phoneNumber);
-//        listc = contactDao.list(contact);
-//        Assert.assertEquals(1, listc.size());
-//        Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
-//        contact = new Contact();
-//        contact.setNullOp_(Contact.OpAttribute.phoneNumber);
-//        count = contactDao.count(contact);
-//        Assert.assertEquals(7, count);
+        contact = new Contact();
+        contact.setPhoneNumber("444-555-6666");
+        listc = contactDao.list(contact);
+        Assert.assertEquals(2, listc.size());
+        Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
+        contact.setOp_("<>", Contact.OpAttribute.phoneNumber);
+        listc = contactDao.list(contact);
+        Assert.assertEquals(1, listc.size());
+        Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
+        contact = new Contact();
+        contact.setNullOp_(Contact.OpAttribute.phoneNumber);
+        count = contactDao.count(contact);
+        Assert.assertEquals(7, count);
 
         // validation
         contact = new Contact();

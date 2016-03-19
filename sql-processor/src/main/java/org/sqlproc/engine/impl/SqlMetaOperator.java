@@ -118,14 +118,17 @@ class SqlMetaOperator extends SqlMetaConst {
             }
         } else
             name = item;
-        Object result = (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
+        Object result = (ctx.checkAttribute(obj, name + "_")) ? ctx.getAttribute(obj, name + "_")
+                : ((ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null);
         if (result != null || prefix == null || suffix == null)
             return result;
         suffix = SqlUtils.firstLowerCase(suffix);
-        Object o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
+        Object o = (ctx.checkAttribute(obj, suffix + "_")) ? ctx.getAttribute(obj, suffix + "_")
+                : ((ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null);
         if (o == null || !(o instanceof Map)) {
             suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
-            o = (ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null;
+            o = (ctx.checkAttribute(obj, suffix + "_")) ? ctx.getAttribute(obj, suffix + "_")
+                    : ((ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null);
             if (o == null || !(o instanceof Map)) {
                 return null;
             }
