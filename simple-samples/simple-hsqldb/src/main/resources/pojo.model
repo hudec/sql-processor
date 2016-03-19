@@ -51,11 +51,8 @@ package org.sample.model {
         #IsDef
         // Any notes and remarks
         #Attr String xNote
-        #Attr boolean onlyIds
-        #Attribute
-        #Setter
-        @javax.xml.bind.annotation.XmlTransient
-        #Attr java.util.List <Long> ids
+        #Attr boolean onlyIds_
+        #Attr java.util.List <Long> ids_
     }
 
     #Operators #Serializable(1) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,gender,ssn)
@@ -105,11 +102,8 @@ package org.sample.model {
         #Attr java.util.List <Contact> contacts
         #ToInit
         #Attr java.util.List <PersonDetail> personDetails
-        #Attr boolean onlyIds
-        #Getter
-        #Setter
-        @javax.xml.bind.annotation.XmlTransient
-        #Attr java.util.List <Long> ids
+        #Attr boolean onlyIds_
+        #Attr java.util.List <Long> ids_
     }
 
     #Operators #Serializable(1) #Equals(id,type) #HashCode(id,type) #ToString(type,weight,height,disposition,titles) #ProcId(id,type,weight,height,disposition,titles)
@@ -134,11 +128,8 @@ package org.sample.model {
         #IsDef
         // The titles
         #Attr String titles
-        #Attr boolean onlyIds
-        #Attribute
-        #Getter
-        @javax.xml.bind.annotation.XmlTransient
-        #Attr java.util.List <Long> ids
+        #Attr boolean onlyIds_
+        #Attr java.util.List <Long> ids_
     }
 
     #Serializable(1) #ToString(t)

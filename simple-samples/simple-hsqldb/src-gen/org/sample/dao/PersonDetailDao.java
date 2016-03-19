@@ -186,14 +186,14 @@ public class PersonDetailDao {
     }
     org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_DETAIL");
     //sqlControl = getMoreResultClasses(personDetail, sqlControl);
-    personDetail.setOnlyIds(true);
-    java.util.Set<String> initAssociations = personDetail.getInitAssociations();
-    personDetail.setInitAssociations(new java.util.HashSet<String>());
-    final java.util.List<Long> ids = sqlEnginePersonDetail.query(sqlSession, Long.class, personDetail, sqlControl);
-    personDetail.setInitAssociations(initAssociations);
+    personDetail.setOnlyIds_(true);
+    java.util.Set<String> initAssociations = personDetail.getInitAssociations_();
+    personDetail.setInitAssociations_(new java.util.HashSet<String>());
+    final java.util.List<Long> ids_ = sqlEnginePersonDetail.query(sqlSession, Long.class, personDetail, sqlControl);
+    personDetail.setInitAssociations_(initAssociations);
     
     List<PersonDetail> personDetailList = new java.util.ArrayList<PersonDetail>();
-    if (!ids.isEmpty()) {
+    if (!ids_.isEmpty()) {
     	org.sqlproc.engine.impl.SqlStandardControl sqlc = new org.sqlproc.engine.impl.SqlStandardControl(sqlControl);
     	sqlc.setFirstResult(0);
     	sqlc.setMaxResults(0);
@@ -206,8 +206,8 @@ public class PersonDetailDao {
     			return true;
     		}
     	};
-    	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail()._setIds(ids), sqlc, sqlRowProcessor);
-    	for (Long id : ids)
+    	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail()._setIds_(ids_), sqlc, sqlRowProcessor);
+    	for (Long id : ids_)
     		personDetailList.add(map.get(id));
     }
     if (logger.isTraceEnabled()) {
