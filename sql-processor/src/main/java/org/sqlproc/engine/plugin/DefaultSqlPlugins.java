@@ -27,6 +27,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     protected static final String METHOD_IS_NULL = "isNull";
     protected static final String METHOD_IS_DEF_ = "isDef_";
     protected static final String METHOD_IS_DEF = "isDef";
+    protected static final String METHOD_TO_INIT_ = "toInit_";
+    protected static final String METHOD_TO_INIT = "toInit";
 
     /**
      * {@inheritDoc}
@@ -301,7 +303,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         if (methodName == null)
             return null;
         Object result = null;
-        if (methodName.equals(METHOD_IS_DEF)) {
+        if (methodName.equals(METHOD_IS_DEF) || methodName.equals(METHOD_IS_DEF_)) {
             if (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_DEF_, String.class, Boolean.class)) {
                 Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName)
                         ? runtimeCtx.getAttribute(parentObj, attributeName) != null : null;
@@ -317,6 +319,11 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 // to support old SQLMOP generated POJOs
                 result = runtimeCtx.invokeMethod(parentObj, METHOD_IS_DEF, attributeName);
             }
+        } else if (methodName.equals(METHOD_TO_INIT) || methodName.equals(METHOD_TO_INIT_)) {
+            result = (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_TO_INIT_, String.class))
+                    ? runtimeCtx.invokeMethod(parentObj, METHOD_TO_INIT_, attributeName)
+                    : ((runtimeCtx.checkMethod(parentObj.getClass(), METHOD_TO_INIT, String.class))
+                            ? runtimeCtx.invokeMethod(parentObj, METHOD_TO_INIT, attributeName) : null);
         } else {
             result = (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class))
                     ? runtimeCtx.invokeMethod(parentObj, methodName, attributeName) : null;
