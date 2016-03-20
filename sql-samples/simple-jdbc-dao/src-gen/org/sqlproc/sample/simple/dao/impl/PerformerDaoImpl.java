@@ -216,7 +216,7 @@ public class PerformerDaoImpl extends BaseDaoImpl implements PerformerDao, BaseD
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
     	return sqlControl;
     java.util.Map<String, Class<?>> moreResultClasses = null;
-    if (performer != null && performer.toInit(Performer.Association.work.name())) {
+    if (performer != null && performer.toInit_(Performer.Association.work.name())) {
     	if (moreResultClasses == null)
     		moreResultClasses = new java.util.HashMap<String, Class<?>>();
     	moreResultClasses.put("book", NewBook.class);

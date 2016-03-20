@@ -82,7 +82,7 @@ public class Library implements Serializable {
     return this;
   }
   
-  public StringBuilder getProcessingIdForAttributes() {
+  public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("Library");
     if (id != null)
     	result.append("@").append("id");
@@ -125,94 +125,94 @@ public class Library implements Serializable {
     subscribers;
   }
   
-  private Set<String> initAssociations =  new java.util.HashSet<String>();
+  private Set<String> initAssociations_ =  new java.util.HashSet<String>();
   
-  public Set<String> getInitAssociations() {
-    return this.initAssociations;
+  public Set<String> getInitAssociations_() {
+    return this.initAssociations_;
   }
   
-  public void setInitAssociations(final Set<String> initAssociations) {
-    this.initAssociations = initAssociations;
+  public void setInitAssociations_(final Set<String> initAssociations_) {
+    this.initAssociations_ = initAssociations_;
   }
   
-  public void setInit(final Library.Association... associations) {
+  public void setInit_(final Library.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.add(association.name());
+    	initAssociations_.add(association.name());
   }
   
-  public Library _setInit(final Library.Association... associations) {
-    setInit(associations);
+  public Library _setInit_(final Library.Association... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final Library.Association... associations) {
+  public void clearInit_(final Library.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.remove(association.name());
+    	initAssociations_.remove(association.name());
   }
   
-  public Library _clearInit(final Library.Association... associations) {
-    clearInit(associations);
+  public Library _clearInit_(final Library.Association... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public void setInit(final String... associations) {
+  public void setInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.add(association);
+    	initAssociations_.add(association);
   }
   
-  public Library _setInit(final String... associations) {
-    setInit(associations);
+  public Library _setInit_(final String... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final String... associations) {
+  public void clearInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.remove(association);
+    	initAssociations_.remove(association);
   }
   
-  public Library _clearInit(final String... associations) {
-    clearInit(associations);
+  public Library _clearInit_(final String... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public Boolean toInit(final Library.Association association) {
+  public Boolean toInit_(final Library.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association.name());
+    return initAssociations_.contains(association.name());
   }
   
-  public Boolean toInit(final String association) {
+  public Boolean toInit_(final String association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association);
+    return initAssociations_.contains(association);
   }
   
-  public void clearAllInit() {
-    initAssociations = new java.util.HashSet<String>();
+  public void clearAllInit_() {
+    initAssociations_ = new java.util.HashSet<String>();
   }
   
-  public StringBuilder getProcessingIdForAssociations() {
-    if (initAssociations == null || initAssociations.isEmpty())
+  public StringBuilder getProcessingIdForAssociations_() {
+    if (initAssociations_ == null || initAssociations_.isEmpty())
     	return null;
     StringBuilder result = new StringBuilder("ASSOC");
     for (Association association : Association.values()) {
-    	if (initAssociations.contains(association.name()))
+    	if (initAssociations_.contains(association.name()))
     		result.append("@").append(association.name());
     }
     return result;
   }
   
-  public String getProcessingId(final String... moreAttributes) {
-    StringBuilder result = getProcessingIdForAttributes();
-    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+  public String getProcessingId_(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes_();
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations_();
     if (processingIdForAssociations != null)
     	result.append(",").append(processingIdForAssociations);
     if (moreAttributes != null && moreAttributes.length > 0) {

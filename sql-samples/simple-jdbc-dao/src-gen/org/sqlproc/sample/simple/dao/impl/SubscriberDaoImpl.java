@@ -216,7 +216,7 @@ public class SubscriberDaoImpl extends BaseDaoImpl implements SubscriberDao, Bas
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
     	return sqlControl;
     java.util.Map<String, Class<?>> moreResultClasses = null;
-    if (subscriber != null && subscriber.toInit(Subscriber.Association.billingDetails.name())) {
+    if (subscriber != null && subscriber.toInit_(Subscriber.Association.billingDetails.name())) {
     	if (moreResultClasses == null)
     		moreResultClasses = new java.util.HashMap<String, Class<?>>();
     	moreResultClasses.put("BA", BankAccount.class);

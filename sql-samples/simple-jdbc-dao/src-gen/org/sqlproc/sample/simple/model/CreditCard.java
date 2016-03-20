@@ -33,11 +33,11 @@ public class CreditCard extends BillingDetails implements Serializable {
     return this;
   }
   
-  public StringBuilder getProcessingIdForAttributes() {
+  public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("CreditCard");
     if (ccNumber != null)
     	result.append("@").append("ccNumber");
-    result.append("@@").append(super.getProcessingIdForAttributes());
+    result.append("@@").append(super.getProcessingIdForAttributes_());
     return result;
   }
   
@@ -54,88 +54,88 @@ public class CreditCard extends BillingDetails implements Serializable {
     ccNumber;
   }
   
-  private Set<String> nullValues =  new java.util.HashSet<String>();
+  private Set<String> nullValues_ =  new java.util.HashSet<String>();
   
-  public void setNull(final CreditCard.Attribute... attributes) {
+  public void setNull_(final CreditCard.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
-    	nullValues.add(attribute.name());
+    	nullValues_.add(attribute.name());
   }
   
-  public CreditCard _setNull(final CreditCard.Attribute... attributes) {
-    setNull(attributes);
+  public CreditCard _setNull_(final CreditCard.Attribute... attributes) {
+    setNull_(attributes);
     return this;
   }
   
-  public void clearNull(final CreditCard.Attribute... attributes) {
+  public void clearNull_(final CreditCard.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
-    	nullValues.remove(attribute.name());
+    	nullValues_.remove(attribute.name());
   }
   
-  public CreditCard _clearNull(final CreditCard.Attribute... attributes) {
-    clearNull(attributes);
+  public CreditCard _clearNull_(final CreditCard.Attribute... attributes) {
+    clearNull_(attributes);
     return this;
   }
   
-  public void setNull(final String... attributes) {
+  public void setNull_(final String... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (String attribute : attributes)
-    	nullValues.add(attribute);
+    	nullValues_.add(attribute);
   }
   
-  public CreditCard _setNull(final String... attributes) {
-    setNull(attributes);
+  public CreditCard _setNull_(final String... attributes) {
+    setNull_(attributes);
     return this;
   }
   
-  public void clearNull(final String... attributes) {
+  public void clearNull_(final String... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (String attribute : attributes)
-    	nullValues.remove(attribute);
+    	nullValues_.remove(attribute);
   }
   
-  public CreditCard _clearNull(final String... attributes) {
-    clearNull(attributes);
+  public CreditCard _clearNull_(final String... attributes) {
+    clearNull_(attributes);
     return this;
   }
   
-  public Boolean isNull(final CreditCard.Attribute attribute) {
+  public Boolean isNull_(final CreditCard.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
-    return nullValues.contains(attribute.name());
+    return nullValues_.contains(attribute.name());
   }
   
-  public Boolean isNull(final String attrName) {
+  public Boolean isNull_(final String attrName) {
     if (attrName == null)
     	throw new IllegalArgumentException();
-    return nullValues.contains(attrName);
+    return nullValues_.contains(attrName);
   }
   
-  public Boolean isDef(final String attrName, final Boolean isAttrNotNull) {
+  public Boolean isDef_(final String attrName, final Boolean isAttrNotNull) {
     if (attrName == null)
     	throw new IllegalArgumentException();
-    if (nullValues.contains(attrName))
+    if (nullValues_.contains(attrName))
     	return true;
     if (isAttrNotNull != null)
     	return isAttrNotNull;
     return false;
   }
   
-  public void clearAllNull() {
-    nullValues = new java.util.HashSet<String>();
+  public void clearAllNull_() {
+    nullValues_ = new java.util.HashSet<String>();
   }
   
-  public StringBuilder getProcessingIdForNulls() {
-    if (nullValues == null || nullValues.isEmpty())
+  public StringBuilder getProcessingIdForNulls_() {
+    if (nullValues_ == null || nullValues_.isEmpty())
     	return null;
     StringBuilder result = new StringBuilder("NULL");
     for (Attribute attribute : Attribute.values()) {
-    	if (nullValues.contains(attribute.name()))
+    	if (nullValues_.contains(attribute.name()))
     		result.append("@").append(attribute.name());
     }
     return result;
@@ -145,97 +145,97 @@ public class CreditCard extends BillingDetails implements Serializable {
     subscriber;
   }
   
-  private Set<String> initAssociations =  new java.util.HashSet<String>();
+  private Set<String> initAssociations_ =  new java.util.HashSet<String>();
   
-  public Set<String> getInitAssociations() {
-    return this.initAssociations;
+  public Set<String> getInitAssociations_() {
+    return this.initAssociations_;
   }
   
-  public void setInitAssociations(final Set<String> initAssociations) {
-    this.initAssociations = initAssociations;
+  public void setInitAssociations_(final Set<String> initAssociations_) {
+    this.initAssociations_ = initAssociations_;
   }
   
-  public void setInit(final CreditCard.Association... associations) {
+  public void setInit_(final CreditCard.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.add(association.name());
+    	initAssociations_.add(association.name());
   }
   
-  public CreditCard _setInit(final CreditCard.Association... associations) {
-    setInit(associations);
+  public CreditCard _setInit_(final CreditCard.Association... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final CreditCard.Association... associations) {
+  public void clearInit_(final CreditCard.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.remove(association.name());
+    	initAssociations_.remove(association.name());
   }
   
-  public CreditCard _clearInit(final CreditCard.Association... associations) {
-    clearInit(associations);
+  public CreditCard _clearInit_(final CreditCard.Association... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public void setInit(final String... associations) {
+  public void setInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.add(association);
+    	initAssociations_.add(association);
   }
   
-  public CreditCard _setInit(final String... associations) {
-    setInit(associations);
+  public CreditCard _setInit_(final String... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final String... associations) {
+  public void clearInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.remove(association);
+    	initAssociations_.remove(association);
   }
   
-  public CreditCard _clearInit(final String... associations) {
-    clearInit(associations);
+  public CreditCard _clearInit_(final String... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public Boolean toInit(final CreditCard.Association association) {
+  public Boolean toInit_(final CreditCard.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association.name());
+    return initAssociations_.contains(association.name());
   }
   
-  public Boolean toInit(final String association) {
+  public Boolean toInit_(final String association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association);
+    return initAssociations_.contains(association);
   }
   
-  public void clearAllInit() {
-    initAssociations = new java.util.HashSet<String>();
+  public void clearAllInit_() {
+    initAssociations_ = new java.util.HashSet<String>();
   }
   
-  public StringBuilder getProcessingIdForAssociations() {
-    if (initAssociations == null || initAssociations.isEmpty())
+  public StringBuilder getProcessingIdForAssociations_() {
+    if (initAssociations_ == null || initAssociations_.isEmpty())
     	return null;
     StringBuilder result = new StringBuilder("ASSOC");
     for (Association association : Association.values()) {
-    	if (initAssociations.contains(association.name()))
+    	if (initAssociations_.contains(association.name()))
     		result.append("@").append(association.name());
     }
     return result;
   }
   
-  public String getProcessingId(final String... moreAttributes) {
-    StringBuilder result = getProcessingIdForAttributes();
-    StringBuilder processingIdForNulls = getProcessingIdForNulls();
+  public String getProcessingId_(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes_();
+    StringBuilder processingIdForNulls = getProcessingIdForNulls_();
     if (processingIdForNulls != null)
     	result.append(",").append(processingIdForNulls);
-    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations_();
     if (processingIdForAssociations != null)
     	result.append(",").append(processingIdForAssociations);
     if (moreAttributes != null && moreAttributes.length > 0) {

@@ -207,7 +207,7 @@ public class PaymentDao {
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
     	return sqlControl;
     java.util.Map<String, Class<?>> moreResultClasses = null;
-    if (payment != null && payment.toInit(Payment.Association.billingDetails.name())) {
+    if (payment != null && payment.toInit_(Payment.Association.billingDetails.name())) {
     	if (moreResultClasses == null)
     		moreResultClasses = new java.util.HashMap<String, Class<?>>();
     	moreResultClasses.put("BA", BankAccount.class);

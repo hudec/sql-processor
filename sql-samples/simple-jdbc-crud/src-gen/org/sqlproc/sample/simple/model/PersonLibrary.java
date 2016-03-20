@@ -68,7 +68,7 @@ public class PersonLibrary implements Serializable {
     return this;
   }
   
-  public StringBuilder getProcessingIdForAttributes() {
+  public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("PersonLibrary");
     if (id != null)
     	result.append("@").append("id");
@@ -107,8 +107,8 @@ public class PersonLibrary implements Serializable {
     return "PersonLibrary [id=" + id + ", personId=" + personId + ", mediaId=" + mediaId + "]";
   }
   
-  public String getProcessingId(final String... moreAttributes) {
-    StringBuilder result = getProcessingIdForAttributes();
+  public String getProcessingId_(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes_();
     if (moreAttributes != null && moreAttributes.length > 0) {
     	result.append(",MORE");
     	for (String moreAttr : moreAttributes)

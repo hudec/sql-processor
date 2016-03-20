@@ -24,17 +24,17 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     setType(type);
   }
   
-  private long id;
+  private Long id;
   
-  public long getId() {
+  public Long getId() {
     return this.id;
   }
   
-  public void setId(final long id) {
+  public void setId(final Long id) {
     this.id = id;
   }
   
-  public BillingDetails _setId(final long id) {
+  public BillingDetails _setId(final Long id) {
     this.id = id;
     return this;
   }
@@ -84,11 +84,12 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     return this;
   }
   
-  public StringBuilder getProcessingIdForAttributes() {
+  public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("BillingDetails");
-    result.append("@").append("id");
+    if (id != null)
+    	result.append("@").append("id");
     if (subscriber != null)
-    	result.append("@").append("{").append(subscriber.getProcessingIdForAttributes()).append("}");
+    	result.append("@").append("{").append(subscriber.getProcessingIdForAttributes_()).append("}");
     if (type != null)
     	result.append("@").append("type");
     if (version != null)
@@ -105,7 +106,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     if (getClass() != obj.getClass())
     	return false;
     BillingDetails other = (BillingDetails) obj;
-    if (id != other.id)
+    if (id == null || !id.equals(other.id))
     	return false;
     return true;
   }
@@ -128,94 +129,94 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     subscriber;
   }
   
-  private Set<String> initAssociations =  new java.util.HashSet<String>();
+  private Set<String> initAssociations_ =  new java.util.HashSet<String>();
   
-  public Set<String> getInitAssociations() {
-    return this.initAssociations;
+  public Set<String> getInitAssociations_() {
+    return this.initAssociations_;
   }
   
-  public void setInitAssociations(final Set<String> initAssociations) {
-    this.initAssociations = initAssociations;
+  public void setInitAssociations_(final Set<String> initAssociations_) {
+    this.initAssociations_ = initAssociations_;
   }
   
-  public void setInit(final BillingDetails.Association... associations) {
+  public void setInit_(final BillingDetails.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.add(association.name());
+    	initAssociations_.add(association.name());
   }
   
-  public BillingDetails _setInit(final BillingDetails.Association... associations) {
-    setInit(associations);
+  public BillingDetails _setInit_(final BillingDetails.Association... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final BillingDetails.Association... associations) {
+  public void clearInit_(final BillingDetails.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.remove(association.name());
+    	initAssociations_.remove(association.name());
   }
   
-  public BillingDetails _clearInit(final BillingDetails.Association... associations) {
-    clearInit(associations);
+  public BillingDetails _clearInit_(final BillingDetails.Association... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public void setInit(final String... associations) {
+  public void setInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.add(association);
+    	initAssociations_.add(association);
   }
   
-  public BillingDetails _setInit(final String... associations) {
-    setInit(associations);
+  public BillingDetails _setInit_(final String... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final String... associations) {
+  public void clearInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.remove(association);
+    	initAssociations_.remove(association);
   }
   
-  public BillingDetails _clearInit(final String... associations) {
-    clearInit(associations);
+  public BillingDetails _clearInit_(final String... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public Boolean toInit(final BillingDetails.Association association) {
+  public Boolean toInit_(final BillingDetails.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association.name());
+    return initAssociations_.contains(association.name());
   }
   
-  public Boolean toInit(final String association) {
+  public Boolean toInit_(final String association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association);
+    return initAssociations_.contains(association);
   }
   
-  public void clearAllInit() {
-    initAssociations = new java.util.HashSet<String>();
+  public void clearAllInit_() {
+    initAssociations_ = new java.util.HashSet<String>();
   }
   
-  public StringBuilder getProcessingIdForAssociations() {
-    if (initAssociations == null || initAssociations.isEmpty())
+  public StringBuilder getProcessingIdForAssociations_() {
+    if (initAssociations_ == null || initAssociations_.isEmpty())
     	return null;
     StringBuilder result = new StringBuilder("ASSOC");
     for (Association association : Association.values()) {
-    	if (initAssociations.contains(association.name()))
+    	if (initAssociations_.contains(association.name()))
     		result.append("@").append(association.name());
     }
     return result;
   }
   
-  public String getProcessingId(final String... moreAttributes) {
-    StringBuilder result = getProcessingIdForAttributes();
-    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+  public String getProcessingId_(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes_();
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations_();
     if (processingIdForAssociations != null)
     	result.append(",").append(processingIdForAssociations);
     if (moreAttributes != null && moreAttributes.length > 0) {

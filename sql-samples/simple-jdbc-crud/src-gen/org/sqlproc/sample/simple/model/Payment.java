@@ -69,12 +69,12 @@ public class Payment implements Serializable {
     return this;
   }
   
-  public StringBuilder getProcessingIdForAttributes() {
+  public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("Payment");
     if (id != null)
     	result.append("@").append("id");
     if (billingDetails != null)
-    	result.append("@").append("{").append(billingDetails.getProcessingIdForAttributes()).append("}");
+    	result.append("@").append("{").append(billingDetails.getProcessingIdForAttributes_()).append("}");
     if (paid != null)
     	result.append("@").append("paid");
     return result;
@@ -112,94 +112,94 @@ public class Payment implements Serializable {
     billingDetails;
   }
   
-  private Set<String> initAssociations =  new java.util.HashSet<String>();
+  private Set<String> initAssociations_ =  new java.util.HashSet<String>();
   
-  public Set<String> getInitAssociations() {
-    return this.initAssociations;
+  public Set<String> getInitAssociations_() {
+    return this.initAssociations_;
   }
   
-  public void setInitAssociations(final Set<String> initAssociations) {
-    this.initAssociations = initAssociations;
+  public void setInitAssociations_(final Set<String> initAssociations_) {
+    this.initAssociations_ = initAssociations_;
   }
   
-  public void setInit(final Payment.Association... associations) {
+  public void setInit_(final Payment.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.add(association.name());
+    	initAssociations_.add(association.name());
   }
   
-  public Payment _setInit(final Payment.Association... associations) {
-    setInit(associations);
+  public Payment _setInit_(final Payment.Association... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final Payment.Association... associations) {
+  public void clearInit_(final Payment.Association... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (Association association : associations)
-    	initAssociations.remove(association.name());
+    	initAssociations_.remove(association.name());
   }
   
-  public Payment _clearInit(final Payment.Association... associations) {
-    clearInit(associations);
+  public Payment _clearInit_(final Payment.Association... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public void setInit(final String... associations) {
+  public void setInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.add(association);
+    	initAssociations_.add(association);
   }
   
-  public Payment _setInit(final String... associations) {
-    setInit(associations);
+  public Payment _setInit_(final String... associations) {
+    setInit_(associations);
     return this;
   }
   
-  public void clearInit(final String... associations) {
+  public void clearInit_(final String... associations) {
     if (associations == null)
     	throw new IllegalArgumentException();
     for (String association : associations)
-    	initAssociations.remove(association);
+    	initAssociations_.remove(association);
   }
   
-  public Payment _clearInit(final String... associations) {
-    clearInit(associations);
+  public Payment _clearInit_(final String... associations) {
+    clearInit_(associations);
     return this;
   }
   
-  public Boolean toInit(final Payment.Association association) {
+  public Boolean toInit_(final Payment.Association association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association.name());
+    return initAssociations_.contains(association.name());
   }
   
-  public Boolean toInit(final String association) {
+  public Boolean toInit_(final String association) {
     if (association == null)
     	throw new IllegalArgumentException();
-    return initAssociations.contains(association);
+    return initAssociations_.contains(association);
   }
   
-  public void clearAllInit() {
-    initAssociations = new java.util.HashSet<String>();
+  public void clearAllInit_() {
+    initAssociations_ = new java.util.HashSet<String>();
   }
   
-  public StringBuilder getProcessingIdForAssociations() {
-    if (initAssociations == null || initAssociations.isEmpty())
+  public StringBuilder getProcessingIdForAssociations_() {
+    if (initAssociations_ == null || initAssociations_.isEmpty())
     	return null;
     StringBuilder result = new StringBuilder("ASSOC");
     for (Association association : Association.values()) {
-    	if (initAssociations.contains(association.name()))
+    	if (initAssociations_.contains(association.name()))
     		result.append("@").append(association.name());
     }
     return result;
   }
   
-  public String getProcessingId(final String... moreAttributes) {
-    StringBuilder result = getProcessingIdForAttributes();
-    StringBuilder processingIdForAssociations = getProcessingIdForAssociations();
+  public String getProcessingId_(final String... moreAttributes) {
+    StringBuilder result = getProcessingIdForAttributes_();
+    StringBuilder processingIdForAssociations = getProcessingIdForAssociations_();
     if (processingIdForAssociations != null)
     	result.append(",").append(processingIdForAssociations);
     if (moreAttributes != null && moreAttributes.length > 0) {

@@ -11,7 +11,7 @@ package org.sqlproc.sample.simple.model {
     #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,version) #ProcId(id,subscriber,type,version)
     final abstract #Pojo BillingDetails {
         #PrimaryKey #Index
-        #Attr long id
+        #Attr Long id
         #ToInit #Required #Index #IsPojo
         #Attr Subscriber subscriber
         #InheritanceDiscriminator #Required

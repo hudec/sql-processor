@@ -216,7 +216,7 @@ public class PhysicalMediaDaoImpl extends BaseDaoImpl implements PhysicalMediaDa
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
     	return sqlControl;
     java.util.Map<String, Class<?>> moreResultClasses = null;
-    if (physicalMedia != null && physicalMedia.toInit(PhysicalMedia.Association.media.name())) {
+    if (physicalMedia != null && physicalMedia.toInit_(PhysicalMedia.Association.media.name())) {
     	if (moreResultClasses == null)
     		moreResultClasses = new java.util.HashMap<String, Class<?>>();
     	moreResultClasses.put("book", NewBook.class);

@@ -207,7 +207,7 @@ public class PersonDao {
     if (sqlControl != null && sqlControl.getMoreResultClasses() != null)
     	return sqlControl;
     java.util.Map<String, Class<?>> moreResultClasses = null;
-    if (person != null && person.toInit(Person.Association.library.name())) {
+    if (person != null && person.toInit_(Person.Association.library.name())) {
     	if (moreResultClasses == null)
     		moreResultClasses = new java.util.HashMap<String, Class<?>>();
     	moreResultClasses.put("book", NewBook.class);

@@ -249,7 +249,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrioša");
-        person.setNull(Person.Attribute.ssn);
+        person.setNull_(Person.Attribute.ssn);
         count = main.personDao.update(person);
         Assert.assertEquals(1, count);
 
@@ -259,7 +259,7 @@ public class Main {
         b1 = main.bankAccountDao.get(bankAccount);
         Assert.assertNotNull(b1);
         Assert.assertNull(b1.getSubscriber().getName());
-        bankAccount.setInit(BankAccount.Association.subscriber.name());
+        bankAccount.setInit_(BankAccount.Association.subscriber.name());
         b1 = main.bankAccountDao.get(bankAccount);
         Assert.assertNotNull(b1);
         Assert.assertEquals("updated account", b1.getBaAccount());
@@ -273,7 +273,7 @@ public class Main {
         c = main.contactDao.get(contact);
         Assert.assertNotNull(c);
         Assert.assertNull(c.getPerson().getLastName());
-        contact.setInit(Contact.Association.person.name());
+        contact.setInit_(Contact.Association.person.name());
         c = main.contactDao.get(contact);
         Assert.assertNotNull(c);
         Assert.assertEquals("Honza address 1 Updated", c.getAddress());
@@ -287,7 +287,7 @@ public class Main {
         c1 = main.creditCardDao.get(creditCard);
         Assert.assertNotNull(c1);
         Assert.assertNull(c1.getSubscriber().getName());
-        creditCard.setInit(CreditCard.Association.subscriber.name());
+        creditCard.setInit_(CreditCard.Association.subscriber.name());
         c1 = main.creditCardDao.get(creditCard);
         Assert.assertNotNull(c1);
         Assert.assertEquals(new Long(789), c1.getCcNumber());
@@ -303,8 +303,8 @@ public class Main {
         Assert.assertTrue(l.getSubscribers().isEmpty());
         // to make the next line to work, in definitions.qry should be uncommented
         // pojogen-not-abstract-tables MEDIA; and pojo.qry and statements.qry should be recreated
-        library.setInit(Library.Association.catalog.name());
-        library.setInit(Library.Association.subscribers.name());
+        library.setInit_(Library.Association.catalog.name());
+        library.setInit_(Library.Association.subscribers.name());
         l = main.libraryDao.get(library);
         Assert.assertNotNull(l);
         Assert.assertEquals(4, l.getCatalog().size());
@@ -319,7 +319,7 @@ public class Main {
         Assert.assertEquals("def Updated", m.getUrlimdb());
         Assert.assertEquals("Die Another Day Updated", m.getTitle());
         Assert.assertNull(m.getAuthor().getPerson());
-        movie.setInit(Movie.Association.author.name());
+        movie.setInit_(Movie.Association.author.name());
         m = main.movieDao.get(movie);
         Assert.assertNotNull(m);
         Assert.assertNotNull(m.getAuthor().getPerson());
@@ -327,7 +327,7 @@ public class Main {
         // get book with associations
         book = new NewBook();
         book.setId(book1.getId());
-        book.setInit(NewBook.Association.author.name());
+        book.setInit_(NewBook.Association.author.name());
         b = main.bookDao.get(book);
         Assert.assertNotNull(b);
         Assert.assertEquals("978-9940367003", b.getNewIsbn());
@@ -342,7 +342,7 @@ public class Main {
         Assert.assertNotNull(py);
         Assert.assertNotNull(py.getPaid());
         Assert.assertNull(py.getBillingDetails());
-        payment.setInit(Payment.Association.billingDetails.name());
+        payment.setInit_(Payment.Association.billingDetails.name());
         py = main.paymentDao.get(payment);
         Assert.assertNotNull(py);
         Assert.assertNotNull(py.getPaid());
@@ -355,13 +355,13 @@ public class Main {
         performer.setId(honzikp.getId());
         pf = main.performerDao.get(performer);
         Assert.assertNull(pf.getPerson().getLastName());
-        performer.setInit(Performer.Association.person.name());
+        performer.setInit_(Performer.Association.person.name());
         pf = main.performerDao.get(performer);
         Assert.assertNotNull(pf);
         Assert.assertEquals("Honzik", pf.getPerson().getFirstName());
         Assert.assertEquals("Honzíček", pf.getPerson().getLastName());
         Assert.assertEquals(0, pf.getWork().size());
-        performer.setInit(Performer.Association.work.name());
+        performer.setInit_(Performer.Association.work.name());
         pf = main.performerDao.get(performer);
         Assert.assertNotNull(pf);
         Assert.assertEquals(2, pf.getWork().size());
@@ -375,7 +375,7 @@ public class Main {
         // get person with associations
         person = new Person();
         person.setId(andrej.getId());
-        person.setInit(Person.Association.contacts.name());
+        person.setInit_(Person.Association.contacts.name());
         p = main.personDao.get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrioša", p.getFirstName());
@@ -384,7 +384,7 @@ public class Main {
         Assert.assertEquals(1, p.getContacts().size());
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
         Assert.assertEquals(new PhoneNumber(444, 555, 6666), p.getContacts().get(0).getPhoneNumber());
-        person.setInit(Person.Association.library.name());
+        person.setInit_(Person.Association.library.name());
         p = main.personDao.get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals(3, p.getLibrary().size());
@@ -405,7 +405,7 @@ public class Main {
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 011", pm.getLocation());
         Assert.assertNull(pm.getMedia());
-        physicalMedia.setInit(PhysicalMedia.Association.media.name());
+        physicalMedia.setInit_(PhysicalMedia.Association.media.name());
         pm = main.physicalMediaDao.get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 011", pm.getLocation());
@@ -419,7 +419,7 @@ public class Main {
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 003", pm.getLocation());
         Assert.assertNull(pm.getMedia());
-        physicalMedia.setInit(PhysicalMedia.Association.media.name());
+        physicalMedia.setInit_(PhysicalMedia.Association.media.name());
         pm = main.physicalMediaDao.get(physicalMedia);
         Assert.assertNotNull(pm);
         Assert.assertEquals("folder 003", pm.getLocation());
@@ -435,13 +435,13 @@ public class Main {
         Assert.assertEquals("Janik Subscr Updated", s.getName());
         Assert.assertNull(s.getLibrary().getName());
         Assert.assertNull(s.getContact().getAddress());
-        subscriber.setInit(Subscriber.Association.contact.name());
-        subscriber.setInit(Subscriber.Association.library.name());
+        subscriber.setInit_(Subscriber.Association.contact.name());
+        subscriber.setInit_(Subscriber.Association.library.name());
         s = main.subscriberDao.get(subscriber);
         Assert.assertNotNull(s);
         Assert.assertEquals("Alexandria Library Updated", s.getLibrary().getName());
         Assert.assertEquals("Jan address 1", s.getContact().getAddress());
-        subscriber.setInit(Subscriber.Association.billingDetails.name());
+        subscriber.setInit_(Subscriber.Association.billingDetails.name());
         s = main.subscriberDao.get(subscriber);
         Assert.assertNotNull(s);
         Assert.assertNotNull(s.getLibrary());
@@ -458,12 +458,12 @@ public class Main {
         list = main.personDao.list(person);
         Assert.assertEquals(0, list.size());
         person.setFirstName("Jan");
-        person.setInit(Person.Association.contacts.name());
-        person.setInit(Person.Association.library.name());
+        person.setInit_(Person.Association.contacts.name());
+        person.setInit_(Person.Association.library.name());
         list = main.personDao.list(person);
         person = new Person();
-        person.setInit(Person.Association.contacts.name());
-        person.setInit(Person.Association.library.name());
+        person.setInit_(Person.Association.contacts.name());
+        person.setInit_(Person.Association.library.name());
         list = main.personDao.list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzíček", list.get(1).getLastName());
