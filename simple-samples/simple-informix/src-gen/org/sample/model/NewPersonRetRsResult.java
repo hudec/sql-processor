@@ -124,80 +124,80 @@ public class NewPersonRetRsResult implements Serializable {
     gender;
   }
   
-  private Set<String> nullValues =  new java.util.HashSet<String>();
+  private Set<String> nullValues_ =  new java.util.HashSet<String>();
   
-  public void setNull(final NewPersonRetRsResult.Attribute... attributes) {
+  public void setNull_(final NewPersonRetRsResult.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
-    	nullValues.add(attribute.name());
+    	nullValues_.add(attribute.name());
   }
   
-  public NewPersonRetRsResult _setNull(final NewPersonRetRsResult.Attribute... attributes) {
-    setNull(attributes);
+  public NewPersonRetRsResult _setNull_(final NewPersonRetRsResult.Attribute... attributes) {
+    setNull_(attributes);
     return this;
   }
   
-  public void clearNull(final NewPersonRetRsResult.Attribute... attributes) {
+  public void clearNull_(final NewPersonRetRsResult.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
-    	nullValues.remove(attribute.name());
+    	nullValues_.remove(attribute.name());
   }
   
-  public NewPersonRetRsResult _clearNull(final NewPersonRetRsResult.Attribute... attributes) {
-    clearNull(attributes);
+  public NewPersonRetRsResult _clearNull_(final NewPersonRetRsResult.Attribute... attributes) {
+    clearNull_(attributes);
     return this;
   }
   
-  public void setNull(final String... attributes) {
+  public void setNull_(final String... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (String attribute : attributes)
-    	nullValues.add(attribute);
+    	nullValues_.add(attribute);
   }
   
-  public NewPersonRetRsResult _setNull(final String... attributes) {
-    setNull(attributes);
+  public NewPersonRetRsResult _setNull_(final String... attributes) {
+    setNull_(attributes);
     return this;
   }
   
-  public void clearNull(final String... attributes) {
+  public void clearNull_(final String... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (String attribute : attributes)
-    	nullValues.remove(attribute);
+    	nullValues_.remove(attribute);
   }
   
-  public NewPersonRetRsResult _clearNull(final String... attributes) {
-    clearNull(attributes);
+  public NewPersonRetRsResult _clearNull_(final String... attributes) {
+    clearNull_(attributes);
     return this;
   }
   
-  public Boolean isNull(final NewPersonRetRsResult.Attribute attribute) {
+  public Boolean isNull_(final NewPersonRetRsResult.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
-    return nullValues.contains(attribute.name());
+    return nullValues_.contains(attribute.name());
   }
   
-  public Boolean isNull(final String attrName) {
+  public Boolean isNull_(final String attrName) {
     if (attrName == null)
     	throw new IllegalArgumentException();
-    return nullValues.contains(attrName);
+    return nullValues_.contains(attrName);
   }
   
-  public Boolean isDef(final String attrName, final Boolean isAttrNotNull) {
+  public Boolean isDef_(final String attrName, final Boolean isAttrNotNull) {
     if (attrName == null)
     	throw new IllegalArgumentException();
-    if (nullValues.contains(attrName))
+    if (nullValues_.contains(attrName))
     	return true;
     if (isAttrNotNull != null)
     	return isAttrNotNull;
     return false;
   }
   
-  public void clearAllNull() {
-    nullValues = new java.util.HashSet<String>();
+  public void clearAllNull_() {
+    nullValues_ = new java.util.HashSet<String>();
   }
   
   public enum OpAttribute {
@@ -214,85 +214,85 @@ public class NewPersonRetRsResult implements Serializable {
     gender;
   }
   
-  private Map<String, String> operators =  new java.util.HashMap<String, String>();
+  private Map<String, String> operators_ =  new java.util.HashMap<String, String>();
   
-  public Map<String, String> getOperators() {
-    return operators;
+  public Map<String, String> getOperators_() {
+    return operators_;
   }
   
-  public void setOp(final String operator, final NewPersonRetRsResult.OpAttribute... attributes) {
+  public void setOp_(final String operator, final NewPersonRetRsResult.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
-    	operators.put(attribute.name(), operator);
+    	operators_.put(attribute.name(), operator);
   }
   
-  public NewPersonRetRsResult _setOp(final String operator, final NewPersonRetRsResult.OpAttribute... attributes) {
-    setOp(operator, attributes);
+  public NewPersonRetRsResult _setOp_(final String operator, final NewPersonRetRsResult.OpAttribute... attributes) {
+    setOp_(operator, attributes);
     return this;
   }
   
-  public void clearOp(final NewPersonRetRsResult.OpAttribute... attributes) {
+  public void clearOp_(final NewPersonRetRsResult.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
-    	operators.remove(attribute.name());
+    	operators_.remove(attribute.name());
   }
   
-  public NewPersonRetRsResult _clearOp(final NewPersonRetRsResult.OpAttribute... attributes) {
-    clearOp(attributes);
+  public NewPersonRetRsResult _clearOp_(final NewPersonRetRsResult.OpAttribute... attributes) {
+    clearOp_(attributes);
     return this;
   }
   
-  public void setOp(final String operator, final String... attributes) {
+  public void setOp_(final String operator, final String... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (String attribute : attributes)
-    	operators.put(attribute, operator);
+    	operators_.put(attribute, operator);
   }
   
-  public NewPersonRetRsResult _setOp(final String operator, final String... attributes) {
-    setOp(operator, attributes);
+  public NewPersonRetRsResult _setOp_(final String operator, final String... attributes) {
+    setOp_(operator, attributes);
     return this;
   }
   
-  public void clearOp(final String... attributes) {
+  public void clearOp_(final String... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (String attribute : attributes)
-    	operators.remove(attribute);
+    	operators_.remove(attribute);
   }
   
-  public NewPersonRetRsResult _clearOp(final String... attributes) {
-    clearOp(attributes);
+  public NewPersonRetRsResult _clearOp_(final String... attributes) {
+    clearOp_(attributes);
     return this;
   }
   
-  public void setNullOp(final NewPersonRetRsResult.OpAttribute... attributes) {
+  public void setNullOp_(final NewPersonRetRsResult.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
-    	operators.put(attribute.name(), "is null");
+    	operators_.put(attribute.name(), "is null");
   }
   
-  public NewPersonRetRsResult _setNullOp(final NewPersonRetRsResult.OpAttribute... attributes) {
-    setNullOp(attributes);
+  public NewPersonRetRsResult _setNullOp_(final NewPersonRetRsResult.OpAttribute... attributes) {
+    setNullOp_(attributes);
     return this;
   }
   
-  public void setNullOp(final String... attributes) {
+  public void setNullOp_(final String... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (String attribute : attributes)
-    	operators.put(attribute, "is null");
+    	operators_.put(attribute, "is null");
   }
   
-  public NewPersonRetRsResult _setNullOp(final String... attributes) {
-    setNullOp(attributes);
+  public NewPersonRetRsResult _setNullOp_(final String... attributes) {
+    setNullOp_(attributes);
     return this;
   }
   
-  public void clearAllOps() {
-    operators = new java.util.HashMap<String, String>();
+  public void clearAllOps_() {
+    operators_ = new java.util.HashMap<String, String>();
   }
 }
