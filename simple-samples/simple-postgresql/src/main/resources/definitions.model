@@ -1,5 +1,5 @@
 resolve-pojo-on;
-database-is-offline;
+database-is-online;
 database-jdbc-driver org.postgresql.Driver;
 database-has-url "jdbc:postgresql://127.0.0.1:5432/simple";
 database-login-username simple;

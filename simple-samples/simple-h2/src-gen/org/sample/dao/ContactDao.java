@@ -186,14 +186,14 @@ public class ContactDao {
     }
     org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
     //sqlControl = getMoreResultClasses(contact, sqlControl);
-    contact.setOnlyIds(true);
-    java.util.Set<String> initAssociations = contact.getInitAssociations();
-    contact.setInitAssociations(new java.util.HashSet<String>());
-    final java.util.List<java.lang.Long> ids = sqlEngineContact.query(sqlSession, java.lang.Long.class, contact, sqlControl);
-    contact.setInitAssociations(initAssociations);
+    contact.setOnlyIds_(true);
+    java.util.Set<String> initAssociations = contact.getInitAssociations_();
+    contact.setInitAssociations_(new java.util.HashSet<String>());
+    final java.util.List<java.lang.Long> ids_ = sqlEngineContact.query(sqlSession, java.lang.Long.class, contact, sqlControl);
+    contact.setInitAssociations_(initAssociations);
     
     List<Contact> contactList = new java.util.ArrayList<Contact>();
-    if (!ids.isEmpty()) {
+    if (!ids_.isEmpty()) {
     	org.sqlproc.engine.impl.SqlStandardControl sqlc = new org.sqlproc.engine.impl.SqlStandardControl(sqlControl);
     	sqlc.setFirstResult(0);
     	sqlc.setMaxResults(0);
@@ -206,8 +206,8 @@ public class ContactDao {
     			return true;
     		}
     	};
-    	sqlEngineContact.query(sqlSession, Contact.class, new Contact()._setIds(ids), sqlc, sqlRowProcessor);
-    	for (java.lang.Long id : ids)
+    	sqlEngineContact.query(sqlSession, Contact.class, new Contact()._setIds_(ids_), sqlc, sqlRowProcessor);
+    	for (java.lang.Long id : ids_)
     		contactList.add(map.get(id));
     }
     if (logger.isTraceEnabled()) {

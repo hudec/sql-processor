@@ -124,7 +124,7 @@ public class Main {
     }
 
     public Person getPerson(Long id, Person.Association... associations) {
-        Person person = new Person()._setId(id)._setInit(associations);
+        Person person = new Person()._setId(id)._setInit_(associations);
         SqlStandardControl ssc = new SqlStandardControl();
         if (associations != null) {
             Set<String> set = new TreeSet<String>();
@@ -226,7 +226,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andriosa");
-        person.setNull(Person.Attribute.ssn);
+        person.setNull_(Person.Attribute.ssn);
         count = personDao.update(person);
         Assert.assertEquals(1, count);
 
@@ -248,10 +248,10 @@ public class Main {
         list = personDao.list(person);
         Assert.assertEquals(0, list.size());
         person.setFirstName("Jan");
-        person.setInit(Person.Association.contacts);
+        person.setInit_(Person.Association.contacts);
         list = personDao.list(person);
         person = new Person();
-        person.setInit(Person.Association.contacts);
+        person.setInit_(Person.Association.contacts);
         list = personDao.list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Andrejcek", list.get(0).getLastName());
@@ -272,7 +272,7 @@ public class Main {
         sqlc.setFirstResult(0);
         sqlc.setMaxResults(4);
         person = new Person();
-        person.setInit(Person.Association.contacts);
+        person.setInit_(Person.Association.contacts);
         list = personDao.list(person, sqlc);
         Assert.assertEquals(2, list.size());
         Assert.assertEquals("Andrejcek", list.get(0).getLastName());
@@ -289,7 +289,7 @@ public class Main {
         sqlc.setFirstResult(1);
         sqlc.setMaxResults(4);
         person = new Person();
-        person.setInit(Person.Association.contacts);
+        person.setInit_(Person.Association.contacts);
         list = personDao.list(person, sqlc);
         Assert.assertEquals(3, list.size());
         Assert.assertEquals("Andrejcek", list.get(0).getLastName());
@@ -308,7 +308,7 @@ public class Main {
         sqlc.setFirstResult(0);
         sqlc.setMaxResults(4);
         person = new Person();
-        person.setInit(Person.Association.personDetails);
+        person.setInit_(Person.Association.personDetails);
         list = personDao.list(person, sqlc);
         Assert.assertEquals(2, list.size());
         Assert.assertEquals("Jansky", list.get(0).getLastName());
@@ -325,7 +325,7 @@ public class Main {
         sqlc.setFirstResult(1);
         sqlc.setMaxResults(5);
         person = new Person();
-        person.setInit(Person.Association.personDetails);
+        person.setInit_(Person.Association.personDetails);
         list = personDao.list(person, sqlc);
         Assert.assertEquals(3, list.size());
         Assert.assertEquals("Jansky", list.get(0).getLastName());
@@ -357,7 +357,7 @@ public class Main {
             }
         };
         person = new Person();
-        person.setInit(Person.Association.contacts);
+        person.setInit_(Person.Association.contacts);
         count = personDao.query(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID), srp);
         Assert.assertEquals(5, count);
         srp = new SqlRowProcessor<Person>() {
@@ -386,12 +386,12 @@ public class Main {
         listc = contactDao.list(contact);
         Assert.assertEquals(2, listc.size());
         Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
-        contact.setOp("<>", Contact.OpAttribute.phoneNumber);
+        contact.setOp_("<>", Contact.OpAttribute.phoneNumber);
         listc = contactDao.list(contact);
         Assert.assertEquals(1, listc.size());
         Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
         contact = new Contact();
-        contact.setNullOp(Contact.OpAttribute.phoneNumber);
+        contact.setNullOp_(Contact.OpAttribute.phoneNumber);
         count = contactDao.count(contact);
         Assert.assertEquals(7, count);
 

@@ -25,8 +25,9 @@ run()
 
 #run $BASE/"simple-db2"
 run $BASE/"simple-hsqldb"
+run $BASE/"simple-h2"
 #run $BASE/"simple-informix"
 #run $BASE/"simple-mssql"
-#run $BASE/"simple-mysql"
+run $BASE/"simple-mysql"
 #run $BASE/"simple-oracle"
-#run $BASE/"simple-postgresql"
+run $BASE/"simple-postgresql"
