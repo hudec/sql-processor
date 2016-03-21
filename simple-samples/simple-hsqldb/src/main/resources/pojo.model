@@ -53,6 +53,12 @@ package org.sample.model {
         #Attr String xNote
         #Attr boolean onlyIds_
         #Attr java.util.List <Long> ids_
+        final #Attr String previousAddress
+        #Proc Contact _setAddressAndRemember(String address) {
+        	previousAddress = this.address
+        	this.address = address
+        	return this
+        }
     }
 
     #Operators #Serializable(1) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,gender,ssn)

@@ -157,6 +157,27 @@ public class Contact implements Serializable {
     return this;
   }
   
+  private String previousAddress;
+  
+  public String getPreviousAddress() {
+    return this.previousAddress;
+  }
+  
+  public void setPreviousAddress(final String previousAddress) {
+    this.previousAddress = previousAddress;
+  }
+  
+  public Contact _setPreviousAddress(final String previousAddress) {
+    this.previousAddress = previousAddress;
+    return this;
+  }
+  
+  public Contact _setAddressAndRemember(final String address) {
+    this.previousAddress = this.address;
+    this.address = address;
+    return this;
+  }
+  
   public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("Contact");
     if (id != null)
@@ -199,7 +220,7 @@ public class Contact implements Serializable {
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + "]";
+    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + ", previousAddress=" + previousAddress + "]";
   }
   
   public enum Attribute {
@@ -399,7 +420,9 @@ public class Contact implements Serializable {
     
     onlyIds_,
     
-    ids_;
+    ids_,
+    
+    previousAddress;
   }
   
   private Map<String, String> operators_ =  new java.util.HashMap<String, String>();
