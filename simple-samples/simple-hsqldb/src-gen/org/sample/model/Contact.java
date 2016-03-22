@@ -90,11 +90,6 @@ public class Contact implements Serializable {
     this.address = address;
   }
   
-  public Contact _setAddress(final String address) {
-    this.address = address;
-    return this;
-  }
-  
   @Size(max = 100)
   private String phoneNumber;
   
@@ -157,24 +152,24 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String previousAddress;
+  private String oldAddress;
   
-  public String getPreviousAddress() {
-    return this.previousAddress;
+  public String getOldAddress() {
+    return this.oldAddress;
   }
   
-  public void setPreviousAddress(final String previousAddress) {
-    this.previousAddress = previousAddress;
+  public void setOldAddress(final String oldAddress) {
+    this.oldAddress = oldAddress;
   }
   
-  public Contact _setPreviousAddress(final String previousAddress) {
-    this.previousAddress = previousAddress;
+  public Contact _setOldAddress(final String oldAddress) {
+    this.oldAddress = oldAddress;
     return this;
   }
   
-  public Contact _setAddressAndRemember(final String address) {
-    this.previousAddress = this.address;
-    this.address = address;
+  public Contact _setAddress(final String _address) {
+    this.oldAddress = this.address;
+    this.address = _address;
     return this;
   }
   
@@ -220,7 +215,7 @@ public class Contact implements Serializable {
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + ", previousAddress=" + previousAddress + "]";
+    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + ", oldAddress=" + oldAddress + "]";
   }
   
   public enum Attribute {
@@ -422,7 +417,7 @@ public class Contact implements Serializable {
     
     ids_,
     
-    previousAddress;
+    oldAddress;
   }
   
   private Map<String, String> operators_ =  new java.util.HashMap<String, String>();

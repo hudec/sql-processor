@@ -53,10 +53,10 @@ package org.sample.model {
         #Attr String xNote
         #Attr boolean onlyIds_
         #Attr java.util.List <Long> ids_
-        final #Attr String previousAddress
-        #Proc Contact _setAddressAndRemember(String address) {
-        	previousAddress = this.address
-        	this.address = address
+        final #Attr String oldAddress
+        final #Proc Contact _setAddress(String _address) {
+        	oldAddress = address
+        	address = _address
         	return this
         }
     }
@@ -161,4 +161,17 @@ package org.sample.model {
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=4
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=3
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }
