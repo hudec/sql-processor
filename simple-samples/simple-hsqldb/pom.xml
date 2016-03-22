@@ -230,7 +230,7 @@
 								<argument>src/main/resources</argument>
 								<argument>-target</argument>
 								<argument>src/main/resources</argument>
-								<argument>-nomerge</argument>
+								<!--argument>-nomerge</argument-->
 							</arguments>
 						</configuration>
 					</plugin>
