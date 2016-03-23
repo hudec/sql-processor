@@ -118,22 +118,23 @@ class SqlMetaOperator extends SqlMetaConst {
             }
         } else
             name = item;
-        Object result = (ctx.checkAttribute(obj, name + "_")) ? ctx.getAttribute(obj, name + "_")
-                : ((ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null);
+        Object result = 
+                (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
         if (result != null || prefix == null || suffix == null)
             return result;
-        suffix = SqlUtils.firstLowerCase(suffix);
-        Object o = (ctx.checkAttribute(obj, suffix + "_")) ? ctx.getAttribute(obj, suffix + "_")
-                : ((ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null);
-        if (o == null || !(o instanceof Map)) {
-            suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
-            o = (ctx.checkAttribute(obj, suffix + "_")) ? ctx.getAttribute(obj, suffix + "_")
-                    : ((ctx.checkAttribute(obj, suffix)) ? ctx.getAttribute(obj, suffix) : null);
-            if (o == null || !(o instanceof Map)) {
+        
+        String op = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
+        result = (ctx.checkAttribute(obj, op + "_")) ? ctx.getAttribute(obj, op + "_")
+                : ((ctx.checkAttribute(obj, op)) ? ctx.getAttribute(obj, op) : null);
+        if (result == null || !(result instanceof Map)) {
+            op = SqlUtils.firstLowerCase(suffix);
+            result = (ctx.checkAttribute(obj, op + "_")) ? ctx.getAttribute(obj, op + "_")
+                    : ((ctx.checkAttribute(obj, op)) ? ctx.getAttribute(obj, op) : null);
+            if (result == null || !(result instanceof Map)) {
                 return null;
             }
         }
-        Map map = (Map) o;
+        Map map = (Map) result;
         return map.get(prefix);
     }
 
