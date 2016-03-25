@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.sqlproc.engine.SqlFeature;
+import org.sqlproc.engine.SqlRuntimeContext;
 
 /**
  * SQL Processor utilities.
@@ -280,5 +281,62 @@ public class SqlUtils {
                 || clazz == BigDecimal.class)
             return true;
         return false;
+    }
+
+    public static final String METHOD_IS_NULL = "isNull";
+    public static final String METHOD_IS_NULL_ = METHOD_IS_NULL + "_";
+    public static final String METHOD_IS_DEF = "isDef";
+    public static final String METHOD_IS_DEF_ = METHOD_IS_DEF + "_";
+    public static final String METHOD_TO_INIT = "toInit";
+    public static final String METHOD_TO_INIT_ = METHOD_TO_INIT + "_";
+    public static final String METHOD_GET_OP = "getOp";
+    public static final String METHOD_GET_OP_ = METHOD_GET_OP + "_";
+    public static final Map<String, String[]> METHODS = new HashMap<>();
+    static {
+        METHODS.put(METHOD_IS_NULL, new String[] { METHOD_IS_NULL_, METHOD_IS_NULL });
+        METHODS.put(METHOD_IS_NULL_, new String[] { METHOD_IS_NULL_ });
+        METHODS.put(METHOD_IS_DEF, new String[] { METHOD_IS_DEF_, METHOD_IS_DEF });
+        METHODS.put(METHOD_IS_DEF_, new String[] { METHOD_IS_DEF_ });
+        METHODS.put(METHOD_TO_INIT, new String[] { METHOD_TO_INIT_, METHOD_TO_INIT });
+        METHODS.put(METHOD_TO_INIT_, new String[] { METHOD_TO_INIT_ });
+        METHODS.put(METHOD_GET_OP, new String[] { METHOD_GET_OP_, METHOD_GET_OP });
+        METHODS.put(METHOD_GET_OP_, new String[] { METHOD_GET_OP_ });
+    }
+
+    public static <E> E callMethod(SqlRuntimeContext runtimeCtx, String attributeName, Class<E> attributeClass,
+            Object parentObj, String methodName) {
+        if (attributeName == null || parentObj == null || methodName == null)
+            return null;
+        Object result = null;
+        String[] methods = METHODS.get(methodName);
+        if (methods == null) {
+            result = (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class))
+                    ? runtimeCtx.invokeMethod(parentObj, methodName, attributeName) : null;
+        } else {
+            for (String method : methods) {
+                if (method.startsWith(METHOD_IS_DEF)) {
+                    if (runtimeCtx.checkMethod(parentObj.getClass(), method, String.class, Boolean.class)) {
+                        Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName)
+                                ? runtimeCtx.getAttribute(parentObj, attributeName) != null : null;
+                        result = runtimeCtx.invokeMethod(parentObj, method, attributeName, isAttributeNotNull);
+                        break;
+                    } else if (runtimeCtx.checkMethod(parentObj.getClass(), method, String.class)) {
+                        // to support old SQLMOP generated POJOs
+                        result = runtimeCtx.invokeMethod(parentObj, method, attributeName);
+                        break;
+                    }
+                } else {
+                    Class<?> clazz = method.startsWith("is") ? Boolean.class : String.class;
+                    if (runtimeCtx.checkMethod(parentObj.getClass(), method, clazz)) {
+                        result = runtimeCtx.invokeMethod(parentObj, method, attributeName);
+                        break;
+                    }
+                }
+            }
+        }
+        if (result == null || !(result.getClass() != attributeClass)) {
+            return null;
+        }
+        return (E) result;
     }
 }
