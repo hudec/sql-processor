@@ -90,6 +90,11 @@ public class Contact implements Serializable {
     this.address = address;
   }
   
+  public Contact _setAddress(final String address) {
+    this.address = address;
+    return this;
+  }
+  
   @Size(max = 100)
   private String phoneNumber;
   
@@ -152,27 +157,6 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private String oldAddress;
-  
-  public String getOldAddress() {
-    return this.oldAddress;
-  }
-  
-  public void setOldAddress(final String oldAddress) {
-    this.oldAddress = oldAddress;
-  }
-  
-  public Contact _setOldAddress(final String oldAddress) {
-    this.oldAddress = oldAddress;
-    return this;
-  }
-  
-  public Contact _setAddress(final String _address) {
-    this.oldAddress = this.address;
-    this.address = _address;
-    return this;
-  }
-  
   public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("Contact");
     if (id != null)
@@ -215,7 +199,7 @@ public class Contact implements Serializable {
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + ", oldAddress=" + oldAddress + "]";
+    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + "]";
   }
   
   public enum Attribute {
@@ -415,15 +399,19 @@ public class Contact implements Serializable {
     
     onlyIds_,
     
-    ids_,
-    
-    oldAddress;
+    ids_;
   }
   
   private Map<String, String> operators_ =  new java.util.HashMap<String, String>();
   
   public Map<String, String> getOperators_() {
     return operators_;
+  }
+  
+  public String getOp_(final String attrName) {
+    if (attrName == null)
+    	throw new IllegalArgumentException();
+    return operators_.get(attrName);
   }
   
   public void setOp_(final String operator, final Contact.OpAttribute... attributes) {

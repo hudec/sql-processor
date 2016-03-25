@@ -130,9 +130,8 @@ class SqlMetaOperator extends SqlMetaConst {
             op = SqlUtils.firstLowerCase(suffix);
             result = (ctx.checkAttribute(obj, op + "_")) ? ctx.getAttribute(obj, op + "_")
                     : ((ctx.checkAttribute(obj, op)) ? ctx.getAttribute(obj, op) : null);
-            if (result == null || !(result instanceof Map)) {
+            if (result == null || !(result instanceof Map))
                 return null;
-            }
         }
         Map map = (Map) result;
         return map.get(prefix);
