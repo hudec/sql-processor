@@ -127,7 +127,7 @@ class SqlMetaOperator extends SqlMetaConst {
         if (result != null)
             return result;
         if (ctx.checkMethod(obj.getClass(), METHOD_GET_OP, String.class))
-            return ctx.invokeMethod(obj, METHOD_GET_OP, name);
+            return ctx.invokeMethod(obj, METHOD_GET_OP, prefix);
 
         // the old style
         String op = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
