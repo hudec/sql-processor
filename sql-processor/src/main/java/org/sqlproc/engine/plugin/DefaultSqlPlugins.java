@@ -1,7 +1,6 @@
 package org.sqlproc.engine.plugin;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -24,6 +23,13 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
      */
     final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public static final String METHOD_IS_NULL = "isNull";
+    public static final String METHOD_IS_NULL_ = METHOD_IS_NULL + "_";
+    public static final String METHOD_IS_DEF = "isDef";
+    public static final String METHOD_IS_DEF_ = METHOD_IS_DEF + "_";
+    public static final String METHOD_TO_INIT = "toInit";
+    public static final String METHOD_TO_INIT_ = METHOD_TO_INIT + "_";
+
     /**
      * {@inheritDoc}
      */
@@ -36,8 +42,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                     + ", inSqlSetOrInsert=" + inSqlSetOrInsert);
         }
 
-        Boolean delegatedResult = callMethod(runtimeCtx, attributeName, Boolean.class, parentObj,
-                values != null ? values.get(MODIFIER_CALL) : null);
+        Boolean delegatedResult = callMethod(runtimeCtx, attributeName, parentObj, values);
         if (delegatedResult != null) {
             return delegatedResult;
         }
@@ -146,8 +151,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     public boolean isTrue(SqlRuntimeContext runtimeCtx, String attributeName, Object obj, Object parentObj,
             SqlMetaType sqlMetaType, String inOutModifier, Map<String, String> values) {
 
-        Boolean delegatedResult = callMethod(runtimeCtx, attributeName, Boolean.class, parentObj,
-                values != null ? values.get(MODIFIER_CALL) : null);
+        Boolean delegatedResult = callMethod(runtimeCtx, attributeName, parentObj, values);
         if (delegatedResult != null) {
             return delegatedResult;
         }
@@ -286,6 +290,50 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         }
     }
 
+    private Boolean callMethod(SqlRuntimeContext runtimeCtx, String attributeName, Object parentObj,
+            Map<String, String> values) {
+        if (logger.isTraceEnabled()) {
+            logger.trace(">>> callMethod attributeName=" + attributeName + ", parentObj=" + parentObj + ", values="
+                    + values);
+        }
+
+        if (attributeName == null || parentObj == null || values == null)
+            return null;
+        String methodName = values.get(MODIFIER_CALL);
+        if (methodName == null)
+            return null;
+        Object result = null;
+        if (methodName.equals(METHOD_IS_DEF)) {
+            if (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_DEF_, String.class, Boolean.class)) {
+                Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName)
+                        ? runtimeCtx.getAttribute(parentObj, attributeName) != null : null;
+                result = runtimeCtx.invokeMethod(parentObj, METHOD_IS_DEF_, attributeName, isAttributeNotNull);
+            } else if (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_DEF, String.class, Boolean.class)) {
+                Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName)
+                        ? runtimeCtx.getAttribute(parentObj, attributeName) != null : null;
+                result = runtimeCtx.invokeMethod(parentObj, METHOD_IS_DEF, attributeName, isAttributeNotNull);
+            } else if (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_DEF_, String.class)) {
+                // to support old SQLMOP generated POJOs
+                result = runtimeCtx.invokeMethod(parentObj, METHOD_IS_DEF_, attributeName);
+            } else if (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_IS_DEF, String.class)) {
+                // to support old SQLMOP generated POJOs
+                result = runtimeCtx.invokeMethod(parentObj, METHOD_IS_DEF, attributeName);
+            }
+        } else if (methodName.equals(METHOD_TO_INIT)) {
+            result = (runtimeCtx.checkMethod(parentObj.getClass(), METHOD_TO_INIT_, String.class))
+                    ? runtimeCtx.invokeMethod(parentObj, METHOD_TO_INIT_, attributeName)
+                    : ((runtimeCtx.checkMethod(parentObj.getClass(), METHOD_TO_INIT, String.class))
+                            ? runtimeCtx.invokeMethod(parentObj, METHOD_TO_INIT, attributeName) : null);
+        } else {
+            result = (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class))
+                    ? runtimeCtx.invokeMethod(parentObj, methodName, attributeName) : null;
+        }
+        if (result == null || !(result instanceof Boolean)) {
+            return null;
+        }
+        return (Boolean) result;
+    }
+
     private LimitType limitQuery(String limitPattern, LimitType limitType, String queryString,
             StringBuilder queryResult, Integer firstResult, Integer maxResults) {
         if (limitPattern == null)
@@ -409,58 +457,5 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
             return null;
         else
             return sqlControl.getProcessingId();
-    }
-
-    public static final String METHOD_IS_NULL = "isNull";
-    public static final String METHOD_IS_NULL_ = METHOD_IS_NULL + "_";
-    public static final String METHOD_IS_DEF = "isDef";
-    public static final String METHOD_IS_DEF_ = METHOD_IS_DEF + "_";
-    public static final String METHOD_TO_INIT = "toInit";
-    public static final String METHOD_TO_INIT_ = METHOD_TO_INIT + "_";
-    public static final Map<String, String[]> METHODS = new HashMap<>();
-    static {
-        METHODS.put(METHOD_IS_NULL, new String[] { METHOD_IS_NULL_, METHOD_IS_NULL });
-        METHODS.put(METHOD_IS_NULL_, new String[] { METHOD_IS_NULL_ });
-        METHODS.put(METHOD_IS_DEF, new String[] { METHOD_IS_DEF_, METHOD_IS_DEF });
-        METHODS.put(METHOD_IS_DEF_, new String[] { METHOD_IS_DEF_ });
-        METHODS.put(METHOD_TO_INIT, new String[] { METHOD_TO_INIT_, METHOD_TO_INIT });
-        METHODS.put(METHOD_TO_INIT_, new String[] { METHOD_TO_INIT_ });
-    }
-
-    protected <E> E callMethod(SqlRuntimeContext runtimeCtx, String attributeName, Class<E> attributeClass,
-            Object parentObj, String methodName) {
-        if (attributeName == null || parentObj == null || methodName == null)
-            return null;
-        Object result = null;
-        String[] methods = METHODS.get(methodName);
-        if (methods == null) {
-            result = (runtimeCtx.checkMethod(parentObj.getClass(), methodName, String.class))
-                    ? runtimeCtx.invokeMethod(parentObj, methodName, attributeName) : null;
-        } else {
-            for (String method : methods) {
-                if (method.startsWith(METHOD_IS_DEF)) {
-                    if (runtimeCtx.checkMethod(parentObj.getClass(), method, String.class, Boolean.class)) {
-                        Boolean isAttributeNotNull = runtimeCtx.checkAttribute(parentObj, attributeName)
-                                ? runtimeCtx.getAttribute(parentObj, attributeName) != null : null;
-                        result = runtimeCtx.invokeMethod(parentObj, method, attributeName, isAttributeNotNull);
-                        break;
-                    } else if (runtimeCtx.checkMethod(parentObj.getClass(), method, String.class)) {
-                        // to support old SQLMOP generated POJOs
-                        result = runtimeCtx.invokeMethod(parentObj, method, attributeName);
-                        break;
-                    }
-                } else {
-                    Class<?> clazz = method.startsWith("is") ? Boolean.class : String.class;
-                    if (runtimeCtx.checkMethod(parentObj.getClass(), method, clazz)) {
-                        result = runtimeCtx.invokeMethod(parentObj, method, attributeName);
-                        break;
-                    }
-                }
-            }
-        }
-        if (result == null || !(result.getClass() != attributeClass)) {
-            return null;
-        }
-        return (E) result;
     }
 }

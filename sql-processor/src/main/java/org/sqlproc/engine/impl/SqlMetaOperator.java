@@ -120,15 +120,14 @@ class SqlMetaOperator extends SqlMetaConst {
                 name = prefix + suffix;
             }
         } else {
-            // return (ctx.checkAttribute(obj, item)) ? ctx.getAttribute(obj, item) : null;
-            name = item;
+            return (ctx.checkAttribute(obj, item)) ? ctx.getAttribute(obj, item) : null;
         }
 
         Object result = (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
-        if (result != null || prefix == null || suffix == null)
+        if (result != null)
             return result;
-        // if (ctx.checkMethod(obj.getClass(), METHOD_GET_OP, String.class))
-        // return ctx.invokeMethod(obj, METHOD_GET_OP, name);
+        if (ctx.checkMethod(obj.getClass(), METHOD_GET_OP, String.class))
+            return ctx.invokeMethod(obj, METHOD_GET_OP, name);
 
         // the old style
         String op = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
