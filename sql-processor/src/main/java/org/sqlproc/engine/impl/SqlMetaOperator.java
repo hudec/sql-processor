@@ -13,6 +13,8 @@ import org.sqlproc.engine.impl.SqlInputValue.Code;
  */
 class SqlMetaOperator extends SqlMetaConst {
 
+    public static final String SEPARATOR = "@";
+
     /**
      * An indicator the dynamic input values are used.
      */
@@ -105,7 +107,7 @@ class SqlMetaOperator extends SqlMetaConst {
         String prefix = null;
         String suffix = null;
         String name = null;
-        int ix = item.indexOf("@");
+        int ix = item.indexOf(SEPARATOR);
         if (ix >= 0) {
             if (ix < item.length() - 1) {
                 prefix = item.substring(0, ix);
@@ -116,12 +118,13 @@ class SqlMetaOperator extends SqlMetaConst {
                 suffix = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE);
                 name = prefix + suffix;
             }
-        } else
-            name = item;
+        } else {
+            return (ctx.checkAttribute(obj, item)) ? ctx.getAttribute(obj, item) : null;
+        }
         System.out
                 .println("obj=" + obj + " item=" + item + " prefix=" + prefix + " suffix=" + suffix + " name=" + name);
         Object result = (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
-        if (result != null || prefix == null || suffix == null) {
+        if (result != null) {
             System.out.println("result=" + result);
             return result;
         }

@@ -282,9 +282,9 @@ class ParserUtils {
         if (name != null && name.length() > 0) {
             List<String> elements = new ArrayList<String>();
             if (name.equals("="))
-                elements.add("@");
+                elements.add(SqlMetaOperator.SEPARATOR);
             else
-                elements.add("@" + name);
+                elements.add(SqlMetaOperator.SEPARATOR + name);
             SqlMetaOperator identOperator = new SqlMetaOperator(dynamicInputValue, new ArrayList<String>(elements));
             return identOperator;
         }
@@ -320,12 +320,14 @@ class ParserUtils {
         if (modifier != null) {
             String type = (modifier.startsWith(SUPPVAL_TYPE_)) ? modifier.substring(SUPPVAL_TYPE_.length()) : null;
             if (target instanceof SqlMappingItem) {
-                String dtype = (type == null) ? ((modifier.startsWith(SUPPVAL_DTYPE_)) ? modifier
-                        .substring(SUPPVAL_DTYPE_.length()) : null) : null;
-                String gtype = (type == null && dtype == null) ? ((modifier.startsWith(SUPPVAL_GTYPE_)) ? modifier
-                        .substring(SUPPVAL_GTYPE_.length()) : null) : null;
-                boolean isDisriminator = (type == null && dtype == null && gtype == null) ? ((modifier
-                        .startsWith(SUPPVAL_DISCRIMINATOR_)) ? true : false) : false;
+                String dtype = (type == null)
+                        ? ((modifier.startsWith(SUPPVAL_DTYPE_)) ? modifier.substring(SUPPVAL_DTYPE_.length()) : null)
+                        : null;
+                String gtype = (type == null && dtype == null)
+                        ? ((modifier.startsWith(SUPPVAL_GTYPE_)) ? modifier.substring(SUPPVAL_GTYPE_.length()) : null)
+                        : null;
+                boolean isDisriminator = (type == null && dtype == null && gtype == null)
+                        ? ((modifier.startsWith(SUPPVAL_DISCRIMINATOR_)) ? true : false) : false;
                 if (type != null) {
                     ((SqlMappingItem) target).setMetaType(typeFactory.getMetaType(type));
                 } else if (dtype != null) {
@@ -414,7 +416,8 @@ class ParserUtils {
             Token t = ex.token;
             if (t instanceof CommonToken) {
                 CommonToken ct = (CommonToken) t;
-                return new ErrorMsg(name, msg, ct.getStartIndex(), ct.getStopIndex() - ct.getStartIndex(), ct.getLine());
+                return new ErrorMsg(name, msg, ct.getStartIndex(), ct.getStopIndex() - ct.getStartIndex(),
+                        ct.getLine());
             }
         }
         return new ErrorMsg(name, msg, ex.index >= 0 ? ex.index : 0, length, ex.line);
