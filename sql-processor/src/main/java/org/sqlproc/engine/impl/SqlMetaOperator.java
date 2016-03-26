@@ -14,6 +14,7 @@ import org.sqlproc.engine.impl.SqlInputValue.Code;
 class SqlMetaOperator extends SqlMetaConst {
 
     public static final String SEPARATOR = "@";
+    public static final String METHOD_GET_OP = "getOp_";
 
     /**
      * An indicator the dynamic input values are used.
@@ -119,16 +120,17 @@ class SqlMetaOperator extends SqlMetaConst {
                 name = prefix + suffix;
             }
         } else {
-            return (ctx.checkAttribute(obj, item)) ? ctx.getAttribute(obj, item) : null;
-        }
-        System.out
-                .println("obj=" + obj + " item=" + item + " prefix=" + prefix + " suffix=" + suffix + " name=" + name);
-        Object result = (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
-        if (result != null) {
-            System.out.println("result=" + result);
-            return result;
+            // return (ctx.checkAttribute(obj, item)) ? ctx.getAttribute(obj, item) : null;
+            name = item;
         }
 
+        Object result = (ctx.checkAttribute(obj, name)) ? ctx.getAttribute(obj, name) : null;
+        if (result != null || prefix == null || suffix == null)
+            return result;
+        // if (ctx.checkMethod(obj.getClass(), METHOD_GET_OP, String.class))
+        // return ctx.invokeMethod(obj, METHOD_GET_OP, name);
+
+        // the old style
         String op = ctx.getFeature(SqlFeature.OPERATOR_ATTRIBUTE_IN_MAP);
         result = (ctx.checkAttribute(obj, op + "_")) ? ctx.getAttribute(obj, op + "_")
                 : ((ctx.checkAttribute(obj, op)) ? ctx.getAttribute(obj, op) : null);
@@ -136,13 +138,10 @@ class SqlMetaOperator extends SqlMetaConst {
             op = SqlUtils.firstLowerCase(suffix);
             result = (ctx.checkAttribute(obj, op + "_")) ? ctx.getAttribute(obj, op + "_")
                     : ((ctx.checkAttribute(obj, op)) ? ctx.getAttribute(obj, op) : null);
-            if (result == null || !(result instanceof Map)) {
-                System.out.println("result2=null");
+            if (result == null || !(result instanceof Map))
                 return null;
-            }
         }
         Map map = (Map) result;
-        System.out.println("result3=" + map.get(prefix));
         return map.get(prefix);
     }
 

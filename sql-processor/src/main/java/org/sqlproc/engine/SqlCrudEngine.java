@@ -240,8 +240,8 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #insert(SqlSession, Object, Object, int)} .
      */
-    public int insert(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
-            SqlRuntimeException {
+    public int insert(final SqlSession session, final Object dynamicInputValues)
+            throws SqlProcessorException, SqlRuntimeException {
         return insert(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
@@ -286,8 +286,8 @@ public class SqlCrudEngine extends SqlEngine {
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return insert(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
-                .setMaxTimeout(maxTimeout));
+        return insert(session, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -404,9 +404,8 @@ public class SqlCrudEngine extends SqlEngine {
             final Object staticInputValues, final Map<String, Class<?>> moreResultClasses)
             throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return get(session, resultClass, dynamicInputValues,
-                new SqlStandardControl().setStaticInputValues(staticInputValues)
-                        .setMoreResultClasses(moreResultClasses));
+        return get(session, resultClass, dynamicInputValues, new SqlStandardControl()
+                .setStaticInputValues(staticInputValues).setMoreResultClasses(moreResultClasses));
     }
 
     /**
@@ -601,8 +600,8 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #update(SqlSession, Object, Object, int)} .
      */
-    public int update(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
-            SqlRuntimeException {
+    public int update(final SqlSession session, final Object dynamicInputValues)
+            throws SqlProcessorException, SqlRuntimeException {
         return update(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
@@ -648,8 +647,8 @@ public class SqlCrudEngine extends SqlEngine {
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return update(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
-                .setMaxTimeout(maxTimeout));
+        return update(session, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -735,8 +734,8 @@ public class SqlCrudEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #delete(SqlSession, Object, Object, int)} .
      */
-    public int delete(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
-            SqlRuntimeException {
+    public int delete(final SqlSession session, final Object dynamicInputValues)
+            throws SqlProcessorException, SqlRuntimeException {
         return delete(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
@@ -781,8 +780,8 @@ public class SqlCrudEngine extends SqlEngine {
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return delete(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
-                .setMaxTimeout(maxTimeout));
+        return delete(session, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
