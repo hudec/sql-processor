@@ -29,18 +29,18 @@ metagen-like-columns PERSON FIRST_NAME LAST_NAME;
 metagen-not-like-columns;
 daogen-package org.sample.dao;
 
-table contact CONTACT;
-table person PERSON;
-table personDetail PERSON_DETAIL;
+is-table contact CONTACT;
+is-table person PERSON;
+is-table personDetail PERSON_DETAIL;
 
-procedure anHourBefore AN_HOUR_BEFORE;
-function anHourBefore AN_HOUR_BEFORE;
+is-procedure anHourBefore AN_HOUR_BEFORE;
+is-function anHourBefore AN_HOUR_BEFORE;
 
-pojo AnHourBefore org.sample.model.AnHourBefore;
-pojo AnHourBeforeResult org.sample.model.AnHourBeforeResult;
-pojo Contact org.sample.model.Contact;
-pojo Person org.sample.model.Person;
-pojo PersonDetail org.sample.model.PersonDetail;
+is-pojo AnHourBefore org.sample.model.AnHourBefore;
+is-pojo AnHourBeforeResult org.sample.model.AnHourBeforeResult;
+is-pojo Contact org.sample.model.Contact;
+is-pojo Person org.sample.model.Person;
+is-pojo PersonDetail org.sample.model.PersonDetail;
 
 //database-debug-level DEBUG;
 //pojogen-debug-level DEBUG;

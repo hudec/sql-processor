@@ -39,25 +39,23 @@ metagen-not-like-columns contact phone_number;
 // ignore SYS tables
 daogen-ignore-tables sysdomains sysindexes;
 
-table contact contact;
-table person person;
-
-procedure anHourBefore an_hour_before;
-procedure funLong fun_long;
-procedure newPerson new_person;
-procedure newPersonRetRs new_person_ret_rs;
-
-function anHourBefore an_hour_before;
+is-table contact contact;
+is-table person person;
+is-procedure anHourBefore an_hour_before;
+is-procedure funLong fun_long;
+is-procedure newPerson new_person;
+is-procedure newPersonRetRs new_person_ret_rs;
+is-function anHourBefore an_hour_before;
 //function newPersonRetRs new_person_ret_rs;
 //metagen-procedure-result-set new_person_ret_rs person;
 
 pojogen-package org.sample.model;
 daogen-package org.sample.dao;
 
-pojo AnHourBefore org.sample.model.AnHourBefore;
-pojo Contact org.sample.model.Contact;
-pojo FunLong org.sample.model.FunLong;
-pojo NewPerson org.sample.model.NewPerson;
-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
-pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
-pojo Person org.sample.model.Person;
+is-pojo AnHourBefore org.sample.model.AnHourBefore;
+is-pojo Contact org.sample.model.Contact;
+is-pojo FunLong org.sample.model.FunLong;
+is-pojo NewPerson org.sample.model.NewPerson;
+is-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+is-pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
+is-pojo Person org.sample.model.Person;

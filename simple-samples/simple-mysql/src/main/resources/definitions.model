@@ -40,12 +40,12 @@ metagen-not-like-columns CONTACT PHONE_NUMBER;
 // can't overwrite existing DAO 
 //daogen-make-it-final;
 
-table contact CONTACT;
-table person PERSON;
-procedure anHourBefore AN_HOUR_BEFORE;
-procedure newPerson NEW_PERSON;
-procedure newPersonRetRs NEW_PERSON_RET_RS;
-function anHourBefore AN_HOUR_BEFORE;
+is-table contact CONTACT;
+is-table person PERSON;
+is-procedure anHourBefore AN_HOUR_BEFORE;
+is-procedure newPerson NEW_PERSON;
+is-procedure newPersonRetRs NEW_PERSON_RET_RS;
+is-function anHourBefore AN_HOUR_BEFORE;
 
 //SEQ_CONTACT(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'CONTACT';
 //SEQ_PERSON(OPT)=SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'simple' AND TABLE_NAME = 'PERSON';
@@ -55,11 +55,11 @@ metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
 //database-debug-level DEBUG;
 compress-meta-directives;
 
-pojo AnHourBefore org.sample.model.AnHourBefore;
-pojo Contact org.sample.model.Contact;
-pojo NewPerson org.sample.model.NewPerson;
-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
-pojo Person org.sample.model.Person;
+is-pojo AnHourBefore org.sample.model.AnHourBefore;
+is-pojo Contact org.sample.model.Contact;
+is-pojo NewPerson org.sample.model.NewPerson;
+is-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+is-pojo Person org.sample.model.Person;
 
 pojogen-package org.sample.model;
 daogen-package org.sample.dao;

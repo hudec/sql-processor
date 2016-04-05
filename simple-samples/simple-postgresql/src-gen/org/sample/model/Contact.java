@@ -304,6 +304,12 @@ public class Contact implements Serializable {
     return operators_;
   }
   
+  public String getOp_(final String attrName) {
+    if (attrName == null)
+    	throw new IllegalArgumentException();
+    return operators_.get(attrName);
+  }
+  
   public void setOp_(final String operator, final Contact.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
