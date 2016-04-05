@@ -6,10 +6,7 @@ database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 
-pojo item org.sqlproc.sample.catalog.model.Item;
-pojo itemForm org.sqlproc.sample.catalog.form.ItemForm;
-
-table item ITEM;
+is-table item ITEM;
 
 pojogen-generate-wrappers;
 pojogen-generate-methods toString equals hashCode;
@@ -18,7 +15,7 @@ pojogen-types-for-columns ITEM PRICE->java.math.BigDecimal;
 //pojogen-debug-level DEBUG;
 compress-meta-directives;
 
-pojo Item org.sqlproc.sample.catalog.model.Item;
-pojo ItemForm org.sqlproc.sample.catalog.form.ItemForm;
-pojo ItemTO org.sqlproc.sample.catalog.to.ItemTO;
-pojo OrderIds org.sqlproc.sample.catalog.model.OrderIds;
+is-pojo Item org.sqlproc.sample.catalog.model.Item;
+is-pojo ItemForm org.sqlproc.sample.catalog.form.ItemForm;
+is-pojo ItemTO org.sqlproc.sample.catalog.to.ItemTO;
+is-pojo OrderIds org.sqlproc.sample.catalog.model.OrderIds;

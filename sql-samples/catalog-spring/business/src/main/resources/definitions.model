@@ -6,12 +6,12 @@ database-login-username sa;
 database-login-password "";
 database-ddl-create hsqldb.ddl; // should be located in the same directory as definitions.qry
 
-table item ITEM;
+is-table item ITEM;
 
-pojo Item org.sqlproc.sample.catalog.model.Item;
-pojo ItemForm org.sqlproc.sample.catalog.form.ItemForm;
-pojo ItemTO org.sqlproc.sample.catalog.to.ItemTO;
-pojo OrderIds org.sqlproc.sample.catalog.model.OrderIds;
+is-pojo Item org.sqlproc.sample.catalog.model.Item;
+is-pojo ItemForm org.sqlproc.sample.catalog.form.ItemForm;
+is-pojo ItemTO org.sqlproc.sample.catalog.to.ItemTO;
+is-pojo OrderIds org.sqlproc.sample.catalog.model.OrderIds;
 
 pojogen-generate-wrappers;
 pojogen-generate-methods toString equals hashCode;
