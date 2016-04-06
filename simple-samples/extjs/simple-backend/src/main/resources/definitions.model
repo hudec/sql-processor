@@ -47,10 +47,10 @@ metagen-optional-features SELECT_COUNTRY "IOPT=SURROUND_QUERY_MIN_LEN=1";
 // can't overwrite existing DAO 
 //daogen-make-it-final; 
 
-table contact CONTACT;
-table country COUNTRY;
-table person PERSON;
-table relative RELATIVE;
+is-table contact CONTACT;
+is-table country COUNTRY;
+is-table person PERSON;
+is-table relative RELATIVE;
 
 //pojogen-debug-level DEBUG;
 
@@ -58,9 +58,9 @@ compress-meta-directives;
 pojogen-package org.sample.model.person;
 daogen-package org.sample.dao.person;
 
-pojo Contact org.sample.model.person.Contact;
-pojo CountHolder org.sample.web.form.CountHolder;
-pojo Country org.sample.model.person.Country;
-pojo Person org.sample.model.person.Person;
-pojo PersonForm org.sample.web.form.PersonForm;
-pojo Relative org.sample.model.person.Relative;
+is-pojo Contact org.sample.model.person.Contact;
+is-pojo CountHolder org.sample.web.form.CountHolder;
+is-pojo Country org.sample.model.person.Country;
+is-pojo Person org.sample.model.person.Person;
+is-pojo PersonForm org.sample.web.form.PersonForm;
+is-pojo Relative org.sample.model.person.Relative;

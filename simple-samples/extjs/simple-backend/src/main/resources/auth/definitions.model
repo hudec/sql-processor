@@ -44,10 +44,10 @@ metagen-global-sequence SIMPLE_SEQUENCE;
 
 // can't overwrite existing DAO 
 //daogen-make-it-final; 
-table authRole AUTH_ROLE;
-table authUser AUTH_USER;
-table userRole USER_ROLE;
-table userSession USER_SESSION;
+is-table authRole AUTH_ROLE;
+is-table authUser AUTH_USER;
+is-table userRole USER_ROLE;
+is-table userSession USER_SESSION;
 
 //pojogen-debug-level DEBUG;
 
@@ -55,7 +55,7 @@ compress-meta-directives;
 pojogen-package org.sample.model.auth;
 daogen-package org.sample.dao.auth;
 
-pojo AuthRole org.sample.model.auth.AuthRole;
-pojo AuthUser org.sample.model.auth.AuthUser;
-pojo UserRole org.sample.model.auth.UserRole;
-pojo UserSession org.sample.model.auth.UserSession;
+is-pojo AuthRole org.sample.model.auth.AuthRole;
+is-pojo AuthUser org.sample.model.auth.AuthUser;
+is-pojo UserRole org.sample.model.auth.UserRole;
+is-pojo UserSession org.sample.model.auth.UserSession;

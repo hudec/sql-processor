@@ -45,12 +45,12 @@ metagen-not-like-columns;
 //daogen-make-it-final; 
 daogen-package org.sample.dao;
 
-table contact CONTACT;
-table person PERSON;
-procedure anHourBefore AN_HOUR_BEFORE;
-procedure newPerson NEW_PERSON;
-procedure newPersonRetRs NEW_PERSON_RET_RS;
-function anHourBefore AN_HOUR_BEFORE;
+is-table contact CONTACT;
+is-table person PERSON;
+is-procedure anHourBefore AN_HOUR_BEFORE;
+is-procedure newPerson NEW_PERSON;
+is-procedure newPersonRetRs NEW_PERSON_RET_RS;
+is-function anHourBefore AN_HOUR_BEFORE;
 
 metagen-function-result AN_HOUR_BEFORE stamp;
 metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
@@ -58,8 +58,8 @@ metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
 
 compress-meta-directives;
 
-pojo AnHourBefore org.sample.model.AnHourBefore;
-pojo Contact org.sample.model.Contact;
-pojo NewPerson org.sample.model.NewPerson;
-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
-pojo Person org.sample.model.Person;
+is-pojo AnHourBefore org.sample.model.AnHourBefore;
+is-pojo Contact org.sample.model.Contact;
+is-pojo NewPerson org.sample.model.NewPerson;
+is-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+is-pojo Person org.sample.model.Person;

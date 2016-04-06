@@ -38,14 +38,14 @@ metagen-not-like-columns CONTACT PHONE_NUMBER;
 
 // can't overwrite existing DAO 
 //daogen-make-it-final;
-table person PERSON;
-table contact CONTACT;
-procedure anHourBefore an_hour_before;
-procedure newPerson new_person;
-procedure newPersonRetRs new_person_ret_rs;
-function anHourBefore an_hour_before;
-//function newPerson new_person;
-//function newPersonRetRs new_person_ret_rs;
+is-table person PERSON;
+is-table contact CONTACT;
+is-procedure anHourBefore an_hour_before;
+is-procedure newPerson new_person;
+is-procedure newPersonRetRs new_person_ret_rs;
+is-function anHourBefore an_hour_before;
+//is-function newPerson new_person;
+//is-function newPersonRetRs new_person_ret_rs;
 
 //metagen-function-result an_hour_before stamp;
 metagen-procedure-result-set new_person_ret_rs PERSON;
