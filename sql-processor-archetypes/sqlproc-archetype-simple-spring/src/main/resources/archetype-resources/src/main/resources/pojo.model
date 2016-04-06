@@ -9,24 +9,24 @@ package ${package}.model {
 
     #Serializable(1)
     #Enum ContactType {
-        #Values(HOME = 0,BUSINESS = 1,ABROAD = 2)
+        #Values(ABROAD = 2,BUSINESS = 1,HOME = 0)
         #Attr Integer value
     }
 
     #Serializable(1)
     #Enum PersonGender {
-        #Values(MALE = "M",FEMALE = "F",UNKNOWN = "0")
+        #Values(FEMALE = "F",MALE = "M",UNKNOWN = "0")
         #Attr String value
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,xNote,phoneNumber,address,type)
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         // The technical primary key
         #Attr Long id
         @NotNull
-        #ToInit #Required #Index(2)
+        #ToInit #Required #Index #IsPojo
         // The owner of this contact
         #Attr Person person
         @NotNull
@@ -48,10 +48,10 @@ package ${package}.model {
         #Attr String xNote
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(dateOfBirth,id,lastName,ssn,gender,firstName)
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     // The personal information
     #Pojo Person {
-        #PrimaryKey #Index(1)
+        #PrimaryKey #Index
         // The technical primary key
         #Attr Long id
         @NotNull
@@ -61,7 +61,7 @@ package ${package}.model {
         #Attr String firstName
         @NotNull
         @Size(max = 100)
-        #Required #Index(2)
+        #Required #Index
         // The surname
         #Attr String lastName
         #IsDef
@@ -81,12 +81,12 @@ package ${package}.model {
 
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.util.Date t
+        #Attr java.sql.Timestamp t
     }
 
-    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName,newid)
+    #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
-        #Attr short newid
+        #Attr Integer newid
         #Attr java.util.Date dateOfBirth
         #Attr String ssn
         #Attr String firstName
@@ -94,7 +94,7 @@ package ${package}.model {
         #Attr String gender
     }
 
-    #Serializable(1) #ToString(dateOfBirth,lastName,ssn,gender,firstName)
+    #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
         #Attr java.util.Date dateOfBirth
         #Attr String ssn

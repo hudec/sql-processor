@@ -12,18 +12,18 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Assert;
-import ${package}.dao.AnHourBeforeDao;
-import ${package}.dao.ContactDao;
-import ${package}.dao.NewPersonDao;
-import ${package}.dao.NewPersonRetRsDao;
-import ${package}.dao.PersonDao;
-import ${package}.model.AnHourBefore;
-import ${package}.model.Contact;
-import ${package}.model.ContactType;
-import ${package}.model.NewPerson;
-import ${package}.model.NewPersonRetRs;
-import ${package}.model.Person;
-import ${package}.model.PersonGender;
+import org.sample.dao.AnHourBeforeDao;
+import org.sample.dao.ContactDao;
+import org.sample.dao.NewPersonDao;
+import org.sample.dao.NewPersonRetRsDao;
+import org.sample.dao.PersonDao;
+import org.sample.model.AnHourBefore;
+import org.sample.model.Contact;
+import org.sample.model.ContactType;
+import org.sample.model.NewPerson;
+import org.sample.model.NewPersonRetRs;
+import org.sample.model.Person;
+import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -77,7 +77,7 @@ public class Main {
     }
 
     public Person getPerson(Long id, Person.Association... associations) {
-        Person person = new Person()._setId(id)._setInit(associations);
+        Person person = new Person()._setId(id)._setInit_(associations);
         SqlStandardControl ssc = new SqlStandardControl();
         if (associations != null) {
             Set<String> set = new TreeSet<String>();
@@ -157,7 +157,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andriosa");
-        person.setNull(Person.Attribute.ssn);
+        person.setNull_(Person.Attribute.ssn);
         count = personDao.update(person);
         Assert.assertEquals(1, count);
 
@@ -179,10 +179,10 @@ public class Main {
         list = personDao.list(person);
         Assert.assertEquals(0, list.size());
         person.setFirstName("Jan");
-        person.setInit(Person.Association.contacts);
+        person.setInit_(Person.Association.contacts);
         list = personDao.list(person);
         person = new Person();
-        person.setInit(Person.Association.contacts);
+        person.setInit_(Person.Association.contacts);
         list = personDao.list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzicek", list.get(1).getLastName());
@@ -207,12 +207,12 @@ public class Main {
         listc = contactDao.list(contact);
         Assert.assertEquals(1, listc.size());
         Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
-        contact.setOp("<>", Contact.OpAttribute.phoneNumber);
+        contact.setOp_("<>", Contact.OpAttribute.phoneNumber);
         listc = contactDao.list(contact);
         Assert.assertEquals(1, listc.size());
         Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
         contact = new Contact();
-        contact.setNullOp(Contact.OpAttribute.phoneNumber);
+        contact.setNullOp_(Contact.OpAttribute.phoneNumber);
         count = contactDao.count(contact);
         Assert.assertEquals(3, count);
 
@@ -259,6 +259,8 @@ public class Main {
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());
+        
+        System.out.println("OK");
     }
 
     public java.sql.Timestamp getAge(int year, int month, int day) {
