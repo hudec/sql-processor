@@ -2,386 +2,418 @@
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
 package ${package}.model;
-	
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import java.io.Serializable;
-import java.util.Set;
-import java.util.HashSet;
-
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.sample.model.ContactType;
+import org.sample.model.Person;
+import org.sqlproc.engine.annotation.Pojo;
 
+@Pojo
+@SuppressWarnings("all")
 public class Contact implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	public static final String ORDER_BY_ID = "ID";
-	public static final String ORDER_BY_PERSON = "PERSON";
-	
-	public Contact() {
-	}
-		
-	public Contact(Person person, ContactType type, String address) {
-		this.person = person;
-		this.type = type;
-		this.address = address;
-	}
-
-	private Long id;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Contact _setId(Long id) {
-		this.id = id;
-		return this;
-	}
-
-	@NotNull
-	private Person person;
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
-	public Contact _setPerson(Person person) {
-		this.person = person;
-		return this;
-	}
-
-	@NotNull
-	private ContactType type;
-
-	public ContactType getType() {
-		return type;
-	}
-
-	public void setType(ContactType type) {
-		this.type = type;
-	}
-
-	public Contact _setType(ContactType type) {
-		this.type = type;
-		return this;
-	}
-
-	@NotNull
-	@Size(max = 100)
-	private String address;
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Contact _setAddress(String address) {
-		this.address = address;
-		return this;
-	}
-
-	@Size(max = 100)
-	private String phoneNumber;
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public Contact _setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-		return this;
-	}
-
-	@Size(max = 100)
-	private String xNote;
-
-	public String getxNote() {
-		return xNote;
-	}
-
-	public void setxNote(String xNote) {
-		this.xNote = xNote;
-	}
-
-	public Contact _setxNote(String xNote) {
-		this.xNote = xNote;
-		return this;
-	}
-
-	public enum Association {
-		person
-	}
-
-	private Set<String> initAssociations = new HashSet<String>();
-
-	public void setInit(Association... associations) {
-		if (associations == null)
-			throw new IllegalArgumentException();
-		for (Association association : associations)
-			initAssociations.add(association.name());
-	}
-	
-	public Contact	_setInit(Association... associations) {
-		setInit(associations);
-		return this;
-	}
-
-	public void clearInit(Association... associations) {
-		if (associations == null)
-			throw new IllegalArgumentException();
-		for (Association association : associations)
-			initAssociations.remove(association.name());
-	}
-
-	public Contact _clearInit(Association... associations) {
-		clearInit(associations);
-		return this;
-	}
-
-	public void setInit(String... associations) {
-		if (associations == null)
-			throw new IllegalArgumentException();
-		for (String association : associations)
-			initAssociations.add(association);
-	}
-
-	public Contact _setInit(String... associations) {
-		setInit(associations);
-		return this;
-	}
-
-	public void clearInit(String... associations) {
-		if (associations == null)
-			throw new IllegalArgumentException();
-		for (String association : associations)
-			initAssociations.remove(association);
-	}
-
-	public Contact _clearInit(String... associations) {
-		clearInit(associations);
-		return this;
-	}
-
-	public Boolean toInit(String association) {
-		if (association == null)
-			throw new IllegalArgumentException();
-		return initAssociations.contains(association);
-	}
-
-	public void clearAllInit() {
-		initAssociations = new HashSet<String>();
-	}
-
-	public enum Attribute {
-		phoneNumber, xNote
-	}
-
-	private Set<String> nullValues = new HashSet<String>();
-
-	public void setNull(Attribute... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (Attribute attribute : attributes)
-			nullValues.add(attribute.name());
-	}
-
-	public Contact _setNull(Attribute... attributes) {
-		setNull(attributes);
-		return this;
-	}
-
-	public void clearNull(Attribute... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (Attribute attribute : attributes)
-			nullValues.remove(attribute.name());
-	}
-
-	public Contact _clearNull(Attribute... attributes) {
-		clearNull(attributes);
-		return this;
-	}
-
-	public void setNull(String... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (String attribute : attributes)
-			nullValues.add(attribute);
-	}
-
-	public Contact _setNull(String... attributes) {
-		setNull(attributes);
-		return this;
-	}
-
-	public void clearNull(String... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (String attribute : attributes)
-			nullValues.remove(attribute);
-	}
-
-	public Contact _clearNull(String... attributes) {
-		clearNull(attributes);
-		return this;
-	}
-
-	public Boolean isNull(String attrName) {
-		if (attrName == null)
-			throw new IllegalArgumentException();
-		return nullValues.contains(attrName);
-	}
-
-	public Boolean isNull(Attribute attribute) {
-		if (attribute == null)
-			throw new IllegalArgumentException();
-		return nullValues.contains(attribute.name());
-	}
-
-	public Boolean isDef(final String attrName, final Boolean isAttrNotNull) {
-        if (attrName == null)
-            throw new IllegalArgumentException();
-        if (nullValues.contains(attrName))
-            return true;
-        if (isAttrNotNull != null)
-            return isAttrNotNull;
+  private final static long serialVersionUID = 1L;
+  
+  public final static String ORDER_BY_ID = "ID";
+  
+  public final static String ORDER_BY_PERSON = "PERSON";
+  
+  public Contact() {
+  }
+  
+  public Contact(final Person person, final ContactType type, final String address) {
+    super();
+    setPerson(person);
+    setType(type);
+    setAddress(address);
+  }
+  
+  private Long id;
+  
+  public Long getId() {
+    return this.id;
+  }
+  
+  public void setId(final Long id) {
+    this.id = id;
+  }
+  
+  public Contact _setId(final Long id) {
+    this.id = id;
+    return this;
+  }
+  
+  @NotNull
+  private Person person;
+  
+  public Person getPerson() {
+    return this.person;
+  }
+  
+  public void setPerson(final Person person) {
+    this.person = person;
+  }
+  
+  public Contact _setPerson(final Person person) {
+    this.person = person;
+    return this;
+  }
+  
+  @NotNull
+  private ContactType type;
+  
+  public ContactType getType() {
+    return this.type;
+  }
+  
+  public void setType(final ContactType type) {
+    this.type = type;
+  }
+  
+  public Contact _setType(final ContactType type) {
+    this.type = type;
+    return this;
+  }
+  
+  @NotNull
+  @Size(max = 100)
+  private String address;
+  
+  public String getAddress() {
+    return this.address;
+  }
+  
+  public void setAddress(final String address) {
+    this.address = address;
+  }
+  
+  public Contact _setAddress(final String address) {
+    this.address = address;
+    return this;
+  }
+  
+  @Size(max = 100)
+  private String phoneNumber;
+  
+  public String getPhoneNumber() {
+    return this.phoneNumber;
+  }
+  
+  public void setPhoneNumber(final String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+  
+  public Contact _setPhoneNumber(final String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    return this;
+  }
+  
+  @Size(max = 100)
+  private String xNote;
+  
+  public String getxNote() {
+    return this.xNote;
+  }
+  
+  public void setxNote(final String xNote) {
+    this.xNote = xNote;
+  }
+  
+  public Contact _setxNote(final String xNote) {
+    this.xNote = xNote;
+    return this;
+  }
+  
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj)
+        return true;
+    if (obj == null)
         return false;
-    }
-
-	public void clearAllNull() {
-		nullValues = new HashSet<String>();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contact other = (Contact) obj;
-		if (id == null || !id.equals(other.id))
-		return false;
-		return true;
-	}	
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id != null) ? id.hashCode() : 0);
-		return result;
-	}	
-
-	@Override
-	public String toString() {
-		return "Contact [id=" + id + ", xNote=" + xNote + ", phoneNumber=" + phoneNumber + ", address=" + address + ", type=" + type + "]";
-	}
-
-	public String toStringFull() {
-		return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + "]";
-	}
-
-	public enum OpAttribute {
-		id, person, type, address, phoneNumber, xNote
-	}
-
-	private Map<String, String> operators = new HashMap<String, String>();
-
-	public Map<String, String> getOperators() {
-		return operators;
-	}
-
-	public void setOp(String operator, OpAttribute... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (OpAttribute attribute : attributes)
-			operators.put(attribute.name(), operator);
-	}
-
-	public Contact _setOp(String operator, OpAttribute... attributes) {
-		setOp(operator, attributes);
-		return this;
-	}
-
-	public void clearOp(OpAttribute... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (OpAttribute attribute : attributes)
-			operators.remove(attribute.name());
-	}
-
-	public Contact _clearOp(OpAttribute... attributes) {
-		clearOp(attributes);
-		return this;
-	}
-
-	public void setOp(String operator, String... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (String attribute : attributes)
-			operators.put(attribute, operator);
-	}
-
-	public Contact _setOp(String operator, String... attributes) {
-		setOp(operator, attributes);
-		return this;
-	}
-
-	public void clearOp(String... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (String attribute : attributes)
-			operators.remove(attribute);
-	}
-
-	public Contact _clearOp(String... attributes) {
-		clearOp(attributes);
-		return this;
-	}
-
-	public void setNullOp(OpAttribute... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (OpAttribute attribute : attributes)
-			operators.put(attribute.name(), "is null");
-	}
-
-	public Contact _setNullOp(OpAttribute... attributes) {
-		setNullOp(attributes);
-		return this;
-	}
-
-	public void setNullOp(String... attributes) {
-		if (attributes == null)
-			throw new IllegalArgumentException();
-		for (String attribute : attributes)
-			operators.put(attribute, "is null");
-	}
-
-	public Contact _setNullOp(String... attributes) {
-		setNullOp(attributes);
-		return this;
-	}
-
-	public void clearAllOps() {
-		operators = new HashMap<String, String>();
-	}
+    if (getClass() != obj.getClass())
+        return false;
+    Contact other = (Contact) obj;
+    if (id == null || !id.equals(other.id))
+        return false;
+    return true;
+  }
+  
+  @Override
+  public int hashCode() {
+    return java.util.Objects.hash(id);
+  }
+  
+  @Override
+  public String toString() {
+    return "Contact [id=" + id + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + "]";
+  }
+  
+  public String toStringFull() {
+    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + "]";
+  }
+  
+  public enum Attribute {
+    phoneNumber,
+    
+    xNote;
+  }
+  
+  private Set<String> nullValues_ =  new java.util.HashSet<String>();
+  
+  public void setNull_(final Contact.Attribute... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (Attribute attribute : attributes)
+        nullValues_.add(attribute.name());
+  }
+  
+  public Contact _setNull_(final Contact.Attribute... attributes) {
+    setNull_(attributes);
+    return this;
+  }
+  
+  public void clearNull_(final Contact.Attribute... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (Attribute attribute : attributes)
+        nullValues_.remove(attribute.name());
+  }
+  
+  public Contact _clearNull_(final Contact.Attribute... attributes) {
+    clearNull_(attributes);
+    return this;
+  }
+  
+  public void setNull_(final String... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (String attribute : attributes)
+        nullValues_.add(attribute);
+  }
+  
+  public Contact _setNull_(final String... attributes) {
+    setNull_(attributes);
+    return this;
+  }
+  
+  public void clearNull_(final String... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (String attribute : attributes)
+        nullValues_.remove(attribute);
+  }
+  
+  public Contact _clearNull_(final String... attributes) {
+    clearNull_(attributes);
+    return this;
+  }
+  
+  public Boolean isNull_(final Contact.Attribute attribute) {
+    if (attribute == null)
+        throw new IllegalArgumentException();
+    return nullValues_.contains(attribute.name());
+  }
+  
+  public Boolean isNull_(final String attrName) {
+    if (attrName == null)
+        throw new IllegalArgumentException();
+    return nullValues_.contains(attrName);
+  }
+  
+  public Boolean isDef_(final String attrName, final Boolean isAttrNotNull) {
+    if (attrName == null)
+        throw new IllegalArgumentException();
+    if (nullValues_.contains(attrName))
+        return true;
+    if (isAttrNotNull != null)
+        return isAttrNotNull;
+    return false;
+  }
+  
+  public void clearAllNull_() {
+    nullValues_ = new java.util.HashSet<String>();
+  }
+  
+  public enum Association {
+    person;
+  }
+  
+  private Set<String> initAssociations_ =  new java.util.HashSet<String>();
+  
+  public Set<String> getInitAssociations_() {
+    return this.initAssociations_;
+  }
+  
+  public void setInitAssociations_(final Set<String> initAssociations_) {
+    this.initAssociations_ = initAssociations_;
+  }
+  
+  public void setInit_(final Contact.Association... associations) {
+    if (associations == null)
+        throw new IllegalArgumentException();
+    for (Association association : associations)
+        initAssociations_.add(association.name());
+  }
+  
+  public Contact _setInit_(final Contact.Association... associations) {
+    setInit_(associations);
+    return this;
+  }
+  
+  public void clearInit_(final Contact.Association... associations) {
+    if (associations == null)
+        throw new IllegalArgumentException();
+    for (Association association : associations)
+        initAssociations_.remove(association.name());
+  }
+  
+  public Contact _clearInit_(final Contact.Association... associations) {
+    clearInit_(associations);
+    return this;
+  }
+  
+  public void setInit_(final String... associations) {
+    if (associations == null)
+        throw new IllegalArgumentException();
+    for (String association : associations)
+        initAssociations_.add(association);
+  }
+  
+  public Contact _setInit_(final String... associations) {
+    setInit_(associations);
+    return this;
+  }
+  
+  public void clearInit_(final String... associations) {
+    if (associations == null)
+        throw new IllegalArgumentException();
+    for (String association : associations)
+        initAssociations_.remove(association);
+  }
+  
+  public Contact _clearInit_(final String... associations) {
+    clearInit_(associations);
+    return this;
+  }
+  
+  public Boolean toInit_(final Contact.Association association) {
+    if (association == null)
+        throw new IllegalArgumentException();
+    return initAssociations_.contains(association.name());
+  }
+  
+  public Boolean toInit_(final String association) {
+    if (association == null)
+        throw new IllegalArgumentException();
+    return initAssociations_.contains(association);
+  }
+  
+  public void clearAllInit_() {
+    initAssociations_ = new java.util.HashSet<String>();
+  }
+  
+  public enum OpAttribute {
+    id,
+    
+    person,
+    
+    type,
+    
+    address,
+    
+    phoneNumber,
+    
+    xNote;
+  }
+  
+  private Map<String, String> operators_ =  new java.util.HashMap<String, String>();
+  
+  public Map<String, String> getOperators_() {
+    return operators_;
+  }
+  
+  public String getOp_(final String attrName) {
+    if (attrName == null)
+        throw new IllegalArgumentException();
+    return operators_.get(attrName);
+  }
+  
+  public void setOp_(final String operator, final Contact.OpAttribute... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+        operators_.put(attribute.name(), operator);
+  }
+  
+  public Contact _setOp_(final String operator, final Contact.OpAttribute... attributes) {
+    setOp_(operator, attributes);
+    return this;
+  }
+  
+  public void clearOp_(final Contact.OpAttribute... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+        operators_.remove(attribute.name());
+  }
+  
+  public Contact _clearOp_(final Contact.OpAttribute... attributes) {
+    clearOp_(attributes);
+    return this;
+  }
+  
+  public void setOp_(final String operator, final String... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (String attribute : attributes)
+        operators_.put(attribute, operator);
+  }
+  
+  public Contact _setOp_(final String operator, final String... attributes) {
+    setOp_(operator, attributes);
+    return this;
+  }
+  
+  public void clearOp_(final String... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (String attribute : attributes)
+        operators_.remove(attribute);
+  }
+  
+  public Contact _clearOp_(final String... attributes) {
+    clearOp_(attributes);
+    return this;
+  }
+  
+  public void setNullOp_(final Contact.OpAttribute... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+        operators_.put(attribute.name(), "is null");
+  }
+  
+  public Contact _setNullOp_(final Contact.OpAttribute... attributes) {
+    setNullOp_(attributes);
+    return this;
+  }
+  
+  public void setNullOp_(final String... attributes) {
+    if (attributes == null)
+        throw new IllegalArgumentException();
+    for (String attribute : attributes)
+        operators_.put(attribute, "is null");
+  }
+  
+  public Contact _setNullOp_(final String... attributes) {
+    setNullOp_(attributes);
+    return this;
+  }
+  
+  public void clearAllOps_() {
+    operators_ = new java.util.HashMap<String, String>();
+  }
 }
