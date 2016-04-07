@@ -31,7 +31,7 @@ import org.sqlproc.engine.util.DDLLoader;
 
 public class Main {
 
-    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=simple;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true;";
+    private static final String DB_URL = "jdbc:sqlserver://mrkev:1433;databaseName=simple;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true;";
     private static final String DB_USER = "HUDEC";
     private static final String DB_PASSWORD = "passwd";
     private static final SqlFeature DB_TYPE = SqlFeature.MSSQL;
@@ -226,6 +226,8 @@ public class Main {
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());
+
+        System.out.println("OK");
     }
 
     public static java.sql.Timestamp getAge(int year, int month, int day) {

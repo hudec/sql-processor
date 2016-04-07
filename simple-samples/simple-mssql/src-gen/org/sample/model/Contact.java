@@ -3,6 +3,7 @@ package org.sample.model;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
+import org.sample.model.ContactType;
 import org.sample.model.Person;
 import org.sqlproc.engine.annotation.Pojo;
 
@@ -16,7 +17,7 @@ public class Contact implements Serializable {
   public Contact() {
   }
   
-  public Contact(final Person person, final Integer type, final String address) {
+  public Contact(final Person person, final ContactType type, final String address) {
     super();
     setPerson(person);
     setType(type);
@@ -53,17 +54,17 @@ public class Contact implements Serializable {
     return this;
   }
   
-  private Integer type;
+  private ContactType type;
   
-  public Integer getType() {
+  public ContactType getType() {
     return this.type;
   }
   
-  public void setType(final Integer type) {
+  public void setType(final ContactType type) {
     this.type = type;
   }
   
-  public Contact _setType(final Integer type) {
+  public Contact _setType(final ContactType type) {
     this.type = type;
     return this;
   }

@@ -1,6 +1,18 @@
 package org.sample.model {
 
 
+    #Serializable(1)
+    #Enum ContactType {
+        #Values(ABROAD = 2,BUSINESS = 1,HOME = 0)
+        #Attr Integer value
+    }
+
+    #Serializable(1)
+    #Enum PersonGender {
+        #Values(FEMALE = "F",MALE = "M",UNKNOWN = "0")
+        #Attr String value
+    }
+
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey #Index
@@ -8,7 +20,7 @@ package org.sample.model {
         #ToInit #Required #IsPojo
         #Attr Person person
         #Required
-        #Attr Integer type
+        #Attr ContactType type
         #Required
         #Attr String address
         #IsDef
@@ -26,7 +38,7 @@ package org.sample.model {
         #IsDef
         #Attr java.util.Date dateOfBirth
         #Required
-        #Attr String gender
+        #Attr PersonGender gender
         #IsDef
         #Attr String ssn
         #ToInit
@@ -64,7 +76,7 @@ package org.sample.model {
 // Exports=1
 // Imports=1
 // Indexes=3
-// Check Constraints=0
+// Check Constraints=2
 // Procedures=3
 // Procedures Columns=15
 // Functions=1

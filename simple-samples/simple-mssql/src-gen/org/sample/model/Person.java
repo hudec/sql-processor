@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.sample.model.Contact;
+import org.sample.model.PersonGender;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -20,7 +21,7 @@ public class Person implements Serializable {
   public Person() {
   }
   
-  public Person(final String firstName, final String lastName, final String gender) {
+  public Person(final String firstName, final String lastName, final PersonGender gender) {
     super();
     setFirstName(firstName);
     setLastName(lastName);
@@ -87,17 +88,17 @@ public class Person implements Serializable {
     return this;
   }
   
-  private String gender;
+  private PersonGender gender;
   
-  public String getGender() {
+  public PersonGender getGender() {
     return this.gender;
   }
   
-  public void setGender(final String gender) {
+  public void setGender(final PersonGender gender) {
     this.gender = gender;
   }
   
-  public Person _setGender(final String gender) {
+  public Person _setGender(final PersonGender gender) {
     this.gender = gender;
     return this;
   }

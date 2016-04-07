@@ -27,7 +27,7 @@ package org.sample.dao {
 // Exports=1
 // Imports=1
 // Indexes=3
-// Check Constraints=0
+// Check Constraints=2
 // Procedures=3
 // Procedures Columns=15
 // Functions=1
