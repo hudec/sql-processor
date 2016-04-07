@@ -1,11 +1,11 @@
 resolve-pojo-on;
-database-is-offline;
+database-is-online;
 database-jdbc-driver com.microsoft.sqlserver.jdbc.SQLServerDriver;
 //database-has-url "jdbc:sqlserver://banur:1433;databaseName=sqlproc;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true";
 database-has-url "jdbc:sqlserver://mrkev:1433;databaseName=hudec;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true";
 database-login-username HUDEC;
-database-login-password password;
-database-in-catalog simple;
+database-login-password passwd;
+database-in-catalog sql;
 //database-active-schema simple;
 //database-ddl-create mysql.ddl; // should be located in the same directory as definitions.qry
 database-show-database-info "Microsoft SQL Server,10.50.2500,10,50";
@@ -37,6 +37,9 @@ metagen-generate-idgenerators;
 // operators
 metagen-not-like-columns CONTACT PHONE_NUMBER;
 
+pojogen-package org.sample.model;
+daogen-package org.sample.dao;
+
 // can't overwrite existing DAO 
 //daogen-make-it-final;
 is-table person PERSON;
@@ -51,3 +54,11 @@ is-function anHourBefore an_hour_before;
 //metagen-function-result an_hour_before stamp;
 metagen-procedure-result-set new_person_ret_rs PERSON;
 //pojogen-debug-level DEBUG;
+
+compress-meta-directives;
+
+is-pojo AnHourBefore org.sample.model.AnHourBefore;
+is-pojo Contact org.sample.model.Contact;
+is-pojo NewPerson org.sample.model.NewPerson;
+is-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
+is-pojo Person org.sample.model.Person;
