@@ -5,13 +5,20 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
+import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
+import org.sample.dao.NewPersonDao;
+import org.sample.dao.NewPersonRetRsDao;
 import org.sample.dao.PersonDao;
+import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
+import org.sample.model.NewPerson;
+import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -58,8 +65,9 @@ public class Main {
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
         personDao = new PersonDao(sqlFactory, sessionFactory);
-        // functionsDao = new FunctionsDao(sqlFactory, sessionFactory);
-        // proceduresDao = new ProceduresDao(sqlFactory, sessionFactory);
+        anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
+        newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
+        newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -69,13 +77,14 @@ public class Main {
 
     private ContactDao contactDao;
     private PersonDao personDao;
-    // private FunctionsDao functionsDao;
-    // private ProceduresDao proceduresDao;
+    private AnHourBeforeDao anHourBeforeDao;
+    private NewPersonDao newPersonDao;
+    private NewPersonRetRsDao newPersonRetRsDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
-        Person p = getPersonDao().insert(person);
+        Person p = personDao.insert(person);
         for (Contact contact : contacts) {
-            Contact c = getContactDao().insert(contact._setPerson(p));
+            Contact c = contactDao.insert(contact._setPerson(p));
             p.getContacts().add(c);
         }
         return p;
@@ -109,13 +118,13 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejik");
-        count = main.getPersonDao().update(person);
+        count = main.personDao.update(person);
         Assert.assertEquals(1, count);
 
         // get & update person with null values
         person = new Person();
         person.setId(andrej.getId());
-        p = main.getPersonDao().get(person);
+        p = main.personDao.get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
@@ -127,14 +136,14 @@ public class Main {
         person.setId(andrej.getId());
         person.setFirstName("Andriosa");
         person.setNull_(Person.Attribute.ssn);
-        count = main.getPersonDao().update(person);
+        count = main.personDao.update(person);
         Assert.assertEquals(1, count);
 
         // get person with associations
         person = new Person();
         person.setId(andrej.getId());
         person.setInit_(Person.Association.contacts);
-        p = main.getPersonDao().get(person);
+        p = main.personDao.get(person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andriosa", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
@@ -144,81 +153,81 @@ public class Main {
         Assert.assertEquals("444-555-6666", p.getContacts().get(0).getPhoneNumber());
 
         // list people with associations
-        list = main.getPersonDao().list(null);
+        list = main.personDao.list(null);
         Assert.assertEquals(5, list.size());
         person = new Person();
         person.setFirstName("XXX");
-        list = main.getPersonDao().list(person);
+        list = main.personDao.list(person);
         Assert.assertEquals(0, list.size());
         person.setFirstName("Jan");
         person.setInit_(Person.Association.contacts);
-        list = main.getPersonDao().list(person);
+        list = main.personDao.list(person);
         person = new Person();
         person.setInit_(Person.Association.contacts);
-        list = main.getPersonDao().list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
+        list = main.personDao.list(person, new SqlStandardControl().setDescOrder(Person.ORDER_BY_ID));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzicek", list.get(1).getLastName());
-        list = main.getPersonDao().list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
+        list = main.personDao.list(person, new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME));
         Assert.assertEquals(5, list.size());
         Assert.assertEquals("Honzovsky", list.get(2).getLastName());
         person = new Person();
-        list = main.getPersonDao().list(person,
+        list = main.personDao.list(person,
                 new SqlStandardControl().setAscOrder(Person.ORDER_BY_LAST_NAME).setMaxResults(2));
         Assert.assertEquals(2, list.size());
 
         // count
-        count = main.getPersonDao().count(null);
+        count = main.personDao.count(null);
         Assert.assertEquals(5, count);
         person = new Person();
         person.setFirstName("Jan");
-        count = main.getPersonDao().count(person);
+        count = main.personDao.count(person);
         Assert.assertEquals(2, count);
 
         // operators
         contact = new Contact();
         contact.setPhoneNumber("444-555-6666");
-        listc = main.getContactDao().list(contact);
+        listc = main.contactDao.list(contact);
         Assert.assertEquals(1, listc.size());
         Assert.assertEquals("444-555-6666", listc.get(0).getPhoneNumber());
         contact.setOp_("<>", Contact.OpAttribute.phoneNumber);
-        listc = main.getContactDao().list(contact);
+        listc = main.contactDao.list(contact);
         Assert.assertEquals(1, listc.size());
         Assert.assertEquals("111-222-3333", listc.get(0).getPhoneNumber());
         contact = new Contact();
         contact.setNullOp_(Contact.OpAttribute.phoneNumber);
-        count = main.getContactDao().count(contact);
+        count = main.contactDao.count(contact);
         Assert.assertEquals(3, count);
 
         // delete
-        count = main.getPersonDao().delete(jan);
+        count = main.personDao.delete(jan);
         Assert.assertEquals(1, count);
 
-        // // function
-        // AnHourBefore anHourBefore = new AnHourBefore();
-        // anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
-        // java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
-        // Assert.assertNotNull(result);
-        //
-        // // procedures
-        // NewPerson newPerson = new NewPerson();
-        // newPerson.setFirstName("Maruska");
-        // newPerson.setLastName("Maruskova");
-        // newPerson.setSsn("999888777");
-        // newPerson.setDateOfBirth(getAge(1969, 11, 1));
-        // newPerson.setGender(PersonGender.FEMALE.getValue());
-        // main.getProceduresDao().newPerson(newPerson);
-        // Assert.assertNotNull(newPerson.getNewid());
-        //
-        // NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
-        // newPersonRetRs.setFirstName("Beruska");
-        // newPersonRetRs.setLastName("Beruskova");
-        // newPersonRetRs.setSsn("888777666");
-        // newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
-        // newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
-        // list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
-        // Assert.assertNotNull(list);
-        // Assert.assertEquals(1, list.size());
-        // Assert.assertNotNull(list.get(0).getId());
+        // function
+        AnHourBefore anHourBefore = new AnHourBefore();
+        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
+        java.sql.Timestamp result = main.anHourBeforeDao.anHourBefore(anHourBefore);
+        Assert.assertNotNull(result);
+
+        // procedures
+        NewPerson newPerson = new NewPerson();
+        newPerson.setFirstName("Maruska");
+        newPerson.setLastName("Maruskova");
+        newPerson.setSsn("999888777");
+        newPerson.setDateOfBirth(getAge(1969, 11, 1));
+        newPerson.setGender(PersonGender.FEMALE.getValue());
+        main.newPersonDao.newPerson(newPerson);
+        Assert.assertNotNull(newPerson.getNewid());
+
+        NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
+        newPersonRetRs.setFirstName("Beruska");
+        newPersonRetRs.setLastName("Beruskova");
+        newPersonRetRs.setSsn("888777666");
+        newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
+        List<Person> list2 = main.newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
+        Assert.assertNotNull(list2);
+        Assert.assertEquals(1, list2.size());
+        Assert.assertNotNull(list2.get(0).getId());
 
         System.out.println("OK");
     }
@@ -233,13 +242,5 @@ public class Main {
         birthDay.set(Calendar.SECOND, 0);
         birthDay.set(Calendar.MILLISECOND, 0);
         return new java.sql.Timestamp(birthDay.getTime().getTime());
-    }
-
-    public ContactDao getContactDao() {
-        return contactDao;
-    }
-
-    public PersonDao getPersonDao() {
-        return personDao;
     }
 }
