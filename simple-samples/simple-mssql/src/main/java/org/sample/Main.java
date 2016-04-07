@@ -5,19 +5,13 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
 import org.sample.dao.ContactDao;
-import org.sample.dao.FunctionsDao;
 import org.sample.dao.PersonDao;
-import org.sample.dao.ProceduresDao;
-import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
-import org.sample.model.NewPerson;
-import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -54,7 +48,7 @@ public class Main {
 
     public Main() throws SQLException {
         JdbcEngineFactory factory = new JdbcEngineFactory();
-        factory.setMetaFilesNames("statements.qry");
+        factory.setMetaFilesNames("statements.meta");
         factory.setFilter(DB_TYPE);
         this.sqlFactory = factory;
 
@@ -64,8 +58,8 @@ public class Main {
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
         personDao = new PersonDao(sqlFactory, sessionFactory);
-        functionsDao = new FunctionsDao(sqlFactory, sessionFactory);
-        proceduresDao = new ProceduresDao(sqlFactory, sessionFactory);
+        // functionsDao = new FunctionsDao(sqlFactory, sessionFactory);
+        // proceduresDao = new ProceduresDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -75,9 +69,8 @@ public class Main {
 
     private ContactDao contactDao;
     private PersonDao personDao;
-    private FunctionsDao functionsDao;
-
-    private ProceduresDao proceduresDao;
+    // private FunctionsDao functionsDao;
+    // private ProceduresDao proceduresDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = getPersonDao().insert(person);
@@ -200,32 +193,32 @@ public class Main {
         count = main.getPersonDao().delete(jan);
         Assert.assertEquals(1, count);
 
-        // function
-        AnHourBefore anHourBefore = new AnHourBefore();
-        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
-        java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
-        Assert.assertNotNull(result);
-
-        // procedures
-        NewPerson newPerson = new NewPerson();
-        newPerson.setFirstName("Maruska");
-        newPerson.setLastName("Maruskova");
-        newPerson.setSsn("999888777");
-        newPerson.setDateOfBirth(getAge(1969, 11, 1));
-        newPerson.setGender(PersonGender.FEMALE.getValue());
-        main.getProceduresDao().newPerson(newPerson);
-        Assert.assertNotNull(newPerson.getNewid());
-
-        NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
-        newPersonRetRs.setFirstName("Beruska");
-        newPersonRetRs.setLastName("Beruskova");
-        newPersonRetRs.setSsn("888777666");
-        newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
-        newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
-        list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
-        Assert.assertNotNull(list);
-        Assert.assertEquals(1, list.size());
-        Assert.assertNotNull(list.get(0).getId());
+        // // function
+        // AnHourBefore anHourBefore = new AnHourBefore();
+        // anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
+        // java.sql.Timestamp result = main.getFunctionsDao().anHourBefore(anHourBefore);
+        // Assert.assertNotNull(result);
+        //
+        // // procedures
+        // NewPerson newPerson = new NewPerson();
+        // newPerson.setFirstName("Maruska");
+        // newPerson.setLastName("Maruskova");
+        // newPerson.setSsn("999888777");
+        // newPerson.setDateOfBirth(getAge(1969, 11, 1));
+        // newPerson.setGender(PersonGender.FEMALE.getValue());
+        // main.getProceduresDao().newPerson(newPerson);
+        // Assert.assertNotNull(newPerson.getNewid());
+        //
+        // NewPersonRetRs newPersonRetRs = new NewPersonRetRs();
+        // newPersonRetRs.setFirstName("Beruska");
+        // newPersonRetRs.setLastName("Beruskova");
+        // newPersonRetRs.setSsn("888777666");
+        // newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        // newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
+        // list = main.getProceduresDao().newPersonRetRs(newPersonRetRs);
+        // Assert.assertNotNull(list);
+        // Assert.assertEquals(1, list.size());
+        // Assert.assertNotNull(list.get(0).getId());
 
         System.out.println("OK");
     }
@@ -248,13 +241,5 @@ public class Main {
 
     public PersonDao getPersonDao() {
         return personDao;
-    }
-
-    public FunctionsDao getFunctionsDao() {
-        return functionsDao;
-    }
-
-    public ProceduresDao getProceduresDao() {
-        return proceduresDao;
     }
 }
