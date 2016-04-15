@@ -21,6 +21,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testSimpleFunctionToInForm() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         if ("hsqldb".equalsIgnoreCase(dbType) || "informix".equalsIgnoreCase(dbType) || "db2".equalsIgnoreCase(dbType))
             return;
 
@@ -39,6 +41,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testSimpleFunction() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         if ("db2".equalsIgnoreCase(dbType)) {
             this.simpleFunctionDB2();
             return;
@@ -58,6 +62,8 @@ public class TestProcedure extends TestDatabase {
     }
 
     private void simpleFunctionDB2() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine queryEngine = getQueryEngine("SIMPLE_FUNCTION_QRY");
 
         FormSimpleFunction f = new FormSimpleFunction();
@@ -73,6 +79,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultProcDefaultTypes() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         if (!"oracle".equalsIgnoreCase(dbType))
             return;
 
@@ -111,6 +119,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultDefaultTypes() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -151,6 +161,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultSetNull() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -191,6 +203,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertResultSet() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -232,6 +246,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertMetaTypesNull() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -267,6 +283,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertMetaTypes() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -302,6 +320,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsertNull() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);
@@ -337,6 +357,8 @@ public class TestProcedure extends TestDatabase {
 
     @Test
     public void testCallableInsert() {
+        if ("h2".equalsIgnoreCase(dbType))
+            return;
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
         List<Person> list = sqlEngine.query(session, Person.class);

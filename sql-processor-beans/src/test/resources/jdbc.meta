@@ -17,6 +17,7 @@ SEQ1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
 SEQ1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
 SEQ1(OPT,INFORMIX)=SELECT FIRST 1 SQLPROC_SEQUENCE.NEXTVAL FROM systables;
 SEQ1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
+SEQ1(OPT,H2)=call NEXT VALUE FOR SQLPROC_SEQUENCE; 
 /*
  * Default select command to obtain a new created identity
  */
@@ -27,6 +28,7 @@ SEL2(OPT,POSTGRESQL)=select currval(pg_get_serial_sequence('contact','id'));
 SEL1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
 SEL1(OPT,MSSQL)=JDBC;
 SEL1(OPT,DB2)=select identity_val_local() from sysibm.dual;
+SEL1(OPT,H2)=call identity();
 /*
  * Settings for testing getting generated keys through JDBC function.
  */
@@ -1921,6 +1923,7 @@ SEQ_GEN1(OPT,ORACLE)=select SQLPROC_SEQUENCE.nextval from dual;
 SEQ_GEN1(OPT,POSTGRESQL)=select nextval('SQLPROC_SEQUENCE');
 SEQ_GEN1(OPT,INFORMIX)=SELECT FIRST 1 SQLPROC_SEQUENCE.NEXTVAL FROM systables;
 SEQ_GEN1(OPT,DB2)=values nextval for SQLPROC_SEQUENCE;
+SEQ_GEN1(OPT,H2)=call NEXT VALUE FOR SQLPROC_SEQUENCE; 
 
 IDSEL_GEN1(OPT,HSQLDB)=call identity();
 IDSEL_GEN1(OPT,MYSQL)=select last_insert_id();
@@ -1929,6 +1932,7 @@ IDSEL_GEN1(OPT,INFORMIX)=SELECT FIRST 1 dbinfo('bigserial') FROM systables;
 IDSEL_GEN1(OPT,MSSQL)=JDBC;
 IDSEL_GEN1(OPT,DB2)=select identity_val_local() from sysibm.dual;
 IDSEL_GEN1(OPT,IDSEL_JDBC_TRUE)=JDBC;
+IDSEL_GEN1(OPT,H2)=call identity();
 
 IDGEN_GEN2(OPT,HSQLDB)=seq=SQLPROC_SEQUENCE; 
 IDGEN_GEN2(OPT,ORACLE)=seq=SQLPROC_SEQUENCE;
@@ -1937,6 +1941,7 @@ IDGEN_GEN2(OPT,DB2)=seq=SQLPROC_SEQUENCE;
 IDGEN_GEN2(OPT,MYSQL)=idsel;
 IDGEN_GEN2(OPT,INFORMIX)=idsel;
 IDSEL_GEN2(OPT,MSSQL)=idsel;
+IDGEN_GEN2(OPT,H2)=seq=SQLPROC_SEQUENCE; 
 
 
 INSERT_PERSON_101(CRUD)=
