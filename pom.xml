@@ -34,6 +34,7 @@
         <version.junit>4.12</version.junit>
         <version.dbunit>2.5.1</version.dbunit>
         <version.hsqldb>2.3.2</version.hsqldb>
+        <version.h2>1.4.190</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>10.2.0.4</version.oracle>
         <version.mysql>5.1.18</version.mysql>
@@ -224,6 +225,11 @@
                 <artifactId>hsqldb</artifactId>
                 <version>${version.hsqldb}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${version.h2}</version>
             </dependency>
             <dependency>
                 <groupId>commons-dbcp</groupId>
@@ -485,6 +491,29 @@
                     <groupId>com.microsoft.sqlserver</groupId>
                     <artifactId>sqljdbc4</artifactId>
                     <version>${version.mssql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>h2</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.H2Dialect</db.dialect>
+                <db.driver>org.h2.Driver</db.driver>
+                <db.url>jdbc:h2:mem:demo</db.url>
+                <db.username>sa</db.username>
+                <db.password />
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB>ddl/h2.ddl</DDL_CREATE_DB>
+                <DDL_DROP_DB />
+                <DB_TYPE>H2</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.h2.H2DataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${version.h2}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
