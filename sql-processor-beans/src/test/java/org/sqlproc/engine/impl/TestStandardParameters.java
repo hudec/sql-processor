@@ -44,7 +44,7 @@ public class TestStandardParameters extends TestDatabase {
         criteria.setT_boolean(Boolean.TRUE);
         criteria.setT_date(SqlUtils.getDate(2009, 7, 31));
         if (!"oracle".equalsIgnoreCase(dbType) && !"postgresql".equalsIgnoreCase(dbType)
-                && !"mssql".equalsIgnoreCase(dbType)) // TODO
+                && !"mssql".equalsIgnoreCase(dbType) && !"h2".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_time(SqlUtils.getTime(14, 55, 2));
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
         if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
@@ -60,13 +60,13 @@ public class TestStandardParameters extends TestDatabase {
         assertContains(sql, "AND  t_long =");
         assertContains(sql, "AND  t_byte =");
         assertContains(sql, "AND  t_short =");
-        // assertContains(sql, "AND  t_float =");
-        // assertContains(sql, "AND  t_double =");
+        // assertContains(sql, "AND t_float =");
+        // assertContains(sql, "AND t_double =");
         assertContains(sql, "AND  t_char =");
         assertContains(sql, "AND  t_string =");
         assertContains(sql, "AND  t_boolean =");
         assertContains(sql, "AND  t_date =");
-        // assertContains(sql, "AND  t_time =");
+        // assertContains(sql, "AND t_time =");
         assertContains(sql, "AND  t_datetime =");
         assertContains(sql, "AND  t_timestamp =");
         if (!dbType.equalsIgnoreCase("informix"))
