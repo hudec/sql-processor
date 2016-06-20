@@ -10,6 +10,7 @@ import org.sqlproc.engine.model.Country;
 import org.sqlproc.engine.model.Engagement;
 import org.sqlproc.engine.model.Gender;
 import org.sqlproc.engine.model.Person;
+import org.sqlproc.engine.model.Person2;
 import org.sqlproc.engine.model.PersonName;
 import org.sqlproc.engine.model.Size;
 import org.sqlproc.engine.model.Ssn;
@@ -448,6 +449,33 @@ public class TestCrud extends TestDatabase {
     }
 
     @Test
+    public void testUpdate2b() {
+        SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
+
+        Person2 p = new Person2();
+        p.setId(2L);
+
+        List<Person> list = sqlEngine.query(session, Person.class, p);
+        assertEquals(1, list.size());
+        assertEquals("Halle", list.get(0).getName().getFirst());
+        assertNotSame(null, list.get(0).getCreatedDate());
+
+        SqlCrudEngine crudEngine = getCrudEngine("UPDATE_PERSON_2");
+
+        String sql = crudEngine.getUpdateSql(p, null);
+        logger.info(sql);
+        assertContains(sql, "update PERSON");
+        assertContains(sql, "SET");
+        assertContains(sql, "WHERE");
+        assertContains(sql, "ID = :id", "ID = ?");
+
+        SqlStandardControl sqc = new SqlStandardControl();
+        sqc.setSkipEmptyStatement(true);
+        int count = crudEngine.update(session, p, sqc);
+        assertEquals(0, count);
+    }
+
+    @Test
     public void testUpdate1() {
         SqlQueryEngine sqlEngine = getQueryEngine("CRUD_PERSON_SELECT");
 
@@ -516,8 +544,7 @@ public class TestCrud extends TestDatabase {
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
         assertContains(sql, "VALUES");
-        assertContains(
-                sql,
+        assertContains(sql,
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -560,8 +587,7 @@ public class TestCrud extends TestDatabase {
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
         assertContains(sql, "VALUES");
-        assertContains(
-                sql,
+        assertContains(sql,
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -604,8 +630,7 @@ public class TestCrud extends TestDatabase {
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
         assertContains(sql, "VALUES");
-        assertContains(
-                sql,
+        assertContains(sql,
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -648,8 +673,7 @@ public class TestCrud extends TestDatabase {
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
         assertContains(sql, "VALUES");
-        assertContains(
-                sql,
+        assertContains(sql,
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -692,8 +716,7 @@ public class TestCrud extends TestDatabase {
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
         assertContains(sql, "VALUES");
-        assertContains(
-                sql,
+        assertContains(sql,
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -736,8 +759,7 @@ public class TestCrud extends TestDatabase {
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
         assertContains(sql, "VALUES");
-        assertContains(
-                sql,
+        assertContains(sql,
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -780,8 +802,7 @@ public class TestCrud extends TestDatabase {
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
         assertContains(sql, "VALUES");
-        assertContains(
-                sql,
+        assertContains(sql,
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 

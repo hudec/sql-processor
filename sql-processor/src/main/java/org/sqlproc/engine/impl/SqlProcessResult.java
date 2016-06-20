@@ -464,7 +464,8 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
         int numNotEmptyParamsInSetOrUpdate = 0;
         for (String paramName : this.allInputValues) {
             SqlInputValue inputValue = this.inputValues.get(paramName);
-            if (inputValue.getInSetOrInsert() != null && inputValue.getInSetOrInsert())
+            if (inputValue.getInputValue() != null && inputValue.getInSetOrInsert() != null
+                    && inputValue.getInSetOrInsert())
                 ++numNotEmptyParamsInSetOrUpdate;
             inputValue.setQueryParam(session, query, paramName);
         }
