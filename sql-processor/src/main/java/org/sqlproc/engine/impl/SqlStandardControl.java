@@ -479,6 +479,7 @@ public class SqlStandardControl implements SqlControl {
         return "SqlStandardControl [staticInputValues=" + staticInputValues + ", dynamicUpdateValues="
                 + dynamicUpdateValues + ", maxTimeout=" + maxTimeout + ", firstResult=" + firstResult + ", maxResults="
                 + maxResults + ", order=" + order + ", moreResultClasses=" + moreResultClasses + ", features="
-                + features + ", processingId=" + processingId + ", fetchSize=" + fetchSize + "]";
+                + features + ", processingId=" + processingId + ", fetchSize=" + fetchSize + ", skipEmptyStatement="
+                + skipEmptyStatement + "]";
     }
 }

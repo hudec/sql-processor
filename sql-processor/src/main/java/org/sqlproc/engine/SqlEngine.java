@@ -299,6 +299,16 @@ public abstract class SqlEngine {
     }
 
     /**
+     * Returns the indicator, that an empty INSERT or UPDATE statement execution should be ignored (for example update
+     * statement without any bounded input values).
+     * 
+     * @return the indicator, that an empty INSERT or UPDATE statement execution should be ignored
+     */
+    public static boolean isSkipEmptyStatement(SqlControl sqlControl) {
+        return sqlControl != null && sqlControl.getSkipEmptyStatement() != null && sqlControl.getSkipEmptyStatement();
+    }
+
+    /**
      * Check the input parameters.
      * 
      * @param dynamicInputValues

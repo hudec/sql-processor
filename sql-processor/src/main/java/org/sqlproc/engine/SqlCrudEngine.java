@@ -335,7 +335,8 @@ public class SqlCrudEngine extends SqlEngine {
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) != null)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    processResult.setQueryParams(session, query);
+                    if (!processResult.setQueryParams(session, query) && isSkipEmptyStatement(sqlControl))
+                        return 0;
 
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
@@ -696,7 +697,8 @@ public class SqlCrudEngine extends SqlEngine {
                     query.setLogError(processResult.isLogError());
                     if (getMaxTimeout(sqlControl) != null)
                         query.setTimeout(getMaxTimeout(sqlControl));
-                    processResult.setQueryParams(session, query);
+                    if (!processResult.setQueryParams(session, query) && isSkipEmptyStatement(sqlControl))
+                        return 0;
 
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;

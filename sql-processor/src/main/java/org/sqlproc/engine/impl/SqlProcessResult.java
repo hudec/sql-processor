@@ -460,11 +460,15 @@ public class SqlProcessResult implements Comparable<SqlProcessResult> {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with input values handling
      */
-    public void setQueryParams(final SqlSession session, SqlQuery query) throws SqlRuntimeException {
+    public boolean setQueryParams(final SqlSession session, SqlQuery query) throws SqlRuntimeException {
+        int numNotEmptyParamsInSetOrUpdate = 0;
         for (String paramName : this.allInputValues) {
             SqlInputValue inputValue = this.inputValues.get(paramName);
+            if (inputValue.getInSetOrInsert() != null && inputValue.getInSetOrInsert())
+                ++numNotEmptyParamsInSetOrUpdate;
             inputValue.setQueryParam(session, query, paramName);
         }
+        return numNotEmptyParamsInSetOrUpdate > 0;
     }
 
     /**
