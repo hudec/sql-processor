@@ -98,4 +98,12 @@ public interface SqlControl {
      * @return the fetch size of SQL execution output rows
      */
     public Integer getFetchSize();
+
+    /**
+     * Returns the indicator, that an empty INSERT or UPDATE statement execution should be ignored (for example update
+     * statement without any bounded input values).
+     * 
+     * @return the indicator, that an empty INSERT or UPDATE statement execution should be ignored
+     */
+    public Boolean getSkipEmptyStatement();
 }

@@ -81,6 +81,12 @@ public class SqlStandardControl implements SqlControl {
     private Integer fetchSize;
 
     /**
+     * The indicator, that an empty INSERT or UPDATE statement execution should be ignored (for example update statement
+     * without any bounded input values).
+     */
+    private Boolean skipEmptyStatement;
+
+    /**
      * Standard constructor.
      */
     public SqlStandardControl() {
@@ -444,6 +450,25 @@ public class SqlStandardControl implements SqlControl {
     public SqlStandardControl setFetchSize(Integer fetchSize) {
         this.fetchSize = fetchSize;
         return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean getSkipEmptyStatement() {
+        return skipEmptyStatement;
+    }
+
+    /**
+     * Sets the indicator, that an empty INSERT or UPDATE statement execution should be ignored (for example update
+     * statement without any bounded input values).
+     * 
+     * @param skipEmptyStatement
+     *            the indicator, that an empty INSERT or UPDATE statement execution should be ignored
+     */
+    public void setSkipEmptyStatement(Boolean skipEmptyStatement) {
+        this.skipEmptyStatement = skipEmptyStatement;
     }
 
     /**
