@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>sql-processor-cassandra-spring</artifactId>
     <packaging>jar</packaging>
@@ -7,13 +8,14 @@
 
     <parent>
         <groupId>org.sqlproc</groupId>
-        <artifactId>sql-processor-parent</artifactId>
+        <artifactId>sql-processor-nosql</artifactId>
         <version>3.1.10-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
-    
+
     <properties>
         <version.cassandra>3.0.3</version.cassandra>
+        <version.spring-cassandra>1.4.2.RELEASE</version.spring-cassandra>
     </properties>
 
     <dependencies>
@@ -30,28 +32,38 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 
-        <!-- SPRING -->
-		<dependency>
-			<groupId>com.datastax.cassandra</groupId>
-			<artifactId>cassandra-driver-core</artifactId>
-			<version>${version.cassandra}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.datastax.cassandra</groupId>
-			<artifactId>cassandra-driver-mapping</artifactId>
-			<version>${version.cassandra}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.datastax.cassandra</groupId>
-			<artifactId>cassandra-driver-extras</artifactId>
-			<version>${version.cassandra}</version>
-		</dependency>
-		<!-- dependency>
-			<groupId>org.apache.cassandra</groupId>
-			<artifactId>cassandra-clientutil</artifactId>
-			<version>${version.cassandra}</version>
-		</dependency-->
+        <!-- Cassandra -->
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>${version.cassandra}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-mapping</artifactId>
+            <version>${version.cassandra}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-extras</artifactId>
+            <version>${version.cassandra}</version>
+        </dependency>
 
+        <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-cassandra</artifactId>
+            <version>${version.spring-cassandra}</version>
+        </dependency>
+        
         <!-- TEST -->
         <dependency>
             <groupId>javassist</groupId>
