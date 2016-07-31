@@ -3,14 +3,14 @@ package org.sqlproc.engine.jdbc.type;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.type.SqlProviderType;
+import org.sqlproc.engine.type.SqlMetaType;
 
 /**
  * The JDBC META type ORACLE_CURSOR (from Oracle jdbc driver).
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcOracleCursorType extends SqlProviderType {
+public class JdbcOracleCursorType extends SqlMetaType {
 
     /**
      * The value of ORACLE_CURSOR.
@@ -61,8 +61,8 @@ public class JdbcOracleCursorType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         throw new UnsupportedOperationException();
     }
 

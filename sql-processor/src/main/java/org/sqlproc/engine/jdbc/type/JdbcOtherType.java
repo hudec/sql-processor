@@ -5,14 +5,14 @@ import java.sql.Types;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.type.SqlProviderType;
+import org.sqlproc.engine.type.SqlMetaType;
 
 /**
  * The JDBC META type OTHER.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcOtherType extends SqlProviderType {
+public class JdbcOtherType extends SqlMetaType {
 
     /**
      * {@inheritDoc}
@@ -58,8 +58,8 @@ public class JdbcOtherType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         throw new UnsupportedOperationException();
     }
 

@@ -15,7 +15,6 @@ import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.plugin.BeanUtilsPlugin.GetterType;
 import org.sqlproc.engine.plugin.Modifiers;
-import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
 
 /**
@@ -288,12 +287,13 @@ class SqlMappingItem implements SqlMetaElement {
                     + ", moreResultClasses=" + moreResultClasses);
         }
 
-        if (sqlType.getMetaType(ctx) instanceof SqlInternalType) {
+        if (sqlType.getMetaType(ctx).getProviderSqlType() != null) {
+            Object o = sqlType.getMetaType(ctx);
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", metaType=" + sqlType.getMetaType(ctx));
             }
-            ((SqlInternalType) sqlType.getMetaType(ctx)).addScalar(query, dbName, null);
+            sqlType.getMetaType(ctx).addScalar(query, dbName, null);
         } else {
             int count = attributes.size();
             boolean exit = false;
@@ -323,8 +323,8 @@ class SqlMappingItem implements SqlMetaElement {
                         }
                     }
                     if (isCollection) {
-                        String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
-                                + Modifiers.MODIFIER_GTYPE) : null;
+                        String typeName = (moreResultClasses != null)
+                                ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                         if (typeClass == null)
                             typeClass = rt.typeClass;
@@ -341,8 +341,8 @@ class SqlMappingItem implements SqlMetaElement {
                                     + "', possible type name is " + typeName);
                         }
                     } else if (moreResultClasses != null) {
-                        String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
-                                + Modifiers.MODIFIER_GTYPE) : null;
+                        String typeName = (moreResultClasses != null)
+                                ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                         if (typeClass != null)
                             objClass = typeClass;
@@ -469,14 +469,14 @@ class SqlMappingItem implements SqlMetaElement {
                         if (nextObj != null) {
                             ctx.setAttribute(obj, name, nextObj);
                         } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
-                            logger.error("There's problem to instantiate " + typeClass
-                                    + ", complete attribute name is '" + attr.getFullName()
-                                    + "', possible type name is " + typeName);
+                            logger.error(
+                                    "There's problem to instantiate " + typeClass + ", complete attribute name is '"
+                                            + attr.getFullName() + "', possible type name is " + typeName);
                             exit = true;
                         } else {
-                            throw new SqlRuntimeException("There's problem to instantiate " + typeClass
-                                    + ", complete attribute name is '" + attr.getFullName()
-                                    + "', possible type name is " + typeName);
+                            throw new SqlRuntimeException(
+                                    "There's problem to instantiate " + typeClass + ", complete attribute name is '"
+                                            + attr.getFullName() + "', possible type name is " + typeName);
                         }
                     }
                 }
@@ -487,8 +487,8 @@ class SqlMappingItem implements SqlMetaElement {
                     } else if (idsProcessed.containsKey(idsKey)) {
                         nextObj = idsProcessed.get(idsKey);
                     } else {
-                        String typeName = (moreResultClasses != null) ? values.get(attr.getFullName()
-                                + Modifiers.MODIFIER_GTYPE) : null;
+                        String typeName = (moreResultClasses != null)
+                                ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = null;
                         if (typeName != null) {
                             if (typeName.toLowerCase().startsWith(Modifiers.MODIFIER_DISCRIMINATOR))
@@ -505,14 +505,14 @@ class SqlMappingItem implements SqlMetaElement {
                                 idsProcessed.put(idsKey, itemObj);
                                 nextObj = itemObj;
                             } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
-                                logger.error("There's problem to instantiate " + typeClass
-                                        + ", complete attribute name is " + attr.getFullName()
-                                        + ", possible type name is " + typeName);
+                                logger.error(
+                                        "There's problem to instantiate " + typeClass + ", complete attribute name is "
+                                                + attr.getFullName() + ", possible type name is " + typeName);
                                 exit = true;
                             } else {
-                                throw new SqlRuntimeException("There's problem to instantiate " + typeClass
-                                        + ", complete attribute name is " + attr.getFullName()
-                                        + ", possible type name is " + typeName);
+                                throw new SqlRuntimeException(
+                                        "There's problem to instantiate " + typeClass + ", complete attribute name is "
+                                                + attr.getFullName() + ", possible type name is " + typeName);
                             }
                         } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
                             logger.error("There's no generic type defined for collection " + nextObj

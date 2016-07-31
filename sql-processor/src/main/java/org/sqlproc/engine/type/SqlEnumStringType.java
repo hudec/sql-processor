@@ -14,7 +14,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlEnumStringType extends SqlProviderType {
+public abstract class SqlEnumStringType extends SqlMetaType {
 
     /**
      * {@inheritDoc}
@@ -43,8 +43,8 @@ public abstract class SqlEnumStringType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
@@ -91,8 +91,8 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                         if (ingoreError) {
                             logger.error("Incorrect string based enum item " + val + " for " + paramName);
                         } else {
-                            throw new SqlRuntimeException("Incorrect string based enum item " + val + " for "
-                                    + paramName);
+                            throw new SqlRuntimeException(
+                                    "Incorrect string based enum item " + val + " for " + paramName);
                         }
                     } else {
                         Object o = runtimeCtx.getEnumToValue(val);
@@ -102,8 +102,8 @@ public abstract class SqlEnumStringType extends SqlProviderType {
                             if (ingoreError) {
                                 logger.error("Incorrect string based enum item value " + o + " for " + paramName);
                             } else {
-                                throw new SqlRuntimeException("Incorrect string based enum item value " + o + " for "
-                                        + paramName);
+                                throw new SqlRuntimeException(
+                                        "Incorrect string based enum item value " + o + " for " + paramName);
                             }
                         }
                     }
@@ -115,8 +115,8 @@ public abstract class SqlEnumStringType extends SqlProviderType {
             if (o != null && o instanceof String) {
                 query.setParameter(paramName, (String) o, getProviderSqlType());
             } else
-                logger.error("ENUM_STRING parameter " + paramName + " " + inputValue + " " + inputValue.getClass()
-                        + " " + o);
+                logger.error("ENUM_STRING parameter " + paramName + " " + inputValue + " " + inputValue.getClass() + " "
+                        + o);
         }
     }
 }

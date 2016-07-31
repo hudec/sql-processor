@@ -86,8 +86,8 @@ public class HibernateType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult HIBERNATE: resultInstance=" + resultInstance + ", attributeName="
                     + attributeName + ", resultValue=" + resultValue + ", resultType"
@@ -103,11 +103,11 @@ public class HibernateType extends SqlMetaType {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class))
                 return;
         if (ingoreError) {
-            logger.error("There's no getter for " + attributeName + " in " + resultInstance
-                    + ", META type is HIBERNATE");
+            logger.error(
+                    "There's no getter for " + attributeName + " in " + resultInstance + ", META type is HIBERNATE");
         } else {
-            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                    + ", META type is HIBERNATE");
+            throw new SqlRuntimeException(
+                    "There's no setter for " + attributeName + " in " + resultInstance + ", META type is HIBERNATE");
         }
     }
 
@@ -126,5 +126,37 @@ public class HibernateType extends SqlMetaType {
         } else {
             query.setParameter(paramName, inputValue, hibernateType);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?>[] getClassTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlType() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlNullType() {
+        return null;
     }
 }

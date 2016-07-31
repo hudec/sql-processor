@@ -12,7 +12,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlFromDateType extends SqlProviderType {
+public abstract class SqlFromDateType extends SqlMetaType {
 
     /**
      * {@inheritDoc}

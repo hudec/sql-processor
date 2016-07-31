@@ -29,12 +29,12 @@ import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.jdbc.JdbcSimpleSession;
 import org.sqlproc.engine.jdbc.type.JdbcTypeFactory;
+import org.sqlproc.engine.plugin.BeanUtilsPlugin;
 import org.sqlproc.engine.plugin.CommonsBeanUtilsPlugin;
 import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
-import org.sqlproc.engine.plugin.BeanUtilsPlugin;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.PhoneNumberType;
-import org.sqlproc.engine.type.SqlInternalType;
+import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.engine.util.PropertiesLoader;
 import org.sqlproc.engine.validation.SampleValidator;
@@ -63,7 +63,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static SqlValidatorFactory validatorFactory;
     protected static BeanUtilsPlugin beansPlugin = new CommonsBeanUtilsPlugin();
 
-    protected static List<SqlInternalType> customTypes = new ArrayList<SqlInternalType>();
+    protected static List<SqlMetaType> customTypes = new ArrayList<SqlMetaType>();
     static {
         customTypes.add(new PhoneNumberType());
     }
@@ -120,8 +120,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     @Override
     protected IDataSet getDataSet() throws Exception {
-        ReplacementDataSet dataSet = new ReplacementDataSet(new FlatXmlDataSet(this.getClass().getClassLoader()
-                .getResourceAsStream(getDataSetFile(dbType))));
+        ReplacementDataSet dataSet = new ReplacementDataSet(
+                new FlatXmlDataSet(this.getClass().getClassLoader().getResourceAsStream(getDataSetFile(dbType))));
         dataSet.addReplacementObject("[NULL]", null);
         return dataSet;
     }
@@ -177,8 +177,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
             this.sqls = sqls;
         }
 
-        public void execute(IDatabaseConnection connection, IDataSet dataSet) throws DatabaseUnitException,
-                SQLException {
+        public void execute(IDatabaseConnection connection, IDataSet dataSet)
+                throws DatabaseUnitException, SQLException {
             Statement stmt = null;
             try {
                 stmt = connection.getConnection().createStatement();

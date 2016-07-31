@@ -10,7 +10,7 @@ import org.sqlproc.engine.impl.SqlUtils;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlByteArrayType extends SqlProviderType {
+public abstract class SqlByteArrayType extends SqlMetaType {
 
     /**
      * {@inheritDoc}
@@ -39,8 +39,8 @@ public abstract class SqlByteArrayType extends SqlProviderType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue);

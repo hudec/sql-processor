@@ -19,7 +19,7 @@ import org.sqlproc.engine.SqlProcessorLoader.EngineType;
 import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
-import org.sqlproc.engine.type.SqlInternalType;
+import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 import org.sqlproc.engine.validation.SqlValidatorFactory;
 
@@ -105,7 +105,7 @@ public class SqlDefaultFactory implements SqlEngineFactory {
     /**
      * The custom META types.
      */
-    private List<SqlInternalType> customTypes;
+    private List<SqlMetaType> customTypes;
     /**
      * Only statements and rules with the names in this set are picked up from the properties repository.
      */
@@ -229,8 +229,8 @@ public class SqlDefaultFactory implements SqlEngineFactory {
 
                     if (isLazyInit() && configuration != null) {
                         Executor _executor = getExecutor();
-                        loader.init(_executor, configuration.getQueryEnginesToInit(configuration.getInitTreshold())
-                                .keySet(),
+                        loader.init(_executor,
+                                configuration.getQueryEnginesToInit(configuration.getInitTreshold()).keySet(),
                                 configuration.getCrudEnginesToInit(configuration.getInitTreshold()).keySet(),
                                 configuration.getProcedureEnginesToInit(configuration.getInitTreshold()).keySet());
                         if (_executor != null && _executor instanceof ExecutorService)
@@ -588,7 +588,7 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      * 
      * @return the custom META types
      */
-    public List<SqlInternalType> getCustomTypes() {
+    public List<SqlMetaType> getCustomTypes() {
         return customTypes;
     }
 
@@ -598,7 +598,7 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      * @param customTypes
      *            the custom META types
      */
-    public void setCustomTypes(List<SqlInternalType> customTypes) {
+    public void setCustomTypes(List<SqlMetaType> customTypes) {
         this.customTypes = customTypes;
     }
 
@@ -608,8 +608,8 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      * @param customTypes
      *            the custom META types
      */
-    public void setCustomTypes(SqlInternalType... customTypes) {
-        this.customTypes = new ArrayList<SqlInternalType>();
+    public void setCustomTypes(SqlMetaType... customTypes) {
+        this.customTypes = new ArrayList<SqlMetaType>();
         Collections.addAll(this.customTypes, customTypes);
     }
 
@@ -619,9 +619,9 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      * @param customType
      *            the custom META type
      */
-    public void addCustomType(SqlInternalType customType) {
+    public void addCustomType(SqlMetaType customType) {
         if (customTypes == null)
-            customTypes = new ArrayList<SqlInternalType>();
+            customTypes = new ArrayList<SqlMetaType>();
         customTypes.add(customType);
     }
 

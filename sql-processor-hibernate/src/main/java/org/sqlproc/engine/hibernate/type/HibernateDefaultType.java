@@ -85,8 +85,8 @@ public class HibernateDefaultType extends SqlMetaType {
         }
     }
 
-    static public class MyIntegerType extends AbstractSingleColumnStandardBasicType<Integer> implements
-            PrimitiveType<Integer>, DiscriminatorType<Integer>, VersionType<Integer> {
+    static public class MyIntegerType extends AbstractSingleColumnStandardBasicType<Integer>
+            implements PrimitiveType<Integer>, DiscriminatorType<Integer>, VersionType<Integer> {
 
         public static final MyIntegerType INSTANCE = new MyIntegerType();
 
@@ -157,8 +157,8 @@ public class HibernateDefaultType extends SqlMetaType {
         }
     };
 
-    static public class MyLongType extends AbstractSingleColumnStandardBasicType<Long> implements PrimitiveType<Long>,
-            DiscriminatorType<Long>, VersionType<Long> {
+    static public class MyLongType extends AbstractSingleColumnStandardBasicType<Long>
+            implements PrimitiveType<Long>, DiscriminatorType<Long>, VersionType<Long> {
 
         public static final MyLongType INSTANCE = new MyLongType();
 
@@ -256,8 +256,8 @@ public class HibernateDefaultType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult DEFAULT: resultInstance=" + resultInstance + ", attributeName=" + attributeName
                     + ", resultValue=" + resultValue + ", resultType"
@@ -364,7 +364,8 @@ public class HibernateDefaultType extends SqlMetaType {
                     if (ingoreError) {
                         logger.error("Incorrect type based enum item value " + o + " for " + paramName);
                     } else {
-                        throw new SqlRuntimeException("Incorrect type based enum item value " + o + " for " + paramName);
+                        throw new SqlRuntimeException(
+                                "Incorrect type based enum item value " + o + " for " + paramName);
                     }
                 }
             }
@@ -391,5 +392,37 @@ public class HibernateDefaultType extends SqlMetaType {
             return result.shortValue();
         }
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?>[] getClassTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlType() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlNullType() {
+        return null;
     }
 }

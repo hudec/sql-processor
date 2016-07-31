@@ -26,7 +26,7 @@ import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
 import org.sqlproc.engine.type.IdentitySetter;
 import org.sqlproc.engine.type.OutValueSetter;
-import org.sqlproc.engine.type.SqlProviderType;
+import org.sqlproc.engine.type.SqlMetaType;
 
 /**
  * The JDBC stack implementation of the SQL Engine query contract. In fact it's an adapter the internal JDBC stuff.
@@ -199,8 +199,8 @@ public class JdbcQuery implements SqlQuery {
     public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
-                .getSqlFromToPlugin()
-                .limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered) : null;
+                .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
+                : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
@@ -253,8 +253,8 @@ public class JdbcQuery implements SqlQuery {
         Object first = list.get(0);
         for (int i = 1; i < size; i++) {
             if (list.get(i) != first) {
-                throw new SqlProcessorException("There's no unique result, the number of returned rows is "
-                        + list.size());
+                throw new SqlProcessorException(
+                        "There's no unique result, the number of returned rows is " + list.size());
             }
         }
         return first;
@@ -268,8 +268,8 @@ public class JdbcQuery implements SqlQuery {
             throws SqlProcessorException {
         StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
-                .getSqlFromToPlugin()
-                .limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered) : null;
+                .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
+                : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
@@ -488,8 +488,8 @@ public class JdbcQuery implements SqlQuery {
             Matcher matcher = CALL.matcher(queryString);
             if (!matcher.matches())
                 throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
-            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call " + matcher.group(2)
-                    + "}";
+            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}"
+                    : "{ call " + matcher.group(2) + "}";
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
@@ -544,8 +544,8 @@ public class JdbcQuery implements SqlQuery {
         Object first = list.get(0);
         for (int i = 1; i < size; i++) {
             if (list.get(i) != first) {
-                throw new SqlProcessorException("There's no unique result, the number of returned rows is "
-                        + list.size());
+                throw new SqlProcessorException(
+                        "There's no unique result, the number of returned rows is " + list.size());
             }
         }
         return first;
@@ -567,8 +567,8 @@ public class JdbcQuery implements SqlQuery {
             Matcher matcher = CALL.matcher(queryString);
             if (!matcher.matches())
                 throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
-            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{ call " + matcher.group(2)
-                    + "}";
+            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}"
+                    : "{ call " + matcher.group(2) + "}";
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
@@ -617,8 +617,8 @@ public class JdbcQuery implements SqlQuery {
             Matcher matcher = CALL.matcher(queryString);
             if (!matcher.matches())
                 throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
-            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}" : "{call " + matcher.group(2)
-                    + "}";
+            query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}"
+                    : "{call " + matcher.group(2) + "}";
             cs = connection.prepareCall(query);
             if (timeout != null)
                 cs.setQueryTimeout(timeout);
@@ -787,8 +787,8 @@ public class JdbcQuery implements SqlQuery {
             if (parameterOutValueSetters.containsKey(name)) {
                 CallableStatement cs = (CallableStatement) ps;
                 if (type != null) {
-                    if (type instanceof SqlProviderType) {
-                        cs.registerOutParameter(ix + i, (Integer) ((SqlProviderType) type).getProviderSqlNullType());
+                    if (type instanceof SqlMetaType) {
+                        cs.registerOutParameter(ix + i, (Integer) ((SqlMetaType) type).getProviderSqlNullType());
                     } else {
                         cs.registerOutParameter(ix + i, (Integer) type);
                     }

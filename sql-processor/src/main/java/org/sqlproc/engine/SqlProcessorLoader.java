@@ -20,7 +20,7 @@ import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.SqlProcessor;
 import org.sqlproc.engine.plugin.SqlPluginFactory;
 import org.sqlproc.engine.type.SqlComposedTypeFactory;
-import org.sqlproc.engine.type.SqlInternalType;
+import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 import org.sqlproc.engine.validation.SqlValidatorFactory;
 
@@ -339,8 +339,8 @@ public class SqlProcessorLoader {
      *             mainly in the case the provided statements or rules are not compliant with the ANTLR based grammar
      */
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
-            String filter, SqlMonitorFactory monitorFactory, List<SqlInternalType> customTypes,
-            String... onlyStatements) throws SqlEngineException {
+            String filter, SqlMonitorFactory monitorFactory, List<SqlMetaType> customTypes, String... onlyStatements)
+            throws SqlEngineException {
         this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, null, customTypes, onlyStatements);
     }
 
@@ -375,7 +375,7 @@ public class SqlProcessorLoader {
      */
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
-            List<SqlInternalType> customTypes, String... onlyStatements) throws SqlEngineException {
+            List<SqlMetaType> customTypes, String... onlyStatements) throws SqlEngineException {
         this(sbStatements, typeFactory, pluginFactory, filter, monitorFactory, validatorFactory, customTypes, null,
                 onlyStatements);
     }
@@ -413,8 +413,8 @@ public class SqlProcessorLoader {
      */
     public SqlProcessorLoader(StringBuilder sbStatements, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
             String filter, SqlMonitorFactory monitorFactory, SqlValidatorFactory validatorFactory,
-            List<SqlInternalType> customTypes, SqlEngineConfiguration configuration, String... onlyStatements)
-                    throws SqlEngineException {
+            List<SqlMetaType> customTypes, SqlEngineConfiguration configuration, String... onlyStatements)
+            throws SqlEngineException {
         logger.trace(
                 ">> SqlProcessorLoader, sbStatements={}, typeFactory={}, pluginFactory={}, monitorFactory={}, validatorFactory={}, filter={}, customTypes={}, configuration={}, onlyStatements={}",
                 sbStatements, typeFactory, pluginFactory, monitorFactory, validatorFactory, filter, customTypes,

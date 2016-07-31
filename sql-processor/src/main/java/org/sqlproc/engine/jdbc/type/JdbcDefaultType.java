@@ -77,8 +77,8 @@ public class JdbcDefaultType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setResult DEFAULT: resultInstance=" + resultInstance + ", attributeName=" + attributeName
                     + ", resultValue=" + resultValue + ", resultType"
@@ -185,7 +185,8 @@ public class JdbcDefaultType extends SqlMetaType {
                     if (ingoreError) {
                         logger.error("Incorrect type based enum item value " + o + " for " + paramName);
                     } else {
-                        throw new SqlRuntimeException("Incorrect type based enum item value " + o + " for " + paramName);
+                        throw new SqlRuntimeException(
+                                "Incorrect type based enum item value " + o + " for " + paramName);
                     }
                 }
             }
@@ -195,5 +196,37 @@ public class JdbcDefaultType extends SqlMetaType {
                 query.setParameterList(paramName, ((Collection) inputValue).toArray());
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?>[] getClassTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlType() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlNullType() {
+        return null;
     }
 }

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlIdentityType;
-import org.sqlproc.engine.type.SqlInternalType;
 import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -185,12 +184,10 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static {
         for (SqlMetaType type : TYPES) {
-            if (type instanceof SqlInternalType) {
-                for (Class<?> classType : ((SqlInternalType) type).getClassTypes())
-                    CLASS_TO_TYPE_MAP.put(classType, type);
-                for (String metaType : ((SqlInternalType) type).getMetaTypes())
-                    META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
-            }
+            for (Class<?> classType : ((SqlMetaType) type).getClassTypes())
+                CLASS_TO_TYPE_MAP.put(classType, type);
+            for (String metaType : ((SqlMetaType) type).getMetaTypes())
+                META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
         }
         CLASS_TO_TYPE_MAP = Collections.unmodifiableMap(CLASS_TO_TYPE_MAP);
         META_TO_TYPE_MAP = Collections.unmodifiableMap(META_TO_TYPE_MAP);

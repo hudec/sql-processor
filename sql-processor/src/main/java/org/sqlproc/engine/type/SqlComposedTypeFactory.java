@@ -48,15 +48,15 @@ public class SqlComposedTypeFactory implements SqlTypeFactory {
      * @param customTypes
      *            a collection of the custom META types provided by an user
      */
-    public SqlComposedTypeFactory(SqlTypeFactory typeFactory, List<SqlInternalType> customTypes) {
+    public SqlComposedTypeFactory(SqlTypeFactory typeFactory, List<SqlMetaType> customTypes) {
 
         this.typeFactory = typeFactory;
 
         if (customTypes != null && !customTypes.isEmpty()) {
-            for (SqlInternalType type : customTypes) {
-                for (Class<?> classType : ((SqlInternalType) type).getClassTypes())
+            for (SqlMetaType type : customTypes) {
+                for (Class<?> classType : type.getClassTypes())
                     classToTypeMap.put(classType, type);
-                for (String metaType : ((SqlInternalType) type).getMetaTypes())
+                for (String metaType : type.getMetaTypes())
                     metaToTypeMap.put(metaType.toUpperCase(), type);
             }
         }

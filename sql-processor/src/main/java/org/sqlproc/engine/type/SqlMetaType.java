@@ -68,4 +68,29 @@ public abstract class SqlMetaType {
      */
     public abstract void setParameter(SqlRuntimeContext runtimeCtxCtx, SqlQuery query, String paramName,
             Object inputValue, Class<?> inputType, boolean ingoreError) throws SqlRuntimeException;
+
+    /**
+     * The list of Java class types related to this META type.
+     */
+    public abstract Class<?>[] getClassTypes();
+
+    /**
+     * The list of names of this META type. These names can be used in the META SQL statements.
+     */
+    public abstract String[] getMetaTypes();
+
+    /**
+     * Returns the type provided by the stack on top of which the SQL Processor works.
+     * 
+     * @return the provided type
+     */
+    public abstract Object getProviderSqlType();
+
+    /**
+     * Returns the type provided by the stack on top of which the SQL Processor works. It has to support <tt>null</tt>
+     * input/output values.
+     * 
+     * @return the provided type
+     */
+    public abstract Object getProviderSqlNullType();
 }
