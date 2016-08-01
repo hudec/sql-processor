@@ -2,17 +2,25 @@ package org.sqlproc.engine.jdbc.type;
 
 import java.sql.Types;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlMetaType;
+import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The JDBC META type OTHER.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcOtherType extends SqlMetaType {
+public class JdbcOtherType implements SqlMetaType {
+
+    /**
+     * The internal slf4j logger.
+     */
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * {@inheritDoc}
@@ -50,7 +58,7 @@ public class JdbcOtherType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
         throw new UnsupportedOperationException();
     }
 
@@ -73,6 +81,7 @@ public class JdbcOtherType extends SqlMetaType {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
+
         query.setParameter(paramName, inputValue, getProviderSqlNullType());
     }
 }

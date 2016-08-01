@@ -12,6 +12,7 @@ import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.type.IdentitySetter;
 import org.sqlproc.engine.type.OutValueSetter;
+import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The entity for a dynamic input value.
@@ -282,6 +283,8 @@ class SqlInputValue {
     /**
      * Bind a dynamic input value to a named query parameter.
      * 
+     * @param typeFactory
+     *            the SQL Type factory
      * @param session
      *            the SQL Engine session, an adapter or proxy to the internal JDBC or ORM staff
      * @param query
@@ -291,10 +294,11 @@ class SqlInputValue {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with input values handling
      */
-    void setQueryParam(final SqlSession session, SqlQuery query, String paramName) throws SqlRuntimeException {
+    void setQueryParam(final SqlTypeFactory typeFactory, final SqlSession session, SqlQuery query, String paramName)
+            throws SqlRuntimeException {
         if (sequence != null) {
             SqlQuery seqQuery = session.createSqlQuery(sequence);
-            ctx.getTypeFactory().getDefaultType().addScalar(seqQuery, "1", inputValueType);
+            ctx.getTypeFactory().getDefaultType().addScalar(typeFactory, seqQuery, "1", inputValueType);
             identity = seqQuery.unique(ctx);
             type.setParameter(ctx, query, paramName, identity, inputValueType);
         } else if (identitySelect != null) {

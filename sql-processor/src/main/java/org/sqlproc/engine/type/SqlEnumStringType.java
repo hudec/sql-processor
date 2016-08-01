@@ -14,7 +14,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlEnumStringType extends SqlMetaType {
+public abstract class SqlEnumStringType extends SqlDefaultType {
 
     /**
      * {@inheritDoc}
@@ -35,31 +35,21 @@ public abstract class SqlEnumStringType extends SqlMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, getProviderSqlType());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
+            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
+                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
+                    + ((resultValue != null) ? resultValue.getClass() : null));
         }
+
         Class<?> attributeType = runtimeCtx.getAttributeType(resultInstance.getClass(), attributeName);
         Object enumInstance = runtimeCtx.getValueToEnum(attributeType, resultValue);
         if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
             return;
-        if (ingoreError) {
-            logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
-                    + getMetaTypes()[0]);
-        } else {
-            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                    + ", META type is " + getMetaTypes()[0]);
-        }
+        error(ingoreError, "There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
+                + getMetaTypes()[0]);
     }
 
     /**
@@ -69,42 +59,34 @@ public abstract class SqlEnumStringType extends SqlMetaType {
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, final Object inputValue,
             final Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
+            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
+
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlNullType());
         } else if (!inputValue.getClass().isEnum()) {
             if (!(inputValue instanceof Collection)) {
                 if (inputValue instanceof OutValueSetter) {
                     query.setParameter(paramName, inputValue, getProviderSqlType());
-                } else if (ingoreError) {
-                    logger.error("Incorrect string based enum " + inputValue + " for " + paramName);
                 } else {
-                    throw new SqlRuntimeException("Incorrect string based enum " + inputValue + " for " + paramName);
+                    error(ingoreError, "Incorrect string based enum " + inputValue + " for " + paramName);
+                    return;
                 }
             } else {
                 List<String> vals = new ArrayList<String>();
                 for (Iterator iter = ((Collection) inputValue).iterator(); iter.hasNext();) {
                     Object val = iter.next();
                     if (!val.getClass().isEnum()) {
-                        if (ingoreError) {
-                            logger.error("Incorrect string based enum item " + val + " for " + paramName);
-                        } else {
-                            throw new SqlRuntimeException(
-                                    "Incorrect string based enum item " + val + " for " + paramName);
-                        }
+                        error(ingoreError, "Incorrect string based enum item " + val + " for " + paramName);
+                        return;
                     } else {
                         Object o = runtimeCtx.getEnumToValue(val);
                         if (o != null && o instanceof String) {
                             vals.add((String) o);
                         } else {
-                            if (ingoreError) {
-                                logger.error("Incorrect string based enum item value " + o + " for " + paramName);
-                            } else {
-                                throw new SqlRuntimeException(
-                                        "Incorrect string based enum item value " + o + " for " + paramName);
-                            }
+                            error(ingoreError, "Incorrect string based enum item value " + o + " for " + paramName);
+                            return;
                         }
                     }
                 }
@@ -115,8 +97,8 @@ public abstract class SqlEnumStringType extends SqlMetaType {
             if (o != null && o instanceof String) {
                 query.setParameter(paramName, (String) o, getProviderSqlType());
             } else
-                logger.error("ENUM_STRING parameter " + paramName + " " + inputValue + " " + inputValue.getClass() + " "
-                        + o);
+                error(ingoreError, "ENUM_STRING parameter " + paramName + " " + inputValue + " " + inputValue.getClass()
+                        + " " + o);
         }
     }
 }

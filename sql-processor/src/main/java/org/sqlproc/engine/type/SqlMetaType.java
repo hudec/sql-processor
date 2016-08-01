@@ -1,7 +1,5 @@
 package org.sqlproc.engine.type;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -12,16 +10,42 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlMetaType {
+public interface SqlMetaType {
 
     /**
-     * The internal slf4j logger.
+     * Returns the list of Java class types related to this META type.
+     * 
+     * @return the list of Java class types related to this META type
      */
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    public Class<?>[] getClassTypes();
+
+    /**
+     * Returns the list of names of this META type. These names can be used in the META SQL statements.
+     * 
+     * @return list of names of this META type. These names can be used in the META SQL statements
+     */
+    public String[] getMetaTypes();
+
+    /**
+     * Returns the type provided by the stack on top of which the SQL Processor works.
+     * 
+     * @return the provided type
+     */
+    public Object getProviderSqlType();
+
+    /**
+     * Returns the type provided by the stack on top of which the SQL Processor works. It has to support <tt>null</tt>
+     * input/output values.
+     * 
+     * @return the provided type
+     */
+    public Object getProviderSqlNullType();
 
     /**
      * Declares a scalar query result, which is an SQL query execution output value.
      * 
+     * @param typeFactory
+     *            the SQL Type factory
      * @param query
      *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
      * @param dbName
@@ -29,12 +53,12 @@ public abstract class SqlMetaType {
      * @param attributeType
      *            the Java type of of the attribute in the result class
      */
-    public abstract void addScalar(SqlQuery query, String dbName, Class<?> attributeType);
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType);
 
     /**
      * Initializes the attribute of the result class with output value from the SQL query execution.
      * 
-     * @param runtimeCtxCtx
+     * @param runtimeCtx
      *            the public runtimeCtx context
      * @param resultInstance
      *            the instance of the result class
@@ -47,13 +71,13 @@ public abstract class SqlMetaType {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the output values handling
      */
-    public abstract void setResult(SqlRuntimeContext runtimeCtxCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException;
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException;
 
     /**
      * Binds an input value to a named query parameter.
      * 
-     * @param runtimeCtxCtx
+     * @param runtimeCtx
      *            the public runtimeCtx context
      * @param query
      *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
@@ -66,31 +90,6 @@ public abstract class SqlMetaType {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input values handling
      */
-    public abstract void setParameter(SqlRuntimeContext runtimeCtxCtx, SqlQuery query, String paramName,
-            Object inputValue, Class<?> inputType, boolean ingoreError) throws SqlRuntimeException;
-
-    /**
-     * The list of Java class types related to this META type.
-     */
-    public abstract Class<?>[] getClassTypes();
-
-    /**
-     * The list of names of this META type. These names can be used in the META SQL statements.
-     */
-    public abstract String[] getMetaTypes();
-
-    /**
-     * Returns the type provided by the stack on top of which the SQL Processor works.
-     * 
-     * @return the provided type
-     */
-    public abstract Object getProviderSqlType();
-
-    /**
-     * Returns the type provided by the stack on top of which the SQL Processor works. It has to support <tt>null</tt>
-     * input/output values.
-     * 
-     * @return the provided type
-     */
-    public abstract Object getProviderSqlNullType();
+    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
+            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException;
 }

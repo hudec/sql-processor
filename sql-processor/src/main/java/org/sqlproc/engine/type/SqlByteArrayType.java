@@ -10,7 +10,7 @@ import org.sqlproc.engine.impl.SqlUtils;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlByteArrayType extends SqlMetaType {
+public abstract class SqlByteArrayType extends SqlDefaultType {
 
     /**
      * {@inheritDoc}
@@ -31,45 +31,32 @@ public abstract class SqlByteArrayType extends SqlMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, getProviderSqlType());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue);
+            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
+                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
+                    + ((resultValue != null) ? resultValue.getClass() : null));
         }
+
         if (resultValue instanceof byte[]) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, byte[].class))
                 return;
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, SqlUtils.toBytes((byte[]) resultValue),
                     Byte[].class))
                 return;
-            if (ingoreError) {
-                logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
-                        + getMetaTypes()[0]);
-            } else {
-                throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                        + ", META type is " + getMetaTypes()[0]);
-            }
+            error(ingoreError,
+                    "There's no getter for " + attributeName + " in " + resultInstance + ", META type is " + this);
+            return;
         } else if (resultValue instanceof Byte[]) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, Byte[].class))
                 return;
-            if (ingoreError) {
-                logger.error("There's no getter for " + attributeName + " in " + resultInstance + ", META type is "
-                        + getMetaTypes()[0]);
-            } else {
-                throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                        + ", META type is " + getMetaTypes()[0]);
-            }
+            error(ingoreError,
+                    "There's no getter for " + attributeName + " in " + resultInstance + ", META type is " + this);
+            return;
         } else
-            throw new RuntimeException("Incorrect binary array " + resultValue);
+            throw new RuntimeException("Incorrect binary array " + resultValue + ", META type is " + this);
     }
 
     /**
@@ -79,9 +66,10 @@ public abstract class SqlByteArrayType extends SqlMetaType {
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
+            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
+
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlNullType());
         } else {
@@ -89,10 +77,10 @@ public abstract class SqlByteArrayType extends SqlMetaType {
                 query.setParameter(paramName, (byte[]) inputValue, getProviderSqlType());
             else if (inputValue instanceof Byte[]) {
                 query.setParameter(paramName, SqlUtils.toBytes((Byte[]) inputValue), getProviderSqlType());
-            } else if (ingoreError) {
-                logger.error("Incorrect binary array " + inputValue + " for " + paramName);
             } else {
-                throw new SqlRuntimeException("Incorrect binary array " + inputValue + " for " + paramName);
+                error(ingoreError,
+                        "Incorrect binary array " + inputValue + " for " + paramName + ", META type is " + this);
+                return;
             }
         }
     }

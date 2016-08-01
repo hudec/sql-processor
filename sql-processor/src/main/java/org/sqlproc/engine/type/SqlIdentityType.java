@@ -9,7 +9,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlIdentityType extends SqlMetaType {
+public abstract class SqlIdentityType extends SqlDefaultType {
 
     /**
      * {@inheritDoc}
@@ -54,6 +54,7 @@ public abstract class SqlIdentityType extends SqlMetaType {
                     + ((getMetaTypes() != null && getMetaTypes().length > 0) ? getMetaTypes()[0] : "null")
                     + ": paramName=" + paramName + ", identitySetter=" + identitySetter + ", inputType=" + inputType);
         }
+
         if (identitySetter != null && identitySetter instanceof IdentitySetter) {
             query.setParameter(paramName, identitySetter, getProviderSqlType());
         }

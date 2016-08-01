@@ -11,7 +11,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlTimeType extends SqlMetaType {
+public abstract class SqlTimeType extends SqlDefaultType {
 
     /**
      * {@inheritDoc}
@@ -32,31 +32,20 @@ public abstract class SqlTimeType extends SqlMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, getProviderSqlType());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
+            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
+
         if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Time.class,
                 java.util.Date.class))
             return;
-        if (ingoreError) {
-            logger.error("There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
-                    + getMetaTypes()[0]);
-        } else {
-            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                    + ", META type is " + getMetaTypes()[0]);
-        }
+        error(ingoreError,
+                "There's no setter for " + attributeName + " in " + resultInstance + ", META type is " + this);
     }
 
     /**
@@ -66,19 +55,18 @@ public abstract class SqlTimeType extends SqlMetaType {
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
+            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
+
         if (inputValue == null) {
             query.setParameter(paramName, null, getProviderSqlNullType());
         } else if (inputValue instanceof java.sql.Time) {
             query.setParameter(paramName, (java.sql.Time) inputValue, getProviderSqlType());
         } else if (inputValue instanceof Date) {
             query.setParameter(paramName, (Date) inputValue, getProviderSqlType());
-        } else if (ingoreError) {
-            logger.error("Incorrect time " + inputValue + " for " + paramName);
         } else {
-            throw new SqlRuntimeException("Incorrect time " + inputValue + " for " + paramName);
+            error(ingoreError, "Incorrect time " + inputValue + " for " + paramName);
         }
     }
 }

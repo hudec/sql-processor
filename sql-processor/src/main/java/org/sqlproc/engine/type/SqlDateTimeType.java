@@ -12,7 +12,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlDateTimeType extends SqlMetaType {
+public abstract class SqlDateTimeType extends SqlDefaultType {
 
     /**
      * {@inheritDoc}
@@ -44,10 +44,11 @@ public abstract class SqlDateTimeType extends SqlMetaType {
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
+            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
                     + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
+
         if (resultValue instanceof java.sql.Timestamp) {
             ((java.sql.Timestamp) resultValue).setNanos(0);
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
@@ -57,20 +58,13 @@ public abstract class SqlDateTimeType extends SqlMetaType {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
                     java.util.Date.class))
                 return;
-        } else if (ingoreError) {
-            logger.error("Incorrect datetime " + resultValue + " for " + attributeName + " in " + resultInstance);
+        } else {
+            error(ingoreError, "Incorrect datetime " + resultValue + " for " + attributeName + " in " + resultInstance);
             return;
-        } else {
-            throw new SqlRuntimeException(
-                    "Incorrect datetime " + resultValue + " for " + attributeName + " in " + resultInstance);
         }
-        if (ingoreError) {
-            logger.error("There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
-                    + getMetaTypes()[0]);
-        } else {
-            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                    + ", META type is " + getMetaTypes()[0]);
-        }
+
+        error(ingoreError, "There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
+                + getMetaTypes()[0]);
     }
 
     /**
@@ -80,9 +74,10 @@ public abstract class SqlDateTimeType extends SqlMetaType {
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
+            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
+
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlNullType());
         } else if (inputValue instanceof java.sql.Timestamp) {
@@ -95,10 +90,8 @@ public abstract class SqlDateTimeType extends SqlMetaType {
             cal.setTime((Date) inputValue);
             cal.set(Calendar.MILLISECOND, 0);
             query.setParameter(paramName, cal.getTime(), getProviderSqlType());
-        } else if (ingoreError) {
-            logger.error("Incorrect datetime " + inputValue + " for " + paramName);
         } else {
-            throw new SqlRuntimeException("Incorrect datetime " + inputValue + " for " + paramName);
+            error(ingoreError, "Incorrect datetime " + inputValue + " for " + paramName);
         }
     }
 }

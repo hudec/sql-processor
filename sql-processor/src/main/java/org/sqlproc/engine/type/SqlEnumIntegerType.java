@@ -14,7 +14,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlEnumIntegerType extends SqlMetaType {
+public abstract class SqlEnumIntegerType extends SqlDefaultType {
 
     /**
      * {@inheritDoc}
@@ -30,13 +30,6 @@ public abstract class SqlEnumIntegerType extends SqlMetaType {
     @Override
     public String[] getMetaTypes() {
         return new String[] { "EINTEGER", "EINT" };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, getProviderSqlType());
     }
 
     /**
@@ -69,57 +62,47 @@ public abstract class SqlEnumIntegerType extends SqlMetaType {
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
+            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
+
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlNullType());
         } else if (!inputValue.getClass().isEnum()) {
             if (!(inputValue instanceof Collection)) {
                 if (inputValue instanceof OutValueSetter) {
                     query.setParameter(paramName, inputValue, getProviderSqlType());
-                } else if (ingoreError) {
-                    logger.error("Incorrect integer based enum " + inputValue + " for " + paramName);
                 } else {
-                    throw new SqlRuntimeException("Incorrect integer based enum " + inputValue + " for " + paramName);
+                    error(ingoreError, "Incorrect integer based enum " + inputValue + " for " + paramName);
+                    return;
                 }
             } else {
                 List<Integer> vals = new ArrayList<Integer>();
                 for (Iterator iter = ((Collection) inputValue).iterator(); iter.hasNext();) {
                     Object val = iter.next();
                     if (!val.getClass().isEnum()) {
-                        if (ingoreError) {
-                            logger.error("Incorrect integer based enum item " + val + " for " + paramName);
-                        } else {
-                            throw new SqlRuntimeException(
-                                    "Incorrect integer based enum item " + val + " for " + paramName);
-                        }
+                        error(ingoreError, "Incorrect integer based enum item " + val + " for " + paramName);
+                        return;
                     } else {
                         Object o = runtimeCtx.getEnumToValue(val);
                         if (o != null && o instanceof Integer) {
                             vals.add((Integer) o);
                         } else {
-                            if (ingoreError) {
-                                logger.error("Incorrect integer based enum item value " + o + " for " + paramName);
-                            } else {
-                                throw new SqlRuntimeException(
-                                        "Incorrect integer based enum item value " + o + " for " + paramName);
-                            }
+                            error(ingoreError, "Incorrect integer based enum item value " + o + " for " + paramName);
+                            return;
                         }
                     }
                 }
                 query.setParameterList(paramName, vals.toArray());
             }
-        } else {
+        } else
+
+        {
             Object o = runtimeCtx.getEnumToValue(inputValue);
             if (o != null && o instanceof Integer) {
                 query.setParameter(paramName, (Integer) o, getProviderSqlType());
             } else {
-                if (ingoreError) {
-                    logger.error("Incorrect integer based enum value " + o + " for " + paramName);
-                } else {
-                    throw new SqlRuntimeException("Incorrect integer based enum value " + o + " for " + paramName);
-                }
+                error(ingoreError, "Incorrect integer based enum value " + o + " for " + paramName);
             }
         }
     }

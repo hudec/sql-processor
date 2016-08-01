@@ -293,7 +293,7 @@ class SqlMappingItem implements SqlMetaElement {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", metaType=" + sqlType.getMetaType(ctx));
             }
-            sqlType.getMetaType(ctx).addScalar(query, dbName, null);
+            sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, null);
         } else {
             int count = attributes.size();
             boolean exit = false;
@@ -360,7 +360,7 @@ class SqlMappingItem implements SqlMetaElement {
                         + ", attributeType=" + attributeType);
             }
             if (!exit) {
-                sqlType.getMetaType(ctx).addScalar(query, dbName, attributeType);
+                sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType);
             }
         }
     }

@@ -1,16 +1,24 @@
 package org.sqlproc.engine.jdbc.type;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlMetaType;
+import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The JDBC META type ORACLE_CURSOR (from Oracle jdbc driver).
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcOracleCursorType extends SqlMetaType {
+public class JdbcOracleCursorType implements SqlMetaType {
+
+    /**
+     * The internal slf4j logger.
+     */
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * The value of ORACLE_CURSOR.
@@ -53,7 +61,7 @@ public class JdbcOracleCursorType extends SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
         throw new UnsupportedOperationException();
     }
 

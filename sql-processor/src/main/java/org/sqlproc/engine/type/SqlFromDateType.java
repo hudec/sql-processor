@@ -12,7 +12,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlFromDateType extends SqlMetaType {
+public abstract class SqlFromDateType extends SqlDefaultType {
 
     /**
      * {@inheritDoc}
@@ -33,13 +33,6 @@ public abstract class SqlFromDateType extends SqlMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, getProviderSqlType());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object pojo, String attributeName, Object resultValue,
             boolean ingoreError) {
@@ -53,9 +46,10 @@ public abstract class SqlFromDateType extends SqlMetaType {
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
+            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
+
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlNullType());
         } else if (inputValue instanceof java.sql.Timestamp) {
@@ -74,10 +68,8 @@ public abstract class SqlFromDateType extends SqlMetaType {
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
             query.setParameter(paramName, cal.getTime(), getProviderSqlType());
-        } else if (ingoreError) {
-            logger.error("Incorrect fromdate " + inputValue + " for " + paramName);
         } else {
-            throw new SqlRuntimeException("Incorrect fromdate " + inputValue + " for " + paramName);
+            error(ingoreError, "Incorrect fromdate " + inputValue + " for " + paramName);
         }
     }
 }

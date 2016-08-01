@@ -160,7 +160,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public SqlQueryEngine(String name, String statement, String mapping, SqlMonitor monitor,
             Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory)
-                    throws SqlEngineException {
+            throws SqlEngineException {
 
         super(name, SqlMetaStatement.getInstance(name, statement, typeFactory),
                 (mapping != null) ? SqlMappingRule.getInstance(name, mapping, typeFactory) : null, monitor, features,
@@ -299,7 +299,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, final Map<String, Class<?>> moreResultClasses)
-                    throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
         return query(session, resultClass, dynamicInputValues, new SqlStandardControl()
                 .setStaticInputValues(staticInputValues).setMoreResultClasses(moreResultClasses));
@@ -324,7 +324,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, SqlOrder order, final Map<String, Class<?>> moreResultClasses)
-                    throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
         return query(session, resultClass, dynamicInputValues, new SqlStandardControl()
                 .setStaticInputValues(staticInputValues).setOrder(order).setMoreResultClasses(moreResultClasses));
@@ -348,7 +348,7 @@ public class SqlQueryEngine extends SqlEngine {
      */
     public <E> List<E> query(SqlSession session, Class<E> resultClass, Object dynamicInputValues,
             Object staticInputValues, Integer firstResult, Integer maxResults)
-                    throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
         return query(session, resultClass, dynamicInputValues, new SqlStandardControl()
                 .setStaticInputValues(staticInputValues).setMaxResults(maxResults).setFirstResult(firstResult));
@@ -418,7 +418,7 @@ public class SqlQueryEngine extends SqlEngine {
     public <E> List<E> query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final SqlOrder order, final Integer maxTimeout, final Integer maxResults,
             final Integer firstResult, final Map<String, Class<?>> moreResultClasses)
-                    throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
         return query(session, resultClass, dynamicInputValues,
                 new SqlStandardControl().setStaticInputValues(staticInputValues).setOrder(order)
@@ -525,7 +525,7 @@ public class SqlQueryEngine extends SqlEngine {
     @Beta
     public <E> Integer query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor)
-                    throws SqlProcessorException, SqlRuntimeException {
+            throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> query, session=" + session + ", resultClass=" + resultClass + ", dynamicInputValues="
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
@@ -835,7 +835,8 @@ public class SqlQueryEngine extends SqlEngine {
             String sql = pluginFactory.getSqlCountPlugin().sqlCount(name, processResult.getSql());
             query = session.createSqlQuery(sql);
             query.setLogError(processResult.isLogError());
-            typeFactory.getDefaultType().addScalar(query, "vysledek", Integer.class);
+            typeFactory.getDefaultType().addScalar(processResult.getRuntimeContext().getTypeFactory(), query,
+                    "vysledek", Integer.class);
             if (getMaxTimeout(sqlControl) != null)
                 query.setTimeout(getMaxTimeout(sqlControl));
             query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
