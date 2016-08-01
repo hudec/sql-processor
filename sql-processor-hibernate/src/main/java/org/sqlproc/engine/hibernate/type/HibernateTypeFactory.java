@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.jdbc.type.JdbcByteArrayWrapperType;
 import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -69,10 +68,10 @@ public class HibernateTypeFactory implements SqlTypeFactory {
      * Singleton instance of String based enumeration type.
      */
     static final SqlMetaType BYTE_ARRAY = new HibernateByteArrayType();
-    /**
-     * Singleton instance of String based enumeration type.
-     */
-    static final SqlMetaType BYTE_ARRAY_WRAPPER = new JdbcByteArrayWrapperType();
+    // /**
+    // * Singleton instance of String based enumeration type.
+    // */
+    // static final SqlMetaType BYTE_ARRAY_WRAPPER = new JdbcByteArrayWrapperType();
     /**
      * Singleton instance of String based enumeration type.
      */
@@ -153,9 +152,9 @@ public class HibernateTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instances of generic types.
      */
-    static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
-            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP,
-            TIME, TO_DATE, TEXT, BLOB, CLOB };
+    static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, /* BYTE_ARRAY_WRAPPER, */BYTE,
+            CHAR, DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING,
+            TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB };
 
     /**
      * The immutable map between the Java class types and the internal types.
@@ -175,7 +174,7 @@ public class HibernateTypeFactory implements SqlTypeFactory {
         CLASS_TO_TYPE_MAP.put(boolean.class, BOOLEAN);
         CLASS_TO_TYPE_MAP.put(Boolean.class, BOOLEAN);
         CLASS_TO_TYPE_MAP.put(byte[].class, BYTE_ARRAY);
-        CLASS_TO_TYPE_MAP.put(Byte[].class, BYTE_ARRAY_WRAPPER);
+        // CLASS_TO_TYPE_MAP.put(Byte[].class, BYTE_ARRAY_WRAPPER);
         CLASS_TO_TYPE_MAP.put(byte.class, BYTE);
         CLASS_TO_TYPE_MAP.put(Byte.class, BYTE);
         CLASS_TO_TYPE_MAP.put(char.class, CHAR);
