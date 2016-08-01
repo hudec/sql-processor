@@ -1037,7 +1037,7 @@ UNDEFINED_TYPES(OUT)=
   t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
   n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
-  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
@@ -1118,7 +1118,7 @@ UNDEFINED_PARAMETERS(OUT)=
   t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
   n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
-  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
@@ -1161,7 +1161,7 @@ STANDARD_PARAMETERS(OUT)=
   t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
   n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
-  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 STANDARD_PARAMETERS(QRY,INFORMIX)=
@@ -1201,7 +1201,7 @@ STANDARD_PARAMETERS(OUT,INFORMIX)=
   t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
   n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
-  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
  
@@ -1231,7 +1231,7 @@ FROM_TO_PARAMETERS(OUT)=
   t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
   n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
-  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytes) a_text$a_text(type=text)
+  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
