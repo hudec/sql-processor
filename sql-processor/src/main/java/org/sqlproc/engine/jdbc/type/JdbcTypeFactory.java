@@ -1,5 +1,9 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Blob;
+import java.sql.Clob;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -167,9 +171,9 @@ public class JdbcTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instances of generic types.
      */
-    static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE, CHAR, DATE_TIME, DATE,
-            DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE,
-            TEXT, BLOB, CLOB, OTHER, ORACLE_CURSOR };
+    static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
+            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP,
+            TIME, TO_DATE, TEXT, BLOB, CLOB, OTHER, ORACLE_CURSOR };
 
     /**
      * The immutable map between the Java class types and the internal types.
@@ -184,9 +188,37 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      * Static init.
      */
     static {
+        CLASS_TO_TYPE_MAP.put(BigDecimal.class, JdbcTypeFactory.BIG_DECIMAL);
+        CLASS_TO_TYPE_MAP.put(BigInteger.class, JdbcTypeFactory.BIG_INTEGER);
+        CLASS_TO_TYPE_MAP.put(boolean.class, JdbcTypeFactory.BOOLEAN);
+        CLASS_TO_TYPE_MAP.put(Boolean.class, JdbcTypeFactory.BOOLEAN);
+        CLASS_TO_TYPE_MAP.put(byte[].class, JdbcTypeFactory.BYTE_ARRAY);
+        CLASS_TO_TYPE_MAP.put(Byte[].class, JdbcTypeFactory.BYTE_ARRAY_WRAPPER);
+        CLASS_TO_TYPE_MAP.put(byte.class, JdbcTypeFactory.BYTE);
+        CLASS_TO_TYPE_MAP.put(Byte.class, JdbcTypeFactory.BYTE);
+        CLASS_TO_TYPE_MAP.put(char.class, JdbcTypeFactory.CHAR);
+        CLASS_TO_TYPE_MAP.put(Character.class, JdbcTypeFactory.CHAR);
+        CLASS_TO_TYPE_MAP.put(java.sql.Date.class, JdbcTypeFactory.DATE);
+        CLASS_TO_TYPE_MAP.put(double.class, JdbcTypeFactory.DOUBLE);
+        CLASS_TO_TYPE_MAP.put(Double.class, JdbcTypeFactory.DOUBLE);
+        CLASS_TO_TYPE_MAP.put(float.class, JdbcTypeFactory.FLOAT);
+        CLASS_TO_TYPE_MAP.put(Float.class, JdbcTypeFactory.FLOAT);
+        CLASS_TO_TYPE_MAP.put(int.class, JdbcTypeFactory.INTEGER);
+        CLASS_TO_TYPE_MAP.put(Integer.class, JdbcTypeFactory.INTEGER);
+        CLASS_TO_TYPE_MAP.put(long.class, JdbcTypeFactory.LONG);
+        CLASS_TO_TYPE_MAP.put(Long.class, JdbcTypeFactory.LONG);
+        CLASS_TO_TYPE_MAP.put(short.class, JdbcTypeFactory.SHORT);
+        CLASS_TO_TYPE_MAP.put(Short.class, JdbcTypeFactory.SHORT);
+        CLASS_TO_TYPE_MAP.put(String.class, JdbcTypeFactory.STRING);
+        CLASS_TO_TYPE_MAP.put(java.util.Date.class, JdbcTypeFactory.TIMESTAMP);
+        CLASS_TO_TYPE_MAP.put(java.sql.Timestamp.class, JdbcTypeFactory.TIMESTAMP);
+        CLASS_TO_TYPE_MAP.put(java.sql.Time.class, JdbcTypeFactory.TIME);
+        CLASS_TO_TYPE_MAP.put(Blob.class, JdbcTypeFactory.BLOB);
+        CLASS_TO_TYPE_MAP.put(Clob.class, JdbcTypeFactory.CLOB);
+
         for (SqlMetaType type : TYPES) {
-            for (Class<?> classType : ((SqlMetaType) type).getClassTypes())
-                CLASS_TO_TYPE_MAP.put(classType, type);
+            // for (Class<?> classType : ((SqlMetaType) type).getClassTypes())
+            // CLASS_TO_TYPE_MAP.put(classType, type);
             for (String metaType : ((SqlMetaType) type).getMetaTypes())
                 META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
         }

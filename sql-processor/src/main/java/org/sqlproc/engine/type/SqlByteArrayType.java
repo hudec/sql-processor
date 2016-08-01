@@ -25,7 +25,7 @@ public abstract class SqlByteArrayType extends SqlDefaultType {
      */
     @Override
     public String[] getMetaTypes() {
-        return new String[] { "BYTEARR", "BYTEARRAY", "BYTES" };
+        return new String[] { "BYTES" };
     }
 
     /**

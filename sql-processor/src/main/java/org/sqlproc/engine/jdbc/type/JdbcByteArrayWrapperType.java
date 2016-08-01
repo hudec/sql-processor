@@ -32,6 +32,14 @@ public class JdbcByteArrayWrapperType extends SqlByteArrayType implements JdbcSq
         return Types.VARBINARY;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return new String[] { "BYTEARR", "BYTEARRAY" };
+    }
+
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
         byte[] bytes;
