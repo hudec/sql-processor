@@ -18,7 +18,7 @@ public abstract class SqlDateType extends SqlDefaultType {
      */
     @Override
     public Class<?>[] getClassTypes() {
-        return new Class[] { java.sql.Date.class };
+        return new Class[] { java.sql.Date.class, java.util.Date.class };
     }
 
     /**
@@ -27,25 +27,6 @@ public abstract class SqlDateType extends SqlDefaultType {
     @Override
     public String[] getMetaTypes() {
         return new String[] { "DATE" };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
-                    + ((resultValue != null) ? resultValue.getClass() : null));
-        }
-
-        if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Date.class,
-                java.util.Date.class))
-            return;
-        error(ingoreError,
-                "There's no setter for " + attributeName + " in " + resultInstance + ", META type is " + this);
     }
 
     /**

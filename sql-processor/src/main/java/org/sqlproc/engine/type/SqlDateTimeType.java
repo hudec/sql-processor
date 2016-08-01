@@ -19,7 +19,7 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
      */
     @Override
     public Class<?>[] getClassTypes() {
-        return new Class[] { java.util.Date.class };
+        return new Class[] { java.sql.Timestamp.class, java.util.Date.class };
     }
 
     /**
@@ -28,13 +28,6 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
     @Override
     public String[] getMetaTypes() {
         return new String[] { "DATETIME" };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, getProviderSqlType());
     }
 
     /**
@@ -49,22 +42,9 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
 
-        if (resultValue instanceof java.sql.Timestamp) {
+        if (resultValue instanceof java.sql.Timestamp)
             ((java.sql.Timestamp) resultValue).setNanos(0);
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
-                    java.util.Date.class))
-                return;
-        } else if (resultValue instanceof java.util.Date) {
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, java.sql.Timestamp.class,
-                    java.util.Date.class))
-                return;
-        } else {
-            error(ingoreError, "Incorrect datetime " + resultValue + " for " + attributeName + " in " + resultInstance);
-            return;
-        }
-
-        error(ingoreError, "There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
-                + getMetaTypes()[0]);
+        super.setResult(runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
     }
 
     /**
