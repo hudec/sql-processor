@@ -1,10 +1,15 @@
 package org.sqlproc.engine.hibernate.type;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Blob;
+import java.sql.Clob;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.jdbc.type.JdbcByteArrayWrapperType;
 import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
@@ -41,10 +46,6 @@ public class HibernateTypeFactory implements SqlTypeFactory {
     }
 
     /**
-     * Singleton instance of default type.
-     */
-    static final SqlMetaType DEFAULT = new HibernateDefaultType();
-    /**
      * Singleton instance of Integer based enumeration type.
      */
     static final SqlMetaType ENUM_INT = new HibernateEnumIntegerType();
@@ -55,16 +56,106 @@ public class HibernateTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instance of String based enumeration type.
      */
+    static final SqlMetaType BIG_DECIMAL = new HibernateBigDecimalType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType BIG_INTEGER = new HibernateBigIntegerType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType BOOLEAN = new HibernateBooleanType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType BYTE_ARRAY = new HibernateByteArrayType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType BYTE_ARRAY_WRAPPER = new JdbcByteArrayWrapperType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType BYTE = new HibernateByteType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType CHAR = new HibernateCharType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType DATE_TIME = new HibernateDateTimeType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType DATE = new HibernateDateType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType DOUBLE = new HibernateDoubleType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType FLOAT = new HibernateFloatType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType FROM_DATE = new HibernateFromDateType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType INTEGER = new HibernateIntegerType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType LONG = new HibernateLongType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType SHORT = new HibernateShortType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType TEXT = new HibernateTextType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType STRING = new HibernateStringType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType TIMESTAMP = new HibernateTimestampType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType TIME = new HibernateTimeType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType TO_DATE = new HibernateToDateType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType BLOB = new HibernateBlobType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType CLOB = new HibernateClobType();
+    /**
+     * Singleton instance of auto-generated identity type.
+     */
     static final SqlMetaType IDENTITY = new HibernateIdentityType();
+
+    /**
+     * Singleton instance of default type.
+     */
+    static final SqlMetaType DEFAULT = new HibernateDefaultType();
     /**
      * Singleton instances of generic types.
      */
-    static final SqlMetaType[] TYPES = { new HibernateBigDecimalType(), new HibernateBigIntegerType(),
-            new HibernateBooleanType(), new HibernateByteArrayType(), new HibernateByteType(), new HibernateCharType(),
-            new HibernateDateTimeType(), new HibernateDateType(), new HibernateDoubleType(), ENUM_INT, ENUM_STRING,
-            new HibernateFloatType(), new HibernateFromDateType(), new HibernateIntegerType(), new HibernateLongType(),
-            new HibernateShortType(), new HibernateStringType(), new HibernateTimestampType(), new HibernateTimeType(),
-            new HibernateToDateType(), new HibernateTextType(), new HibernateBlobType(), new HibernateClobType() };
+    static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
+            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP,
+            TIME, TO_DATE, TEXT, BLOB, CLOB };
 
     /**
      * The immutable map between the Java class types and the internal types.
@@ -79,9 +170,37 @@ public class HibernateTypeFactory implements SqlTypeFactory {
      * Static init.
      */
     static {
+        CLASS_TO_TYPE_MAP.put(BigDecimal.class, BIG_DECIMAL);
+        CLASS_TO_TYPE_MAP.put(BigInteger.class, BIG_INTEGER);
+        CLASS_TO_TYPE_MAP.put(boolean.class, BOOLEAN);
+        CLASS_TO_TYPE_MAP.put(Boolean.class, BOOLEAN);
+        CLASS_TO_TYPE_MAP.put(byte[].class, BYTE_ARRAY);
+        CLASS_TO_TYPE_MAP.put(Byte[].class, BYTE_ARRAY_WRAPPER);
+        CLASS_TO_TYPE_MAP.put(byte.class, BYTE);
+        CLASS_TO_TYPE_MAP.put(Byte.class, BYTE);
+        CLASS_TO_TYPE_MAP.put(char.class, CHAR);
+        CLASS_TO_TYPE_MAP.put(Character.class, CHAR);
+        CLASS_TO_TYPE_MAP.put(java.sql.Date.class, DATE);
+        CLASS_TO_TYPE_MAP.put(double.class, DOUBLE);
+        CLASS_TO_TYPE_MAP.put(Double.class, DOUBLE);
+        CLASS_TO_TYPE_MAP.put(float.class, FLOAT);
+        CLASS_TO_TYPE_MAP.put(Float.class, FLOAT);
+        CLASS_TO_TYPE_MAP.put(int.class, INTEGER);
+        CLASS_TO_TYPE_MAP.put(Integer.class, INTEGER);
+        CLASS_TO_TYPE_MAP.put(long.class, LONG);
+        CLASS_TO_TYPE_MAP.put(Long.class, LONG);
+        CLASS_TO_TYPE_MAP.put(short.class, SHORT);
+        CLASS_TO_TYPE_MAP.put(Short.class, SHORT);
+        CLASS_TO_TYPE_MAP.put(String.class, STRING);
+        CLASS_TO_TYPE_MAP.put(java.util.Date.class, TIMESTAMP);
+        CLASS_TO_TYPE_MAP.put(java.sql.Timestamp.class, TIMESTAMP);
+        CLASS_TO_TYPE_MAP.put(java.sql.Time.class, TIME);
+        CLASS_TO_TYPE_MAP.put(Blob.class, BLOB);
+        CLASS_TO_TYPE_MAP.put(Clob.class, CLOB);
+
         for (SqlMetaType type : TYPES) {
-            for (Class<?> classType : type.getClassTypes())
-                CLASS_TO_TYPE_MAP.put(classType, type);
+            // for (Class<?> classType : type.getClassTypes())
+            // CLASS_TO_TYPE_MAP.put(classType, type);
             for (String metaType : type.getMetaTypes())
                 META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
         }

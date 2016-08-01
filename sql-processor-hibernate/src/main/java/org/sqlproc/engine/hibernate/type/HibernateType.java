@@ -15,13 +15,14 @@ import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlMetaType;
+import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The general Hibernate META type.
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class HibernateType extends SqlMetaType {
+public class HibernateType implements SqlMetaType {
 
     /**
      * The internal slf4j logger.
@@ -78,7 +79,8 @@ public class HibernateType extends SqlMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
+    @Override
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
         query.addScalar(dbName, hibernateType);
     }
 

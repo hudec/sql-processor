@@ -45,11 +45,14 @@ import org.hibernate.type.descriptor.java.LongTypeDescriptor;
 import org.hibernate.type.descriptor.sql.BasicExtractor;
 import org.hibernate.type.descriptor.sql.BigIntTypeDescriptor;
 import org.hibernate.type.descriptor.sql.IntegerTypeDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.impl.SqlUtils;
 import org.sqlproc.engine.type.SqlMetaType;
+import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
  * The default META type for the Hibernate stack. It's used in the case there's no explicit META type declaration in the
@@ -57,7 +60,12 @@ import org.sqlproc.engine.type.SqlMetaType;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class HibernateDefaultType extends SqlMetaType {
+public class HibernateDefaultType implements SqlMetaType {
+
+    /**
+     * The internal slf4j logger.
+     */
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * The map between the Java types and the Hibernate types.
@@ -244,7 +252,8 @@ public class HibernateDefaultType extends SqlMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
+    @Override
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
         Type hibernateType = hibernateTypes.get(attributeType);
         if (hibernateType != null)
             query.addScalar(dbName, hibernateType);
