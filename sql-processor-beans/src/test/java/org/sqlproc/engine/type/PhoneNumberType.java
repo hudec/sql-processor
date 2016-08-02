@@ -51,14 +51,6 @@ public class PhoneNumberType implements SqlMetaType {
     /**
      * {@inheritDoc}
      */
-    @Override
-    public Object getDatabaseSqlType() {
-        return Types.VARCHAR;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
         query.addScalar(dbName, Types.VARCHAR);
     }

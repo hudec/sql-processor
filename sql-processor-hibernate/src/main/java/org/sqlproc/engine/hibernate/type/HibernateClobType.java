@@ -17,12 +17,4 @@ public class HibernateClobType extends SqlClobType {
     public Object getProviderSqlType() {
         return ClobType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return ClobType.INSTANCE;
-    }
 }

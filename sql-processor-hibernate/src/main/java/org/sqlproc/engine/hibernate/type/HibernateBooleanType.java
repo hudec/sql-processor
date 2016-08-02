@@ -17,12 +17,4 @@ public class HibernateBooleanType extends SqlBooleanType {
     public Object getProviderSqlType() {
         return BooleanType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return BooleanType.INSTANCE;
-    }
 }

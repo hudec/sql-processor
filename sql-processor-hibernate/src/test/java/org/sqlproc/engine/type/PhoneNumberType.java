@@ -1,6 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -47,14 +46,6 @@ public class PhoneNumberType implements SqlMetaType {
     @Override
     public Object getProviderSqlType() {
         return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return Types.VARCHAR;
     }
 
     /**

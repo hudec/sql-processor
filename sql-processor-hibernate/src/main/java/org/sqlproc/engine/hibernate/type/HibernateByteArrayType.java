@@ -17,12 +17,4 @@ public class HibernateByteArrayType extends SqlByteArrayType {
     public Object getProviderSqlType() {
         return BinaryType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return BinaryType.INSTANCE;
-    }
 }

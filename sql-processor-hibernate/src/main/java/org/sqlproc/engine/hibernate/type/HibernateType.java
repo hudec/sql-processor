@@ -30,6 +30,30 @@ public class HibernateType implements SqlMetaType {
     protected static final Logger logger = LoggerFactory.getLogger(HibernateType.class);
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?>[] getClassTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlType() {
+        return null;
+    }
+
+    /**
      * The map between the Hibernate types names and the Hibernate types.
      */
     static Map<String, Field> hibernateTypes = new HashMap<String, Field>();
@@ -128,37 +152,5 @@ public class HibernateType implements SqlMetaType {
         } else {
             query.setParameter(paramName, inputValue, hibernateType);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Class<?>[] getClassTypes() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String[] getMetaTypes() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getProviderSqlType() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return null;
     }
 }

@@ -41,7 +41,7 @@ public abstract class SqlTimeType extends SqlDefaultType {
         }
 
         if (inputValue == null) {
-            query.setParameter(paramName, null, getDatabaseSqlType());
+            query.setParameter(paramName, null, getProviderSqlType());
         } else if (inputValue instanceof java.sql.Time) {
             query.setParameter(paramName, (java.sql.Time) inputValue, getProviderSqlType());
         } else if (inputValue instanceof Date) {

@@ -63,6 +63,11 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 public class HibernateDefaultType implements SqlMetaType {
 
     /**
+     * The internal slf4j logger.
+     */
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -85,19 +90,6 @@ public class HibernateDefaultType implements SqlMetaType {
     public Object getProviderSqlType() {
         return null;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return null;
-    }
-
-    /**
-     * The internal slf4j logger.
-     */
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * The map between the Java types and the Hibernate types.

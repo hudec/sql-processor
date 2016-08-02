@@ -122,7 +122,7 @@ public abstract class SqlDefaultType implements SqlMetaType {
 
         if (getProviderSqlType() != null) {
             if (inputValue == null) {
-                query.setParameter(paramName, inputValue, getDatabaseSqlType());
+                query.setParameter(paramName, inputValue, getProviderSqlType());
             } else if (inputValue instanceof Collection) {
                 query.setParameterList(paramName, ((Collection) inputValue).toArray(), getProviderSqlType());
             } else {

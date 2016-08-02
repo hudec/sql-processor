@@ -59,7 +59,7 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
         }
 
         if (inputValue == null) {
-            query.setParameter(paramName, inputValue, getDatabaseSqlType());
+            query.setParameter(paramName, inputValue, getProviderSqlType());
         } else if (inputValue instanceof java.sql.Timestamp) {
             Calendar cal = Calendar.getInstance();
             cal.setTime((java.sql.Timestamp) inputValue);

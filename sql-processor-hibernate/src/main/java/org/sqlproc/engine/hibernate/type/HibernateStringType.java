@@ -17,12 +17,4 @@ public class HibernateStringType extends SqlStringType {
     public Object getProviderSqlType() {
         return StringType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return StringType.INSTANCE;
-    }
 }

@@ -17,12 +17,4 @@ public class HibernateIntegerType extends SqlIntegerType {
     public Object getProviderSqlType() {
         return IntegerType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return IntegerType.INSTANCE;
-    }
 }

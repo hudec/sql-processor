@@ -57,4 +57,12 @@ public interface JdbcSqlType {
      *                a closed CallableStatement
      */
     public abstract Object get(CallableStatement cs, int index) throws SQLException;
+
+    /**
+     * Returns the type provided by the stack on top of which the SQL Processor works. It has to support <tt>null</tt>
+     * input/output values.
+     * 
+     * @return the provided type
+     */
+    public Object getDatabaseSqlType();
 }

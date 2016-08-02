@@ -157,11 +157,6 @@ public class JdbcTypeFactory implements SqlTypeFactory {
         public Object getProviderSqlType() {
             return null;
         }
-
-        @Override
-        public Object getDatabaseSqlType() {
-            return null;
-        }
     };
     /**
      * Singleton instance of default type.

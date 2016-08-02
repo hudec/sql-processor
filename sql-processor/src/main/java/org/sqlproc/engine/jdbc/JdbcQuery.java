@@ -26,7 +26,6 @@ import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
 import org.sqlproc.engine.type.IdentitySetter;
 import org.sqlproc.engine.type.OutValueSetter;
-import org.sqlproc.engine.type.SqlMetaType;
 
 /**
  * The JDBC stack implementation of the SQL Engine query contract. In fact it's an adapter the internal JDBC stuff.
@@ -754,10 +753,17 @@ public class JdbcQuery implements SqlQuery {
                     if (type instanceof JdbcSqlType) {
                         JdbcSqlType sqlType = (JdbcSqlType) type;
                         try {
-                            if (logger.isTraceEnabled()) {
-                                logger.trace("setParameters, ix=" + (ix + i) + ", value=" + value);
+                            if (value == null) {
+                                if (logger.isTraceEnabled()) {
+                                    logger.trace("setNull, ix=" + (ix + i) + ", type=" + type);
+                                }
+                                ps.setNull(ix + i, (Integer) sqlType.getDatabaseSqlType());
+                            } else {
+                                if (logger.isTraceEnabled()) {
+                                    logger.trace("setParameters, ix=" + (ix + i) + ", value=" + value);
+                                }
+                                sqlType.set(ps, ix + i, value);
                             }
-                            sqlType.set(ps, ix + i, value);
                         } catch (ClassCastException cce) {
                             StringBuilder sb = new StringBuilder("Not compatible input value of type ")
                                     .append((value != null) ? value.getClass() : "null");
@@ -787,8 +793,8 @@ public class JdbcQuery implements SqlQuery {
             if (parameterOutValueSetters.containsKey(name)) {
                 CallableStatement cs = (CallableStatement) ps;
                 if (type != null) {
-                    if (type instanceof SqlMetaType) {
-                        cs.registerOutParameter(ix + i, (Integer) ((SqlMetaType) type).getDatabaseSqlType());
+                    if (type instanceof JdbcSqlType) {
+                        cs.registerOutParameter(ix + i, (Integer) ((JdbcSqlType) type).getDatabaseSqlType());
                     } else {
                         cs.registerOutParameter(ix + i, (Integer) type);
                     }

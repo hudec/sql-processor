@@ -36,7 +36,6 @@ import org.sqlproc.engine.jdbc.type.JdbcSqlType;
 import org.sqlproc.engine.plugin.SqlFromToPlugin;
 import org.sqlproc.engine.type.IdentitySetter;
 import org.sqlproc.engine.type.OutValueSetter;
-import org.sqlproc.engine.type.SqlMetaType;
 
 /**
  * The Spring stack implementation of the SQL Engine query contract. In fact it's an adapter the internal Spring stuff.
@@ -846,7 +845,10 @@ public class SpringQuery implements SqlQuery {
                 Object value = parameterValues.get(name);
                 if (type != null) {
                     if (type instanceof JdbcSqlType) {
-                        ((JdbcSqlType) type).set(ps, ix + i, value);
+                        if (value == null)
+                            ps.setNull(ix + i, (Integer) ((JdbcSqlType) type).getDatabaseSqlType());
+                        else
+                            ((JdbcSqlType) type).set(ps, ix + i, value);
                     } else if (value == null) {
                         ps.setNull(ix + i, (Integer) type);
                     } else {
@@ -859,8 +861,8 @@ public class SpringQuery implements SqlQuery {
             if (parameterOutValueSetters.containsKey(name)) {
                 CallableStatement cs = (CallableStatement) ps;
                 if (type != null) {
-                    if (type instanceof SqlMetaType) {
-                        cs.registerOutParameter(ix + i, (Integer) ((SqlMetaType) type).getDatabaseSqlType());
+                    if (type instanceof JdbcSqlType) {
+                        cs.registerOutParameter(ix + i, (Integer) ((JdbcSqlType) type).getDatabaseSqlType());
                     } else {
                         cs.registerOutParameter(ix + i, (Integer) type);
                     }

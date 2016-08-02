@@ -71,7 +71,7 @@ public abstract class SqlByteArrayType extends SqlDefaultType {
         }
 
         if (inputValue == null) {
-            query.setParameter(paramName, inputValue, getDatabaseSqlType());
+            query.setParameter(paramName, inputValue, getProviderSqlType());
         } else {
             if (inputValue instanceof byte[])
                 query.setParameter(paramName, (byte[]) inputValue, getProviderSqlType());

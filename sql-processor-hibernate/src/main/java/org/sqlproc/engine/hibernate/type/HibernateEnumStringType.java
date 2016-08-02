@@ -17,12 +17,4 @@ public class HibernateEnumStringType extends SqlEnumStringType {
     public Object getProviderSqlType() {
         return StringType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return StringType.INSTANCE;
-    }
 }

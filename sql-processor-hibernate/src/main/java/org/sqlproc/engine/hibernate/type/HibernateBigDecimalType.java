@@ -17,12 +17,4 @@ public class HibernateBigDecimalType extends SqlBigDecimalType {
     public Object getProviderSqlType() {
         return BigDecimalType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return BigDecimalType.INSTANCE;
-    }
 }

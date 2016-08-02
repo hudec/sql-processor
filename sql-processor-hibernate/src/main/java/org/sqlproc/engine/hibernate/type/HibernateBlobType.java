@@ -17,12 +17,4 @@ public class HibernateBlobType extends SqlBlobType {
     public Object getProviderSqlType() {
         return BlobType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return BlobType.INSTANCE;
-    }
 }

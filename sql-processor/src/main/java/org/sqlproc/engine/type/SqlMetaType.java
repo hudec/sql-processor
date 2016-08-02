@@ -34,14 +34,6 @@ public interface SqlMetaType {
     public Object getProviderSqlType();
 
     /**
-     * Returns the type provided by the stack on top of which the SQL Processor works. It has to support <tt>null</tt>
-     * input/output values.
-     * 
-     * @return the provided type
-     */
-    public Object getDatabaseSqlType();
-
-    /**
      * Declares a scalar query result, which is an SQL query execution output value.
      * 
      * @param typeFactory

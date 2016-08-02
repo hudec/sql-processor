@@ -17,12 +17,4 @@ public class HibernateCharType extends SqlCharType {
     public Object getProviderSqlType() {
         return CharacterType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return CharacterType.INSTANCE;
-    }
 }

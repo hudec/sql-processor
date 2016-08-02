@@ -17,12 +17,4 @@ public class HibernateTextType extends SqlTextType {
     public Object getProviderSqlType() {
         return TextType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return TextType.INSTANCE;
-    }
 }

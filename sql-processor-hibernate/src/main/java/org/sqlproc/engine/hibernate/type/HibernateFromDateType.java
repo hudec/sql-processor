@@ -17,12 +17,4 @@ public class HibernateFromDateType extends SqlFromDateType {
     public Object getProviderSqlType() {
         return DateType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return DateType.INSTANCE;
-    }
 }

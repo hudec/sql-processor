@@ -17,12 +17,4 @@ public class HibernateBigIntegerType extends SqlBigIntegerType {
     public Object getProviderSqlType() {
         return BigIntegerType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return BigIntegerType.INSTANCE;
-    }
 }

@@ -17,12 +17,4 @@ public class HibernateFloatType extends SqlFloatType {
     public Object getProviderSqlType() {
         return FloatType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return FloatType.INSTANCE;
-    }
 }

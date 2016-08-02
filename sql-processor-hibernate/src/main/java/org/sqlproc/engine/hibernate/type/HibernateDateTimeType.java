@@ -17,12 +17,4 @@ public class HibernateDateTimeType extends SqlDateTimeType {
     public Object getProviderSqlType() {
         return TimestampType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return TimestampType.INSTANCE;
-    }
 }

@@ -17,12 +17,4 @@ public class JdbcDefaultType extends SqlDefaultType {
     public Object getProviderSqlType() {
         return null;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return null;
-    }
 }

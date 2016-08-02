@@ -17,12 +17,4 @@ public class HibernateLongType extends SqlLongType {
     public Object getProviderSqlType() {
         return LongType.INSTANCE;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getDatabaseSqlType() {
-        return LongType.INSTANCE;
-    }
 }
