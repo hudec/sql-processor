@@ -19,12 +19,28 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class SqlDefaultType implements SqlMetaType {
+public abstract class SqlDefaultType implements SqlMetaType {
 
     /**
      * The internal slf4j logger.
      */
     protected final Logger logger = LoggerFactory.getLogger(getClass());
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?>[] getClassTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return null;
+    }
 
     /**
      * {@inheritDoc}
@@ -163,38 +179,6 @@ public class SqlDefaultType implements SqlMetaType {
                 query.setParameterList(paramName, ((Collection) inputValue).toArray());
             }
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Class<?>[] getClassTypes() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String[] getMetaTypes() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getProviderSqlType() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getProviderSqlNullType() {
-        return null;
     }
 
     protected void error(boolean ingoreError, String msg) {

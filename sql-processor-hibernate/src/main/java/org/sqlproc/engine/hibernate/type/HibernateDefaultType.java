@@ -63,6 +63,38 @@ import org.sqlproc.engine.type.SqlTypeFactory;
 public class HibernateDefaultType implements SqlMetaType {
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?>[] getClassTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlType() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getProviderSqlNullType() {
+        return null;
+    }
+
+    /**
      * The internal slf4j logger.
      */
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -272,16 +304,12 @@ public class HibernateDefaultType implements SqlMetaType {
                     + ", resultValue=" + resultValue + ", resultType"
                     + ((resultValue != null) ? resultValue.getClass() : null));
         }
+
         Class<?> attributeType = runtimeCtx.getAttributeType(resultInstance.getClass(), attributeName);
         if (attributeType == null) {
-            if (ingoreError) {
-                logger.error("There's problem with attribute type for '" + attributeName + "' in " + resultInstance
-                        + ", META type is DEFAULT");
-                return;
-            } else {
-                throw new SqlRuntimeException("There's problem with attribute type for '" + attributeName + "' in "
-                        + resultInstance + ", META type is DEFAULT");
-            }
+            error(ingoreError, "There's problem with attribute type for '" + attributeName + "' in " + resultInstance
+                    + ", META type is DEFAULT");
+            return;
         }
         if (attributeType.isEnum()) {
             if (resultValue != null && resultValue instanceof BigDecimal)
@@ -292,13 +320,9 @@ public class HibernateDefaultType implements SqlMetaType {
 
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
                 return;
-            if (ingoreError) {
-                logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
-                        + ", META type is DEFAULT");
-            } else {
-                throw new SqlRuntimeException("There's no setter for '" + attributeName + "' in " + resultInstance
-                        + ", META type is DEFAULT");
-            }
+            error(ingoreError,
+                    "There's no getter for '" + attributeName + "' in " + resultInstance + ", META type is DEFAULT");
+            return;
         } else {
             if (resultValue != null) {
                 if (resultValue instanceof BigDecimal)
@@ -309,13 +333,8 @@ public class HibernateDefaultType implements SqlMetaType {
 
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
                 return;
-            if (ingoreError) {
-                logger.error("There's no getter for '" + attributeName + "' in " + resultInstance
-                        + ", META type is DEFAULT");
-            } else {
-                throw new SqlRuntimeException("There's no setter for '" + attributeName + "' in " + resultInstance
-                        + ", META type is DEFAULT");
-            }
+            error(ingoreError,
+                    "There's no getter for '" + attributeName + "' in " + resultInstance + ", META type is DEFAULT");
         }
     }
 
@@ -329,6 +348,7 @@ public class HibernateDefaultType implements SqlMetaType {
             logger.trace(">>> setParameter DEFAULT: paramName=" + paramName + ", inputValue=" + inputValue
                     + ", inputType=" + inputType);
         }
+
         if (!(inputValue instanceof Collection)) {
             if (inputType.isEnum()) {
                 Class clazz = runtimeCtx.getEnumToClass(inputType);
@@ -339,22 +359,16 @@ public class HibernateDefaultType implements SqlMetaType {
                     HibernateTypeFactory.ENUM_INT.setParameter(runtimeCtx, query, paramName, inputValue, inputType,
                             ingoreError);
                 } else {
-                    if (ingoreError) {
-                        logger.error("Incorrect type based enum " + inputValue + " for " + paramName);
-                    } else {
-                        throw new SqlRuntimeException("Incorrect type based enum " + inputValue + " for " + paramName);
-                    }
+                    error(ingoreError, "Incorrect type based enum " + inputValue + " for " + paramName);
+                    return;
                 }
             } else {
                 SqlMetaType type = runtimeCtx.getTypeFactory().getMetaType(inputType);
                 if (type != null) {
                     type.setParameter(runtimeCtx, query, paramName, inputValue, inputType, ingoreError);
                 } else {
-                    if (ingoreError) {
-                        logger.error("Incorrect default type " + inputValue + " for " + paramName);
-                    } else {
-                        throw new SqlRuntimeException("Incorrect default type " + inputValue + " for " + paramName);
-                    }
+                    error(ingoreError, "Incorrect default type " + inputValue + " for " + paramName);
+                    return;
                 }
             }
         } else {
@@ -370,12 +384,8 @@ public class HibernateDefaultType implements SqlMetaType {
                 if (o != null) {
                     vals.add(o);
                 } else {
-                    if (ingoreError) {
-                        logger.error("Incorrect type based enum item value " + o + " for " + paramName);
-                    } else {
-                        throw new SqlRuntimeException(
-                                "Incorrect type based enum item value " + o + " for " + paramName);
-                    }
+                    error(ingoreError, "Incorrect type based enum item value " + o + " for " + paramName);
+                    return;
                 }
             }
             if (isEnum) {
@@ -403,35 +413,11 @@ public class HibernateDefaultType implements SqlMetaType {
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Class<?>[] getClassTypes() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String[] getMetaTypes() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getProviderSqlType() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getProviderSqlNullType() {
-        return null;
+    protected void error(boolean ingoreError, String msg) {
+        if (ingoreError) {
+            logger.error(msg);
+        } else {
+            throw new SqlRuntimeException(msg);
+        }
     }
 }

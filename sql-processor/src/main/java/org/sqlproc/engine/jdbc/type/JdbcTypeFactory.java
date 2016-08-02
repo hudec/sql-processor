@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.type.SqlDefaultType;
 import org.sqlproc.engine.type.SqlIdentityType;
 import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
@@ -167,7 +166,7 @@ public class JdbcTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instance of default type.
      */
-    static final SqlMetaType DEFAULT = new SqlDefaultType();
+    static final SqlMetaType DEFAULT = new JdbcDefaultType();
     /**
      * Singleton instances of generic types.
      */
