@@ -22,7 +22,7 @@ public class HibernateShortType extends SqlShortType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return ShortType.INSTANCE;
     }
 }

@@ -22,7 +22,7 @@ public class HibernateTextType extends SqlTextType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return TextType.INSTANCE;
     }
 }

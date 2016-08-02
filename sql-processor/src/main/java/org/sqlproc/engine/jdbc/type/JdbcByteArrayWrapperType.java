@@ -28,7 +28,7 @@ public class JdbcByteArrayWrapperType extends SqlByteArrayType implements JdbcSq
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.VARBINARY;
     }
 

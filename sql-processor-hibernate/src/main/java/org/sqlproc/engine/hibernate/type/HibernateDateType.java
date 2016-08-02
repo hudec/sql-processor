@@ -22,7 +22,7 @@ public class HibernateDateType extends SqlDateType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return DateType.INSTANCE;
     }
 }

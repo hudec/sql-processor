@@ -28,7 +28,7 @@ public class JdbcDateType extends SqlDateType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.DATE;
     }
 

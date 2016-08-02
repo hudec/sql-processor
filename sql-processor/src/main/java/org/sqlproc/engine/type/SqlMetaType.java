@@ -39,7 +39,7 @@ public interface SqlMetaType {
      * 
      * @return the provided type
      */
-    public Object getProviderSqlNullType();
+    public Object getDatabaseSqlType();
 
     /**
      * Declares a scalar query result, which is an SQL query execution output value.

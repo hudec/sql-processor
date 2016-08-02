@@ -22,7 +22,7 @@ public class HibernateBigDecimalType extends SqlBigDecimalType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return BigDecimalType.INSTANCE;
     }
 }

@@ -22,7 +22,7 @@ public class HibernateCharType extends SqlCharType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return CharacterType.INSTANCE;
     }
 }

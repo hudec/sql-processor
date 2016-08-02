@@ -34,7 +34,7 @@ public class JdbcOtherType implements SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.OTHER;
     }
 
@@ -82,6 +82,6 @@ public class JdbcOtherType implements SqlMetaType {
                     + inputValue + ", inputType=" + inputType);
         }
 
-        query.setParameter(paramName, inputValue, getProviderSqlNullType());
+        query.setParameter(paramName, inputValue, getDatabaseSqlType());
     }
 }

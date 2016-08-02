@@ -22,7 +22,7 @@ public class HibernateEnumIntegerType extends SqlEnumIntegerType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return IntegerType.INSTANCE;
     }
 }

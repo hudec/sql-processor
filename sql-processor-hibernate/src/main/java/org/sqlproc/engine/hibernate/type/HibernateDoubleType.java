@@ -22,7 +22,7 @@ public class HibernateDoubleType extends SqlDoubleType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return DoubleType.INSTANCE;
     }
 }

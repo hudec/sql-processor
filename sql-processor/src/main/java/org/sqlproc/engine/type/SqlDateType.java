@@ -41,7 +41,7 @@ public abstract class SqlDateType extends SqlDefaultType {
         }
 
         if (inputValue == null) {
-            query.setParameter(paramName, null, getProviderSqlNullType());
+            query.setParameter(paramName, null, getDatabaseSqlType());
         } else if (inputValue instanceof java.sql.Date) {
             query.setParameter(paramName, (java.sql.Date) inputValue, getProviderSqlType());
         } else if (inputValue instanceof Date) {

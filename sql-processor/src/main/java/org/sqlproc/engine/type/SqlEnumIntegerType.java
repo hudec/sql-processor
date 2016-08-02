@@ -67,7 +67,7 @@ public abstract class SqlEnumIntegerType extends SqlDefaultType {
         }
 
         if (inputValue == null) {
-            query.setParameter(paramName, inputValue, getProviderSqlNullType());
+            query.setParameter(paramName, inputValue, getDatabaseSqlType());
         } else if (!inputValue.getClass().isEnum()) {
             if (!(inputValue instanceof Collection)) {
                 if (inputValue instanceof OutValueSetter) {

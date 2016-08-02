@@ -22,7 +22,7 @@ public class HibernateBigIntegerType extends SqlBigIntegerType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return BigIntegerType.INSTANCE;
     }
 }

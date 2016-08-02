@@ -27,7 +27,7 @@ public class JdbcEnumStringType extends SqlEnumStringType implements JdbcSqlType
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.VARCHAR;
     }
 

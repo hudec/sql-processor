@@ -22,7 +22,7 @@ public class HibernateLongType extends SqlLongType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return LongType.INSTANCE;
     }
 }

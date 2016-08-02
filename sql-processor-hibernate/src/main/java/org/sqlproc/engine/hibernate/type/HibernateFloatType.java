@@ -22,7 +22,7 @@ public class HibernateFloatType extends SqlFloatType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return FloatType.INSTANCE;
     }
 }

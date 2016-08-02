@@ -22,7 +22,7 @@ public class HibernateBooleanType extends SqlBooleanType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return BooleanType.INSTANCE;
     }
 }

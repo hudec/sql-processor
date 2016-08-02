@@ -159,7 +159,7 @@ public class JdbcTypeFactory implements SqlTypeFactory {
         }
 
         @Override
-        public Object getProviderSqlNullType() {
+        public Object getDatabaseSqlType() {
             return null;
         }
     };

@@ -22,7 +22,7 @@ public class HibernateBlobType extends SqlBlobType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return BlobType.INSTANCE;
     }
 }

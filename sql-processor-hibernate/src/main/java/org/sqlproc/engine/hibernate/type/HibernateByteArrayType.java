@@ -22,7 +22,7 @@ public class HibernateByteArrayType extends SqlByteArrayType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return BinaryType.INSTANCE;
     }
 }

@@ -22,7 +22,7 @@ public class HibernateTimeType extends SqlTimeType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return TimeType.INSTANCE;
     }
 }

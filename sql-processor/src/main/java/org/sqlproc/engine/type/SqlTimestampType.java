@@ -48,7 +48,7 @@ public abstract class SqlTimestampType extends SqlDefaultType {
         }
 
         if (inputValue == null) {
-            query.setParameter(paramName, null, getProviderSqlNullType());
+            query.setParameter(paramName, null, getDatabaseSqlType());
         } else if (inputValue instanceof java.sql.Timestamp) {
             query.setParameter(paramName, (java.sql.Timestamp) inputValue, getProviderSqlType());
         } else if (inputValue instanceof Date) {

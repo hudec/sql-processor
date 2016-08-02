@@ -27,7 +27,7 @@ public class JdbcCharType extends SqlCharType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.CHAR;
     }
 

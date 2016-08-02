@@ -22,7 +22,7 @@ public class JdbcDefaultType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return null;
     }
 }

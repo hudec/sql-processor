@@ -158,7 +158,7 @@ public class HibernateType implements SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return null;
     }
 }

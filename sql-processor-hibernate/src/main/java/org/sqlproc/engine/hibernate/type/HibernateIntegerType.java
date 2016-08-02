@@ -22,7 +22,7 @@ public class HibernateIntegerType extends SqlIntegerType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return IntegerType.INSTANCE;
     }
 }

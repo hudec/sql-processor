@@ -27,7 +27,7 @@ public class JdbcStringType extends SqlStringType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.VARCHAR;
     }
 

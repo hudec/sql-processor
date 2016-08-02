@@ -27,7 +27,7 @@ public class JdbcLongType extends SqlLongType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.BIGINT;
     }
 

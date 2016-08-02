@@ -22,7 +22,7 @@ public class HibernateClobType extends SqlClobType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return ClobType.INSTANCE;
     }
 }

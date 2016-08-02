@@ -37,7 +37,7 @@ public class JdbcOracleCursorType implements SqlMetaType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return JDBC_TYPE;
     }
 
@@ -84,6 +84,6 @@ public class JdbcOracleCursorType implements SqlMetaType {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
                     + inputValue + ", inputType=" + inputType);
         }
-        query.setParameter(paramName, inputValue, getProviderSqlNullType());
+        query.setParameter(paramName, inputValue, getDatabaseSqlType());
     }
 }

@@ -27,7 +27,7 @@ public class JdbcIntegerType extends SqlIntegerType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getProviderSqlNullType() {
+    public Object getDatabaseSqlType() {
         return Types.INTEGER;
     }
 
