@@ -54,8 +54,10 @@ public class SqlComposedTypeFactory implements SqlTypeFactory {
 
         if (customTypes != null && !customTypes.isEmpty()) {
             for (SqlMetaType type : customTypes) {
-                for (Class<?> classType : type.getClassTypes())
+                for (Class<?> classType : type.getClassTypes()) {
                     classToTypeMap.put(classType, type);
+                    break;
+                }
                 for (String metaType : type.getMetaTypes())
                     metaToTypeMap.put(metaType.toUpperCase(), type);
             }
