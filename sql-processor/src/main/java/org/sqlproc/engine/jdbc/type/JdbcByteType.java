@@ -27,7 +27,7 @@ public class JdbcByteType extends SqlByteType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getDatabaseSqlType() {
+    public Integer getDatabaseSqlType() {
         return Types.TINYINT;
     }
 

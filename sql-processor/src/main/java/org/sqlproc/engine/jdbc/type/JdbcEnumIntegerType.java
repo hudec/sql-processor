@@ -27,7 +27,7 @@ public class JdbcEnumIntegerType extends SqlEnumIntegerType implements JdbcSqlTy
      * {@inheritDoc}
      */
     @Override
-    public Object getDatabaseSqlType() {
+    public Integer getDatabaseSqlType() {
         return Types.INTEGER;
     }
 

@@ -27,7 +27,7 @@ public class JdbcFloatType extends SqlFloatType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getDatabaseSqlType() {
+    public Integer getDatabaseSqlType() {
         return Types.FLOAT;
     }
 

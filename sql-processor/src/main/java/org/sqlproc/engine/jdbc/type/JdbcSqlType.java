@@ -64,5 +64,5 @@ public interface JdbcSqlType {
      * 
      * @return the provided type
      */
-    public Object getDatabaseSqlType();
+    public Integer getDatabaseSqlType();
 }

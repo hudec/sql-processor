@@ -28,7 +28,7 @@ public class JdbcBigDecimalType extends SqlBigDecimalType implements JdbcSqlType
      * {@inheritDoc}
      */
     @Override
-    public Object getDatabaseSqlType() {
+    public Integer getDatabaseSqlType() {
         return Types.NUMERIC;
     }
 

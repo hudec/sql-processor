@@ -846,7 +846,7 @@ public class SpringQuery implements SqlQuery {
                 if (type != null) {
                     if (type instanceof JdbcSqlType) {
                         if (value == null)
-                            ps.setNull(ix + i, (Integer) ((JdbcSqlType) type).getDatabaseSqlType());
+                            ps.setNull(ix + i, ((JdbcSqlType) type).getDatabaseSqlType());
                         else
                             ((JdbcSqlType) type).set(ps, ix + i, value);
                     } else if (value == null) {
@@ -862,7 +862,7 @@ public class SpringQuery implements SqlQuery {
                 CallableStatement cs = (CallableStatement) ps;
                 if (type != null) {
                     if (type instanceof JdbcSqlType) {
-                        cs.registerOutParameter(ix + i, (Integer) ((JdbcSqlType) type).getDatabaseSqlType());
+                        cs.registerOutParameter(ix + i, ((JdbcSqlType) type).getDatabaseSqlType());
                     } else {
                         cs.registerOutParameter(ix + i, (Integer) type);
                     }

@@ -757,7 +757,7 @@ public class JdbcQuery implements SqlQuery {
                                 if (logger.isTraceEnabled()) {
                                     logger.trace("setNull, ix=" + (ix + i) + ", type=" + type);
                                 }
-                                ps.setNull(ix + i, (Integer) sqlType.getDatabaseSqlType());
+                                ps.setNull(ix + i, sqlType.getDatabaseSqlType());
                             } else {
                                 if (logger.isTraceEnabled()) {
                                     logger.trace("setParameters, ix=" + (ix + i) + ", value=" + value);
@@ -794,7 +794,7 @@ public class JdbcQuery implements SqlQuery {
                 CallableStatement cs = (CallableStatement) ps;
                 if (type != null) {
                     if (type instanceof JdbcSqlType) {
-                        cs.registerOutParameter(ix + i, (Integer) ((JdbcSqlType) type).getDatabaseSqlType());
+                        cs.registerOutParameter(ix + i, ((JdbcSqlType) type).getDatabaseSqlType());
                     } else {
                         cs.registerOutParameter(ix + i, (Integer) type);
                     }

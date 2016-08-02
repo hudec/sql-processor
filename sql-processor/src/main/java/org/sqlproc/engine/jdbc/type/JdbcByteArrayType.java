@@ -27,7 +27,7 @@ public class JdbcByteArrayType extends SqlByteArrayType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Object getDatabaseSqlType() {
+    public Integer getDatabaseSqlType() {
         return Types.VARBINARY;
     }
 
