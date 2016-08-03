@@ -1,6 +1,6 @@
 package org.sqlproc.engine.hibernate.type;
 
-import org.hibernate.type.BinaryType;
+import org.hibernate.type.WrappedMaterializedBlobType;
 import org.sqlproc.engine.type.SqlByteArrayType;
 
 /**
@@ -8,14 +8,14 @@ import org.sqlproc.engine.type.SqlByteArrayType;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class HibernateByteArrayType extends SqlByteArrayType {
+public class HibernateByteArrayWrapperType extends SqlByteArrayType {
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Class<?>[] getClassTypes() {
-        return new Class[] { byte[].class };
+        return new Class[] { Byte[].class };
     }
 
     /**
@@ -23,6 +23,14 @@ public class HibernateByteArrayType extends SqlByteArrayType {
      */
     @Override
     public Object getProviderSqlType() {
-        return BinaryType.INSTANCE;
+        return WrappedMaterializedBlobType.INSTANCE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getMetaTypes() {
+        return new String[] { "BYTEARR", "BYTEARRAY" };
     }
 }

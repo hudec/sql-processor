@@ -64,10 +64,10 @@ public class HibernateTypeFactory implements SqlTypeFactory {
      * Singleton instance of String based enumeration type.
      */
     static final SqlMetaType BYTE_ARRAY = new HibernateByteArrayType();
-    // /**
-    // * Singleton instance of String based enumeration type.
-    // */
-    // static final SqlMetaType BYTE_ARRAY_WRAPPER = new JdbcByteArrayWrapperType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType BYTE_ARRAY_WRAPPER = new HibernateByteArrayWrapperType();
     /**
      * Singleton instance of String based enumeration type.
      */
@@ -148,9 +148,9 @@ public class HibernateTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instances of generic types.
      */
-    static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, /* BYTE_ARRAY_WRAPPER, */BYTE,
-            CHAR, DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING,
-            TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB };
+    static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
+            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP,
+            TIME, TO_DATE, TEXT, BLOB, CLOB };
 
     /**
      * The immutable map between the Java class types and the internal types.

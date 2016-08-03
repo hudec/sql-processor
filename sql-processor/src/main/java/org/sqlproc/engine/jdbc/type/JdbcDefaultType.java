@@ -18,16 +18,25 @@ public class JdbcDefaultType extends SqlDefaultType {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<?>[] getClassTypes() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String[] getMetaTypes() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<?>[] getClassTypesForDefault() {
         return null;

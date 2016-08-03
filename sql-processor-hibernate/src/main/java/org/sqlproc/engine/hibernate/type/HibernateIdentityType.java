@@ -4,6 +4,8 @@ import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.IdentitySetter;
+import org.sqlproc.engine.type.SqlIdentityType;
+import org.sqlproc.engine.type.SqlMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -11,7 +13,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class HibernateIdentityType extends HibernateDefaultType {
+public class HibernateIdentityType extends SqlIdentityType {
 
     /**
      * {@inheritDoc}
@@ -41,7 +43,21 @@ public class HibernateIdentityType extends HibernateDefaultType {
                     + ", inputType=" + inputType);
         }
         if (identitySetter != null && identitySetter instanceof IdentitySetter) {
-            query.setParameter(paramName, identitySetter, hibernateTypes.get(inputType));
+            Object type = runtimeCtx.getTypeFactory().getMetaType(inputType);
+            if (type != null && type instanceof SqlMetaType)
+                query.setParameter(paramName, identitySetter, ((SqlMetaType) type).getProviderSqlType());
+            else
+                query.setParameter(paramName, identitySetter);
         }
+    }
+
+    @Override
+    public Class<?>[] getClassTypes() {
+        return null;
+    }
+
+    @Override
+    public Object getProviderSqlType() {
+        return null;
     }
 }
