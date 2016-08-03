@@ -24,33 +24,22 @@ public class PhoneNumberType implements SqlTaggedMetaType {
 
     static Pattern pattern = Pattern.compile("^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$");
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Class<?>[] getClassTypes() {
         return new Class[] { PhoneNumber.class };
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String[] getMetaTypes() {
         return new String[] { "phone" };
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object getProviderSqlType() {
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
         query.addScalar(dbName, Types.VARCHAR);
     }

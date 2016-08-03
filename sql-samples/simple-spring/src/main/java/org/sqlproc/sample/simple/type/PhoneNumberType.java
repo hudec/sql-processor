@@ -8,13 +8,21 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.type.SqlInternalType;
+import org.sqlproc.engine.type.SqlTaggedMetaType;
+import org.sqlproc.engine.type.SqlTypeFactory;
 import org.sqlproc.sample.simple.model.PhoneNumber;
 
-public class PhoneNumberType extends SqlInternalType {
+public class PhoneNumberType implements SqlTaggedMetaType {
+
+    /**
+     * The internal slf4j logger.
+     */
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     static Pattern pattern = Pattern.compile("^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$");
 
@@ -28,16 +36,19 @@ public class PhoneNumberType extends SqlInternalType {
         return new String[] { "phone" };
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
+    @Override
+    public Object getProviderSqlType() {
+        return this;
+    }
+
+    @Override
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
         query.addScalar(dbName, Types.VARCHAR);
     }
 
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName,
-            Object resultValue, boolean ingoreError) throws SqlRuntimeException {
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
 
         if (resultValue == null) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, null, PhoneNumber.class))
@@ -105,8 +116,8 @@ public class PhoneNumberType extends SqlInternalType {
                                 logger.error("Incorrect input value type " + o + ", it should be a PhoneNumber");
                                 continue;
                             } else {
-                                throw new SqlRuntimeException("Incorrect input value type " + o
-                                        + ", it should be a PhoneNumber");
+                                throw new SqlRuntimeException(
+                                        "Incorrect input value type " + o + ", it should be a PhoneNumber");
                             }
                         }
                         String sPhoneNumber = ((PhoneNumber) o).toString();
@@ -119,8 +130,8 @@ public class PhoneNumberType extends SqlInternalType {
                         logger.error("Incorrect input value type " + inputValue + ", it should be a PhoneNumber");
                         return;
                     } else {
-                        throw new SqlRuntimeException("Incorrect input value type " + inputValue
-                                + ", it should be a PhoneNumber");
+                        throw new SqlRuntimeException(
+                                "Incorrect input value type " + inputValue + ", it should be a PhoneNumber");
                     }
                 }
                 PhoneNumber phoneNumber = (PhoneNumber) inputValue;
