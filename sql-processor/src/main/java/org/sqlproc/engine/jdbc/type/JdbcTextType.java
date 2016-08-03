@@ -19,6 +19,11 @@ import org.sqlproc.engine.type.SqlTextType;
  */
 public class JdbcTextType extends SqlTextType implements JdbcSqlType {
 
+    @Override
+    public Class<?>[] getClassTypes() {
+        return new Class<?>[] {};
+    }
+
     /**
      * {@inheritDoc}
      */

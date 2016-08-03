@@ -11,7 +11,7 @@ public abstract class SqlIntegerType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] { Integer.class, int.class };
     }
 

@@ -20,6 +20,14 @@ public class JdbcDateType extends SqlDateType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { java.sql.Date.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return this;
     }

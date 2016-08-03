@@ -20,6 +20,14 @@ public class JdbcByteArrayWrapperType extends SqlByteArrayType implements JdbcSq
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { Byte[].class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return this;
     }

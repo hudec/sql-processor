@@ -18,7 +18,7 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] { java.sql.Timestamp.class, java.util.Date.class };
     }
 

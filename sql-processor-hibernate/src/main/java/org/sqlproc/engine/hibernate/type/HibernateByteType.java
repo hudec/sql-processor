@@ -14,6 +14,14 @@ public class HibernateByteType extends SqlByteType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { Byte.class, byte.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return ByteType.INSTANCE;
     }

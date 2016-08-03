@@ -13,7 +13,7 @@ public abstract class SqlBlobType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] { Blob.class };
     }
 

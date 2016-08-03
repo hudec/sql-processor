@@ -19,6 +19,14 @@ public class JdbcDoubleType extends SqlDoubleType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { Double.class, double.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return this;
     }

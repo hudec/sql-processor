@@ -19,6 +19,14 @@ public class JdbcStringType extends SqlStringType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { String.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return this;
     }

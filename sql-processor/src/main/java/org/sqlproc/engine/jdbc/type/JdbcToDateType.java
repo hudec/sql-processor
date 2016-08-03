@@ -16,6 +16,11 @@ import org.sqlproc.engine.type.SqlToDateType;
  */
 public class JdbcToDateType extends SqlToDateType implements JdbcSqlType {
 
+    @Override
+    public Class<?>[] getClassTypes() {
+        return new Class<?>[] {};
+    }
+
     /**
      * {@inheritDoc}
      */

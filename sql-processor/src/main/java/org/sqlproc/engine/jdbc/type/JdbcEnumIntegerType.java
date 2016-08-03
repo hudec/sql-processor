@@ -15,6 +15,11 @@ import org.sqlproc.engine.type.SqlEnumIntegerType;
  */
 public class JdbcEnumIntegerType extends SqlEnumIntegerType implements JdbcSqlType {
 
+    @Override
+    public Class<?>[] getClassTypes() {
+        return new Class<?>[] {};
+    }
+
     /**
      * {@inheritDoc}
      */

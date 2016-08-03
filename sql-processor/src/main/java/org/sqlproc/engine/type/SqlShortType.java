@@ -11,7 +11,7 @@ public abstract class SqlShortType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] { Short.class, short.class };
     }
 

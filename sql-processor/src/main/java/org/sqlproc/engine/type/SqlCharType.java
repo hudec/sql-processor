@@ -11,7 +11,7 @@ public abstract class SqlCharType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] { Character.class, char.class };
     }
 

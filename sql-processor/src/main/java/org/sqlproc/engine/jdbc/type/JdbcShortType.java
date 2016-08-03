@@ -19,6 +19,14 @@ public class JdbcShortType extends SqlShortType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { Short.class, short.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return this;
     }

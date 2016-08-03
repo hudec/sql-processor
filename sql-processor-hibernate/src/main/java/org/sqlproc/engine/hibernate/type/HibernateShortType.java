@@ -14,6 +14,14 @@ public class HibernateShortType extends SqlShortType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { Short.class, short.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return ShortType.INSTANCE;
     }

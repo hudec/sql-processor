@@ -11,7 +11,7 @@ public abstract class SqlLongType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] { Long.class, long.class };
     }
 

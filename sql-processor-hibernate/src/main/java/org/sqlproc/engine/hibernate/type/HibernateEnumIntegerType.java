@@ -14,6 +14,14 @@ public class HibernateEnumIntegerType extends SqlEnumIntegerType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] {};
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return IntegerType.INSTANCE;
     }

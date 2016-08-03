@@ -13,7 +13,7 @@ public abstract class SqlBigIntegerType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] { BigInteger.class };
     }
 

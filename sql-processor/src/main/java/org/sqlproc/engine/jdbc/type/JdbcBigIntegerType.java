@@ -21,6 +21,14 @@ public class JdbcBigIntegerType extends SqlBigIntegerType implements JdbcSqlType
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypes() {
+        return new Class[] { BigInteger.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProviderSqlType() {
         return this;
     }

@@ -20,7 +20,7 @@ public abstract class SqlEnumIntegerType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
+    public Class<?>[] getClassTypesForDefault() {
         return new Class[] {};
     }
 
