@@ -13,20 +13,6 @@ import org.sqlproc.engine.SqlRuntimeException;
 public interface SqlMetaType {
 
     /**
-     * Returns the list of Java class types related to this META type.
-     * 
-     * @return the list of Java class types related to this META type
-     */
-    public Class<?>[] getClassTypes();
-
-    /**
-     * Returns the list of names of this META type. These names can be used in the META SQL statements.
-     * 
-     * @return list of names of this META type. These names can be used in the META SQL statements
-     */
-    public String[] getMetaTypes();
-
-    /**
      * Returns the type provided by the stack on top of which the SQL Processor works.
      * 
      * @return the provided type

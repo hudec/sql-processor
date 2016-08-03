@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.type.SqlMetaType;
+import org.sqlproc.engine.type.SqlTaggedMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -13,7 +13,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcOracleCursorType implements SqlMetaType {
+public class JdbcOracleCursorType implements SqlTaggedMetaType {
 
     /**
      * The internal slf4j logger.

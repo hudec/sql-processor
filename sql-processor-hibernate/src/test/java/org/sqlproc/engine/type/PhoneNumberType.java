@@ -15,7 +15,7 @@ import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.model.PhoneNumber;
 
-public class PhoneNumberType implements SqlMetaType {
+public class PhoneNumberType implements SqlTaggedMetaType {
 
     /**
      * The internal slf4j logger.

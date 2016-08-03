@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlMetaType;
+import org.sqlproc.engine.type.SqlTaggedMetaType;
 import org.sqlproc.engine.type.SqlTypeFactory;
 
 /**
@@ -166,10 +167,12 @@ public class HibernateTypeFactory implements SqlTypeFactory {
      */
     static {
         for (SqlMetaType type : TYPES) {
-            for (Class<?> classType : type.getClassTypes())
-                CLASS_TO_TYPE_MAP.put(classType, type);
-            for (String metaType : type.getMetaTypes())
-                META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
+            if (type instanceof SqlTaggedMetaType) {
+                for (Class<?> classType : ((SqlTaggedMetaType) type).getClassTypes())
+                    CLASS_TO_TYPE_MAP.put(classType, type);
+                for (String metaType : ((SqlTaggedMetaType) type).getMetaTypes())
+                    META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
+            }
         }
         CLASS_TO_TYPE_MAP = Collections.unmodifiableMap(CLASS_TO_TYPE_MAP);
         META_TO_TYPE_MAP = Collections.unmodifiableMap(META_TO_TYPE_MAP);

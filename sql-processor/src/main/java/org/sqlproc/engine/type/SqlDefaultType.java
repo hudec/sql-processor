@@ -19,7 +19,7 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlDefaultType implements SqlMetaType {
+public abstract class SqlDefaultType implements SqlTaggedMetaType {
 
     /**
      * The internal slf4j logger.
