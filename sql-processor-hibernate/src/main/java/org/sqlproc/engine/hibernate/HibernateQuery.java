@@ -221,6 +221,9 @@ public class HibernateQuery implements SqlQuery {
      */
     @Override
     public SqlQuery addScalar(String columnAlias, Object type) {
+        // TODO, right now just a workaround
+        if (type != null && !(type instanceof Type))
+            throw new IllegalArgumentException();
         query.addScalar(columnAlias, (Type) type);
         return this;
     }
@@ -243,6 +246,9 @@ public class HibernateQuery implements SqlQuery {
      */
     @Override
     public SqlQuery setParameter(String name, Object val, Object type) throws SqlProcessorException {
+        // TODO, right now just a workaround
+        if (type != null && !(type instanceof Type))
+            throw new IllegalArgumentException();
         if (val != null && val instanceof IdentitySetter) {
             identities.add(name);
             identitySetters.put(name, (IdentitySetter) val);
@@ -275,6 +281,9 @@ public class HibernateQuery implements SqlQuery {
      */
     @Override
     public SqlQuery setParameterList(String name, Object[] vals, Object type) throws SqlProcessorException {
+        // TODO, right now just a workaround
+        if (type != null && !(type instanceof Type))
+            throw new IllegalArgumentException();
         try {
             query.setParameterList(name, vals, (Type) type);
             return this;

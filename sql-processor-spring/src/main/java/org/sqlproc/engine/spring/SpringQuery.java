@@ -766,6 +766,9 @@ public class SpringQuery implements SqlQuery {
      */
     @Override
     public SqlQuery addScalar(final String columnAlias, final Object type) {
+        // TODO, right now just a workaround
+        if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
+            throw new IllegalArgumentException();
         scalars.add(columnAlias);
         scalarTypes.put(columnAlias, type);
         return this;
@@ -786,6 +789,9 @@ public class SpringQuery implements SqlQuery {
      */
     @Override
     public SqlQuery setParameter(final String name, final Object val, final Object type) throws SqlProcessorException {
+        // TODO, right now just a workaround
+        if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
+            throw new IllegalArgumentException();
         if (val != null && val instanceof IdentitySetter) {
             identities.add(name);
             identitySetters.put(name, (IdentitySetter) val);

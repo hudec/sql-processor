@@ -673,6 +673,9 @@ public class JdbcQuery implements SqlQuery {
      */
     @Override
     public SqlQuery addScalar(String columnAlias, Object type) {
+        // TODO, right now just a workaround
+        if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
+            throw new IllegalArgumentException();
         scalars.add(columnAlias);
         scalarTypes.put(columnAlias, type);
         return this;
@@ -693,6 +696,9 @@ public class JdbcQuery implements SqlQuery {
      */
     @Override
     public SqlQuery setParameter(String name, Object val, Object type) throws SqlProcessorException {
+        // TODO, right now just a workaround
+        if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
+            throw new IllegalArgumentException();
         if (val != null && val instanceof IdentitySetter) {
             identities.add(name);
             identitySetters.put(name, (IdentitySetter) val);
