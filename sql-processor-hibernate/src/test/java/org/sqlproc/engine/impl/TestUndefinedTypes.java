@@ -154,10 +154,11 @@ public class TestUndefinedTypes extends TestDatabase {
         // logger.info(code.encode("byebye".getBytes()));
         assertEquals("ahoj", new String(t.getAn_byte()));
         if (!"oracle".equalsIgnoreCase(dbType) && !"mssql".equalsIgnoreCase(dbType) && !"db2".equalsIgnoreCase(dbType)
-                && !"postgresql".equalsIgnoreCase(dbType))
+                && !"postgresql".equalsIgnoreCase(dbType)) {
             assertEquals(t.getAn_byte().length, t.getAt_byte().length);
-        for (int i = 0; i < t.getAn_byte().length; i++)
-            assertEquals(t.getAn_byte()[i], t.getAt_byte()[i].byteValue());
+            for (int i = 0; i < t.getAn_byte().length; i++)
+                assertEquals(t.getAn_byte()[i], t.getAt_byte()[i].byteValue());
+        }
         assertEquals("hello", t.getA_text());
 
         if (!dbType.equalsIgnoreCase("postgresql")) {
