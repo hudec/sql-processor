@@ -1054,6 +1054,20 @@ UNDEFINED_TYPES_2(QRY)=
   from TYPES t
   where id=1
 ;
+
+
+UNDEFINED_TYPES_2(QRY,ORACLE,DB2,MSSQL,POSTGRESQL)=
+  select t_int @n_int, @t_int, t_long @n_long, @t_long, t_byte @n_byte, @t_byte,
+  t_short @n_short, @t_short, t_float @n_float, @t_float, t_double @n_double, @t_double,
+  t_char @n_char, @t_char, @t_string,
+  @t_time, @t_date, @t_datetime, @t_timestamp,
+  t_boolean @n_boolean, @t_boolean,
+  @t_big_integer, @t_big_decimal,
+  a_byte @an_byte, a_byte @at_byte(bytes), @a_text(type=text),
+  @a_blob, @a_clob
+  from TYPES t
+  where id=1
+;
  
  
 UNDEFINED_PARAMETERS(QRY)=
