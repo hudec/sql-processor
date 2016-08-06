@@ -607,10 +607,6 @@
             <id>jboss-public-repository-group</id>
             <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
         </repository>
-        <repository>
-            <id>bamboo</id>
-            <url>http://maven-repo-2.i.cz:8888/artifactory/rob/</url>
-        </repository>
     </repositories>
 
     <developers>
