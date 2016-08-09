@@ -315,14 +315,7 @@ class SqlMappingItem implements SqlMetaElement {
                 }
 
                 if (!exit) {
-                    boolean isCollection = false;
-                    for (Class<?> clazz : objClass.getInterfaces()) {
-                        if (clazz == Collection.class) {
-                            isCollection = true;
-                            break;
-                        }
-                    }
-                    if (isCollection) {
+                    if (isCollection(objClass)) {
                         String typeName = (moreResultClasses != null)
                                 ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
@@ -351,17 +344,52 @@ class SqlMappingItem implements SqlMetaElement {
             }
             boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
             Class<?> attributeType = null;
-            if (isPrimitiveWrapper)
+            Class<?> attributeGenericType = null;
+            if (isPrimitiveWrapper) {
                 attributeType = objClass;
-            else
+            } else {
                 attributeType = ctx.getAttributeType(objClass, getName());
+            }
+            if (isCollection(attributeType) && SqlFeature.CASSANDRA.name().equals(ctx.getFeature(SqlFeature.FILTER))
+                    && attributes.size() == 1) {
+                String typeName = values.get(getFullName() + Modifiers.MODIFIER_GTYPE);
+                if (typeName != null && moreResultClasses != null)
+                    attributeGenericType = moreResultClasses.get(typeName);
+                if (typeName != null && attributeGenericType == null)
+                    attributeGenericType = getStandardModeResultClass(typeName);
+
+            }
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", attributeType=" + attributeType);
             }
             if (!exit) {
-                sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType);
+                if (attributeGenericType != null)
+                    sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType,
+                            attributeGenericType);
+                else
+                    sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType);
             }
+        }
+    }
+
+    private boolean isCollection(Class<?> clazz) {
+        if (clazz == null || clazz.getInterfaces() == null)
+            return false;
+        for (Class<?> clazz1 : clazz.getInterfaces()) {
+            if (clazz1 == Collection.class) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Class<?> getStandardModeResultClass(String typeName) {
+        switch (typeName) {
+        case "string":
+            return String.class;
+        default:
+            return null;
         }
     }
 

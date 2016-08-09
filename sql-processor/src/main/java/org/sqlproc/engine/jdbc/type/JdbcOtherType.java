@@ -50,7 +50,7 @@ public class JdbcOtherType implements SqlTaggedMetaType {
      * {@inheritDoc}
      */
     @Override
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
         throw new UnsupportedOperationException();
     }
 

@@ -19,7 +19,7 @@ public class HibernateIdentityType extends SqlIdentityType {
      * {@inheritDoc}
      */
     @Override
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
         throw new UnsupportedOperationException();
     }
 

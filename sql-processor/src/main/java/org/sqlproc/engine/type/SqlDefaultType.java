@@ -36,11 +36,11 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
         if (getProviderSqlType() != null) {
             query.addScalar(dbName, getProviderSqlType());
         } else {
-            Object type = typeFactory.getMetaType(attributeType);
+            Object type = (attributeTypes.length > 0) ? typeFactory.getMetaType(attributeTypes[0]) : null;
             if (type != null)
                 query.addScalar(dbName, type);
             else

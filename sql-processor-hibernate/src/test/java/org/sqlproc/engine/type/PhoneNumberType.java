@@ -51,7 +51,7 @@ public class PhoneNumberType implements SqlTaggedMetaType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
         query.addScalar(dbName, StringType.INSTANCE);
     }
 

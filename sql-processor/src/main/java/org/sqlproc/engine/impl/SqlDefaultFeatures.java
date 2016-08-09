@@ -1,5 +1,6 @@
 package org.sqlproc.engine.impl;
 
+import static org.sqlproc.engine.SqlFeature.CASSANDRA;
 import static org.sqlproc.engine.SqlFeature.DB2;
 import static org.sqlproc.engine.SqlFeature.H2;
 import static org.sqlproc.engine.SqlFeature.HSQLDB;
@@ -57,6 +58,7 @@ public class SqlDefaultFeatures {
         FILTERED_FEATURES.put(INFORMIX.name(), new HashMap<SqlFeature, Object>());
         FILTERED_FEATURES.put(MSSQL.name(), new HashMap<SqlFeature, Object>());
         FILTERED_FEATURES.put(DB2.name(), new HashMap<SqlFeature, Object>());
+        FILTERED_FEATURES.put(CASSANDRA.name(), new HashMap<SqlFeature, Object>());
     }
 
     static {
@@ -320,6 +322,7 @@ public class SqlDefaultFeatures {
             features.put(entry.getKey().name(), entry.getValue());
         }
         if (filter != null) {
+            features.put(SqlFeature.FILTER.name(), filter);
             Map<SqlFeature, Object> filteredFeatures = SqlDefaultFeatures.FILTERED_FEATURES.get(filter);
             if (filteredFeatures != null) {
                 for (Entry<SqlFeature, Object> entry : filteredFeatures.entrySet()) {

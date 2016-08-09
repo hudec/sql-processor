@@ -31,7 +31,7 @@ public interface SqlMetaType {
      * @param attributeType
      *            the Java type of of the attribute in the result class
      */
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType);
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes);
 
     /**
      * Initializes the attribute of the result class with output value from the SQL query execution.

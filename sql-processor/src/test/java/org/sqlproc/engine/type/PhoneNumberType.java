@@ -40,7 +40,7 @@ public class PhoneNumberType implements SqlTaggedMetaType {
     }
 
     @Override
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
         query.addScalar(dbName, Types.VARCHAR);
     }
 

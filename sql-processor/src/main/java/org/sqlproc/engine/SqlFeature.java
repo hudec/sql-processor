@@ -117,6 +117,11 @@ public enum SqlFeature {
      */
     H2,
     /**
+     * The filter for Cassandra devoted optional features. It can be used for the construction of
+     * {@link SqlProcessorLoader}.
+     */
+    CASSANDRA,
+    /**
      * <code>WILDCARD_CHARACTER</code> is the key for the wildcard character for the SQL <code>like</code> command.
      */
     WILDCARD_CHARACTER,
@@ -288,6 +293,9 @@ public enum SqlFeature {
      * <code>LOG_SQL_COMMAND_FOR_EXCEPTION</code> is the indicator that in the case of an SQLException the related SQL
      * command should be logged.
      */
-    LOG_SQL_COMMAND_FOR_EXCEPTION;
-
+    LOG_SQL_COMMAND_FOR_EXCEPTION,
+    /**
+     * <code>FILTER</code> is the main filter in SqlProcessorLoader, if any.
+     */
+    FILTER;
 }
