@@ -220,7 +220,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery addScalar(String columnAlias, Object type) {
+    public SqlQuery addScalar(String columnAlias, Object type, Class<?>... moreTypes) {
         // TODO, right now just a workaround
         if (type != null && !(type instanceof Type))
             throw new IllegalArgumentException();

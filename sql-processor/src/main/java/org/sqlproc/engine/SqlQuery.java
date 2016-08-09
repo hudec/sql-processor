@@ -186,7 +186,7 @@ public interface SqlQuery {
      *            the (META) type of the parameter
      * @return this instance to enable the methods chaining
      */
-    SqlQuery addScalar(String columnAlias, Object type);
+    SqlQuery addScalar(String columnAlias, Object type, Class<?>... moreTypes);
 
     /**
      * Binds a value to a named query parameter.

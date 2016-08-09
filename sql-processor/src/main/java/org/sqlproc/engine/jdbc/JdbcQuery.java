@@ -672,7 +672,7 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery addScalar(String columnAlias, Object type) {
+    public SqlQuery addScalar(String columnAlias, Object type, Class<?>... moreTypes) {
         // TODO, right now just a workaround
         if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
             throw new IllegalArgumentException();

@@ -765,7 +765,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery addScalar(final String columnAlias, final Object type) {
+    public SqlQuery addScalar(final String columnAlias, final Object type, Class<?>... moreTypes) {
         // TODO, right now just a workaround
         if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
             throw new IllegalArgumentException();

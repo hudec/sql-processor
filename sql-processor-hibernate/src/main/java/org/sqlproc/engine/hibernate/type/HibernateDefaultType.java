@@ -16,11 +16,12 @@ public class HibernateDefaultType extends SqlDefaultType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
+    @Override
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
         if (getProviderSqlType() != null) {
             query.addScalar(dbName, getProviderSqlType());
         } else {
-            Object type = typeFactory.getMetaType(attributeType);
+            Object type = (attributeTypes.length > 0) ? typeFactory.getMetaType(attributeTypes[0]) : null;
             if (type != null && type instanceof SqlMetaType)
                 query.addScalar(dbName, ((SqlMetaType) type).getProviderSqlType());
             else
