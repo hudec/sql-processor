@@ -95,7 +95,7 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
      * {@inheritDoc}
      */
     @Override
-    public Class<?> getAttributeParameterizedType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+    public Class<?>[] getAttributeParameterizedTypes(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
         if (descriptor == null) {
             logger.error("getAttributeType: there's no attribute " + attrName + " in " + clazz.getName());
@@ -104,7 +104,7 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
         try {
             Field f = clazz.getDeclaredField(attrName);
             if (f.getGenericType() != null && f.getGenericType() instanceof ParameterizedType) {
-                return (Class<?>) ((ParameterizedType) f.getGenericType()).getActualTypeArguments()[0];
+                return (Class<?>[]) ((ParameterizedType) f.getGenericType()).getActualTypeArguments();
             }
         } catch (NoSuchFieldException | SecurityException e) {
             logger.error("getAttributeParameterizedType: " + clazz + " for " + attrName, e);

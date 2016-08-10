@@ -30,7 +30,7 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
     protected ConcurrentHashMap<String, Constructor<?>> constructors = new ConcurrentHashMap<String, Constructor<?>>();
     protected ConcurrentHashMap<String, PropertyDescriptor[]> descriptors = new ConcurrentHashMap<String, PropertyDescriptor[]>();
     protected ConcurrentHashMap<String, Class<?>> types = new ConcurrentHashMap<String, Class<?>>();
-    protected ConcurrentHashMap<String, Class<?>> parameterizedTypes = new ConcurrentHashMap<String, Class<?>>();
+    protected ConcurrentHashMap<String, Class<?>[]> parameterizedTypes = new ConcurrentHashMap<String, Class<?>[]>();
     protected ConcurrentHashMap<String, Method> getters = new ConcurrentHashMap<String, Method>();
     protected ConcurrentHashMap<String, GetterType> typeGetters = new ConcurrentHashMap<String, GetterType>();
     protected ConcurrentHashMap<String, Method> setters = new ConcurrentHashMap<String, Method>();
@@ -189,11 +189,11 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
     }
 
     @Override
-    public Class<?> getAttributeParameterizedType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+    public Class<?>[] getAttributeParameterizedTypes(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
         String keyName = clazz.getName() + "." + attrName;
-        Class<?> attrType = parameterizedTypes.get(keyName);
-        if (attrType != null)
-            return attrType;
+        Class<?>[] attrTypes = parameterizedTypes.get(keyName);
+        if (attrTypes != null)
+            return attrTypes;
 
         PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
         if (descriptor == null) {
@@ -203,19 +203,22 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
         try {
             Field f = clazz.getDeclaredField(attrName);
             if (f.getGenericType() != null && f.getGenericType() instanceof ParameterizedType) {
-                attrType = (Class<?>) ((ParameterizedType) f.getGenericType()).getActualTypeArguments()[0];
+                int size = ((ParameterizedType) f.getGenericType()).getActualTypeArguments().length;
+                attrTypes = new Class<?>[size];
+                for (int i = 0; i < size; i++)
+                    attrTypes[i] = (Class<?>) ((ParameterizedType) f.getGenericType()).getActualTypeArguments()[i];
             }
         } catch (NoSuchFieldException | SecurityException e) {
             logger.error("getAttributeParameterizedType: " + clazz + " for " + attrName, e);
             return null;
         }
 
-        if (attrType != null) {
-            Class<?> attrTypePrev = parameterizedTypes.putIfAbsent(keyName, attrType);
-            if (attrTypePrev != null)
-                return attrTypePrev;
+        if (attrTypes != null) {
+            Class<?>[] attrTypesPrev = parameterizedTypes.putIfAbsent(keyName, attrTypes);
+            if (attrTypesPrev != null)
+                return attrTypesPrev;
         }
-        return attrType;
+        return attrTypes;
     }
 
     // getters

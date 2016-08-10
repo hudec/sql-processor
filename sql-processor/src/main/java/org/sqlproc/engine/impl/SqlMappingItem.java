@@ -346,6 +346,7 @@ class SqlMappingItem implements SqlMetaElement {
             }
             boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
             Class<?> attributeType = null;
+            Class<?>[] attributeParameterizedTypes = null;
             Class<?> attributeParameterizedType = null;
             if (isPrimitiveWrapper) {
                 attributeType = objClass;
@@ -357,8 +358,8 @@ class SqlMappingItem implements SqlMetaElement {
                 if (typeName != null && moreResultClasses != null)
                     attributeParameterizedType = moreResultClasses.get(typeName);
                 if (attributeParameterizedType == null)
-                    attributeParameterizedType = ctx.getAttributeParameterizedType(objClass, getName());
-                if (attributeParameterizedType == null && typeName != null)
+                    attributeParameterizedTypes = ctx.getAttributeParameterizedTypes(objClass, getName());
+                if (attributeParameterizedTypes == null && typeName != null)
                     attributeParameterizedType = getStandardModeResultClass(typeName);
 
             }
@@ -370,7 +371,12 @@ class SqlMappingItem implements SqlMetaElement {
                 if (attributeParameterizedType != null)
                     sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType,
                             attributeParameterizedType);
-                else
+                else if (attributeParameterizedTypes != null) {
+                    Class<?>[] types = new Class<?>[1 + attributeParameterizedTypes.length];
+                    types[0] = attributeType;
+                    System.arraycopy(attributeParameterizedTypes, 0, types, 1, attributeParameterizedTypes.length);
+                    sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, types);
+                } else
                     sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType);
             }
         }
@@ -387,10 +393,12 @@ class SqlMappingItem implements SqlMetaElement {
         if (clazz == null || clazz.getInterfaces() == null)
             return false;
         for (Class<?> clazz1 : clazz.getInterfaces()) {
-            if (clazz1 == Collection.class) {
+            if (clazz1 == Collection.class || clazz1 == java.util.Map.class) {
                 return true;
             }
         }
+        if (clazz == java.util.Map.class)
+            return true;
         return false;
     }
 
