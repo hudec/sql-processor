@@ -297,5 +297,10 @@ public enum SqlFeature {
     /**
      * <code>FILTER</code> is the main filter in SqlProcessorLoader, if any.
      */
-    FILTER;
+    FILTER,
+    /**
+     * <code>COLLECTIONS_ARE_STANDARD_TYPES</code> is indicator that Collections should be handled as standard types.
+     * This is standard behaviour for Cassandra DB.
+     */
+    COLLECTIONS_ARE_STANDARD_TYPES;
 }

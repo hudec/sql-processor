@@ -350,7 +350,7 @@ class SqlMappingItem implements SqlMetaElement {
             } else {
                 attributeType = ctx.getAttributeType(objClass, getName());
             }
-            if (isCollection(attributeType) && SqlFeature.CASSANDRA.name().equals(ctx.getFeature(SqlFeature.FILTER))
+            if (isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)
                     && attributes.size() == 1) {
                 String typeName = values.get(getFullName() + Modifiers.MODIFIER_GTYPE);
                 if (typeName != null && moreResultClasses != null)

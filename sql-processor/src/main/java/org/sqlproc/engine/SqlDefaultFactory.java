@@ -143,6 +143,10 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      * The flag indicating the asynchronous SQL Processor engines initialization has been finished.
      */
     private Boolean executorTerminated;
+    /**
+     * The indicator that Collections should be handled as standard types. This is standard behaviour for Cassandra DB..
+     */
+    private boolean collectionsAreStandardTypes;
 
     /**
      * Creates a new instance with no default values.
@@ -201,6 +205,8 @@ public class SqlDefaultFactory implements SqlEngineFactory {
                     }
                     if (jdbc)
                         metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
+                    if (collectionsAreStandardTypes)
+                        metaStatements.append(LINESEP).append("COLLECTIONS_ARE_STANDARD_TYPES(BOPT)=true;");
 
                     SqlProcessorLoader loader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory,
                             filter, monitorFactory, validatorFactory, customTypes, configuration, onlyStatements);
@@ -648,7 +654,7 @@ public class SqlDefaultFactory implements SqlEngineFactory {
     }
 
     /**
-     * Return the indicator the JDBC stack is used.
+     * Returns the indicator the JDBC stack is used.
      * 
      * @return the indicator the JDBC stack is used
      */
@@ -664,6 +670,25 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      */
     public void setJdbc(boolean jdbc) {
         this.jdbc = jdbc;
+    }
+
+    /**
+     * Returns the indicator that Collections should be handled as standard types.
+     * 
+     * @return the indicator that Collections should be handled as standard types.
+     */
+    public boolean isCollectionsAreStandardTypes() {
+        return collectionsAreStandardTypes;
+    }
+
+    /**
+     * Sets the indicator that Collections should be handled as standard types.
+     * 
+     * @param collectionsAreStandardTypes
+     *            the indicator that Collections should be handled as standard types.
+     */
+    public void setCollectionsAreStandardTypes(boolean collectionsAreStandardTypes) {
+        this.collectionsAreStandardTypes = collectionsAreStandardTypes;
     }
 
     /**
