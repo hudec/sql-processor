@@ -1,5 +1,7 @@
 package org.sqlproc.engine.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -344,19 +346,20 @@ class SqlMappingItem implements SqlMetaElement {
             }
             boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
             Class<?> attributeType = null;
-            Class<?> attributeGenericType = null;
+            Class<?> attributeParameterizedType = null;
             if (isPrimitiveWrapper) {
                 attributeType = objClass;
             } else {
                 attributeType = ctx.getAttributeType(objClass, getName());
             }
-            if (isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)
-                    && attributes.size() == 1) {
+            if (isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)) {
                 String typeName = values.get(getFullName() + Modifiers.MODIFIER_GTYPE);
                 if (typeName != null && moreResultClasses != null)
-                    attributeGenericType = moreResultClasses.get(typeName);
-                if (typeName != null && attributeGenericType == null)
-                    attributeGenericType = getStandardModeResultClass(typeName);
+                    attributeParameterizedType = moreResultClasses.get(typeName);
+                if (attributeParameterizedType == null)
+                    attributeParameterizedType = ctx.getAttributeParameterizedType(objClass, getName());
+                if (attributeParameterizedType == null && typeName != null)
+                    attributeParameterizedType = getStandardModeResultClass(typeName);
 
             }
             if (logger.isTraceEnabled()) {
@@ -364,15 +367,22 @@ class SqlMappingItem implements SqlMetaElement {
                         + ", attributeType=" + attributeType);
             }
             if (!exit) {
-                if (attributeGenericType != null)
+                if (attributeParameterizedType != null)
                     sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType,
-                            attributeGenericType);
+                            attributeParameterizedType);
                 else
                     sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType);
             }
         }
     }
 
+    /**
+     * Returns the indicator the investigated class is in fact a container.
+     * 
+     * @param clazz
+     *            the investigated class
+     * @return the indicator the investigated class is in fact a container
+     */
     private boolean isCollection(Class<?> clazz) {
         if (clazz == null || clazz.getInterfaces() == null)
             return false;
@@ -384,8 +394,32 @@ class SqlMappingItem implements SqlMetaElement {
         return false;
     }
 
+    // TODO
+    /**
+     * A temporary gtype to class name conversion.
+     * 
+     * @param typeName
+     *            it's a gtype
+     * @return a related class name
+     */
     private Class<?> getStandardModeResultClass(String typeName) {
         switch (typeName) {
+        case "boolean":
+            return Boolean.class;
+        case "byte":
+            return Byte.class;
+        case "short":
+            return Short.class;
+        case "int":
+            return Integer.class;
+        case "float":
+            return Float.class;
+        case "double":
+            return Double.class;
+        case "bigint":
+            return BigInteger.class;
+        case "bigdec":
+            return BigDecimal.class;
         case "string":
             return String.class;
         default:

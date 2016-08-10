@@ -1,8 +1,10 @@
 package org.sqlproc.engine.plugin;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 
 import org.apache.commons.beanutils.ConstructorUtils;
@@ -87,6 +89,28 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
         }
 
         return descriptor.getPropertyType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?> getAttributeParameterizedType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
+        if (descriptor == null) {
+            logger.error("getAttributeType: there's no attribute " + attrName + " in " + clazz.getName());
+            return null;
+        }
+        try {
+            Field f = clazz.getDeclaredField(attrName);
+            if (f.getGenericType() != null && f.getGenericType() instanceof ParameterizedType) {
+                return (Class<?>) ((ParameterizedType) f.getGenericType()).getActualTypeArguments()[0];
+            }
+        } catch (NoSuchFieldException | SecurityException e) {
+            logger.error("getAttributeParameterizedType: " + clazz + " for " + attrName, e);
+        }
+
+        return null;
     }
 
     // getters
@@ -404,8 +428,8 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
             sb.append(", args=").append(attrTypes2String(parameterTypes));
         }
         if (method != null)
-            sb.append(", method params=").append(
-                    (method.getParameterTypes() != null) ? Arrays.asList(method.getParameterTypes()) : "empty");
+            sb.append(", method params=")
+                    .append((method.getParameterTypes() != null) ? Arrays.asList(method.getParameterTypes()) : "empty");
         return sb.toString();
     }
 }

@@ -59,6 +59,19 @@ public interface BeanUtilsPlugin {
     public Class<?> getAttributeType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName);
 
     /**
+     * Returns the Java parameterized type info for the attribute, if there is one.
+     * 
+     * @param runtimeCtx
+     *            the public runtime context
+     * @param clazz
+     *            the class for which the attribute type is requested
+     * @param attrName
+     *            the name of the attribute which type is requested
+     * @return the object that represents the Java parameterized type info. Null in the case there's no such attribute.
+     */
+    public Class<?> getAttributeParameterizedType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName);
+
+    /**
      * Returns the attribute getter method types, if there is one.
      * 
      * @param runtimeCtx

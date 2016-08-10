@@ -338,6 +338,14 @@ public class SqlProcessContext implements SqlRuntimeContext {
      * {@inheritDoc}
      */
     @Override
+    public Class<?> getAttributeParameterizedType(Class<?> clazz, String attrName) {
+        return getPluginFactory().getSqlBeansPlugin().getAttributeParameterizedType(this, clazz, attrName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public GetterType getGetterType(Class<?> clazz, String attrName) {
         return getPluginFactory().getSqlBeansPlugin().getGetterType(this, clazz, attrName);
     }

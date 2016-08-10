@@ -6,9 +6,11 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,6 +30,7 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
     protected ConcurrentHashMap<String, Constructor<?>> constructors = new ConcurrentHashMap<String, Constructor<?>>();
     protected ConcurrentHashMap<String, PropertyDescriptor[]> descriptors = new ConcurrentHashMap<String, PropertyDescriptor[]>();
     protected ConcurrentHashMap<String, Class<?>> types = new ConcurrentHashMap<String, Class<?>>();
+    protected ConcurrentHashMap<String, Class<?>> parameterizedTypes = new ConcurrentHashMap<String, Class<?>>();
     protected ConcurrentHashMap<String, Method> getters = new ConcurrentHashMap<String, Method>();
     protected ConcurrentHashMap<String, GetterType> typeGetters = new ConcurrentHashMap<String, GetterType>();
     protected ConcurrentHashMap<String, Method> setters = new ConcurrentHashMap<String, Method>();
@@ -138,8 +141,8 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
         _descriptors = beanInfo.getPropertyDescriptors();
         for (PropertyDescriptor pd : _descriptors) {
             if (pd instanceof IndexedPropertyDescriptor) {
-                logger.warn("getDescriptors: " + clazz + " unsupported IndexedPropertyDescriptor "
-                        + pd.getDisplayName());
+                logger.warn(
+                        "getDescriptors: " + clazz + " unsupported IndexedPropertyDescriptor " + pd.getDisplayName());
             }
         }
 
@@ -182,6 +185,36 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
         Class<?> attrTypePrev = types.putIfAbsent(keyName, attrType);
         if (attrTypePrev != null)
             return attrTypePrev;
+        return attrType;
+    }
+
+    @Override
+    public Class<?> getAttributeParameterizedType(SqlRuntimeContext runtimeCtx, Class<?> clazz, String attrName) {
+        String keyName = clazz.getName() + "." + attrName;
+        Class<?> attrType = parameterizedTypes.get(keyName);
+        if (attrType != null)
+            return attrType;
+
+        PropertyDescriptor descriptor = getAttributeDescriptor(clazz, attrName);
+        if (descriptor == null) {
+            logger.error("getAttributeType: there's no attribute " + attrName + " in " + clazz.getName());
+            return null;
+        }
+        try {
+            Field f = clazz.getDeclaredField(attrName);
+            if (f.getGenericType() != null && f.getGenericType() instanceof ParameterizedType) {
+                attrType = (Class<?>) ((ParameterizedType) f.getGenericType()).getActualTypeArguments()[0];
+            }
+        } catch (NoSuchFieldException | SecurityException e) {
+            logger.error("getAttributeParameterizedType: " + clazz + " for " + attrName, e);
+            return null;
+        }
+
+        if (attrType != null) {
+            Class<?> attrTypePrev = parameterizedTypes.putIfAbsent(keyName, attrType);
+            if (attrTypePrev != null)
+                return attrTypePrev;
+        }
         return attrType;
     }
 
@@ -715,8 +748,8 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
             sb.append(", args=").append(attrTypes2String(parameterTypes));
         }
         if (method != null)
-            sb.append(", method params=").append(
-                    (method.getParameterTypes() != null) ? Arrays.asList(method.getParameterTypes()) : "empty");
+            sb.append(", method params=")
+                    .append((method.getParameterTypes() != null) ? Arrays.asList(method.getParameterTypes()) : "empty");
         return sb.toString();
     }
 }
