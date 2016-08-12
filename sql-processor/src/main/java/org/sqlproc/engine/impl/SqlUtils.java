@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -168,7 +169,7 @@ public class SqlUtils {
 
     public static void main(String[] args) {
         Map<String, SqlInputValue> identities = new HashMap<String, SqlInputValue>();
-        SqlInputValue siv = new SqlInputValue(null, SqlInputValue.Type.IDENTITY_SELECT, null, null, null, null, null,
+        SqlInputValue siv = new SqlInputValue(null, SqlInputValue.Type.IDENTITY_SELECT, null, null, null, null,
                 "ID_ZADOST");
         identities.put("id_zadost", siv);
         String sql = handleInsertSql(identities, SQL);
@@ -280,5 +281,71 @@ public class SqlUtils {
                 || clazz == BigDecimal.class)
             return true;
         return false;
+    }
+
+    /**
+     * Returns the indicator the investigated class is in fact a container.
+     * 
+     * @param clazz
+     *            the investigated class
+     * @return the indicator the investigated class is in fact a container
+     */
+    public static boolean isCollection(Class<?> clazz) {
+        if (clazz == null || clazz.getInterfaces() == null)
+            return false;
+        for (Class<?> clazz1 : clazz.getInterfaces()) {
+            if (clazz1 == Collection.class || clazz1 == java.util.Map.class) {
+                return true;
+            }
+        }
+        if (clazz == java.util.Map.class)
+            return true;
+        return false;
+    }
+
+    public static Class<?>[] getAllAttributeTypes(Class<?> attributeType, Class<?>[] attributeParameterizedTypes,
+            Class<?> attributeParameterizedType) {
+        if (attributeParameterizedType != null)
+            return new Class<?>[] { attributeType, attributeParameterizedType };
+        if (attributeParameterizedTypes != null) {
+            Class<?>[] attributeTypes = new Class<?>[1 + attributeParameterizedTypes.length];
+            attributeTypes[0] = attributeType;
+            System.arraycopy(attributeParameterizedTypes, 0, attributeTypes, 1, attributeParameterizedTypes.length);
+            return attributeTypes;
+        }
+        return new Class<?>[] { attributeType };
+    }
+
+    // TODO
+    /**
+     * A temporary gtype to class name conversion.
+     * 
+     * @param typeName
+     *            it's a gtype
+     * @return a related class name
+     */
+    public static Class<?> getStandardModeResultClass(String typeName) {
+        switch (typeName) {
+        case "boolean":
+            return Boolean.class;
+        case "byte":
+            return Byte.class;
+        case "short":
+            return Short.class;
+        case "int":
+            return Integer.class;
+        case "float":
+            return Float.class;
+        case "double":
+            return Double.class;
+        case "bigint":
+            return BigInteger.class;
+        case "bigdec":
+            return BigDecimal.class;
+        case "string":
+            return String.class;
+        default:
+            return null;
+        }
     }
 }

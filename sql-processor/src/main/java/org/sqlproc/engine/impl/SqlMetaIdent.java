@@ -319,14 +319,14 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
         if (sequence != null) {
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(ctx, SqlInputValue.Type.SEQUENCE_BASED, obj, parentObj,
-                    attributeType, sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID));
+                    sequence, this.sqlType, values.get(Modifiers.MODIFIER_ID), attributeType);
             result.addInputValue(sname.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSql(new StringBuilder(ctx.isFeature(SqlFeature.JDBC) ? "?" : sname.toString()));
         } else if (identitySelect != null) {
             result.add(true);
             SqlInputValue identityInputValue = new SqlInputValue(ctx, SqlInputValue.Type.IDENTITY_SELECT, obj,
-                    parentObj, attributeType, identitySelect, this.sqlType, values.get(Modifiers.MODIFIER_ID));
+                    parentObj, identitySelect, this.sqlType, values.get(Modifiers.MODIFIER_ID), attributeType);
             result.addInputValue(sname.substring(lIDENT_PREFIX), identityInputValue);
             result.addIdentity(attributeName, identityInputValue);
             result.setSkipNextText(true);
@@ -339,7 +339,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
             }
-            if (obj != null && obj instanceof Collection<?>) {
+            if (obj != null && obj instanceof Collection<?>
+                    && !ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)) {
                 boolean notEmpty = !((Collection<?>) obj).isEmpty();
                 if (!notEmpty && values.containsKey(Modifiers.MODIFIER_ANYSET)) {
                     result.setSql(new StringBuilder("(null)"));
@@ -355,8 +356,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                             ss.append(ctx.isFeature(SqlFeature.JDBC) ? "?" : attributeNameItem);
                             result.addInputValue(attributeNameItem.substring(lIDENT_PREFIX),
                                     new SqlInputValue(ctx, SqlInputValue.Type.PROVIDED, objItem, parentObj,
-                                            objItem.getClass(), caseConversion, inOutMode, sqlType, null, null,
-                                            ctx.isInSetOrInsert()));
+                                            caseConversion, inOutMode, sqlType, null, null, ctx.isInSetOrInsert(),
+                                            objItem.getClass()));
                         } else
                             ss.append("null");
 
@@ -368,9 +369,21 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     result.setSql(ss);
                 }
             } else {
+                Class<?>[] attributeParameterizedTypes = null;
+                Class<?> attributeParameterizedType = null;
+                if (SqlUtils.isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)) {
+                    String typeName = values.get(fname.toString() + Modifiers.MODIFIER_GTYPE);
+                    if (typeName != null && ctx.getMoreResultClasses() != null)
+                        attributeParameterizedType = ctx.getMoreResultClasses().get(typeName);
+                    if (attributeParameterizedType == null)
+                        attributeParameterizedTypes = ctx.getAttributeParameterizedTypes(obj.getClass(), attributeName);
+                    if (attributeParameterizedTypes == null && typeName != null)
+                        attributeParameterizedType = SqlUtils.getStandardModeResultClass(typeName);
+                }
                 SqlInputValue sqlInputValue = new SqlInputValue(ctx, SqlInputValue.Type.PROVIDED, obj, parentObj,
-                        attributeType, caseConversion, inOutMode, sqlType, lastAttributeName, fname.toString(),
-                        ctx.isInSetOrInsert());
+                        caseConversion, inOutMode, sqlType, lastAttributeName, fname.toString(), ctx.isInSetOrInsert(),
+                        SqlUtils.getAllAttributeTypes(attributeType, attributeParameterizedTypes,
+                                attributeParameterizedType));
                 result.addInputValue(sname.substring(lIDENT_PREFIX), sqlInputValue);
                 if (inOutMode == SqlInputValue.Mode.OUT || inOutMode == SqlInputValue.Mode.INOUT) {
                     result.addOutValue(attributeName, sqlInputValue);

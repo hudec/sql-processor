@@ -126,10 +126,10 @@ public class HibernateType implements SqlMetaType {
      */
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter HIBERNATE: paramName=" + paramName + ", inputValue=" + inputValue
-                    + ", inputType=" + inputType + ", hibernateType=" + hibernateType);
+                    + ", inputTypes=" + inputTypes + ", hibernateType=" + hibernateType);
         }
         if (inputValue instanceof Collection) {
             query.setParameterList(paramName, ((Collection) inputValue).toArray(), hibernateType);

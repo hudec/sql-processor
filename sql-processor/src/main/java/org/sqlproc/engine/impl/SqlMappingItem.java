@@ -1,7 +1,5 @@
 package org.sqlproc.engine.impl;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -317,7 +315,7 @@ class SqlMappingItem implements SqlMetaElement {
                 }
 
                 if (!exit) {
-                    if (isCollection(objClass)) {
+                    if (SqlUtils.isCollection(objClass)) {
                         String typeName = (moreResultClasses != null)
                                 ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
                         Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
@@ -353,85 +351,23 @@ class SqlMappingItem implements SqlMetaElement {
             } else {
                 attributeType = ctx.getAttributeType(objClass, getName());
             }
-            if (isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)) {
+            if (SqlUtils.isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)) {
                 String typeName = values.get(getFullName() + Modifiers.MODIFIER_GTYPE);
                 if (typeName != null && moreResultClasses != null)
                     attributeParameterizedType = moreResultClasses.get(typeName);
                 if (attributeParameterizedType == null)
                     attributeParameterizedTypes = ctx.getAttributeParameterizedTypes(objClass, getName());
                 if (attributeParameterizedTypes == null && typeName != null)
-                    attributeParameterizedType = getStandardModeResultClass(typeName);
-
+                    attributeParameterizedType = SqlUtils.getStandardModeResultClass(typeName);
             }
             if (logger.isTraceEnabled()) {
                 logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                         + ", attributeType=" + attributeType);
             }
             if (!exit) {
-                if (attributeParameterizedType != null)
-                    sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType,
-                            attributeParameterizedType);
-                else if (attributeParameterizedTypes != null) {
-                    Class<?>[] types = new Class<?>[1 + attributeParameterizedTypes.length];
-                    types[0] = attributeType;
-                    System.arraycopy(attributeParameterizedTypes, 0, types, 1, attributeParameterizedTypes.length);
-                    sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, types);
-                } else
-                    sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, attributeType);
+                sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, SqlUtils
+                        .getAllAttributeTypes(attributeType, attributeParameterizedTypes, attributeParameterizedType));
             }
-        }
-    }
-
-    /**
-     * Returns the indicator the investigated class is in fact a container.
-     * 
-     * @param clazz
-     *            the investigated class
-     * @return the indicator the investigated class is in fact a container
-     */
-    private boolean isCollection(Class<?> clazz) {
-        if (clazz == null || clazz.getInterfaces() == null)
-            return false;
-        for (Class<?> clazz1 : clazz.getInterfaces()) {
-            if (clazz1 == Collection.class || clazz1 == java.util.Map.class) {
-                return true;
-            }
-        }
-        if (clazz == java.util.Map.class)
-            return true;
-        return false;
-    }
-
-    // TODO
-    /**
-     * A temporary gtype to class name conversion.
-     * 
-     * @param typeName
-     *            it's a gtype
-     * @return a related class name
-     */
-    private Class<?> getStandardModeResultClass(String typeName) {
-        switch (typeName) {
-        case "boolean":
-            return Boolean.class;
-        case "byte":
-            return Byte.class;
-        case "short":
-            return Short.class;
-        case "int":
-            return Integer.class;
-        case "float":
-            return Float.class;
-        case "double":
-            return Double.class;
-        case "bigint":
-            return BigInteger.class;
-        case "bigdec":
-            return BigDecimal.class;
-        case "string":
-            return String.class;
-        default:
-            return null;
         }
     }
 

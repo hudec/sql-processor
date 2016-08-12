@@ -28,8 +28,8 @@ public interface SqlMetaType {
      *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
      * @param dbName
      *            the name of a database query output, it can be the column name or the alias name
-     * @param attributeType
-     *            the Java type of of the attribute in the result class
+     * @param attributeTypes
+     *            the Java types of of the attribute in the result class
      */
     public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes);
 
@@ -61,13 +61,13 @@ public interface SqlMetaType {
      *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
      * @param paramName
      *            the name of the parameter
-     * @param inputValue
-     *            the possibly-null parameter value, a dynamic input value
      * @param ingoreError
      *            ignore improper input value handling
+     * @param inputTypes
+     *            the Java types of the attribute in the input POJO
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input values handling
      */
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException;
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException;
 }

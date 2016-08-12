@@ -64,10 +64,10 @@ public abstract class SqlByteArrayType extends SqlDefaultType {
      */
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputType=" + inputType);
+                    + inputValue + ", inputTypes=" + inputTypes);
         }
 
         if (inputValue == null) {

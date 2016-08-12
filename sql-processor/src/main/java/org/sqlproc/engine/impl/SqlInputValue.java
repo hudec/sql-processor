@@ -116,9 +116,9 @@ class SqlInputValue {
      */
     private Object parentInputValue;
     /**
-     * The input value Java type.
+     * The input value Java types (including parameterized types).
      */
-    Class<?> inputValueType;
+    Class<?>[] inputValueTypes;
     /**
      * A wildcard character for the SQL command <code>LIKE</code>. It can be added to inputValue as a prefix and/or as a
      * suffix.
@@ -174,8 +174,6 @@ class SqlInputValue {
      *            a value type
      * @param inputValue
      *            a dynamic input value
-     * @param inputValueType
-     *            a dynamic input value Java type
      * @param caseConversion
      *            which conversion should be done on inputValue
      * @param inOutMode
@@ -184,21 +182,23 @@ class SqlInputValue {
      *            a dynamic input value META type
      * @param inSetOrInsert
      *            an indicator the input value is bounded to the SET or VALUES fragment of META SQL
+     * @param inputValueTypes
+     *            a dynamic input value Java types (including parameterized types)
      */
     SqlInputValue(SqlProcessContext ctx, Type valueType, Object inputValue, Object parentInputValue,
-            Class<?> inputValueType, Code caseConversion, Mode inOutMode, SqlType type, String inputName,
-            String fullInputName, Boolean inSetOrInsert) {
+            Code caseConversion, Mode inOutMode, SqlType type, String inputName, String fullInputName,
+            Boolean inSetOrInsert, Class<?>... inputValueTypes) {
         this.ctx = ctx;
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
-        this.inputValueType = inputValueType;
         this.caseConversion = caseConversion;
         this.inOutMode = inOutMode;
         this.type = type;
         this.inputName = inputName;
         this.fullInputName = fullInputName;
         this.inSetOrInsert = inSetOrInsert;
+        this.inputValueTypes = inputValueTypes;
     }
 
     /**
@@ -210,26 +210,26 @@ class SqlInputValue {
      *            a value type
      * @param inputValue
      *            a dynamic input value
-     * @param inputValueType
-     *            a dynamic input value Java type
      * @param sequenceOrIdentitySelect
      *            a sequence or select command used to generate an identity value
      * @param type
      *            a dynamic input value META type
+     * @param inputValueTypes
+     *            a dynamic input value Java types (including parameterized types)
      */
     SqlInputValue(SqlProcessContext ctx, Type valueType, Object inputValue, Object parentInputValue,
-            Class<?> inputValueType, String sequenceOrIdentitySelect, SqlType type, String dbIdentityName) {
+            String sequenceOrIdentitySelect, SqlType type, String dbIdentityName, Class<?>... inputValueTypes) {
         this.ctx = ctx;
         this.valueType = valueType;
         this.inputValue = inputValue;
         this.parentInputValue = parentInputValue;
-        this.inputValueType = inputValueType;
         if (this.valueType == Type.SEQUENCE_BASED)
             this.sequence = sequenceOrIdentitySelect;
         else
             this.identitySelect = sequenceOrIdentitySelect;
         this.type = type;
         this.dbIdentityName = dbIdentityName;
+        this.inputValueTypes = inputValueTypes;
     }
 
     /**
@@ -267,7 +267,7 @@ class SqlInputValue {
         // this.parentInputValue = dynamicInputValues;
         this.inputName = sqlInputValue.inputName;
         this.fullInputName = sqlInputValue.fullInputName;
-        this.inputValueType = sqlInputValue.inputValueType;
+        this.inputValueTypes = sqlInputValue.inputValueTypes;
         this.likeChar = sqlInputValue.likeChar;
         this.minLikeLength = sqlInputValue.minLikeLength;
         this.partialLike = sqlInputValue.partialLike;
@@ -298,18 +298,18 @@ class SqlInputValue {
             throws SqlRuntimeException {
         if (sequence != null) {
             SqlQuery seqQuery = session.createSqlQuery(sequence);
-            ctx.getTypeFactory().getDefaultType().addScalar(typeFactory, seqQuery, "1", inputValueType);
+            ctx.getTypeFactory().getDefaultType().addScalar(typeFactory, seqQuery, "1", inputValueTypes);
             identity = seqQuery.unique(ctx);
-            type.setParameter(ctx, query, paramName, identity, inputValueType);
+            type.setParameter(ctx, query, paramName, identity, inputValueTypes);
         } else if (identitySelect != null) {
             ctx.getTypeFactory().getIdentityType().setParameter(ctx, query, paramName, new IdentitySetter() {
                 @Override
                 public void setIdentity(Object identity) {
                     if (identity != null && identity instanceof BigDecimal)
-                        SqlInputValue.this.identity = SqlUtils.convertBigDecimal(SqlInputValue.this.inputValueType,
+                        SqlInputValue.this.identity = SqlUtils.convertBigDecimal(SqlInputValue.this.inputValueTypes[0],
                                 identity);
                     else
-                        SqlInputValue.this.identity = SqlUtils.convertBigInteger(SqlInputValue.this.inputValueType,
+                        SqlInputValue.this.identity = SqlUtils.convertBigInteger(SqlInputValue.this.inputValueTypes[0],
                                 identity);
                 }
 
@@ -317,7 +317,7 @@ class SqlInputValue {
                 public String getIdentitySelect() {
                     return SqlInputValue.this.identitySelect;
                 }
-            }, inputValueType, ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN));
+            }, ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN), inputValueTypes);
         } else if (inOutMode == Mode.IN || inOutMode == Mode.INOUT) {
             Object o = this.inputValue;
             if (inputValue instanceof String) {
@@ -329,14 +329,14 @@ class SqlInputValue {
                     o = inputValue != null ? processReplaceChars(processLike(inputValue)).toUpperCase() : (String) null;
                 }
             }
-            type.setParameter(ctx, query, paramName, o, inputValueType);
+            type.setParameter(ctx, query, paramName, o, inputValueTypes);
             if (inOutMode == Mode.INOUT) {
                 type.setParameter(ctx, query, paramName, new OutValueSetter() {
                     @Override
                     public void setOutValue(Object outValue) {
                         SqlInputValue.this.outValue = outValue;
                     }
-                }, inputValueType);
+                }, inputValueTypes);
             }
         } else if (inOutMode == Mode.OUT) {
             type.setParameter(ctx, query, paramName, new OutValueSetter() {
@@ -344,7 +344,7 @@ class SqlInputValue {
                 public void setOutValue(Object outValue) {
                     SqlInputValue.this.outValue = outValue;
                 }
-            }, inputValueType);
+            }, inputValueTypes);
         }
     }
 
@@ -537,7 +537,7 @@ class SqlInputValue {
         sb.append(", inputName=").append(inputName);
         sb.append(", fullInputName=").append(fullInputName);
         sb.append(", parentInputValue=").append(parentInputValue);
-        sb.append(", inputValueType=").append(inputValueType);
+        sb.append(", inputValueTypes=").append(inputValueTypes);
         sb.append(", likeChar=").append(likeChar);
         sb.append(", minLikeLength=").append(minLikeLength);
         sb.append(", partialLike=").append(partialLike);

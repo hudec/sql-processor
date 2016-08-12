@@ -89,17 +89,17 @@ class SqlType {
      *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
      * @param paramName
      *            the name of the parameter
-     * @param inputValue
-     *            the possibly-null parameter value, a dynamic input value
+     * @param inputTypes
+     *            the Java types of the attribute in the input POJO
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with input values handling
      */
-    void setParameter(SqlProcessContext ctx, SqlQuery query, String paramName, Object inputValue, Class<?> inputType)
-            throws SqlRuntimeException {
+    void setParameter(SqlProcessContext ctx, SqlQuery query, String paramName, Object inputValue,
+            Class<?>... inputTypes) throws SqlRuntimeException {
         if (logger.isDebugEnabled())
             logger.debug("setParameter " + metaType + " " + paramName + " " + inputValue);
-        getMetaType(ctx).setParameter(ctx, query, paramName, inputValue, inputType,
-                ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN));
+        getMetaType(ctx).setParameter(ctx, query, paramName, inputValue, ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN),
+                inputTypes);
     }
 
     /**

@@ -48,10 +48,10 @@ public abstract class SqlOutValueType extends SqlDefaultType {
      */
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object outValueSetter,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", outValueSetter="
-                    + outValueSetter + ", inputType=" + inputType);
+                    + outValueSetter + ", inputTypes=" + inputTypes);
         }
 
         if (outValueSetter != null && outValueSetter instanceof OutValueSetter) {

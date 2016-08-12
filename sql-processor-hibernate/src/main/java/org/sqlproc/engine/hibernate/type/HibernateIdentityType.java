@@ -37,13 +37,13 @@ public class HibernateIdentityType extends SqlIdentityType {
      */
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object identitySetter,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter IDENTITY: paramName=" + paramName + ", identitySetter=" + identitySetter
-                    + ", inputType=" + inputType);
+                    + ", inputTypes=" + inputTypes);
         }
         if (identitySetter != null && identitySetter instanceof IdentitySetter) {
-            Object type = runtimeCtx.getTypeFactory().getMetaType(inputType);
+            Object type = runtimeCtx.getTypeFactory().getMetaType(inputTypes[0]);
             if (type != null && type instanceof SqlMetaType)
                 query.setParameter(paramName, identitySetter, ((SqlMetaType) type).getProviderSqlType());
             else

@@ -68,10 +68,10 @@ public class JdbcOtherType implements SqlTaggedMetaType {
      */
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputType=" + inputType);
+                    + inputValue + ", inputTypes=" + inputTypes);
         }
 
         query.setParameter(paramName, inputValue, getProviderSqlType());

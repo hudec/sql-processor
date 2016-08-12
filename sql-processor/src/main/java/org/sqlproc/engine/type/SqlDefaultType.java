@@ -105,10 +105,10 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
      */
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
         if (logger.isTraceEnabled()) {
             logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputType=" + inputType);
+                    + inputValue + ", inputTypes=" + inputTypes);
         }
 
         if (getProviderSqlType() != null) {
@@ -123,23 +123,23 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
         }
 
         if (!(inputValue instanceof Collection)) {
-            if (inputType.isEnum()) {
-                Class clazz = runtimeCtx.getEnumToClass(inputType);
+            if (inputTypes[0].isEnum()) {
+                Class clazz = runtimeCtx.getEnumToClass(inputTypes[0]);
                 if (clazz == String.class) {
                     runtimeCtx.getTypeFactory().getEnumStringType().setParameter(runtimeCtx, query, paramName,
-                            inputValue, inputType, ingoreError);
+                            inputValue, ingoreError, inputTypes);
                 } else if (clazz == Integer.class) {
                     runtimeCtx.getTypeFactory().getEnumIntegerType().setParameter(runtimeCtx, query, paramName,
-                            inputValue, inputType, ingoreError);
+                            inputValue, ingoreError, inputTypes);
                 } else {
                     error(ingoreError, "Incorrect type based enum " + inputValue + " for " + paramName
                             + ", META type is DEFAULT" + this);
                     return;
                 }
             } else {
-                SqlMetaType type = runtimeCtx.getTypeFactory().getMetaType(inputType);
+                SqlMetaType type = runtimeCtx.getTypeFactory().getMetaType(inputTypes[0]);
                 if (type != null) {
-                    type.setParameter(runtimeCtx, query, paramName, inputValue, inputType, ingoreError);
+                    type.setParameter(runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);
                 } else {
                     error(ingoreError, "Incorrect default type " + inputValue + " for " + paramName
                             + ", META type is DEFAULT" + this);

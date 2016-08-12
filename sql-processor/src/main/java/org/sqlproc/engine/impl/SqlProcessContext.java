@@ -138,6 +138,15 @@ public class SqlProcessContext implements SqlRuntimeContext {
     }
 
     /**
+     * Returns the compound parameters controlling the META SQL execution.
+     * 
+     * @return the compound parameters controlling the META SQL execution
+     */
+    public Map<String, Class<?>> getMoreResultClasses() {
+        return SqlEngine.getMoreResultClasses(sqlControl);
+    }
+
+    /**
      * Sets the type of the META SQL fragment.
      * 
      * @param sqlFragmentType
