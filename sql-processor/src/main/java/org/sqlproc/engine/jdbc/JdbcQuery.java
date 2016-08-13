@@ -695,7 +695,8 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameter(String name, Object val, Object type) throws SqlProcessorException {
+    public SqlQuery setParameter(String name, Object val, Object type, Class<?>... moreTypes)
+            throws SqlProcessorException {
         // TODO, right now just a workaround
         if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
             throw new IllegalArgumentException();
@@ -730,7 +731,8 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameterList(String name, Object[] vals, Object type) throws SqlProcessorException {
+    public SqlQuery setParameterList(String name, Object[] vals, Object type, Class<?>... moreTypes)
+            throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 

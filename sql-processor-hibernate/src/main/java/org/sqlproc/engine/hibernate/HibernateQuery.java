@@ -245,7 +245,8 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameter(String name, Object val, Object type) throws SqlProcessorException {
+    public SqlQuery setParameter(String name, Object val, Object type, Class<?>... moreTypes)
+            throws SqlProcessorException {
         // TODO, right now just a workaround
         if (type != null && !(type instanceof Type))
             throw new IllegalArgumentException();
@@ -280,7 +281,8 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameterList(String name, Object[] vals, Object type) throws SqlProcessorException {
+    public SqlQuery setParameterList(String name, Object[] vals, Object type, Class<?>... moreTypes)
+            throws SqlProcessorException {
         // TODO, right now just a workaround
         if (type != null && !(type instanceof Type))
             throw new IllegalArgumentException();

@@ -214,7 +214,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    SqlQuery setParameter(String name, Object val, Object type) throws SqlProcessorException;
+    SqlQuery setParameter(String name, Object val, Object type, Class<?>... moreTypes) throws SqlProcessorException;
 
     /**
      * Binds multiple values to a named query parameter. This is useful for binding a list of values to the query
@@ -244,7 +244,8 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    SqlQuery setParameterList(String name, Object[] vals, Object type) throws SqlProcessorException;
+    SqlQuery setParameterList(String name, Object[] vals, Object type, Class<?>... moreTypes)
+            throws SqlProcessorException;
 
     /**
      * Submits a batch of commands to the database for execution and if all commands execute successfully, returns an

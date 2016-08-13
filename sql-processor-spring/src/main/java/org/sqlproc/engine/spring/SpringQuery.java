@@ -788,7 +788,8 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameter(final String name, final Object val, final Object type) throws SqlProcessorException {
+    public SqlQuery setParameter(final String name, final Object val, final Object type, Class<?>... moreTypes)
+            throws SqlProcessorException {
         // TODO, right now just a workaround
         if (type != null && !(type instanceof JdbcSqlType) && !(type instanceof Integer))
             throw new IllegalArgumentException();
@@ -823,7 +824,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setParameterList(final String name, final Object[] vals, final Object type)
+    public SqlQuery setParameterList(final String name, final Object[] vals, final Object type, Class<?>... moreTypes)
             throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
