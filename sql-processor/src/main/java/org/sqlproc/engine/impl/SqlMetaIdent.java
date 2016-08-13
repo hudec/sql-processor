@@ -376,7 +376,8 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
                     if (typeName != null && ctx.getMoreResultClasses() != null)
                         attributeParameterizedType = ctx.getMoreResultClasses().get(typeName);
                     if (attributeParameterizedType == null)
-                        attributeParameterizedTypes = ctx.getAttributeParameterizedTypes(obj.getClass(), attributeName);
+                        attributeParameterizedTypes = ctx.getAttributeParameterizedTypes(parentObj.getClass(),
+                                attributeName);
                     if (attributeParameterizedTypes == null && typeName != null)
                         attributeParameterizedType = SqlUtils.getStandardModeResultClass(typeName);
                 }
