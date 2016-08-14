@@ -811,21 +811,11 @@ public class SqlQueryEngine extends SqlEngine {
                     processResult.getSql().toString());
             query = session.createSqlQuery(sql);
             query.setLogError(processResult.isLogError());
-            if (getMaxTimeout(sqlControl) != null)
-                query.setTimeout(getMaxTimeout(sqlControl));
-            if (getFetchSize(sqlControl) != null)
-                query.setFetchSize(getFetchSize(sqlControl));
+            query.setSqlControl(sqlControl);
             query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
             processResult.setQueryParams(session, query);
             mappingResult = SqlMappingRule.merge(mapping, processResult);
             mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
-
-            if (getFirstResult(sqlControl) != null) {
-                query.setFirstResult(getFirstResult(sqlControl));
-                query.setMaxResults(getMaxResults(sqlControl));
-            } else if (getMaxResults(sqlControl) != null) {
-                query.setMaxResults(getMaxResults(sqlControl));
-            }
             return mappingResult.getRuntimeContext();
         }
 
@@ -835,10 +825,9 @@ public class SqlQueryEngine extends SqlEngine {
             String sql = pluginFactory.getSqlCountPlugin().sqlCount(name, processResult.getSql());
             query = session.createSqlQuery(sql);
             query.setLogError(processResult.isLogError());
+            query.setSqlControl(sqlControl);
             typeFactory.getDefaultType().addScalar(processResult.getRuntimeContext().getTypeFactory(), query,
                     "vysledek", Integer.class);
-            if (getMaxTimeout(sqlControl) != null)
-                query.setTimeout(getMaxTimeout(sqlControl));
             query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
             processResult.setQueryParams(session, query);
             return processResult.getRuntimeContext();

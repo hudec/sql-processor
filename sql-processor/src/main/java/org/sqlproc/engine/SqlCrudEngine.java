@@ -333,8 +333,7 @@ public class SqlCrudEngine extends SqlEngine {
                     sql = SqlUtils.handleInsertSql(processResult.getIdentities(), sql);
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) != null)
-                        query.setTimeout(getMaxTimeout(sqlControl));
+                    query.setSqlControl(sqlControl);
                     if (!processResult.setQueryParams(session, query) && isSkipEmptyStatement(sqlControl))
                         return 0;
 
@@ -515,10 +514,7 @@ public class SqlCrudEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) != null)
-                        query.setTimeout(getMaxTimeout(sqlControl));
-                    if (getFetchSize(sqlControl) != null)
-                        query.setFetchSize(getFetchSize(sqlControl));
+                    query.setSqlControl(sqlControl);
                     processResult.setQueryParams(session, query);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, getMoreResultClasses(sqlControl), query);
@@ -695,8 +691,7 @@ public class SqlCrudEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) != null)
-                        query.setTimeout(getMaxTimeout(sqlControl));
+                    query.setSqlControl(sqlControl);
                     if (!processResult.setQueryParams(session, query) && isSkipEmptyStatement(sqlControl))
                         return 0;
 
@@ -825,8 +820,7 @@ public class SqlCrudEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) != null)
-                        query.setTimeout(getMaxTimeout(sqlControl));
+                    query.setSqlControl(sqlControl);
                     processResult.setQueryParams(session, query);
 
                     if (monitor instanceof SqlExtendedMonitor) {

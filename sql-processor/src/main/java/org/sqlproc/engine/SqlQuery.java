@@ -27,40 +27,13 @@ public interface SqlQuery {
     Object getQuery();
 
     /**
-     * Sets a timeout for the underlying query.
+     * Sets the compound parameters controlling the META SQL execution.
      * 
-     * @param timeout
-     *            the timeout in seconds
+     * @param sqlControl
+     *            the compound parameters controlling the META SQL execution
      * @return this instance to enable the methods chaining
      */
-    SqlQuery setTimeout(int timeout);
-
-    /**
-     * Sets the first row to retrieve. If not set, rows will be retrieved beginning from row 0.
-     * 
-     * @param firstResult
-     *            a row number, numbered from 0
-     * @return this instance to enable the methods chaining
-     */
-    SqlQuery setFirstResult(int firstResult);
-
-    /**
-     * Sets the maximum number of rows to retrieve. If not set, there is no limit to the number of rows retrieved.
-     * 
-     * @param maxResults
-     *            the maximum number of rows
-     * @return this instance to enable the methods chaining
-     */
-    SqlQuery setMaxResults(int maxResults);
-
-    /**
-     * Sets the fetch size of rows to retrieve. If not set, there is no limit to the number of rows retrieved.
-     *
-     * @param fetchSize
-     *            the fetch size of rows
-     * @return this instance to enable the methods chaining
-     */
-    SqlQuery setFetchSize(int fetchSize);
+    SqlQuery setSqlControl(SqlControl sqlControl);
 
     /**
      * Sets the indicator the SQL output is sorted.

@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
@@ -95,21 +96,9 @@ public class JdbcQuery implements SqlQuery {
      */
     Map<String, Object> identityTypes = new HashMap<String, Object>();
     /**
-     * A timeout for the underlying query.
+     * The compound parameters controlling the META SQL execution.
      */
-    Integer timeout;
-    /**
-     * The first row to retrieve.
-     */
-    Integer firstResult;
-    /**
-     * The maximum number of rows to retrieve.
-     */
-    Integer maxResults;
-    /**
-     * The fetch size of rows to retrieve in one SQL.
-     */
-    Integer fetchSize;
+    SqlControl sqlControl;
     /**
      * The SQL output is sorted.
      */
@@ -150,36 +139,25 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setTimeout(int timeout) {
-        this.timeout = timeout;
+    public SqlQuery setSqlControl(SqlControl sqlControl) {
+        this.sqlControl = sqlControl;
         return this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQuery setFirstResult(int firstResult) {
-        this.firstResult = firstResult;
-        return this;
+    private Integer getTimeout() {
+        return sqlControl != null ? sqlControl.getMaxTimeout() : null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQuery setMaxResults(int maxResults) {
-        this.maxResults = maxResults;
-        return this;
+    private Integer getFetchSize() {
+        return sqlControl != null ? sqlControl.getFetchSize() : null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQuery setFetchSize(int fetchSize) {
-        this.fetchSize = fetchSize;
-        return this;
+    private Integer getFirstResult() {
+        return sqlControl != null && sqlControl.getMaxResults() != null ? sqlControl.getFirstResult() : null;
+    }
+
+    private Integer getMaxResults() {
+        return sqlControl != null ? sqlControl.getMaxResults() : null;
     }
 
     /**
@@ -196,9 +174,10 @@ public class JdbcQuery implements SqlQuery {
      */
     @Override
     public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
-        StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
-        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
-                .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
+        StringBuilder queryResult = (getMaxResults() != null) ? new StringBuilder(queryString.length() + 100) : null;
+        final SqlFromToPlugin.LimitType limitType = (getMaxResults() != null)
+                ? runtimeCtx.getPluginFactory().getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult,
+                        getFirstResult(), getMaxResults(), ordered)
                 : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
@@ -209,14 +188,14 @@ public class JdbcQuery implements SqlQuery {
         ResultSet rs = null;
         try {
             ps = connection.prepareStatement(query);
-            if (timeout != null)
-                ps.setQueryTimeout(timeout);
-            if (fetchSize != null)
-                ps.setFetchSize(fetchSize);
+            if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                ps.setQueryTimeout(getTimeout());
+            if (getFetchSize() != null)
+                ps.setFetchSize(getFetchSize());
             setParameters(ps, limitType, 1);
             rs = ps.executeQuery();
-            if (fetchSize != null)
-                rs.setFetchSize(fetchSize);
+            if (getFetchSize() != null)
+                rs.setFetchSize(getFetchSize());
             List list = getResults(rs);
             if (logger.isDebugEnabled()) {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
@@ -265,9 +244,10 @@ public class JdbcQuery implements SqlQuery {
     @Override
     public int query(final SqlRuntimeContext runtimeCtx, SqlQueryRowProcessor sqlQueryRowProcessor)
             throws SqlProcessorException {
-        StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
-        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
-                .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
+        StringBuilder queryResult = (getMaxResults() != null) ? new StringBuilder(queryString.length() + 100) : null;
+        final SqlFromToPlugin.LimitType limitType = (getMaxResults() != null)
+                ? runtimeCtx.getPluginFactory().getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult,
+                        getFirstResult(), getMaxResults(), ordered)
                 : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
@@ -279,14 +259,14 @@ public class JdbcQuery implements SqlQuery {
         int rownum = 0;
         try {
             ps = connection.prepareStatement(query);
-            if (timeout != null)
-                ps.setQueryTimeout(timeout);
-            if (fetchSize != null)
-                ps.setFetchSize(fetchSize);
+            if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                ps.setQueryTimeout(getTimeout());
+            if (getFetchSize() != null)
+                ps.setFetchSize(getFetchSize());
             setParameters(ps, limitType, 1);
             rs = ps.executeQuery();
-            if (fetchSize != null)
-                rs.setFetchSize(fetchSize);
+            if (getFetchSize() != null)
+                rs.setFetchSize(getFetchSize());
             for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs)) {
                 ++rownum;
                 if (!sqlQueryRowProcessor.processRow(oo, rownum))
@@ -331,8 +311,8 @@ public class JdbcQuery implements SqlQuery {
             } else {
                 ps = connection.prepareStatement(queryString);
             }
-            if (timeout != null)
-                ps.setQueryTimeout(timeout);
+            if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                ps.setQueryTimeout(getTimeout());
             setParameters(ps, null, 1);
             int updated = ps.executeUpdate();
             if (logger.isDebugEnabled()) {
@@ -490,22 +470,22 @@ public class JdbcQuery implements SqlQuery {
             query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}"
                     : "{ call " + matcher.group(2) + "}";
             cs = connection.prepareCall(query);
-            if (timeout != null)
-                cs.setQueryTimeout(timeout);
-            if (fetchSize != null)
-                cs.setFetchSize(fetchSize);
+            if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                cs.setQueryTimeout(getTimeout());
+            if (getFetchSize() != null)
+                cs.setFetchSize(getFetchSize());
             setParameters(cs, null, 1);
             hasResultSet = cs.execute();
             if (hasResultSet || cs.getMoreResults()) {
                 rs = cs.getResultSet();
-                if (fetchSize != null)
-                    rs.setFetchSize(fetchSize);
+                if (getFetchSize() != null)
+                    rs.setFetchSize(getFetchSize());
                 list = getResults(rs);
                 getParameters(cs, false);
             } else {
                 rs = (ResultSet) getParameters(cs, true);
-                if (fetchSize != null)
-                    rs.setFetchSize(fetchSize);
+                if (getFetchSize() != null)
+                    rs.setFetchSize(getFetchSize());
                 list = getResults(rs);
             }
             if (logger.isDebugEnabled()) {
@@ -569,8 +549,8 @@ public class JdbcQuery implements SqlQuery {
             query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}"
                     : "{ call " + matcher.group(2) + "}";
             cs = connection.prepareCall(query);
-            if (timeout != null)
-                cs.setQueryTimeout(timeout);
+            if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                cs.setQueryTimeout(getTimeout());
             setParameters(cs, null, 1);
             cs.execute();
             int updated = cs.getUpdateCount();
@@ -619,16 +599,16 @@ public class JdbcQuery implements SqlQuery {
             query = (matcher.group(1) != null) ? "{? = call " + matcher.group(2) + "}"
                     : "{call " + matcher.group(2) + "}";
             cs = connection.prepareCall(query);
-            if (timeout != null)
-                cs.setQueryTimeout(timeout);
-            if (fetchSize != null)
-                cs.setFetchSize(fetchSize);
+            if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                cs.setQueryTimeout(getTimeout());
+            if (getFetchSize() != null)
+                cs.setFetchSize(getFetchSize());
             setParameters(cs, null, 1);
             hasResultSet = cs.execute();
             if (hasResultSet) {
                 rs = cs.getResultSet();
-                if (fetchSize != null)
-                    rs.setFetchSize(fetchSize);
+                if (getFetchSize() != null)
+                    rs.setFetchSize(getFetchSize());
                 list = getResults(rs);
                 if (list != null && !list.isEmpty())
                     result = list.get(0);
@@ -840,21 +820,21 @@ public class JdbcQuery implements SqlQuery {
             return ix;
         if (limitType.maxBeforeFirst) {
             if (limitType.rowidBasedMax && limitType.alsoFirst)
-                ps.setInt(ix++, firstResult + maxResults);
+                ps.setInt(ix++, getFirstResult() + getMaxResults());
             else
-                ps.setInt(ix++, maxResults);
+                ps.setInt(ix++, getMaxResults());
         }
         if (limitType.alsoFirst) {
             if (limitType.zeroBasedFirst)
-                ps.setInt(ix++, firstResult);
+                ps.setInt(ix++, getFirstResult());
             else
-                ps.setInt(ix++, firstResult);
+                ps.setInt(ix++, getFirstResult());
         }
         if (!limitType.maxBeforeFirst) {
             if (limitType.rowidBasedMax && limitType.alsoFirst)
-                ps.setInt(ix++, firstResult + maxResults);
+                ps.setInt(ix++, getFirstResult() + getMaxResults());
             else
-                ps.setInt(ix++, maxResults);
+                ps.setInt(ix++, getMaxResults());
         }
         return ix;
     }

@@ -15,6 +15,7 @@ import org.hibernate.jdbc.Work;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlControl;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlProcessorException;
 import org.sqlproc.engine.SqlQuery;
@@ -88,35 +89,17 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public SqlQuery setTimeout(int timeout) {
-        query.setTimeout(timeout);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQuery setFirstResult(int firstResult) {
-        query.setFirstResult(firstResult);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQuery setMaxResults(int maxResults) {
-        query.setMaxResults(maxResults);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public SqlQuery setFetchSize(int fetchSize) {
-        query.setFetchSize(fetchSize);
+    public SqlQuery setSqlControl(SqlControl sqlControl) {
+        if (sqlControl != null) {
+            if (sqlControl.getMaxTimeout() != null)
+                query.setTimeout(sqlControl.getMaxTimeout());
+            if (sqlControl.getFirstResult() != null)
+                query.setFirstResult(sqlControl.getFirstResult());
+            if (sqlControl.getMaxResults() != null)
+                query.setMaxResults(sqlControl.getMaxResults());
+            if (sqlControl.getFetchSize() != null)
+                query.setFetchSize(sqlControl.getFetchSize());
+        }
         return this;
     }
 

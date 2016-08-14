@@ -166,8 +166,9 @@ public class SqlProcedureEngine extends SqlEngine {
     public SqlProcedureEngine(String name, String statement, String mapping, SqlTypeFactory typeFactory,
             SqlPluginFactory pluginFactory) throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(name, mapping, typeFactory) : null, null, null, typeFactory, pluginFactory, null);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory),
+                (mapping != null) ? SqlMappingRule.getInstance(name, mapping, typeFactory) : null, null, null,
+                typeFactory, pluginFactory, null);
     }
 
     /**
@@ -199,8 +200,9 @@ public class SqlProcedureEngine extends SqlEngine {
             Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory)
             throws SqlEngineException {
 
-        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory), (mapping != null) ? SqlMappingRule
-                .getInstance(name, mapping, typeFactory) : null, monitor, features, typeFactory, pluginFactory, null);
+        super(name, SqlMetaStatement.getInstance(name, statement, typeFactory),
+                (mapping != null) ? SqlMappingRule.getInstance(name, mapping, typeFactory) : null, monitor, features,
+                typeFactory, pluginFactory, null);
     }
 
     /**
@@ -387,10 +389,7 @@ public class SqlProcedureEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) != null)
-                        query.setTimeout(getMaxTimeout(sqlControl));
-                    if (getFetchSize(sqlControl) != null)
-                        query.setFetchSize(getFetchSize(sqlControl));
+                    query.setSqlControl(sqlControl);
                     processResult.setQueryParams(session, query);
                     final SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
                     mappingResult.setQueryResultMapping(resultClass, null, query);
@@ -426,7 +425,8 @@ public class SqlProcedureEngine extends SqlEngine {
      *            resultClass
      * @return the result
      */
-    private <E> List<E> callQuery(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass) {
+    private <E> List<E> callQuery(final SqlQuery query, final SqlMappingResult mappingResult,
+            final Class<E> resultClass) {
         List list = query.callList(mappingResult.getRuntimeContext());
         if (SqlUtils.isPrimitiveWrapper(resultClass))
             return list;
@@ -453,8 +453,8 @@ public class SqlProcedureEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #callUpdate(SqlSession, Object, Object, int)}.
      */
-    public int callUpdate(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
-            SqlRuntimeException {
+    public int callUpdate(final SqlSession session, final Object dynamicInputValues)
+            throws SqlProcessorException, SqlRuntimeException {
         return callUpdate(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
@@ -490,8 +490,8 @@ public class SqlProcedureEngine extends SqlEngine {
     public int callUpdate(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
-        return callUpdate(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
-                .setMaxTimeout(maxTimeout));
+        return callUpdate(session, dynamicInputValues,
+                new SqlStandardControl().setStaticInputValues(staticInputValues).setMaxTimeout(maxTimeout));
     }
 
     /**
@@ -535,8 +535,7 @@ public class SqlProcedureEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) != null)
-                        query.setTimeout(getMaxTimeout(sqlControl));
+                    query.setSqlControl(sqlControl);
                     processResult.setQueryParams(session, query);
 
                     if (monitor instanceof SqlExtendedMonitor) {
@@ -579,8 +578,8 @@ public class SqlProcedureEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #callFunction(SqlSession, Object, Object, int)}.
      */
-    public Object callFunction(final SqlSession session, final Object dynamicInputValues) throws SqlProcessorException,
-            SqlRuntimeException {
+    public Object callFunction(final SqlSession session, final Object dynamicInputValues)
+            throws SqlProcessorException, SqlRuntimeException {
         return callFunction(session, dynamicInputValues, (SqlStandardControl) null);
     }
 
@@ -659,8 +658,7 @@ public class SqlProcedureEngine extends SqlEngine {
                             processResult.getSql().toString());
                     final SqlQuery query = session.createSqlQuery(sql);
                     query.setLogError(processResult.isLogError());
-                    if (getMaxTimeout(sqlControl) != null)
-                        query.setTimeout(getMaxTimeout(sqlControl));
+                    query.setSqlControl(sqlControl);
                     processResult.setQueryParams(session, query);
                     if (mapping != null) {
                         SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
