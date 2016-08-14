@@ -113,6 +113,7 @@ public class SqlStandardControl implements SqlControl {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object getStaticInputValues() {
         return staticInputValues;
     }
@@ -135,6 +136,7 @@ public class SqlStandardControl implements SqlControl {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object getDynamicUpdateValues() {
         return dynamicUpdateValues;
     }
@@ -435,6 +437,9 @@ public class SqlStandardControl implements SqlControl {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer getFetchSize() {
         return fetchSize;
