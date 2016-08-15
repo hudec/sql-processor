@@ -110,6 +110,22 @@ public class SpringQuery implements SqlQuery {
      */
     SqlControl sqlControl;
     /**
+     * A timeout for the underlying query.
+     */
+    Integer timeout;
+    /**
+     * The first row to retrieve. -
+     */
+    Integer firstResult;
+    /**
+     * - * The maximum number of rows to retrieve. -
+     */
+    Integer maxResults;
+    /**
+     * - * The fetch size of rows to retrieve in one SQL. -
+     */
+    Integer fetchSize;
+    /**
      * The SQL output is sorted.
      */
     boolean ordered;
@@ -151,23 +167,18 @@ public class SpringQuery implements SqlQuery {
     @Override
     public SqlQuery setSqlControl(SqlControl sqlControl) {
         this.sqlControl = sqlControl;
+        if (sqlControl != null) {
+            timeout = sqlControl.getMaxTimeout();
+            firstResult = sqlControl.getFirstResult();
+            maxResults = sqlControl.getMaxResults();
+            fetchSize = sqlControl.getFetchSize();
+        } else {
+            timeout = null;
+            firstResult = null;
+            maxResults = null;
+            fetchSize = null;
+        }
         return this;
-    }
-
-    private Integer getTimeout() {
-        return sqlControl != null ? sqlControl.getMaxTimeout() : null;
-    }
-
-    private Integer getFetchSize() {
-        return sqlControl != null ? sqlControl.getFetchSize() : null;
-    }
-
-    private Integer getFirstResult() {
-        return sqlControl != null && sqlControl.getMaxResults() != null ? sqlControl.getFirstResult() : null;
-    }
-
-    private Integer getMaxResults() {
-        return sqlControl != null ? sqlControl.getMaxResults() : null;
     }
 
     /**
@@ -184,11 +195,9 @@ public class SpringQuery implements SqlQuery {
      */
     @Override
     public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
-        final StringBuilder queryResult = (getMaxResults() != null) ? new StringBuilder(queryString.length() + 100)
-                : null;
-        final SqlFromToPlugin.LimitType limitType = (getMaxResults() != null)
-                ? runtimeCtx.getPluginFactory().getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult,
-                        getFirstResult(), getMaxResults(), ordered)
+        final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
+                .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
@@ -200,9 +209,9 @@ public class SpringQuery implements SqlQuery {
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
-                    ps.setQueryTimeout(getTimeout());
-                if (getFetchSize() != null)
-                    ps.setFetchSize(getFetchSize());
+                    ps.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    ps.setFetchSize(fetchSize);
                 return ps;
             }
         };
@@ -215,8 +224,8 @@ public class SpringQuery implements SqlQuery {
         ResultSetExtractor<List> rse = new ResultSetExtractor<List>() {
             @Override
             public List extractData(ResultSet rs) throws SQLException, DataAccessException {
-                if (getFetchSize() != null)
-                    rs.setFetchSize(getFetchSize());
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 return getResults(rs);
             }
         };
@@ -257,11 +266,9 @@ public class SpringQuery implements SqlQuery {
     @Override
     public int query(final SqlRuntimeContext runtimeCtx, final SqlQueryRowProcessor sqlQueryRowProcessor)
             throws SqlProcessorException {
-        final StringBuilder queryResult = (getMaxResults() != null) ? new StringBuilder(queryString.length() + 100)
-                : null;
-        final SqlFromToPlugin.LimitType limitType = (getMaxResults() != null)
-                ? runtimeCtx.getPluginFactory().getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult,
-                        getFirstResult(), getMaxResults(), ordered)
+        final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
+        final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
+                .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
         final String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
@@ -273,9 +280,9 @@ public class SpringQuery implements SqlQuery {
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
-                    ps.setQueryTimeout(getTimeout());
-                if (getFetchSize() != null)
-                    ps.setFetchSize(getFetchSize());
+                    ps.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    ps.setFetchSize(fetchSize);
                 return ps;
             }
         };
@@ -288,8 +295,8 @@ public class SpringQuery implements SqlQuery {
         ResultSetExtractor<Integer> rse = new ResultSetExtractor<Integer>() {
             @Override
             public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
-                if (getFetchSize() != null)
-                    rs.setFetchSize(getFetchSize());
+                if (fetchSize != null)
+                    rs.setFetchSize(fetchSize);
                 int rownum = 0;
                 for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs)) {
                     ++rownum;
@@ -330,7 +337,7 @@ public class SpringQuery implements SqlQuery {
                     ps = con.prepareStatement(queryString);
                 }
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
-                    ps.setQueryTimeout(getTimeout());
+                    ps.setQueryTimeout(timeout);
                 return ps;
             }
         };
@@ -549,9 +556,9 @@ public class SpringQuery implements SqlQuery {
 
                 CallableStatement cs = con.prepareCall(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
-                    cs.setQueryTimeout(getTimeout());
-                if (getFetchSize() != null)
-                    cs.setFetchSize(getFetchSize());
+                    cs.setQueryTimeout(timeout);
+                if (fetchSize != null)
+                    cs.setFetchSize(fetchSize);
                 return cs;
             }
         };
@@ -567,8 +574,8 @@ public class SpringQuery implements SqlQuery {
                     if (hasResultSet || cs.getMoreResults()) {
                         rs = cs.getResultSet();
                         ResultSet rsToUse = rs;
-                        if (getFetchSize() != null)
-                            rs.setFetchSize(getFetchSize());
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }
@@ -577,8 +584,8 @@ public class SpringQuery implements SqlQuery {
                     } else {
                         rs = (ResultSet) getParameters(cs, true);
                         ResultSet rsToUse = rs;
-                        if (getFetchSize() != null)
-                            rs.setFetchSize(getFetchSize());
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }
@@ -641,7 +648,7 @@ public class SpringQuery implements SqlQuery {
 
                 CallableStatement cs = con.prepareCall(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
-                    cs.setQueryTimeout(getTimeout());
+                    cs.setQueryTimeout(timeout);
                 return cs;
             }
         };
@@ -687,7 +694,7 @@ public class SpringQuery implements SqlQuery {
 
                 CallableStatement cs = con.prepareCall(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
-                    cs.setQueryTimeout(getTimeout());
+                    cs.setQueryTimeout(timeout);
                 return cs;
             }
         };
@@ -704,8 +711,8 @@ public class SpringQuery implements SqlQuery {
                     if (hasResultSet) {
                         rs = cs.getResultSet();
                         ResultSet rsToUse = rs;
-                        if (getFetchSize() != null)
-                            rs.setFetchSize(getFetchSize());
+                        if (fetchSize != null)
+                            rs.setFetchSize(fetchSize);
                         if (jdbcTemplate.getNativeJdbcExtractor() != null) {
                             rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
                         }
@@ -889,21 +896,21 @@ public class SpringQuery implements SqlQuery {
             return ix;
         if (limitType.maxBeforeFirst) {
             if (limitType.rowidBasedMax && limitType.alsoFirst)
-                ps.setInt(ix++, getFirstResult() + getMaxResults());
+                ps.setInt(ix++, firstResult + maxResults);
             else
-                ps.setInt(ix++, getMaxResults());
+                ps.setInt(ix++, maxResults);
         }
         if (limitType.alsoFirst) {
             if (limitType.zeroBasedFirst)
-                ps.setInt(ix++, getFirstResult());
+                ps.setInt(ix++, firstResult);
             else
-                ps.setInt(ix++, getFirstResult());
+                ps.setInt(ix++, firstResult);
         }
         if (!limitType.maxBeforeFirst) {
             if (limitType.rowidBasedMax && limitType.alsoFirst)
-                ps.setInt(ix++, getFirstResult() + getMaxResults());
+                ps.setInt(ix++, firstResult + maxResults);
             else
-                ps.setInt(ix++, getMaxResults());
+                ps.setInt(ix++, maxResults);
         }
         return ix;
     }
