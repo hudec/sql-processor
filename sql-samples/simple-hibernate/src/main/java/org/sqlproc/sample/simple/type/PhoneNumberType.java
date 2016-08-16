@@ -42,7 +42,7 @@ public class PhoneNumberType implements SqlTaggedMetaType {
     }
 
     @Override
-    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?> attributeType) {
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
         query.addScalar(dbName, StringType.INSTANCE);
     }
 
@@ -101,7 +101,7 @@ public class PhoneNumberType implements SqlTaggedMetaType {
 
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            Class<?> inputType, boolean ingoreError) throws SqlRuntimeException {
+            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
 
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, StringType.INSTANCE);
