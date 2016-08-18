@@ -16,7 +16,7 @@ public class TestCount extends TestDatabase {
     public void testOrder() {
         SqlQueryEngine sqlEngine = getSqlEngine("BASIC");
 
-        long rows = sqlEngine.queryCount(session);
+        int rows = sqlEngine.queryCount(session);
         assertTrue(rows > 0);
         logger.info("Rows: " + rows);
     }
@@ -26,7 +26,7 @@ public class TestCount extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("BASIC_LEFT_JOIN");
 
         List<Library> list = sqlEngine.query(session, Library.class);
-        long rows = sqlEngine.queryCount(session);
+        int rows = sqlEngine.queryCount(session);
         assertTrue(list.size() == rows);
         logger.info("Rows: " + rows);
     }

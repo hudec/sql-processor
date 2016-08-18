@@ -236,28 +236,28 @@ public class ContactDao {
         return listFromTo(contact, null);
     }
 
-    public long count(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
+    public int count(final SqlSession sqlSession, final Contact contact, SqlControl sqlControl) {
         if (logger.isTraceEnabled()) {
             logger.trace("count contact: " + contact + " " + sqlControl);
         }
         org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
         // sqlControl = getMoreResultClasses(contact, sqlControl);
-        long count = sqlEngineContact.queryCount(sqlSession, contact, sqlControl);
+        int count = sqlEngineContact.queryCount(sqlSession, contact, sqlControl);
         if (logger.isTraceEnabled()) {
             logger.trace("count: " + count);
         }
         return count;
     }
 
-    public long count(final Contact contact, SqlControl sqlControl) {
+    public int count(final Contact contact, SqlControl sqlControl) {
         return count(sqlSessionFactory.getSqlSession(), contact, sqlControl);
     }
 
-    public long count(final SqlSession sqlSession, final Contact contact) {
+    public int count(final SqlSession sqlSession, final Contact contact) {
         return count(sqlSession, contact, null);
     }
 
-    public long count(final Contact contact) {
+    public int count(final Contact contact) {
         return count(contact, null);
     }
 }

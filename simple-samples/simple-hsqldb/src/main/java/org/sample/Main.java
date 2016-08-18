@@ -148,7 +148,7 @@ public class Main {
 
         Person person, p;
         Contact contact, c;
-        long count;
+        int count;
         List<Person> list;
         List<Contact> listc;
 

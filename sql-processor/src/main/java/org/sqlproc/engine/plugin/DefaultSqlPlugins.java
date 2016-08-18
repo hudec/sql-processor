@@ -212,6 +212,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     protected static final String DISTINCT = "DISTINCT";
     protected static final String CMD_DISTINCT = "distinct ";
     private static final String COUNT_COLNAME = "vysledek";
+    private static final String COUNT_TYPE = "int";
 
     /**
      * {@inheritDoc}
@@ -224,7 +225,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         int ixFROM = sqlUpper.indexOf(FROM);
         if (ixID < 0 || ixFROM < 0 || ixID > ixFROM)
             return new String[] { "select count(*) as " + COUNT_COLNAME + " from (" + sqlStr + ") derived",
-                    COUNT_COLNAME };
+                    COUNT_COLNAME, COUNT_TYPE };
 
         int ixAfterID = ixID + L_ID;
         for (; ixAfterID < ixFROM; ixAfterID++) {
@@ -240,7 +241,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         int ixSELECT = sqlSelectID.toUpperCase().indexOf(SELECT);
         if (ixSELECT < 0)
             return new String[] { "select count(*) as " + COUNT_COLNAME + " from (" + sqlStr + ") derived",
-                    COUNT_COLNAME };
+                    COUNT_COLNAME, COUNT_TYPE };
 
         String sqlBeforeSELECT = sqlSelectID.substring(0, ixSELECT);
         int ixCOMMA = sqlSelectID.indexOf(",");
@@ -263,7 +264,7 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         }
         return new String[] {
                 sqlBeforeSELECT + "select count(" + distinct + sqlID + ") as " + COUNT_COLNAME + " " + sqlFROM,
-                COUNT_COLNAME };
+                COUNT_COLNAME, COUNT_TYPE };
     }
 
     /**

@@ -233,28 +233,28 @@ public class PersonDao {
         return listFromTo(person, null);
     }
 
-    public long count(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
+    public int count(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
         if (logger.isTraceEnabled()) {
             logger.trace("count person: " + person + " " + sqlControl);
         }
         org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON");
         // sqlControl = getMoreResultClasses(person, sqlControl);
-        long count = sqlEnginePerson.queryCount(sqlSession, person, sqlControl);
+        int count = sqlEnginePerson.queryCount(sqlSession, person, sqlControl);
         if (logger.isTraceEnabled()) {
             logger.trace("count: " + count);
         }
         return count;
     }
 
-    public long count(final Person person, SqlControl sqlControl) {
+    public int count(final Person person, SqlControl sqlControl) {
         return count(sqlSessionFactory.getSqlSession(), person, sqlControl);
     }
 
-    public long count(final SqlSession sqlSession, final Person person) {
+    public int count(final SqlSession sqlSession, final Person person) {
         return count(sqlSession, person, null);
     }
 
-    public long count(final Person person) {
+    public int count(final Person person) {
         return count(person, null);
     }
 }
