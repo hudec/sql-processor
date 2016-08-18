@@ -567,7 +567,7 @@ public class SqlQueryEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #queryCount(SqlSession, Object, Object, SqlOrder, Integer)} .
      */
-    public int queryCount(SqlSession session) throws SqlProcessorException, SqlRuntimeException {
+    public long queryCount(SqlSession session) throws SqlProcessorException, SqlRuntimeException {
         return queryCount(session, null, (SqlStandardControl) null);
     }
 
@@ -576,7 +576,7 @@ public class SqlQueryEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #queryCount(SqlSession, Object, Object, SqlOrder, Integer)} .
      */
-    public int queryCount(SqlSession session, Object dynamicInputValues)
+    public long queryCount(SqlSession session, Object dynamicInputValues)
             throws SqlProcessorException, SqlRuntimeException {
         return queryCount(session, dynamicInputValues, (SqlStandardControl) null);
     }
@@ -586,7 +586,7 @@ public class SqlQueryEngine extends SqlEngine {
      * parameters description please see the most complex execution method
      * {@link #queryCount(SqlSession, Object, Object, SqlOrder, Integer)} .
      */
-    public int queryCount(SqlSession session, Object dynamicInputValues, Object staticInputValues)
+    public long queryCount(SqlSession session, Object dynamicInputValues, Object staticInputValues)
             throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
         return queryCount(session, dynamicInputValues,
@@ -624,7 +624,7 @@ public class SqlQueryEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    public int queryCount(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
+    public long queryCount(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final SqlOrder order, final Integer maxTimeout) throws SqlProcessorException, SqlRuntimeException {
         checkStaticInputValues(staticInputValues);
         return queryCount(session, dynamicInputValues, new SqlStandardControl().setStaticInputValues(staticInputValues)
@@ -652,7 +652,7 @@ public class SqlQueryEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    public int queryCount(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
+    public long queryCount(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
             throws SqlProcessorException, SqlRuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug(">> queryCount, session=" + session + ", dynamicInputValues=" + dynamicInputValues
@@ -661,11 +661,11 @@ public class SqlQueryEngine extends SqlEngine {
         checkDynamicInputValues(dynamicInputValues);
 
         final QueryExecutor<Object> executor = new QueryExecutor<Object>(0);
-        Integer count = null;
+        Long count = null;
 
         try {
             count = monitor.run(new SqlMonitor.Runner() {
-                public Integer run() {
+                public Long run() {
 
                     final SqlRuntimeContext runtimeContext = executor.prepareQueryCount(session, dynamicInputValues,
                             sqlControl);
@@ -673,15 +673,15 @@ public class SqlQueryEngine extends SqlEngine {
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
-                            public Integer run() {
+                            public Long run() {
                                 return executor.executeCount(runtimeContext);
                             }
-                        }, Integer.class);
+                        }, Long.class);
                     } else {
                         return executor.executeCount(runtimeContext);
                     }
                 }
-            }, Integer.class);
+            }, Long.class);
             return count;
         } finally {
             if (logger.isDebugEnabled()) {
@@ -822,12 +822,12 @@ public class SqlQueryEngine extends SqlEngine {
         SqlRuntimeContext prepareQueryCount(final SqlSession session, final Object dynamicInputValues,
                 final SqlControl sqlControl) {
             final SqlProcessResult processResult = process(SqlMetaStatement.Type.QUERY, dynamicInputValues, sqlControl);
-            String sql = pluginFactory.getSqlCountPlugin().sqlCount(name, processResult.getSql());
-            query = session.createSqlQuery(sql);
+            String[] sql = pluginFactory.getSqlCountPlugin().sqlCount(name, processResult.getSql());
+            query = session.createSqlQuery(sql[0]);
             query.setLogError(processResult.isLogError());
             query.setSqlControl(sqlControl);
-            typeFactory.getDefaultType().addScalar(processResult.getRuntimeContext().getTypeFactory(), query,
-                    "vysledek", Integer.class);
+            typeFactory.getDefaultType().addScalar(processResult.getRuntimeContext().getTypeFactory(), query, sql[1],
+                    Long.class);
             query.setOrdered(getOrder(sqlControl) != null && getOrder(sqlControl) != NO_ORDER);
             processResult.setQueryParams(session, query);
             return processResult.getRuntimeContext();
@@ -866,9 +866,9 @@ public class SqlQueryEngine extends SqlEngine {
 
         }
 
-        Integer executeCount(final SqlRuntimeContext runtimeContext) {
+        Long executeCount(final SqlRuntimeContext runtimeContext) {
 
-            return (Integer) query.unique(runtimeContext);
+            return (Long) query.unique(runtimeContext);
         }
 
         boolean execute(final SqlRuntimeContext runtimeContext, Object resultRow, final Class<E> resultClass,

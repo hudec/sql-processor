@@ -204,25 +204,27 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
 
     boolean debug = false;
 
-    private static final String ID = "ID";
-    private static final int L_ID = ID.length();
-    private static final String FROM = "FROM";
-    private static final String SELECT = "SELECT";
-    private static final int L_SELECT = SELECT.length();
-    private static final String DISTINCT = "DISTINCT";
-    private static final String CMD_DISTINCT = "distinct ";
+    protected static final String ID = "ID";
+    protected static final int L_ID = ID.length();
+    protected static final String FROM = "FROM";
+    protected static final String SELECT = "SELECT";
+    protected static final int L_SELECT = SELECT.length();
+    protected static final String DISTINCT = "DISTINCT";
+    protected static final String CMD_DISTINCT = "distinct ";
+    private static final String COUNT_COLNAME = "vysledek";
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String sqlCount(String name, StringBuilder sql) {
+    public String[] sqlCount(String name, StringBuilder sql) {
         String sqlStr = sql.toString();
         String sqlUpper = sqlStr.toUpperCase();
         int ixID = sqlUpper.indexOf(ID);
         int ixFROM = sqlUpper.indexOf(FROM);
         if (ixID < 0 || ixFROM < 0 || ixID > ixFROM)
-            return "select count(*) as vysledek from (" + sqlStr + ") derived";
+            return new String[] { "select count(*) as " + COUNT_COLNAME + " from (" + sqlStr + ") derived",
+                    COUNT_COLNAME };
 
         int ixAfterID = ixID + L_ID;
         for (; ixAfterID < ixFROM; ixAfterID++) {
@@ -237,7 +239,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
         String sqlFROM = sqlStr.substring(ixFROM);
         int ixSELECT = sqlSelectID.toUpperCase().indexOf(SELECT);
         if (ixSELECT < 0)
-            return "select count(*) as vysledek from (" + sqlStr + ") derived";
+            return new String[] { "select count(*) as " + COUNT_COLNAME + " from (" + sqlStr + ") derived",
+                    COUNT_COLNAME };
 
         String sqlBeforeSELECT = sqlSelectID.substring(0, ixSELECT);
         int ixCOMMA = sqlSelectID.indexOf(",");
@@ -258,8 +261,9 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
                 }
             }
         }
-        String result = sqlBeforeSELECT + "select count(" + distinct + sqlID + ") as vysledek " + sqlFROM;
-        return result;
+        return new String[] {
+                sqlBeforeSELECT + "select count(" + distinct + sqlID + ") as " + COUNT_COLNAME + " " + sqlFROM,
+                COUNT_COLNAME };
     }
 
     /**
