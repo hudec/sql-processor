@@ -199,11 +199,13 @@ class SqlMappingItem implements SqlMetaElement {
      * Assigns the internal type. This type it's used in a conversion process of SQL query output values. It can be a
      * META type or an Hibernate type.
      * 
+     * @param metaTypeName
+     *            an internal type name for this mapping rule item
      * @param metaType
      *            an internal type for this mapping rule item
      */
-    void setMetaType(SqlMetaType metaType) {
-        this.sqlType = new SqlType(metaType);
+    void setMetaType(String metaTypeName, SqlMetaType metaType) {
+        this.sqlType = new SqlType(metaTypeName, metaType);
     }
 
     /**
@@ -266,6 +268,13 @@ class SqlMappingItem implements SqlMetaElement {
         }
     }
 
+    private static Set<String> CONTAINER_TYPES = new HashSet<>();
+    static {
+        CONTAINER_TYPES.add("SET");
+        CONTAINER_TYPES.add("MAP");
+        CONTAINER_TYPES.add("LIST");
+    }
+
     /**
      * Declares a scalar query result for this mapping rule item.
      * 
@@ -287,87 +296,92 @@ class SqlMappingItem implements SqlMetaElement {
                     + ", moreResultClasses=" + moreResultClasses);
         }
 
-        if (sqlType.getMetaType(ctx).getProviderSqlType() != null) {
-            Object o = sqlType.getMetaType(ctx);
-            if (logger.isTraceEnabled()) {
-                logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
-                        + ", metaType=" + sqlType.getMetaType(ctx));
-            }
-            sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, null);
-        } else {
-            int count = attributes.size();
-            boolean exit = false;
-            Class<?> objClass = resultClass;
-            for (int i = 0; i < count - 1 && !exit; i++) {
-                SqlMappingAttribute attr = attributes.get(i);
-                String name = attr.getName();
+        SqlMetaType mtype = sqlType.getMetaType(ctx);
 
-                GetterType rt = ctx.getGetterType(objClass, name);
-                if (rt != null) {
-                    objClass = rt.type;
-                } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
-                    logger.error("There's no getter for '" + name + "' in " + objClass
-                            + ", complete attribute name is '" + attr.getFullName() + "'");
-                    exit = true;
-                } else {
-                    throw new SqlRuntimeException("There's no getter for '" + name + "' in " + objClass
-                            + ", complete attribute name is '" + attr.getFullName() + "'");
+        if (mtype.getProviderSqlType() != null) {
+            if (!ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)
+                    || !CONTAINER_TYPES.contains(sqlType.getMetaTypeName().toUpperCase())) {
+                if (logger.isTraceEnabled()) {
+                    logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
+                            + ", metaType=" + sqlType.getMetaType(ctx));
                 }
-
-                if (!exit) {
-                    if (SqlUtils.isCollection(objClass)) {
-                        String typeName = (moreResultClasses != null)
-                                ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
-                        Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
-                        if (typeClass == null)
-                            typeClass = rt.typeClass;
-                        if (typeClass != null) {
-                            objClass = typeClass;
-                        } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
-                            logger.error("There's no generic type defined for collection " + objClass
-                                    + ", complete attribute name is '" + attr.getFullName()
-                                    + "', possible type name is " + typeName);
-                            exit = true;
-                        } else {
-                            throw new SqlRuntimeException("There's no generic type defined for collection " + objClass
-                                    + ", complete attribute name is '" + attr.getFullName()
-                                    + "', possible type name is " + typeName);
-                        }
-                    } else if (moreResultClasses != null) {
-                        String typeName = (moreResultClasses != null)
-                                ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
-                        Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
-                        if (typeClass != null)
-                            objClass = typeClass;
-                    }
-                }
+                sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, null);
+                return;
             }
-            boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
-            Class<?> attributeType = null;
-            Class<?>[] attributeParameterizedTypes = null;
-            Class<?> attributeParameterizedType = null;
-            if (isPrimitiveWrapper) {
-                attributeType = objClass;
+        }
+
+        int count = attributes.size();
+        boolean exit = false;
+        Class<?> objClass = resultClass;
+        for (int i = 0; i < count - 1 && !exit; i++) {
+            SqlMappingAttribute attr = attributes.get(i);
+            String name = attr.getName();
+
+            GetterType rt = ctx.getGetterType(objClass, name);
+            if (rt != null) {
+                objClass = rt.type;
+            } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                logger.error("There's no getter for '" + name + "' in " + objClass + ", complete attribute name is '"
+                        + attr.getFullName() + "'");
+                exit = true;
             } else {
-                attributeType = ctx.getAttributeType(objClass, getName());
+                throw new SqlRuntimeException("There's no getter for '" + name + "' in " + objClass
+                        + ", complete attribute name is '" + attr.getFullName() + "'");
             }
-            if (SqlUtils.isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)) {
-                String typeName = values.get(getFullName() + Modifiers.MODIFIER_GTYPE);
-                if (typeName != null && moreResultClasses != null)
-                    attributeParameterizedType = moreResultClasses.get(typeName);
-                if (attributeParameterizedType == null)
-                    attributeParameterizedTypes = ctx.getAttributeParameterizedTypes(objClass, getName());
-                if (attributeParameterizedTypes == null && typeName != null)
-                    attributeParameterizedType = SqlUtils.getStandardModeResultClass(typeName);
-            }
-            if (logger.isTraceEnabled()) {
-                logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
-                        + ", attributeType=" + attributeType);
-            }
+
             if (!exit) {
-                sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, SqlUtils
-                        .getAllAttributeTypes(attributeType, attributeParameterizedTypes, attributeParameterizedType));
+                if (SqlUtils.isCollection(objClass)) {
+                    String typeName = (moreResultClasses != null)
+                            ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
+                    Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
+                    if (typeClass == null)
+                        typeClass = rt.typeClass;
+                    if (typeClass != null) {
+                        objClass = typeClass;
+                    } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
+                        logger.error("There's no generic type defined for collection " + objClass
+                                + ", complete attribute name is '" + attr.getFullName() + "', possible type name is "
+                                + typeName);
+                        exit = true;
+                    } else {
+                        throw new SqlRuntimeException("There's no generic type defined for collection " + objClass
+                                + ", complete attribute name is '" + attr.getFullName() + "', possible type name is "
+                                + typeName);
+                    }
+                } else if (moreResultClasses != null) {
+                    String typeName = (moreResultClasses != null)
+                            ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
+                    Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
+                    if (typeClass != null)
+                        objClass = typeClass;
+                }
             }
+        }
+        boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
+        Class<?> attributeType = null;
+        Class<?>[] attributeParameterizedTypes = null;
+        Class<?> attributeParameterizedType = null;
+        if (isPrimitiveWrapper) {
+            attributeType = objClass;
+        } else {
+            attributeType = ctx.getAttributeType(objClass, getName());
+        }
+        if (SqlUtils.isCollection(attributeType) && ctx.isFeature(SqlFeature.COLLECTIONS_ARE_STANDARD_TYPES)) {
+            String typeName = values.get(getFullName() + Modifiers.MODIFIER_GTYPE);
+            if (typeName != null && moreResultClasses != null)
+                attributeParameterizedType = moreResultClasses.get(typeName);
+            if (attributeParameterizedType == null)
+                attributeParameterizedTypes = ctx.getAttributeParameterizedTypes(objClass, getName());
+            if (attributeParameterizedTypes == null && typeName != null)
+                attributeParameterizedType = SqlUtils.getStandardModeResultClass(typeName);
+        }
+        if (logger.isTraceEnabled()) {
+            logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
+                    + ", attributeType=" + attributeType);
+        }
+        if (!exit) {
+            sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, SqlUtils
+                    .getAllAttributeTypes(attributeType, attributeParameterizedTypes, attributeParameterizedType));
         }
     }
 

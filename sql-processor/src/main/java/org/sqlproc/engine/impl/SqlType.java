@@ -20,6 +20,11 @@ class SqlType {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
+     * The name of the internal META type.
+     */
+    private String metaTypeName;
+
+    /**
      * The internal META type, which means special processing of the input/output value.
      */
     private SqlMetaType metaType;
@@ -38,11 +43,23 @@ class SqlType {
     /**
      * Creates a new instance with specified internal type.
      * 
+     * @param metaTypeName
+     *            the internal type name
      * @param metaType
      *            the internal type
      */
-    SqlType(SqlMetaType metaType) {
+    SqlType(String metaTypeName, SqlMetaType metaType) {
+        this.metaTypeName = metaTypeName;
         this.metaType = metaType;
+    }
+
+    /**
+     * Returns the name of the internal META type.
+     * 
+     * @return the name of the internal META type
+     */
+    public String getMetaTypeName() {
+        return metaTypeName;
     }
 
     /**
@@ -148,6 +165,9 @@ class SqlType {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder("SqlType[");
+        if (metaTypeName != null) {
+            sb.append(" metaTypeName=").append(metaTypeName);
+        }
         if (metaType != null) {
             sb.append(" metaType=").append(metaType.toString());
         }

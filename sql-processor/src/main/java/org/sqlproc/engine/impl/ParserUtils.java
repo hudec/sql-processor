@@ -329,7 +329,7 @@ class ParserUtils {
                 boolean isDisriminator = (type == null && dtype == null && gtype == null)
                         ? ((modifier.startsWith(SUPPVAL_DISCRIMINATOR_)) ? true : false) : false;
                 if (type != null) {
-                    ((SqlMappingItem) target).setMetaType(typeFactory.getMetaType(type));
+                    ((SqlMappingItem) target).setMetaType(type, typeFactory.getMetaType(type));
                 } else if (dtype != null) {
                     ((SqlMappingItem) target).setAttributeValue(attrName, dtype);
                 } else if (gtype != null) {
@@ -341,13 +341,13 @@ class ParserUtils {
                 }
             } else if (target instanceof SqlMetaIdent) {
                 if (type != null) {
-                    ((SqlMetaIdent) target).setMetaType(typeFactory.getMetaType(type));
+                    ((SqlMetaIdent) target).setMetaType(type, typeFactory.getMetaType(type));
                 } else {
                     ((SqlMetaIdent) target).setValues(modifier, null);
                 }
             } else if (target instanceof SqlMetaConst) {
                 if (type != null) {
-                    ((SqlMetaConst) target).setMetaType(typeFactory.getMetaType(type));
+                    ((SqlMetaConst) target).setMetaType(type, typeFactory.getMetaType(type));
                 } else {
                     ((SqlMetaConst) target).setValues(modifier, null);
                 }
@@ -365,19 +365,19 @@ class ParserUtils {
             String type = (modifier.startsWith(SUPPVAL_TYPE_)) ? modifier.substring(SUPPVAL_TYPE_.length()) : null;
             if (target instanceof SqlMappingItem) {
                 if (type != null) {
-                    ((SqlMappingItem) target).setMetaType(typeFactory.getMetaType(type));
+                    ((SqlMappingItem) target).setMetaType(type, typeFactory.getMetaType(type));
                 } else {
                     ((SqlMappingItem) target).setValues(modifier, null);
                 }
             } else if (target instanceof SqlMetaIdent) {
                 if (type != null) {
-                    ((SqlMetaIdent) target).setMetaType(typeFactory.getMetaType(type));
+                    ((SqlMetaIdent) target).setMetaType(type, typeFactory.getMetaType(type));
                 } else {
                     ((SqlMetaIdent) target).setValues(modifier, null);
                 }
             } else if (target instanceof SqlMetaConst) {
                 if (type != null) {
-                    ((SqlMetaConst) target).setMetaType(typeFactory.getMetaType(type));
+                    ((SqlMetaConst) target).setMetaType(type, typeFactory.getMetaType(type));
                 } else {
                     ((SqlMetaConst) target).setValues(modifier, null);
                 }

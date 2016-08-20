@@ -113,11 +113,13 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
     /**
      * Sets the internal type of this input value.
      * 
+     * @param metaTypeName
+     *            an internal type name
      * @param metaType
      *            an internal type
      */
-    void setMetaType(SqlMetaType metaType) {
-        sqlType = new SqlType(metaType);
+    void setMetaType(String metaTypeName, SqlMetaType metaType) {
+        sqlType = new SqlType(metaTypeName, metaType);
     }
 
     /**
@@ -224,8 +226,8 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
                         if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_IN)) {
                             logger.error("There's no attribute '" + attributeName + "' for " + origAttributeType);
                         } else {
-                            throw new SqlRuntimeException("There's no attribute '" + attributeName + "' for "
-                                    + origAttributeType);
+                            throw new SqlRuntimeException(
+                                    "There's no attribute '" + attributeName + "' for " + origAttributeType);
                         }
                     }
                 }
@@ -242,12 +244,9 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             if (defaultInputValue != null)
                 result.add(true);
             else
-                result.add(ctx
-                        .getPluginFactory()
-                        .getIsEmptyPlugin()
-                        .isNotEmpty(ctx, attributeName, obj, parentObj,
-                                (sqlType == null) ? null : sqlType.getMetaType(ctx),
-                                (sqlType == null) ? null : sqlType.getValue(), ctx.isInSetOrInsert(), values));
+                result.add(ctx.getPluginFactory().getIsEmptyPlugin().isNotEmpty(ctx, attributeName, obj, parentObj,
+                        (sqlType == null) ? null : sqlType.getMetaType(ctx),
+                        (sqlType == null) ? null : sqlType.getValue(), ctx.isInSetOrInsert(), values));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Input value " + attributeName + ", failed reason" + e.getMessage());
         }
@@ -358,11 +357,9 @@ class SqlMetaConst implements SqlMetaSimple, SqlMetaLogOperand {
             }
         }
 
-        boolean result = ctx
-                .getPluginFactory()
-                .getIsTruePlugin()
-                .isTrue(ctx, attributeName, obj, parentObj, (sqlType == null) ? null : sqlType.getMetaType(ctx),
-                        (sqlType == null) ? null : sqlType.getValue(), values);
+        boolean result = ctx.getPluginFactory().getIsTruePlugin().isTrue(ctx, attributeName, obj, parentObj,
+                (sqlType == null) ? null : sqlType.getMetaType(ctx), (sqlType == null) ? null : sqlType.getValue(),
+                values);
         return (this.not ? !result : result);
     }
 

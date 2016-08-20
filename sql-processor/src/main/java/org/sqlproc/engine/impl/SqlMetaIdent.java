@@ -120,11 +120,13 @@ class SqlMetaIdent implements SqlMetaSimple, SqlMetaLogOperand {
     /**
      * Sets the internal type of this input value.
      * 
+     * @param metaTypeName
+     *            an internal type name
      * @param metaType
      *            an internal type
      */
-    void setMetaType(SqlMetaType metaType) {
-        sqlType = new SqlType(metaType);
+    void setMetaType(String metaTypeName, SqlMetaType metaType) {
+        sqlType = new SqlType(metaTypeName, metaType);
     }
 
     /**
