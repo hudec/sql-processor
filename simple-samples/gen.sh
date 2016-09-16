@@ -5,15 +5,15 @@ BASE="$HOME/git/sql-processor/simple-samples"
 run()
 {
 	cd $1
-	mvn exec:exec -P db2mo
+	mvn8 exec:exec -P db2mo
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	mvn exec:exec -P db2me
+	mvn8 exec:exec -P db2me
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
-	mvn exec:exec -P mo2ja
+	mvn8 exec:exec -P mo2ja
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
