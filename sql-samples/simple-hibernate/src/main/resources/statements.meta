@@ -138,7 +138,7 @@ INSERT_BANK_ACCOUNT(CRUD,in=BankAccount)=
 ALL_SUBSCRIBERS_BILLING_DETAILS(QRY,in=Subscriber,out=Subscriber)=
   select s.ID @id(id), s.NAME @name, s.LIBRARY @library.id(id),
   bd.TYPE @billingDetails(discr)type, bd.ID @billingDetails.id(id),
-  bd.CC_NUMBER @billingDetails.number, bd.BA_ACCOUNT @billingDetails.account
+  bd.CC_NUMBER @billingDetails.number(type=long), bd.BA_ACCOUNT @billingDetails.account
   from SUBSCRIBER s left join BILLING_DETAILS bd on s.ID = bd.SUBSCRIBER
   {= where
    {& UPPER(s.name)=:+name}
