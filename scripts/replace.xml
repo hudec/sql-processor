@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<project name="sql-processor-version" default="change-version" basedir=".">
+	
+	<property name="version.from" value="2.6.0"/>
+	<property name="version.to" value="2.6.0"/>
+	
+	<target name="change-version">
+		<replace dir="../" token="${version.from}" value="${version.to}">
+			<include name="**/**"/>
+		</replace>
+	</target>
+</project>
