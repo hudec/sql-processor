@@ -30,13 +30,6 @@ public abstract class SqlIdentityType extends SqlDefaultType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {

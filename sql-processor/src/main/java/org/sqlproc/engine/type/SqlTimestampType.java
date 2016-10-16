@@ -32,13 +32,6 @@ public abstract class SqlTimestampType extends SqlDefaultType {
     /**
      * {@inheritDoc}
      */
-    public void addScalar(SqlQuery query, String dbName, Class<?> attributeType) {
-        query.addScalar(dbName, getProviderSqlType());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
