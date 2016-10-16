@@ -15,7 +15,7 @@
         <version.slf4j>1.7.12</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.postgresql>9.4-1201-jdbc41</version.postgresql>
-        <version.sql-processor-eclipse>2.6.0-SNAPSHOT</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>2.6.0</version.sql-processor-eclipse>
     </properties>
 
     <build>
