@@ -232,7 +232,8 @@ public class SqlMetaStatement implements SqlMetaElement {
                 if (itemResult.getOrderIndex() != null) {
                     orderByResult.add(itemResult);
                 } else {
-                    s.append(itemResult.getSql());
+                    if (!(item instanceof SqlMappingItem) || !ctx.isFeature(SqlFeature.SKIP_ALIASES_IN_SQL_COMMAND))
+                        s.append(itemResult.getSql());
                     result.addInputValues(itemResult.getInputValues());
                     result.addMappedInputValues(itemResult.getMappedInputValues());
                     result.addOutputValues(itemResult.getOutputValues());

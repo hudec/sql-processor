@@ -302,5 +302,10 @@ public enum SqlFeature {
      * <code>COLLECTIONS_ARE_STANDARD_TYPES</code> is indicator that Collections should be handled as standard types.
      * This is standard behaviour for Cassandra DB.
      */
-    COLLECTIONS_ARE_STANDARD_TYPES;
+    COLLECTIONS_ARE_STANDARD_TYPES,
+    /**
+     * <code>SKIP_ALIASES_IN_SQL_COMMAND</code> is indicator that column aliases are not included in generated SQL
+     * command. This is standard behaviour for Cassandra DB.
+     */
+    SKIP_ALIASES_IN_SQL_COMMAND;
 }

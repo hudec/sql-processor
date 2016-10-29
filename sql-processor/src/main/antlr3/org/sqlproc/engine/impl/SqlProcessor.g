@@ -256,18 +256,18 @@ sqlFragment [SqlMetaStatement metaStatement]
 		{if(!$meta::skip) add($meta::text);}
 	| COLON ident=identifier 
 		{if(!$meta::skip) addIdent(metaStatement, ident, $meta::text);}
-     	| STRING cnst=constant 
-     		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);}
+   	| STRING cnst=constant 
+   		{if(!$meta::skip) addConstant(metaStatement, cnst, $meta::text);}
 	| COLON COLON identOper=identifierOperator 
 		{if(!$meta::skip) addOperator(metaStatement, identOper, $meta::text);}
 	| STRING STRING cnstOper=constantOperator 
 		{if(!$meta::skip) addOperator(metaStatement, cnstOper, $meta::text);}
-     	| AT col=column 
-     		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;}
+   	| AT col=column 
+   		{if(!$meta::skip) addColumn(metaStatement, col, $meta::text);$meta::hasOutputMapping=true;}
 	|  PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaStatement, dbtab, $meta::text);}
 	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaStatement, dbcol, $meta::text);})
-     	| LBRACE metaSql[metaStatement] RBRACE
-     	;
+   	| LBRACE metaSql[metaStatement] RBRACE
+   	;
 
 metaSql [SqlMetaStatement metaStatement]
 @init {SqlMetaAndOr metaAndOr; SqlMetaIf metaIf; SqlMetaOrd metaOrd; SqlMetaSqlFragment sqlFragment; if(!$meta::skip) addText(metaStatement, $meta::text);}	
@@ -307,8 +307,8 @@ ifSqlFragment [SqlMetaIfItem metaIfItem]
 		{if(!$meta::skip) addOperator(metaIfItem, identOper, $meta::text);}
 	| STRING STRING cnstOper=constantOperator 
 		{if(!$meta::skip) addOperator(metaIfItem, cnstOper, $meta::text);}
-     	| AT col=column 
-     		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;}
+   	| AT col=column 
+   		{if(!$meta::skip) addColumn(metaIfItem, col, $meta::text);$meta::hasOutputMapping=true;}
 	| PERCENT (PERCENT dbtab=dbtable {if(!$meta::skip) addDatabaseTable(metaIfItem, dbtab, $meta::text);}
 	            | dbcol=dbcolumn {if(!$meta::skip) addDatabaseColumn(metaIfItem, dbcol, $meta::text);})
 	| LBRACE ifMetaSql[metaIfItem] RBRACE

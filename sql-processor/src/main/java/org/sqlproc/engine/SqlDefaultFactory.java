@@ -147,6 +147,11 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      * The indicator that Collections should be handled as standard types. This is standard behaviour for Cassandra DB..
      */
     private boolean collectionsAreStandardTypes;
+    /**
+     * The indicator that column aliases are not included in generated SQL command. This is standard behaviour for
+     * Cassandra DB.
+     */
+    private boolean skipAliasesInQqlCommand;
 
     /**
      * Creates a new instance with no default values.
@@ -207,6 +212,8 @@ public class SqlDefaultFactory implements SqlEngineFactory {
                         metaStatements.append(LINESEP).append("JDBC(BOPT)=true;");
                     if (collectionsAreStandardTypes)
                         metaStatements.append(LINESEP).append("COLLECTIONS_ARE_STANDARD_TYPES(BOPT)=true;");
+                    if (skipAliasesInQqlCommand)
+                        metaStatements.append(LINESEP).append("SKIP_ALIASES_IN_SQL_COMMAND(BOPT)=true;");
 
                     SqlProcessorLoader loader = new SqlProcessorLoader(metaStatements, typeFactory, pluginFactory,
                             filter, monitorFactory, validatorFactory, customTypes, configuration, onlyStatements);
@@ -689,6 +696,25 @@ public class SqlDefaultFactory implements SqlEngineFactory {
      */
     public void setCollectionsAreStandardTypes(boolean collectionsAreStandardTypes) {
         this.collectionsAreStandardTypes = collectionsAreStandardTypes;
+    }
+
+    /**
+     * Returns the indicator that column aliases are not included in generated SQL command.
+     * 
+     * @return the indicator that column aliases are not included in generated SQL command
+     */
+    public boolean isSkipAliasesInQqlCommand() {
+        return skipAliasesInQqlCommand;
+    }
+
+    /**
+     * Sets the indicator that column aliases are not included in generated SQL command.
+     * 
+     * @param skipAliasesInQqlCommand
+     *            the indicator that column aliases are not included in generated SQL command
+     */
+    public void setSkipAliasesInQqlCommand(boolean skipAliasesInQqlCommand) {
+        this.skipAliasesInQqlCommand = skipAliasesInQqlCommand;
     }
 
     /**

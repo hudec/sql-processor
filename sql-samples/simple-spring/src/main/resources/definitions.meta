@@ -1,6 +1,6 @@
 resolve-pojo-on;
 new-pojo-validator;
-database-is-offline;
+database-is-online;
 
 is-pojo BankAccount org.sqlproc.sample.simple.model.BankAccount;
 is-pojo BillingDetails org.sqlproc.sample.simple.model.BillingDetails;
