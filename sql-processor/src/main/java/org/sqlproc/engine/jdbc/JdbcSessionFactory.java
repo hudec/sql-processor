@@ -21,6 +21,11 @@ public class JdbcSessionFactory implements SqlSessionFactory {
     private Connection connection;
 
     /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
+
+    /**
      * Creates a new instance.
      * 
      * @param connection
@@ -32,10 +37,24 @@ public class JdbcSessionFactory implements SqlSessionFactory {
     }
 
     /**
+     * Creates a new instance.
+     * 
+     * @param connection
+     *            the connection to the database
+     * @param name
+     *            the name of the database related to this session
+     */
+    public JdbcSessionFactory(Connection connection, String name) {
+        super();
+        this.connection = connection;
+        this.name = name;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public SqlSession getSqlSession() {
-        return JdbcSession.generateProxy(connection);
+        return JdbcSession.generateProxy(connection, name);
     }
 }

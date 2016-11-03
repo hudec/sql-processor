@@ -66,6 +66,16 @@ public class SpringSimpleSession implements SqlSession {
     }
 
     /**
+     * Sets the internal Spring JdbcTemplate instance.
+     * 
+     * @param jdbcTemplate
+     *            the internal Spring JdbcTemplate instance
+     */
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

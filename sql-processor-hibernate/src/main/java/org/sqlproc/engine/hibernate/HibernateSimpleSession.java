@@ -26,7 +26,7 @@ public class HibernateSimpleSession implements SqlSession {
     /**
      * The Hibernate Session, the first level cache and the context for all database operations.
      */
-    private final Session session;
+    private Session session;
 
     /**
      * The name of the database related to this session. It's usage is implementation specific.
@@ -63,6 +63,16 @@ public class HibernateSimpleSession implements SqlSession {
      */
     public Session getSession() {
         return session;
+    }
+
+    /**
+     * Sets the internal Hibernate Session instance.
+     * 
+     * @param session
+     *            the internal Hibernate Session instance
+     */
+    public void setSession(Session session) {
+        this.session = session;
     }
 
     /**

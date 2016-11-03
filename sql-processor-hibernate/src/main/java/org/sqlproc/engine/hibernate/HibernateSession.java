@@ -37,7 +37,7 @@ public class HibernateSession implements InvocationHandler {
     /**
      * The Hibernate Session, the first level cache and the context for all database operations.
      */
-    private final Session session;
+    private Session session;
 
     /**
      * The name of the database related to this session. It's usage is implementation specific.
@@ -89,6 +89,11 @@ public class HibernateSession implements InvocationHandler {
 
         if ("getName".equals(method.getName())) {
             return name;
+        }
+
+        if ("setSession".equals(method.getName())) {
+            this.session = (Session) args[0];
+            return null;
         }
 
         try {

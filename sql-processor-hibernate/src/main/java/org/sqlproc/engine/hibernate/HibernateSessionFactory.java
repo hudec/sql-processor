@@ -20,6 +20,11 @@ public class HibernateSessionFactory implements SqlSessionFactory {
     private SessionFactory sessionFactory;
 
     /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
+
+    /**
      * Creates a new instance.
      * 
      * @param sessionFactory
@@ -31,10 +36,23 @@ public class HibernateSessionFactory implements SqlSessionFactory {
     }
 
     /**
+     * Creates a new instance.
+     * 
+     * @param sessionFactory
+     *            the Hibernate session factory
+     * @param name
+     *            the name of the database related to this session
+     */
+    public HibernateSessionFactory(SessionFactory sessionFactory, String name) {
+        super();
+        this.sessionFactory = sessionFactory;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public SqlSession getSqlSession() {
-        return HibernateSession.generateProxy(sessionFactory.openSession());
+        return HibernateSession.generateProxy(sessionFactory.openSession(), name);
     }
 }

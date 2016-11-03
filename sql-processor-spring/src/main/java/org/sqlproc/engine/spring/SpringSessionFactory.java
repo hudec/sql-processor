@@ -20,6 +20,11 @@ public class SpringSessionFactory implements SqlSessionFactory {
     private JdbcTemplate jdbcTemplate;
 
     /**
+     * The name of the database related to this session. It's usage is implementation specific.
+     */
+    private String name;
+
+    /**
      * Creates a new instance.
      * 
      * @param jdbcTemplate
@@ -31,10 +36,24 @@ public class SpringSessionFactory implements SqlSessionFactory {
     }
 
     /**
+     * Creates a new instance.
+     * 
+     * @param jdbcTemplate
+     *            the Spring JdbcTemplate
+     * @param name
+     *            the name of the database related to this session
+     */
+    public SpringSessionFactory(JdbcTemplate jdbcTemplate, String name) {
+        super();
+        this.jdbcTemplate = jdbcTemplate;
+        this.name = name;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public SqlSession getSqlSession() {
-        return new SpringSimpleSession(jdbcTemplate);
+        return new SpringSimpleSession(jdbcTemplate, name);
     }
 }

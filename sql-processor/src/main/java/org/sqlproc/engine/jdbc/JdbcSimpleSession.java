@@ -68,6 +68,16 @@ public class JdbcSimpleSession implements SqlSession {
     }
 
     /**
+     * Sets the internal connection to the database.
+     * 
+     * @param connection
+     *            the connection to the database
+     */
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

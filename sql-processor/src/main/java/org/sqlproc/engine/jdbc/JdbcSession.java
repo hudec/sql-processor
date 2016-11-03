@@ -37,7 +37,7 @@ public class JdbcSession implements InvocationHandler {
     /**
      * The connection to the database. It should be opened.
      */
-    private final Connection connection;
+    private Connection connection;
 
     /**
      * The name of the database related to this session. It's usage is implementation specific.
@@ -89,6 +89,11 @@ public class JdbcSession implements InvocationHandler {
 
         if ("getName".equals(method.getName())) {
             return name;
+        }
+
+        if ("setConnection".equals(method.getName())) {
+            this.connection = (Connection) args[0];
+            return null;
         }
 
         try {
