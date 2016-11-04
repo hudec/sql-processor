@@ -299,7 +299,7 @@ class SqlInputValue {
         if (sequence != null) {
             SqlQuery seqQuery = session.createSqlQuery(sequence);
             ctx.getTypeFactory().getDefaultType().addScalar(typeFactory, seqQuery, "1", inputValueTypes);
-            identity = seqQuery.unique(ctx);
+            identity = seqQuery.unique(ctx).get("1");
             type.setParameter(ctx, query, paramName, identity, inputValueTypes);
         } else if (identitySelect != null) {
             ctx.getTypeFactory().getIdentityType().setParameter(ctx, query, paramName, new IdentitySetter() {

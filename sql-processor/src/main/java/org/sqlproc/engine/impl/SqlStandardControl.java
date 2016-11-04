@@ -87,6 +87,13 @@ public class SqlStandardControl implements SqlControl {
     private Boolean skipEmptyStatement;
 
     /**
+     * The low level SQL callback handler. Enables the input values and the final SQL command modification before the
+     * required database command execution. Enables the output values modification after the required database command
+     * execution.
+     */
+    private LowLevelSqlCallback lowLevelSqlCallback;
+
+    /**
      * Standard constructor.
      */
     public SqlStandardControl() {
@@ -107,6 +114,7 @@ public class SqlStandardControl implements SqlControl {
             setFeatures(sqlControl.getFeatures());
             setProcessingId(sqlControl.getProcessingId());
             setFetchSize(sqlControl.getFetchSize());
+            setLowLevelSqlCallback(sqlControl.getLowLevelSqlCallback());
         }
     }
 
@@ -474,6 +482,25 @@ public class SqlStandardControl implements SqlControl {
      */
     public void setSkipEmptyStatement(Boolean skipEmptyStatement) {
         this.skipEmptyStatement = skipEmptyStatement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public LowLevelSqlCallback getLowLevelSqlCallback() {
+        return lowLevelSqlCallback;
+    }
+
+    /**
+     * Sets the low level SQL callback handler.
+     * 
+     * @param lowLevelSqlCallback
+     *            the low level SQL callback handler
+     * @return this instance
+     */
+    public SqlStandardControl setLowLevelSqlCallback(LowLevelSqlCallback lowLevelSqlCallback) {
+        this.lowLevelSqlCallback = lowLevelSqlCallback;
+        return this;
     }
 
     /**

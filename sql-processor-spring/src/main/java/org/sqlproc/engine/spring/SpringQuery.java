@@ -137,7 +137,7 @@ public class SpringQuery implements SqlQuery {
     /**
      * The indicator there are no more data in ResultSet.
      */
-    private static final Object NO_MORE_DATA = new Object();
+    private static final Map<String, Object> NO_MORE_DATA = new LinkedHashMap<>();
 
     /**
      * Creates a new instance of this adapter.
@@ -194,7 +194,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public List<Map<String, Object>> list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         final StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
@@ -221,9 +221,9 @@ public class SpringQuery implements SqlQuery {
                 setParameters(ps, limitType, 1);
             }
         };
-        ResultSetExtractor<List> rse = new ResultSetExtractor<List>() {
+        ResultSetExtractor<List<Map<String, Object>>> rse = new ResultSetExtractor<List<Map<String, Object>>>() {
             @Override
-            public List extractData(ResultSet rs) throws SQLException, DataAccessException {
+            public List<Map<String, Object>> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (fetchSize != null)
                     rs.setFetchSize(fetchSize);
                 return getResults(rs);
@@ -231,7 +231,7 @@ public class SpringQuery implements SqlQuery {
         };
 
         try {
-            List list = jdbcTemplate.query(psc, pss, rse);
+            List<Map<String, Object>> list = jdbcTemplate.query(psc, pss, rse);
             if (logger.isDebugEnabled()) {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
@@ -245,17 +245,18 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
-        List list = list(runtimeCtx);
+    public Map<String, Object> unique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List<Map<String, Object>> list = list(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
-        Object first = list.get(0);
+        Map<String, Object> first = list.get(0);
         for (int i = 1; i < size; i++) {
-            if (list.get(i) != first) {
-                throw new SqlProcessorException(
-                        "There's no unique result, the number of returned rows is " + list.size());
-            }
+            throw new RuntimeException("TODO UNIQUE");
+            // if (list.get(i) != first) {
+            // throw new SqlProcessorException(
+            // "There's no unique result, the number of returned rows is " + list.size());
+            // }
         }
         return first;
     }
@@ -270,10 +271,16 @@ public class SpringQuery implements SqlQuery {
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
-        final String query = limitType != null ? queryResult.toString() : queryString;
+        String _query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
-            logger.debug("list, query=" + query);
+            logger.debug("list, query=" + _query);
         }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(_query, parameterValues);
+            if (sql != null)
+                _query = sql;
+        }
+        final String query = _query;
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
@@ -298,9 +305,9 @@ public class SpringQuery implements SqlQuery {
                 if (fetchSize != null)
                     rs.setFetchSize(fetchSize);
                 int rownum = 0;
-                for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs)) {
+                for (Map<String, Object> row = getOneResult(rs); row != NO_MORE_DATA; row = getOneResult(rs)) {
                     ++rownum;
-                    if (!sqlQueryRowProcessor.processRow(oo, rownum))
+                    if (!sqlQueryRowProcessor.processRow(row, rownum))
                         break;
                 }
                 return rownum;
@@ -325,6 +332,11 @@ public class SpringQuery implements SqlQuery {
     public int update(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
+        }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(queryString, parameterValues);
+            if (sql != null)
+                queryString = sql;
         }
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
@@ -540,7 +552,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public List<Map<String, Object>> callList(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
@@ -563,10 +575,10 @@ public class SpringQuery implements SqlQuery {
             }
         };
 
-        CallableStatementCallback<List> csc = new CallableStatementCallback<List>() {
-            public List doInCallableStatement(CallableStatement cs) throws SQLException {
+        CallableStatementCallback<List<Map<String, Object>>> csc = new CallableStatementCallback<List<Map<String, Object>>>() {
+            public List<Map<String, Object>> doInCallableStatement(CallableStatement cs) throws SQLException {
                 ResultSet rs = null;
-                List list = null;
+                List<Map<String, Object>> list = null;
 
                 try {
                     setParameters(cs, null, 1);
@@ -599,7 +611,7 @@ public class SpringQuery implements SqlQuery {
         };
 
         try {
-            List list = jdbcTemplate.execute(psc, csc);
+            List<Map<String, Object>> list = jdbcTemplate.execute(psc, csc);
             if (logger.isDebugEnabled()) {
                 logger.debug("callList, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
@@ -613,17 +625,18 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
-        List list = callList(runtimeCtx);
+    public Map<String, Object> callUnique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List<Map<String, Object>> list = callList(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
-        Object first = list.get(0);
+        Map<String, Object> first = list.get(0);
         for (int i = 1; i < size; i++) {
-            if (list.get(i) != first) {
-                throw new SqlProcessorException(
-                        "There's no unique result, the number of returned rows is " + list.size());
-            }
+            throw new RuntimeException("TODO UNIQUE");
+            // if (list.get(i) != first) {
+            // throw new SqlProcessorException(
+            // "There's no unique result, the number of returned rows is " + list.size());
+            // }
         }
         return first;
     }
@@ -678,7 +691,7 @@ public class SpringQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callFunction() throws SqlProcessorException {
+    public Map<String, Object> callFunction() throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
@@ -699,11 +712,11 @@ public class SpringQuery implements SqlQuery {
             }
         };
 
-        CallableStatementCallback<Object> csc = new CallableStatementCallback<Object>() {
-            public Object doInCallableStatement(CallableStatement cs) throws SQLException {
+        CallableStatementCallback<Map<String, Object>> csc = new CallableStatementCallback<Map<String, Object>>() {
+            public Map<String, Object> doInCallableStatement(CallableStatement cs) throws SQLException {
                 ResultSet rs = null;
-                List list = null;
-                Object result = null;
+                List<Map<String, Object>> list = null;
+                Map<String, Object> result = null;
 
                 try {
                     setParameters(cs, null, 1);
@@ -731,7 +744,7 @@ public class SpringQuery implements SqlQuery {
         };
 
         try {
-            Object result = jdbcTemplate.execute(psc, csc);
+            Map<String, Object> result = jdbcTemplate.execute(psc, csc);
             if (logger.isDebugEnabled()) {
                 logger.debug("callFunction, result=" + result);
             }
@@ -923,9 +936,9 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
      */
-    protected Object getParameters(final CallableStatement cs, boolean isFunction) throws SQLException {
+    protected Map<String, Object> getParameters(final CallableStatement cs, boolean isFunction) throws SQLException {
 
-        Object result = null;
+        Map<String, Object> result = new LinkedHashMap<>();
         boolean resultInited = false;
 
         for (Iterator<Integer> iter = parameterOutValuesToPickup.keySet().iterator(); iter.hasNext();) {
@@ -945,7 +958,7 @@ public class SpringQuery implements SqlQuery {
             }
             outValueSetter.setOutValue(outValue);
             if (!resultInited) {
-                result = outValue;
+                result.put(name, outValue);
                 resultInited = true;
             }
         }
@@ -962,12 +975,15 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
      */
-    protected List getResults(final ResultSet rs) throws SQLException {
-        List result = new ArrayList();
+    protected List<Map<String, Object>> getResults(final ResultSet rs) throws SQLException {
+        List<Map<String, Object>> result = new ArrayList<>();
         if (rs == null)
             return result;
-        for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs))
-            result.add(oo);
+        for (Map<String, Object> row = getOneResult(rs); row != NO_MORE_DATA; row = getOneResult(rs)) {
+            if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null)
+                sqlControl.getLowLevelSqlCallback().handleOutputValues(row);
+            result.add(row);
+        }
         return result;
     }
 
@@ -980,11 +996,11 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
      */
-    protected Object getOneResult(final ResultSet rs) throws SQLException {
+    protected Map<String, Object> getOneResult(final ResultSet rs) throws SQLException {
         if (rs == null)
             return NO_MORE_DATA;
         if (rs.next()) {
-            List<Object> row = new ArrayList<Object>();
+            Map<String, Object> row = new LinkedHashMap<>();
             for (int i = 0, n = scalars.size(); i < n; i++) {
                 String name = scalars.get(i);
                 Object type = scalarTypes.get(name);
@@ -996,13 +1012,9 @@ public class SpringQuery implements SqlQuery {
                 }
                 if (rs.wasNull())
                     value = null;
-                row.add(value);
+                row.put(name, value);
             }
-            Object[] oo = row.toArray();
-            if (oo.length == 1)
-                return oo[0];
-            else
-                return oo;
+            return row;
         }
         return NO_MORE_DATA;
     }

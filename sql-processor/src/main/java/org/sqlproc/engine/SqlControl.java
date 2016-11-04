@@ -106,4 +106,36 @@ public interface SqlControl {
      * @return the indicator, that an empty INSERT or UPDATE statement execution should be ignored
      */
     public Boolean getSkipEmptyStatement();
+
+    /**
+     * The low level (before and after the SQL command execution) SQL callback.
+     */
+    public static interface LowLevelSqlCallback {
+        /**
+         * Enables the input values and the final SQL command modification before the required database command
+         * execution.
+         * 
+         * @param sqlCommand
+         *            the final SQL command, which can be modified
+         * @param inputValues
+         *            the input values, which can be modified
+         * @return in the case of not null value the modified SQL command
+         */
+        String handleInputValues(String sqlCommand, Map<String, Object> inputValues);
+
+        /**
+         * Enables the output values modification after the required database command execution.
+         * 
+         * @param outputValues
+         *            the output values, which can be modified
+         */
+        void handleOutputValues(Map<String, Object> outputValues);
+    }
+
+    /**
+     * Returns the low level SQL callback handler
+     * 
+     * @return the low level SQL callback handler
+     */
+    public LowLevelSqlCallback getLowLevelSqlCallback();
 }

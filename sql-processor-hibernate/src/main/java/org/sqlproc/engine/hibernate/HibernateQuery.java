@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,9 +116,22 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list(SqlRuntimeContext runtime) throws SqlProcessorException {
+    public List<Map<String, Object>> list(SqlRuntimeContext runtime) throws SqlProcessorException {
         try {
-            return query.list();
+            List _result = query.list();
+            List<Map<String, Object>> result = new ArrayList<>();
+            for (Object _row : _result) {
+                Map<String, Object> row = new LinkedHashMap<>();
+                if (_row instanceof Object[]) {
+                    int i = 0;
+                    for (Object value : (Object[]) _row) {
+                        row.put("" + (++i), value);
+                    }
+                } else
+                    row.put("1", _row);
+                result.add(row);
+            }
+            return result;
         } catch (HibernateException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
         }
@@ -136,9 +150,12 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique(SqlRuntimeContext runtime) throws SqlProcessorException {
+    public Map<String, Object> unique(SqlRuntimeContext runtime) throws SqlProcessorException {
         try {
-            return query.uniqueResult();
+            Object _result = query.uniqueResult();
+            Map<String, Object> result = new LinkedHashMap<>();
+            result.put("1", _result);
+            return result;
         } catch (HibernateException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
         }
@@ -281,7 +298,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList(SqlRuntimeContext runtime) throws SqlProcessorException {
+    public List<Map<String, Object>> callList(SqlRuntimeContext runtime) throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
@@ -289,7 +306,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique(SqlRuntimeContext runtime) throws SqlProcessorException {
+    public Map<String, Object> callUnique(SqlRuntimeContext runtime) throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 
@@ -305,7 +322,7 @@ public class HibernateQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callFunction() throws SqlProcessorException {
+    public Map<String, Object> callFunction() throws SqlProcessorException {
         throw new UnsupportedOperationException();
     }
 

@@ -1,7 +1,6 @@
 package org.sqlproc.engine;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -427,22 +426,20 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     private <E> List<E> callQuery(final SqlQuery query, final SqlMappingResult mappingResult,
             final Class<E> resultClass) {
-        List list = query.callList(mappingResult.getRuntimeContext());
-        if (SqlUtils.isPrimitiveWrapper(resultClass))
-            return list;
+        List<Map<String, Object>> resultRows = query.callList(mappingResult.getRuntimeContext());
+        if (SqlUtils.isPrimitiveWrapper(resultClass)) {
+            throw new RuntimeException("TODO callQuery");
+        }
         List<E> result = new ArrayList<E>();
         E resultInstance = null;
-        Object[] resultValue = null;
 
-        for (@SuppressWarnings("rawtypes")
-        Iterator i$ = list.iterator(); i$.hasNext();) {
-            Object resultRow = i$.next();
-            resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
+        for (Map<String, Object> resultRow : resultRows) {
+            Object[] resultValues = SqlUtils.getResultValues(resultRow);
             resultInstance = (E) mappingResult.getRuntimeContext().getInstance(resultClass);
             if (resultInstance == null) {
                 throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
             }
-            mappingResult.setQueryResultData(resultInstance, resultValue, null, null);
+            mappingResult.setQueryResultData(resultInstance, resultValues, null, null);
             result.add(resultInstance);
         }
         return result;
@@ -695,9 +692,9 @@ public class SqlProcedureEngine extends SqlEngine {
      * @return the result
      */
     private Object callFunction(final SqlQuery query, final SqlProcessResult processResult) {
-        Object result = query.callFunction();
+        Map<String, Object> result = query.callFunction();
         processResult.postProcess();
-        return result;
+        return result.values().toArray()[0];
     }
 
     /**

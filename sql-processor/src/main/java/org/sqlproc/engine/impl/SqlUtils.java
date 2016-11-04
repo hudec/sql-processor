@@ -348,4 +348,12 @@ public class SqlUtils {
             return null;
         }
     }
+
+    public static Object[] getResultValues(Map<String, Object> resultRow) {
+        Object[] resultValues = new Object[resultRow.size()];
+        int i = 0;
+        for (Object resultValue : resultRow.values())
+            resultValues[i++] = resultValue;
+        return resultValues;
+    }
 }

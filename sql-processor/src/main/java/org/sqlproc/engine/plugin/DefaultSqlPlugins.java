@@ -211,8 +211,8 @@ public class DefaultSqlPlugins implements IsEmptyPlugin, IsTruePlugin, SqlCountP
     protected static final int L_SELECT = SELECT.length();
     protected static final String DISTINCT = "DISTINCT";
     protected static final String CMD_DISTINCT = "distinct ";
-    private static final String COUNT_COLNAME = "vysledek";
-    private static final String COUNT_TYPE = "int";
+    public static final String COUNT_COLNAME = "vysledek";
+    protected static final String COUNT_TYPE = "int";
 
     /**
      * {@inheritDoc}

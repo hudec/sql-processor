@@ -127,7 +127,7 @@ public class JdbcQuery implements SqlQuery {
     /**
      * The indicator there are no more data in ResultSet.
      */
-    private static final Object NO_MORE_DATA = new Object();
+    private static final Map<String, Object> NO_MORE_DATA = new LinkedHashMap<>();
 
     /**
      * Creates a new instance of this adapter.
@@ -184,14 +184,19 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public List<Map<String, Object>> list(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         StringBuilder queryResult = (maxResults != null) ? new StringBuilder(queryString.length() + 100) : null;
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
-        final String query = limitType != null ? queryResult.toString() : queryString;
+        String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
+        }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(query, parameterValues);
+            if (sql != null)
+                query = sql;
         }
 
         PreparedStatement ps = null;
@@ -206,7 +211,7 @@ public class JdbcQuery implements SqlQuery {
             rs = ps.executeQuery();
             if (fetchSize != null)
                 rs.setFetchSize(fetchSize);
-            List list = getResults(rs);
+            List<Map<String, Object>> list = getResults(rs);
             if (logger.isDebugEnabled()) {
                 logger.debug("list, number of returned rows=" + ((list != null) ? list.size() : "null"));
             }
@@ -233,17 +238,18 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object unique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
-        List list = list(runtimeCtx);
+    public Map<String, Object> unique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List<Map<String, Object>> list = list(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
-        Object first = list.get(0);
+        Map<String, Object> first = list.get(0);
         for (int i = 1; i < size; i++) {
-            if (list.get(i) != first) {
-                throw new SqlProcessorException(
-                        "There's no unique result, the number of returned rows is " + list.size());
-            }
+            throw new RuntimeException("TODO UNIQUE");
+            // if (list.get(i) != first) {
+            // throw new SqlProcessorException(
+            // "There's no unique result, the number of returned rows is " + list.size());
+            // }
         }
         return first;
     }
@@ -258,9 +264,14 @@ public class JdbcQuery implements SqlQuery {
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
-        final String query = limitType != null ? queryResult.toString() : queryString;
+        String query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + query);
+        }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(query, parameterValues);
+            if (sql != null)
+                query = sql;
         }
 
         PreparedStatement ps = null;
@@ -276,9 +287,9 @@ public class JdbcQuery implements SqlQuery {
             rs = ps.executeQuery();
             if (fetchSize != null)
                 rs.setFetchSize(fetchSize);
-            for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs)) {
+            for (Map<String, Object> row = getOneResult(rs); row != NO_MORE_DATA; row = getOneResult(rs)) {
                 ++rownum;
-                if (!sqlQueryRowProcessor.processRow(oo, rownum))
+                if (!sqlQueryRowProcessor.processRow(row, rownum))
                     break;
             }
             if (logger.isDebugEnabled()) {
@@ -311,6 +322,12 @@ public class JdbcQuery implements SqlQuery {
         if (logger.isDebugEnabled()) {
             logger.debug("update, query=" + queryString);
         }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(queryString, parameterValues);
+            if (sql != null)
+                queryString = sql;
+        }
+
         PreparedStatement ps = null;
         try {
             final boolean retrieveIdentityFromStatement = isSetJDBCIdentity();
@@ -462,13 +479,13 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public List callList(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+    public List<Map<String, Object>> callList(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callList, query=" + queryString);
         }
         CallableStatement cs = null;
         ResultSet rs = null;
-        List list = null;
+        List<Map<String, Object>> list = null;
         boolean hasResultSet = false;
         String query = null;
 
@@ -524,17 +541,18 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callUnique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
-        List list = callList(runtimeCtx);
+    public Map<String, Object> callUnique(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        List<Map<String, Object>> list = callList(runtimeCtx);
         int size = list.size();
         if (size == 0)
             return null;
-        Object first = list.get(0);
+        Map<String, Object> first = list.get(0);
         for (int i = 1; i < size; i++) {
-            if (list.get(i) != first) {
-                throw new SqlProcessorException(
-                        "There's no unique result, the number of returned rows is " + list.size());
-            }
+            throw new RuntimeException("TODO UNIQUE");
+            // if (list.get(i) != first) {
+            // throw new SqlProcessorException(
+            // "There's no unique result, the number of returned rows is " + list.size());
+            // }
         }
         return first;
     }
@@ -590,14 +608,14 @@ public class JdbcQuery implements SqlQuery {
      * {@inheritDoc}
      */
     @Override
-    public Object callFunction() throws SqlProcessorException {
+    public Map<String, Object> callFunction() throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
             logger.debug("callFunction, query=" + queryString);
         }
         CallableStatement cs = null;
         ResultSet rs = null;
-        List list = null;
-        Object result = null;
+        List<Map<String, Object>> list = null;
+        Map<String, Object> result = null;
         boolean hasResultSet = false;
         String query = null;
 
@@ -856,9 +874,9 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
      */
-    protected Object getParameters(CallableStatement cs, boolean isFunction) throws SQLException {
+    protected Map<String, Object> getParameters(CallableStatement cs, boolean isFunction) throws SQLException {
 
-        Object result = null;
+        Map<String, Object> result = new LinkedHashMap<>();
         boolean resultInited = false;
 
         for (Iterator<Integer> iter = parameterOutValuesToPickup.keySet().iterator(); iter.hasNext();) {
@@ -878,7 +896,7 @@ public class JdbcQuery implements SqlQuery {
             }
             outValueSetter.setOutValue(outValue);
             if (!resultInited) {
-                result = outValue;
+                result.put(name, outValue);
                 resultInited = true;
             }
         }
@@ -895,12 +913,15 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
      */
-    protected List getResults(ResultSet rs) throws SQLException {
-        List result = new ArrayList();
+    protected List<Map<String, Object>> getResults(ResultSet rs) throws SQLException {
+        List<Map<String, Object>> result = new ArrayList<>();
         if (rs == null)
             return result;
-        for (Object oo = getOneResult(rs); oo != NO_MORE_DATA; oo = getOneResult(rs))
-            result.add(oo);
+        for (Map<String, Object> row = getOneResult(rs); row != NO_MORE_DATA; row = getOneResult(rs)) {
+            if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null)
+                sqlControl.getLowLevelSqlCallback().handleOutputValues(row);
+            result.add(row);
+        }
         return result;
     }
 
@@ -913,11 +934,11 @@ public class JdbcQuery implements SqlQuery {
      * @throws SQLException
      *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
      */
-    protected Object getOneResult(ResultSet rs) throws SQLException {
+    protected Map<String, Object> getOneResult(ResultSet rs) throws SQLException {
         if (rs == null)
             return NO_MORE_DATA;
         if (rs.next()) {
-            List<Object> row = new ArrayList<Object>();
+            Map<String, Object> row = new LinkedHashMap<>();
             for (int i = 0, n = scalars.size(); i < n; i++) {
                 String name = scalars.get(i);
                 Object type = scalarTypes.get(name);
@@ -929,13 +950,9 @@ public class JdbcQuery implements SqlQuery {
                 }
                 if (rs.wasNull())
                     value = null;
-                row.add(value);
+                row.put(name, value);
             }
-            Object[] oo = row.toArray();
-            if (oo.length == 1)
-                return oo[0];
-            else
-                return oo;
+            return row;
         }
         return NO_MORE_DATA;
     }

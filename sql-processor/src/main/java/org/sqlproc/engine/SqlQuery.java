@@ -1,6 +1,7 @@
 package org.sqlproc.engine;
 
 import java.util.List;
+import java.util.Map;
 
 import org.sqlproc.engine.annotation.Beta;
 
@@ -54,8 +55,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    @SuppressWarnings("rawtypes")
-    List list(SqlRuntimeContext runtime) throws SqlProcessorException;
+    List<Map<String, Object>> list(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Convenience method to return a single instance that matches the query, or null if the query returns no results.
@@ -66,7 +66,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    Object unique(SqlRuntimeContext runtime) throws SqlProcessorException;
+    Map<String, Object> unique(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Process the query output using the {@link SqlQueryRowProcessor}.
@@ -79,7 +79,6 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    @Beta
     int query(SqlRuntimeContext runtime, SqlQueryRowProcessor sqlQueryRowProcessor) throws SqlProcessorException;
 
     /**
@@ -104,8 +103,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    @SuppressWarnings("rawtypes")
-    List callList(SqlRuntimeContext runtime) throws SqlProcessorException;
+    List<Map<String, Object>> callList(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Convenience method to return a single instance that matches the stored procedure execution, or null if the stored
@@ -117,7 +115,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    Object callUnique(SqlRuntimeContext runtime) throws SqlProcessorException;
+    Map<String, Object> callUnique(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
      * Executes the update, delete, insert statement or other statements in the stored procedure, which don't return the
@@ -139,7 +137,7 @@ public interface SqlQuery {
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
-    Object callFunction() throws SqlProcessorException;
+    Map<String, Object> callFunction() throws SqlProcessorException;
 
     /**
      * Declares a scalar query result, which is an SQL query execution output value.
@@ -264,6 +262,6 @@ public interface SqlQuery {
          *            The database row number starting from 1.
          * @return True to continue processing, false to stop.
          */
-        boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException;
+        boolean processRow(Map<String, Object> resultRow, int rownum) throws SqlRuntimeException;
     }
 }

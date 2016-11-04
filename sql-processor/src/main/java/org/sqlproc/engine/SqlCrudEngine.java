@@ -1,6 +1,5 @@
 package org.sqlproc.engine;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -554,19 +553,17 @@ public class SqlCrudEngine extends SqlEngine {
      */
     private <E> E get(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
             final SqlControl sqlControl) {
-        List list = query.list(mappingResult.getRuntimeContext());
+        List<Map<String, Object>> list = query.list(mappingResult.getRuntimeContext());
         E resultInstance = null;
-        Object[] resultValue = null;
+        Object[] resultValues = null;
         Map<String, Object> ids = mappingResult.getIds();
 
-        for (@SuppressWarnings("rawtypes")
-        Iterator i$ = list.iterator(); i$.hasNext();) {
-            Object resultRow = i$.next();
-            resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow : (new Object[] { resultRow });
+        for (Map<String, Object> resultRow : list) {
+            resultValues = SqlUtils.getResultValues(resultRow);
 
             boolean changedIdentity = true;
             if (ids != null) {
-                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                String idsKey = SqlUtils.getIdsKey(resultValues, mappingResult.getMainIdentityIndex());
                 if (ids.containsKey(idsKey))
                     changedIdentity = false;
             }
@@ -581,10 +578,10 @@ public class SqlCrudEngine extends SqlEngine {
                 }
             }
 
-            mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
+            mappingResult.setQueryResultData(resultInstance, resultValues, ids, getMoreResultClasses(sqlControl));
             if (changedIdentity) {
                 if (ids != null) {
-                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                    String idsKey = SqlUtils.getIdsKey(resultValues, mappingResult.getMainIdentityIndex());
                     ids.put(idsKey, resultInstance);
                 }
             }

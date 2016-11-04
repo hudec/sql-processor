@@ -1,7 +1,6 @@
 package org.sqlproc.engine;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -838,11 +837,9 @@ public class SqlQueryEngine extends SqlEngine {
 
             Map<String, Object> ids = mappingResult.getIds();
 
-            List list = query.list(runtimeContext);
+            List<Map<String, Object>> list = query.list(runtimeContext);
             boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
-            for (@SuppressWarnings("rawtypes")
-            Iterator i$ = list.iterator(); i$.hasNext();) {
-                Object resultRow = i$.next();
+            for (Map<String, Object> resultRow : list) {
                 execute(runtimeContext, resultRow, resultClass, sqlControl, null, ids, isPrimitiveWrapper);
             }
             return rows;
@@ -856,7 +853,7 @@ public class SqlQueryEngine extends SqlEngine {
             query.query(runtimeContext, new SqlQuery.SqlQueryRowProcessor() {
 
                 @Override
-                public boolean processRow(Object resultRow, int rownum) throws SqlRuntimeException {
+                public boolean processRow(Map<String, Object> resultRow, int rownum) throws SqlRuntimeException {
                     return execute(runtimeContext, resultRow, resultClass, sqlControl, sqlRowProcessor, ids,
                             isPrimitiveWrapper);
                 }
@@ -868,30 +865,29 @@ public class SqlQueryEngine extends SqlEngine {
 
         Integer executeCount(final SqlRuntimeContext runtimeContext) {
 
-            Object result = query.unique(runtimeContext);
+            Object result = query.unique(runtimeContext).values().toArray()[0];
             if (result instanceof Long)
                 return ((Long) result).intValue();
             return (Integer) result;
         }
 
-        boolean execute(final SqlRuntimeContext runtimeContext, Object resultRow, final Class<E> resultClass,
-                final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor, Map<String, Object> ids,
-                boolean isPrimitiveWrapper) {
+        boolean execute(final SqlRuntimeContext runtimeContext, Map<String, Object> resultRow,
+                final Class<E> resultClass, final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor,
+                Map<String, Object> ids, boolean isPrimitiveWrapper) {
 
             E resultInstance = null;
+            Object[] resultValues = SqlUtils.getResultValues(resultRow);
 
-            Object[] resultValue = (resultRow instanceof Object[]) ? (Object[]) resultRow
-                    : (new Object[] { resultRow });
             if (logger.isTraceEnabled()) {
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < resultValue.length; i++)
-                    sb.append("'").append(resultValue[i]).append("' ");
+                for (int i = 0; i < resultValues.length; i++)
+                    sb.append("'").append(resultValues[i]).append("' ");
                 logger.trace("== SQL execution partial result " + sb.toString());
             }
 
             boolean changedIdentity = true;
             if (ids != null) {
-                String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                String idsKey = SqlUtils.getIdsKey(resultValues, mappingResult.getMainIdentityIndex());
                 if (ids.containsKey(idsKey)) {
                     resultInstance = (E) ids.get(idsKey);
                     changedIdentity = false;
@@ -905,12 +901,12 @@ public class SqlQueryEngine extends SqlEngine {
                         throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                     }
                 } else {
-                    resultInstance = (E) resultRow;
+                    resultInstance = (E) resultValues[0];
                 }
             }
 
             if (!isPrimitiveWrapper) {
-                mappingResult.setQueryResultData(resultInstance, resultValue, ids, getMoreResultClasses(sqlControl));
+                mappingResult.setQueryResultData(resultInstance, resultValues, ids, getMoreResultClasses(sqlControl));
             }
 
             if (changedIdentity) {
@@ -922,7 +918,7 @@ public class SqlQueryEngine extends SqlEngine {
                     rows.add(resultInstance);
                 }
                 if (ids != null) {
-                    String idsKey = SqlUtils.getIdsKey(resultValue, mappingResult.getMainIdentityIndex());
+                    String idsKey = SqlUtils.getIdsKey(resultValues, mappingResult.getMainIdentityIndex());
                     ids.put(idsKey, resultInstance);
                 }
             }

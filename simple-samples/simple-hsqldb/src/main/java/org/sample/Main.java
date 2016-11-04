@@ -33,6 +33,7 @@ import org.sample.model.PersonDetailType;
 import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sqlproc.engine.SqlControl.LowLevelSqlCallback;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlFeature;
@@ -119,9 +120,10 @@ public class Main {
     private NewPersonRetRsDao newPersonRetRsDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
-        Person p = personDao.insert(person);
+        SqlStandardControl ssc = new SqlStandardControl().setLowLevelSqlCallback(new LowLevelSqlCallbackImpl());
+        Person p = personDao.insert(person, ssc);
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact._setPerson(p));
+            Contact c = contactDao.insert(contact._setPerson(p), ssc);
             p.getContacts().add(c);
         }
         return p;
@@ -140,7 +142,23 @@ public class Main {
             else
                 ssc.setProcessingId("getPersonId_" + set.hashCode());
         }
+        ssc.setLowLevelSqlCallback(new LowLevelSqlCallbackImpl());
         return personDao.get(person, ssc);
+    }
+
+    public static class LowLevelSqlCallbackImpl implements LowLevelSqlCallback {
+
+        @Override
+        public String handleInputValues(String sqlCommand, Map<String, Object> inputValues) {
+            System.out.println("000000000000000000000000000000 " + inputValues + "<-" + sqlCommand);
+            return null;
+        }
+
+        @Override
+        public void handleOutputValues(Map<String, Object> outputValues) {
+            System.out.println("111111111111111111111111111111 " + outputValues);
+        }
+
     }
 
     public void run(boolean dynamic, boolean clear) throws Exception {
