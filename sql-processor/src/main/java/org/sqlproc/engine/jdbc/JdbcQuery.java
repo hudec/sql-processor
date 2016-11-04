@@ -509,7 +509,7 @@ public class JdbcQuery implements SqlQuery {
                 list = getResults(rs);
                 getParameters(cs, false);
             } else {
-                rs = (ResultSet) getParameters(cs, true);
+                rs = (ResultSet) getParameters(cs, true).values().toArray()[0];
                 if (fetchSize != null)
                     rs.setFetchSize(fetchSize);
                 list = getResults(rs);

@@ -594,7 +594,7 @@ public class SpringQuery implements SqlQuery {
                         list = getResults(rsToUse);
                         getParameters(cs, false);
                     } else {
-                        rs = (ResultSet) getParameters(cs, true);
+                        rs = (ResultSet) getParameters(cs, true).values().toArray()[0];
                         ResultSet rsToUse = rs;
                         if (fetchSize != null)
                             rs.setFetchSize(fetchSize);
