@@ -426,18 +426,21 @@ public class SqlProcedureEngine extends SqlEngine {
      */
     private <E> List<E> callQuery(final SqlQuery query, final SqlMappingResult mappingResult,
             final Class<E> resultClass) {
+
         List<Map<String, Object>> resultRows = query.callList(mappingResult.getRuntimeContext());
-        if (SqlUtils.isPrimitiveWrapper(resultClass)) {
-            throw new RuntimeException("TODO callQuery");
-        }
+        boolean isPrimitiveWrapper = SqlUtils.isPrimitiveWrapper(resultClass);
+
         List<E> result = new ArrayList<E>();
         E resultInstance = null;
-
         for (Map<String, Object> resultRow : resultRows) {
             Object[] resultValues = SqlUtils.getResultValues(resultRow);
-            resultInstance = (E) mappingResult.getRuntimeContext().getInstance(resultClass);
-            if (resultInstance == null) {
-                throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+            if (!isPrimitiveWrapper) {
+                resultInstance = (E) mappingResult.getRuntimeContext().getInstance(resultClass);
+                if (resultInstance == null) {
+                    throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
+                }
+            } else {
+                resultInstance = (E) resultValues[0];
             }
             mappingResult.setQueryResultData(resultInstance, resultValues, null, null);
             result.add(resultInstance);
