@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.sqlproc.engine.annotation.Beta;
 import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.impl.SqlMappingResult;
 import org.sqlproc.engine.impl.SqlMappingRule;
@@ -460,6 +459,8 @@ public class SqlQueryEngine extends SqlEngine {
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         final QueryExecutor<E> executor = new QueryExecutor<E>(new ArrayList<E>());
         List<E> rows = null;
@@ -521,7 +522,6 @@ public class SqlQueryEngine extends SqlEngine {
      * @throws org.sqlproc.engine.SqlRuntimeException
      *             in the case of any problem with the input/output values handling
      */
-    @Beta
     public <E> Integer query(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl, final SqlRowProcessor<E> sqlRowProcessor)
             throws SqlProcessorException, SqlRuntimeException {
@@ -530,6 +530,8 @@ public class SqlQueryEngine extends SqlEngine {
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         final QueryExecutor<E> executor = new QueryExecutor<E>(0);
         Integer rownums = null;
@@ -658,6 +660,8 @@ public class SqlQueryEngine extends SqlEngine {
                     + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         final QueryExecutor<Object> executor = new QueryExecutor<Object>(0);
         Integer count = null;
@@ -681,6 +685,8 @@ public class SqlQueryEngine extends SqlEngine {
                     }
                 }
             }, Integer.class);
+            if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                sqlControl.getSqlExecutionCallback().handleOutputValues(dynamicInputValues);
             return count;
         } finally {
             if (logger.isDebugEnabled()) {
@@ -741,6 +747,9 @@ public class SqlQueryEngine extends SqlEngine {
         if (logger.isDebugEnabled()) {
             logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
+        checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         String sql = null;
 
@@ -903,6 +912,8 @@ public class SqlQueryEngine extends SqlEngine {
                 } else {
                     resultInstance = (E) resultValues[0];
                 }
+                if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                    sqlControl.getSqlExecutionCallback().handleOutputValues(resultInstance);
             }
 
             if (!isPrimitiveWrapper) {

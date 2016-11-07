@@ -318,6 +318,8 @@ public class SqlCrudEngine extends SqlEngine {
                     + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -349,6 +351,8 @@ public class SqlCrudEngine extends SqlEngine {
                 }
 
             }, Integer.class);
+            if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                sqlControl.getSqlExecutionCallback().handleOutputValues(dynamicInputValues);
             return count;
         } finally {
             if (logger.isDebugEnabled()) {
@@ -501,6 +505,8 @@ public class SqlCrudEngine extends SqlEngine {
                     + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         E result = null;
 
@@ -576,6 +582,8 @@ public class SqlCrudEngine extends SqlEngine {
                 if (resultInstance == null) {
                     throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                 }
+                if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                    sqlControl.getSqlExecutionCallback().handleOutputValues(resultInstance);
             }
 
             mappingResult.setQueryResultData(resultInstance, resultValues, ids, getMoreResultClasses(sqlControl));
@@ -675,6 +683,8 @@ public class SqlCrudEngine extends SqlEngine {
                     + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -704,6 +714,8 @@ public class SqlCrudEngine extends SqlEngine {
                     }
                 }
             }, Integer.class);
+            if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                sqlControl.getSqlExecutionCallback().handleOutputValues(dynamicInputValues);
             return count;
         } finally {
             if (logger.isDebugEnabled()) {
@@ -805,6 +817,8 @@ public class SqlCrudEngine extends SqlEngine {
                     + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         Integer count = null;
 
@@ -832,6 +846,8 @@ public class SqlCrudEngine extends SqlEngine {
                     }
                 }
             }, Integer.class);
+            if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                sqlControl.getSqlExecutionCallback().handleOutputValues(dynamicInputValues);
             return count;
         } finally {
             if (logger.isDebugEnabled()) {
@@ -943,6 +959,8 @@ public class SqlCrudEngine extends SqlEngine {
             logger.debug(">> getSql, dynamicInputValues=" + dynamicInputValues + ", sqlControl=" + sqlControl);
         }
         checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
 
         String sql = null;
 

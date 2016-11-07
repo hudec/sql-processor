@@ -94,6 +94,13 @@ public class SqlStandardControl implements SqlControl {
     private LowLevelSqlCallback lowLevelSqlCallback;
 
     /**
+     * The SQL command execution callback handler. Enables the input values and the final SQL command modification
+     * before the required database command execution. Enables the output values modification after the required
+     * database command execution.
+     */
+    private SqlExecutionCallback sqlExecutionCallback;
+
+    /**
      * Standard constructor.
      */
     public SqlStandardControl() {
@@ -500,6 +507,25 @@ public class SqlStandardControl implements SqlControl {
      */
     public SqlStandardControl setLowLevelSqlCallback(LowLevelSqlCallback lowLevelSqlCallback) {
         this.lowLevelSqlCallback = lowLevelSqlCallback;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public SqlExecutionCallback getSqlExecutionCallback() {
+        return sqlExecutionCallback;
+    }
+
+    /**
+     * Sets the SQL command execution callback handler.
+     * 
+     * @param lowLevelSqlCallback
+     *            the SQL command execution callback handler
+     * @return this instance
+     */
+    public SqlStandardControl setSqlExecutionCallback(SqlExecutionCallback sqlExecutionCallback) {
+        this.sqlExecutionCallback = sqlExecutionCallback;
         return this;
     }
 

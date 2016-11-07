@@ -138,4 +138,33 @@ public interface SqlControl {
      * @return the low level SQL callback handler
      */
     public LowLevelSqlCallback getLowLevelSqlCallback();
+
+    /**
+     * The SQL command execution callback (before and after the SQL command execution).
+     */
+    public static interface SqlExecutionCallback {
+        /**
+         * Enables the input values and the final SQL command modification before the required database command
+         * execution.
+         * 
+         * @param inputValues
+         *            the input values, which can be modified
+         */
+        void handleInputValues(Object inputValues);
+
+        /**
+         * Enables the output values modification after the required database command execution.
+         * 
+         * @param outputValues
+         *            the output values, which can be modified
+         */
+        void handleOutputValues(Object outputValues);
+    }
+
+    /**
+     * Returns the SQL command execution callback handler
+     * 
+     * @return the SQL command execution callback handler
+     */
+    public SqlExecutionCallback getSqlExecutionCallback();
 }
