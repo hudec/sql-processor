@@ -199,10 +199,16 @@ public class SpringQuery implements SqlQuery {
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
-        final String query = limitType != null ? queryResult.toString() : queryString;
+        String _query = limitType != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
-            logger.debug("list, query=" + query);
+            logger.debug("list, query=" + _query);
         }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(_query, parameterValues);
+            if (sql != null)
+                _query = sql;
+        }
+        final String query = _query;
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
