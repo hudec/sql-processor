@@ -912,8 +912,6 @@ public class SqlQueryEngine extends SqlEngine {
                 } else {
                     resultInstance = (E) resultValues[0];
                 }
-                if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
-                    sqlControl.getSqlExecutionCallback().handleOutputValues(resultInstance);
             }
 
             if (!isPrimitiveWrapper) {
@@ -921,6 +919,8 @@ public class SqlQueryEngine extends SqlEngine {
             }
 
             if (changedIdentity) {
+                if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                    sqlControl.getSqlExecutionCallback().handleOutputValues(resultInstance);
                 if (sqlRowProcessor != null) {
                     ++rownums;
                     if (!sqlRowProcessor.processRow(resultInstance, rownums))

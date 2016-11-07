@@ -582,12 +582,12 @@ public class SqlCrudEngine extends SqlEngine {
                 if (resultInstance == null) {
                     throw new SqlRuntimeException("There's problem to instantiate " + resultClass);
                 }
-                if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
-                    sqlControl.getSqlExecutionCallback().handleOutputValues(resultInstance);
             }
 
             mappingResult.setQueryResultData(resultInstance, resultValues, ids, getMoreResultClasses(sqlControl));
             if (changedIdentity) {
+                if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                    sqlControl.getSqlExecutionCallback().handleOutputValues(resultInstance);
                 if (ids != null) {
                     String idsKey = SqlUtils.getIdsKey(resultValues, mappingResult.getMainIdentityIndex());
                     ids.put(idsKey, resultInstance);
