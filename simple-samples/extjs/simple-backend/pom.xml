@@ -3,15 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sample</groupId>
     <artifactId>simple-backend</artifactId>
-    <version>3.2.4</version>
+    <version>3.2.5-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>SQL Processor Simple Web</name>
 
     <properties>
-        <version.sql-processor>3.2.4</version.sql-processor>
+        <version.sql-processor>3.2.5-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
-        <spring.version>3.2.4.RELEASE</spring.version>
+        <spring.version>3.2.5-SNAPSHOT.RELEASE</spring.version>
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.12</version.slf4j>
