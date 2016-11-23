@@ -122,6 +122,7 @@ public class SqlStandardControl implements SqlControl {
             setProcessingId(sqlControl.getProcessingId());
             setFetchSize(sqlControl.getFetchSize());
             setLowLevelSqlCallback(sqlControl.getLowLevelSqlCallback());
+            setSqlExecutionCallback(sqlControl.getSqlExecutionCallback());
         }
     }
 
