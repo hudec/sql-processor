@@ -1,0 +1,16 @@
+language: java
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.m2
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    - vladimir.hudec@gmail.com
+
