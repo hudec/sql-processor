@@ -77,6 +77,35 @@ EOSQL
 ------------------
 
 docker run -p 5432:5432 --name postgres1 -v //home/hudec/db/postgresql:/var/lib/postgresql/data -e POSTGRES_DB=simple -e POSTGRES_USER=simple -e POSTGRES_PASSWORD=simple -d postgres:latest
+docker stop postgres1 
+docker start postgres1 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g
+
+
+docker run -d -p 2222:22 -p 1521:1521 --name oracle1 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g
+
+docker stop oracle1 
+docker start oracle1 
+
+hostname: localhost
+port: 1521
+sid: xe
+username: system
+password: oracle
+
+Password for SYS & SYSTEM
+
+oracle
+
+Login by SSH
+
+ssh root@localhost -p 2222
+password: admin
+
+CREATE USER simple IDENTIFIED BY simple;
+GRANT CONNECT,RESOURCE,DBA TO simple;
 
 

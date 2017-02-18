@@ -32,6 +32,8 @@ pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE;
 pojogen-generate-operators;
 pojogen-generate-validation-annotations;
 
+pojogen-types-for-procedure NEW_PERSON NEWID->java.math.BigDecimal;
+
 // use indetity for primary keys
 metagen-global-sequence SIMPLE_SEQUENCE;
 metagen-generate-idgenerators;

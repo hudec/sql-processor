@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.sqlproc.engine.annotation.Pojo;
 
@@ -10,17 +10,17 @@ import org.sqlproc.engine.annotation.Pojo;
 public class NewPerson implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private BigInteger newid;
+  private BigDecimal newid;
   
-  public BigInteger getNewid() {
+  public BigDecimal getNewid() {
     return this.newid;
   }
   
-  public void setNewid(final BigInteger newid) {
+  public void setNewid(final BigDecimal newid) {
     this.newid = newid;
   }
   
-  public NewPerson _setNewid(final BigInteger newid) {
+  public NewPerson _setNewid(final BigDecimal newid) {
     this.newid = newid;
     return this;
   }

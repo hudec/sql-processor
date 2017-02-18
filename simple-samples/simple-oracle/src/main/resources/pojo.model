@@ -65,7 +65,7 @@ package org.sample.model {
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
-        #Attr java.math.BigInteger newid // NUMBER(22)
+        #Attr java.math.BigDecimal newid // NUMBER(22)
         #Attr java.sql.Timestamp dateOfBirth // DATE
         #Attr String ssn // VARCHAR2
         #Attr String firstName // VARCHAR2
