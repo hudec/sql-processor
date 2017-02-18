@@ -14,30 +14,30 @@ import org.sqlproc.engine.annotation.Pojo;
 public class PersonDetail implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_PERSON = "PERSON";
   
   public PersonDetail() {
   }
   
-  public PersonDetail(final Person id, final PersonDetailType type) {
+  public PersonDetail(final Person person, final PersonDetailType type) {
     super();
-    setId(id);
+    setPerson(person);
     setType(type);
   }
   
   @NotNull
-  private Person id;
+  private Person person;
   
-  public Person getId() {
-    return this.id;
+  public Person getPerson() {
+    return this.person;
   }
   
-  public void setId(final Person id) {
-    this.id = id;
+  public void setPerson(final Person person) {
+    this.person = person;
   }
   
-  public PersonDetail _setId(final Person id) {
-    this.id = id;
+  public PersonDetail _setPerson(final Person person) {
+    this.person = person;
     return this;
   }
   
@@ -121,8 +121,8 @@ public class PersonDetail implements Serializable {
   
   public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("PersonDetail");
-    if (id != null)
-    	result.append("@").append("{").append(id.getProcessingIdForAttributes_()).append("}");
+    if (person != null)
+    	result.append("@").append("{").append(person.getProcessingIdForAttributes_()).append("}");
     if (type != null)
     	result.append("@").append("type");
     if (weight != null)
@@ -142,7 +142,7 @@ public class PersonDetail implements Serializable {
   }
   
   public String toStringFull() {
-    return "PersonDetail [id=" + id + ", type=" + type + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + "]";
+    return "PersonDetail [person=" + person + ", type=" + type + ", weight=" + weight + ", height=" + height + ", disposition=" + disposition + ", titles=" + titles + "]";
   }
   
   public enum Attribute {
@@ -243,7 +243,7 @@ public class PersonDetail implements Serializable {
   }
   
   public enum Association {
-    id;
+    person;
   }
   
   private Set<String> initAssociations_ =  new java.util.HashSet<String>();
@@ -332,7 +332,7 @@ public class PersonDetail implements Serializable {
   }
   
   public enum OpAttribute {
-    id,
+    person,
     
     type,
     

@@ -202,7 +202,7 @@ public class ContactDao {
     	final SqlRowProcessor<Contact> sqlRowProcessor = new SqlRowProcessor<Contact>() {
     		@Override
     		public boolean processRow(Contact result, int rownum) throws org.sqlproc.engine.SqlRuntimeException {
-    			map.put(result.getId(), result);
+    			map.put(result.getIdContact(), result);
     			return true;
     		}
     	};

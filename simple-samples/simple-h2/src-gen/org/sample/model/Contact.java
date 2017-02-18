@@ -15,7 +15,7 @@ import org.sqlproc.engine.annotation.Pojo;
 public class Contact implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_ID_CONTACT = "ID_CONTACT";
   
   public final static String ORDER_BY_PERSON = "PERSON";
   
@@ -29,18 +29,18 @@ public class Contact implements Serializable {
     setAddress(address);
   }
   
-  private Long id;
+  private Long idContact;
   
-  public Long getId() {
-    return this.id;
+  public Long getIdContact() {
+    return this.idContact;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setIdContact(final Long idContact) {
+    this.idContact = idContact;
   }
   
-  public Contact _setId(final Long id) {
-    this.id = id;
+  public Contact _setIdContact(final Long idContact) {
+    this.idContact = idContact;
     return this;
   }
   
@@ -157,8 +157,8 @@ public class Contact implements Serializable {
   
   public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("Contact");
-    if (id != null)
-    	result.append("@").append("id");
+    if (idContact != null)
+    	result.append("@").append("idContact");
     if (person != null)
     	result.append("@").append("{").append(person.getProcessingIdForAttributes_()).append("}");
     if (type != null)
@@ -181,23 +181,23 @@ public class Contact implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     Contact other = (Contact) obj;
-    if (id == null || !id.equals(other.id))
+    if (idContact == null || !idContact.equals(other.idContact))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(idContact);
   }
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + "]";
+    return "Contact [idContact=" + idContact + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + "]";
+    return "Contact [idContact=" + idContact + ", person=" + person + ", type=" + type + ", address=" + address + ", phoneNumber=" + phoneNumber + ", xNote=" + xNote + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + "]";
   }
   
   public enum Attribute {
@@ -383,7 +383,7 @@ public class Contact implements Serializable {
   }
   
   public enum OpAttribute {
-    id,
+    idContact,
     
     person,
     

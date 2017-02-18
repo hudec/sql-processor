@@ -202,7 +202,7 @@ public class PersonDao {
     	final SqlRowProcessor<Person> sqlRowProcessor = new SqlRowProcessor<Person>() {
     		@Override
     		public boolean processRow(Person result, int rownum) throws org.sqlproc.engine.SqlRuntimeException {
-    			map.put(result.getId(), result);
+    			map.put(result.getIdPerson(), result);
     			return true;
     		}
     	};

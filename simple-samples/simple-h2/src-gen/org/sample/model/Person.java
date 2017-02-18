@@ -17,7 +17,7 @@ import org.sqlproc.engine.annotation.Pojo;
 public class Person implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_ID_PERSON = "ID_PERSON";
   
   public final static String ORDER_BY_LAST_NAME = "LAST_NAME";
   
@@ -31,18 +31,18 @@ public class Person implements Serializable {
     setGender(gender);
   }
   
-  private Long id;
+  private Long idPerson;
   
-  public Long getId() {
-    return this.id;
+  public Long getIdPerson() {
+    return this.idPerson;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setIdPerson(final Long idPerson) {
+    this.idPerson = idPerson;
   }
   
-  public Person _setId(final Long id) {
-    this.id = id;
+  public Person _setIdPerson(final Long idPerson) {
+    this.idPerson = idPerson;
     return this;
   }
   
@@ -189,8 +189,8 @@ public class Person implements Serializable {
   
   public StringBuilder getProcessingIdForAttributes_() {
     StringBuilder result = new StringBuilder("Person");
-    if (id != null)
-    	result.append("@").append("id");
+    if (idPerson != null)
+    	result.append("@").append("idPerson");
     if (firstName != null)
     	result.append("@").append("firstName");
     if (lastName != null)
@@ -213,23 +213,23 @@ public class Person implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     Person other = (Person) obj;
-    if (id == null || !id.equals(other.id))
+    if (idPerson == null || !idPerson.equals(other.idPerson))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(idPerson);
   }
   
   @Override
   public String toString() {
-    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + "]";
+    return "Person [idPerson=" + idPerson + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + "]";
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", contacts=" + contacts + ", personDetails=" + personDetails + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + "]";
+    return "Person [idPerson=" + idPerson + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", ssn=" + ssn + ", contacts=" + contacts + ", personDetails=" + personDetails + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + "]";
   }
   
   public enum Attribute {
@@ -417,7 +417,7 @@ public class Person implements Serializable {
   }
   
   public enum OpAttribute {
-    id,
+    idPerson,
     
     firstName,
     

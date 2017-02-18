@@ -27,6 +27,7 @@ metagen-table-sequence CONTACT SIMPLE_SEQUENCE;
 metagen-generate-idgenerators;
 metagen-like-columns PERSON FIRST_NAME LAST_NAME;
 metagen-not-like-columns;
+
 daogen-package org.sample.dao;
 
 is-table contact CONTACT;

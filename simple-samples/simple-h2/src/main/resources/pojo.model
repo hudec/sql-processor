@@ -28,12 +28,12 @@ package org.sample.model {
         #Attr java.sql.Timestamp p0
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber,xNote) #ProcId(id,person,type,address,phoneNumber,xNote)
+    #Operators #Serializable(1) #Equals(idContact) #HashCode(idContact) #ToString(idContact,type,address,phoneNumber,xNote) #ProcId(idContact,person,type,address,phoneNumber,xNote)
     // The contact information
     #Pojo Contact {
         #PrimaryKey() #Index
         // The technical primary key
-        #Attr Long id
+        #Attr Long idContact
         @NotNull
         #ToInit #Required #Index #IsPojo
         // The owner of this contact
@@ -59,12 +59,12 @@ package org.sample.model {
         #Attr java.util.List <Long> ids_
     }
 
-    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(id,firstName,lastName,dateOfBirth,gender,ssn)
+    #Operators #Serializable(1) #Equals(idPerson) #HashCode(idPerson) #ToString(idPerson,firstName,lastName,dateOfBirth,gender,ssn) #ProcId(idPerson,firstName,lastName,dateOfBirth,gender,ssn)
     // The personal information
     #Pojo Person {
         #PrimaryKey() #Index
         // The technical primary key
-        #Attr Long id
+        #Attr Long idPerson
         @NotNull
         @Size(max = 100)
         #Required
@@ -94,13 +94,13 @@ package org.sample.model {
         #Attr java.util.List <Long> ids_
     }
 
-    #Operators #Serializable(1) #ToString(type,weight,height,disposition,titles) #ProcId(id,type,weight,height,disposition,titles)
+    #Operators #Serializable(1) #ToString(type,weight,height,disposition,titles) #ProcId(person,type,weight,height,disposition,titles)
     // The detailed personal information
     #Pojo PersonDetail {
         @NotNull
         #ToInit #Required #Index #IsPojo
         // The technical primary key
-        #Attr Person id
+        #Attr Person person
         @NotNull
         #Required
         #Attr PersonDetailType type
@@ -124,4 +124,17 @@ package org.sample.model {
     #Pojo AnHourBefore {
         #Attr java.sql.Timestamp p1
     }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=2
+// Exports=2
+// Imports=2
+// Indexes=5
+// Check Constraints=3
+// Procedures=1
+// Procedures Columns=2
+// Functions=0
+// Functions Columns=0
 }
