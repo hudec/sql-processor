@@ -15,17 +15,4 @@ package org.sample.dao {
     #ProcedureCallQuery(java.util.List<org.sample.model.AnHourBeforeResult>,org.sample.model.AnHourBefore)
     #Dao AnHourBeforeDao {
     }
-
-// Model statistics
-// Tables=3
-// Columns=18
-// Primary Keys=2
-// Exports=2
-// Imports=2
-// Indexes=5
-// Check Constraints=3
-// Procedures=1
-// Procedures Columns=2
-// Functions=0
-// Functions Columns=0
 }

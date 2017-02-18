@@ -189,16 +189,3 @@ PROC_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
 PROC_AN_HOUR_BEFORE(OUT,out=AnHourBeforeResult)=
   1$p0
 ;
-
-// Model statistics
-// Tables=3
-// Columns=18
-// Primary Keys=2
-// Exports=2
-// Imports=2
-// Indexes=5
-// Check Constraints=3
-// Procedures=1
-// Procedures Columns=2
-// Functions=0
-// Functions Columns=0
