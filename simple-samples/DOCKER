@@ -1,0 +1,82 @@
+docker run --name mysql1 -e MYSQL_ROOT_PASSWORD=root1234 -d mysql:latest
+
+3306
+
+docker run --name some-app --link mysql1:mysql -d application-that-uses-mysql
+
+docker run -it --link mysql1:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+docker run -it --rm mysql mysql -hsome.mysql.host -umysql1-user -p
+docker run -it --rm mysql mysql -hsome.mysql.host -umysql1-user -p
+
+docker exec -it mysql1 bash
+docker logs mysql1
+
+/etc/mysql/my.cnf -> /etc/mysql/conf.d
+/my/custom/config-file.cnf
+docker run --name mysql1 -v /my/custom:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root1234 -d mysql:latest
+
+docker run --name mysql1 -e MYSQL_ROOT_PASSWORD=root1234 -d mysql:latest --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+docker run -it --rm mysql:latest --verbose --help
+
+MYSQL_ROOT_PASSWORD
+MYSQL_DATABASE
+MYSQL_USER, MYSQL_PASSWORD
+MYSQL_ALLOW_EMPTY_PASSWORD
+MYSQL_RANDOM_ROOT_PASSWORD
+MYSQL_ONETIME_PASSWORD
+
+docker run --name mysql1 -v /home/hudec/db/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -d mysql:latest
+
+docker exec mysql1 sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > /some/path/on/your/host/all-databases.sql
+
+/docker-entrypoint-initdb.d
+sh, .sql and .sql.gz
+-----------
+
+docker run -p 3306:3306 --name mysql1 -v /home/hudec/db/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=simple -e MYSQL_USER=simple -e MYSQL_PASSWORD=simple -d mysql:latest
+docker stop mysql1 
+docker start mysql1 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+docker run --name postgres1 -e POSTGRES_PASSWORD=simple -d postgres
+
+5432
+
+docker run --name some-app --link postgres1:postgres -d application-that-uses-postgres
+
+docker run -it --rm --link postgres1:postgres postgres psql -h postgres -U postgres
+
+POSTGRES_PASSWORD
+POSTGRES_USER
+PGDATA  /var/lib/postgresql/data
+POSTGRES_DB
+POSTGRES_INITDB_ARGS
+
+docker run -it --rm --user "$(id -u):$(id -g)" -v /etc/passwd:/etc/passwd:ro postgres
+
+docker volume create pgdata
+docker run -it --rm -v pgdata:/var/lib/postgresql/data postgres
+docker run -it --rm -v pgdata:/var/lib/postgresql/data bash chown -R 1000:1000 /var/lib/postgresql/data
+docker run -it --rm --user 1000:1000 -v pgdata:/var/lib/postgresql/data postgres
+
+/docker-entrypoint-initdb.d
+*.sh
+*.sql
+
+/docker-entrypoint-initdb.d/init-user-db.sh:
+
+#!/bin/bash
+set -e
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
+    CREATE USER docker;
+    CREATE DATABASE docker;
+    GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
+EOSQL
+------------------
+
+docker run -p 5432:5432 --name postgres1 -v //home/hudec/db/postgresql:/var/lib/postgresql/data -e POSTGRES_DB=simple -e POSTGRES_USER=simple -e POSTGRES_PASSWORD=simple -d postgres:latest
+
+
+
