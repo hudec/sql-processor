@@ -10,7 +10,7 @@ import org.sqlproc.sample.simple.model.Subscriber;
 public class Library implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_LIBRARY_ID = "LIBRARY_ID";
   
   public Library() {
   }
@@ -20,18 +20,18 @@ public class Library implements Serializable {
     setName(name);
   }
   
-  private Long id;
+  private Long libraryId;
   
-  public Long getId() {
-    return this.id;
+  public Long getLibraryId() {
+    return this.libraryId;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setLibraryId(final Long libraryId) {
+    this.libraryId = libraryId;
   }
   
-  public Library _setId(final Long id) {
-    this.id = id;
+  public Library _setLibraryId(final Long libraryId) {
+    this.libraryId = libraryId;
     return this;
   }
   
@@ -74,22 +74,22 @@ public class Library implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     Library other = (Library) obj;
-    if (id == null || !id.equals(other.id))
+    if (libraryId == null || !libraryId.equals(other.libraryId))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(libraryId);
   }
   
   @Override
   public String toString() {
-    return "Library [id=" + id + ", name=" + name + "]";
+    return "Library [libraryId=" + libraryId + ", name=" + name + "]";
   }
   
   public String toStringFull() {
-    return "Library [id=" + id + ", name=" + name + ", subscribers=" + subscribers + "]";
+    return "Library [libraryId=" + libraryId + ", name=" + name + ", subscribers=" + subscribers + "]";
   }
 }

@@ -155,7 +155,7 @@ public class Main {
         if (media == null || media.length == 0)
             return;
         for (Media media1 : media) {
-            PersonLibrary library = new PersonLibrary(person.getId(), media1.getId());
+            PersonLibrary library = new PersonLibrary(person.getPersonId(), media1.getMediaId());
             sqlCreateLibrary.insert(session, library);
         }
     }
@@ -252,7 +252,7 @@ public class Main {
         Person janik = main.insert(session, new Person("Janik"), new Contact()._setAddress("Janik address 1"));
         Person honza = main.insert(session, new Person("Honza"), new Contact()._setAddress("Honza address 1"),
                 new Contact()._setAddress("Honza address 2"));
-        Person honzik = main.insert(session, new Person("Honzik"));
+        main.insert(session, new Person("Honzik"));
         Person andrej = main.insert(session, new Person("Andrej"), new Contact()._setAddress("Andrej address 1"));
 
         Book book1 = main.insertBook(session, new Book("The Adventures of Robin Hood", "978-0140367003"));
@@ -315,20 +315,20 @@ public class Main {
 
         // crud
         person = new Person();
-        person.setId(andrej.getId());
+        person.setPersonId(andrej.getPersonId());
         p = main.get(session, person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Andrej", p.getName());
 
         person = new Person();
-        person.setId(janik.getId());
+        person.setPersonId(janik.getPersonId());
         person.setName("Bozena");
         p = main.update(session, person);
         Assert.assertNotNull(p);
         Assert.assertEquals("Bozena", p.getName());
 
         person = new Person();
-        person.setId(jan.getId());
+        person.setPersonId(jan.getPersonId());
         deleted = main.delete(session, person);
         Assert.assertTrue(deleted);
         list = main.listAll(session);
@@ -345,7 +345,7 @@ public class Main {
         // custom type
         Contact cc = new Contact()._setAddress("Pepa address 1");
         cc.setPhoneNumber(new PhoneNumber(111, 222, 3333));
-        Person pepa = main.insertCustom(session, new Person("Pepa"), cc);
+        main.insertCustom(session, new Person("Pepa"), cc);
         Contact contact = new Contact();
         contact.setPhoneNumber(new PhoneNumber(111, 222, 3333));
         list = main.listCustom(session, contact);

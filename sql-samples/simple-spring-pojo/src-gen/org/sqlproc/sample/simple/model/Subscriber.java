@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import org.sqlproc.engine.annotation.Pojo;
 import org.sqlproc.sample.simple.model.BillingDetails;
+import org.sqlproc.sample.simple.model.Contact;
 import org.sqlproc.sample.simple.model.Library;
 
 @Pojo
@@ -11,9 +12,11 @@ import org.sqlproc.sample.simple.model.Library;
 public class Subscriber implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_SUBSCRIBER_ID = "SUBSCRIBER_ID";
   
   public final static String ORDER_BY_LIBRARY = "LIBRARY";
+  
+  public final static String ORDER_BY_CONTACT = "CONTACT";
   
   public Subscriber() {
   }
@@ -24,18 +27,18 @@ public class Subscriber implements Serializable {
     setName(name);
   }
   
-  private Long id;
+  private Long subscriberId;
   
-  public Long getId() {
-    return this.id;
+  public Long getSubscriberId() {
+    return this.subscriberId;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setSubscriberId(final Long subscriberId) {
+    this.subscriberId = subscriberId;
   }
   
-  public Subscriber _setId(final Long id) {
-    this.id = id;
+  public Subscriber _setSubscriberId(final Long subscriberId) {
+    this.subscriberId = subscriberId;
     return this;
   }
   
@@ -54,17 +57,17 @@ public class Subscriber implements Serializable {
     return this;
   }
   
-  private Long contact;
+  private Contact contact;
   
-  public Long getContact() {
+  public Contact getContact() {
     return this.contact;
   }
   
-  public void setContact(final Long contact) {
+  public void setContact(final Contact contact) {
     this.contact = contact;
   }
   
-  public Subscriber _setContact(final Long contact) {
+  public Subscriber _setContact(final Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -108,22 +111,22 @@ public class Subscriber implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     Subscriber other = (Subscriber) obj;
-    if (id == null || !id.equals(other.id))
+    if (subscriberId == null || !subscriberId.equals(other.subscriberId))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(subscriberId);
   }
   
   @Override
   public String toString() {
-    return "Subscriber [id=" + id + ", contact=" + contact + ", name=" + name + "]";
+    return "Subscriber [subscriberId=" + subscriberId + ", name=" + name + "]";
   }
   
   public String toStringFull() {
-    return "Subscriber [id=" + id + ", library=" + library + ", contact=" + contact + ", name=" + name + ", billingDetails=" + billingDetails + "]";
+    return "Subscriber [subscriberId=" + subscriberId + ", library=" + library + ", contact=" + contact + ", name=" + name + ", billingDetails=" + billingDetails + "]";
   }
 }

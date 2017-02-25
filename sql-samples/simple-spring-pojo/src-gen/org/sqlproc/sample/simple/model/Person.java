@@ -11,7 +11,7 @@ import org.sqlproc.sample.simple.model.Media;
 public class Person implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_PERSON_ID = "PERSON_ID";
   
   public Person() {
   }
@@ -21,18 +21,18 @@ public class Person implements Serializable {
     setName(name);
   }
   
-  private Long id;
+  private Long personId;
   
-  public Long getId() {
-    return this.id;
+  public Long getPersonId() {
+    return this.personId;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setPersonId(final Long personId) {
+    this.personId = personId;
   }
   
-  public Person _setId(final Long id) {
-    this.id = id;
+  public Person _setPersonId(final Long personId) {
+    this.personId = personId;
     return this;
   }
   
@@ -90,22 +90,22 @@ public class Person implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     Person other = (Person) obj;
-    if (id == null || !id.equals(other.id))
+    if (personId == null || !personId.equals(other.personId))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(personId);
   }
   
   @Override
   public String toString() {
-    return "Person [id=" + id + ", name=" + name + "]";
+    return "Person [personId=" + personId + ", name=" + name + "]";
   }
   
   public String toStringFull() {
-    return "Person [id=" + id + ", name=" + name + ", contacts=" + contacts + ", library=" + library + "]";
+    return "Person [personId=" + personId + ", name=" + name + ", contacts=" + contacts + ", library=" + library + "]";
   }
 }

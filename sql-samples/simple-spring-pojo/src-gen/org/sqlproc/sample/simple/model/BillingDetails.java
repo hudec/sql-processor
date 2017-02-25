@@ -9,7 +9,7 @@ import org.sqlproc.sample.simple.model.Subscriber;
 public abstract class BillingDetails implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_BILLING_DETAILS_ID = "BILLING_DETAILS_ID";
   
   public final static String ORDER_BY_SUBSCRIBER = "SUBSCRIBER";
   
@@ -22,18 +22,18 @@ public abstract class BillingDetails implements Serializable {
     setType(type);
   }
   
-  private Long id;
+  private Long billingDetailsId;
   
-  public Long getId() {
-    return this.id;
+  public Long getBillingDetailsId() {
+    return this.billingDetailsId;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setBillingDetailsId(final Long billingDetailsId) {
+    this.billingDetailsId = billingDetailsId;
   }
   
-  public BillingDetails _setId(final Long id) {
-    this.id = id;
+  public BillingDetails _setBillingDetailsId(final Long billingDetailsId) {
+    this.billingDetailsId = billingDetailsId;
     return this;
   }
   
@@ -76,22 +76,22 @@ public abstract class BillingDetails implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     BillingDetails other = (BillingDetails) obj;
-    if (id == null || !id.equals(other.id))
+    if (billingDetailsId == null || !billingDetailsId.equals(other.billingDetailsId))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(billingDetailsId);
   }
   
   @Override
   public String toString() {
-    return "BillingDetails [id=" + id + ", type=" + type + "]";
+    return "BillingDetails [billingDetailsId=" + billingDetailsId + ", type=" + type + "]";
   }
   
   public String toStringFull() {
-    return "BillingDetails [id=" + id + ", subscriber=" + subscriber + ", type=" + type + "]";
+    return "BillingDetails [billingDetailsId=" + billingDetailsId + ", subscriber=" + subscriber + ", type=" + type + "]";
   }
 }

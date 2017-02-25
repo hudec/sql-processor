@@ -8,7 +8,7 @@ import org.sqlproc.engine.annotation.Pojo;
 public class PersonLibrary implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_PERSON_LIBRARY_ID = "PERSON_LIBRARY_ID";
   
   public final static String ORDER_BY_PERSON_ID = "PERSON_ID";
   
@@ -23,18 +23,18 @@ public class PersonLibrary implements Serializable {
     setMediaId(mediaId);
   }
   
-  private Long id;
+  private Long personLibraryId;
   
-  public Long getId() {
-    return this.id;
+  public Long getPersonLibraryId() {
+    return this.personLibraryId;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setPersonLibraryId(final Long personLibraryId) {
+    this.personLibraryId = personLibraryId;
   }
   
-  public PersonLibrary _setId(final Long id) {
-    this.id = id;
+  public PersonLibrary _setPersonLibraryId(final Long personLibraryId) {
+    this.personLibraryId = personLibraryId;
     return this;
   }
   
@@ -77,22 +77,22 @@ public class PersonLibrary implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     PersonLibrary other = (PersonLibrary) obj;
-    if (id == null || !id.equals(other.id))
+    if (personLibraryId == null || !personLibraryId.equals(other.personLibraryId))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(personLibraryId);
   }
   
   @Override
   public String toString() {
-    return "PersonLibrary [id=" + id + ", personId=" + personId + ", mediaId=" + mediaId + "]";
+    return "PersonLibrary [personLibraryId=" + personLibraryId + ", personId=" + personId + ", mediaId=" + mediaId + "]";
   }
   
   public String toStringFull() {
-    return "PersonLibrary [id=" + id + ", personId=" + personId + ", mediaId=" + mediaId + "]";
+    return "PersonLibrary [personLibraryId=" + personLibraryId + ", personId=" + personId + ", mediaId=" + mediaId + "]";
   }
 }

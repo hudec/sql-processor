@@ -18,11 +18,11 @@ pojogen-generate-wrappers;
 // custom type
 pojogen-types-for-columns CONTACT PHONE_NUMBER->org.sqlproc.sample.simple.model.PhoneNumber;
 // inheritance
-pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->ID;
-pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->ID;
+pojogen-inherit-many-to-one BOOK MEDIA_ID->MEDIA->MEDIA_ID;
+pojogen-inherit-many-to-one MOVIE MEDIA_ID->MEDIA->MEDIA_ID;
 pojogen-inherit-discriminator BILLING_DETAILS TYPE BA->BANK_ACCOUNT->BA_ACCOUNT CC->CREDIT_CARD->CC_NUMBER;
 // many-to-many
-pojogen-table-many-to-many PERSON_LIBRARY ID->MEDIA->LIBRARY;
+pojogen-table-many-to-many PERSON_LIBRARY PERSON_ID->MEDIA->LIBRARY;
 // others
 pojogen-generate-methods toString equals hashCode;
 pojogen-implements-interfaces java.io.Serializable;
@@ -51,3 +51,6 @@ is-pojo Person org.sqlproc.sample.simple.model.Person;
 is-pojo PersonLibrary org.sqlproc.sample.simple.model.PersonLibrary;
 is-pojo PhoneNumber org.sqlproc.sample.simple.model.PhoneNumber;
 is-pojo Subscriber org.sqlproc.sample.simple.model.Subscriber;
+
+//database-debug-level DEBUG;
+//pojogen-debug-level DEBUG;

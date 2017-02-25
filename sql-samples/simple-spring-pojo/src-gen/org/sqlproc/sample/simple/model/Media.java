@@ -8,7 +8,7 @@ import org.sqlproc.engine.annotation.Pojo;
 public abstract class Media implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_MEDIA_ID = "MEDIA_ID";
   
   public Media() {
   }
@@ -18,18 +18,18 @@ public abstract class Media implements Serializable {
     setTitle(title);
   }
   
-  private Long id;
+  private Long mediaId;
   
-  public Long getId() {
-    return this.id;
+  public Long getMediaId() {
+    return this.mediaId;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setMediaId(final Long mediaId) {
+    this.mediaId = mediaId;
   }
   
-  public Media _setId(final Long id) {
-    this.id = id;
+  public Media _setMediaId(final Long mediaId) {
+    this.mediaId = mediaId;
     return this;
   }
   
@@ -57,22 +57,22 @@ public abstract class Media implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     Media other = (Media) obj;
-    if (id == null || !id.equals(other.id))
+    if (mediaId == null || !mediaId.equals(other.mediaId))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(mediaId);
   }
   
   @Override
   public String toString() {
-    return "Media [id=" + id + ", title=" + title + "]";
+    return "Media [mediaId=" + mediaId + ", title=" + title + "]";
   }
   
   public String toStringFull() {
-    return "Media [id=" + id + ", title=" + title + "]";
+    return "Media [mediaId=" + mediaId + ", title=" + title + "]";
   }
 }

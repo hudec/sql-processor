@@ -1,16 +1,18 @@
 package org.sqlproc.sample.simple.model;
 
 import java.io.Serializable;
+import java.util.List;
 import org.sqlproc.engine.annotation.Pojo;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PhoneNumber;
+import org.sqlproc.sample.simple.model.Subscriber;
 
 @Pojo
 @SuppressWarnings("all")
 public class Contact implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public final static String ORDER_BY_CONTACT_ID = "CONTACT_ID";
   
   public final static String ORDER_BY_PERSON = "PERSON";
   
@@ -23,18 +25,18 @@ public class Contact implements Serializable {
     setAddress(address);
   }
   
-  private Long id;
+  private Long contactId;
   
-  public Long getId() {
-    return this.id;
+  public Long getContactId() {
+    return this.contactId;
   }
   
-  public void setId(final Long id) {
-    this.id = id;
+  public void setContactId(final Long contactId) {
+    this.contactId = contactId;
   }
   
-  public Contact _setId(final Long id) {
-    this.id = id;
+  public Contact _setContactId(final Long contactId) {
+    this.contactId = contactId;
     return this;
   }
   
@@ -83,6 +85,21 @@ public class Contact implements Serializable {
     return this;
   }
   
+  private List<Subscriber> subscribers = new java.util.ArrayList<Subscriber>();
+  
+  public List<Subscriber> getSubscribers() {
+    return this.subscribers;
+  }
+  
+  public void setSubscribers(final List<Subscriber> subscribers) {
+    this.subscribers = subscribers;
+  }
+  
+  public Contact _setSubscribers(final List<Subscriber> subscribers) {
+    this.subscribers = subscribers;
+    return this;
+  }
+  
   @Override
   public boolean equals(final Object obj) {
     if (this == obj)
@@ -92,22 +109,22 @@ public class Contact implements Serializable {
     if (getClass() != obj.getClass())
     	return false;
     Contact other = (Contact) obj;
-    if (id == null || !id.equals(other.id))
+    if (contactId == null || !contactId.equals(other.contactId))
     	return false;
     return true;
   }
   
   @Override
   public int hashCode() {
-    return java.util.Objects.hash(id);
+    return java.util.Objects.hash(contactId);
   }
   
   @Override
   public String toString() {
-    return "Contact [id=" + id + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
+    return "Contact [contactId=" + contactId + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
   }
   
   public String toStringFull() {
-    return "Contact [id=" + id + ", person=" + person + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
+    return "Contact [contactId=" + contactId + ", person=" + person + ", address=" + address + ", phoneNumber=" + phoneNumber + ", subscribers=" + subscribers + "]";
   }
 }

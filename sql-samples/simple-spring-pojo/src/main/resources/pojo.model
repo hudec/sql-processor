@@ -5,136 +5,152 @@ package org.sqlproc.sample.simple.model {
     #Serializable(1)
     #ToString(baAccount)
     #Pojo BankAccount extends BillingDetails {
-        #Attr String baAccount
+        #Attr String baAccount // VARCHAR(100)
     }
 
     #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,type)
+    #Equals(billingDetailsId)
+    #HashCode(billingDetailsId)
+    #ToString(billingDetailsId,type)
     abstract #Pojo BillingDetails {
         #PrimaryKey
         #Index
-        #Attr Long id
+        #Attr Long billingDetailsId // BIGINT(64)
         #Required
         #Index
         #IsPojo
-        #Attr Subscriber subscriber
+        #Attr Subscriber subscriber // BIGINT(64)
         #InheritanceDiscriminator
         #Required
-        #Attr String type
+        #Attr String type // VARCHAR(2)
     }
 
     #Serializable(1)
     #ToString(isbn)
     #Pojo Book extends Media {
         #Required
-        #Attr String isbn
+        #Attr String isbn // VARCHAR(100)
     }
 
     #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,address,phoneNumber)
+    #Equals(contactId)
+    #HashCode(contactId)
+    #ToString(contactId,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey
         #Index
-        #Attr Long id
+        #Attr Long contactId // BIGINT(64)
         #Required
         #Index
         #IsPojo
-        #Attr Person person
+        #Attr Person person // BIGINT(64)
         #Required
-        #Attr String address
-        #Attr org.sqlproc.sample.simple.model.PhoneNumber phoneNumber
+        #Attr String address // VARCHAR(100)
+        #Attr org.sqlproc.sample.simple.model.PhoneNumber phoneNumber // VARCHAR(100)
+        #Attr java.util.List <Subscriber> subscribers // null
     }
 
     #InheritanceChild(CC)
     #Serializable(1)
     #ToString(ccNumber)
     #Pojo CreditCard extends BillingDetails {
-        #Attr Long ccNumber
+        #Attr Long ccNumber // BIGINT(64)
     }
 
     #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,name)
+    #Equals(libraryId)
+    #HashCode(libraryId)
+    #ToString(libraryId,name)
     #Pojo Library {
         #PrimaryKey
         #Index
-        #Attr Long id
+        #Attr Long libraryId // BIGINT(64)
         #Required
-        #Attr String name
-        #Attr java.util.List <Subscriber> subscribers
+        #Attr String name // VARCHAR(100)
+        #Attr java.util.List <Subscriber> subscribers // null
     }
 
     #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,title)
+    #Equals(mediaId)
+    #HashCode(mediaId)
+    #ToString(mediaId,title)
     abstract #Pojo Media {
         #PrimaryKey
         #Index
-        #Attr Long id
+        #Attr Long mediaId // BIGINT(64)
         #Required
-        #Attr String title
+        #Attr String title // VARCHAR(100)
     }
 
     #Serializable(1)
     #ToString(urlimdb,playlength)
     #Pojo Movie extends Media {
         #Required
-        #Attr String urlimdb
+        #Attr String urlimdb // VARCHAR(100)
         #Required
-        #Attr Integer playlength
+        #Attr Integer playlength // INTEGER(32)
     }
 
     #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,name)
+    #Equals(personId)
+    #HashCode(personId)
+    #ToString(personId,name)
     #Pojo Person {
         #PrimaryKey
         #Index
-        #Attr Long id
+        #Attr Long personId // BIGINT(64)
         #Required
-        #Attr String name
-        #Attr java.util.List <Contact> contacts
-        #Attr java.util.List <Media> library
+        #Attr String name // VARCHAR(100)
+        #Attr java.util.List <Contact> contacts // null
+        #Attr java.util.List <Media> library // null
     }
 
     #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,personId,mediaId)
+    #Equals(personLibraryId)
+    #HashCode(personLibraryId)
+    #ToString(personLibraryId,personId,mediaId)
     #Pojo PersonLibrary {
         #PrimaryKey
         #Index
-        #Attr Long id
+        #Attr Long personLibraryId // BIGINT(64)
         #Required
         #Index
-        #Attr Long personId
+        #Attr Long personId // BIGINT(64)
         #Required
         #Index
-        #Attr Long mediaId
+        #Attr Long mediaId // BIGINT(64)
     }
 
     #Serializable(1)
-    #Equals(id)
-    #HashCode(id)
-    #ToString(id,contact,name)
+    #Equals(subscriberId)
+    #HashCode(subscriberId)
+    #ToString(subscriberId,name)
     #Pojo Subscriber {
         #PrimaryKey
         #Index
-        #Attr Long id
+        #Attr Long subscriberId // BIGINT(64)
         #Required
         #Index
         #IsPojo
-        #Attr Library library
-        #Attr Long contact
+        #Attr Library library // BIGINT(64)
+        #Index
+        #IsPojo
+        #Attr Contact contact // BIGINT(64)
         #Required
-        #Attr String name
-        #Attr java.util.List <BillingDetails> billingDetails
+        #Attr String name // VARCHAR(100)
+        #Attr java.util.List <BillingDetails> billingDetails // null
     }
+
+// Model statistics
+// Tables=9
+// Columns=27
+// Primary Keys=7
+// Exports=8
+// Imports=8
+// Indexes=15
+// Check Constraints=0
+// Procedures=0
+// Procedures Columns=0
+// Functions=0
+// Functions Columns=0
 }
