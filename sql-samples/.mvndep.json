@@ -1,0 +1,20 @@
+{
+	"pom": "pom.xml",
+	"depth": 1,
+	"skip_libs": [
+		"org.apache.wicket",
+		"org.sqlproc",
+		"org.hibernate.hibernate-core"
+	],
+	"skip_projects": [
+		"catalog-jpa",
+		"catalog-jpa-web",
+		"catalog-jpa-business",
+		"catalog-spring",
+		"catalog-spring-web",
+		"catalog-spring-business",
+		"catalog-hibernate",
+		"catalog-hibernate-web",
+		"catalog-hibernate-business"
+	]
+}

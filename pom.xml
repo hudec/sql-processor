@@ -31,13 +31,13 @@
         <version.antlr>3.5.2</version.antlr>
         <version.hibernate>4.1.7.Final</version.hibernate>
         <version.hibernate-validator>4.3.1.Final</version.hibernate-validator>
-        <version.spring>4.3.1.RELEASE</version.spring>
+        <version.spring>4.3.7.RELEASE</version.spring>
         <version.aspectjweaver>1.6.12</version.aspectjweaver>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.21</version.slf4j>
+        <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.dbunit>2.5.2</version.dbunit>
-        <version.hsqldb>2.3.2</version.hsqldb>
+        <version.dbunit>2.5.3</version.dbunit>
+        <version.hsqldb>2.4.0</version.hsqldb>
         <version.h2>1.4.192</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>11.2.0.3</version.oracle>
@@ -46,7 +46,7 @@
         <version.informix>3.5</version.informix>
         <version.mssql>4.1</version.mssql>
         <version.db2>3.52.95</version.db2>
-        <version.beanutils>1.9.2</version.beanutils>
+        <version.beanutils>1.9.3</version.beanutils>
         <version.dbcp>1.4</version.dbcp>
         <version.validation>1.1.0.Final</version.validation>
 
@@ -99,9 +99,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <compilerVersion>1.7</compilerVersion>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerVersion>1.8</compilerVersion>
                     <encoding>UTF-8</encoding>
                     <!--encoding>${file.encoding}</encoding -->
                     <optimize>true</optimize>
