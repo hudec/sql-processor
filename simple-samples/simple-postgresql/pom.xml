@@ -12,9 +12,9 @@
         <version.sql-processor>3.2.5-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.12</version.slf4j>
+        <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.postgresql>9.4.1212.jre7</version.postgresql>
+        <version.postgresql>42.0.0.jre7</version.postgresql>
         <version.sql-processor-eclipse>2.6.0</version.sql-processor-eclipse>
     </properties>
 
