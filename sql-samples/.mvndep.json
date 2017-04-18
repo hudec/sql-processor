@@ -4,7 +4,7 @@
 	"skip_libs": [
 		"org.apache.wicket",
 		"org.sqlproc",
-		"org.hibernate.hibernate-core",
+		"org.hibernate:hibernate-core",
 		"org.javasimon"
 	]
 }

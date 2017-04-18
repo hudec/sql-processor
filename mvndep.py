@@ -118,7 +118,7 @@ class Library:
 class Libraries:
     def __init__(self, libs):
         self.map_group_artifact_version = {}
-        self.map_group_artifact = {}
+        self.set_group_artifact = set([])
         self.set_group = set([])
         for lib in libs:
             self.__add_lib(lib)
@@ -128,7 +128,7 @@ class Libraries:
         if lib.groupId and lib.artifactId and lib.version:
             self.map_group_artifact_version[lib.groupId + '.' + lib.artifactId] = lib.version
         elif lib.groupId and lib.artifactId:
-            self.map_group_artifact[lib.groupId] = lib.artifactId
+            self.set_group_artifact.add(lib.groupId + '.' + lib.artifactId)
         else:
             self.set_group.add(lib.groupId)
 
@@ -141,10 +141,8 @@ class Libraries:
         groupId = '.'.join(items)
         if groupId in self.set_group:
             return True, None
-        if groupId in self.map_group_artifact:
+        if groupId + '.' + artifactId in self.set_group_artifact:
             return True, None
-        if groupId + '.' + artifactId in self.map_group_artifact_version:
-            return True, self.map_group_artifact_version[groupId + '.' + artifactId]
         return False, None
 
     @staticmethod
@@ -272,9 +270,6 @@ def maven_dep_pom(cfg, path, pom = None):
         if result:
             print(line)
             if project:
-#                 print("XXXXXXXXXXXXXXXXXXXXXX")
-#                 print(map_lib_versions_main)
-#                 print(map_lib_versions)
                 map2_project_lib_versions_main[project] = map_lib_versions_main
                 map2_project_lib_versions[project] = map_lib_versions
             map_lib_versions_main = {}
@@ -284,15 +279,10 @@ def maven_dep_pom(cfg, path, pom = None):
                 project = None
             if cfg.skip_projects and project in cfg.skip_projects:
                 project = None
-#             print(map2_project_lib_versions_main)
-#             print(map2_project_lib_versions)
             print("project %s" % (project))
         else:
             maven_dep_line(cfg, line, map_lib_versions_main, map_lib_versions)
     if project:
-#         print("YYYYYYYYYYYYYYYYYYYYYY")
-#         print(map_lib_versions_main)
-#         print(map_lib_versions)
         map2_project_lib_versions_main[project] = map_lib_versions_main
         map2_project_lib_versions[project] = map_lib_versions
     return (map2_project_lib_versions_main, map2_project_lib_versions)
@@ -592,6 +582,7 @@ def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib
     map_project_pom_fixed = {}
     libs = list(map2_lib_version_projects.keys())
     libs.sort()
+    print(cfg.skip_libs)
     for lib in libs:
         if Libraries.skip(cfg.skip_libs, lib):
             continue
