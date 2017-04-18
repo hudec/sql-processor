@@ -26,6 +26,7 @@ import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionImpl;
@@ -81,6 +82,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     protected static SessionFactory sessionFactory;
     protected HibernateSimpleSession session;
+
+    private Transaction trans;
 
     static {
 
@@ -207,15 +210,19 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     protected void setUp() throws Exception {
         session = new HibernateSimpleSession(sessionFactory.openSession());
+
         // tx = session.beginTransaction();
         super.setUp();
         ParserUtils.nullCounter();
-        session.getSession().close();
+        // Since 2.4.4 the dbUnit is responsible for closing        
+        //session.getSession().close();
         session = new HibernateSimpleSession(sessionFactory.openSession());
+        trans = session.getSession().beginTransaction();  
     }
 
-    protected void tearDown() throws Exception {
+    protected void tearDown() throws Exception {    	
         super.tearDown();
+        trans.commit();
         // tx.commit();
         session.getSession().close();
     }
