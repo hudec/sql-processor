@@ -26,10 +26,10 @@ import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionImpl;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,8 +98,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
         metaStatements = SqlFilesLoader.getStatements(DatabaseTestCase.class, metaFilesNames);
 
         configuration = new Configuration().configure(testProperties.getProperty(CONFIGURATION_NAME));
-        serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
-                .buildServiceRegistry();
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                .applySettings(configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
         validatorFactory = new SampleValidator.SampleValidatorFactory();
