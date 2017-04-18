@@ -1,0 +1,7 @@
+{
+	"pom": "pom.xml",
+	"depth": 1,
+	"skip_libs": [
+		"org.sqlproc"
+	]
+}
