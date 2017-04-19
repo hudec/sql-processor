@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.junit.Assert;
 import org.slf4j.Logger;
@@ -60,12 +61,20 @@ public class Main {
     public List<Person> listAll() {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             List<Person> list = sqlEngine.query(session, Person.class);
             logger.info("listAll size: " + list.size());
             return list;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -74,12 +83,20 @@ public class Main {
     public List<Person> listSome(Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             List<Person> list = sqlEngine.query(session, Person.class, person, OrderIds.DESC_NAME);
             logger.info("listSome size: " + list.size());
             return list;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -88,12 +105,20 @@ public class Main {
     public List<Person> listLike(Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("LIKE_PEOPLE");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             List<Person> list = sqlEngine.query(session, Person.class, person, OrderIds.DESC_NAME);
             logger.info("listSome size: " + list.size());
             return list;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -103,8 +128,10 @@ public class Main {
         SqlCrudEngine sqlInsertPerson = sqlFactory.getCrudEngine("INSERT_PERSON");
         SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertPerson.insert(session, person);
             logger.info("insert: " + count);
             logger.info("insert: " + person);
@@ -116,6 +143,12 @@ public class Main {
             }
             return (count > 0) ? person : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -124,12 +157,20 @@ public class Main {
     public Person get(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("GET_PERSON");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             Person p = sqlEngine.get(session, Person.class, person);
             logger.info("get: " + p);
             return p;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -138,12 +179,20 @@ public class Main {
     public Person update(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("UPDATE_PERSON");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlEngine.update(session, person);
             logger.info("update: " + count);
             return (count > 0) ? person : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -152,12 +201,20 @@ public class Main {
     public boolean delete(Person person) {
         SqlCrudEngine sqlEngine = sqlFactory.getCrudEngine("DELETE_PERSON");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlEngine.delete(session, person);
             logger.info("delete: " + count);
             return (count > 0);
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -166,12 +223,20 @@ public class Main {
     public List<Person> listPeopleAndContacts(Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             List<Person> list = sqlEngine.query(session, Person.class, person, OrderIds.ASC_NAME_ADDRESS);
             logger.info("listSome size: " + list.size());
             return list;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -181,14 +246,22 @@ public class Main {
         SqlCrudEngine sqlInsertMedia = sqlFactory.getCrudEngine("INSERT_MEDIA");
         SqlCrudEngine sqlInsertMovie = sqlFactory.getCrudEngine("INSERT_MOVIE");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertMedia.insert(session, movie);
             if (count > 0) {
                 sqlInsertMovie.insert(session, movie);
             }
             return (count > 0) ? movie : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -198,14 +271,22 @@ public class Main {
         SqlCrudEngine sqlInsertMedia = sqlFactory.getCrudEngine("INSERT_MEDIA");
         SqlCrudEngine sqlInsertBook = sqlFactory.getCrudEngine("INSERT_BOOK");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertMedia.insert(session, book);
             if (count > 0) {
                 sqlInsertBook.insert(session, book);
             }
             return (count > 0) ? book : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -216,13 +297,21 @@ public class Main {
         if (media == null || media.length == 0)
             return;
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             for (Media media1 : media) {
                 PersonLibrary library = new PersonLibrary(person.getId(), media1.getId());
                 sqlCreateLibrary.insert(session, library);
             }
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -231,8 +320,10 @@ public class Main {
     public List<Person> listPeopleLibrary(Person person) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_LIBRARY");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
             moreResultClasses.put("movie", Movie.class);
             moreResultClasses.put("book", Book.class);
@@ -241,6 +332,12 @@ public class Main {
             logger.info("listSome size: " + list.size());
             return list;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -250,8 +347,10 @@ public class Main {
         SqlCrudEngine sqlInsertPerson = sqlFactory.getCrudEngine("INSERT_PERSON");
         SqlCrudEngine sqlInsertContact = sqlFactory.getCrudEngine("INSERT_CONTACT_CUSTOM");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertPerson.insert(session, person);
             logger.info("insert: " + count);
             logger.info("insert: " + person);
@@ -263,6 +362,12 @@ public class Main {
             }
             return (count > 0) ? person : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -271,12 +376,20 @@ public class Main {
     public List<Person> listCustom(Contact contact) {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_PEOPLE_AND_CONTACTS_CUSTOM");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             List<Person> list = sqlEngine.query(session, Person.class, contact, OrderIds.ASC_NAME_ADDRESS);
             logger.info("listCustom size: " + list.size());
             return list;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -285,11 +398,19 @@ public class Main {
     public Library insertLibrary(Library library) {
         SqlCrudEngine sqlInsertLibrary = sqlFactory.getCrudEngine("INSERT_LIBRARY");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertLibrary.insert(session, library);
             return (count > 0) ? library : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -298,11 +419,19 @@ public class Main {
     public Subscriber insertSubscriber(Subscriber subscriber) {
         SqlCrudEngine sqlInsertSubscriber = sqlFactory.getCrudEngine("INSERT_SUBSCRIBER");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertSubscriber.insert(session, subscriber);
             return (count > 0) ? subscriber : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -311,11 +440,19 @@ public class Main {
     public BankAccount insertBankAccount(BankAccount bankAccount) {
         SqlCrudEngine sqlInsertBankAccount = sqlFactory.getCrudEngine("INSERT_BANK_ACCOUNT");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertBankAccount.insert(session, bankAccount);
             return (count > 0) ? bankAccount : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -324,11 +461,19 @@ public class Main {
     public CreditCard insertCreditCard(CreditCard creditCard) {
         SqlCrudEngine sqlInsertCreditCard = sqlFactory.getCrudEngine("INSERT_CREDIT_CARD");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             int count = sqlInsertCreditCard.insert(session, creditCard);
             return (count > 0) ? creditCard : null;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
@@ -337,8 +482,10 @@ public class Main {
     public List<Subscriber> listAllSubsribersWithBillingDetails() {
         SqlQueryEngine sqlEngine = sqlFactory.getQueryEngine("ALL_SUBSCRIBERS_BILLING_DETAILS");
         SqlSession session = null;
+        Transaction transation = null;
         try {
             session = sessionFactory.getSqlSession();
+            transation = ((Session) session).beginTransaction();
             Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
             moreResultClasses.put("BA", BankAccount.class);
             moreResultClasses.put("CC", CreditCard.class);
@@ -347,6 +494,12 @@ public class Main {
             logger.info("listAllSubsribersWithBillingDetails size: " + list.size());
             return list;
         } finally {
+            if (transation != null) {
+                if (transation.getRollbackOnly())
+                    transation.rollback();
+                else
+                    transation.commit();
+            }
             if (session != null)
                 ((Session) session).close();
         }
