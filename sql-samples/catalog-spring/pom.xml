@@ -26,7 +26,7 @@
         <version.junit>4.12</version.junit>
         <version.cglib>3.2.5</version.cglib>
         <version.oracle>10.2.0.4</version.oracle>
-        <version.hsqldb>2.3.2</version.hsqldb>
+        <version.hsqldb>2.4.0</version.hsqldb>
         <version.servlet-api>2.5</version.servlet-api>
         <version.commons-dbcp>1.4</version.commons-dbcp>
         <version.javassist>3.12.1.GA</version.javassist>
