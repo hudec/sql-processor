@@ -18,7 +18,6 @@
         <version.sql-processor>3.2.5-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
         <version.hibernate>5.2.10.Final</version.hibernate>
-        <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
