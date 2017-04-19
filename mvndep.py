@@ -231,7 +231,7 @@ def write_poms(map_project_pom, map_project_path, skip_lines = None):
 def maven_dep_line(cfg, line, map_lib_versions_main, map_lib_versions):
     if line.startswith('[INFO] |') or line.startswith('[INFO] +') or line.startswith('[INFO] \\'):
         line_ok = line[7:]
-        if line_ok.startswith('+-'):
+        if line_ok.startswith('+-') or line_ok.startswith('\-'):
             if cfg.verbosity >= 2:
                 print("== %s" % line_ok[3:])
             cols = line_ok[3:].split(":")
