@@ -92,7 +92,7 @@ public class SimonSqlMonitor implements SqlMonitor {
     private Stopwatch incStopwatch(String name, long runningFor) {
         try {
             Stopwatch stopwatch = manager.getManager().getStopwatch(name);
-            return stopwatch.addTime(runningFor);
+            return stopwatch.addSplit(Split.create(runningFor));
         } catch (SimonException se) {
             logger.error("It's not possible to create simon '" + name + "'", se);
             return null;
