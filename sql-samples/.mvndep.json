@@ -3,7 +3,6 @@
 	"depth": 3,
 	"skip_libs": [
 		"org.apache.wicket",
-		"org.sqlproc",
-		"org.javasimon"
+		"org.sqlproc"
 	]
 }

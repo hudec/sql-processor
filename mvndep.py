@@ -582,7 +582,6 @@ def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib
     map_project_pom_fixed = {}
     libs = list(map2_lib_version_projects.keys())
     libs.sort()
-    print(cfg.skip_libs)
     for lib in libs:
         if Libraries.skip(cfg.skip_libs, lib):
             continue
