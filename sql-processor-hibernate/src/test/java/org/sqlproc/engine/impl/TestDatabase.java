@@ -214,15 +214,18 @@ public abstract class TestDatabase extends DatabaseTestCase {
         // tx = session.beginTransaction();
         super.setUp();
         ParserUtils.nullCounter();
-        // Since 2.4.4 the dbUnit is responsible for closing        
-        //session.getSession().close();
+        // Since 2.4.4 the dbUnit is responsible for closing
+        // session.getSession().close();
         session = new HibernateSimpleSession(sessionFactory.openSession());
-        trans = session.getSession().beginTransaction();  
+        trans = session.getSession().beginTransaction();
     }
 
-    protected void tearDown() throws Exception {    	
+    protected void tearDown() throws Exception {
         super.tearDown();
-        trans.commit();
+        if (trans.getRollbackOnly())
+            trans.rollback();
+        else
+            trans.commit();
         // tx.commit();
         session.getSession().close();
     }
