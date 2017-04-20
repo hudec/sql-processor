@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc</groupId>
     <artifactId>sql-processor-parent</artifactId>
@@ -29,9 +30,10 @@
 
     <properties>
         <version.antlr>3.5.2</version.antlr>
-        <version.hibernate>4.1.7.Final</version.hibernate>
-        <version.hibernate-validator>4.3.1.Final</version.hibernate-validator>
-        <version.spring>4.3.7.RELEASE</version.spring>
+        <version.hibernate>5.2.10.Final</version.hibernate>
+        <version.hibernate-validator>5.4.1.Final</version.hibernate-validator>
+        <version.glassfish-el>2.2.4</version.glassfish-el>
+        <version.spring>4.3.8.RELEASE</version.spring>
         <version.aspectjweaver>1.6.12</version.aspectjweaver>
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.25</version.slf4j>
@@ -256,6 +258,18 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${version.hibernate-validator}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${version.glassfish-el}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>${version.glassfish-el}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

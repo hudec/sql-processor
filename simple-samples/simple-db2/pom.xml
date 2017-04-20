@@ -14,7 +14,7 @@
         <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.db2>10.1</version.db2>
-        <version.beanutils>1.9.2</version.beanutils>
+        <version.beanutils>1.9.3</version.beanutils>
         <version.sql-processor-eclipse>2.6.0</version.sql-processor-eclipse>
     </properties>
 

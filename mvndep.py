@@ -27,6 +27,7 @@ ARTIFACT_ID_RE = re.compile(r'<artifactId>(?P<artifact>.+)</artifactId>')
 VERSION_RE = re.compile(r'<version>(?P<version>.+)</version>')
 VERSION_DATE_TIME_RE = re.compile(r'<a href="(?P<version>.+)/">(?P<version2>.+)/</a>.+(?P<date_time>\d\d\d\d-\d\d-\d\d \d\d:\d\d).+')
 FOR_PROJECT_RE = re.compile(r'\[INFO].+@ (?P<project>[\S]+)')
+MODULES_START_RE = re.compile(r'<modules>')
 
 class Version:
     def __init__(self, str_version):
@@ -118,7 +119,7 @@ class Library:
 class Libraries:
     def __init__(self, libs):
         self.map_group_artifact_version = {}
-        self.set_group_artifact = set([])
+        self.map_group_artifact = {}
         self.set_group = set([])
         for lib in libs:
             self.__add_lib(lib)
@@ -128,7 +129,7 @@ class Libraries:
         if lib.groupId and lib.artifactId and lib.version:
             self.map_group_artifact_version[lib.groupId + '.' + lib.artifactId] = lib.version
         elif lib.groupId and lib.artifactId:
-            self.set_group_artifact.add(lib.groupId + '.' + lib.artifactId)
+            self.map_group_artifact[lib.groupId] = lib.artifactId
         else:
             self.set_group.add(lib.groupId)
 
@@ -141,8 +142,10 @@ class Libraries:
         groupId = '.'.join(items)
         if groupId in self.set_group:
             return True, None
-        if groupId + '.' + artifactId in self.set_group_artifact:
+        if groupId in self.map_group_artifact:
             return True, None
+        if groupId + '.' + artifactId in self.map_group_artifact_version:
+            return True, self.map_group_artifact_version[groupId + '.' + artifactId]
         return False, None
 
     @staticmethod
@@ -186,8 +189,10 @@ def read_poms(cfg, path, depth = 1, pom = None):
     map_project_path = {}
     print('in ', path)
     if pom:
-        map_project_pom[pom] = read_pom(path)
-        map_project_path[pom] = os.path.join(path)
+        lines = read_pom(path)
+        group_id, artifact_id = find_main_in_pom(lines)
+        map_project_pom[artifact_id] = lines
+        map_project_path[artifact_id] = os.path.join(path)
     for entry in os.scandir(path):
         if not entry.name.startswith('.') and entry.is_dir():
             if POM_NAME in os.listdir(entry.path):
@@ -195,8 +200,10 @@ def read_poms(cfg, path, depth = 1, pom = None):
                     continue
                 if cfg.skip_projects and entry.name in cfg.skip_projects:
                     continue
-                map_project_pom[entry.name] = read_pom(path, entry.name)
-                map_project_path[entry.name] = os.path.join(path, entry.name)
+                lines = read_pom(path, entry.name)
+                group_id, artifact_id = find_main_in_pom(lines)
+                map_project_pom[artifact_id] = lines
+                map_project_path[artifact_id] = os.path.join(path, entry.name)
     if depth > 1:
         for project in list(map_project_pom.keys()):
             _map_project_pom, _map_project_path = read_poms(cfg, map_project_path[project], depth - 1)
@@ -224,7 +231,7 @@ def write_poms(map_project_pom, map_project_path, skip_lines = None):
 def maven_dep_line(cfg, line, map_lib_versions_main, map_lib_versions):
     if line.startswith('[INFO] |') or line.startswith('[INFO] +') or line.startswith('[INFO] \\'):
         line_ok = line[7:]
-        if line_ok.startswith('+-'):
+        if line_ok.startswith('+-') or line_ok.startswith('\-'):
             if cfg.verbosity >= 2:
                 print("== %s" % line_ok[3:])
             cols = line_ok[3:].split(":")
@@ -415,6 +422,25 @@ def unused_versions_in_pom(pom, map_verprop_linenum):
                 break
     return unused_pom_versions
 
+def find_main_in_pom(pom):
+    group_id, artifact_id = None, None
+    for line in pom:
+        if group_id and artifact_id:
+            break
+        if MODULES_START_RE.search(line):
+            break
+        if PROPS_START_RE.search(line):
+            break
+        result = GROUP_ID_RE.search(line)
+        if result:
+            group_id = result.group('group')
+            continue
+        result = ARTIFACT_ID_RE.search(line)
+        if result:
+            artifact_id = result.group('artifact')
+            continue
+    return group_id, artifact_id
+
 def find_parent_in_pom(pom):
     found_parent = False
     group_id, artifact_id, version, version_line = None, None, None, None
@@ -582,7 +608,6 @@ def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib
     map_project_pom_fixed = {}
     libs = list(map2_lib_version_projects.keys())
     libs.sort()
-    print(cfg.skip_libs)
     for lib in libs:
         if Libraries.skip(cfg.skip_libs, lib):
             continue
@@ -639,21 +664,29 @@ def update_parent_in_poms(cfg, map_project_pom):
 
 def build_pom_hierarchy(map_project_path):
     map_project_parents = {}
+    main_project = None
+    for project, path in map_project_path.items():
+        if path == '.':
+            main_project = project
     for project, path in map_project_path.items():
 #         print(project, ': ', path)
         path_list = path.split(os.sep)
         path_list.reverse()
 #         print(path_list)
         parents = []
+        project_first = True
         for _project in path_list:
-            if not _project == project:
-                if _project == '.':
-                    if POM_NAME in map_project_path:
-                        parents.append(POM_NAME)
-                else:
-                    parents.append(_project)
-            if parents:
-                map_project_parents[project] = parents
+            if project_first:
+                project_first = False
+                if _project != '.':
+                    continue
+            if _project == '.':
+                if main_project:
+                    parents.append(main_project)
+            else:
+                parents.append(_project)
+        if parents:
+            map_project_parents[project] = parents
 #     print(map_project_parents)
     return map_project_parents
 

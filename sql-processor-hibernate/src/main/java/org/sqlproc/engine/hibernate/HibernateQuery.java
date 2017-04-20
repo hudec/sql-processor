@@ -9,6 +9,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.PersistenceException;
+
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -134,6 +136,8 @@ public class HibernateQuery implements SqlQuery {
             return result;
         } catch (HibernateException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
+        } catch (PersistenceException ex) {
+            throw newSqlProcessorException(ex, query.getQueryString());
         }
     }
 
@@ -158,6 +162,8 @@ public class HibernateQuery implements SqlQuery {
             return result;
         } catch (HibernateException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
+        } catch (PersistenceException ex) {
+            throw newSqlProcessorException(ex, query.getQueryString());
         }
     }
 
@@ -178,6 +184,8 @@ public class HibernateQuery implements SqlQuery {
             }
             return updated;
         } catch (HibernateException ex) {
+            throw newSqlProcessorException(ex, query.getQueryString());
+        } catch (PersistenceException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
         }
     }
@@ -238,6 +246,8 @@ public class HibernateQuery implements SqlQuery {
             return this;
         } catch (HibernateException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
+        } catch (PersistenceException ex) {
+            throw newSqlProcessorException(ex, query.getQueryString());
         }
     }
 
@@ -259,6 +269,8 @@ public class HibernateQuery implements SqlQuery {
                 query.setParameter(name, val, (Type) type);
             } catch (HibernateException ex) {
                 throw newSqlProcessorException(ex, query.getQueryString());
+            } catch (PersistenceException ex) {
+                throw newSqlProcessorException(ex, query.getQueryString());
             }
         }
         return this;
@@ -273,6 +285,8 @@ public class HibernateQuery implements SqlQuery {
             query.setParameterList(name, vals);
             return this;
         } catch (HibernateException ex) {
+            throw newSqlProcessorException(ex, query.getQueryString());
+        } catch (PersistenceException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
         }
     }
@@ -290,6 +304,8 @@ public class HibernateQuery implements SqlQuery {
             query.setParameterList(name, vals, (Type) type);
             return this;
         } catch (HibernateException ex) {
+            throw newSqlProcessorException(ex, query.getQueryString());
+        } catch (PersistenceException ex) {
             throw newSqlProcessorException(ex, query.getQueryString());
         }
     }
@@ -380,6 +396,17 @@ public class HibernateQuery implements SqlQuery {
     }
 
     protected SqlProcessorException newSqlProcessorException(HibernateException ex, String query) {
+        if (logError) {
+            logger.error("Failed SQL command '" + query + "': " + ex.getMessage());
+            return new SqlProcessorException(ex);
+        } else {
+            return new SqlProcessorException(ex, query);
+        }
+    }
+
+    protected SqlProcessorException newSqlProcessorException(PersistenceException ex, String query) {
+        if (ex.getCause() != null && ex.getCause() instanceof HibernateException)
+            return newSqlProcessorException((HibernateException) ex.getCause(), query);
         if (logError) {
             logger.error("Failed SQL command '" + query + "': " + ex.getMessage());
             return new SqlProcessorException(ex);

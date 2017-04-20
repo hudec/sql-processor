@@ -12,7 +12,7 @@
     <property name="hibernate.connection.username">${db.username}</property>
     <property name="hibernate.connection.password">${db.password}</property>
     <!-- Use the Hibernate built-in pool for tests. -->
-    <property name="hibernate.connection.pool_size">1</property>
+    <property name="hibernate.connection.pool_size">200</property>
     <property name="hibernate.connection.autocommit">true</property>
 
     <property name="hbm2ddl.auto">create-drop</property>
