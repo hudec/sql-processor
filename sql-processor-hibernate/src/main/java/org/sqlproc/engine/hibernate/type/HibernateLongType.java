@@ -1,13 +1,12 @@
 package org.sqlproc.engine.hibernate.type;
 
 import java.io.Serializable;
-import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Comparator;
 
 import org.hibernate.dialect.Dialect;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.AbstractSingleColumnStandardBasicType;
 import org.hibernate.type.DiscriminatorType;
 import org.hibernate.type.PrimitiveType;
@@ -37,25 +36,11 @@ public class HibernateLongType extends SqlLongType {
             return new BasicExtractor<X>(javaTypeDescriptor, this) {
                 @Override
                 protected X doExtract(ResultSet rs, String name, WrapperOptions options) throws SQLException {
-                    if (Character.isDigit(name.charAt(0)))
+                    if (Character.isDigit(name.charAt(0))) {
                         return javaTypeDescriptor.wrap(rs.getLong(Integer.parseInt(name)), options);
-                    else
+                    } else {
                         return javaTypeDescriptor.wrap(rs.getLong(name), options);
-                }
-
-                @Override
-                protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
-                        throws SQLException {
-                    return javaTypeDescriptor.wrap(statement.getLong(index), options);
-                }
-
-                @Override
-                protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
-                        throws SQLException {
-                    if (Character.isDigit(name.charAt(0)))
-                        return javaTypeDescriptor.wrap(statement.getLong(Integer.parseInt(name)), options);
-                    else
-                        return javaTypeDescriptor.wrap(statement.getLong(name), options);
+                    }
                 }
             };
         }
@@ -66,13 +51,13 @@ public class HibernateLongType extends SqlLongType {
 
         public static final MyLongType INSTANCE = new MyLongType();
 
-        private static final Long ZERO = (long) 0;
+        @SuppressWarnings({ "UnnecessaryBoxing" })
+        private static final Long ZERO = Long.valueOf(0);
 
         public MyLongType() {
             super(MyBigIntTypeDescriptor.INSTANCE, LongTypeDescriptor.INSTANCE);
         }
 
-        @Override
         public String getName() {
             return "long";
         }
@@ -82,37 +67,31 @@ public class HibernateLongType extends SqlLongType {
             return new String[] { getName(), long.class.getName(), Long.class.getName() };
         }
 
-        @Override
         public Serializable getDefaultValue() {
             return ZERO;
         }
 
-        @Override
         public Class getPrimitiveClass() {
             return long.class;
         }
 
-        @Override
         public Long stringToObject(String xml) throws Exception {
             return new Long(xml);
         }
 
-        @Override
-        public Long next(Long current, SharedSessionContractImplementor session) {
+        @SuppressWarnings({ "UnnecessaryBoxing", "UnnecessaryUnboxing" })
+        public Long next(Long current, SessionImplementor session) {
             return Long.valueOf(current.longValue() + 1);
         }
 
-        @Override
-        public Long seed(SharedSessionContractImplementor session) {
+        public Long seed(SessionImplementor session) {
             return ZERO;
         }
 
-        @Override
         public Comparator<Long> getComparator() {
             return getJavaTypeDescriptor().getComparator();
         }
 
-        @Override
         public String objectToSQLString(Long value, Dialect dialect) throws Exception {
             return value.toString();
         }

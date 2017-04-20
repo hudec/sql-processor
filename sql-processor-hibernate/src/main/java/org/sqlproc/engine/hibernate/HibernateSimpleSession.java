@@ -80,7 +80,7 @@ public class HibernateSimpleSession implements SqlSession {
      */
     @Override
     public SqlQuery createSqlQuery(String queryString) throws SqlProcessorException {
-        return new HibernateQuery(session, session.createNativeQuery(queryString));
+        return new HibernateQuery(session, session.createSQLQuery(queryString));
     }
 
     /**

@@ -1,13 +1,12 @@
 package org.sqlproc.engine.hibernate.type;
 
 import java.io.Serializable;
-import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Comparator;
 
 import org.hibernate.dialect.Dialect;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.AbstractSingleColumnStandardBasicType;
 import org.hibernate.type.DiscriminatorType;
 import org.hibernate.type.PrimitiveType;
@@ -36,25 +35,11 @@ public class HibernateIntegerType extends SqlIntegerType {
             return new BasicExtractor<X>(javaTypeDescriptor, this) {
                 @Override
                 protected X doExtract(ResultSet rs, String name, WrapperOptions options) throws SQLException {
-                    if (Character.isDigit(name.charAt(0)))
+                    if (Character.isDigit(name.charAt(0))) {
                         return javaTypeDescriptor.wrap(rs.getInt(Integer.parseInt(name)), options);
-                    else
+                    } else {
                         return javaTypeDescriptor.wrap(rs.getInt(name), options);
-                }
-
-                @Override
-                protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
-                        throws SQLException {
-                    return javaTypeDescriptor.wrap(statement.getInt(index), options);
-                }
-
-                @Override
-                protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
-                        throws SQLException {
-                    if (Character.isDigit(name.charAt(0)))
-                        return javaTypeDescriptor.wrap(statement.getInt(Integer.parseInt(name)), options);
-                    else
-                        return javaTypeDescriptor.wrap(statement.getInt(name), options);
+                    }
                 }
             };
         }
@@ -65,13 +50,13 @@ public class HibernateIntegerType extends SqlIntegerType {
 
         public static final MyIntegerType INSTANCE = new MyIntegerType();
 
-        public static final Integer ZERO = 0;
+        @SuppressWarnings({ "UnnecessaryBoxing" })
+        public static final Integer ZERO = Integer.valueOf(0);
 
         public MyIntegerType() {
             super(MyIntegerTypeDescriptor.INSTANCE, org.hibernate.type.descriptor.java.IntegerTypeDescriptor.INSTANCE);
         }
 
-        @Override
         public String getName() {
             return "integer";
         }
@@ -81,37 +66,31 @@ public class HibernateIntegerType extends SqlIntegerType {
             return new String[] { getName(), int.class.getName(), Integer.class.getName() };
         }
 
-        @Override
         public Serializable getDefaultValue() {
             return ZERO;
         }
 
-        @Override
         public Class getPrimitiveClass() {
             return int.class;
         }
 
-        @Override
         public String objectToSQLString(Integer value, Dialect dialect) throws Exception {
             return toString(value);
         }
 
-        @Override
         public Integer stringToObject(String xml) {
             return fromString(xml);
         }
 
-        @Override
-        public Integer seed(SharedSessionContractImplementor session) {
+        public Integer seed(SessionImplementor session) {
             return ZERO;
         }
 
-        @Override
-        public Integer next(Integer current, SharedSessionContractImplementor session) {
+        @SuppressWarnings({ "UnnecessaryBoxing", "UnnecessaryUnboxing" })
+        public Integer next(Integer current, SessionImplementor session) {
             return Integer.valueOf(current.intValue() + 1);
         }
 
-        @Override
         public Comparator<Integer> getComparator() {
             return getJavaTypeDescriptor().getComparator();
         }

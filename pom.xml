@@ -30,8 +30,8 @@
 
     <properties>
         <version.antlr>3.5.2</version.antlr>
-        <version.hibernate>5.2.10.Final</version.hibernate>
-        <version.hibernate-validator>5.4.1.Final</version.hibernate-validator>
+        <version.hibernate>4.1.7.Final</version.hibernate>
+        <version.hibernate-validator>4.3.1.Final</version.hibernate-validator>
         <version.glassfish-el>2.2.4</version.glassfish-el>
         <version.spring>4.3.8.RELEASE</version.spring>
         <version.aspectjweaver>1.6.12</version.aspectjweaver>

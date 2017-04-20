@@ -26,11 +26,10 @@ import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionImpl;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.Ignore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,8 +82,6 @@ public abstract class TestDatabase extends DatabaseTestCase {
     protected static SessionFactory sessionFactory;
     protected HibernateSimpleSession session;
 
-    private Transaction trans;
-
     static {
 
         testProperties = PropertiesLoader.getProperties(DatabaseTestCase.class, "test.properties");
@@ -101,8 +98,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
         metaStatements = SqlFilesLoader.getStatements(DatabaseTestCase.class, metaFilesNames);
 
         configuration = new Configuration().configure(testProperties.getProperty(CONFIGURATION_NAME));
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties()).build();
+        serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+                .buildServiceRegistry();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
         validatorFactory = new SampleValidator.SampleValidatorFactory();
@@ -210,22 +207,15 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
     protected void setUp() throws Exception {
         session = new HibernateSimpleSession(sessionFactory.openSession());
-
         // tx = session.beginTransaction();
         super.setUp();
         ParserUtils.nullCounter();
-        // Since 2.4.4 the dbUnit is responsible for closing
-        // session.getSession().close();
+        session.getSession().close();
         session = new HibernateSimpleSession(sessionFactory.openSession());
-        trans = session.getSession().beginTransaction();
     }
 
     protected void tearDown() throws Exception {
         super.tearDown();
-        if (trans.getRollbackOnly())
-            trans.rollback();
-        else
-            trans.commit();
         // tx.commit();
         session.getSession().close();
     }
