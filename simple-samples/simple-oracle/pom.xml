@@ -16,7 +16,7 @@
         <version.junit>4.12</version.junit>
         <version.oracle>11.2.0.3</version.oracle>
         <version.validation>1.1.0.Final</version.validation>
-        <version.hibernate.validator>5.4.1.Final</version.hibernate.validator>
+        <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
         <version.beanutils>1.9.3</version.beanutils>
         <version.sql-processor-eclipse>2.6.1-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
@@ -46,9 +46,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <compilerVersion>1.7</compilerVersion>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerVersion>1.8</compilerVersion>
                     <encoding>UTF-8</encoding>
                     <!--encoding>${file.encoding}</encoding -->
                     <optimize>true</optimize>
