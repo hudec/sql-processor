@@ -36,12 +36,27 @@ public class HibernateLongType extends SqlLongType {
             return new BasicExtractor<X>(javaTypeDescriptor, this) {
                 @Override
                 protected X doExtract(ResultSet rs, String name, WrapperOptions options) throws SQLException {
-                    if (Character.isDigit(name.charAt(0))) {
+                    if (Character.isDigit(name.charAt(0)))
                         return javaTypeDescriptor.wrap(rs.getLong(Integer.parseInt(name)), options);
-                    } else {
+                    else
                         return javaTypeDescriptor.wrap(rs.getLong(name), options);
-                    }
                 }
+
+                // @Override
+                // protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
+                // throws SQLException {
+                // return javaTypeDescriptor.wrap(statement.getLong(index), options);
+                // }
+                //
+                // @Override
+                // protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
+                // throws SQLException {
+                // if (Character.isDigit(name.charAt(0)))
+                // return javaTypeDescriptor.wrap(statement.getLong(Integer.parseInt(name)), options);
+                // else
+                // return javaTypeDescriptor.wrap(statement.getLong(name), options);
+                //
+                // }
             };
         }
     };
@@ -95,6 +110,7 @@ public class HibernateLongType extends SqlLongType {
         public String objectToSQLString(Long value, Dialect dialect) throws Exception {
             return value.toString();
         }
+
     }
 
     /**
