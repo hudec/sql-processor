@@ -11,9 +11,9 @@
         <version.sql-processor>3.3.0-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.12</version.slf4j>
+        <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.hsqldb>2.3.2</version.hsqldb>
+        <version.hsqldb>2.4.0</version.hsqldb>
         <version.validation>1.1.0.Final</version.validation>
         <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
     </properties>
