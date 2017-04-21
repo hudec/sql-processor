@@ -210,14 +210,14 @@ public abstract class TestDatabase extends DatabaseTestCase {
         // tx = session.beginTransaction();
         super.setUp();
         ParserUtils.nullCounter();
-        session.getSession().close();
-        session = new HibernateSimpleSession(sessionFactory.openSession());
+        // session.getSession().close();
+        // session = new HibernateSimpleSession(sessionFactory.openSession());
     }
 
     protected void tearDown() throws Exception {
         super.tearDown();
         // tx.commit();
-        session.getSession().close();
+        // session.getSession().close();
     }
 
     private static class BatchOperation extends DatabaseOperation {
