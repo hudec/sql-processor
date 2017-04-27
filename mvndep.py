@@ -962,16 +962,16 @@ def main():
                 central_libs[lib] = latest_version
         if cfg.verbosity >= 0:
             print(central_libs)
-# 
-#         if cfg.fix >= 1:
-#             map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
-#             if cfg.verbosity >= 3:
-#                 print(map_project_pom)
-#                 print(map_project_path)
-#             map_project_parents = build_pom_hierarchy(map_project_path)
-#             map_project_pom_fixed = update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects_main, central_libs)
-#             if cfg.fix >= 2:
-#                 write_poms(map_project_pom_fixed, map_project_path)
+ 
+        if cfg.fix >= 1:
+            map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
+            if cfg.verbosity >= 3:
+                print(map_project_pom)
+                print(map_project_path)
+            map_project_parents = build_pom_hierarchy(map_project_path)
+            map_project_pom_fixed = update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects_main, central_libs)
+            if cfg.fix >= 2:
+                write_poms(map_project_pom_fixed, map_project_path)
 
 if __name__ == '__main__':
     main()
