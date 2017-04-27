@@ -328,6 +328,7 @@ def maven_plug_line(cfg, line, map_lib_versions_main):
         cols = line_ok.split("-")
         version = cols[-1][:-4]
         del cols[-1]
+#         lib = 'org.apache.maven.plugins.' + '-'.join(cols)
         lib = '-'.join(cols)
         map_lib_versions_main[lib] = [Version(version)]
 
@@ -532,11 +533,36 @@ def find_versions_maven_central(lib):
     list_ver_datetime = []
     if lib.startswith('cz.'):
         return list_ver_datetime
+#     print(lib)
     url = 'http://repo2.maven.org/maven2/' + lib.replace('.', '/') + '/'
+#     print(url)
     req = requests.get(url)
     if req.status_code != 200:
-        print("Not found ", url)
-        return list_ver_datetime
+        url = 'http://repo2.maven.org/maven2/org/apache/maven/plugins/' + lib.replace('.', '/') + '/'
+        req = requests.get(url)
+        if req.status_code != 200:
+            url = 'http://repo2.maven.org/maven2/org/codehaus/mojo/' + lib.replace('.', '/') + '/'
+            req = requests.get(url)
+            if req.status_code != 200:
+                url = 'http://repo2.maven.org/maven2/org/codehaus/gmaven/' + lib.replace('.', '/') + '/'
+                req = requests.get(url)
+                if req.status_code != 200:
+                    url = 'http://repo2.maven.org/maven2/org/jvnet/jaxb2/maven2/' + lib.replace('.', '/') + '/'
+                    req = requests.get(url)
+                    if req.status_code != 200:
+                        url = 'http://repo2.maven.org/maven2/' + lib.replace('.', '/') + '/'
+                        ix = url[:-1].rfind('/')
+                        if ix > 0:
+                            u1 = url[:ix]
+                            u2 = url[ix+1:]
+                            url = u1 + '.' + u2
+                            req = requests.get(url)
+                            if req.status_code != 200:
+                                print("Not found ", lib)
+                                return list_ver_datetime
+                        else:
+                            print("Not found ", lib)
+                            return list_ver_datetime
     lines = str(req.content).split('\\n')
 #     tree = html.fromstring(req.content)
 #     hrefs = tree.xpath('/html/body//a/@href')
@@ -927,15 +953,15 @@ def main():
             print(map2_project_lib_versions_main)
  
         map2_lib_version_projects_main = merge_libs(cfg, map2_project_lib_versions_main)
-        if cfg.verbosity >= 0:
+        if cfg.verbosity >= 3:
             print(map2_lib_version_projects_main)
-#         central_libs = {}
-#         for lib in map2_lib_version_projects_main.keys():
-#             latest_version = find_latest_maven_central(lib)
-#             if latest_version:
-#                 central_libs[lib] = latest_version
-#         if cfg.verbosity >= 2:
-#             print(central_libs)
+        central_libs = {}
+        for lib in map2_lib_version_projects_main.keys():
+            latest_version = find_latest_maven_central(lib)
+            if latest_version:
+                central_libs[lib] = latest_version
+        if cfg.verbosity >= 0:
+            print(central_libs)
 # 
 #         if cfg.fix >= 1:
 #             map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
