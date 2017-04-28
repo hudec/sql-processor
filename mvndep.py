@@ -337,9 +337,15 @@ def maven_plug_pom(cfg, path, pom = None):
     map_lib_versions_main = {}
     project = None
     if pom:
-        pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:resolve-plugins', '-DexcludeArtifactIds=weblogic-maven-plugin'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if cfg.exclude_artifacts:
+            pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:resolve-plugins', '-DexcludeArtifactIds='+','.join(cfg.exclude_artifacts)], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        else:
+            pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:resolve-plugins'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     else:
-        pipe = subprocess.Popen(['mvn','dependency:resolve-plugins', '-DexcludeArtifactIds=weblogic-maven-plugin'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if cfg.exclude_artifacts:
+            pipe = subprocess.Popen(['mvn','dependency:resolve-plugins', '-DexcludeArtifactIds='+','.join(cfg.exclude_artifacts)], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        else:
+            pipe = subprocess.Popen(['mvn','dependency:resolve-plugins'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     text = pipe.communicate()[0].decode("utf-8")
 #     print(text)
     for line in text.split("\n"):
@@ -786,6 +792,7 @@ class Config:
         self.default_skip_scopes = []
         self.default_pom = None
         self.default_depth = 1
+        self.default_exclude_artifacts = []
         
         if os.path.isfile(CONFIG_FILENAME):
             with open(CONFIG_FILENAME, encoding='utf-8') as config_file:
@@ -805,6 +812,9 @@ class Config:
                 if 'depth' in default_config:
                     self.default_depth = default_config['depth']
                     print("default depth", self.default_depth)
+                if 'exclude_artifacts' in default_config:
+                    self.default_exclude_artifacts = default_config['exclude_artifacts']
+                    print("default exclude artifacts", self.default_exclude_artifacts)
 
         parser = argparse.ArgumentParser(description='Analyze Maven projects.')
         parser.add_argument('-d', '--dir', metavar = 'dir', default = '.',
@@ -832,6 +842,8 @@ class Config:
                             help='the parent (main) pom.xml used instead of directory scanning')
         parser.add_argument('--depth', type=int, default = self.default_depth,
                             help='the depth of directories to scan for pom.xml')
+        parser.add_argument('-X', '--exclude_artifacts', dest = 'exclude_artifacts', metavar = 'artifact', nargs = '+', default = self.default_exclude_artifacts,
+                            help='the list of artifacts to exclude (right now only plugins)')
         parser.parse_args(namespace = self)
 
         self.libs = None if not self._libs else Libraries(self._libs)
@@ -849,6 +861,7 @@ class Config:
         print("type %s" % self.type)
         print("pom %s" % self.pom)
         print("depth %d" % self.depth)
+        print("exclude_artifacts %s" % self.exclude_artifacts)
 
 def main():
     cfg = Config()
