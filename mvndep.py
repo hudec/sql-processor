@@ -539,7 +539,11 @@ REPOS=['http://repo2.maven.org/maven2/',
        'http://repo2.maven.org/maven2/org/apache/maven/plugins/',
        'http://repo2.maven.org/maven2/org/codehaus/mojo/',
        'http://repo2.maven.org/maven2/org/codehaus/gmaven/',
-       'http://central.maven.org/maven2/org/jvnet/jaxb2/maven2/'
+       'http://central.maven.org/maven2/org/jvnet/jaxb2/maven2/',
+       'http://central.maven.org/maven2/com/spotify/',
+       'http://central.maven.org/maven2/org/apache/cxf/',
+       'http://central.maven.org/maven2/org/springframework/boot/',
+       'http://central.maven.org/maven2/org/apache/tomcat/maven/'
        ]
 
 def find_versions_maven_central(lib):
