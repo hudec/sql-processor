@@ -376,10 +376,9 @@ def maven_plug_tree(cfg, path):
                 if cfg.skip_projects and entry.name in cfg.skip_projects:
                     continue
                 print("dir %s" % (entry.path))
-                _map2_project_lib_versions_main, _map2_project_lib_versions = maven_plug_pom(cfg, entry.path, None)
+                _map2_project_lib_versions_main = maven_plug_pom(cfg, entry.path, None)
                 if cfg.verbosity >= 2:
                     print(_map2_project_lib_versions_main)
-                    print(_map2_project_lib_versions)
                 map2_project_lib_versions_main.update(_map2_project_lib_versions_main)
     return map2_project_lib_versions_main
 
@@ -535,40 +534,39 @@ def find_parent_in_pom(pom):
             found_parent = True
     return group_id, artifact_id, version, version_line
 
+REPOS=['http://repo2.maven.org/maven2/',
+       'http://central.maven.org/maven2/',
+       'http://repo2.maven.org/maven2/org/apache/maven/plugins/',
+       'http://repo2.maven.org/maven2/org/codehaus/mojo/',
+       'http://repo2.maven.org/maven2/org/codehaus/gmaven/',
+       'http://central.maven.org/maven2/org/jvnet/jaxb2/maven2/'
+       ]
+
 def find_versions_maven_central(lib):
     list_ver_datetime = []
     if lib.startswith('cz.'):
         return list_ver_datetime
-#     print(lib)
-    url = 'http://repo2.maven.org/maven2/' + lib.replace('.', '/') + '/'
-#     print(url)
-    req = requests.get(url)
-    if req.status_code != 200:
-        url = 'http://repo2.maven.org/maven2/org/apache/maven/plugins/' + lib.replace('.', '/') + '/'
+#     print('1111', lib)
+    for repo in REPOS:
+        url = repo + lib.replace('.', '/') + '/'
+#         print('2222', url)
         req = requests.get(url)
-        if req.status_code != 200:
-            url = 'http://repo2.maven.org/maven2/org/codehaus/mojo/' + lib.replace('.', '/') + '/'
+        if req.status_code == 200:
+            break
+    if req.status_code != 200:
+        for repo in REPOS:
+            url = repo + lib.replace('.', '/') + '/'
+            ix = url[:-1].rfind('/')
+            if ix < 0:
+                continue
+            url = url[:ix] + '.' + url[ix+1:]
+#             print('3333', url)
             req = requests.get(url)
-            if req.status_code != 200:
-                url = 'http://repo2.maven.org/maven2/org/codehaus/gmaven/' + lib.replace('.', '/') + '/'
-                req = requests.get(url)
-                if req.status_code != 200:
-                    url = 'http://repo2.maven.org/maven2/org/jvnet/jaxb2/maven2/' + lib.replace('.', '/') + '/'
-                    req = requests.get(url)
-                    if req.status_code != 200:
-                        url = 'http://repo2.maven.org/maven2/' + lib.replace('.', '/') + '/'
-                        ix = url[:-1].rfind('/')
-                        if ix > 0:
-                            u1 = url[:ix]
-                            u2 = url[ix+1:]
-                            url = u1 + '.' + u2
-                            req = requests.get(url)
-                            if req.status_code != 200:
-                                print("Not found ", lib)
-                                return list_ver_datetime
-                        else:
-                            print("Not found ", lib)
-                            return list_ver_datetime
+            if req.status_code == 200:
+                break
+    if req.status_code != 200:
+        print("Not found ", lib)
+        return list_ver_datetime
     lines = str(req.content).split('\\n')
 #     tree = html.fromstring(req.content)
 #     hrefs = tree.xpath('/html/body//a/@href')
