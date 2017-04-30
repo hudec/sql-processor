@@ -105,6 +105,14 @@ public class JdbcTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instance of String based enumeration type.
      */
+    static final SqlMetaType LOCAL_DATE = new JdbcLocalDateType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType LOCAL_DATE_TIME = new JdbcLocalDateTimeType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
     static final SqlMetaType LONG = new JdbcLongType();
     /**
      * Singleton instance of String based enumeration type.
@@ -168,8 +176,8 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      * Singleton instances of generic types.
      */
     static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
-            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP,
-            TIME, TO_DATE, TEXT, BLOB, CLOB, OTHER, ORACLE_CURSOR };
+            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LOCAL_DATE, LOCAL_DATE_TIME,
+            LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB, OTHER, ORACLE_CURSOR };
 
     /**
      * The immutable map between the Java class types and the internal types.
@@ -186,8 +194,9 @@ public class JdbcTypeFactory implements SqlTypeFactory {
     static {
         for (SqlMetaType type : TYPES) {
             if (type instanceof SqlTaggedMetaType) {
-                for (Class<?> classType : ((SqlTaggedMetaType) type).getClassTypes())
-                    CLASS_TO_TYPE_MAP.put(classType, type);
+                if (type != LOCAL_DATE && type != LOCAL_DATE_TIME)
+                    for (Class<?> classType : ((SqlTaggedMetaType) type).getClassTypes())
+                        CLASS_TO_TYPE_MAP.put(classType, type);
                 for (String metaType : ((SqlTaggedMetaType) type).getMetaTypes())
                     META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
             }
