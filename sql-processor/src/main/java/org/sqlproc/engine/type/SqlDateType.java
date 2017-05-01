@@ -35,10 +35,7 @@ public abstract class SqlDateType extends SqlDefaultType {
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputTypes=" + inputTypes);
-        }
+        setParameterEntryLog(logger, this, runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);
 
         if (inputValue == null) {
             query.setParameter(paramName, null, getProviderSqlType());
@@ -47,7 +44,7 @@ public abstract class SqlDateType extends SqlDefaultType {
         } else if (inputValue instanceof Date) {
             query.setParameter(paramName, (Date) inputValue, getProviderSqlType());
         } else {
-            error(ingoreError, "Incorrect date " + inputValue + " for " + paramName);
+            error(logger, ingoreError, "Incorrect date " + inputValue + " for " + paramName);
         }
     }
 }

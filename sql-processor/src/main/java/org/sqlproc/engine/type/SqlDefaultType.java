@@ -37,6 +37,8 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
      * {@inheritDoc}
      */
     public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
+        addScalarEntryLog(logger, this, typeFactory, query, dbName, attributeTypes);
+
         if (getProviderSqlType() != null) {
             query.addScalar(dbName, getProviderSqlType());
         } else {
@@ -54,24 +56,20 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
-                    + ((resultValue != null) ? resultValue.getClass() : null));
-        }
+        setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
         if (getClassTypesForDefault() != null && getClassTypesForDefault().length >= 0) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, getClassTypesForDefault()))
                 return;
-            error(ingoreError,
+            error(logger, ingoreError,
                     "There's no getter for " + attributeName + " in " + resultInstance + ", META type is " + this);
             return;
         }
 
         Class<?> attributeType = runtimeCtx.getAttributeType(resultInstance.getClass(), attributeName);
         if (attributeType == null) {
-            error(ingoreError, "There's problem with attribute type for '" + attributeName + "' in " + resultInstance
-                    + ", META type is " + this);
+            error(logger, ingoreError, "There's problem with attribute type for '" + attributeName + "' in "
+                    + resultInstance + ", META type is " + this);
             return;
         }
 
@@ -85,7 +83,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
                 return;
             else {
-                error(ingoreError, "There's no getter for '" + attributeName + "' in " + resultInstance
+                error(logger, ingoreError, "There's no getter for '" + attributeName + "' in " + resultInstance
                         + ", META type is " + this);
                 return;
             }
@@ -93,7 +91,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
                 return;
             else {
-                error(ingoreError, "There's no getter for '" + attributeName + "' in " + resultInstance
+                error(logger, ingoreError, "There's no getter for '" + attributeName + "' in " + resultInstance
                         + ", META type is " + this);
                 return;
             }
@@ -106,10 +104,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputTypes=" + inputTypes);
-        }
+        setParameterEntryLog(logger, this, runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);
 
         if (getProviderSqlType() != null) {
             if (inputValue == null) {
@@ -132,7 +127,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
                     runtimeCtx.getTypeFactory().getEnumIntegerType().setParameter(runtimeCtx, query, paramName,
                             inputValue, ingoreError, inputTypes);
                 } else {
-                    error(ingoreError, "Incorrect type based enum " + inputValue + " for " + paramName
+                    error(logger, ingoreError, "Incorrect type based enum " + inputValue + " for " + paramName
                             + ", META type is DEFAULT" + this);
                     return;
                 }
@@ -141,7 +136,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
                 if (type != null) {
                     type.setParameter(runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);
                 } else {
-                    error(ingoreError, "Incorrect default type " + inputValue + " for " + paramName
+                    error(logger, ingoreError, "Incorrect default type " + inputValue + " for " + paramName
                             + ", META type is DEFAULT" + this);
                     return;
                 }
@@ -159,7 +154,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
                 if (o != null) {
                     vals.add(o);
                 } else {
-                    error(ingoreError, "Incorrect type based enum item value " + o + " for " + paramName
+                    error(logger, ingoreError, "Incorrect type based enum item value " + o + " for " + paramName
                             + ", META type is DEFAULT" + this);
                     return;
                 }
@@ -169,14 +164,6 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             } else {
                 query.setParameterList(paramName, ((Collection) inputValue).toArray());
             }
-        }
-    }
-
-    protected void error(boolean ingoreError, String msg) {
-        if (ingoreError) {
-            logger.error(msg);
-        } else {
-            throw new SqlRuntimeException(msg);
         }
     }
 }

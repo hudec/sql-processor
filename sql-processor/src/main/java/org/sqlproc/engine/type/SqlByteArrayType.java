@@ -34,11 +34,7 @@ public abstract class SqlByteArrayType extends SqlDefaultType {
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
-                    + ((resultValue != null) ? resultValue.getClass() : null));
-        }
+        setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
         if (resultValue instanceof byte[]) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, byte[].class))
@@ -46,13 +42,13 @@ public abstract class SqlByteArrayType extends SqlDefaultType {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, SqlUtils.toBytes((byte[]) resultValue),
                     Byte[].class))
                 return;
-            error(ingoreError,
+            error(logger, ingoreError,
                     "There's no getter for " + attributeName + " in " + resultInstance + ", META type is " + this);
             return;
         } else if (resultValue instanceof Byte[]) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, Byte[].class))
                 return;
-            error(ingoreError,
+            error(logger, ingoreError,
                     "There's no getter for " + attributeName + " in " + resultInstance + ", META type is " + this);
             return;
         } else
@@ -65,10 +61,7 @@ public abstract class SqlByteArrayType extends SqlDefaultType {
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputTypes=" + inputTypes);
-        }
+        setParameterEntryLog(logger, this, runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);
 
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlType());
@@ -78,7 +71,7 @@ public abstract class SqlByteArrayType extends SqlDefaultType {
             else if (inputValue instanceof Byte[]) {
                 query.setParameter(paramName, SqlUtils.toBytes((Byte[]) inputValue), getProviderSqlType());
             } else {
-                error(ingoreError,
+                error(logger, ingoreError,
                         "Incorrect binary array " + inputValue + " for " + paramName + ", META type is " + this);
                 return;
             }

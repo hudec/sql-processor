@@ -36,11 +36,7 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
     @Override
     public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult for META type " + this + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
-                    + ((resultValue != null) ? resultValue.getClass() : null));
-        }
+        setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
         if (resultValue instanceof java.sql.Timestamp)
             ((java.sql.Timestamp) resultValue).setNanos(0);
@@ -53,10 +49,7 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputTypes=" + inputTypes);
-        }
+        setParameterEntryLog(logger, this, runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);
 
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlType());
@@ -71,7 +64,7 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
             cal.set(Calendar.MILLISECOND, 0);
             query.setParameter(paramName, cal.getTime(), getProviderSqlType());
         } else {
-            error(ingoreError, "Incorrect datetime " + inputValue + " for " + paramName);
+            error(logger, ingoreError, "Incorrect datetime " + inputValue + " for " + paramName);
         }
     }
 }

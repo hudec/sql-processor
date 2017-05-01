@@ -35,10 +35,7 @@ public abstract class SqlTimestampType extends SqlDefaultType {
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter for META type " + this + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputTypes=" + inputTypes);
-        }
+        setParameterEntryLog(logger, this, runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);
 
         if (inputValue == null) {
             query.setParameter(paramName, null, getProviderSqlType());
@@ -49,7 +46,7 @@ public abstract class SqlTimestampType extends SqlDefaultType {
         } else if (inputValue instanceof OutValueSetter) {
             query.setParameter(paramName, inputValue, getProviderSqlType());
         } else {
-            error(ingoreError, "Incorrect timestamp " + inputValue + " for " + paramName);
+            error(logger, ingoreError, "Incorrect timestamp " + inputValue + " for " + paramName);
         }
     }
 }

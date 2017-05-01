@@ -42,11 +42,7 @@ public abstract class SqlIdentityType extends SqlDefaultType {
     @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object identitySetter,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter "
-                    + ((getMetaTypes() != null && getMetaTypes().length > 0) ? getMetaTypes()[0] : "null")
-                    + ": paramName=" + paramName + ", identitySetter=" + identitySetter + ", inputTypes=" + inputTypes);
-        }
+        setParameterEntryLog(logger, this, runtimeCtx, query, paramName, identitySetter, ingoreError, inputTypes);
 
         if (identitySetter != null && identitySetter instanceof IdentitySetter) {
             query.setParameter(paramName, identitySetter, getProviderSqlType());
