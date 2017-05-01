@@ -1,72 +1,76 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 
-import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.SqlRuntimeContext;
-import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.jdbc.type.JdbcDateTimeType;
+import org.sqlproc.engine.type.SqlLocalDateTimeType;
 
 /**
- * The META type LOCALDATETIME.
+ * The JDBC META type LOCALDATETIME.
  * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcLocalDateTimeType extends JdbcDateTimeType {
+public class JdbcLocalDateTimeType extends SqlLocalDateTimeType implements JdbcSqlType {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String[] getMetaTypes() {
-        return new String[] { "LOCALDATETIME" };
+    public Class<?>[] getClassTypes() {
+        return new Class<?>[] {};
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
-                    + ((resultValue != null) ? resultValue.getClass() : null));
-        }
-        if (resultValue instanceof java.sql.Timestamp) {
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
-                    ((java.sql.Timestamp) resultValue).toLocalDateTime(), java.time.LocalDateTime.class))
-                return;
-        } else if (ingoreError) {
-            logger.error("Incorrect localdatetime " + resultValue + " for " + attributeName + " in " + resultInstance);
-            return;
-        } else {
-            throw new SqlRuntimeException("Incorrect localdatetime " + resultValue.getClass() + " for " + attributeName
-                    + " in " + resultInstance);
-        }
-        if (ingoreError) {
-            logger.error("There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
-                    + getMetaTypes()[0]);
-        } else {
-            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                    + ", META type is " + getMetaTypes()[0]);
-        }
+    public Object getProviderSqlType() {
+        return this;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputType=" + inputTypes);
+    public Integer getDatabaseSqlType() {
+        return Types.TIMESTAMP;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(ResultSet rs, String columnLabel) throws SQLException {
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getTimestamp(Integer.parseInt(columnLabel));
+        else
+            return rs.getTimestamp(columnLabel);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void set(PreparedStatement st, int index, Object value) throws SQLException {
+        Timestamp ts;
+        if (value instanceof Timestamp) {
+            ts = (Timestamp) value;
+        } else {
+            ts = new Timestamp(((java.util.Date) value).getTime());
         }
-        if (inputValue == null) {
-            query.setParameter(paramName, inputValue, getProviderSqlType());
-        } else if (inputValue instanceof java.time.LocalDateTime) {
-            Timestamp value = Timestamp.valueOf((java.time.LocalDateTime) inputValue);
-            query.setParameter(paramName, value, getProviderSqlType());
-        }
+        st.setTimestamp(index, ts);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getTimestamp(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

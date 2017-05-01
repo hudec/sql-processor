@@ -1,54 +1,64 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 
-import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.SqlRuntimeContext;
-import org.sqlproc.engine.SqlRuntimeException;
-import org.sqlproc.engine.jdbc.type.JdbcDateType;
+import org.sqlproc.engine.type.SqlLocalDateType;
 
 /**
- * The META type LOCALDATE.
+ * The JDBC META type LOCALDATE.
  * 
  */
-public class JdbcLocalDateType extends JdbcDateType {
+public class JdbcLocalDateType extends SqlLocalDateType implements JdbcSqlType {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String[] getMetaTypes() {
-        return new String[] { "LOCALDATE" };
+    public Class<?>[] getClassTypes() {
+        return new Class[] { java.sql.Date.class };
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
-                    + ((resultValue != null) ? resultValue.getClass() : null));
-        }
-        if (resultValue instanceof java.sql.Date) {
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
-                    ((java.sql.Date) resultValue).toLocalDate(), java.time.LocalDate.class))
-                return;
-        } else if (ingoreError) {
-            logger.error("Incorrect localdate " + resultValue + " for " + attributeName + " in " + resultInstance);
-            return;
-        } else {
-            throw new SqlRuntimeException("Incorrect localdate " + resultValue.getClass() + " for " + attributeName
-                    + " in " + resultInstance);
-        }
-        if (ingoreError) {
-            logger.error("There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
-                    + getMetaTypes()[0]);
-        } else {
-            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                    + ", META type is " + getMetaTypes()[0]);
+    public Object getProviderSqlType() {
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getDatabaseSqlType() {
+        return Types.DATE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(ResultSet rs, String columnLabel) throws SQLException {
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getDate(Integer.parseInt(columnLabel));
+        else
+            return rs.getDate(columnLabel);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void set(PreparedStatement st, int index, Object value) throws SQLException {
+        if (value instanceof java.sql.Date) {
+            st.setDate(index, (java.sql.Date) value);
+        } else if (value instanceof Date) {
+            st.setDate(index, new java.sql.Date(((java.util.Date) value).getTime()));
         }
     }
 
@@ -56,17 +66,11 @@ public class JdbcLocalDateType extends JdbcDateType {
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputType=" + inputTypes);
-        }
-        if (inputValue == null) {
-            query.setParameter(paramName, inputValue, getProviderSqlType());
-        } else if (inputValue instanceof java.time.LocalDate) {
-            Date value = Date.valueOf((java.time.LocalDate) inputValue);
-            query.setParameter(paramName, value, getProviderSqlType());
-        }
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getDate(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }

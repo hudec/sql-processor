@@ -1,71 +1,73 @@
 package org.sqlproc.engine.jdbc.type;
 
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Types;
 
-import org.sqlproc.engine.SqlQuery;
-import org.sqlproc.engine.SqlRuntimeContext;
-import org.sqlproc.engine.SqlRuntimeException;
+import org.sqlproc.engine.type.SqlLocalTimeType;
 
 /**
- * The META type LOCALTIME.
+ * The JDBC META type LOCALTIME.
  * 
+ * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public class JdbcLocalTimeType extends JdbcTimeType {
+public class JdbcLocalTimeType extends SqlLocalTimeType implements JdbcSqlType {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String[] getMetaTypes() {
-        return new String[] { "LOCALTIME" };
+    public Class<?>[] getClassTypes() {
+        return new Class[] { java.sql.Time.class };
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setResult " + getMetaTypes()[0] + ": resultInstance=" + resultInstance
-                    + ", attributeName=" + attributeName + ", resultValue=" + resultValue + ", resultType"
-                    + ((resultValue != null) ? resultValue.getClass() : null));
-        }
-        if (resultValue instanceof java.sql.Time) {
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
-                    ((java.sql.Time) resultValue).toLocalTime(), java.time.LocalTime.class))
-                return;
-        } else if (ingoreError) {
-            logger.error("Incorrect localtime " + resultValue + " for " + attributeName + " in " + resultInstance);
-            return;
-        } else {
-            throw new SqlRuntimeException("Incorrect localtime " + resultValue.getClass() + " for " + attributeName
-                    + " in " + resultInstance);
-        }
-        if (ingoreError) {
-            logger.error("There's no setter for " + attributeName + " in " + resultInstance + ", META type is "
-                    + getMetaTypes()[0]);
-        } else {
-            throw new SqlRuntimeException("There's no setter for " + attributeName + " in " + resultInstance
-                    + ", META type is " + getMetaTypes()[0]);
-        }
+    public Object getProviderSqlType() {
+        return this;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
-            boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
-        if (logger.isTraceEnabled()) {
-            logger.trace(">>> setParameter " + getMetaTypes()[0] + ": paramName=" + paramName + ", inputValue="
-                    + inputValue + ", inputType=" + inputTypes);
+    public Integer getDatabaseSqlType() {
+        return Types.TIME;
+    }
+
+    @Override
+    public Object get(ResultSet rs, String columnLabel) throws SQLException {
+        if (Character.isDigit(columnLabel.charAt(0)))
+            return rs.getTime(Integer.parseInt(columnLabel));
+        else
+            return rs.getTime(columnLabel);
+    }
+
+    @Override
+    public void set(PreparedStatement st, int index, Object value) throws SQLException {
+        Time time;
+        if (value instanceof Time) {
+            time = (Time) value;
+        } else {
+            time = new Time(((java.util.Date) value).getTime());
         }
-        if (inputValue == null) {
-            query.setParameter(paramName, inputValue, getProviderSqlType());
-        } else if (inputValue instanceof java.time.LocalTime) {
-            Time value = Time.valueOf((java.time.LocalTime) inputValue);
-            query.setParameter(paramName, value, getProviderSqlType());
-        }
+        st.setTime(index, time);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object get(CallableStatement cs, int index) throws SQLException {
+        Object result = cs.getTime(index);
+        if (cs.wasNull())
+            return null;
+        else
+            return result;
     }
 }
