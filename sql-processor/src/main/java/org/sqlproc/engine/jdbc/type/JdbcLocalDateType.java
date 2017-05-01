@@ -55,11 +55,13 @@ public class JdbcLocalDateType extends SqlLocalDateType implements JdbcSqlType {
      */
     @Override
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
+        Date date;
         if (value instanceof java.sql.Date) {
-            st.setDate(index, (java.sql.Date) value);
-        } else if (value instanceof Date) {
-            st.setDate(index, new java.sql.Date(((java.util.Date) value).getTime()));
+            date = (Date) value;
+        } else {
+            date = new java.sql.Date(((java.util.Date) value).getTime());
         }
+        st.setDate(index, date);
     }
 
     /**
