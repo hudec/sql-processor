@@ -20,7 +20,7 @@ public class JdbcLocalDateType extends SqlLocalDateType implements JdbcSqlType {
      */
     @Override
     public Class<?>[] getClassTypes() {
-        return new Class[] { java.sql.Date.class };
+        return new Class[] { java.time.LocalDate.class };
     }
 
     /**
