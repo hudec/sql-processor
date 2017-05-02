@@ -20,14 +20,6 @@ public class JdbcLocalTimeType extends SqlLocalTimeType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.time.LocalTime.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }

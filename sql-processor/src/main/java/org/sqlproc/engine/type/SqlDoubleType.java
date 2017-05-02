@@ -11,7 +11,7 @@ public abstract class SqlDoubleType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
+    public Class<?>[] getClassTypes() {
         return new Class[] { Double.class, double.class };
     }
 

@@ -13,7 +13,7 @@ public abstract class SqlClobType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
+    public Class<?>[] getClassTypes() {
         return new Class[] { Clob.class };
     }
 

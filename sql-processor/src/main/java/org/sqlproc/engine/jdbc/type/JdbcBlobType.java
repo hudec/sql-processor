@@ -20,14 +20,6 @@ public class JdbcBlobType extends SqlBlobType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { Blob.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }

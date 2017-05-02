@@ -1,7 +1,6 @@
 package org.sqlproc.engine.type;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
@@ -18,8 +17,8 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
-        return new Class[] { java.sql.Timestamp.class, java.util.Date.class };
+    public Class<?>[] getClassTypes() {
+        return new Class[] { java.util.Date.class };
     }
 
     /**
@@ -28,19 +27,6 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
     @Override
     public String[] getMetaTypes() {
         return new String[] { "DATETIME" };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
-        setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
-
-        if (resultValue instanceof java.sql.Timestamp)
-            ((java.sql.Timestamp) resultValue).setNanos(0);
-        super.setResult(runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
     }
 
     /**
@@ -58,9 +44,9 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
             cal.setTime((java.sql.Timestamp) inputValue);
             cal.set(Calendar.MILLISECOND, 0);
             query.setParameter(paramName, cal.getTime(), getProviderSqlType());
-        } else if (inputValue instanceof Date) {
+        } else if (inputValue instanceof java.util.Date) {
             Calendar cal = Calendar.getInstance();
-            cal.setTime((Date) inputValue);
+            cal.setTime((java.util.Date) inputValue);
             cal.set(Calendar.MILLISECOND, 0);
             query.setParameter(paramName, cal.getTime(), getProviderSqlType());
         } else {

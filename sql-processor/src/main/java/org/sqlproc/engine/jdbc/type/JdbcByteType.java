@@ -19,14 +19,6 @@ public class JdbcByteType extends SqlByteType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { Byte.class, byte.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }

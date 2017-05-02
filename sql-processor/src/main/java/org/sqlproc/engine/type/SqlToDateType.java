@@ -1,7 +1,6 @@
 package org.sqlproc.engine.type;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
@@ -18,7 +17,7 @@ public abstract class SqlToDateType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
+    public Class<?>[] getClassTypes() {
         return new Class[] {};
     }
 
@@ -59,9 +58,9 @@ public abstract class SqlToDateType extends SqlDefaultType {
             cal.getTime();
             cal.add(Calendar.DAY_OF_MONTH, 1);
             query.setParameter(paramName, cal.getTime(), getProviderSqlType());
-        } else if (inputValue instanceof Date) {
+        } else if (inputValue instanceof java.util.Date) {
             Calendar cal = Calendar.getInstance();
-            cal.setTime((Date) inputValue);
+            cal.setTime((java.util.Date) inputValue);
             cal.set(Calendar.HOUR_OF_DAY, 0);
             cal.set(Calendar.MINUTE, 0);
             cal.set(Calendar.SECOND, 0);

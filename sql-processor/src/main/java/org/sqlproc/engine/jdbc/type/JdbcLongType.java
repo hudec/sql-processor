@@ -19,14 +19,6 @@ public class JdbcLongType extends SqlLongType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { Long.class, long.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }

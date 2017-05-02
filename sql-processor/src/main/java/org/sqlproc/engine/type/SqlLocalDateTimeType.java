@@ -13,12 +13,9 @@ import org.sqlproc.engine.SqlRuntimeException;
  */
 public abstract class SqlLocalDateTimeType extends SqlDefaultType {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
-        return new Class[] { java.sql.Timestamp.class, java.util.Date.class };
+    public Class<?>[] getClassTypes() {
+        return new Class[] { java.time.LocalDateTime.class };
     }
 
     /**

@@ -20,14 +20,6 @@ public class JdbcClobType extends SqlClobType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { Clob.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }

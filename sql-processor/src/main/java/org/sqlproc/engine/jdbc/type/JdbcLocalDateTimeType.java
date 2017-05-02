@@ -16,11 +16,6 @@ import org.sqlproc.engine.type.SqlLocalDateTimeType;
  */
 public class JdbcLocalDateTimeType extends SqlLocalDateTimeType implements JdbcSqlType {
 
-    @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.time.LocalDateTime.class };
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -67,10 +62,6 @@ public class JdbcLocalDateTimeType extends SqlLocalDateTimeType implements JdbcS
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = cs.getTimestamp(index);
-        if (cs.wasNull())
-            return null;
-        else
-            return result;
+        return cs.getTimestamp(index);
     }
 }

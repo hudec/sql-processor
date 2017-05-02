@@ -11,7 +11,7 @@ public abstract class SqlBooleanType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
+    public Class<?>[] getClassTypes() {
         return new Class[] { Boolean.class, boolean.class };
     }
 

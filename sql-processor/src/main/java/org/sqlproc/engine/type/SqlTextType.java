@@ -11,8 +11,8 @@ public abstract class SqlTextType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
-        return new Class[] { String.class };
+    public Class<?>[] getClassTypes() {
+        return new Class[] {};
     }
 
     /**

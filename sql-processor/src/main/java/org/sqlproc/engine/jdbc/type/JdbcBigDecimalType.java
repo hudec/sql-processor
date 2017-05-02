@@ -20,14 +20,6 @@ public class JdbcBigDecimalType extends SqlBigDecimalType implements JdbcSqlType
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { BigDecimal.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }

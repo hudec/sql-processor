@@ -1,7 +1,5 @@
 package org.sqlproc.engine.type;
 
-import java.util.Date;
-
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -17,8 +15,8 @@ public abstract class SqlDateType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
-        return new Class[] { java.sql.Date.class, java.util.Date.class };
+    public Class<?>[] getClassTypes() {
+        return new Class[] { java.sql.Date.class };
     }
 
     /**
@@ -27,6 +25,17 @@ public abstract class SqlDateType extends SqlDefaultType {
     @Override
     public String[] getMetaTypes() {
         return new String[] { "DATE" };
+    }
+
+    private static final Class[] CLASS_TYPES = { java.sql.Date.class, java.util.Date.class };
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
+        runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, CLASS_TYPES);
     }
 
     /**
@@ -41,8 +50,8 @@ public abstract class SqlDateType extends SqlDefaultType {
             query.setParameter(paramName, null, getProviderSqlType());
         } else if (inputValue instanceof java.sql.Date) {
             query.setParameter(paramName, (java.sql.Date) inputValue, getProviderSqlType());
-        } else if (inputValue instanceof Date) {
-            query.setParameter(paramName, (Date) inputValue, getProviderSqlType());
+        } else if (inputValue instanceof java.util.Date) {
+            query.setParameter(paramName, (java.util.Date) inputValue, getProviderSqlType());
         } else {
             error(logger, ingoreError, "Incorrect date " + inputValue + " for " + paramName);
         }

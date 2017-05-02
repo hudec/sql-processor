@@ -2,9 +2,7 @@ package org.sqlproc.engine.jdbc.type;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.sqlproc.engine.SqlRuntimeException;
 import org.sqlproc.engine.type.SqlIdentityType;
@@ -194,25 +192,14 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static Map<String, SqlMetaType> META_TO_TYPE_MAP = new HashMap<String, SqlMetaType>();
 
-    @SuppressWarnings("serial")
-    static final Set<SqlMetaType> CONFLICT_TYPES = new HashSet<SqlMetaType>() {
-        {
-            add(DATE_TIME);
-            add(LOCAL_DATE);
-            add(LOCAL_DATE_TIME);
-            add(LOCAL_TIME);
-        }
-    };
-
     /**
      * Static init.
      */
     static {
         for (SqlMetaType type : TYPES) {
             if (type instanceof SqlTaggedMetaType) {
-                if (!CONFLICT_TYPES.contains(type))
-                    for (Class<?> classType : ((SqlTaggedMetaType) type).getClassTypes())
-                        CLASS_TO_TYPE_MAP.put(classType, type);
+                for (Class<?> classType : ((SqlTaggedMetaType) type).getClassTypes())
+                    CLASS_TO_TYPE_MAP.put(classType, type);
                 for (String metaType : ((SqlTaggedMetaType) type).getMetaTypes())
                     META_TO_TYPE_MAP.put(metaType.toUpperCase(), type);
             }

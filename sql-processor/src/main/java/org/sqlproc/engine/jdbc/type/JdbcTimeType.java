@@ -20,14 +20,6 @@ public class JdbcTimeType extends SqlTimeType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.sql.Time.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }
@@ -64,10 +56,6 @@ public class JdbcTimeType extends SqlTimeType implements JdbcSqlType {
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = cs.getTime(index);
-        if (cs.wasNull())
-            return null;
-        else
-            return result;
+        return cs.getTime(index);
     }
 }

@@ -20,14 +20,6 @@ public class JdbcTimestampType extends SqlTimestampType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.sql.Timestamp.class, java.util.Date.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }
@@ -70,10 +62,6 @@ public class JdbcTimestampType extends SqlTimestampType implements JdbcSqlType {
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = cs.getTimestamp(index);
-        if (cs.wasNull())
-            return null;
-        else
-            return result;
+        return cs.getTimestamp(index);
     }
 }

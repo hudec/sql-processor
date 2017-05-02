@@ -19,14 +19,6 @@ public class JdbcLocalDateType extends SqlLocalDateType implements JdbcSqlType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.time.LocalDate.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return this;
     }
@@ -57,7 +49,7 @@ public class JdbcLocalDateType extends SqlLocalDateType implements JdbcSqlType {
     public void set(PreparedStatement st, int index, Object value) throws SQLException {
         Date date;
         if (value instanceof java.sql.Date) {
-            date = (Date) value;
+            date = (java.sql.Date) value;
         } else {
             date = new java.sql.Date(((java.util.Date) value).getTime());
         }
@@ -69,10 +61,6 @@ public class JdbcLocalDateType extends SqlLocalDateType implements JdbcSqlType {
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = cs.getDate(index);
-        if (cs.wasNull())
-            return null;
-        else
-            return result;
+        return cs.getDate(index);
     }
 }

@@ -1,7 +1,7 @@
 package org.sqlproc.engine.type;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
@@ -18,7 +18,7 @@ public abstract class SqlFromDateType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
+    public Class<?>[] getClassTypes() {
         return new Class[] {};
     }
 
@@ -49,17 +49,17 @@ public abstract class SqlFromDateType extends SqlDefaultType {
 
         if (inputValue == null) {
             query.setParameter(paramName, inputValue, getProviderSqlType());
-        } else if (inputValue instanceof java.sql.Timestamp) {
+        } else if (inputValue instanceof Timestamp) {
             Calendar cal = Calendar.getInstance();
-            cal.setTime((java.sql.Timestamp) inputValue);
+            cal.setTime((Timestamp) inputValue);
             cal.set(Calendar.HOUR_OF_DAY, 0);
             cal.set(Calendar.MINUTE, 0);
             cal.set(Calendar.SECOND, 0);
             cal.set(Calendar.MILLISECOND, 0);
             query.setParameter(paramName, cal.getTime(), getProviderSqlType());
-        } else if (inputValue instanceof Date) {
+        } else if (inputValue instanceof java.util.Date) {
             Calendar cal = Calendar.getInstance();
-            cal.setTime((Date) inputValue);
+            cal.setTime((java.util.Date) inputValue);
             cal.set(Calendar.HOUR_OF_DAY, 0);
             cal.set(Calendar.MINUTE, 0);
             cal.set(Calendar.SECOND, 0);

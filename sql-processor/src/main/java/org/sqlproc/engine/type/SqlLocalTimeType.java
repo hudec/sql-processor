@@ -17,8 +17,8 @@ public abstract class SqlLocalTimeType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
-        return new Class[] { java.sql.Time.class, java.util.Date.class };
+    public Class<?>[] getClassTypes() {
+        return new Class[] { java.time.LocalTime.class };
     }
 
     /**
@@ -62,6 +62,8 @@ public abstract class SqlLocalTimeType extends SqlDefaultType {
         } else if (inputValue instanceof java.time.LocalTime) {
             Time value = Time.valueOf((java.time.LocalTime) inputValue);
             query.setParameter(paramName, value, getProviderSqlType());
+        } else {
+            error(logger, ingoreError, "Incorrect localtime " + inputValue + " for " + paramName);
         }
     }
 }

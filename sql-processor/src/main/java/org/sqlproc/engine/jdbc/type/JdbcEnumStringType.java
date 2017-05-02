@@ -15,11 +15,6 @@ import org.sqlproc.engine.type.SqlEnumStringType;
  */
 public class JdbcEnumStringType extends SqlEnumStringType implements JdbcSqlType {
 
-    @Override
-    public Class<?>[] getClassTypes() {
-        return new Class<?>[] {};
-    }
-
     /**
      * {@inheritDoc}
      */

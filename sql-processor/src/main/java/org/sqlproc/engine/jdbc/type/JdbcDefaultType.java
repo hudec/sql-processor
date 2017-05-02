@@ -33,12 +33,4 @@ public class JdbcDefaultType extends SqlDefaultType {
     public String[] getMetaTypes() {
         return null;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Class<?>[] getClassTypesForDefault() {
-        return null;
-    }
 }

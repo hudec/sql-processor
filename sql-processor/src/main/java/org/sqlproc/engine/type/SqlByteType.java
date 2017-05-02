@@ -11,7 +11,7 @@ public abstract class SqlByteType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
+    public Class<?>[] getClassTypes() {
         return new Class[] { Byte.class, byte.class };
     }
 

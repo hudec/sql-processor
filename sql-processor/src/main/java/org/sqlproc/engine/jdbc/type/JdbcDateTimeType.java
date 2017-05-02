@@ -16,11 +16,6 @@ import org.sqlproc.engine.type.SqlDateTimeType;
  */
 public class JdbcDateTimeType extends SqlDateTimeType implements JdbcSqlType {
 
-    @Override
-    public Class<?>[] getClassTypes() {
-        return new Class<?>[] {};
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -42,10 +37,14 @@ public class JdbcDateTimeType extends SqlDateTimeType implements JdbcSqlType {
      */
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
+        Timestamp ts;
         if (Character.isDigit(columnLabel.charAt(0)))
-            return rs.getTimestamp(Integer.parseInt(columnLabel));
+            ts = rs.getTimestamp(Integer.parseInt(columnLabel));
         else
-            return rs.getTimestamp(columnLabel);
+            ts = rs.getTimestamp(columnLabel);
+        if (ts == null)
+            return null;
+        return new java.util.Date(ts.getTime());
     }
 
     /**
@@ -67,10 +66,9 @@ public class JdbcDateTimeType extends SqlDateTimeType implements JdbcSqlType {
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = cs.getTimestamp(index);
-        if (cs.wasNull())
+        Timestamp ts = cs.getTimestamp(index);
+        if (ts == null)
             return null;
-        else
-            return result;
+        return new java.util.Date(ts.getTime());
     }
 }

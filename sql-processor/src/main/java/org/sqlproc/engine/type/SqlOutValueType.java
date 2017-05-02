@@ -15,7 +15,7 @@ public abstract class SqlOutValueType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypesForDefault() {
+    public Class<?>[] getClassTypes() {
         return new Class[] {};
     }
 
