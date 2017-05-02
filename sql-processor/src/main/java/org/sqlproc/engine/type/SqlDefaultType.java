@@ -51,11 +51,11 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
-        if (getClassTypes() != null && getClassTypes().length >= 0) {
+        if (getClassTypes() != null && getClassTypes().length > 0) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, getClassTypes()))
                 return;
             error(logger, ingoreError,
-                    "There's no getter for " + attributeName + " in " + resultInstance + ", META type is " + this);
+                    "There's no setter for " + attributeName + " in " + resultInstance + ", META type is " + this);
             return;
         }
 
