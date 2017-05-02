@@ -999,6 +999,16 @@ STANDARD_TYPES(OUT)=
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
   an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr)
 ;
+
+STANDARD_JAVA8_TYPES(QRY)=
+  select
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp
+  from TYPES t
+  where id=1
+;
+STANDARD_JAVA8_TYPES(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_datetime$t_local_date_time(type=localDateTime) t_timestamp$t_instant(type=instant)
+;
  
 STANDARD_TYPES_2(QRY)=
   select t_int @n_int(type=int), @t_int(type=int), t_long @n_long(type=long), @t_long(type=long), t_byte @n_byte(type=byte), @t_byte(type=byte),
@@ -1011,7 +1021,6 @@ STANDARD_TYPES_2(QRY)=
   from TYPES
   where id=1
 ;
-  
   
 UNDEFINED_TYPES(QRY)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
@@ -1039,6 +1048,16 @@ UNDEFINED_TYPES(OUT)=
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
   an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
+;
+
+UNDEFINED_JAVA8_TYPES(QRY)=
+  select
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp
+  from TYPES t
+  where id=1
+;
+UNDEFINED_JAVA8_TYPES(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_datetime$t_local_date_time(type=localDateTime) t_timestamp$t_instant(type=instant)
 ;
 
 UNDEFINED_TYPES_2(QRY)=
@@ -1122,6 +1141,20 @@ UNDEFINED_PARAMETERS(OUT)=
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
+UNDEFINED_JAVA8_PARAMETERS(QRY)=
+  select
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp
+  from TYPES t
+  where 1=1
+  {& t_date = :t_local_date}
+  {& t_time = :t_local_time}
+  {& t_datetime = :t_local_date_time(type=localDateTime)}
+  {& t_timestamp = :t_instant}
+;
+
+UNDEFINED_JAVA8_PARAMETERS(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_datetime$t_local_date_time(type=localDateTime) t_timestamp$t_instant(type=instant)
+;
  
 STANDARD_PARAMETERS(QRY)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
@@ -1235,7 +1268,20 @@ FROM_TO_PARAMETERS(OUT)=
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
- 
+STANDARD_JAVA8_PARAMETERS(QRY)=
+  select 
+  t.t_time, t.t_date, t.t_datetime, t.t_timestamp
+  from TYPES t
+  where 1=1
+  {& t_date = :t_local_date(type=localDate)}
+  {& t_time = :t_local_time(type=localTime)}
+  {& t_datetime = :t_local_date_time(type=localDateTime)}
+  {& t_timestamp = :t_instant(type=instant)}
+;
+STANDARD_JAVA8_PARAMETERS(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_datetime$t_local_date_time(type=localDateTime) t_timestamp$t_instant(type=instant)
+;
+
 CUSTOM_TYPE_IN_OUT(QRY)=
   select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone(type=phone)
   from CONTACT c

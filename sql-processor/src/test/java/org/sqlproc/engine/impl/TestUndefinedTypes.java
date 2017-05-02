@@ -96,6 +96,33 @@ public class TestUndefinedTypes extends TestDatabase {
     }
 
     @Test
+    public void testUndefinedTypesJava8() throws SQLException {
+        SqlQueryEngine sqlEngine = getSqlEngine("UNDEFINED_JAVA8_TYPES");
+
+        String sql = sqlEngine.getSql(null, null, SqlQueryEngine.NO_ORDER);
+        logger.info(sql);
+
+        List<TypesTransport> list = sqlEngine.query(session, TypesTransport.class, null, null, SqlQueryEngine.NO_ORDER,
+                0, 0, 0);
+
+        assertEquals(1, list.size());
+        TypesTransport t = list.get(0);
+
+        assertEquals("14:55:02", t.getT_local_time().toString());
+        assertEquals("2009-08-31", t.getT_local_date().toString());
+        assertEquals("2009-08-31T14:55:02", t.getT_local_date_time().toString());
+        if ("mysql".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T12:55:02Z", t.getT_instant().toString());
+        else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType)
+                || "db2".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T12:55:02.123456Z", t.getT_instant().toString());
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T12:55:02.123Z", t.getT_instant().toString());
+        else
+            assertEquals("2009-08-31T12:55:02.123456789Z", t.getT_instant().toString());
+    }
+
+    @Test
     public void testUndefinedTypes2() throws SQLException {
         SqlQueryEngine sqlEngine = getSqlEngine("UNDEFINED_TYPES_2");
 
