@@ -63,7 +63,7 @@ public class TestStandardTypes extends TestDatabase {
 
         assertEquals("14:55:02", t.getT_time().toString());
         assertEquals("2009-08-31", t.getT_date().toString());
-        assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
+        assertEquals("2009-08-31 14:55:02", TestUtils.toStr(t.getT_datetime()));
         if ("mysql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
         else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
@@ -124,7 +124,7 @@ public class TestStandardTypes extends TestDatabase {
 
         assertEquals("14:55:02", t.getT_time().toString());
         assertEquals("2009-08-31", t.getT_date().toString());
-        assertEquals("2009-08-31 14:55:02.0", t.getT_datetime().toString());
+        assertEquals("2009-08-31 14:55:02", TestUtils.toStr(t.getT_datetime()));
         if ("mysql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
         else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))

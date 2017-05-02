@@ -2,6 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.text.DateFormat;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -45,5 +46,10 @@ public class TestUtils {
         if (s.trim().length() == 0)
             return true;
         return false;
+    }
+
+    public static String toStr(java.util.Date date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return df.format(date);
     }
 }
