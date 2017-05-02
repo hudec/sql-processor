@@ -33,6 +33,14 @@ public abstract class SqlDateTimeType extends SqlDefaultType {
      * {@inheritDoc}
      */
     @Override
+    public Class<?>[] getClassTypesForDefault() {
+        return new Class[] { java.util.Date.class, java.sql.Timestamp.class };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setParameter(SqlRuntimeContext runtimeCtx, SqlQuery query, String paramName, Object inputValue,
             boolean ingoreError, Class<?>... inputTypes) throws SqlRuntimeException {
         setParameterEntryLog(logger, this, runtimeCtx, query, paramName, inputValue, ingoreError, inputTypes);

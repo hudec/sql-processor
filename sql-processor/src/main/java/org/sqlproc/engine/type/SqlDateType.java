@@ -27,15 +27,12 @@ public abstract class SqlDateType extends SqlDefaultType {
         return new String[] { "DATE" };
     }
 
-    private static final Class[] CLASS_TYPES = { java.sql.Date.class, java.util.Date.class };
-
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
-            boolean ingoreError) throws SqlRuntimeException {
-        runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, CLASS_TYPES);
+    public Class<?>[] getClassTypesForDefault() {
+        return new Class[] { java.sql.Date.class, java.util.Date.class };
     }
 
     /**

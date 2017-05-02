@@ -27,6 +27,15 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
+     * Returns the list of Java class types related to this META type for SqlDefaultType processing.
+     * 
+     * @return the list of Java class types related to this META type for SqlDefaultType processing
+     */
+    public Class<?>[] getClassTypesForDefault() {
+        return getClassTypes();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
@@ -51,8 +60,8 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
-        if (getClassTypes() != null && getClassTypes().length > 0) {
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, getClassTypes()))
+        if (getClassTypesForDefault() != null && getClassTypesForDefault().length > 0) {
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, getClassTypesForDefault()))
                 return;
             error(logger, ingoreError,
                     "There's no setter for " + attributeName + " in " + resultInstance + ", META type is " + this);
