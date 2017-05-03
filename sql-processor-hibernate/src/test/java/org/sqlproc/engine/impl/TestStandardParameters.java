@@ -5,6 +5,10 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.Test;
@@ -134,6 +138,80 @@ public class TestStandardParameters extends TestDatabase {
             assertEquals("byebye", new String(t.getA_blob().getBytes(1L, (int) t.getA_blob().length())));
             assertEquals("dovi", t.getA_clob().getSubString(1L, (int) t.getA_clob().length()));
         }
+    }
+
+    @Test
+    public void testStandardJava8DateParameters() throws SQLException, ParseException {
+        SqlQueryEngine sqlEngine = getSqlEngine("STANDARD_JAVA8_DATE_PARAMETERS");
+
+        TypesTransport criteria = new TypesTransport();
+        criteria.setT_local_date(LocalDate.of(2009, 8, 31));
+        if (!"oracle".equalsIgnoreCase(dbType) && !"postgresql".equalsIgnoreCase(dbType)
+                && !"mssql".equalsIgnoreCase(dbType) && !"h2".equalsIgnoreCase(dbType)) // TODO
+            criteria.setT_local_time(LocalTime.of(14, 55, 2));
+        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
+            criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2, 123000000));
+        } else {
+            criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2, 123456789));
+        }
+
+        String sql = sqlEngine.getSql(criteria, null, SqlQueryEngine.NO_ORDER);
+        logger.info(sql);
+
+        assertContains(sql, "AND  t_date =");
+        // assertContains(sql, "AND t_time =");
+        assertContains(sql, "AND  t_timestamp =");
+
+        List<TypesTransport> list = sqlEngine.query(session, TypesTransport.class, criteria, null,
+                SqlQueryEngine.NO_ORDER, 0, 0, 0);
+
+        assertEquals(1, list.size());
+        TypesTransport t = list.get(0);
+
+        assertEquals("14:55:02", t.getT_local_time().toString());
+        assertEquals("2009-08-31", t.getT_local_date().toString());
+        if ("mysql".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T14:55:02", t.getT_local_date_time().toString());
+        else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType)
+                || "db2".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T14:55:02.123456", t.getT_local_date_time().toString());
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T14:55:02.123", t.getT_local_date_time().toString());
+        else
+            assertEquals("2009-08-31T14:55:02.123456789", t.getT_local_date_time().toString());
+    }
+
+    @Test
+    public void testStandardJava8InstantParameters() throws SQLException, ParseException {
+        SqlQueryEngine sqlEngine = getSqlEngine("STANDARD_JAVA8_INSTANT_PARAMETERS");
+
+        TypesTransport criteria = new TypesTransport();
+        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
+            criteria.setT_instant(Instant.ofEpochSecond(1251723302, 123000000));
+        } else {
+            criteria.setT_instant(Instant.ofEpochSecond(1251723302, 123456789));
+        }
+
+        String sql = sqlEngine.getSql(criteria, null, SqlQueryEngine.NO_ORDER);
+        logger.info(sql);
+
+        assertContains(sql, "AND  t_timestamp =");
+
+        List<TypesTransport> list = sqlEngine.query(session, TypesTransport.class, criteria, null,
+                SqlQueryEngine.NO_ORDER, 0, 0, 0);
+
+        assertEquals(1, list.size());
+        TypesTransport t = list.get(0);
+
+        if ("mysql".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T12:55:02Z", t.getT_instant().toString());
+        else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType)
+                || "db2".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T12:55:02.123456Z", t.getT_instant().toString());
+        else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
+            assertEquals("2009-08-31T12:55:02.123Z", t.getT_instant().toString());
+        else
+            assertEquals("2009-08-31T12:55:02.123456789Z", t.getT_instant().toString());
     }
 
     @Test

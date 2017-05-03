@@ -115,6 +115,10 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static final SqlMetaType LOCAL_TIME = new JdbcLocalTimeType();
     /**
+     * Singleton instance of String based enumeration type INSTANT.
+     */
+    static final SqlMetaType INSTANT = new JdbcInstantType();    
+    /**
      * Singleton instance of String based enumeration type LONG.
      */
     static final SqlMetaType LONG = new JdbcLongType();
@@ -181,7 +185,7 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
             DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LOCAL_DATE, LOCAL_DATE_TIME,
-            LOCAL_TIME, LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB, OTHER, ORACLE_CURSOR };
+            LOCAL_TIME, INSTANT, LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB, OTHER, ORACLE_CURSOR };
 
     /**
      * The immutable map between the Java class types and the internal types.

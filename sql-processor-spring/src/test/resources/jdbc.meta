@@ -35,7 +35,6 @@ SEL1(OPT,H2)=call identity();
 SEL1(OPT,IDSEL_JDBC_TRUE)=JDBC;
 SEL1(OPT,IDSEL_JDBC_FALSE)=generates test exception;
 
-
 // META SQL query
 ANSI_BASIC(QRY)=
   select %p.ID, %p.NAME_FIRST as first, %p.NAME_LAST as last, %p.SSN_NUMBER ssn, %p.SSN_COUNTRY country,
@@ -730,7 +729,7 @@ LIKE_BASIC_REPLACE_CHARS(QRY,OPT=REPLACE_LIKE_CHARS=REF=REPLACE1)=
   {? :name.last | and (UPPER(p.NAME_FIRST) like :+name.last or UPPER(p.NAME_LAST) like :+name.last)}
   {#1 order by id}
 ;
-
+ 
  
 ORDER(QRY)=
   select p.ID, p.NAME_FIRST as first, p.NAME_LAST as last, p.SSN_NUMBER ssn, p.SSN_COUNTRY country,
@@ -1000,6 +999,27 @@ STANDARD_TYPES(OUT)=
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
   an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr)
 ;
+
+STANDARD_JAVA8_DATE_TYPES(QRY)=
+  select
+  t.t_time, t.t_date, t.t_timestamp
+  from TYPES t
+  where id=1
+;
+STANDARD_JAVA8_DATE_TYPES(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_timestamp$t_local_date_time(type=localDateTime)
+;
+
+STANDARD_JAVA8_INSTANT_TYPES(QRY)=
+  select
+  t.t_timestamp
+  from TYPES t
+  where id=1
+;
+STANDARD_JAVA8_INSTANT_TYPES(OUT)=
+  t_timestamp$t_instant(type=instant)
+;
+ 
  
 STANDARD_TYPES_2(QRY)=
   select t_int @n_int(type=int), @t_int(type=int), t_long @n_long(type=long), @t_long(type=long), t_byte @n_byte(type=byte), @t_byte(type=byte),
@@ -1012,7 +1032,6 @@ STANDARD_TYPES_2(QRY)=
   from TYPES
   where id=1
 ;
-  
   
 UNDEFINED_TYPES(QRY)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
@@ -1040,6 +1059,26 @@ UNDEFINED_TYPES(OUT)=
   t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
   an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
+;
+
+UNDEFINED_JAVA8_DATE_TYPES(QRY)=
+  select
+  t.t_time, t.t_date, t.t_timestamp
+  from TYPES t
+  where id=1
+;
+UNDEFINED_JAVA8_DATE_TYPES(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_timestamp$t_local_date_time(type=localDateTime)
+;
+
+UNDEFINED_JAVA8_INSTANT_TYPES(QRY)=
+  select
+  t.t_timestamp
+  from TYPES t
+  where id=1
+;
+UNDEFINED_JAVA8_INSTANT_TYPES(OUT)=
+  t_timestamp$t_instant(type=instant)
 ;
 
 UNDEFINED_TYPES_2(QRY)=
@@ -1123,6 +1162,31 @@ UNDEFINED_PARAMETERS(OUT)=
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
+UNDEFINED_JAVA8_DATE_PARAMETERS(QRY)=
+  select
+  t.t_time, t.t_date, t.t_timestamp
+  from TYPES t
+  where 1=1
+  {& t_date = :t_local_date}
+  {& t_time = :t_local_time}
+  {& t_timestamp = :t_local_date_time}
+;
+
+UNDEFINED_JAVA8_DATE_PARAMETERS(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_timestamp$t_local_date_time(type=localDateTime)
+;
+
+UNDEFINED_JAVA8_INSTANT_PARAMETERS(QRY)=
+  select
+  t.t_timestamp
+  from TYPES t
+  where 1=1
+  {& t_timestamp = :t_instant}
+;
+
+UNDEFINED_JAVA8_INSTANT_PARAMETERS(OUT)=
+  t_timestamp$t_instant(type=instant)
+;
  
 STANDARD_PARAMETERS(QRY)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
@@ -1236,7 +1300,30 @@ FROM_TO_PARAMETERS(OUT)=
   a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
 ;
 
- 
+STANDARD_JAVA8_DATE_PARAMETERS(QRY)=
+  select 
+  t.t_time, t.t_date, t.t_timestamp
+  from TYPES t
+  where 1=1
+  {& t_date = :t_local_date(type=localDate)}
+  {& t_time = :t_local_time(type=localTime)}
+  {& t_timestamp = :t_local_date_time(type=localDateTime)}
+;
+STANDARD_JAVA8_DATE_PARAMETERS(OUT)=
+  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_timestamp$t_local_date_time(type=localDateTime)
+;
+
+STANDARD_JAVA8_INSTANT_PARAMETERS(QRY)=
+  select 
+  t.t_timestamp
+  from TYPES t
+  where 1=1
+  {& t_timestamp = :t_instant(type=instant)}
+;
+STANDARD_JAVA8_INSTANT_PARAMETERS(OUT)=
+  t_timestamp$t_instant(type=instant)
+;
+
 CUSTOM_TYPE_IN_OUT(QRY)=
   select c.ID @id, c.ADRESS @address, c.PHONE_NUMBER @phone(type=phone)
   from CONTACT c

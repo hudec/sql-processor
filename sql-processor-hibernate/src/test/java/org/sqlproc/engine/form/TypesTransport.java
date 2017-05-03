@@ -5,6 +5,10 @@ import java.math.BigInteger;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class TypesTransport {
@@ -28,6 +32,10 @@ public class TypesTransport {
     java.sql.Date t_date;
     Date t_datetime;
     Timestamp t_timestamp;
+    LocalTime t_local_time;
+    LocalDate t_local_date;
+    LocalDateTime t_local_date_time;
+    Instant t_instant;
     boolean n_boolean;
     Boolean t_boolean;
     BigInteger t_big_integer;
@@ -261,4 +269,37 @@ public class TypesTransport {
     public void setT_datetime(Date t_datetime) {
         this.t_datetime = t_datetime;
     }
+
+    public LocalTime getT_local_time() {
+        return t_local_time;
+    }
+
+    public void setT_local_time(LocalTime t_local_time) {
+        this.t_local_time = t_local_time;
+    }
+
+    public LocalDate getT_local_date() {
+        return t_local_date;
+    }
+
+    public void setT_local_date(LocalDate t_local_date) {
+        this.t_local_date = t_local_date;
+    }
+
+    public LocalDateTime getT_local_date_time() {
+        return t_local_date_time;
+    }
+
+    public void setT_local_date_time(LocalDateTime t_local_date_time) {
+        this.t_local_date_time = t_local_date_time;
+    }
+
+    public Instant getT_instant() {
+        return t_instant;
+    }
+
+    public void setT_instant(Instant t_instant) {
+        this.t_instant = t_instant;
+    }
+
 }

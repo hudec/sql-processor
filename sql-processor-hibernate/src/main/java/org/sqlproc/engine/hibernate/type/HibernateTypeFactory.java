@@ -104,6 +104,22 @@ public class HibernateTypeFactory implements SqlTypeFactory {
     /**
      * Singleton instance of String based enumeration type.
      */
+    static final SqlMetaType LOCAL_DATE = new HibernateLocalDateType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType LOCAL_DATE_TIME = new HibernateLocalDateTimeType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType LOCAL_TIME = new HibernateLocalTimeType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
+    static final SqlMetaType INSTANT = new HibernateInstantType();
+    /**
+     * Singleton instance of String based enumeration type.
+     */
     static final SqlMetaType LONG = new HibernateLongType();
     /**
      * Singleton instance of String based enumeration type.
@@ -150,8 +166,8 @@ public class HibernateTypeFactory implements SqlTypeFactory {
      * Singleton instances of generic types.
      */
     static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
-            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LONG, SHORT, STRING, TIMESTAMP,
-            TIME, TO_DATE, TEXT, BLOB, CLOB };
+            DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LOCAL_DATE, LOCAL_DATE_TIME,
+            LOCAL_TIME, INSTANT, LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB };
 
     /**
      * The immutable map between the Java class types and the internal types.
