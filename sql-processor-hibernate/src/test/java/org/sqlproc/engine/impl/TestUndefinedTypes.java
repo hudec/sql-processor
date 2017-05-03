@@ -3,6 +3,7 @@ package org.sqlproc.engine.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.junit.Test;
@@ -135,14 +136,14 @@ public class TestUndefinedTypes extends TestDatabase {
         TypesTransport t = list.get(0);
 
         if ("mysql".equalsIgnoreCase(dbType))
-            assertEquals("2009-08-31T12:55:02Z", t.getT_instant().toString());
+            assertEquals("2009-08-31 14:55:02", Timestamp.from(t.getT_instant()).toString());
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType)
                 || "db2".equalsIgnoreCase(dbType))
-            assertEquals("2009-08-31T12:55:02.123456Z", t.getT_instant().toString());
+            assertEquals("2009-08-31 14:55:02.123456", Timestamp.from(t.getT_instant()).toString());
         else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
-            assertEquals("2009-08-31T12:55:02.123Z", t.getT_instant().toString());
+            assertEquals("2009-08-31 14:55:02.123", Timestamp.from(t.getT_instant()).toString());
         else
-            assertEquals("2009-08-31T12:55:02.123456789Z", t.getT_instant().toString());
+            assertEquals("2009-08-31 14:55:02.123456789", Timestamp.from(t.getT_instant()).toString());
     }
 
     @Test
