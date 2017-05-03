@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -186,9 +185,9 @@ public class TestUndefinedParameters extends TestDatabase {
 
         TypesTransport criteria = new TypesTransport();
         if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
-            criteria.setT_instant(Instant.ofEpochSecond(1251723302, 123000000));
+            criteria.setT_instant(Timestamp.valueOf("2009-08-31 14:55:02.123").toInstant());
         } else {
-            criteria.setT_instant(Instant.ofEpochSecond(1251723302, 123456789));
+            criteria.setT_instant(Timestamp.valueOf("2009-08-31 14:55:02.123456789").toInstant());
         }
 
         String sql = sqlEngine.getSql(criteria, null, SqlQueryEngine.NO_ORDER);
