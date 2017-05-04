@@ -22,4 +22,12 @@ public abstract class SqlTextType extends SqlDefaultType {
     public String[] getMetaTypes() {
         return new String[] { "TEXT" };
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Class<?>[] getClassTypesForDefault() {
+        return new Class[] { String.class };
+    }
 }

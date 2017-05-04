@@ -44,7 +44,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
         if (getProviderSqlType() != null) {
             query.addScalar(dbName, getProviderSqlType());
         } else {
-            Object type = (attributeTypes.length > 0) ? typeFactory.getMetaType(attributeTypes[0]) : null;
+            SqlMetaType type = (attributeTypes.length > 0) ? typeFactory.getMetaType(attributeTypes[0]) : null;
             if (type != null)
                 query.addScalar(dbName, type);
             else
@@ -63,8 +63,8 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
         if (getClassTypesForDefault() != null && getClassTypesForDefault().length > 0) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, getClassTypesForDefault()))
                 return;
-            error(logger, ingoreError,
-                    "There's no setter for " + attributeName + " in " + resultInstance + ", META type is " + this);
+            error(logger, ingoreError, "There's no default setter for '" + attributeName + "' in " + resultInstance
+                    + ", META type is " + this);
             return;
         }
 
@@ -81,22 +81,36 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             resultValue = (Integer) ((BigInteger) resultValue).intValue();
 
         if (attributeType.isEnum()) {
-            Object enumInstance = runtimeCtx.getValueToEnum(attributeType, resultValue);
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, enumInstance, attributeType))
-                return;
+            Class enumType = runtimeCtx.getEnumToClass(attributeType);
+            if (enumType == Integer.class || enumType == int.class)
+                runtimeCtx.getTypeFactory().getEnumIntegerType().setResult(runtimeCtx, resultInstance, attributeName,
+                        resultValue, ingoreError);
+            else if (enumType == String.class)
+                runtimeCtx.getTypeFactory().getEnumStringType().setResult(runtimeCtx, resultInstance, attributeName,
+                        resultValue, ingoreError);
             else {
-                error(logger, ingoreError, "There's no getter for '" + attributeName + "' in " + resultInstance
+                error(logger, ingoreError, "There's no enum setter for '" + attributeName + "' in " + resultInstance
                         + ", META type is " + this);
                 return;
             }
         } else {
-            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
-                return;
-            else {
-                error(logger, ingoreError, "There's no getter for '" + attributeName + "' in " + resultInstance
-                        + ", META type is " + this);
-                return;
+            if (getProviderSqlType() == null) {
+                SqlMetaType type = runtimeCtx.getTypeFactory().getMetaType(attributeType);
+                if (type != null) {
+                    type.setResult(runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
+                    return;
+                }
             }
+            error(logger, ingoreError,
+                    "There's no setter for '" + attributeName + "' in " + resultInstance + ", META type is " + this);
+            return;
+            // if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
+            // return;
+            // else {
+            // error(logger, ingoreError, "There's no setter for '" + attributeName + "' in " + resultInstance
+            // + ", META type is " + this);
+            // return;
+            // }
         }
     }
 
