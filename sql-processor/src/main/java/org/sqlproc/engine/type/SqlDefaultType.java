@@ -143,7 +143,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
                     runtimeCtx.getTypeFactory().getEnumIntegerType().setParameter(runtimeCtx, query, paramName,
                             inputValue, ingoreError, inputTypes);
                 } else {
-                    error(logger, ingoreError, "Incorrect type based enum " + inputValue + " for " + paramName
+                    error(logger, ingoreError, "Incorrect enum type " + inputValue + " for " + paramName
                             + ", META type is DEFAULT" + this);
                     return;
                 }
@@ -170,7 +170,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
                 if (o != null) {
                     vals.add(o);
                 } else {
-                    error(logger, ingoreError, "Incorrect type based enum item value " + o + " for " + paramName
+                    error(logger, ingoreError, "Incorrect enum type item value " + o + " for " + paramName
                             + ", META type is DEFAULT" + this);
                     return;
                 }

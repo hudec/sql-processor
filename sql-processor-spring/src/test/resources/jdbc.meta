@@ -1046,19 +1046,19 @@ UNDEFINED_TYPES(QRY)=
   where id=1
 ;
 UNDEFINED_TYPES(OUT)=
-  n_int$n_int(type=int) t_int$t_int(type=int)
-  n_long$n_long(type=long) t_long$t_long(type=long)
-  n_byte$n_byte(type=byte) t_byte$t_byte(type=byte)
-  n_short$n_short(type=short) t_short$t_short(type=short)
-  n_float$n_float(type=float) t_float$t_float(type=float)
-  n_double$n_double(type=double) t_double$t_double(type=double)
-  n_char$n_char(type=char) t_char$t_char(type=char)
-  t_string$t_string(type=string)
-  t_time$t_time(type=time) t_date$t_date(type=date) t_datetime$t_datetime(type=datetime) t_timestamp$t_timestamp(type=timestamp)
-  n_boolean$n_boolean(type=boolean) t_boolean$t_boolean(type=boolean)
-  t_big_integer$t_big_integer(type=bigint) t_big_decimal$t_big_decimal(type=bigdec)
-  an_byte$an_byte(type=bytes) at_byte$at_byte(type=bytearr) a_text$a_text(type=text)
-  a_blob$a_blob(type=blob) a_clob$a_clob(type=clob)
+  n_int$n_int t_int$t_int
+  n_long$n_long t_long$t_long
+  n_byte$n_byte t_byte$t_byte
+  n_short$n_short t_short$t_short
+  n_float$n_float t_float$t_float
+  n_double$n_double t_double$t_double
+  n_char$n_char t_char$t_char
+  t_string$t_string
+  t_time$t_time t_date$t_date t_datetime$t_datetime t_timestamp$t_timestamp
+  n_boolean$n_boolean t_boolean$t_boolean
+  t_big_integer$t_big_integer t_big_decimal$t_big_decimal
+  an_byte$an_byte at_byte$at_byte a_text$a_text
+  a_blob$a_blob a_clob$a_clob
 ;
 
 UNDEFINED_JAVA8_DATE_TYPES(QRY)=
@@ -1068,7 +1068,7 @@ UNDEFINED_JAVA8_DATE_TYPES(QRY)=
   where id=1
 ;
 UNDEFINED_JAVA8_DATE_TYPES(OUT)=
-  t_time$t_local_time(type=localTime) t_date$t_local_date(type=localDate) t_timestamp$t_local_date_time(type=localDateTime)
+  t_time$t_local_time t_date$t_local_date t_timestamp$t_local_date_time
 ;
 
 UNDEFINED_JAVA8_INSTANT_TYPES(QRY)=
@@ -1078,7 +1078,7 @@ UNDEFINED_JAVA8_INSTANT_TYPES(QRY)=
   where id=1
 ;
 UNDEFINED_JAVA8_INSTANT_TYPES(OUT)=
-  t_timestamp$t_instant(type=instant)
+  t_timestamp$t_instant
 ;
 
 UNDEFINED_TYPES_2(QRY)=
