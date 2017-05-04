@@ -1,5 +1,7 @@
 package org.sqlproc.engine.type;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
 import org.sqlproc.engine.SqlRuntimeException;
@@ -9,7 +11,12 @@ import org.sqlproc.engine.SqlRuntimeException;
  * 
  * @author <a href="mailto:Vladimir.Hudec@gmail.com">Vladimir Hudec</a>
  */
-public abstract class SqlIdentityType extends SqlDefaultType {
+public abstract class SqlIdentityType implements SqlTaggedMetaType {
+
+    /**
+     * The internal slf4j logger.
+     */
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * {@inheritDoc}
@@ -25,6 +32,14 @@ public abstract class SqlIdentityType extends SqlDefaultType {
     @Override
     public String[] getMetaTypes() {
         return new String[] {};
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addScalar(SqlTypeFactory typeFactory, SqlQuery query, String dbName, Class<?>... attributeTypes) {
+        throw new UnsupportedOperationException();
     }
 
     /**
