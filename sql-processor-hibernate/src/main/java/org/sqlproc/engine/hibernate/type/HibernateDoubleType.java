@@ -14,14 +14,6 @@ public class HibernateDoubleType extends SqlDoubleType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { Double.class, double.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return DoubleType.INSTANCE;
     }

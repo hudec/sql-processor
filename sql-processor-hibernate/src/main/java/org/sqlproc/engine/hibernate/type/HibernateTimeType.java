@@ -14,14 +14,6 @@ public class HibernateTimeType extends SqlTimeType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.sql.Time.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return TimeType.INSTANCE;
     }

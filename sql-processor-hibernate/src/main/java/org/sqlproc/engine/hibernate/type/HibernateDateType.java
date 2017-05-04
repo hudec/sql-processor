@@ -14,14 +14,6 @@ public class HibernateDateType extends SqlDateType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.sql.Date.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return DateType.INSTANCE;
     }

@@ -14,14 +14,6 @@ public class HibernateTimestampType extends SqlTimestampType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.sql.Timestamp.class, java.util.Date.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return TimestampType.INSTANCE;
     }

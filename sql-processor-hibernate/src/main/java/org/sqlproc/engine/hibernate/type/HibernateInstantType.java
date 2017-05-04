@@ -14,14 +14,6 @@ public class HibernateInstantType extends SqlInstantType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.time.Instant.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return TimestampType.INSTANCE;
     }

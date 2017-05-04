@@ -14,14 +14,6 @@ public class HibernateLocalDateTimeType extends SqlLocalDateTimeType {
      * {@inheritDoc}
      */
     @Override
-    public Class<?>[] getClassTypes() {
-        return new Class[] { java.time.LocalDateTime.class };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Object getProviderSqlType() {
         return TimestampType.INSTANCE;
     }

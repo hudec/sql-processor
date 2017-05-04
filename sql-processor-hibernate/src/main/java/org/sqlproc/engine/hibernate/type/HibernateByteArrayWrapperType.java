@@ -15,7 +15,7 @@ public class HibernateByteArrayWrapperType extends SqlByteArrayType {
      */
     @Override
     public Class<?>[] getClassTypes() {
-        return new Class[] { Byte[].class };
+        return new Class[] {};
     }
 
     /**
