@@ -131,6 +131,7 @@
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <show>private</show>
+                    <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
             </plugin>
             <plugin>
