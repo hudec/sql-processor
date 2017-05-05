@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -226,7 +227,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejik");
-        Date age = getAge(1962, 5, 19);
+        LocalDate age = LocalDate.of(1962, 5, 19);
         person.setDateOfBirth(age);
         count = personDao.update(person);
         Assert.assertEquals(1, count);
@@ -446,7 +447,7 @@ public class Main {
         newPerson.setFirstName("Maruska");
         newPerson.setLastName("Maruskova");
         newPerson.setSsn("999888777");
-        newPerson.setDateOfBirth(getAge(1969, 11, 1));
+        newPerson.setDateOfBirth(LocalDate.of(1969, 11, 1));
         newPerson.setGender(PersonGender.FEMALE.getValue());
         newPersonDao.newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
