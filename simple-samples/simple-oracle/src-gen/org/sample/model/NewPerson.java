@@ -2,7 +2,7 @@ package org.sample.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -20,22 +20,22 @@ public class NewPerson implements Serializable {
     this.newid = newid;
   }
   
-  public NewPerson _setNewid(final BigDecimal newid) {
+  public NewPerson withNewid(final BigDecimal newid) {
     this.newid = newid;
     return this;
   }
   
-  private Timestamp dateOfBirth;
+  private LocalDateTime dateOfBirth;
   
-  public Timestamp getDateOfBirth() {
+  public LocalDateTime getDateOfBirth() {
     return this.dateOfBirth;
   }
   
-  public void setDateOfBirth(final Timestamp dateOfBirth) {
+  public void setDateOfBirth(final LocalDateTime dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
   
-  public NewPerson _setDateOfBirth(final Timestamp dateOfBirth) {
+  public NewPerson withDateOfBirth(final LocalDateTime dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -50,7 +50,7 @@ public class NewPerson implements Serializable {
     this.ssn = ssn;
   }
   
-  public NewPerson _setSsn(final String ssn) {
+  public NewPerson withSsn(final String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -65,7 +65,7 @@ public class NewPerson implements Serializable {
     this.firstName = firstName;
   }
   
-  public NewPerson _setFirstName(final String firstName) {
+  public NewPerson withFirstName(final String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -80,7 +80,7 @@ public class NewPerson implements Serializable {
     this.lastName = lastName;
   }
   
-  public NewPerson _setLastName(final String lastName) {
+  public NewPerson withLastName(final String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -95,7 +95,7 @@ public class NewPerson implements Serializable {
     this.gender = gender;
   }
   
-  public NewPerson _setGender(final String gender) {
+  public NewPerson withGender(final String gender) {
     this.gender = gender;
     return this;
   }

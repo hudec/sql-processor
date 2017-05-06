@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -9,17 +9,17 @@ import org.sqlproc.engine.annotation.Pojo;
 public class NewPersonRetRs implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private Timestamp dateOfBirth;
+  private LocalDateTime dateOfBirth;
   
-  public Timestamp getDateOfBirth() {
+  public LocalDateTime getDateOfBirth() {
     return this.dateOfBirth;
   }
   
-  public void setDateOfBirth(final Timestamp dateOfBirth) {
+  public void setDateOfBirth(final LocalDateTime dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
   
-  public NewPersonRetRs _setDateOfBirth(final Timestamp dateOfBirth) {
+  public NewPersonRetRs withDateOfBirth(final LocalDateTime dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -34,7 +34,7 @@ public class NewPersonRetRs implements Serializable {
     this.ssn = ssn;
   }
   
-  public NewPersonRetRs _setSsn(final String ssn) {
+  public NewPersonRetRs withSsn(final String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -49,7 +49,7 @@ public class NewPersonRetRs implements Serializable {
     this.firstName = firstName;
   }
   
-  public NewPersonRetRs _setFirstName(final String firstName) {
+  public NewPersonRetRs withFirstName(final String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -64,7 +64,7 @@ public class NewPersonRetRs implements Serializable {
     this.lastName = lastName;
   }
   
-  public NewPersonRetRs _setLastName(final String lastName) {
+  public NewPersonRetRs withLastName(final String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -79,7 +79,7 @@ public class NewPersonRetRs implements Serializable {
     this.gender = gender;
   }
   
-  public NewPersonRetRs _setGender(final String gender) {
+  public NewPersonRetRs withGender(final String gender) {
     this.gender = gender;
     return this;
   }

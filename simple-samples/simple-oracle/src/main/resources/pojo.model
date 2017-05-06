@@ -47,7 +47,7 @@ package org.sample.model {
         #Required #Index
         #Attr String lastName // VARCHAR2(100)
         #IsDef
-        #Attr java.sql.Timestamp dateOfBirth // DATE(7)
+        #Attr java.time.LocalDateTime dateOfBirth // DATE(7)
         @NotNull
         #Required
         #Attr PersonGender gender // VARCHAR2(1)
@@ -60,13 +60,13 @@ package org.sample.model {
 
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.sql.Timestamp t // DATE
+        #Attr java.time.LocalDateTime t // DATE
     }
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
         #Attr java.math.BigDecimal newid // NUMBER(22)
-        #Attr java.sql.Timestamp dateOfBirth // DATE
+        #Attr java.time.LocalDateTime dateOfBirth // DATE
         #Attr String ssn // VARCHAR2
         #Attr String firstName // VARCHAR2
         #Attr String lastName // VARCHAR2
@@ -76,7 +76,7 @@ package org.sample.model {
     #Serializable(1) #ToString(resultCur,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonOutRs {
         #Attr Object resultCur // REF CURSOR
-        #Attr java.sql.Timestamp dateOfBirth // DATE
+        #Attr java.time.LocalDateTime dateOfBirth // DATE
         #Attr String ssn // VARCHAR2
         #Attr String firstName // VARCHAR2
         #Attr String lastName // VARCHAR2
@@ -85,7 +85,7 @@ package org.sample.model {
 
     #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.sql.Timestamp dateOfBirth // DATE
+        #Attr java.time.LocalDateTime dateOfBirth // DATE
         #Attr String ssn // VARCHAR2
         #Attr String firstName // VARCHAR2
         #Attr String lastName // VARCHAR2

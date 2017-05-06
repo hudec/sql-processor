@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -19,22 +19,22 @@ public class NewPersonOutRs implements Serializable {
     this.resultCur = resultCur;
   }
   
-  public NewPersonOutRs _setResultCur(final Object resultCur) {
+  public NewPersonOutRs withResultCur(final Object resultCur) {
     this.resultCur = resultCur;
     return this;
   }
   
-  private Timestamp dateOfBirth;
+  private LocalDateTime dateOfBirth;
   
-  public Timestamp getDateOfBirth() {
+  public LocalDateTime getDateOfBirth() {
     return this.dateOfBirth;
   }
   
-  public void setDateOfBirth(final Timestamp dateOfBirth) {
+  public void setDateOfBirth(final LocalDateTime dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
   
-  public NewPersonOutRs _setDateOfBirth(final Timestamp dateOfBirth) {
+  public NewPersonOutRs withDateOfBirth(final LocalDateTime dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -49,7 +49,7 @@ public class NewPersonOutRs implements Serializable {
     this.ssn = ssn;
   }
   
-  public NewPersonOutRs _setSsn(final String ssn) {
+  public NewPersonOutRs withSsn(final String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -64,7 +64,7 @@ public class NewPersonOutRs implements Serializable {
     this.firstName = firstName;
   }
   
-  public NewPersonOutRs _setFirstName(final String firstName) {
+  public NewPersonOutRs withFirstName(final String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -79,7 +79,7 @@ public class NewPersonOutRs implements Serializable {
     this.lastName = lastName;
   }
   
-  public NewPersonOutRs _setLastName(final String lastName) {
+  public NewPersonOutRs withLastName(final String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -94,7 +94,7 @@ public class NewPersonOutRs implements Serializable {
     this.gender = gender;
   }
   
-  public NewPersonOutRs _setGender(final String gender) {
+  public NewPersonOutRs withGender(final String gender) {
     this.gender = gender;
     return this;
   }
