@@ -98,6 +98,8 @@ pojogen-setter-annotations ids XmlTransient - PersonDetail;
 pojogen-pojo-annotations XmlTransient + Contact;
 //pojogen-constructor-annotations XmlTransient + Person;
 
+//pojogen-old-date-time;
+
 //database-debug-level DEBUG;
 //pojogen-debug-level DEBUG;
 //daogen-debug-level DEBUG;

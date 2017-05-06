@@ -456,7 +456,7 @@ public class Main {
         newPersonRetRs.setFirstName("Beruska");
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
-        newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        newPersonRetRs.setDateOfBirth(LocalDate.of(1969, 1, 21));
         newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
         List<NewPersonRetRsResult> list2 = newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list2);
@@ -488,18 +488,6 @@ public class Main {
                 System.out.println("  " + ee.getValue() + " = " + ee.getKey());
             }
         }
-    }
-
-    public java.sql.Timestamp getAge(int year, int month, int day) {
-        Calendar birthDay = Calendar.getInstance();
-        birthDay.set(Calendar.YEAR, year);
-        birthDay.set(Calendar.MONTH, month);
-        birthDay.set(Calendar.DAY_OF_MONTH, day);
-        birthDay.set(Calendar.HOUR_OF_DAY, 0);
-        birthDay.set(Calendar.MINUTE, 0);
-        birthDay.set(Calendar.SECOND, 0);
-        birthDay.set(Calendar.MILLISECOND, 0);
-        return new java.sql.Timestamp(birthDay.getTime().getTime());
     }
 
     private String SQL_UPDATE_PERSON = "update %%PERSON " + "{= set " + "{ ,%FIRST_NAME = :firstName(call=isDef) } "

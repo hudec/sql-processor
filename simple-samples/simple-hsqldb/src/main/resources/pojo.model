@@ -89,7 +89,7 @@ package org.sample.model {
         #Attr String lastName
         #IsDef
         // The date of birth
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         @NotNull
         #Required
         // The gender: M=male, F=female, 0=other
@@ -140,7 +140,7 @@ package org.sample.model {
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
         #Attr long newid
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         #Attr String ssn
         #Attr String firstName
         #Attr String lastName
@@ -149,10 +149,23 @@ package org.sample.model {
 
     #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         #Attr String ssn
         #Attr String firstName
         #Attr String lastName
         #Attr String gender
     }
+
+// Model statistics
+// Tables=3
+// Columns=18
+// Primary Keys=4
+// Exports=2
+// Imports=2
+// Indexes=6
+// Check Constraints=3
+// Procedures=3
+// Procedures Columns=12
+// Functions=1
+// Functions Columns=1
 }
