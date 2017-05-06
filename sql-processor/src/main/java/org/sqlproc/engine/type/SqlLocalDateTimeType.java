@@ -59,6 +59,10 @@ public abstract class SqlLocalDateTimeType extends SqlDefaultType {
         } else if (inputValue instanceof java.time.LocalDateTime) {
             Timestamp value = Timestamp.valueOf((java.time.LocalDateTime) inputValue);
             query.setParameter(paramName, value, getProviderSqlType());
+        } else if (inputValue instanceof OutValueSetter) {
+            query.setParameter(paramName, inputValue, getProviderSqlType());
+        } else {
+            error(logger, ingoreError, "Incorrect localdatetime " + inputValue + " for " + paramName);
         }
     }
 }

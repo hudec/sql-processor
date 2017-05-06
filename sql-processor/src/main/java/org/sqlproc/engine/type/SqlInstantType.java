@@ -1,8 +1,6 @@
 package org.sqlproc.engine.type;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.Instant;
 
 import org.sqlproc.engine.SqlQuery;
 import org.sqlproc.engine.SqlRuntimeContext;
@@ -48,7 +46,7 @@ public abstract class SqlInstantType extends SqlDefaultType {
             return;
         }
         error(logger, ingoreError,
-                "Incorrect localtime " + resultValue + " for " + attributeName + " in " + resultInstance);
+                "Incorrect instant " + resultValue + " for " + attributeName + " in " + resultInstance);
     }
 
     /**
@@ -64,8 +62,10 @@ public abstract class SqlInstantType extends SqlDefaultType {
         } else if (inputValue instanceof java.time.Instant) {
             Timestamp value = Timestamp.from((java.time.Instant) inputValue);
             query.setParameter(paramName, value, getProviderSqlType());
+        } else if (inputValue instanceof OutValueSetter) {
+            query.setParameter(paramName, inputValue, getProviderSqlType());
         } else {
-            error(logger, ingoreError, "Incorrect localtime " + inputValue + " for " + paramName);
+            error(logger, ingoreError, "Incorrect instant " + inputValue + " for " + paramName);
         }
     }
 }
