@@ -35,7 +35,7 @@ public class Performer extends BaseModelImpl implements Serializable {
     this.id = id;
   }
   
-  public Performer _setId(final Long id) {
+  public Performer withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -50,7 +50,7 @@ public class Performer extends BaseModelImpl implements Serializable {
     this.person = person;
   }
   
-  public Performer _setPerson(final Person person) {
+  public Performer withPerson(final Person person) {
     this.person = person;
     return this;
   }
@@ -65,7 +65,7 @@ public class Performer extends BaseModelImpl implements Serializable {
     this.ver = ver;
   }
   
-  public Performer _setVer(final Integer ver) {
+  public Performer withVer(final Integer ver) {
     this.ver = ver;
     return this;
   }
@@ -80,7 +80,7 @@ public class Performer extends BaseModelImpl implements Serializable {
     this.work = work;
   }
   
-  public Performer _setWork(final List<Media> work) {
+  public Performer withWork(final List<Media> work) {
     this.work = work;
     return this;
   }
@@ -147,7 +147,7 @@ public class Performer extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Performer _setInit_(final Performer.Association... associations) {
+  public Performer withInit_(final Performer.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -171,7 +171,7 @@ public class Performer extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Performer _setInit_(final String... associations) {
+  public Performer withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

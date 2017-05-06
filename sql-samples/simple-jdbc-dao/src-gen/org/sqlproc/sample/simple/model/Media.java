@@ -33,7 +33,7 @@ public class Media extends BaseModelImpl implements Serializable {
     this.id = id;
   }
   
-  public Media _setId(final Long id) {
+  public Media withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -48,7 +48,7 @@ public class Media extends BaseModelImpl implements Serializable {
     this.title = title;
   }
   
-  public Media _setTitle(final String title) {
+  public Media withTitle(final String title) {
     this.title = title;
     return this;
   }
@@ -63,7 +63,7 @@ public class Media extends BaseModelImpl implements Serializable {
     this.author = author;
   }
   
-  public Media _setAuthor(final Performer author) {
+  public Media withAuthor(final Performer author) {
     this.author = author;
     return this;
   }
@@ -78,7 +78,7 @@ public class Media extends BaseModelImpl implements Serializable {
     this.version = version;
   }
   
-  public Media _setVersion(final Integer version) {
+  public Media withVersion(final Integer version) {
     this.version = version;
     return this;
   }
@@ -137,7 +137,7 @@ public class Media extends BaseModelImpl implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public Media _setNull_(final Media.Attribute... attributes) {
+  public Media withNull_(final Media.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -161,7 +161,7 @@ public class Media extends BaseModelImpl implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public Media _setNull_(final String... attributes) {
+  public Media withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -236,7 +236,7 @@ public class Media extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Media _setInit_(final Media.Association... associations) {
+  public Media withInit_(final Media.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -260,7 +260,7 @@ public class Media extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Media _setInit_(final String... associations) {
+  public Media withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

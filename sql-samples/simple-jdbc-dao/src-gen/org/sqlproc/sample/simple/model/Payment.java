@@ -1,7 +1,7 @@
 package org.sqlproc.sample.simple.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Set;
 import org.sqlproc.engine.annotation.Pojo;
 import org.sqlproc.sample.simple.model.BillingDetails;
@@ -19,7 +19,7 @@ public class Payment extends BaseModelImpl implements Serializable {
   public Payment() {
   }
   
-  public Payment(final BillingDetails billingDetails, final Timestamp paid) {
+  public Payment(final BillingDetails billingDetails, final LocalDateTime paid) {
     super();
     setBillingDetails(billingDetails);
     setPaid(paid);
@@ -35,7 +35,7 @@ public class Payment extends BaseModelImpl implements Serializable {
     this.id = id;
   }
   
-  public Payment _setId(final Long id) {
+  public Payment withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -50,22 +50,22 @@ public class Payment extends BaseModelImpl implements Serializable {
     this.billingDetails = billingDetails;
   }
   
-  public Payment _setBillingDetails(final BillingDetails billingDetails) {
+  public Payment withBillingDetails(final BillingDetails billingDetails) {
     this.billingDetails = billingDetails;
     return this;
   }
   
-  private Timestamp paid;
+  private LocalDateTime paid;
   
-  public Timestamp getPaid() {
+  public LocalDateTime getPaid() {
     return this.paid;
   }
   
-  public void setPaid(final Timestamp paid) {
+  public void setPaid(final LocalDateTime paid) {
     this.paid = paid;
   }
   
-  public Payment _setPaid(final Timestamp paid) {
+  public Payment withPaid(final LocalDateTime paid) {
     this.paid = paid;
     return this;
   }
@@ -80,7 +80,7 @@ public class Payment extends BaseModelImpl implements Serializable {
     this.version = version;
   }
   
-  public Payment _setVersion(final Integer version) {
+  public Payment withVersion(final Integer version) {
     this.version = version;
     return this;
   }
@@ -147,7 +147,7 @@ public class Payment extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Payment _setInit_(final Payment.Association... associations) {
+  public Payment withInit_(final Payment.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -171,7 +171,7 @@ public class Payment extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Payment _setInit_(final String... associations) {
+  public Payment withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

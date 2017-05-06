@@ -37,7 +37,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     this.id = id;
   }
   
-  public Subscriber _setId(final Long id) {
+  public Subscriber withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -52,7 +52,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     this.library = library;
   }
   
-  public Subscriber _setLibrary(final Library library) {
+  public Subscriber withLibrary(final Library library) {
     this.library = library;
     return this;
   }
@@ -67,7 +67,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     this.contact = contact;
   }
   
-  public Subscriber _setContact(final Contact contact) {
+  public Subscriber withContact(final Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -82,7 +82,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     this.name = name;
   }
   
-  public Subscriber _setName(final String name) {
+  public Subscriber withName(final String name) {
     this.name = name;
     return this;
   }
@@ -97,7 +97,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     this.version = version;
   }
   
-  public Subscriber _setVersion(final Integer version) {
+  public Subscriber withVersion(final Integer version) {
     this.version = version;
     return this;
   }
@@ -112,7 +112,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     this.billingDetails = billingDetails;
   }
   
-  public Subscriber _setBillingDetails(final List<BillingDetails> billingDetails) {
+  public Subscriber withBillingDetails(final List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
     return this;
   }
@@ -173,7 +173,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public Subscriber _setNull_(final Subscriber.Attribute... attributes) {
+  public Subscriber withNull_(final Subscriber.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -197,7 +197,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public Subscriber _setNull_(final String... attributes) {
+  public Subscriber withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -276,7 +276,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Subscriber _setInit_(final Subscriber.Association... associations) {
+  public Subscriber withInit_(final Subscriber.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -300,7 +300,7 @@ public class Subscriber extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Subscriber _setInit_(final String... associations) {
+  public Subscriber withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

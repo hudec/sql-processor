@@ -33,7 +33,7 @@ public class Library extends BaseModelImpl implements Serializable {
     this.id = id;
   }
   
-  public Library _setId(final Long id) {
+  public Library withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -48,7 +48,7 @@ public class Library extends BaseModelImpl implements Serializable {
     this.name = name;
   }
   
-  public Library _setName(final String name) {
+  public Library withName(final String name) {
     this.name = name;
     return this;
   }
@@ -63,7 +63,7 @@ public class Library extends BaseModelImpl implements Serializable {
     this.version = version;
   }
   
-  public Library _setVersion(final Integer version) {
+  public Library withVersion(final Integer version) {
     this.version = version;
     return this;
   }
@@ -78,7 +78,7 @@ public class Library extends BaseModelImpl implements Serializable {
     this.catalog = catalog;
   }
   
-  public Library _setCatalog(final List<PhysicalMedia> catalog) {
+  public Library withCatalog(final List<PhysicalMedia> catalog) {
     this.catalog = catalog;
     return this;
   }
@@ -93,7 +93,7 @@ public class Library extends BaseModelImpl implements Serializable {
     this.subscribers = subscribers;
   }
   
-  public Library _setSubscribers(final List<Subscriber> subscribers) {
+  public Library withSubscribers(final List<Subscriber> subscribers) {
     this.subscribers = subscribers;
     return this;
   }
@@ -160,7 +160,7 @@ public class Library extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Library _setInit_(final Library.Association... associations) {
+  public Library withInit_(final Library.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -184,7 +184,7 @@ public class Library extends BaseModelImpl implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Library _setInit_(final String... associations) {
+  public Library withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

@@ -1,8 +1,7 @@
 package org.sqlproc.sample.simple;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.Assert;
@@ -88,7 +87,7 @@ public class Main {
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = personDao.insert(person);
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact._setPerson(p));
+            Contact c = contactDao.insert(contact.withPerson(p));
             p.getContacts().add(c);
         }
         return p;
@@ -125,37 +124,37 @@ public class Main {
 
         // insert
         Person jan = main.insertPersonContacts(new Person("Jan", "Jánský"),
-                new Contact()._setAddress("Jan address 1")._setPhoneNumber(new PhoneNumber(111, 222, 3333)));
+                new Contact().withAddress("Jan address 1").withPhoneNumber(new PhoneNumber(111, 222, 3333)));
         Person janik = main.insertPersonContacts(new Person("Janík", "Janíček"),
-                new Contact()._setAddress("Janik address 1"));
+                new Contact().withAddress("Janik address 1"));
         Person honza = main.insertPersonContacts(new Person("Honza", "Honzovský"),
-                new Contact()._setAddress("Honza address 1"), new Contact()._setAddress("Honza address 2"));
+                new Contact().withAddress("Honza address 1"), new Contact().withAddress("Honza address 2"));
         Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzíček"));
-        Performer honzikp = main.performerDao.insert(new Performer()._setPerson(honzik));
-        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejček")._setSsn("123456789"),
-                new Contact()._setAddress("Andrej address 1")._setPhoneNumber(new PhoneNumber(444, 555, 6666)));
+        Performer honzikp = main.performerDao.insert(new Performer().withPerson(honzik));
+        Person andrej = main.insertPersonContacts(new Person("Andrej", "Andrejček").withSsn("123456789"),
+                new Contact().withAddress("Andrej address 1").withPhoneNumber(new PhoneNumber(444, 555, 6666)));
 
         Library lib = main.libraryDao.insert(new Library("Alexandria Library"));
         Subscriber janikS = main.subscriberDao
-                .insert(new Subscriber(lib, "Janik Subscr")._setContact(jan.getContacts().get(0)));
+                .insert(new Subscriber(lib, "Janik Subscr").withContact(jan.getContacts().get(0)));
         lib.getSubscribers().add(janikS);
         Subscriber honzaS = main.subscriberDao
-                .insert(new Subscriber(lib, "Honza Subscr")._setContact(honza.getContacts().get(0)));
+                .insert(new Subscriber(lib, "Honza Subscr").withContact(honza.getContacts().get(0)));
         lib.getSubscribers().add(honzaS);
 
-        BankAccount bankAccount1 = main.bankAccountDao.insert(new BankAccount(janikS, "BA")._setBaAccount("account 1"));
-        main.bankAccountDao.insert(new BankAccount(honzaS, "BA")._setBaAccount("account 2"));
-        CreditCard creditCard1 = main.creditCardDao.insert(new CreditCard(janikS, "CC")._setCcNumber(123L));
-        main.creditCardDao.insert(new CreditCard(honzaS, "CC")._setCcNumber(456L));
+        BankAccount bankAccount1 = main.bankAccountDao.insert(new BankAccount(janikS, "BA").withBaAccount("account 1"));
+        main.bankAccountDao.insert(new BankAccount(honzaS, "BA").withBaAccount("account 2"));
+        CreditCard creditCard1 = main.creditCardDao.insert(new CreditCard(janikS, "CC").withCcNumber(123L));
+        main.creditCardDao.insert(new CreditCard(honzaS, "CC").withCcNumber(456L));
 
-        Payment payment1 = main.paymentDao.insert(new Payment(bankAccount1, new Timestamp(new Date().getTime())));
-        Payment payment2 = main.paymentDao.insert(new Payment(creditCard1, new Timestamp(new Date().getTime())));
+        Payment payment1 = main.paymentDao.insert(new Payment(bankAccount1, LocalDateTime.now()));
+        Payment payment2 = main.paymentDao.insert(new Payment(creditCard1, LocalDateTime.now()));
 
         NewBook book1 = main.bookDao
-                .insert((NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003")._setAuthor(honzikp));
+                .insert((NewBook) new NewBook("The Adventures of Robin Hood", "978-0140367003").withAuthor(honzikp));
         NewBook book2 = main.bookDao.insert(new NewBook("The Three Musketeers", "978-1897093634"));
         Movie movie1 = main.movieDao
-                .insert((Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82)._setAuthor(honzikp));
+                .insert((Movie) new Movie("Pippi Långstrump i Söderhavet", "abc", 82).withAuthor(honzikp));
         Movie movie2 = main.movieDao.insert(new Movie("Die Another Day", "def", 95));
 
         PhysicalMedia pbook1 = main.physicalMediaDao.insert(new PhysicalMedia("folder 001", book1, lib));

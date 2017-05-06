@@ -29,7 +29,7 @@ public class Movie extends Media implements Serializable {
     this.urlimdb = urlimdb;
   }
   
-  public Movie _setUrlimdb(final String urlimdb) {
+  public Movie withUrlimdb(final String urlimdb) {
     this.urlimdb = urlimdb;
     return this;
   }
@@ -44,7 +44,7 @@ public class Movie extends Media implements Serializable {
     this.playlength = playlength;
   }
   
-  public Movie _setPlaylength(final Integer playlength) {
+  public Movie withPlaylength(final Integer playlength) {
     this.playlength = playlength;
     return this;
   }
@@ -81,7 +81,7 @@ public class Movie extends Media implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public Movie _setNull_(final Movie.Attribute... attributes) {
+  public Movie withNull_(final Movie.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -105,7 +105,7 @@ public class Movie extends Media implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public Movie _setNull_(final String... attributes) {
+  public Movie withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -180,7 +180,7 @@ public class Movie extends Media implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Movie _setInit_(final Movie.Association... associations) {
+  public Movie withInit_(final Movie.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -204,7 +204,7 @@ public class Movie extends Media implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Movie _setInit_(final String... associations) {
+  public Movie withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

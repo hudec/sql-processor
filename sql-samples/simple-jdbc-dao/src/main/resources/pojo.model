@@ -87,7 +87,7 @@ package org.sqlproc.sample.simple.model {
         #ToInit #Required #Index #IsPojo
         #Attr BillingDetails billingDetails
         #Required
-        #Attr java.sql.Timestamp paid
+        #Attr java.time.LocalDateTime paid
         #Version
         #Attr Integer version
     }
@@ -113,7 +113,7 @@ package org.sqlproc.sample.simple.model {
         #Required #Index
         #Attr String lastName
         #IsDef
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         #IsDef
         #Attr String ssn
         #Version

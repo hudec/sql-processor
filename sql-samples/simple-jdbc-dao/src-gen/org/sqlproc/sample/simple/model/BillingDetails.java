@@ -34,7 +34,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     this.id = id;
   }
   
-  public BillingDetails _setId(final Long id) {
+  public BillingDetails withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -49,7 +49,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     this.subscriber = subscriber;
   }
   
-  public BillingDetails _setSubscriber(final Subscriber subscriber) {
+  public BillingDetails withSubscriber(final Subscriber subscriber) {
     this.subscriber = subscriber;
     return this;
   }
@@ -64,7 +64,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     this.type = type;
   }
   
-  public BillingDetails _setType(final String type) {
+  public BillingDetails withType(final String type) {
     this.type = type;
     return this;
   }
@@ -79,7 +79,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     this.version = version;
   }
   
-  public BillingDetails _setVersion(final Integer version) {
+  public BillingDetails withVersion(final Integer version) {
     this.version = version;
     return this;
   }
@@ -146,7 +146,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     	initAssociations_.add(association.name());
   }
   
-  public BillingDetails _setInit_(final BillingDetails.Association... associations) {
+  public BillingDetails withInit_(final BillingDetails.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -170,7 +170,7 @@ public abstract class BillingDetails extends BaseModelImpl implements Serializab
     	initAssociations_.add(association);
   }
   
-  public BillingDetails _setInit_(final String... associations) {
+  public BillingDetails withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }
