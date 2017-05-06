@@ -5,7 +5,6 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +56,7 @@ public class Main {
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
     private static final SqlFeature DB_TYPE = SqlFeature.HSQLDB;
-    private static final String DDL_SETUP = "hsqldb.ddl";
+    private static final String DDLwithUP = "hsqldb.ddl";
     private static final String DDL_CLEAR = "hsqldb0.ddl";
     private static final Integer REPEAT = 1;
 
@@ -92,7 +91,7 @@ public class Main {
         sqlFactory.setPluginFactory(sqlPluginFactory);
         sqlFactory.setConfiguration(configuration);
 
-        ddlSetup = DDLLoader.getDDLs(this.getClass(), DDL_SETUP);
+        ddlSetup = DDLLoader.getDDLs(this.getClass(), DDLwithUP);
         ddlClear = DDLLoader.getDDLs(this.getClass(), DDL_CLEAR);
         connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         sessionFactory = new JdbcSessionFactory(connection);
@@ -124,14 +123,14 @@ public class Main {
         SqlStandardControl ssc = new SqlStandardControl().setLowLevelSqlCallback(new LowLevelSqlCallbackImpl());
         Person p = personDao.insert(person, ssc);
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact._setPerson(p), ssc);
+            Contact c = contactDao.insert(contact.withPerson(p), ssc);
             p.getContacts().add(c);
         }
         return p;
     }
 
     public Person getPerson(Long id, Person.Association... associations) {
-        Person person = new Person()._setId(id)._setInit_(associations);
+        Person person = new Person().withId(id).withInit_(associations);
         SqlStandardControl ssc = new SqlStandardControl();
         if (associations != null) {
             Set<String> set = new TreeSet<String>();
@@ -173,52 +172,52 @@ public class Main {
 
         // insert
         Person jan = insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE),
-                new Contact()._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME),
-                new Contact()._setAddress("Jan address 2")._setType(ContactType.BUSINESS));
-        PersonDetail jand = new PersonDetail()._setId(jan)._setType(PersonDetailType.I0);
+                new Contact().withAddress("Jan address 1").withPhoneNumber("111-222-3333").withType(ContactType.HOME),
+                new Contact().withAddress("Jan address 2").withType(ContactType.BUSINESS));
+        PersonDetail jand = new PersonDetail().withId(jan).withType(PersonDetailType.I0);
         personDetailDao.insert(jand);
-        jand = new PersonDetail()._setId(jan)._setType(PersonDetailType.I1);
+        jand = new PersonDetail().withId(jan).withType(PersonDetailType.I1);
         personDetailDao.insert(jand);
-        jand = new PersonDetail()._setId(jan)._setType(PersonDetailType.I2);
+        jand = new PersonDetail().withId(jan).withType(PersonDetailType.I2);
         personDetailDao.insert(jand);
         p = getPerson(jan.getId(), Person.Association.contacts);
         Assert.assertEquals("Jan", p.getFirstName());
         Assert.assertEquals("Jan address 1", p.getContacts().get(0).getAddress());
 
         Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE),
-                new Contact()._setAddress("Janik address 1")._setType(ContactType.BUSINESS),
-                new Contact()._setAddress("Janik address 2")._setType(ContactType.BUSINESS));
-        PersonDetail janikd = new PersonDetail()._setId(janik)._setType(PersonDetailType.I1);
+                new Contact().withAddress("Janik address 1").withType(ContactType.BUSINESS),
+                new Contact().withAddress("Janik address 2").withType(ContactType.BUSINESS));
+        PersonDetail janikd = new PersonDetail().withId(janik).withType(PersonDetailType.I1);
         personDetailDao.insert(janikd);
-        janikd = new PersonDetail()._setId(janik)._setType(PersonDetailType.I3);
+        janikd = new PersonDetail().withId(janik).withType(PersonDetailType.I3);
         personDetailDao.insert(janikd);
         p = getPerson(janik.getId(), Person.Association.contacts);
         Assert.assertEquals("Janik", p.getFirstName());
         Assert.assertEquals("Janik address 1", p.getContacts().get(0).getAddress());
 
         Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE),
-                new Contact()._setAddress("Honza address 1")._setType(ContactType.HOME),
-                new Contact()._setAddress("Honza address 2")._setType(ContactType.BUSINESS));
-        PersonDetail honzad = new PersonDetail()._setId(honza)._setType(PersonDetailType.I2);
+                new Contact().withAddress("Honza address 1").withType(ContactType.HOME),
+                new Contact().withAddress("Honza address 2").withType(ContactType.BUSINESS));
+        PersonDetail honzad = new PersonDetail().withId(honza).withType(PersonDetailType.I2);
         personDetailDao.insert(honzad);
-        honzad = new PersonDetail()._setId(honza)._setType(PersonDetailType.I3);
+        honzad = new PersonDetail().withId(honza).withType(PersonDetailType.I3);
         personDetailDao.insert(honzad);
         p = getPerson(honza.getId(), Person.Association.contacts);
         Assert.assertEquals("Honza", p.getFirstName());
         Assert.assertEquals("Honza address 2", p.getContacts().get(1).getAddress());
 
         Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE),
-                new Contact()._setAddress("Honzik address 1")._setType(ContactType.HOME),
-                new Contact()._setAddress("Honzik address 2")._setType(ContactType.BUSINESS));
+                new Contact().withAddress("Honzik address 1").withType(ContactType.HOME),
+                new Contact().withAddress("Honzik address 2").withType(ContactType.BUSINESS));
         p = getPerson(honzik.getId(), Person.Association.contacts);
         Assert.assertEquals("Honzik", p.getFirstName());
         Assert.assertEquals(2, p.getContacts().size());
 
-        Person andrej = insertPersonContacts(new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
-                new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
-                        ._setType(ContactType.BUSINESS),
-                new Contact()._setAddress("Andrej address 2")._setPhoneNumber("444-555-6666")
-                        ._setType(ContactType.BUSINESS));
+        Person andrej = insertPersonContacts(new Person("Andrej", "Andrejcek", PersonGender.MALE).withSsn("123456789"),
+                new Contact().withAddress("Andrej address 1").withPhoneNumber("444-555-6666")
+                        .withType(ContactType.BUSINESS),
+                new Contact().withAddress("Andrej address 2").withPhoneNumber("444-555-6666")
+                        .withType(ContactType.BUSINESS));
         p = getPerson(andrej.getId(), Person.Association.contacts);
         Assert.assertEquals("Andrej", p.getFirstName());
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());

@@ -19,7 +19,7 @@ public class AnHourBefore implements Serializable {
     this.t = t;
   }
   
-  public AnHourBefore _setT(final Date t) {
+  public AnHourBefore withT(final Date t) {
     this.t = t;
     return this;
   }

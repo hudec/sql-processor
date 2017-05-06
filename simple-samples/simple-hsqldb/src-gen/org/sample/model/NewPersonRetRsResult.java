@@ -22,7 +22,7 @@ public class NewPersonRetRsResult implements Serializable {
     this.id = id;
   }
   
-  public NewPersonRetRsResult _setId(final Long id) {
+  public NewPersonRetRsResult withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -37,7 +37,7 @@ public class NewPersonRetRsResult implements Serializable {
     this.firstName = firstName;
   }
   
-  public NewPersonRetRsResult _setFirstName(final String firstName) {
+  public NewPersonRetRsResult withFirstName(final String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -52,7 +52,7 @@ public class NewPersonRetRsResult implements Serializable {
     this.lastName = lastName;
   }
   
-  public NewPersonRetRsResult _setLastName(final String lastName) {
+  public NewPersonRetRsResult withLastName(final String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -67,7 +67,7 @@ public class NewPersonRetRsResult implements Serializable {
     this.dateOfBirth = dateOfBirth;
   }
   
-  public NewPersonRetRsResult _setDateOfBirth(final Date dateOfBirth) {
+  public NewPersonRetRsResult withDateOfBirth(final Date dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -82,7 +82,7 @@ public class NewPersonRetRsResult implements Serializable {
     this.gender = gender;
   }
   
-  public NewPersonRetRsResult _setGender(final PersonGender gender) {
+  public NewPersonRetRsResult withGender(final PersonGender gender) {
     this.gender = gender;
     return this;
   }
@@ -97,7 +97,7 @@ public class NewPersonRetRsResult implements Serializable {
     this.ssn = ssn;
   }
   
-  public NewPersonRetRsResult _setSsn(final String ssn) {
+  public NewPersonRetRsResult withSsn(final String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -151,7 +151,7 @@ public class NewPersonRetRsResult implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public NewPersonRetRsResult _setNull_(final NewPersonRetRsResult.Attribute... attributes) {
+  public NewPersonRetRsResult withNull_(final NewPersonRetRsResult.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -175,7 +175,7 @@ public class NewPersonRetRsResult implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public NewPersonRetRsResult _setNull_(final String... attributes) {
+  public NewPersonRetRsResult withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -262,7 +262,7 @@ public class NewPersonRetRsResult implements Serializable {
     	operators_.put(attribute.name(), operator);
   }
   
-  public NewPersonRetRsResult _setOp_(final String operator, final NewPersonRetRsResult.OpAttribute... attributes) {
+  public NewPersonRetRsResult withOp_(final String operator, final NewPersonRetRsResult.OpAttribute... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -286,7 +286,7 @@ public class NewPersonRetRsResult implements Serializable {
     	operators_.put(attribute, operator);
   }
   
-  public NewPersonRetRsResult _setOp_(final String operator, final String... attributes) {
+  public NewPersonRetRsResult withOp_(final String operator, final String... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -310,7 +310,7 @@ public class NewPersonRetRsResult implements Serializable {
     	operators_.put(attribute.name(), "is null");
   }
   
-  public NewPersonRetRsResult _setNullOp_(final NewPersonRetRsResult.OpAttribute... attributes) {
+  public NewPersonRetRsResult withNullOp_(final NewPersonRetRsResult.OpAttribute... attributes) {
     setNullOp_(attributes);
     return this;
   }
@@ -322,7 +322,7 @@ public class NewPersonRetRsResult implements Serializable {
     	operators_.put(attribute, "is null");
   }
   
-  public NewPersonRetRsResult _setNullOp_(final String... attributes) {
+  public NewPersonRetRsResult withNullOp_(final String... attributes) {
     setNullOp_(attributes);
     return this;
   }

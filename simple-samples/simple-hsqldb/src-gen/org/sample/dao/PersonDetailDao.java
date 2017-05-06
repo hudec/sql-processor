@@ -206,7 +206,7 @@ public class PersonDetailDao {
     			return true;
     		}
     	};
-    	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail()._setIds_(ids_), sqlc, sqlRowProcessor);
+    	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail().withIds_(ids_), sqlc, sqlRowProcessor);
     	for (Long id : ids_)
     		personDetailList.add(map.get(id));
     }

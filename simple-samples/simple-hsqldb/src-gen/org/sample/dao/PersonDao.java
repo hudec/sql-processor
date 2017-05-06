@@ -206,7 +206,7 @@ public class PersonDao {
     			return true;
     		}
     	};
-    	sqlEnginePerson.query(sqlSession, Person.class, new Person()._setIds_(ids_), sqlc, sqlRowProcessor);
+    	sqlEnginePerson.query(sqlSession, Person.class, new Person().withIds_(ids_), sqlc, sqlRowProcessor);
     	for (java.lang.Long id : ids_)
     		personList.add(map.get(id));
     }

@@ -206,7 +206,7 @@ public class ContactDao {
     			return true;
     		}
     	};
-    	sqlEngineContact.query(sqlSession, Contact.class, new Contact()._setIds_(ids_), sqlc, sqlRowProcessor);
+    	sqlEngineContact.query(sqlSession, Contact.class, new Contact().withIds_(ids_), sqlc, sqlRowProcessor);
     	for (java.lang.Long id : ids_)
     		contactList.add(map.get(id));
     }
