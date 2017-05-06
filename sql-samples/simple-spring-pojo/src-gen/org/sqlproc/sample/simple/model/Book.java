@@ -27,7 +27,7 @@ public class Book extends Media implements Serializable {
     this.isbn = isbn;
   }
   
-  public Book _setIsbn(final String isbn) {
+  public Book withIsbn(final String isbn) {
     this.isbn = isbn;
     return this;
   }

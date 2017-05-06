@@ -24,7 +24,6 @@
         <version.junit>4.12</version.junit>
         <version.dbunit>2.5.1</version.dbunit>
         <version.hsqldb>2.4.0</version.hsqldb>
-        <version.sql-processor-eclipse>2.7.0-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
 

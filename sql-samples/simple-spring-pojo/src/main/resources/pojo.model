@@ -5,7 +5,7 @@ package org.sqlproc.sample.simple.model {
     #Serializable(1)
     #ToString(baAccount)
     #Pojo BankAccount extends BillingDetails {
-        #Attr String baAccount // VARCHAR(100)
+        #Attr String baAccount
     }
 
     #Serializable(1)
@@ -15,21 +15,21 @@ package org.sqlproc.sample.simple.model {
     abstract #Pojo BillingDetails {
         #PrimaryKey
         #Index
-        #Attr Long billingDetailsId // BIGINT(64)
+        #Attr Long billingDetailsId
         #Required
         #Index
         #IsPojo
-        #Attr Subscriber subscriber // BIGINT(64)
+        #Attr Subscriber subscriber
         #InheritanceDiscriminator
         #Required
-        #Attr String type // VARCHAR(2)
+        #Attr String type
     }
 
     #Serializable(1)
     #ToString(isbn)
     #Pojo Book extends Media {
         #Required
-        #Attr String isbn // VARCHAR(100)
+        #Attr String isbn
     }
 
     #Serializable(1)
@@ -39,22 +39,22 @@ package org.sqlproc.sample.simple.model {
     #Pojo Contact {
         #PrimaryKey
         #Index
-        #Attr Long contactId // BIGINT(64)
+        #Attr Long contactId
         #Required
         #Index
         #IsPojo
-        #Attr Person person // BIGINT(64)
+        #Attr Person person
         #Required
-        #Attr String address // VARCHAR(100)
-        #Attr org.sqlproc.sample.simple.model.PhoneNumber phoneNumber // VARCHAR(100)
-        #Attr java.util.List <Subscriber> subscribers // null
+        #Attr String address
+        #Attr org.sqlproc.sample.simple.model.PhoneNumber phoneNumber
+        #Attr java.util.List <Subscriber> subscribers
     }
 
     #InheritanceChild(CC)
     #Serializable(1)
     #ToString(ccNumber)
     #Pojo CreditCard extends BillingDetails {
-        #Attr Long ccNumber // BIGINT(64)
+        #Attr Long ccNumber
     }
 
     #Serializable(1)
@@ -64,10 +64,10 @@ package org.sqlproc.sample.simple.model {
     #Pojo Library {
         #PrimaryKey
         #Index
-        #Attr Long libraryId // BIGINT(64)
+        #Attr Long libraryId
         #Required
-        #Attr String name // VARCHAR(100)
-        #Attr java.util.List <Subscriber> subscribers // null
+        #Attr String name
+        #Attr java.util.List <Subscriber> subscribers
     }
 
     #Serializable(1)
@@ -77,18 +77,18 @@ package org.sqlproc.sample.simple.model {
     abstract #Pojo Media {
         #PrimaryKey
         #Index
-        #Attr Long mediaId // BIGINT(64)
+        #Attr Long mediaId
         #Required
-        #Attr String title // VARCHAR(100)
+        #Attr String title
     }
 
     #Serializable(1)
     #ToString(urlimdb,playlength)
     #Pojo Movie extends Media {
         #Required
-        #Attr String urlimdb // VARCHAR(100)
+        #Attr String urlimdb
         #Required
-        #Attr Integer playlength // INTEGER(32)
+        #Attr Integer playlength
     }
 
     #Serializable(1)
@@ -98,11 +98,11 @@ package org.sqlproc.sample.simple.model {
     #Pojo Person {
         #PrimaryKey
         #Index
-        #Attr Long personId // BIGINT(64)
+        #Attr Long personId
         #Required
-        #Attr String name // VARCHAR(100)
-        #Attr java.util.List <Contact> contacts // null
-        #Attr java.util.List <Media> library // null
+        #Attr String name
+        #Attr java.util.List <Contact> contacts
+        #Attr java.util.List <Media> library
     }
 
     #Serializable(1)
@@ -112,13 +112,13 @@ package org.sqlproc.sample.simple.model {
     #Pojo PersonLibrary {
         #PrimaryKey
         #Index
-        #Attr Long personLibraryId // BIGINT(64)
+        #Attr Long personLibraryId
         #Required
         #Index
-        #Attr Long personId // BIGINT(64)
+        #Attr Long personId
         #Required
         #Index
-        #Attr Long mediaId // BIGINT(64)
+        #Attr Long mediaId
     }
 
     #Serializable(1)
@@ -128,29 +128,16 @@ package org.sqlproc.sample.simple.model {
     #Pojo Subscriber {
         #PrimaryKey
         #Index
-        #Attr Long subscriberId // BIGINT(64)
+        #Attr Long subscriberId
         #Required
         #Index
         #IsPojo
-        #Attr Library library // BIGINT(64)
+        #Attr Library library
         #Index
         #IsPojo
-        #Attr Contact contact // BIGINT(64)
+        #Attr Contact contact
         #Required
-        #Attr String name // VARCHAR(100)
-        #Attr java.util.List <BillingDetails> billingDetails // null
+        #Attr String name
+        #Attr java.util.List <BillingDetails> billingDetails
     }
-
-// Model statistics
-// Tables=9
-// Columns=27
-// Primary Keys=7
-// Exports=8
-// Imports=8
-// Indexes=15
-// Check Constraints=0
-// Procedures=0
-// Procedures Columns=0
-// Functions=0
-// Functions Columns=0
 }

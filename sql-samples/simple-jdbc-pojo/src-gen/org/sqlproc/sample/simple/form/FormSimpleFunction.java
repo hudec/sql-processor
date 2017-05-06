@@ -16,7 +16,7 @@ public class FormSimpleFunction {
     this.time = time;
   }
   
-  public FormSimpleFunction _setTime(final Timestamp time) {
+  public FormSimpleFunction withTime(final Timestamp time) {
     this.time = time;
     return this;
   }
@@ -31,7 +31,7 @@ public class FormSimpleFunction {
     this.time2 = time2;
   }
   
-  public FormSimpleFunction _setTime2(final Timestamp time2) {
+  public FormSimpleFunction withTime2(final Timestamp time2) {
     this.time2 = time2;
     return this;
   }

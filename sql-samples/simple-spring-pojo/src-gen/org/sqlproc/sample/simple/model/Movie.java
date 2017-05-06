@@ -28,7 +28,7 @@ public class Movie extends Media implements Serializable {
     this.urlimdb = urlimdb;
   }
   
-  public Movie _setUrlimdb(final String urlimdb) {
+  public Movie withUrlimdb(final String urlimdb) {
     this.urlimdb = urlimdb;
     return this;
   }
@@ -43,7 +43,7 @@ public class Movie extends Media implements Serializable {
     this.playlength = playlength;
   }
   
-  public Movie _setPlaylength(final Integer playlength) {
+  public Movie withPlaylength(final Integer playlength) {
     this.playlength = playlength;
     return this;
   }

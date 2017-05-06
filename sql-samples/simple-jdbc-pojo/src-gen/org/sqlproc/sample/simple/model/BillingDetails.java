@@ -32,7 +32,7 @@ public abstract class BillingDetails implements Serializable {
     this.id = id;
   }
   
-  public BillingDetails _setId(final Long id) {
+  public BillingDetails withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -47,7 +47,7 @@ public abstract class BillingDetails implements Serializable {
     this.subscriber = subscriber;
   }
   
-  public BillingDetails _setSubscriber(final Subscriber subscriber) {
+  public BillingDetails withSubscriber(final Subscriber subscriber) {
     this.subscriber = subscriber;
     return this;
   }
@@ -62,7 +62,7 @@ public abstract class BillingDetails implements Serializable {
     this.type = type;
   }
   
-  public BillingDetails _setType(final String type) {
+  public BillingDetails withType(final String type) {
     this.type = type;
     return this;
   }

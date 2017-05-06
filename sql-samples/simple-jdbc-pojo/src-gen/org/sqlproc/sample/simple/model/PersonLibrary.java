@@ -33,7 +33,7 @@ public class PersonLibrary implements Serializable {
     this.id = id;
   }
   
-  public PersonLibrary _setId(final Long id) {
+  public PersonLibrary withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -48,7 +48,7 @@ public class PersonLibrary implements Serializable {
     this.personId = personId;
   }
   
-  public PersonLibrary _setPersonId(final Long personId) {
+  public PersonLibrary withPersonId(final Long personId) {
     this.personId = personId;
     return this;
   }
@@ -63,7 +63,7 @@ public class PersonLibrary implements Serializable {
     this.mediaId = mediaId;
   }
   
-  public PersonLibrary _setMediaId(final Long mediaId) {
+  public PersonLibrary withMediaId(final Long mediaId) {
     this.mediaId = mediaId;
     return this;
   }

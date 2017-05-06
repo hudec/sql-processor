@@ -27,7 +27,7 @@ public class BankAccount extends BillingDetails implements Serializable {
     this.baAccount = baAccount;
   }
   
-  public BankAccount _setBaAccount(final String baAccount) {
+  public BankAccount withBaAccount(final String baAccount) {
     this.baAccount = baAccount;
     return this;
   }

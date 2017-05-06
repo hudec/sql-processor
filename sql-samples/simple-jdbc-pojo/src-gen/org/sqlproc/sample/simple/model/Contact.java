@@ -33,7 +33,7 @@ public class Contact implements Serializable {
     this.id = id;
   }
   
-  public Contact _setId(final Long id) {
+  public Contact withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -48,7 +48,7 @@ public class Contact implements Serializable {
     this.person = person;
   }
   
-  public Contact _setPerson(final Person person) {
+  public Contact withPerson(final Person person) {
     this.person = person;
     return this;
   }
@@ -63,7 +63,7 @@ public class Contact implements Serializable {
     this.address = address;
   }
   
-  public Contact _setAddress(final String address) {
+  public Contact withAddress(final String address) {
     this.address = address;
     return this;
   }
@@ -78,7 +78,7 @@ public class Contact implements Serializable {
     this.phoneNumber = phoneNumber;
   }
   
-  public Contact _setPhoneNumber(final PhoneNumber phoneNumber) {
+  public Contact withPhoneNumber(final PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }

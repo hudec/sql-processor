@@ -30,7 +30,7 @@ public class Library implements Serializable {
     this.libraryId = libraryId;
   }
   
-  public Library _setLibraryId(final Long libraryId) {
+  public Library withLibraryId(final Long libraryId) {
     this.libraryId = libraryId;
     return this;
   }
@@ -45,7 +45,7 @@ public class Library implements Serializable {
     this.name = name;
   }
   
-  public Library _setName(final String name) {
+  public Library withName(final String name) {
     this.name = name;
     return this;
   }
@@ -60,7 +60,7 @@ public class Library implements Serializable {
     this.subscribers = subscribers;
   }
   
-  public Library _setSubscribers(final List<Subscriber> subscribers) {
+  public Library withSubscribers(final List<Subscriber> subscribers) {
     this.subscribers = subscribers;
     return this;
   }

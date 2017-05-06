@@ -27,7 +27,7 @@ public class CreditCard extends BillingDetails implements Serializable {
     this.ccNumber = ccNumber;
   }
   
-  public CreditCard _setCcNumber(final Long ccNumber) {
+  public CreditCard withCcNumber(final Long ccNumber) {
     this.ccNumber = ccNumber;
     return this;
   }

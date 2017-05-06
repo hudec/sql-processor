@@ -28,7 +28,7 @@ public abstract class Media implements Serializable {
     this.id = id;
   }
   
-  public Media _setId(final Long id) {
+  public Media withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -43,7 +43,7 @@ public abstract class Media implements Serializable {
     this.title = title;
   }
   
-  public Media _setTitle(final String title) {
+  public Media withTitle(final String title) {
     this.title = title;
     return this;
   }

@@ -34,7 +34,7 @@ public class Subscriber implements Serializable {
     this.id = id;
   }
   
-  public Subscriber _setId(final Long id) {
+  public Subscriber withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -49,7 +49,7 @@ public class Subscriber implements Serializable {
     this.library = library;
   }
   
-  public Subscriber _setLibrary(final Library library) {
+  public Subscriber withLibrary(final Library library) {
     this.library = library;
     return this;
   }
@@ -64,7 +64,7 @@ public class Subscriber implements Serializable {
     this.contact = contact;
   }
   
-  public Subscriber _setContact(final Long contact) {
+  public Subscriber withContact(final Long contact) {
     this.contact = contact;
     return this;
   }
@@ -79,7 +79,7 @@ public class Subscriber implements Serializable {
     this.name = name;
   }
   
-  public Subscriber _setName(final String name) {
+  public Subscriber withName(final String name) {
     this.name = name;
     return this;
   }
@@ -94,7 +94,7 @@ public class Subscriber implements Serializable {
     this.billingDetails = billingDetails;
   }
   
-  public Subscriber _setBillingDetails(final List<BillingDetails> billingDetails) {
+  public Subscriber withBillingDetails(final List<BillingDetails> billingDetails) {
     this.billingDetails = billingDetails;
     return this;
   }

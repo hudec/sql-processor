@@ -280,12 +280,12 @@ public class Main {
         main.setupDb();
 
         // init
-        Person jan = main.insert(session, new Person("Jan"), new Contact()._setAddress("Jan address 1"));
-        Person janik = main.insert(session, new Person("Janik"), new Contact()._setAddress("Janik address 1"));
-        Person honza = main.insert(session, new Person("Honza"), new Contact()._setAddress("Honza address 1"),
-                new Contact()._setAddress("Honza address 2"));
+        Person jan = main.insert(session, new Person("Jan"), new Contact().withAddress("Jan address 1"));
+        Person janik = main.insert(session, new Person("Janik"), new Contact().withAddress("Janik address 1"));
+        Person honza = main.insert(session, new Person("Honza"), new Contact().withAddress("Honza address 1"),
+                new Contact().withAddress("Honza address 2"));
         Person honzik = main.insert(session, new Person("Honzik"));
-        Person andrej = main.insert(session, new Person("Andrej"), new Contact()._setAddress("Andrej address 1"));
+        Person andrej = main.insert(session, new Person("Andrej"), new Contact().withAddress("Andrej address 1"));
 
         Book book1 = main.insertBook(session, new Book("The Adventures of Robin Hood", "978-0140367003"));
         Book book2 = main.insertBook(session, new Book("The Three Musketeers", "978-1897093634"));
@@ -300,10 +300,10 @@ public class Main {
         Subscriber arnost = main.insertSubscriber(session, new Subscriber(lib, "Arnost"));
         Subscriber maria = main.insertSubscriber(session, new Subscriber(lib, "Maria"));
 
-        main.insertBankAccount(session, new BankAccount(arnost, "BA")._setBaAccount("account 1"));
-        main.insertBankAccount(session, new BankAccount(maria, "BA")._setBaAccount("account 2"));
-        main.insertCreditCard(session, new CreditCard(arnost, "CC")._setCcNumber(123L));
-        main.insertCreditCard(session, new CreditCard(maria, "CC")._setCcNumber(456L));
+        main.insertBankAccount(session, new BankAccount(arnost, "BA").withBaAccount("account 1"));
+        main.insertBankAccount(session, new BankAccount(maria, "BA").withBaAccount("account 2"));
+        main.insertCreditCard(session, new CreditCard(arnost, "CC").withCcNumber(123L));
+        main.insertCreditCard(session, new CreditCard(maria, "CC").withCcNumber(456L));
 
         // queries
         list = main.listAll(session);
@@ -383,7 +383,7 @@ public class Main {
         Assert.assertEquals(4, list.size());
 
         // custom type
-        Contact cc = new Contact()._setAddress("Pepa address 1");
+        Contact cc = new Contact().withAddress("Pepa address 1");
         cc.setPhoneNumber(new PhoneNumber(111, 222, 3333));
         Person pepa = main.insertCustom(session, new Person("Pepa"), cc);
         Contact contact = new Contact();

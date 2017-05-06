@@ -31,7 +31,7 @@ public class Person implements Serializable {
     this.personId = personId;
   }
   
-  public Person _setPersonId(final Long personId) {
+  public Person withPersonId(final Long personId) {
     this.personId = personId;
     return this;
   }
@@ -46,7 +46,7 @@ public class Person implements Serializable {
     this.name = name;
   }
   
-  public Person _setName(final String name) {
+  public Person withName(final String name) {
     this.name = name;
     return this;
   }
@@ -61,7 +61,7 @@ public class Person implements Serializable {
     this.contacts = contacts;
   }
   
-  public Person _setContacts(final List<Contact> contacts) {
+  public Person withContacts(final List<Contact> contacts) {
     this.contacts = contacts;
     return this;
   }
@@ -76,7 +76,7 @@ public class Person implements Serializable {
     this.library = library;
   }
   
-  public Person _setLibrary(final List<Media> library) {
+  public Person withLibrary(final List<Media> library) {
     this.library = library;
     return this;
   }
