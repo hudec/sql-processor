@@ -78,7 +78,7 @@ package org.sqlproc.sample.simple.model {
         #ToInit #Required #IsPojo
         #Attr BillingDetails billingDetails
         #Required
-        #Attr java.sql.Timestamp paid
+        #Attr java.time.LocalDateTime paid
     }
 
     #Serializable(1) #Index(id) #Index(person) #Equals(id) #HashCode(id) #ToString(id) #ProcId(id,person)
@@ -100,7 +100,7 @@ package org.sqlproc.sample.simple.model {
         #Required
         #Attr String lastName
         #IsDef
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         #IsDef
         #Attr String ssn
         #IsDef

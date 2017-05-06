@@ -28,7 +28,7 @@ public class NewBook extends Media implements Serializable {
     this.newIsbn = newIsbn;
   }
   
-  public NewBook _setNewIsbn(final String newIsbn) {
+  public NewBook withNewIsbn(final String newIsbn) {
     this.newIsbn = newIsbn;
     return this;
   }
@@ -63,7 +63,7 @@ public class NewBook extends Media implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public NewBook _setNull_(final NewBook.Attribute... attributes) {
+  public NewBook withNull_(final NewBook.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -87,7 +87,7 @@ public class NewBook extends Media implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public NewBook _setNull_(final String... attributes) {
+  public NewBook withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -162,7 +162,7 @@ public class NewBook extends Media implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public NewBook _setInit_(final NewBook.Association... associations) {
+  public NewBook withInit_(final NewBook.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -186,7 +186,7 @@ public class NewBook extends Media implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public NewBook _setInit_(final String... associations) {
+  public NewBook withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

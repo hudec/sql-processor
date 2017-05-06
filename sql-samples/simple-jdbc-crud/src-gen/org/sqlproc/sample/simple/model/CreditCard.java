@@ -28,7 +28,7 @@ public class CreditCard extends BillingDetails implements Serializable {
     this.ccNumber = ccNumber;
   }
   
-  public CreditCard _setCcNumber(final Long ccNumber) {
+  public CreditCard withCcNumber(final Long ccNumber) {
     this.ccNumber = ccNumber;
     return this;
   }
@@ -63,7 +63,7 @@ public class CreditCard extends BillingDetails implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public CreditCard _setNull_(final CreditCard.Attribute... attributes) {
+  public CreditCard withNull_(final CreditCard.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -87,7 +87,7 @@ public class CreditCard extends BillingDetails implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public CreditCard _setNull_(final String... attributes) {
+  public CreditCard withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -162,7 +162,7 @@ public class CreditCard extends BillingDetails implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public CreditCard _setInit_(final CreditCard.Association... associations) {
+  public CreditCard withInit_(final CreditCard.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -186,7 +186,7 @@ public class CreditCard extends BillingDetails implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public CreditCard _setInit_(final String... associations) {
+  public CreditCard withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

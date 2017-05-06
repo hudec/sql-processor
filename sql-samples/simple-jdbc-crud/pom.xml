@@ -22,7 +22,6 @@
         <version.junit>4.12</version.junit>
         <version.hsqldb>2.4.0</version.hsqldb>
         <version.oracle>10.2.0.4</version.oracle>
-        <version.sql-processor-eclipse>2.6.0</version.sql-processor-eclipse>
     </properties>
 
     <build>

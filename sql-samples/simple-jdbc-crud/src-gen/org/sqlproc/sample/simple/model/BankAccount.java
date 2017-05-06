@@ -28,7 +28,7 @@ public class BankAccount extends BillingDetails implements Serializable {
     this.baAccount = baAccount;
   }
   
-  public BankAccount _setBaAccount(final String baAccount) {
+  public BankAccount withBaAccount(final String baAccount) {
     this.baAccount = baAccount;
     return this;
   }
@@ -63,7 +63,7 @@ public class BankAccount extends BillingDetails implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public BankAccount _setNull_(final BankAccount.Attribute... attributes) {
+  public BankAccount withNull_(final BankAccount.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -87,7 +87,7 @@ public class BankAccount extends BillingDetails implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public BankAccount _setNull_(final String... attributes) {
+  public BankAccount withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -162,7 +162,7 @@ public class BankAccount extends BillingDetails implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public BankAccount _setInit_(final BankAccount.Association... associations) {
+  public BankAccount withInit_(final BankAccount.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -186,7 +186,7 @@ public class BankAccount extends BillingDetails implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public BankAccount _setInit_(final String... associations) {
+  public BankAccount withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }

@@ -33,7 +33,7 @@ public class PhysicalMedia implements Serializable {
     this.id = id;
   }
   
-  public PhysicalMedia _setId(final Long id) {
+  public PhysicalMedia withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -48,7 +48,7 @@ public class PhysicalMedia implements Serializable {
     this.location = location;
   }
   
-  public PhysicalMedia _setLocation(final String location) {
+  public PhysicalMedia withLocation(final String location) {
     this.location = location;
     return this;
   }
@@ -63,7 +63,7 @@ public class PhysicalMedia implements Serializable {
     this.media = media;
   }
   
-  public PhysicalMedia _setMedia(final Media media) {
+  public PhysicalMedia withMedia(final Media media) {
     this.media = media;
     return this;
   }
@@ -78,7 +78,7 @@ public class PhysicalMedia implements Serializable {
     this.library = library;
   }
   
-  public PhysicalMedia _setLibrary(final Library library) {
+  public PhysicalMedia withLibrary(final Library library) {
     this.library = library;
     return this;
   }
@@ -147,7 +147,7 @@ public class PhysicalMedia implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public PhysicalMedia _setInit_(final PhysicalMedia.Association... associations) {
+  public PhysicalMedia withInit_(final PhysicalMedia.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -171,7 +171,7 @@ public class PhysicalMedia implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public PhysicalMedia _setInit_(final String... associations) {
+  public PhysicalMedia withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }
