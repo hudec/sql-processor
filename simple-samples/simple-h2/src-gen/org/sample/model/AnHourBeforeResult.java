@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Set;
 import org.sqlproc.engine.annotation.Pojo;
@@ -11,17 +11,17 @@ import org.sqlproc.engine.annotation.Pojo;
 public class AnHourBeforeResult implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private Timestamp p0;
+  private LocalDateTime p0;
   
-  public Timestamp getP0() {
+  public LocalDateTime getP0() {
     return this.p0;
   }
   
-  public void setP0(final Timestamp p0) {
+  public void setP0(final LocalDateTime p0) {
     this.p0 = p0;
   }
   
-  public AnHourBeforeResult _setP0(final Timestamp p0) {
+  public AnHourBeforeResult withP0(final LocalDateTime p0) {
     this.p0 = p0;
     return this;
   }
@@ -55,7 +55,7 @@ public class AnHourBeforeResult implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public AnHourBeforeResult _setNull_(final AnHourBeforeResult.Attribute... attributes) {
+  public AnHourBeforeResult withNull_(final AnHourBeforeResult.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -79,7 +79,7 @@ public class AnHourBeforeResult implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public AnHourBeforeResult _setNull_(final String... attributes) {
+  public AnHourBeforeResult withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -156,7 +156,7 @@ public class AnHourBeforeResult implements Serializable {
     	operators_.put(attribute.name(), operator);
   }
   
-  public AnHourBeforeResult _setOp_(final String operator, final AnHourBeforeResult.OpAttribute... attributes) {
+  public AnHourBeforeResult withOp_(final String operator, final AnHourBeforeResult.OpAttribute... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -180,7 +180,7 @@ public class AnHourBeforeResult implements Serializable {
     	operators_.put(attribute, operator);
   }
   
-  public AnHourBeforeResult _setOp_(final String operator, final String... attributes) {
+  public AnHourBeforeResult withOp_(final String operator, final String... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -204,7 +204,7 @@ public class AnHourBeforeResult implements Serializable {
     	operators_.put(attribute.name(), "is null");
   }
   
-  public AnHourBeforeResult _setNullOp_(final AnHourBeforeResult.OpAttribute... attributes) {
+  public AnHourBeforeResult withNullOp_(final AnHourBeforeResult.OpAttribute... attributes) {
     setNullOp_(attributes);
     return this;
   }
@@ -216,7 +216,7 @@ public class AnHourBeforeResult implements Serializable {
     	operators_.put(attribute, "is null");
   }
   
-  public AnHourBeforeResult _setNullOp_(final String... attributes) {
+  public AnHourBeforeResult withNullOp_(final String... attributes) {
     setNullOp_(attributes);
     return this;
   }

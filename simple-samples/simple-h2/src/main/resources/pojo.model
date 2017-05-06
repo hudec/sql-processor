@@ -25,7 +25,7 @@ package org.sample.model {
     #Operators #Serializable(1) #ToString(p0) #ProcId(p0)
     #Pojo AnHourBeforeResult {
         #IsDef
-        #Attr java.sql.Timestamp p0 // TIMESTAMP(23)
+        #Attr java.time.LocalDateTime p0 // TIMESTAMP(23)
     }
 
     #Operators #Serializable(1) #Equals(idContact) #HashCode(idContact) #ToString(idContact,type,address,phoneNumber,xNote) #ProcId(idContact,person,type,address,phoneNumber,xNote)
@@ -77,7 +77,7 @@ package org.sample.model {
         #Attr String lastName // VARCHAR(100)
         #IsDef
         // The date of birth
-        #Attr java.util.Date dateOfBirth // DATE(8)
+        #Attr java.time.LocalDate dateOfBirth // DATE(8)
         @NotNull
         #Required
         // The gender: M=male, F=female, 0=other
@@ -122,6 +122,6 @@ package org.sample.model {
 
     #Serializable(1) #ToString(p1)
     #Pojo AnHourBefore {
-        #Attr java.sql.Timestamp p1 // TIMESTAMP(23)
+        #Attr java.time.LocalDateTime p1 // TIMESTAMP(23)
     }
 }
