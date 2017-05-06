@@ -13,5 +13,5 @@ public interface OutValueSetter {
      * @param outValue
      *            the output value
      */
-    void setOutValue(Object outValue);
+    Object setOutValue(Object outValue);
 }

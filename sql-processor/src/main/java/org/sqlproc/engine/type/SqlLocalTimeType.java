@@ -63,7 +63,18 @@ public abstract class SqlLocalTimeType extends SqlDefaultType {
             Time value = Time.valueOf((java.time.LocalTime) inputValue);
             query.setParameter(paramName, value, getProviderSqlType());
         } else if (inputValue instanceof OutValueSetter) {
-            query.setParameter(paramName, inputValue, getProviderSqlType());
+            OutValueSetter outValueSetter = (OutValueSetter) inputValue;
+            OutValueSetter _outValueSetter = new OutValueSetter() {
+                @Override
+                public Object setOutValue(Object outValue) {
+                    if (outValue instanceof java.sql.Time) {
+                        java.time.LocalTime result = ((java.sql.Time) outValue).toLocalTime();
+                        return outValueSetter.setOutValue(result);
+                    } else
+                        throw new RuntimeException("Incorret function output value for localtime");
+                }
+            };
+            query.setParameter(paramName, _outValueSetter, getProviderSqlType());
         } else {
             error(logger, ingoreError, "Incorrect localtime " + inputValue + " for " + paramName);
         }

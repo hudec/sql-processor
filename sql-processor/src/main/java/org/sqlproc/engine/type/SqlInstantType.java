@@ -63,7 +63,18 @@ public abstract class SqlInstantType extends SqlDefaultType {
             Timestamp value = Timestamp.from((java.time.Instant) inputValue);
             query.setParameter(paramName, value, getProviderSqlType());
         } else if (inputValue instanceof OutValueSetter) {
-            query.setParameter(paramName, inputValue, getProviderSqlType());
+            OutValueSetter outValueSetter = (OutValueSetter) inputValue;
+            OutValueSetter _outValueSetter = new OutValueSetter() {
+                @Override
+                public Object setOutValue(Object outValue) {
+                    if (outValue instanceof java.sql.Timestamp) {
+                        java.time.Instant result = ((java.sql.Timestamp) outValue).toInstant();
+                        return outValueSetter.setOutValue(result);
+                    } else
+                        throw new RuntimeException("Incorret function output value for instant");
+                }
+            };
+            query.setParameter(paramName, _outValueSetter, getProviderSqlType());
         } else {
             error(logger, ingoreError, "Incorrect instant " + inputValue + " for " + paramName);
         }

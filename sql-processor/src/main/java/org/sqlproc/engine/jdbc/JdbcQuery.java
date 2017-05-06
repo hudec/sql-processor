@@ -894,9 +894,9 @@ public class JdbcQuery implements SqlQuery {
             } else {
                 outValue = cs.getObject(ix);
             }
-            outValueSetter.setOutValue(outValue);
+            Object _outValue = outValueSetter.setOutValue(outValue);
             if (!resultInited) {
-                result.put(name, outValue);
+                result.put(name, _outValue);
                 resultInited = true;
             }
         }

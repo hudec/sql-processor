@@ -333,16 +333,18 @@ class SqlInputValue {
             if (inOutMode == Mode.INOUT) {
                 type.setParameter(ctx, query, paramName, new OutValueSetter() {
                     @Override
-                    public void setOutValue(Object outValue) {
+                    public Object setOutValue(Object outValue) {
                         SqlInputValue.this.outValue = outValue;
+                        return outValue;
                     }
                 }, inputValueTypes);
             }
         } else if (inOutMode == Mode.OUT) {
             type.setParameter(ctx, query, paramName, new OutValueSetter() {
                 @Override
-                public void setOutValue(Object outValue) {
+                public Object setOutValue(Object outValue) {
                     SqlInputValue.this.outValue = outValue;
+                    return outValue;
                 }
             }, inputValueTypes);
         }
