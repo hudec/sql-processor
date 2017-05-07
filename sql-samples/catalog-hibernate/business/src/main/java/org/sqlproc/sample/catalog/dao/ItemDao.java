@@ -18,7 +18,7 @@ public class ItemDao {
     protected SqlEngineFactory sqlFactory;
 
     public Item findById(SqlSession session, Long id) {
-        Item item = sqlFactory.getCheckedCrudEngine("GET_ITEM").get(session, Item.class, new Item()._setItemid(id));
+        Item item = sqlFactory.getCheckedCrudEngine("GET_ITEM").get(session, Item.class, new Item().withItemid(id));
         logger.info("findById: " + item.toString());
         return item;
     }
@@ -39,7 +39,7 @@ public class ItemDao {
 
     public void delete(SqlSession session, Long id) {
         logger.info("delete: " + id);
-        sqlFactory.getCheckedCrudEngine("DELETE_ITEM").delete(session, new Item()._setItemid(id));
+        sqlFactory.getCheckedCrudEngine("DELETE_ITEM").delete(session, new Item().withItemid(id));
     }
 
     public List<ItemTO> find(SqlSession session, ItemForm criteria) {

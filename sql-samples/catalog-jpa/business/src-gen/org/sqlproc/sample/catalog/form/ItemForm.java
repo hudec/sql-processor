@@ -19,7 +19,7 @@ public class ItemForm implements Serializable {
     this.itemid = itemid;
   }
   
-  public ItemForm _setItemid(final Long itemid) {
+  public ItemForm withItemid(final Long itemid) {
     this.itemid = itemid;
     return this;
   }
@@ -34,7 +34,7 @@ public class ItemForm implements Serializable {
     this.name = name;
   }
   
-  public ItemForm _setName(final String name) {
+  public ItemForm withName(final String name) {
     this.name = name;
     return this;
   }
@@ -49,7 +49,7 @@ public class ItemForm implements Serializable {
     this.description = description;
   }
   
-  public ItemForm _setDescription(final String description) {
+  public ItemForm withDescription(final String description) {
     this.description = description;
     return this;
   }
@@ -64,7 +64,7 @@ public class ItemForm implements Serializable {
     this.priceFrom = priceFrom;
   }
   
-  public ItemForm _setPriceFrom(final BigDecimal priceFrom) {
+  public ItemForm withPriceFrom(final BigDecimal priceFrom) {
     this.priceFrom = priceFrom;
     return this;
   }
@@ -79,7 +79,7 @@ public class ItemForm implements Serializable {
     this.priceTo = priceTo;
   }
   
-  public ItemForm _setPriceTo(final BigDecimal priceTo) {
+  public ItemForm withPriceTo(final BigDecimal priceTo) {
     this.priceTo = priceTo;
     return this;
   }
@@ -94,7 +94,7 @@ public class ItemForm implements Serializable {
     this.first = first;
   }
   
-  public ItemForm _setFirst(final int first) {
+  public ItemForm withFirst(final int first) {
     this.first = first;
     return this;
   }
@@ -109,7 +109,7 @@ public class ItemForm implements Serializable {
     this.count = count;
   }
   
-  public ItemForm _setCount(final int count) {
+  public ItemForm withCount(final int count) {
     this.count = count;
     return this;
   }
@@ -124,7 +124,7 @@ public class ItemForm implements Serializable {
     this.order = order;
   }
   
-  public ItemForm _setOrder(final int order) {
+  public ItemForm withOrder(final int order) {
     this.order = order;
     return this;
   }

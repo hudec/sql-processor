@@ -27,7 +27,7 @@ public class ItemTO implements Serializable {
     this.itemid = itemid;
   }
   
-  public ItemTO _setItemid(final Long itemid) {
+  public ItemTO withItemid(final Long itemid) {
     this.itemid = itemid;
     return this;
   }
@@ -42,7 +42,7 @@ public class ItemTO implements Serializable {
     this.productid = productid;
   }
   
-  public ItemTO _setProductid(final String productid) {
+  public ItemTO withProductid(final String productid) {
     this.productid = productid;
     return this;
   }
@@ -57,7 +57,7 @@ public class ItemTO implements Serializable {
     this.name = name;
   }
   
-  public ItemTO _setName(final String name) {
+  public ItemTO withName(final String name) {
     this.name = name;
     return this;
   }
@@ -72,7 +72,7 @@ public class ItemTO implements Serializable {
     this.description = description;
   }
   
-  public ItemTO _setDescription(final String description) {
+  public ItemTO withDescription(final String description) {
     this.description = description;
     return this;
   }
@@ -87,7 +87,7 @@ public class ItemTO implements Serializable {
     this.imageurl = imageurl;
   }
   
-  public ItemTO _setImageurl(final String imageurl) {
+  public ItemTO withImageurl(final String imageurl) {
     this.imageurl = imageurl;
     return this;
   }
@@ -102,7 +102,7 @@ public class ItemTO implements Serializable {
     this.imagethumburl = imagethumburl;
   }
   
-  public ItemTO _setImagethumburl(final String imagethumburl) {
+  public ItemTO withImagethumburl(final String imagethumburl) {
     this.imagethumburl = imagethumburl;
     return this;
   }
@@ -117,7 +117,7 @@ public class ItemTO implements Serializable {
     this.image = image;
   }
   
-  public ItemTO _setImage(final byte[] image) {
+  public ItemTO withImage(final byte[] image) {
     this.image = image;
     return this;
   }
@@ -132,7 +132,7 @@ public class ItemTO implements Serializable {
     this.imagethumb = imagethumb;
   }
   
-  public ItemTO _setImagethumb(final byte[] imagethumb) {
+  public ItemTO withImagethumb(final byte[] imagethumb) {
     this.imagethumb = imagethumb;
     return this;
   }
@@ -147,7 +147,7 @@ public class ItemTO implements Serializable {
     this.price = price;
   }
   
-  public ItemTO _setPrice(final BigDecimal price) {
+  public ItemTO withPrice(final BigDecimal price) {
     this.price = price;
     return this;
   }

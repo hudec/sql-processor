@@ -32,7 +32,7 @@ public class Item implements Serializable {
     this.itemid = itemid;
   }
   
-  public Item _setItemid(final Long itemid) {
+  public Item withItemid(final Long itemid) {
     this.itemid = itemid;
     return this;
   }
@@ -47,7 +47,7 @@ public class Item implements Serializable {
     this.productid = productid;
   }
   
-  public Item _setProductid(final String productid) {
+  public Item withProductid(final String productid) {
     this.productid = productid;
     return this;
   }
@@ -62,7 +62,7 @@ public class Item implements Serializable {
     this.name = name;
   }
   
-  public Item _setName(final String name) {
+  public Item withName(final String name) {
     this.name = name;
     return this;
   }
@@ -77,7 +77,7 @@ public class Item implements Serializable {
     this.description = description;
   }
   
-  public Item _setDescription(final String description) {
+  public Item withDescription(final String description) {
     this.description = description;
     return this;
   }
@@ -92,7 +92,7 @@ public class Item implements Serializable {
     this.imageurl = imageurl;
   }
   
-  public Item _setImageurl(final String imageurl) {
+  public Item withImageurl(final String imageurl) {
     this.imageurl = imageurl;
     return this;
   }
@@ -107,7 +107,7 @@ public class Item implements Serializable {
     this.imagethumburl = imagethumburl;
   }
   
-  public Item _setImagethumburl(final String imagethumburl) {
+  public Item withImagethumburl(final String imagethumburl) {
     this.imagethumburl = imagethumburl;
     return this;
   }
@@ -122,7 +122,7 @@ public class Item implements Serializable {
     this.image = image;
   }
   
-  public Item _setImage(final byte[] image) {
+  public Item withImage(final byte[] image) {
     this.image = image;
     return this;
   }
@@ -137,7 +137,7 @@ public class Item implements Serializable {
     this.imagethumb = imagethumb;
   }
   
-  public Item _setImagethumb(final byte[] imagethumb) {
+  public Item withImagethumb(final byte[] imagethumb) {
     this.imagethumb = imagethumb;
     return this;
   }
@@ -152,7 +152,7 @@ public class Item implements Serializable {
     this.price = price;
   }
   
-  public Item _setPrice(final BigDecimal price) {
+  public Item withPrice(final BigDecimal price) {
     this.price = price;
     return this;
   }
