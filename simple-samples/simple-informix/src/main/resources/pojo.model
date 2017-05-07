@@ -42,7 +42,7 @@ package org.sample.model {
         #IsDef
         #Attr Integer id // integer(4)
         #IsDef
-        #Attr java.util.Date dateOfBirth // date(4)
+        #Attr java.time.LocalDate dateOfBirth // date(4)
         #IsDef
         #Attr String ssn // varchar(100)
         #IsDef
@@ -68,7 +68,7 @@ package org.sample.model {
         #Index
         #Attr String lastName // VARCHAR(100)
         #IsDef
-        #Attr java.util.Date dateOfBirth // DATE(10)
+        #Attr java.time.LocalDate dateOfBirth // DATE(10)
         #Required
         #Attr PersonGender gender // VARCHAR(1)
         #IsDef
@@ -80,7 +80,7 @@ package org.sample.model {
     #Serializable(1)
     #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.sql.Timestamp t // datetime year to fraction(3)
+        #Attr java.time.LocalDateTime t // datetime year to fraction(3)
     }
 
     #Serializable(1)
@@ -93,7 +93,7 @@ package org.sample.model {
     #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
         #Attr Integer newid // integer(4)
-        #Attr java.util.Date dateOfBirth // date(4)
+        #Attr java.time.LocalDate dateOfBirth // date(4)
         #Attr String ssn // varchar(20)
         #Attr String firstName // varchar(100)
         #Attr String lastName // varchar(100)
@@ -103,7 +103,7 @@ package org.sample.model {
     #Serializable(1)
     #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.util.Date dateOfBirth // date(4)
+        #Attr java.time.LocalDate dateOfBirth // date(4)
         #Attr String ssn // varchar(20)
         #Attr String firstName // varchar(100)
         #Attr String lastName // varchar(100)

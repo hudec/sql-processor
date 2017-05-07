@@ -16,7 +16,7 @@ package org.sample.dao {
     #Dao NewPersonRetRsDao {
     }
 
-    #FunctionQuery(java.sql.Timestamp,org.sample.model.AnHourBefore)
+    #FunctionQuery(java.time.LocalDateTime,org.sample.model.AnHourBefore)
     #Dao AnHourBeforeDao {
     }
 }

@@ -34,7 +34,7 @@ public class Contact implements Serializable {
     this.id = id;
   }
   
-  public Contact _setId(final Long id) {
+  public Contact withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -49,7 +49,7 @@ public class Contact implements Serializable {
     this.person = person;
   }
   
-  public Contact _setPerson(final Person person) {
+  public Contact withPerson(final Person person) {
     this.person = person;
     return this;
   }
@@ -64,7 +64,7 @@ public class Contact implements Serializable {
     this.type = type;
   }
   
-  public Contact _setType(final ContactType type) {
+  public Contact withType(final ContactType type) {
     this.type = type;
     return this;
   }
@@ -79,7 +79,7 @@ public class Contact implements Serializable {
     this.address = address;
   }
   
-  public Contact _setAddress(final String address) {
+  public Contact withAddress(final String address) {
     this.address = address;
     return this;
   }
@@ -94,7 +94,7 @@ public class Contact implements Serializable {
     this.phoneNumber = phoneNumber;
   }
   
-  public Contact _setPhoneNumber(final String phoneNumber) {
+  public Contact withPhoneNumber(final String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }
@@ -140,7 +140,7 @@ public class Contact implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public Contact _setNull_(final Contact.Attribute... attributes) {
+  public Contact withNull_(final Contact.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -164,7 +164,7 @@ public class Contact implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public Contact _setNull_(final String... attributes) {
+  public Contact withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -228,7 +228,7 @@ public class Contact implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Contact _setInit_(final Contact.Association... associations) {
+  public Contact withInit_(final Contact.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -252,7 +252,7 @@ public class Contact implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Contact _setInit_(final String... associations) {
+  public Contact withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }
@@ -316,7 +316,7 @@ public class Contact implements Serializable {
     	operators_.put(attribute.name(), operator);
   }
   
-  public Contact _setOp_(final String operator, final Contact.OpAttribute... attributes) {
+  public Contact withOp_(final String operator, final Contact.OpAttribute... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -340,7 +340,7 @@ public class Contact implements Serializable {
     	operators_.put(attribute, operator);
   }
   
-  public Contact _setOp_(final String operator, final String... attributes) {
+  public Contact withOp_(final String operator, final String... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -364,7 +364,7 @@ public class Contact implements Serializable {
     	operators_.put(attribute.name(), "is null");
   }
   
-  public Contact _setNullOp_(final Contact.OpAttribute... attributes) {
+  public Contact withNullOp_(final Contact.OpAttribute... attributes) {
     setNullOp_(attributes);
     return this;
   }
@@ -376,7 +376,7 @@ public class Contact implements Serializable {
     	operators_.put(attribute, "is null");
   }
   
-  public Contact _setNullOp_(final String... attributes) {
+  public Contact withNullOp_(final String... attributes) {
     setNullOp_(attributes);
     return this;
   }

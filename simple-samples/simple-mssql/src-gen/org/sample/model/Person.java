@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -38,7 +38,7 @@ public class Person implements Serializable {
     this.id = id;
   }
   
-  public Person _setId(final Long id) {
+  public Person withId(final Long id) {
     this.id = id;
     return this;
   }
@@ -53,7 +53,7 @@ public class Person implements Serializable {
     this.firstName = firstName;
   }
   
-  public Person _setFirstName(final String firstName) {
+  public Person withFirstName(final String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -68,22 +68,22 @@ public class Person implements Serializable {
     this.lastName = lastName;
   }
   
-  public Person _setLastName(final String lastName) {
+  public Person withLastName(final String lastName) {
     this.lastName = lastName;
     return this;
   }
   
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
   
-  public Date getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return this.dateOfBirth;
   }
   
-  public void setDateOfBirth(final Date dateOfBirth) {
+  public void setDateOfBirth(final LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
   
-  public Person _setDateOfBirth(final Date dateOfBirth) {
+  public Person withDateOfBirth(final LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -98,7 +98,7 @@ public class Person implements Serializable {
     this.gender = gender;
   }
   
-  public Person _setGender(final PersonGender gender) {
+  public Person withGender(final PersonGender gender) {
     this.gender = gender;
     return this;
   }
@@ -113,7 +113,7 @@ public class Person implements Serializable {
     this.ssn = ssn;
   }
   
-  public Person _setSsn(final String ssn) {
+  public Person withSsn(final String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -128,7 +128,7 @@ public class Person implements Serializable {
     this.contacts = contacts;
   }
   
-  public Person _setContacts(final List<Contact> contacts) {
+  public Person withContacts(final List<Contact> contacts) {
     this.contacts = contacts;
     return this;
   }
@@ -176,7 +176,7 @@ public class Person implements Serializable {
     	nullValues_.add(attribute.name());
   }
   
-  public Person _setNull_(final Person.Attribute... attributes) {
+  public Person withNull_(final Person.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -200,7 +200,7 @@ public class Person implements Serializable {
     	nullValues_.add(attribute);
   }
   
-  public Person _setNull_(final String... attributes) {
+  public Person withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -264,7 +264,7 @@ public class Person implements Serializable {
     	initAssociations_.add(association.name());
   }
   
-  public Person _setInit_(final Person.Association... associations) {
+  public Person withInit_(final Person.Association... associations) {
     setInit_(associations);
     return this;
   }
@@ -288,7 +288,7 @@ public class Person implements Serializable {
     	initAssociations_.add(association);
   }
   
-  public Person _setInit_(final String... associations) {
+  public Person withInit_(final String... associations) {
     setInit_(associations);
     return this;
   }
@@ -356,7 +356,7 @@ public class Person implements Serializable {
     	operators_.put(attribute.name(), operator);
   }
   
-  public Person _setOp_(final String operator, final Person.OpAttribute... attributes) {
+  public Person withOp_(final String operator, final Person.OpAttribute... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -380,7 +380,7 @@ public class Person implements Serializable {
     	operators_.put(attribute, operator);
   }
   
-  public Person _setOp_(final String operator, final String... attributes) {
+  public Person withOp_(final String operator, final String... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -404,7 +404,7 @@ public class Person implements Serializable {
     	operators_.put(attribute.name(), "is null");
   }
   
-  public Person _setNullOp_(final Person.OpAttribute... attributes) {
+  public Person withNullOp_(final Person.OpAttribute... attributes) {
     setNullOp_(attributes);
     return this;
   }
@@ -416,7 +416,7 @@ public class Person implements Serializable {
     	operators_.put(attribute, "is null");
   }
   
-  public Person _setNullOp_(final String... attributes) {
+  public Person withNullOp_(final String... attributes) {
     setNullOp_(attributes);
     return this;
   }

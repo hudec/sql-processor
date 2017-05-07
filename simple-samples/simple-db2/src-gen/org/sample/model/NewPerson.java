@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -19,22 +19,22 @@ public class NewPerson implements Serializable {
     this.newid = newid;
   }
   
-  public NewPerson _setNewid(final Long newid) {
+  public NewPerson withNewid(final Long newid) {
     this.newid = newid;
     return this;
   }
   
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
   
-  public Date getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return this.dateOfBirth;
   }
   
-  public void setDateOfBirth(final Date dateOfBirth) {
+  public void setDateOfBirth(final LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
   
-  public NewPerson _setDateOfBirth(final Date dateOfBirth) {
+  public NewPerson withDateOfBirth(final LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
@@ -49,7 +49,7 @@ public class NewPerson implements Serializable {
     this.ssn = ssn;
   }
   
-  public NewPerson _setSsn(final String ssn) {
+  public NewPerson withSsn(final String ssn) {
     this.ssn = ssn;
     return this;
   }
@@ -64,7 +64,7 @@ public class NewPerson implements Serializable {
     this.firstName = firstName;
   }
   
-  public NewPerson _setFirstName(final String firstName) {
+  public NewPerson withFirstName(final String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -79,7 +79,7 @@ public class NewPerson implements Serializable {
     this.lastName = lastName;
   }
   
-  public NewPerson _setLastName(final String lastName) {
+  public NewPerson withLastName(final String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -94,7 +94,7 @@ public class NewPerson implements Serializable {
     this.gender = gender;
   }
   
-  public NewPerson _setGender(final String gender) {
+  public NewPerson withGender(final String gender) {
     this.gender = gender;
     return this;
   }

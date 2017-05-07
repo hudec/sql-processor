@@ -36,7 +36,7 @@ package org.sample.model {
         #Required #Index
         #Attr String lastName
         #IsDef
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         #Required
         #Attr PersonGender gender
         #IsDef
@@ -47,13 +47,13 @@ package org.sample.model {
 
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.sql.Timestamp t
+        #Attr java.time.LocalDateTime t
     }
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
         #Attr Integer newid
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         #Attr String ssn
         #Attr String firstName
         #Attr String lastName
@@ -62,7 +62,7 @@ package org.sample.model {
 
     #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.util.Date dateOfBirth
+        #Attr java.time.LocalDate dateOfBirth
         #Attr String ssn
         #Attr String firstName
         #Attr String lastName

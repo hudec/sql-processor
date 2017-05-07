@@ -18,7 +18,7 @@ public class FunLong implements Serializable {
     this.count = count;
   }
   
-  public FunLong _setCount(final Long count) {
+  public FunLong withCount(final Long count) {
     this.count = count;
     return this;
   }
