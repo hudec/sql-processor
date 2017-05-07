@@ -4,7 +4,7 @@
 package ${package}.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -12,17 +12,17 @@ import org.sqlproc.engine.annotation.Pojo;
 public class AnHourBefore implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private Timestamp t;
+  private LocalDateTime t;
   
-  public Timestamp getT() {
+  public LocalDateTime getT() {
     return this.t;
   }
   
-  public void setT(final Timestamp t) {
+  public void setT(final LocalDateTime t) {
     this.t = t;
   }
   
-  public AnHourBefore _setT(final Timestamp t) {
+  public AnHourBefore withT(final LocalDateTime t) {
     this.t = t;
     return this;
   }

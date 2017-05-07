@@ -3,7 +3,7 @@
 #set( $symbol_escape = '\' )
 package ${package}.dao;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import org.sample.model.AnHourBefore;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
@@ -31,7 +31,7 @@ public class AnHourBeforeDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public Timestamp anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore, SqlControl sqlControl) {
+  public LocalDateTime anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql anHourBefore: " + anHourBefore + " " + sqlControl);
     }
@@ -40,18 +40,18 @@ public class AnHourBeforeDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql anHourBefore result: " + result);
     }
-    return (Timestamp) result;
+    return (LocalDateTime) result;
   }
   
-  public Timestamp anHourBefore(final AnHourBefore anHourBefore, SqlControl sqlControl) {
+  public LocalDateTime anHourBefore(final AnHourBefore anHourBefore, SqlControl sqlControl) {
     return anHourBefore(sqlSessionFactory.getSqlSession(), anHourBefore, sqlControl);
   }
   
-  public Timestamp anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore) {
+  public LocalDateTime anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore) {
     return anHourBefore(sqlSession, anHourBefore, null);
   }
   
-  public Timestamp anHourBefore(final AnHourBefore anHourBefore) {
+  public LocalDateTime anHourBefore(final AnHourBefore anHourBefore) {
     return anHourBefore(anHourBefore, null);
   }
 }

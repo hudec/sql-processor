@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -95,7 +95,7 @@ public class Main {
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = personDao.insert(person, new SqlStandardControl().setProcessingId("insertPerson"));
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact._setPerson(p),
+            Contact c = contactDao.insert(contact.withPerson(p),
                     new SqlStandardControl().setProcessingId("insertContact"));
             p.getContacts().add(c);
         }
@@ -103,7 +103,7 @@ public class Main {
     }
 
     public Person getPerson(Long id, Person.Association... associations) {
-        Person person = new Person()._setId(id)._setInit_(associations);
+        Person person = new Person().withId(id).withInit_(associations);
         SqlStandardControl ssc = new SqlStandardControl();
         if (associations != null) {
             Set<String> set = new TreeSet<String>();
@@ -129,20 +129,20 @@ public class Main {
 
         // insert
         Person jan = insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE),
-                new Contact()._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setType(ContactType.HOME));
+                new Contact().withAddress("Jan address 1").withPhoneNumber("111-222-3333").withType(ContactType.HOME));
         p = getPerson(jan.getId(), Person.Association.contacts);
         Assert.assertEquals("Jan", p.getFirstName());
         Assert.assertEquals("Jan address 1", p.getContacts().get(0).getAddress());
 
         Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE), new Contact()
-                ._setAddress("Janik address 1")._setType(ContactType.BUSINESS));
+                .withAddress("Janik address 1").withType(ContactType.BUSINESS));
         p = getPerson(janik.getId(), Person.Association.contacts);
         Assert.assertEquals("Janik", p.getFirstName());
         Assert.assertEquals("Janik address 1", p.getContacts().get(0).getAddress());
 
         Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE), new Contact()
-                ._setAddress("Honza address 1")._setType(ContactType.HOME), new Contact()
-                ._setAddress("Honza address 2")._setType(ContactType.BUSINESS));
+                .withAddress("Honza address 1").withType(ContactType.HOME), new Contact()
+                .withAddress("Honza address 2").withType(ContactType.BUSINESS));
         p = getPerson(honza.getId(), Person.Association.contacts);
         Assert.assertEquals("Honza", p.getFirstName());
         Assert.assertEquals("Honza address 2", p.getContacts().get(1).getAddress());
@@ -153,9 +153,9 @@ public class Main {
         Assert.assertEquals(0, p.getContacts().size());
 
         Person andrej = insertPersonContacts(
-                new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
-                new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
-                        ._setType(ContactType.BUSINESS));
+                new Person("Andrej", "Andrejcek", PersonGender.MALE).withSsn("123456789"),
+                new Contact().withAddress("Andrej address 1").withPhoneNumber("444-555-6666")
+                        .withType(ContactType.BUSINESS));
         p = getPerson(andrej.getId(), Person.Association.contacts);
         Assert.assertEquals("Andrej", p.getFirstName());
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
@@ -164,7 +164,7 @@ public class Main {
         person = new Person();
         person.setId(andrej.getId());
         person.setFirstName("Andrejik");
-        Date age = getAge(1962, 5, 19);
+        LocalDate age = LocalDate.of(1962, 5, 19);
         person.setDateOfBirth(age);
         count = personDao.update(person);
         Assert.assertEquals(1, count);
@@ -264,8 +264,8 @@ public class Main {
 
         // function
         AnHourBefore anHourBefore = new AnHourBefore();
-        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
-        java.sql.Timestamp result = anHourBeforeDao.anHourBefore(anHourBefore);
+        anHourBefore.setT(LocalDateTime.now());
+        LocalDateTime result = anHourBeforeDao.anHourBefore(anHourBefore);
         Assert.assertNotNull(result);
 
         // procedures
@@ -273,7 +273,7 @@ public class Main {
         newPerson.setFirstName("Maruska");
         newPerson.setLastName("Maruskova");
         newPerson.setSsn("999888777");
-        newPerson.setDateOfBirth(getAge(1969, 11, 1));
+        newPerson.setDateOfBirth(LocalDate.of(1969, 11, 1));
         newPerson.setGender(PersonGender.FEMALE.getValue());
         newPersonDao.newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
@@ -282,24 +282,12 @@ public class Main {
         newPersonRetRs.setFirstName("Beruska");
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
-        newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        newPersonRetRs.setDateOfBirth(LocalDate.of(1969, 1, 21));
         newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
         list = newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());
-    }
-
-    public java.sql.Timestamp getAge(int year, int month, int day) {
-        Calendar birthDay = Calendar.getInstance();
-        birthDay.set(Calendar.YEAR, year);
-        birthDay.set(Calendar.MONTH, month);
-        birthDay.set(Calendar.DAY_OF_MONTH, day);
-        birthDay.set(Calendar.HOUR_OF_DAY, 0);
-        birthDay.set(Calendar.MINUTE, 0);
-        birthDay.set(Calendar.SECOND, 0);
-        birthDay.set(Calendar.MILLISECOND, 0);
-        return new java.sql.Timestamp(birthDay.getTime().getTime());
     }
 
     private String SQL_UPDATE_PERSON = "update %%PERSON " + "{= set " + "{ ,%FIRST_NAME = :firstName(call=isDef) } "

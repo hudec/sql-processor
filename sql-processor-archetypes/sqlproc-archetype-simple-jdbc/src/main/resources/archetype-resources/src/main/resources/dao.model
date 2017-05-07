@@ -19,7 +19,7 @@ package ${package}.dao {
     #Dao NewPersonRetRsDao {
     }
 
-    #FunctionCall(java.sql.Timestamp,org.sample.model.AnHourBefore)
+    #FunctionCall(java.time.LocalDateTime,org.sample.model.AnHourBefore)
     #Dao AnHourBeforeDao {
     }
 }

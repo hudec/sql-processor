@@ -32,12 +32,12 @@ public class NewPersonDao {
   
   public int newPerson(final SqlSession sqlSession, final NewPerson newPerson, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
-        logger.trace("sql newPerson: " + newPerson + " " + sqlControl);
+    	logger.trace("sql newPerson: " + newPerson + " " + sqlControl);
     }
     org.sqlproc.engine.SqlProcedureEngine sqlProcNewPersonDao = sqlEngineFactory.getCheckedProcedureEngine("PROC_NEW_PERSON");
     int count = sqlProcNewPersonDao.callUpdate(sqlSession, newPerson, sqlControl);
     if (logger.isTraceEnabled()) {
-        logger.trace("sql newPerson result: " + count);
+    	logger.trace("sql newPerson result: " + count);
     }
     return count;
   }
