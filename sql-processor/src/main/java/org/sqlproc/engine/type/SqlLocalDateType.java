@@ -37,9 +37,13 @@ public abstract class SqlLocalDateType extends SqlDefaultType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
-        if (resultValue == null)
+        if (resultValue == null) {
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, null, java.time.LocalDate.class))
+                return;
+            error(logger, ingoreError, "There's no setter for " + attributeName + " in " + resultInstance
+                    + ", META type is " + getMetaTypes()[0]);
             return;
-        if (resultValue instanceof java.sql.Date) {
+        } else if (resultValue instanceof java.sql.Date) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
                     ((java.sql.Date) resultValue).toLocalDate(), java.time.LocalDate.class))
                 return;
@@ -82,11 +86,13 @@ public abstract class SqlLocalDateType extends SqlDefaultType {
             OutValueSetter _outValueSetter = new OutValueSetter() {
                 @Override
                 public Object setOutValue(Object outValue) {
+                    if (outValue == null)
+                        return outValueSetter.setOutValue(null);
                     if (outValue instanceof java.sql.Date) {
                         java.time.LocalDate result = ((java.sql.Date) outValue).toLocalDate();
                         return outValueSetter.setOutValue(result);
-                    } else
-                        throw new RuntimeException("Incorret function output value for localdate");
+                    }
+                    throw new RuntimeException("Incorret function output value for localdate");
                 }
             };
             query.setParameter(paramName, _outValueSetter, getProviderSqlType());

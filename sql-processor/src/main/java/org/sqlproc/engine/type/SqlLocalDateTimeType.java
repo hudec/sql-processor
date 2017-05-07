@@ -34,9 +34,13 @@ public abstract class SqlLocalDateTimeType extends SqlDefaultType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
-        if (resultValue == null)
+        if (resultValue == null) {
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, null, java.time.LocalDateTime.class))
+                return;
+            error(logger, ingoreError, "There's no setter for " + attributeName + " in " + resultInstance
+                    + ", META type is " + getMetaTypes()[0]);
             return;
-        if (resultValue instanceof java.sql.Timestamp) {
+        } else if (resultValue instanceof java.sql.Timestamp) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
                     ((java.sql.Timestamp) resultValue).toLocalDateTime(), java.time.LocalDateTime.class))
                 return;
@@ -79,11 +83,13 @@ public abstract class SqlLocalDateTimeType extends SqlDefaultType {
             OutValueSetter _outValueSetter = new OutValueSetter() {
                 @Override
                 public Object setOutValue(Object outValue) {
+                    if (outValue == null)
+                        return outValueSetter.setOutValue(null);
                     if (outValue instanceof java.sql.Timestamp) {
                         java.time.LocalDateTime result = ((java.sql.Timestamp) outValue).toLocalDateTime();
                         return outValueSetter.setOutValue(result);
-                    } else
-                        throw new RuntimeException("Incorret function output value for localdatetime");
+                    }
+                    throw new RuntimeException("Incorret function output value for localdatetime");
                 }
             };
             query.setParameter(paramName, _outValueSetter, getProviderSqlType());

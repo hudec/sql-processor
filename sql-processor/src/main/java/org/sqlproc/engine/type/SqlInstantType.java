@@ -37,9 +37,13 @@ public abstract class SqlInstantType extends SqlDefaultType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
-        if (resultValue == null)
+        if (resultValue == null) {
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, null, java.time.Instant.class))
+                return;
+            error(logger, ingoreError, "There's no setter for " + attributeName + " in " + resultInstance
+                    + ", META type is " + getMetaTypes()[0]);
             return;
-        if (resultValue instanceof java.sql.Timestamp) {
+        } else if (resultValue instanceof java.sql.Timestamp) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
                     ((java.sql.Timestamp) resultValue).toInstant(), java.time.Instant.class))
                 return;
@@ -82,11 +86,13 @@ public abstract class SqlInstantType extends SqlDefaultType {
             OutValueSetter _outValueSetter = new OutValueSetter() {
                 @Override
                 public Object setOutValue(Object outValue) {
+                    if (outValue == null)
+                        return outValueSetter.setOutValue(null);
                     if (outValue instanceof java.sql.Timestamp) {
                         java.time.Instant result = ((java.sql.Timestamp) outValue).toInstant();
                         return outValueSetter.setOutValue(result);
-                    } else
-                        throw new RuntimeException("Incorret function output value for instant");
+                    }
+                    throw new RuntimeException("Incorret function output value for instant");
                 }
             };
             query.setParameter(paramName, _outValueSetter, getProviderSqlType());

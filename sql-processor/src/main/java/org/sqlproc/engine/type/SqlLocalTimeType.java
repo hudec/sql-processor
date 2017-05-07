@@ -37,9 +37,13 @@ public abstract class SqlLocalTimeType extends SqlDefaultType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
-        if (resultValue == null)
+        if (resultValue == null) {
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, null, java.time.LocalTime.class))
+                return;
+            error(logger, ingoreError, "There's no setter for " + attributeName + " in " + resultInstance
+                    + ", META type is " + getMetaTypes()[0]);
             return;
-        if (resultValue instanceof java.sql.Time) {
+        } else if (resultValue instanceof java.sql.Time) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
                     ((java.sql.Time) resultValue).toLocalTime(), java.time.LocalTime.class))
                 return;
@@ -82,11 +86,13 @@ public abstract class SqlLocalTimeType extends SqlDefaultType {
             OutValueSetter _outValueSetter = new OutValueSetter() {
                 @Override
                 public Object setOutValue(Object outValue) {
+                    if (outValue == null)
+                        return outValueSetter.setOutValue(null);
                     if (outValue instanceof java.sql.Time) {
                         java.time.LocalTime result = ((java.sql.Time) outValue).toLocalTime();
                         return outValueSetter.setOutValue(result);
-                    } else
-                        throw new RuntimeException("Incorret function output value for localtime");
+                    }
+                    throw new RuntimeException("Incorret function output value for localtime");
                 }
             };
             query.setParameter(paramName, _outValueSetter, getProviderSqlType());
