@@ -1,7 +1,7 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver com.mysql.cj.jdbc.Driver;
-database-has-url "jdbc:mysql://127.0.0.1:3306/simple?zeroDateTimeBehavior=convertToNull";
+database-has-url "jdbc:mysql://127.0.0.1:3306/simple?zeroDateTimeBehavior=convertToNull&nullNamePatternMatchesAll=true";
 database-login-username simple;
 database-login-password simple;
 database-in-catalog simple;

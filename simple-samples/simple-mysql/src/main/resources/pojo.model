@@ -20,7 +20,7 @@ package org.sample.model {
         #ToInit #Required #Index #IsPojo
         #Attr Person person // BIGINT(19)
         #IsDef
-        #Attr ContactCtype ctype // ENUM(2)
+        #Attr ContactCtype ctype // ENUM(1)
         #IsDef
         #Attr String address // VARCHAR(100)
         #IsDef
@@ -36,9 +36,9 @@ package org.sample.model {
         #Required #Index
         #Attr String lastName // VARCHAR(100)
         #IsDef
-        #Attr java.util.Date dateOfBirth // DATE(10)
+        #Attr java.time.LocalDate dateOfBirth // DATE(10)
         #Required
-        #Attr PersonGender gender // ENUM(2)
+        #Attr PersonGender gender // ENUM(1)
         #IsDef
         #Attr String ssn // VARCHAR(100)
         #ToInit
@@ -47,13 +47,13 @@ package org.sample.model {
 
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.sql.Timestamp t // TIMESTAMP(19)
+        #Attr java.time.LocalDateTime t // TIMESTAMP(26)
     }
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
-        #Attr Integer newid // INTEGER(10)
-        #Attr java.util.Date dateOfBirth // DATE(10)
+        #Attr Integer newid // INT(10)
+        #Attr java.time.LocalDate dateOfBirth // DATE(10)
         #Attr String ssn // VARCHAR(20)
         #Attr String firstName // VARCHAR(100)
         #Attr String lastName // VARCHAR(100)
@@ -62,7 +62,7 @@ package org.sample.model {
 
     #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.util.Date dateOfBirth // DATE(10)
+        #Attr java.time.LocalDate dateOfBirth // DATE(10)
         #Attr String ssn // VARCHAR(20)
         #Attr String firstName // VARCHAR(100)
         #Attr String lastName // VARCHAR(100)

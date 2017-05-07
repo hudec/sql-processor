@@ -114,7 +114,7 @@ SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
 ;
 
 FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
-  :<1(type=stamp) = call AN_HOUR_BEFORE(:t)
+  :<1(type=localdatetime) = call AN_HOUR_BEFORE(:t)
 ;
 
 PROC_NEW_PERSON(CALL,in=NewPerson)=

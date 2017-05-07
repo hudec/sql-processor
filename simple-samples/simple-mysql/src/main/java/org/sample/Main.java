@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.Assert;
@@ -51,7 +51,7 @@ public class Main {
 
     static {
         try {
-            final Driver JDBC_DRIVER = new com.mysql.jdbc.Driver();
+            final Driver JDBC_DRIVER = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(JDBC_DRIVER);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,7 +89,7 @@ public class Main {
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = personDao.insert(person);
         for (Contact contact : contacts) {
-            Contact c = contactDao.insert(contact._setPerson(p));
+            Contact c = contactDao.insert(contact.withPerson(p));
             p.getContacts().add(c);
         }
         return p;
@@ -107,17 +107,17 @@ public class Main {
 
         // insert
         Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE), new Contact()
-                ._setAddress("Jan address 1")._setPhoneNumber("111-222-3333")._setCtype(ContactCtype.HOME));
+                .withAddress("Jan address 1").withPhoneNumber("111-222-3333").withCtype(ContactCtype.HOME));
         Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE),
-                new Contact()._setAddress("Janik address 1")._setCtype(ContactCtype.BUSINESS));
+                new Contact().withAddress("Janik address 1").withCtype(ContactCtype.BUSINESS));
         Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE),
-                new Contact()._setAddress("Honza address 1")._setCtype(ContactCtype.HOME),
-                new Contact()._setAddress("Honza address 2")._setCtype(ContactCtype.BUSINESS));
+                new Contact().withAddress("Honza address 1").withCtype(ContactCtype.HOME),
+                new Contact().withAddress("Honza address 2").withCtype(ContactCtype.BUSINESS));
         Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
         Person andrej = main.insertPersonContacts(
-                new Person("Andrej", "Andrejcek", PersonGender.MALE)._setSsn("123456789"),
-                new Contact()._setAddress("Andrej address 1")._setPhoneNumber("444-555-6666")
-                        ._setCtype(ContactCtype.BUSINESS));
+                new Person("Andrej", "Andrejcek", PersonGender.MALE).withSsn("123456789"),
+                new Contact().withAddress("Andrej address 1").withPhoneNumber("444-555-6666")
+                        .withCtype(ContactCtype.BUSINESS));
 
         // update
         person = new Person();
@@ -209,8 +209,8 @@ public class Main {
 
         // function
         AnHourBefore anHourBefore = new AnHourBefore();
-        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
-        java.sql.Timestamp result = main.anHourBeforeDao.anHourBefore(anHourBefore);
+        anHourBefore.setT(LocalDateTime.now());
+        LocalDateTime result = main.anHourBeforeDao.anHourBefore(anHourBefore);
         Assert.assertNotNull(result);
 
         // procedures
@@ -218,7 +218,7 @@ public class Main {
         newPerson.setFirstName("Maruska");
         newPerson.setLastName("Maruskova");
         newPerson.setSsn("999888777");
-        newPerson.setDateOfBirth(getAge(1969, 11, 1));
+        newPerson.setDateOfBirth(LocalDate.of(1969, 11, 1));
         newPerson.setGender(PersonGender.FEMALE.getValue());
         main.newPersonDao.newPerson(newPerson);
         Assert.assertNotNull(newPerson.getNewid());
@@ -227,7 +227,7 @@ public class Main {
         newPersonRetRs.setFirstName("Beruska");
         newPersonRetRs.setLastName("Beruskova");
         newPersonRetRs.setSsn("888777666");
-        newPersonRetRs.setDateOfBirth(getAge(1969, 1, 21));
+        newPersonRetRs.setDateOfBirth(LocalDate.of(1969, 1, 21));
         newPersonRetRs.setGender(PersonGender.FEMALE.getValue());
         list = main.newPersonRetRsDao.newPersonRetRs(newPersonRetRs);
         Assert.assertNotNull(list);
@@ -236,17 +236,5 @@ public class Main {
 
         main.connection.close();
         System.out.println("OK");
-    }
-
-    public static java.sql.Timestamp getAge(int year, int month, int day) {
-        Calendar birthDay = Calendar.getInstance();
-        birthDay.set(Calendar.YEAR, year);
-        birthDay.set(Calendar.MONTH, month);
-        birthDay.set(Calendar.DAY_OF_MONTH, day);
-        birthDay.set(Calendar.HOUR_OF_DAY, 0);
-        birthDay.set(Calendar.MINUTE, 0);
-        birthDay.set(Calendar.SECOND, 0);
-        birthDay.set(Calendar.MILLISECOND, 0);
-        return new java.sql.Timestamp(birthDay.getTime().getTime());
     }
 }
