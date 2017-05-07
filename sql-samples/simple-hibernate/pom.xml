@@ -10,12 +10,12 @@
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.2-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
-        <version.sql-processor>3.3.1</version.sql-processor>
+        <version.sql-processor>3.3.2-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
         <version.hibernate>4.1.7.Final</version.hibernate>
         <version.log4j>1.2.17</version.log4j>
@@ -23,7 +23,7 @@
         <version.junit>4.12</version.junit>
         <version.dbunit>2.5.1</version.dbunit>
         <version.hsqldb>2.4.0</version.hsqldb>
-        <!-- version.joda-time>3.3.1</version.joda-time>
+        <!-- version.joda-time>3.3.2-SNAPSHOT</version.joda-time>
         <version.joda-time-hibernate>1.2</version.joda-time-hibernate-->
         <version.javassist>3.12.1.GA</version.javassist>
     </properties>
