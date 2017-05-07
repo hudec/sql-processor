@@ -250,16 +250,4 @@ public class Main {
 
         System.out.println("OK");
     }
-
-    public static java.sql.Timestamp getAge(int year, int month, int day) {
-        Calendar birthDay = Calendar.getInstance();
-        birthDay.set(Calendar.YEAR, year);
-        birthDay.set(Calendar.MONTH, month);
-        birthDay.set(Calendar.DAY_OF_MONTH, day);
-        birthDay.set(Calendar.HOUR_OF_DAY, 0);
-        birthDay.set(Calendar.MINUTE, 0);
-        birthDay.set(Calendar.SECOND, 0);
-        birthDay.set(Calendar.MILLISECOND, 0);
-        return new java.sql.Timestamp(birthDay.getTime().getTime());
-    }
 }
