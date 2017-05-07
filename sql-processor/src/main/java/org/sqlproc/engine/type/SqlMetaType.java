@@ -64,6 +64,25 @@ public interface SqlMetaType {
     void setResult(SqlRuntimeContext runtimeCtx, Object resultInstance, String attributeName, Object resultValue,
             boolean ingoreError) throws SqlRuntimeException;
 
+    /**
+     * Returns the attribute's result value (with possible conversion).
+     * 
+     * @param runtimeCtx
+     *            the runtimeCtx context
+     * @param attributeName
+     *            the name of the attribute in the result class
+     * @param resultValue
+     *            the query execution output value
+     * @param ingoreError
+     *            ignore improper output value handling
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with the output values handling
+     */
+    default Object getResult(SqlRuntimeContext runtimeCtx, String attributeName, Object resultValue,
+            boolean ingoreError) throws SqlRuntimeException {
+        return resultValue;
+    }
+
     /*
      * DEBUG
      */

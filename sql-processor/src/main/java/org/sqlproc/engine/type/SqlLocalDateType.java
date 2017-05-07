@@ -37,6 +37,8 @@ public abstract class SqlLocalDateType extends SqlDefaultType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
+        if (resultValue == null)
+            return;
         if (resultValue instanceof java.sql.Date) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
                     ((java.sql.Date) resultValue).toLocalDate(), java.time.LocalDate.class))
@@ -47,6 +49,19 @@ public abstract class SqlLocalDateType extends SqlDefaultType {
         }
         error(logger, ingoreError,
                 "Incorrect localdate " + resultValue + " for " + attributeName + " in " + resultInstance);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getResult(SqlRuntimeContext runtimeCtx, String attributeName, Object resultValue, boolean ingoreError)
+            throws SqlRuntimeException {
+        if (resultValue == null)
+            return null;
+        if (resultValue instanceof java.sql.Timestamp)
+            return ((java.sql.Date) resultValue).toLocalDate();
+        return resultValue;
     }
 
     /**

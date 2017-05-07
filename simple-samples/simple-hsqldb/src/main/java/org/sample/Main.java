@@ -5,7 +5,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -437,8 +437,8 @@ public class Main {
 
         // function
         AnHourBefore anHourBefore = new AnHourBefore();
-        anHourBefore.setT(new java.sql.Timestamp(new Date().getTime()));
-        java.sql.Timestamp result = anHourBeforeDao.anHourBefore(anHourBefore);
+        anHourBefore.setT(LocalDateTime.now());
+        LocalDateTime result = anHourBeforeDao.anHourBefore(anHourBefore);
         Assert.assertNotNull(result);
 
         // procedures

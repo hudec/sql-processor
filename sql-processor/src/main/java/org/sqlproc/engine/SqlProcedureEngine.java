@@ -660,20 +660,20 @@ public class SqlProcedureEngine extends SqlEngine {
                     query.setLogError(processResult.isLogError());
                     query.setSqlControl(sqlControl);
                     processResult.setQueryParams(session, query);
-                    if (mapping != null) {
-                        SqlMappingResult mappingResult = SqlMappingRule.merge(mapping, processResult);
+                    final SqlMappingResult mappingResult = (mapping != null)
+                            ? SqlMappingRule.merge(mapping, processResult) : null;
+                    if (mapping != null)
                         mappingResult.setQueryResultMapping(Object.class, null, query);
-                    }
 
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
                             public Object run() {
-                                return callFunction(query, processResult);
+                                return callFunction(query, processResult, mappingResult);
                             }
                         }, Object.class);
                     } else {
-                        return callFunction(query, processResult);
+                        return callFunction(query, processResult, mappingResult);
                     }
                 }
             }, Object.class);
@@ -694,9 +694,12 @@ public class SqlProcedureEngine extends SqlEngine {
      *            processResult
      * @return the result
      */
-    private Object callFunction(final SqlQuery query, final SqlProcessResult processResult) {
+    private Object callFunction(final SqlQuery query, final SqlProcessResult processResult,
+            SqlMappingResult mappingResult) {
         Map<String, Object> result = query.callFunction();
         processResult.postProcess();
+        if (mappingResult != null)
+            return mappingResult.getFunctionResultData(result);
         return result.values().toArray()[0];
     }
 

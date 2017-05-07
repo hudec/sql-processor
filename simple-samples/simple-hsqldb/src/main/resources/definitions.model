@@ -20,7 +20,7 @@ pojogen-show-type-for-column CONTACT ID->"BIGINT(64)";
 //pojogen-types-in-table CONTACT "BIGINT(64)"->java.lang.Byte;
 //pojogen-types-for-columns CONTACT ID->java.lang.Short;
 //pojogen-create-columns CONTACT ID2->boolean;
-pojogen-types-for-procedure AN_HOUR_BEFORE T->java.util.Date;
+pojogen-types-for-procedure AN_HOUR_BEFORE T->java.time.LocalDateTime;
 pojogen-types-for-procedure NEW_PERSON NEWID->long;
 
 // native types
@@ -74,9 +74,9 @@ is-function anHourBefore AN_HOUR_BEFORE;
 
 pojogen-create-tables NEW_PERSON_RET_RS_RESULT;
 pojogen-create-columns NEW_PERSON_RET_RS_RESULT ID->java.lang.Long FIRST_NAME->java.lang.String
-LAST_NAME->java.lang.String DATE_OF_BIRTH->java.util.Date GENDER->::org.sample.model.PersonGender SSN->java.lang.String;
+LAST_NAME->java.lang.String DATE_OF_BIRTH->java.time.LocalDate GENDER->::org.sample.model.PersonGender SSN->java.lang.String;
 
-metagen-function-result AN_HOUR_BEFORE stamp;
+metagen-function-result AN_HOUR_BEFORE localdatetime;
 //metagen-procedure-result-set NEW_PERSON_RET_RS PERSON;
 metagen-procedure-result-set NEW_PERSON_RET_RS NEW_PERSON_RET_RS_RESULT;
 //pojogen-debug-level DEBUG;

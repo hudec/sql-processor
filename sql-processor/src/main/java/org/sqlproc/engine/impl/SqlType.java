@@ -98,6 +98,25 @@ class SqlType {
     }
 
     /**
+     * Returns the attribute's result value (with possible conversion).
+     * 
+     * @param ctx
+     *            the crate for all input parameters and the context of processing
+     * @param attributeName
+     *            the name of the attribute in the result class
+     * @param resultValue
+     *            Query execution output value
+     * @throws org.sqlproc.engine.SqlRuntimeException
+     *             in the case of any problem with output values handling
+     */
+    Object getResult(SqlProcessContext ctx, String attributeName, Object resultValue) throws SqlRuntimeException {
+        if (logger.isDebugEnabled())
+            logger.debug("getResult " + metaType + " " + attributeName + " " + resultValue);
+        return getMetaType(ctx).getResult(ctx, attributeName, resultValue,
+                ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT));
+    }
+
+    /**
      * Bind an input value to a named query parameter.
      * 
      * @param ctx

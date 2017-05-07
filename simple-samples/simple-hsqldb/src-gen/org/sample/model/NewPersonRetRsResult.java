@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
 import org.sample.model.PersonGender;
@@ -57,17 +57,17 @@ public class NewPersonRetRsResult implements Serializable {
     return this;
   }
   
-  private Date dateOfBirth;
+  private LocalDate dateOfBirth;
   
-  public Date getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return this.dateOfBirth;
   }
   
-  public void setDateOfBirth(final Date dateOfBirth) {
+  public void setDateOfBirth(final LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
   
-  public NewPersonRetRsResult withDateOfBirth(final Date dateOfBirth) {
+  public NewPersonRetRsResult withDateOfBirth(final LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }

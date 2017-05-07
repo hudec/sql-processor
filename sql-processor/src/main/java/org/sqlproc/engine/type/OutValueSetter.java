@@ -12,6 +12,7 @@ public interface OutValueSetter {
      * 
      * @param outValue
      *            the output value
+     * @return the output value after possible conversion
      */
     Object setOutValue(Object outValue);
 }

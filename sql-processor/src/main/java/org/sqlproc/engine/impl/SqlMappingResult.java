@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -317,5 +318,24 @@ public class SqlMappingResult {
             return null;
         Map<String, Object> ids = new HashMap<String, Object>();
         return ids;
+    }
+
+    /**
+     * Devoted to function output value conversion.
+     * 
+     * @param result
+     *            the JDBC output value
+     * @return the output value after possible conversion
+     */
+    public Object getFunctionResultData(Map<String, Object> result) {
+        for (Entry<String, Object> entry : result.entrySet()) {
+            if (mappings.containsKey(entry.getKey())) {
+                SqlMappingItem item = mappings.get(entry.getKey());
+                SqlType sqlType = item.getSqlType();
+                if (sqlType != null)
+                    return sqlType.getResult(ctx, entry.getKey(), entry.getValue());
+            }
+        }
+        return result.values().toArray()[0];
     }
 }

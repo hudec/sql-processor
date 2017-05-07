@@ -37,6 +37,8 @@ public abstract class SqlLocalTimeType extends SqlDefaultType {
             boolean ingoreError) throws SqlRuntimeException {
         setResultEntryLog(logger, this, runtimeCtx, resultInstance, attributeName, resultValue, ingoreError);
 
+        if (resultValue == null)
+            return;
         if (resultValue instanceof java.sql.Time) {
             if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName,
                     ((java.sql.Time) resultValue).toLocalTime(), java.time.LocalTime.class))
@@ -47,6 +49,19 @@ public abstract class SqlLocalTimeType extends SqlDefaultType {
         }
         error(logger, ingoreError,
                 "Incorrect localtime " + resultValue + " for " + attributeName + " in " + resultInstance);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getResult(SqlRuntimeContext runtimeCtx, String attributeName, Object resultValue, boolean ingoreError)
+            throws SqlRuntimeException {
+        if (resultValue == null)
+            return null;
+        if (resultValue instanceof java.sql.Timestamp)
+            return ((java.sql.Time) resultValue).toLocalTime();
+        return resultValue;
     }
 
     /**
