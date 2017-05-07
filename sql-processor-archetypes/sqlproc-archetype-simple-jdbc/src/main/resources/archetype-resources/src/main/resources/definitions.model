@@ -28,6 +28,7 @@ pojogen-generate-operators;
 // validation annotations
 pojogen-generate-validation-annotations;
 pojogen-package org.sample.model;
+pojogen-types-for-procedure AN_HOUR_BEFORE T->java.time.LocalDateTime;
 
 // use indetity for primary keys
 metagen-global-identity COMMON;
