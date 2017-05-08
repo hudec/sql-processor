@@ -560,19 +560,20 @@ REPOS=['http://repo2.maven.org/maven2/',
        'http://central.maven.org/maven2/org/apache/tomcat/maven/'
        ]
 
-def find_versions_maven_central(lib):
+def find_versions_maven_central(cfg, lib):
     list_ver_datetime = []
     if lib.startswith('cz.'):
         return list_ver_datetime
 #     print('1111', lib)
-    for repo in REPOS:
+    for repo in cfg.remote_urls:
         url = repo + lib.replace('.', '/') + '/'
 #         print('2222', url)
         req = requests.get(url)
+#         print('2222b', req.status_code)
         if req.status_code == 200:
             break
     if req.status_code != 200:
-        for repo in REPOS:
+        for repo in cfg.remote_urls:
             url = repo + lib.replace('.', '/') + '/'
             ix = url[:-1].rfind('/')
             if ix < 0:
@@ -580,11 +581,13 @@ def find_versions_maven_central(lib):
             url = url[:ix] + '.' + url[ix+1:]
 #             print('3333', url)
             req = requests.get(url)
+#             print('3333b', req.status_code)
             if req.status_code == 200:
                 break
     if req.status_code != 200:
         print("Not found ", lib)
         return list_ver_datetime
+#     print(req.content)
     lines = str(req.content).split('\\n')
 #     tree = html.fromstring(req.content)
 #     hrefs = tree.xpath('/html/body//a/@href')
@@ -611,8 +614,8 @@ def is_valid_lib(lib):
         return False
     return True
 
-def find_latest_maven_central(lib):
-    list_ver_datetime = find_versions_maven_central(lib)
+def find_latest_maven_central(cfg, lib):
+    list_ver_datetime = find_versions_maven_central(cfg, lib)
     if not list_ver_datetime:
         return None
     if compare_based_on_version(lib):
@@ -809,6 +812,7 @@ class Config:
         self.default_pom = None
         self.default_depth = 1
         self.default_exclude_artifacts = []
+        self.default_remote_urls = []
         
         if os.path.isfile(CONFIG_FILENAME):
             with open(CONFIG_FILENAME, encoding='utf-8') as config_file:
@@ -831,6 +835,9 @@ class Config:
                 if 'exclude_artifacts' in default_config:
                     self.default_exclude_artifacts = default_config['exclude_artifacts']
                     print("default exclude artifacts", self.default_exclude_artifacts)
+                if 'remote_urls' in default_config:
+                    self.default_remote_urls = default_config['remote_urls']
+                    print("default remote urls", self.default_remote_urls)
 
         parser = argparse.ArgumentParser(description='Analyze Maven projects.')
         parser.add_argument('-d', '--dir', metavar = 'dir', default = '.',
@@ -859,7 +866,7 @@ class Config:
                             help='the depth of directories to scan for pom.xml')
         parser.add_argument('-X', '--exclude_artifacts', dest = 'exclude_artifacts', metavar = 'artifact', nargs = '+', default = self.default_exclude_artifacts,
                             help='the list of artifacts to exclude (right now only plugins)')
-        parser.add_argument('-r', '--remote', dest = 'remote', metavar = 'url', nargs = '+',
+        parser.add_argument('-r', '--remote', dest = '_remote_urls', metavar = 'url', nargs = '+', default = self.default_remote_urls,
                             help='consult the remote (central) maven repositories')
         parser.parse_args(namespace = self)
 
@@ -879,7 +886,8 @@ class Config:
         print("pom %s" % self.pom)
         print("depth %d" % self.depth)
         print("exclude_artifacts %s" % self.exclude_artifacts)
-        print("remote urls %s" % self.remote)
+        print("remote urls %s" % self._remote_urls)
+        self.remote_urls = REPOS + self._remote_urls
 
 def main():
     cfg = Config()
@@ -962,7 +970,7 @@ def main():
             print(map2_lib_version_projects_main)
         central_libs = {}
         for lib in map2_lib_version_projects_main.keys():
-            latest_version = find_latest_maven_central(lib)
+            latest_version = find_latest_maven_central(cfg, lib)
             if latest_version:
                 central_libs[lib] = latest_version
         if cfg.verbosity >= 2:
@@ -988,7 +996,7 @@ def main():
 
         central_libs = {}
         for lib in map2_lib_version_projects_main.keys():
-            latest_version = find_latest_maven_central(lib)
+            latest_version = find_latest_maven_central(cfg, lib)
             if latest_version:
                 central_libs[lib] = latest_version
         if cfg.verbosity >= 0:
