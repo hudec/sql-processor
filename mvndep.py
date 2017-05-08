@@ -4,6 +4,7 @@ import os, subprocess, argparse, re
 # from lxml import html
 import requests
 import json
+from dateutil.parser import parse
 
 FIX_PROPERTIES_UNUSED_VERSIONS = 'unused'
 
@@ -588,15 +589,12 @@ def find_versions_maven_central(cfg, lib):
     if req.status_code != 200:
         print("Not found ", lib)
         return list_ver_datetime
-    if lib.find('weblogic') >= 0:
-        print(req.content)
+#     print(req.content)
     lines = str(req.content).split('\\n')
 #     tree = html.fromstring(req.content)
 #     hrefs = tree.xpath('/html/body//a/@href')
     for line in lines:
         result = VERSION_DATE_TIME_RE.search(line)
-        if not result:
-            result = VERSION_DATE_TIME_AF_RE.search(line)
         if result:
             version = result.group('version2')
             date_time = result.group('date_time')
@@ -605,6 +603,18 @@ def find_versions_maven_central(cfg, lib):
             if version.endswith('/'):
                 version = version[0:-1]
             list_ver_datetime.append((version, date_time))
+        else:
+            result = VERSION_DATE_TIME_AF_RE.search(line)
+            if result:
+                version = result.group('version2')
+                date_time = result.group('date_time')
+                if version.startswith('.') or version.startswith('maven'):
+                    continue
+                if version.endswith('/'):
+                    version = version[0:-1]
+                dt = parse(date_time)
+                list_ver_datetime.append((version, str(dt)))
+            
     return list_ver_datetime
 
 central_maven_incorrect_datetimes = set(['commons-lang.commons-lang'])
