@@ -129,7 +129,7 @@ class Library:
     def __init__(self, str_library):
         items = str_library.split(':')
         if len(items) < 1:
-            raise ValueError('%s should be groupId:artifactId:version, the required is at least groupId' % (str))
+            raise ValueError('%s should be groupId:artifactId:version, the required is at least groupId or artifactId' % (str))
         self.groupId = items[0]
         self.artifactId = None if len(items) <= 1 else items[1]
         self.version = None if len(items) <= 2 else items[2]
@@ -151,6 +151,7 @@ class Library:
 class Libraries:
     def __init__(self, libs):
         self.map_group_artifact_version = {}
+        self.map_artifact_version = {}
         self.map_group_artifact = {}
         self.set_group = set([])
         for lib in libs:
@@ -160,6 +161,8 @@ class Libraries:
         lib = Library(str_library)
         if lib.groupId and lib.artifactId and lib.version:
             self.map_group_artifact_version[lib.groupId + '.' + lib.artifactId] = lib.version
+        elif lib.artifactId and lib.version:
+            self.map_artifact_version[lib.artifactId] = lib.version
         elif lib.groupId and lib.artifactId:
             self.map_group_artifact[lib.groupId] = lib.artifactId
         else:
@@ -168,6 +171,8 @@ class Libraries:
     def contains_and_version(self, str_library):
         if str_library in self.map_group_artifact_version:
             return True, self.map_group_artifact_version[str_library]
+        if str_library in self.map_artifact_version:
+            return True, self.map_artifact_version[str_library]
         items = str_library.split('.')
         artifactId = items[-1]
         items = items[0:-1]
@@ -206,6 +211,12 @@ class Libraries:
         if result[0]:
             return result[1]
         return None
+
+    def __str__(self):
+        return 'g-a-v: ' + str(self.map_group_artifact_version) + '\na-v: ' + str(self.map_artifact_version) + '\ng-a: ' + str(self.map_group_artifact) + '\ng: ' + str(self.set_group)
+
+    def __repr__(self):
+        return str(self)
 
 def read_pom(path, name = None):
     if name:
@@ -579,7 +590,11 @@ def find_versions_maven_central(cfg, lib):
     for repo in cfg.remote_urls:
         url = repo + lib.replace('.', '/') + '/'
 #         print('2222', url)
-        req = requests.get(url)
+        try:
+            req = requests.get(url)
+        except Exception as ex:
+            print('For', url, 'there is error:', ex)
+            return list_ver_datetime
 #         print('2222b', req.status_code)
         if req.status_code == 200:
             break
@@ -623,7 +638,6 @@ def find_versions_maven_central(cfg, lib):
                     version = version[0:-1]
                 dt = parse(date_time)
                 list_ver_datetime.append((version, str(dt)))
-            
     return list_ver_datetime
 
 central_maven_incorrect_datetimes = set(['commons-lang.commons-lang'])
@@ -758,7 +772,7 @@ def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib
             new_version = Libraries.version(cfg.libs, lib)
             if not new_version:
                 continue
-        #print("%s = %s" % (lib, map2_lib_version_projects[lib]))
+        print("ooo %s = %s" % (lib, map2_lib_version_projects[lib]))
         for version, projects in map2_lib_version_projects[lib].items():
             if new_version == version.version:
                 continue
