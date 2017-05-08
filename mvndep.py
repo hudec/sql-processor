@@ -46,6 +46,21 @@ VERSION_DATE_TIME_AF_RE = re.compile(r'<a href="(?P<version>.+)/">(?P<version2>.
 FOR_PROJECT_RE = re.compile(r'\[INFO].+@ (?P<project>[\S]+)')
 MODULES_START_RE = re.compile(r'<modules>')
 
+REPOS=['http://repo2.maven.org/maven2/',
+       'http://central.maven.org/maven2/',
+       'https://oss.sonatype.org/content/groups/public/'
+       ]
+
+REPO2=['http://repo2.maven.org/maven2/org/apache/maven/plugins/',
+       'http://repo2.maven.org/maven2/org/codehaus/mojo/',
+       'http://repo2.maven.org/maven2/org/codehaus/gmaven/',
+       'http://central.maven.org/maven2/org/jvnet/jaxb2/maven2/',
+       'http://central.maven.org/maven2/com/spotify/',
+       'http://central.maven.org/maven2/org/apache/cxf/',
+       'http://central.maven.org/maven2/org/springframework/boot/',
+       'http://central.maven.org/maven2/org/apache/tomcat/maven/'
+       ]
+
 class Version:
     def __init__(self, str_version):
         self.vers = []
@@ -290,6 +305,9 @@ def maven_dep_pom(cfg, path, pom = None):
     text = pipe.communicate()[0].decode("utf-8")
 #     print(text)
     for line in text.split("\n"):
+        if line.find('[ERROR]') >= 0:
+            print(line)
+            continue
         result = FOR_PROJECT_RE.search(line)
         if result:
             print(line)
@@ -365,6 +383,9 @@ def maven_plug_pom(cfg, path, pom = None):
     text = pipe.communicate()[0].decode("utf-8")
 #     print(text)
     for line in text.split("\n"):
+        if line.find('[ERROR]') >= 0:
+            print(line)
+            continue
         result = FOR_PROJECT_RE.search(line)
         if result:
             if project:
@@ -549,18 +570,6 @@ def find_parent_in_pom(pom):
         if PARENT_START_RE.search(line):
             found_parent = True
     return group_id, artifact_id, version, version_line
-
-REPOS=['http://repo2.maven.org/maven2/',
-       'http://central.maven.org/maven2/',
-       'http://repo2.maven.org/maven2/org/apache/maven/plugins/',
-       'http://repo2.maven.org/maven2/org/codehaus/mojo/',
-       'http://repo2.maven.org/maven2/org/codehaus/gmaven/',
-       'http://central.maven.org/maven2/org/jvnet/jaxb2/maven2/',
-       'http://central.maven.org/maven2/com/spotify/',
-       'http://central.maven.org/maven2/org/apache/cxf/',
-       'http://central.maven.org/maven2/org/springframework/boot/',
-       'http://central.maven.org/maven2/org/apache/tomcat/maven/'
-       ]
 
 def find_versions_maven_central(cfg, lib):
     list_ver_datetime = []
@@ -901,7 +910,10 @@ class Config:
         print("depth %d" % self.depth)
         print("exclude_artifacts %s" % self.exclude_artifacts)
         print("remote urls %s" % self._remote_urls)
-        self.remote_urls = REPOS + self._remote_urls
+        if self.type == FIX_PLUGINS_FROM_REPO:
+            self.remote_urls = REPO2 + self._remote_urls
+        else:
+            self.remote_urls = REPOS + self._remote_urls
 
 def main():
     cfg = Config()
