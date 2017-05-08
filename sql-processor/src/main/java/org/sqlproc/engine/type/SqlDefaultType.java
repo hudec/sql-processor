@@ -101,16 +101,16 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
                     return;
                 }
             }
-            error(logger, ingoreError,
-                    "There's no setter for '" + attributeName + "' in " + resultInstance + ", META type is " + this);
-            return;
-            // if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
+            // error(logger, ingoreError,
+            // "There's no setter for '" + attributeName + "' in " + resultInstance + ", META type is " + this);
             // return;
-            // else {
-            // error(logger, ingoreError, "There's no setter for '" + attributeName + "' in " + resultInstance
-            // + ", META type is " + this);
-            // return;
-            // }
+            if (runtimeCtx.simpleSetAttribute(resultInstance, attributeName, resultValue, attributeType))
+                return;
+            else {
+                error(logger, ingoreError, "There's no setter for '" + attributeName + "' in " + resultInstance
+                        + ", META type is " + this);
+                return;
+            }
         }
     }
 
