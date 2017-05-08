@@ -772,7 +772,7 @@ def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib
             new_version = Libraries.version(cfg.libs, lib)
             if not new_version:
                 continue
-        print("ooo %s = %s" % (lib, map2_lib_version_projects[lib]))
+#         print("%s = %s" % (lib, map2_lib_version_projects[lib]))
         for version, projects in map2_lib_version_projects[lib].items():
             if new_version == version.version:
                 continue
