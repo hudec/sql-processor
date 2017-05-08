@@ -5,12 +5,26 @@ import os, subprocess, argparse, re
 import requests
 import json
 
-FIX_LATEST_VERSIONS = 'latest'
-FIX_UNUSED_VERSIONS = 'unused'
-FIX_LIBS_VERSIONS = 'libs'
-FIX_PARENTS_VERSIONS = 'parents'
-FIX_LATEST_VERSIONS_FROM_REPO = 'repo'
-FIX_PLUGINS_FROM_REPO = 'plugins'
+FIX_PROPERTIES_UNUSED_VERSIONS = 'unused'
+
+FIX_LIBS_LATEST_COMMON_VERSIONS = 'llibs'
+FIX_LIBS_SET_VERSIONS = 'libs'
+FIX_LIBS_FROM_REPO = 'rlibs'
+
+FIX_PARENTS_SET_VERSIONS = 'parents'
+FIX_PARENTS_FROM_REPO = 'rparents'
+
+FIX_PLUGINS_SET_VERSION = 'plugins'
+FIX_PLUGINS_FROM_REPO = 'rplugins'
+
+ACTIONS = [FIX_PROPERTIES_UNUSED_VERSIONS,
+           FIX_LIBS_LATEST_COMMON_VERSIONS,
+           FIX_LIBS_SET_VERSIONS,
+           FIX_LIBS_FROM_REPO,
+           FIX_PARENTS_SET_VERSIONS,
+           FIX_PARENTS_FROM_REPO,
+           FIX_PLUGINS_SET_VERSION,
+           FIX_PLUGINS_FROM_REPO]
 
 CONFIG_FILENAME = '.mvndep.json'
 
@@ -829,8 +843,7 @@ class Config:
                             help='the verbosity of debug output')
         parser.add_argument('-f', '--fix', action='count', default=0,
                             help='fix the Maven projects\' to the latest libraries\' version')
-        parser.add_argument('-t', '--type', default=FIX_LATEST_VERSIONS, choices=[FIX_LATEST_VERSIONS, FIX_UNUSED_VERSIONS, FIX_LIBS_VERSIONS,
-                                                                           FIX_PARENTS_VERSIONS, FIX_LATEST_VERSIONS_FROM_REPO, FIX_PLUGINS_FROM_REPO],
+        parser.add_argument('-t', '--type', default=FIX_LIBS_LATEST_COMMON_VERSIONS, choices=ACTIONS,
                             help='fix the Maven projects\' to the latest libraries\' version')
         parser.add_argument('-s', '--scopes', metavar = 'scope', nargs = '+',
                             help='the Maven scopes to work with')
@@ -846,6 +859,8 @@ class Config:
                             help='the depth of directories to scan for pom.xml')
         parser.add_argument('-X', '--exclude_artifacts', dest = 'exclude_artifacts', metavar = 'artifact', nargs = '+', default = self.default_exclude_artifacts,
                             help='the list of artifacts to exclude (right now only plugins)')
+        parser.add_argument('-r', '--remote', dest = 'remote', metavar = 'url', nargs = '+',
+                            help='consult the remote (central) maven repositories')
         parser.parse_args(namespace = self)
 
         self.libs = None if not self._libs else Libraries(self._libs)
@@ -864,11 +879,12 @@ class Config:
         print("pom %s" % self.pom)
         print("depth %d" % self.depth)
         print("exclude_artifacts %s" % self.exclude_artifacts)
+        print("remote urls %s" % self.remote)
 
 def main():
     cfg = Config()
 
-    if cfg.type == FIX_LATEST_VERSIONS:
+    if cfg.type == FIX_LIBS_LATEST_COMMON_VERSIONS:
         map2_project_lib_versions_main, map2_project_lib_versions = maven_dependencies(cfg)
         if cfg.verbosity >= 1:
             print(map2_project_lib_versions_main)
@@ -893,7 +909,7 @@ def main():
             if cfg.fix >= 2:
                 write_poms(map_project_pom_fixed, map_project_path)
 
-    elif cfg.type == FIX_LIBS_VERSIONS and cfg.libs:
+    elif cfg.type == FIX_LIBS_SET_VERSIONS and cfg.libs:
         map2_project_lib_versions_main, map2_project_lib_versions = maven_dependencies(cfg)
         if cfg.verbosity >= 1:
             print(map2_project_lib_versions_main)
@@ -910,7 +926,7 @@ def main():
         if cfg.fix >= 2:
             write_poms(map_project_pom_fixed, map_project_path)
 
-    elif cfg.type == FIX_UNUSED_VERSIONS:
+    elif cfg.type == FIX_PROPERTIES_UNUSED_VERSIONS:
         map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
         if cfg.verbosity >= 3:
             print(map_project_pom)
@@ -925,7 +941,7 @@ def main():
         else:
             print(map_project_linenums_unused)
 
-    elif cfg.type == FIX_PARENTS_VERSIONS and cfg.libs:
+    elif cfg.type == FIX_PARENTS_SET_VERSIONS and cfg.libs:
         map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
         if cfg.verbosity >= 3:
             print(map_project_pom)
@@ -935,7 +951,7 @@ def main():
         if cfg.fix >= 2:
             write_poms(map_project_pom_fixed, map_project_path)
 
-    elif cfg.type == FIX_LATEST_VERSIONS_FROM_REPO:
+    elif cfg.type == FIX_LIBS_FROM_REPO:
         map2_project_lib_versions_main, map2_project_lib_versions = maven_dependencies(cfg)
         if cfg.verbosity >= 1:
             print(map2_project_lib_versions_main)
@@ -966,10 +982,10 @@ def main():
         map2_project_lib_versions_main = maven_plugins(cfg)
         if cfg.verbosity >= 1:
             print(map2_project_lib_versions_main)
- 
         map2_lib_version_projects_main = merge_libs(cfg, map2_project_lib_versions_main)
         if cfg.verbosity >= 3:
             print(map2_lib_version_projects_main)
+
         central_libs = {}
         for lib in map2_lib_version_projects_main.keys():
             latest_version = find_latest_maven_central(lib)
@@ -985,6 +1001,24 @@ def main():
                 print(map_project_path)
             map_project_parents = build_pom_hierarchy(map_project_path)
             map_project_pom_fixed = update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects_main, central_libs)
+            if cfg.fix >= 2:
+                write_poms(map_project_pom_fixed, map_project_path)
+
+    elif cfg.type == FIX_PLUGINS_SET_VERSION:
+        map2_project_lib_versions_main = maven_plugins(cfg)
+        if cfg.verbosity >= 1:
+            print(map2_project_lib_versions_main)
+        map2_lib_version_projects_main = merge_libs(cfg, map2_project_lib_versions_main)
+        if cfg.verbosity >= 3:
+            print(map2_lib_version_projects_main)
+ 
+        if cfg.fix >= 1:
+            map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
+            if cfg.verbosity >= 3:
+                print(map_project_pom)
+                print(map_project_path)
+            map_project_parents = build_pom_hierarchy(map_project_path)
+            map_project_pom_fixed = update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects_main, None)
             if cfg.fix >= 2:
                 write_poms(map_project_pom_fixed, map_project_path)
 
