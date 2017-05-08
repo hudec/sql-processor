@@ -41,6 +41,7 @@ GROUP_ID_RE = re.compile(r'<groupId>(?P<group>.+)</groupId>')
 ARTIFACT_ID_RE = re.compile(r'<artifactId>(?P<artifact>.+)</artifactId>')
 VERSION_RE = re.compile(r'<version>(?P<version>.+)</version>')
 VERSION_DATE_TIME_RE = re.compile(r'<a href="(?P<version>.+)/">(?P<version2>.+)/</a>.+(?P<date_time>\d\d\d\d-\d\d-\d\d \d\d:\d\d).+')
+VERSION_DATE_TIME_AF_RE = re.compile(r'<a href="(?P<version>.+)/">(?P<version2>.+)/</a>.+(?P<date_time>\d?\d-\S\S\S-\d\d\d\d \d\d:\d\d).+')
 FOR_PROJECT_RE = re.compile(r'\[INFO].+@ (?P<project>[\S]+)')
 MODULES_START_RE = re.compile(r'<modules>')
 
@@ -587,12 +588,15 @@ def find_versions_maven_central(cfg, lib):
     if req.status_code != 200:
         print("Not found ", lib)
         return list_ver_datetime
-#     print(req.content)
+    if lib.find('weblogic') >= 0:
+        print(req.content)
     lines = str(req.content).split('\\n')
 #     tree = html.fromstring(req.content)
 #     hrefs = tree.xpath('/html/body//a/@href')
     for line in lines:
         result = VERSION_DATE_TIME_RE.search(line)
+        if not result:
+            result = VERSION_DATE_TIME_AF_RE.search(line)
         if result:
             version = result.group('version2')
             date_time = result.group('date_time')
