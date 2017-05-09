@@ -192,7 +192,7 @@ FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
   call AN_HOUR_BEFORE(:t)
 ;
 FUN_AN_HOUR_BEFORE(OUT)=
-  1$1(type=localdatetime)
+  1$1(type=instant)
 ;
 
 PROC_NEW_PERSON(CALL,in=NewPerson)=

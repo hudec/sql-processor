@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
@@ -9,17 +9,17 @@ import org.sqlproc.engine.annotation.Pojo;
 public class AnHourBefore implements Serializable {
   private final static long serialVersionUID = 1L;
   
-  private LocalDateTime t;
+  private Instant t;
   
-  public LocalDateTime getT() {
+  public Instant getT() {
     return this.t;
   }
   
-  public void setT(final LocalDateTime t) {
+  public void setT(final Instant t) {
     this.t = t;
   }
   
-  public AnHourBefore withT(final LocalDateTime t) {
+  public AnHourBefore withT(final Instant t) {
     this.t = t;
     return this;
   }

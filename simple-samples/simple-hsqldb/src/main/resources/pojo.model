@@ -134,7 +134,7 @@ package org.sample.model {
 
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.time.LocalDateTime t
+        #Attr java.time.Instant t
     }
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)

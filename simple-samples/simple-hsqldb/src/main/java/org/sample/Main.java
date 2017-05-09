@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -437,8 +437,8 @@ public class Main {
 
         // function
         AnHourBefore anHourBefore = new AnHourBefore();
-        anHourBefore.setT(LocalDateTime.now());
-        LocalDateTime result = anHourBeforeDao.anHourBefore(anHourBefore);
+        anHourBefore.setT(Instant.now());
+        Instant result = anHourBeforeDao.anHourBefore(anHourBefore);
         Assert.assertNotNull(result);
 
         // procedures

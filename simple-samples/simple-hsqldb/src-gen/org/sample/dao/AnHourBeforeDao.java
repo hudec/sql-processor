@@ -1,6 +1,6 @@
 package org.sample.dao;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import org.sample.model.AnHourBefore;
 import org.slf4j.Logger;
 import org.sqlproc.engine.SqlControl;
@@ -28,7 +28,7 @@ public class AnHourBeforeDao {
   
   protected SqlSessionFactory sqlSessionFactory;
   
-  public LocalDateTime anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore, SqlControl sqlControl) {
+  public Instant anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql anHourBefore: " + anHourBefore + " " + sqlControl);
     }
@@ -37,18 +37,18 @@ public class AnHourBeforeDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql anHourBefore result: " + result);
     }
-    return (LocalDateTime) result;
+    return (Instant) result;
   }
   
-  public LocalDateTime anHourBefore(final AnHourBefore anHourBefore, SqlControl sqlControl) {
+  public Instant anHourBefore(final AnHourBefore anHourBefore, SqlControl sqlControl) {
     return anHourBefore(sqlSessionFactory.getSqlSession(), anHourBefore, sqlControl);
   }
   
-  public LocalDateTime anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore) {
+  public Instant anHourBefore(final SqlSession sqlSession, final AnHourBefore anHourBefore) {
     return anHourBefore(sqlSession, anHourBefore, null);
   }
   
-  public LocalDateTime anHourBefore(final AnHourBefore anHourBefore) {
+  public Instant anHourBefore(final AnHourBefore anHourBefore) {
     return anHourBefore(anHourBefore, null);
   }
 }

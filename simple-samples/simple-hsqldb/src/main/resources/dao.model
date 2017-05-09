@@ -20,7 +20,7 @@ package org.sample.dao {
     #Dao NewPersonRetRsDao {
     }
 
-    #FunctionCall(java.time.LocalDateTime,org.sample.model.AnHourBefore)
+    #FunctionCall(java.time.Instant,org.sample.model.AnHourBefore)
     #Dao AnHourBeforeDao {
     }
 }
