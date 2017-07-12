@@ -647,7 +647,7 @@ def compare_based_on_version(lib):
 def is_valid_lib(lib):
     if lib.startswith('200'):
         return False
-    if lib.lower().find('alpha') >= 0 or lib.lower().find('beta') >= 0 or lib.lower().find('incubat') >= 0 or lib.lower().find('mistake') >= 0:
+    if lib.lower().find('alpha') >= 0 or lib.lower().find('beta') >= 0 or lib.lower().find('incubat') >= 0 or lib.lower().find('mistake') >= 0 or lib.find('-M') >= 0:
         return False
     return True
 
