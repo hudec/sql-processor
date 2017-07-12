@@ -101,6 +101,12 @@ public class SqlStandardControl implements SqlControl {
     private SqlExecutionCallback sqlExecutionCallback;
 
     /**
+     * The name of the required SQL Query Engine instance. It can be used in the case the name is to be chosen in the
+     * runtime.
+     */
+    private String sqlName;
+
+    /**
      * Standard constructor.
      */
     public SqlStandardControl() {
@@ -533,12 +539,31 @@ public class SqlStandardControl implements SqlControl {
     /**
      * {@inheritDoc}
      */
+    public String getSqlName() {
+        return sqlName;
+    }
+
+    /**
+     * Sets the name of the required SQL Query Engine instance
+     * 
+     * @param sqlName
+     *            the name of the required SQL Query Engine instance
+     * @return this instance
+     */
+    public SqlStandardControl setSqlName(String sqlName) {
+        this.sqlName = sqlName;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "SqlStandardControl [staticInputValues=" + staticInputValues + ", dynamicUpdateValues="
                 + dynamicUpdateValues + ", maxTimeout=" + maxTimeout + ", firstResult=" + firstResult + ", maxResults="
                 + maxResults + ", order=" + order + ", moreResultClasses=" + moreResultClasses + ", features="
                 + features + ", processingId=" + processingId + ", fetchSize=" + fetchSize + ", skipEmptyStatement="
-                + skipEmptyStatement + "]";
+                + skipEmptyStatement + ", sqlName=" + sqlName + "]";
     }
 }

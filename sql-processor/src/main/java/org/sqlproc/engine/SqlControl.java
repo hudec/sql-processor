@@ -167,4 +167,11 @@ public interface SqlControl {
      * @return the SQL command execution callback handler
      */
     public SqlExecutionCallback getSqlExecutionCallback();
+
+    /**
+     * Returns the name of the required SQL Query Engine instance
+     * 
+     * @return the name of the required SQL Query Engine instance
+     */
+    public String getSqlName();
 }
