@@ -58,7 +58,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlGetEngineContact = sqlEngineFactory.getCheckedCrudEngine("GET_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "GET_CONTACT";
+    org.sqlproc.engine.SqlCrudEngine sqlGetEngineContact = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     //sqlControl = getMoreResultClasses(contact, sqlControl);
     Contact contactGot = sqlGetEngineContact.get(sqlSession, Contact.class, contact, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -131,7 +132,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list contact: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_CONTACT";
+    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(contact, sqlControl);
     List<Contact> contactList = sqlEngineContact.query(sqlSession, Contact.class, contact, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -156,7 +158,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql query contact: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_CONTACT";
+    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(contact, sqlControl);
     int rownums = sqlEngineContact.query(sqlSession, Contact.class, contact, sqlControl, sqlRowProcessor);
     if (logger.isTraceEnabled()) {
@@ -184,7 +187,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list contact: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_CONTACT";
+    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(contact, sqlControl);
     contact.setOnlyIds_(true);
     java.util.Set<String> initAssociations = contact.getInitAssociations_();
@@ -232,7 +236,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("count contact: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine("SELECT_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_CONTACT";
+    org.sqlproc.engine.SqlQueryEngine sqlEngineContact = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(contact, sqlControl);
     int count = sqlEngineContact.queryCount(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {

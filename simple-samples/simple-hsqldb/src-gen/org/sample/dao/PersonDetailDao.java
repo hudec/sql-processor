@@ -58,7 +58,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlGetEnginePersonDetail = sqlEngineFactory.getCheckedCrudEngine("GET_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "GET_PERSON_DETAIL";
+    org.sqlproc.engine.SqlCrudEngine sqlGetEnginePersonDetail = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     //sqlControl = getMoreResultClasses(personDetail, sqlControl);
     PersonDetail personDetailGot = sqlGetEnginePersonDetail.get(sqlSession, PersonDetail.class, personDetail, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -131,7 +132,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list personDetail: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_PERSON_DETAIL";
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(personDetail, sqlControl);
     List<PersonDetail> personDetailList = sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, personDetail, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -156,7 +158,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql query personDetail: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_PERSON_DETAIL";
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(personDetail, sqlControl);
     int rownums = sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, personDetail, sqlControl, sqlRowProcessor);
     if (logger.isTraceEnabled()) {
@@ -184,7 +187,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list personDetail: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_PERSON_DETAIL";
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(personDetail, sqlControl);
     personDetail.setOnlyIds_(true);
     java.util.Set<String> initAssociations = personDetail.getInitAssociations_();
@@ -232,7 +236,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("count personDetail: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_PERSON_DETAIL";
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePersonDetail = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(personDetail, sqlControl);
     int count = sqlEnginePersonDetail.queryCount(sqlSession, personDetail, sqlControl);
     if (logger.isTraceEnabled()) {
