@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sample</groupId>
     <artifactId>simple-informix</artifactId>
-    <version>3.3.3</version>
+    <version>3.3.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>SQL Processor Sample, Simple JDBC</name>
 
     <properties>
-        <version.sql-processor>3.3.3</version.sql-processor>
+        <version.sql-processor>3.3.4-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.25</version.slf4j>
