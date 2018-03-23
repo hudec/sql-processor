@@ -39,13 +39,13 @@ docker start mysql1
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-docker run --name postgres1 -e POSTGRES_PASSWORD=simple -d postgres
+docker run --name postgres2 -e POSTGRES_PASSWORD=simple -d postgres
 
 5432
 
-docker run --name some-app --link postgres1:postgres -d application-that-uses-postgres
+docker run --name some-app --link postgres2:postgres -d application-that-uses-postgres
 
-docker run -it --rm --link postgres1:postgres postgres psql -h postgres -U postgres
+docker run -it --rm --link postgres2:postgres postgres psql -h postgres -U postgres
 
 POSTGRES_PASSWORD
 POSTGRES_USER
@@ -70,15 +70,15 @@ docker run -it --rm --user 1000:1000 -v pgdata:/var/lib/postgresql/data postgres
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-    CREATE USER docker;
-    CREATE DATABASE docker;
-    GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
+    CREATE USER simple;
+    CREATE DATABASE simple;
+    GRANT ALL PRIVILEGES ON DATABASE simple TO simple;
 EOSQL
 ------------------
 
-docker run -p 5432:5432 --name postgres1 -v //home/hudec/db/postgresql:/var/lib/postgresql/data -e POSTGRES_DB=simple -e POSTGRES_USER=simple -e POSTGRES_PASSWORD=simple -d postgres:latest
-docker stop postgres1 
-docker start postgres1 
+docker run -p 5432:5432 --name postgres2 -v //home/hudec/db/postgresql2:/var/lib/postgresql/data -e POSTGRES_DB=simple -e POSTGRES_USER=simple -e POSTGRES_PASSWORD=simple -d postgres:latest
+docker stop postgres2 
+docker start postgres2 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

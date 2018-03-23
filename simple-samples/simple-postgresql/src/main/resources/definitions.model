@@ -7,8 +7,8 @@ database-login-password simple;
 database-in-catalog simple;
 //database-active-schema simple;
 //database-ddl-create postgresql.ddl; // should be located in the same directory as definitions.qry
-database-show-database-info "PostgreSQL,9.4.1,9,4";
-database-show-driver-info "PostgreSQL Native Driver,PostgreSQL 9.2 JDBC4 (build 1002),9,2";
+database-show-database-info "PostgreSQL,10.3 (Debian 10.3-1.pgdg90+1),10,3";
+database-show-driver-info "PostgreSQL JDBC Driver,42.2.2,42,2";
 //database-is-of-type PostgreSQL;
 
 // native types
