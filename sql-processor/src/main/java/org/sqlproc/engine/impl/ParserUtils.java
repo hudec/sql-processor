@@ -21,6 +21,7 @@ class ParserUtils {
 
     private static Logger logger = LoggerFactory.getLogger(ParserUtils.class);
     static long counter = 0;
+    static Integer MAX_COLUMN_NAME_LENGTH = 30;
 
     private ParserUtils() {
     }
@@ -140,6 +141,12 @@ class ParserUtils {
             String[] javaNames = name.split("\\.");
             if (javaNames.length > 1) {
                 String dbName = javaNames[javaNames.length - 1] + "_" + (counter++);
+                if (MAX_COLUMN_NAME_LENGTH != null) {
+                    int dblength = dbName.length();
+                    if (MAX_COLUMN_NAME_LENGTH > 30) {
+                        dbName = dbName.substring(dblength - MAX_COLUMN_NAME_LENGTH, dblength);
+                    }
+                }
                 col = new SqlMappingItem(dbName);
                 for (String javaName : javaNames) {
                     col.addAttributeName(javaName);
@@ -327,7 +334,8 @@ class ParserUtils {
                         ? ((modifier.startsWith(SUPPVAL_GTYPE_)) ? modifier.substring(SUPPVAL_GTYPE_.length()) : null)
                         : null;
                 boolean isDisriminator = (type == null && dtype == null && gtype == null)
-                        ? ((modifier.startsWith(SUPPVAL_DISCRIMINATOR_)) ? true : false) : false;
+                        ? ((modifier.startsWith(SUPPVAL_DISCRIMINATOR_)) ? true : false)
+                        : false;
                 if (type != null) {
                     ((SqlMappingItem) target).setMetaType(type, typeFactory.getMetaType(type));
                 } else if (dtype != null) {
