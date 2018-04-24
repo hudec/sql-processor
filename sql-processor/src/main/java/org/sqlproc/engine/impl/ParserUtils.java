@@ -21,7 +21,7 @@ class ParserUtils {
 
     private static Logger logger = LoggerFactory.getLogger(ParserUtils.class);
     static long counter = 0;
-    static Integer MAX_COLUMN_NAME_LENGTH = 30;
+    static Integer MAX_DB_COLUMN_LEN = null;
 
     private ParserUtils() {
     }
@@ -141,10 +141,10 @@ class ParserUtils {
             String[] javaNames = name.split("\\.");
             if (javaNames.length > 1) {
                 String dbName = javaNames[javaNames.length - 1] + "_" + (counter++);
-                if (MAX_COLUMN_NAME_LENGTH != null) {
+                if (MAX_DB_COLUMN_LEN != null) {
                     int dblength = dbName.length();
-                    if (MAX_COLUMN_NAME_LENGTH > 30) {
-                        dbName = dbName.substring(dblength - MAX_COLUMN_NAME_LENGTH, dblength);
+                    if (dblength > MAX_DB_COLUMN_LEN) {
+                        dbName = dbName.substring(dblength - MAX_DB_COLUMN_LEN, dblength);
                     }
                 }
                 col = new SqlMappingItem(dbName);
