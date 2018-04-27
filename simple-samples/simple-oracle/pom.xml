@@ -14,11 +14,11 @@
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.oracle>11.2.0.3</version.oracle>
+        <version.oracle>12.2.0.1</version.oracle>
         <version.validation>1.1.0.Final</version.validation>
         <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
         <version.beanutils>1.9.3</version.beanutils>
-        <version.sql-processor-eclipse>2.7.0</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>2.7.2-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
     <build>
@@ -125,7 +125,7 @@
         </dependency>
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
+            <artifactId>ojdbc8</artifactId>
             <version>${version.oracle}</version>
         </dependency>
         <dependency>
@@ -173,8 +173,8 @@
                                 <argument>-classpath</argument>
                                 <classpath>
                                     <dependency>org.sqlproc.meta:sqlmeta</dependency>
-                                    <dependency>com.oracle:ojdbc6</dependency>
-                                    <dependency>javax.validation:validation-api</dependency>
+                                    <dependency>com.oracle:ojdbc8</dependency>
+                                    <dependency>javax.validation:validation8api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
                                 </classpath>
@@ -216,7 +216,7 @@
                                 <argument>-classpath</argument>
                                 <classpath>
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
-                                    <dependency>com.oracle:ojdbc6</dependency>
+                                    <dependency>com.oracle:ojdbc8</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
@@ -261,7 +261,7 @@
                                 <argument>-classpath</argument>
                                 <classpath>
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
-                                    <dependency>com.oracle:ojdbc6</dependency>
+                                    <dependency>com.oracle:ojdbc8</dependency>
                                     <dependency>javax.validation:validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
