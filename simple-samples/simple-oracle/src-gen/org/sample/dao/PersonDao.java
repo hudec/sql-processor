@@ -57,7 +57,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlGetEnginePerson = sqlEngineFactory.getCheckedCrudEngine("GET_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "GET_PERSON";
+    org.sqlproc.engine.SqlCrudEngine sqlGetEnginePerson = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     //sqlControl = getMoreResultClasses(person, sqlControl);
     Person personGot = sqlGetEnginePerson.get(sqlSession, Person.class, person, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -130,7 +131,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_PERSON";
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(person, sqlControl);
     List<Person> personList = sqlEnginePerson.query(sqlSession, Person.class, person, sqlControl);
     if (logger.isTraceEnabled()) {
@@ -155,7 +157,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql query person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_PERSON";
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(person, sqlControl);
     int rownums = sqlEnginePerson.query(sqlSession, Person.class, person, sqlControl, sqlRowProcessor);
     if (logger.isTraceEnabled()) {
@@ -180,7 +183,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("count person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine("SELECT_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_PERSON";
+    org.sqlproc.engine.SqlQueryEngine sqlEnginePerson = sqlEngineFactory.getCheckedQueryEngine(sqlName);
     //sqlControl = getMoreResultClasses(person, sqlControl);
     int count = sqlEnginePerson.queryCount(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
