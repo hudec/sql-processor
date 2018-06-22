@@ -532,7 +532,7 @@ public class SqlProcessor {
     public boolean addFeature(String type, String name, String feature, List<ErrorMsg> errors,
             List<String> activeFilters, String... filters) {
         if ("MAX_DB_COLUMN_LEN".equalsIgnoreCase(name)) {
-            ParserUtils.MAX_DB_COLUMN_LEN = Integer.getInteger(feature);
+            ParserUtils.MAX_DB_COLUMN_LEN = Integer.valueOf(feature);
             return true;
         }
         String[] ss = name.split("=");
