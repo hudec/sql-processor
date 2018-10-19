@@ -1,11 +1,11 @@
 #! /usr/bin/env python3
 
-import os, subprocess, argparse, re
-# from lxml import html
-import requests
 import json
+import os, subprocess, argparse, re
 from dateutil.parser import parse
+import requests
 
+# from lxml import html
 FIX_PROPERTIES_UNUSED_VERSIONS = 'unused'
 
 FIX_LIBS_LATEST_COMMON_VERSIONS = 'llibs'
@@ -46,12 +46,12 @@ VERSION_DATE_TIME_AF_RE = re.compile(r'<a href="(?P<version>.+)/">(?P<version2>.
 FOR_PROJECT_RE = re.compile(r'\[INFO].+@ (?P<project>[\S]+)')
 MODULES_START_RE = re.compile(r'<modules>')
 
-REPOS=['http://repo2.maven.org/maven2/',
+REPOS = ['http://repo2.maven.org/maven2/',
        'http://central.maven.org/maven2/',
        'https://oss.sonatype.org/content/groups/public/'
        ]
 
-REPO2=['http://repo2.maven.org/maven2/org/apache/maven/plugins/',
+REPO2 = ['http://repo2.maven.org/maven2/org/apache/maven/plugins/',
        'http://repo2.maven.org/maven2/org/codehaus/mojo/',
        'http://repo2.maven.org/maven2/org/codehaus/gmaven/',
        'http://central.maven.org/maven2/org/jvnet/jaxb2/maven2/',
@@ -61,7 +61,9 @@ REPO2=['http://repo2.maven.org/maven2/org/apache/maven/plugins/',
        'http://central.maven.org/maven2/org/apache/tomcat/maven/'
        ]
 
+
 class Version:
+
     def __init__(self, str_version):
         self.vers = []
         self.rest = []
@@ -88,7 +90,7 @@ class Version:
 
     def compare(self, version):
         'test, if this version is newer than version in parameter'
-        #print(self.vers, self.rest, version.vers, version.rest)
+        # print(self.vers, self.rest, version.vers, version.rest)
         if self.version == version.version:
             return False
         mlen = min(len(self.vers), len(version.vers))
@@ -125,7 +127,9 @@ class Version:
     def __repr__(self):
         return str(self)
 
+
 class Library:
+
     def __init__(self, str_library):
         items = str_library.split(':')
         if len(items) < 1:
@@ -149,6 +153,7 @@ class Library:
 
 
 class Libraries:
+
     def __init__(self, libs):
         self.map_group_artifact_version = {}
         self.map_artifact_version = {}
@@ -218,7 +223,8 @@ class Libraries:
     def __repr__(self):
         return str(self)
 
-def read_pom(path, name = None):
+
+def read_pom(path, name=None):
     if name:
         fname = os.path.join(path, name, POM_NAME)
     else:
@@ -227,7 +233,8 @@ def read_pom(path, name = None):
     with open(fname, 'r') as file:
         return file.readlines()
 
-def read_poms(cfg, path, depth = 1, pom = None):
+
+def read_poms(cfg, path, depth=1, pom=None):
     map_project_pom = {}
     map_project_path = {}
     print('in ', path)
@@ -254,7 +261,8 @@ def read_poms(cfg, path, depth = 1, pom = None):
             map_project_path.update(_map_project_path)
     return map_project_pom, map_project_path
 
-def write_pom(path, pom, skip_lines = None):
+
+def write_pom(path, pom, skip_lines=None):
     fname = os.path.join(path, POM_NAME)
     print("-> %s" % fname)
     with open(fname, 'w') as file:
@@ -263,13 +271,27 @@ def write_pom(path, pom, skip_lines = None):
                 continue
             file.write(line)
 
-def write_poms(map_project_pom, map_project_path, skip_lines = None):
+
+def write_poms(map_project_pom, map_project_path, skip_lines=None):
     for project in map_project_pom:
         if skip_lines:
             write_pom(map_project_path[project], map_project_pom[project], skip_lines[project])
         else:
             write_pom(map_project_path[project], map_project_pom[project])
     return map_project_pom
+
+
+def maven_anc_line(cfg, line, map_anc_versions_main):
+  if line.startswith("[INFO] Ancestor"):
+      line_ok = line[22:]
+      line_ok_arr = line_ok.split(" <-")
+      if cfg.verbosity >= 2:
+          print("-- %s" % line_ok_arr[0])
+      cols = line_ok_arr[0].split(":")
+      lib = cols[0] + '.' + cols[1]
+      version = cols[2]
+      map_anc_versions_main[lib] = [Version(version)]
+
 
 def maven_dep_line(cfg, line, map_lib_versions_main, map_lib_versions):
     if line.startswith('[INFO] |') or line.startswith('[INFO] +') or line.startswith('[INFO] \\'):
@@ -283,7 +305,7 @@ def maven_dep_line(cfg, line, map_lib_versions_main, map_lib_versions):
                 return
             if cfg.scopes and scope not in cfg.scopes:
                 return
-            lib = cols[0]+'.'+cols[1]
+            lib = cols[0] + '.' + cols[1]
             version = cols[3 if len(cols) == 5 else 4]
             map_lib_versions_main[lib] = [Version(version)]
         else:
@@ -296,23 +318,24 @@ def maven_dep_line(cfg, line, map_lib_versions_main, map_lib_versions):
                 return
             if cfg.scopes and scope not in cfg.scopes:
                 return
-            lib = cols[0]+'.'+cols[1]
+            lib = cols[0] + '.' + cols[1]
             version = cols[3 if len(cols) == 5 else 4]
             if lib in map_lib_versions:
                 map_lib_versions[lib] = map_lib_versions[lib] + [Version(version)]
             else:
                 map_lib_versions[lib] = [Version(version)]
 
-def maven_dep_pom(cfg, path, pom = None):
+
+def maven_dep_pom(cfg, path, pom=None):
     map2_project_lib_versions_main = {}
     map2_project_lib_versions = {}
     map_lib_versions_main = {}
     map_lib_versions = {}
     project = None
     if pom:
-        pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:tree'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:tree'], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     else:
-        pipe = subprocess.Popen(['mvn','dependency:tree'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        pipe = subprocess.Popen(['mvn', 'dependency:tree'], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     text = pipe.communicate()[0].decode("utf-8")
 #     print(text)
     for line in text.split("\n"):
@@ -340,6 +363,57 @@ def maven_dep_pom(cfg, path, pom = None):
         map2_project_lib_versions[project] = map_lib_versions
     return (map2_project_lib_versions_main, map2_project_lib_versions)
 
+  
+def maven_anc_pom(cfg, path, pom=None):
+    map2_project_lib_versions_main = {}
+    map_lib_versions_main = {}
+    project = None
+    if pom:
+        pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:display-ancestors'], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    else:
+        pipe = subprocess.Popen(['mvn', 'dependency:display-ancestors'], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    text = pipe.communicate()[0].decode("utf-8")
+#     print(text)
+    for line in text.split("\n"):
+        if line.find('[ERROR]') >= 0:
+            print(line)
+            continue
+        result = FOR_PROJECT_RE.search(line)
+        if result:
+            print(line)
+            if project:
+                map2_project_lib_versions_main[project] = map_lib_versions_main
+            map_lib_versions_main = {}
+            project = result.group('project')
+            if cfg.projects and not project in cfg.projects:
+                project = None
+            if cfg.skip_projects and project in cfg.skip_projects:
+                project = None
+            print("project %s" % (project))
+        else:
+            maven_anc_line(cfg, line, map_lib_versions_main)
+    if project:
+        map2_project_lib_versions_main[project] = map_lib_versions_main
+    return (map2_project_lib_versions_main)
+
+  
+def maven_anc_tree(cfg, path):
+    map2_project_lib_versions_main = {}
+    for entry in os.scandir(path):
+        if not entry.name.startswith('.') and entry.is_dir():
+            if POM_NAME in os.listdir(entry.path):
+                if cfg.projects and not entry.name in cfg.projects:
+                    continue
+                if cfg.skip_projects and entry.name in cfg.skip_projects:
+                    continue
+                print("dir %s" % (entry.path))
+                _map2_project_lib_versions_main = maven_anc_pom(cfg, entry.path, None)
+                if cfg.verbosity >= 2:
+                    print(_map2_project_lib_versions_main)
+                map2_project_lib_versions_main.update(_map2_project_lib_versions_main)
+    return (map2_project_lib_versions_main)
+
+
 def maven_dep_tree(cfg, path):
     map2_project_lib_versions_main = {}
     map2_project_lib_versions = {}
@@ -359,11 +433,20 @@ def maven_dep_tree(cfg, path):
                 map2_project_lib_versions.update(_map2_project_lib_versions)
     return (map2_project_lib_versions_main, map2_project_lib_versions)
 
+
+def maven_ancestors(cfg):
+  if cfg.pom:
+    return maven_anc_pom(cfg, cfg.dir, cfg.pom)
+  else:
+    return maven_anc_tree(cfg, cfg.dir)
+
+
 def maven_dependencies(cfg):
     if cfg.pom:
         return maven_dep_pom(cfg, cfg.dir, cfg.pom)
     else:
         return maven_dep_tree(cfg, cfg.dir)
+
 
 def maven_plug_line(cfg, line, map_lib_versions_main):
     if line.startswith('[INFO] Plugin Resolved'):
@@ -377,20 +460,21 @@ def maven_plug_line(cfg, line, map_lib_versions_main):
         lib = '-'.join(cols)
         map_lib_versions_main[lib] = [Version(version)]
 
-def maven_plug_pom(cfg, path, pom = None):
+
+def maven_plug_pom(cfg, path, pom=None):
     map2_project_lib_versions_main = {}
     map_lib_versions_main = {}
     project = None
     if pom:
         if cfg.exclude_artifacts:
-            pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:resolve-plugins', '-DexcludeArtifactIds='+','.join(cfg.exclude_artifacts)], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:resolve-plugins', '-DexcludeArtifactIds=' + ','.join(cfg.exclude_artifacts)], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         else:
-            pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:resolve-plugins'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            pipe = subprocess.Popen(['mvn', '-f', pom, 'dependency:resolve-plugins'], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     else:
         if cfg.exclude_artifacts:
-            pipe = subprocess.Popen(['mvn','dependency:resolve-plugins', '-DexcludeArtifactIds='+','.join(cfg.exclude_artifacts)], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            pipe = subprocess.Popen(['mvn', 'dependency:resolve-plugins', '-DexcludeArtifactIds=' + ','.join(cfg.exclude_artifacts)], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         else:
-            pipe = subprocess.Popen(['mvn','dependency:resolve-plugins'], cwd = path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            pipe = subprocess.Popen(['mvn', 'dependency:resolve-plugins'], cwd=path, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     text = pipe.communicate()[0].decode("utf-8")
 #     print(text)
     for line in text.split("\n"):
@@ -414,6 +498,7 @@ def maven_plug_pom(cfg, path, pom = None):
         map2_project_lib_versions_main[project] = map_lib_versions_main
     return map2_project_lib_versions_main
 
+
 def maven_plug_tree(cfg, path):
     map2_project_lib_versions_main = {}
     for entry in os.scandir(path):
@@ -430,13 +515,15 @@ def maven_plug_tree(cfg, path):
                 map2_project_lib_versions_main.update(_map2_project_lib_versions_main)
     return map2_project_lib_versions_main
 
+
 def maven_plugins(cfg):
     if cfg.pom:
         return maven_plug_pom(cfg, cfg.dir, cfg.pom)
     else:
         return maven_plug_tree(cfg, cfg.dir)
 
-def merge_libs(cfg, map2_project_lib_versions, map2_lib_version_projects = None):
+
+def merge_libs(cfg, map2_project_lib_versions, map2_lib_version_projects=None):
     if not map2_lib_version_projects:
         map2_lib_version_projects_new = {}
     else:
@@ -456,7 +543,8 @@ def merge_libs(cfg, map2_project_lib_versions, map2_lib_version_projects = None)
                     map2_lib_version_projects_new[lib] = {ver : [project]}
     return map2_lib_version_projects_new
 
-def dump_libs_usage(text, map2_lib_version_projects_main, _all = True):
+
+def dump_libs_usage(text, map2_lib_version_projects_main, _all=True):
     print("-> %s " % text)
     libs = list(map2_lib_version_projects_main.keys())
     libs.sort()
@@ -471,15 +559,17 @@ def dump_libs_usage(text, map2_lib_version_projects_main, _all = True):
             if (len(map_version_projects) > 1):
                 print("%s = %s" % (lib, map_version_projects))
 
+
 def find_value_in_pom(pom, value):
-    str_re = re.compile('<'+ value +'>(?P<value>.+)</' + value + '>')
+    str_re = re.compile('<' + value + '>(?P<value>.+)</' + value + '>')
     for linenum, line in enumerate(pom):
         result = str_re.search(line)
         if result:
             return linenum, result.group('value')
     return None, None
 
-def find_artifact_in_pom(pom, artifact, from_linenum = None):
+
+def find_artifact_in_pom(pom, artifact, from_linenum=None):
     artifact_re = re.compile('<artifactId>' + artifact + '</artifactId>')
     found_line, prev_line, next_line = None, None, None
     found_linenum = None
@@ -496,6 +586,7 @@ def find_artifact_in_pom(pom, artifact, from_linenum = None):
         else:
             prev_line = line
     return found_linenum, found_line, prev_line, next_line
+
 
 def find_version_in_pom(pom, found_linenum, found_line, prev_line, next_line):
     result = SUBST_VER_RE.search(next_line)
@@ -514,6 +605,7 @@ def find_version_in_pom(pom, found_linenum, found_line, prev_line, next_line):
         return found_linenum - 1, result.group('version')
     return None, None
 
+
 def find_versions_in_pom(pom):
     found_props = False
     map_verprop_linenum = {}
@@ -528,6 +620,7 @@ def find_versions_in_pom(pom):
             found_props = True
     return map_verprop_linenum
 
+
 def unused_versions_in_pom(pom, map_verprop_linenum):
     unused_pom_versions = dict(map_verprop_linenum)
     pom_versions_unused = map_verprop_linenum
@@ -538,6 +631,7 @@ def unused_versions_in_pom(pom, map_verprop_linenum):
                 unused_pom_versions.pop(verprop)
                 break
     return unused_pom_versions
+
 
 def find_main_in_pom(pom):
     group_id, artifact_id = None, None
@@ -557,6 +651,7 @@ def find_main_in_pom(pom):
             artifact_id = result.group('artifact')
             continue
     return group_id, artifact_id
+
 
 def find_parent_in_pom(pom):
     found_parent = False
@@ -582,6 +677,7 @@ def find_parent_in_pom(pom):
             found_parent = True
     return group_id, artifact_id, version, version_line
 
+
 def find_versions_maven_central(cfg, lib):
     list_ver_datetime = []
     if lib.startswith('cz.'):
@@ -604,7 +700,7 @@ def find_versions_maven_central(cfg, lib):
             ix = url[:-1].rfind('/')
             if ix < 0:
                 continue
-            url = url[:ix] + '.' + url[ix+1:]
+            url = url[:ix] + '.' + url[ix + 1:]
 #             print('3333', url)
             req = requests.get(url)
 #             print('3333b', req.status_code)
@@ -640,9 +736,13 @@ def find_versions_maven_central(cfg, lib):
                 list_ver_datetime.append((version, str(dt)))
     return list_ver_datetime
 
+
 central_maven_incorrect_datetimes = set(['commons-lang.commons-lang'])
+
+
 def compare_based_on_version(lib):
     return True
+
 
 def is_valid_lib(lib):
     if lib.startswith('200'):
@@ -650,6 +750,7 @@ def is_valid_lib(lib):
     if lib.lower().find('alpha') >= 0 or lib.lower().find('beta') >= 0 or lib.lower().find('incubat') >= 0 or lib.lower().find('mistake') >= 0 or lib.find('-M') >= 0:
         return False
     return True
+
 
 def find_latest_maven_central(cfg, lib):
     list_ver_datetime = find_versions_maven_central(cfg, lib)
@@ -681,6 +782,7 @@ def find_latest_maven_central(cfg, lib):
                 latest_datetime = ver_datetime[1]
         print('find_latest_maven_central lib=%s, ver=%s from %s' % (lib, latest_version, latest_datetime))
         return latest_version
+
 
 def find_pom_for_artifact_version(lib, project, map_project_pom, map_project_parents):
     pom = map_project_pom[project]
@@ -715,6 +817,7 @@ def find_pom_for_artifact_version(lib, project, map_project_pom, map_project_par
                 return parent, pom, version_linenum, version
     return None, None, None, None
 
+
 def fix_latest_versions_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects):
     map_project_pom_fixed = {}
     libs = list(map2_lib_version_projects.keys())
@@ -726,7 +829,7 @@ def fix_latest_versions_in_poms(cfg, map_project_pom, map_project_parents, map2_
             continue
         if not Libraries.process(cfg.libs, lib):
             continue
-        #print("%s = %s" % (lib, map2_lib_version_projects[lib]))
+        # print("%s = %s" % (lib, map2_lib_version_projects[lib]))
         latest_version = None
         for version, projects in map2_lib_version_projects[lib].items():
             if not latest_version or version.compare(latest_version):
@@ -737,13 +840,13 @@ def fix_latest_versions_in_poms(cfg, map_project_pom, map_project_parents, map2_
             print("FIX for %s version %s -> %s in %s" % (lib, version, latest_version, projects))
             for project in projects:
                 if not project in map_project_pom:
-                    print('??? Missing ' + project +' in ', map_project_pom.keys())
+                    print('??? Missing ' + project + ' in ', map_project_pom.keys())
                     continue
                 project_version, pom_version, version_linenum, version = find_pom_for_artifact_version(lib, project, map_project_pom, map_project_parents)
                 if not version:
                     print("Not found artifactId (or version) %s in %s nor in it's parents" % (lib.split('.')[-1], project))
                     continue
-                #print("Found version for artifactId %s in %s" % (lib.split('.')[-1], project_version))
+                # print("Found version for artifactId %s in %s" % (lib.split('.')[-1], project_version))
                 if version == latest_version.version:
                     print("FIXED line %d: %s -> %s in %s" % (version_linenum, version, latest_version, project_version))
                 else:
@@ -754,6 +857,7 @@ def fix_latest_versions_in_poms(cfg, map_project_pom, map_project_parents, map2_
                         map_project_pom_fixed[project_version] = pom_version
                         print(pom_version[version_linenum], end="")
     return map_project_pom_fixed
+
 
 def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects, central_libs):
     map_project_pom_fixed = {}
@@ -779,13 +883,13 @@ def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib
             print("FIX for %s version %s -> %s in %s" % (lib, version, new_version, projects))
             for project in projects:
                 if not project in map_project_pom:
-                    print('??? Missing ' + project +' in ', map_project_pom.keys())
+                    print('??? Missing ' + project + ' in ', map_project_pom.keys())
                     continue
                 project_version, pom_version, version_linenum, version = find_pom_for_artifact_version(lib, project, map_project_pom, map_project_parents)
                 if not version:
                     print("Not found artifactId (or version) %s in %s nor in it's parents" % (lib.split('.')[-1], project))
                     continue
-                #print("Found version for artifactId %s in %s" % (lib.split('.')[-1], project_version))
+                # print("Found version for artifactId %s in %s" % (lib.split('.')[-1], project_version))
                 if version == new_version:
                     print("FIXED line %d: %s -> %s in %s" % (version_linenum, version, new_version, project_version))
                 else:
@@ -797,13 +901,20 @@ def update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib
                         print(pom_version[version_linenum], end="")
     return map_project_pom_fixed
 
-def update_parent_in_poms(cfg, map_project_pom):
+
+def update_parent_in_poms(cfg, map_project_pom, central_ancs=None):
     map_project_pom_fixed = {}
     for project, pom in map_project_pom.items():
         group_id, artifact_id, version, version_line = find_parent_in_pom(pom)
         if group_id and artifact_id and version and version_line:
             lib = group_id + "." + artifact_id
-            new_version = Libraries.version(cfg.libs, lib)
+            if central_ancs:
+                if lib in central_ancs:
+                    new_version = central_ancs[lib]
+                else:
+                    new_version = None
+            else:    
+                new_version = Libraries.version(cfg.libs, lib)
             if new_version:
                 print("TOFIX line %d: %s -> %s in %s" % (version_line, version, new_version, project))
                 print(pom[version_line], end="")
@@ -812,6 +923,7 @@ def update_parent_in_poms(cfg, map_project_pom):
                     map_project_pom_fixed[project] = pom
                     print(pom[version_line], end="")
     return map_project_pom_fixed
+
 
 def build_pom_hierarchy(map_project_path):
     map_project_parents = {}
@@ -841,7 +953,9 @@ def build_pom_hierarchy(map_project_path):
 #     print(map_project_parents)
     return map_project_parents
 
+
 class Config:
+
     def __init__(self):
         self.default_skip_projects = []
         self.default_skip_libs = []
@@ -877,11 +991,11 @@ class Config:
                     print("default remote urls", self.default_remote_urls)
 
         parser = argparse.ArgumentParser(description='Analyze Maven projects.')
-        parser.add_argument('-d', '--dir', metavar = 'dir', default = '.',
+        parser.add_argument('-d', '--dir', metavar='dir', default='.',
                             help='directory to scan for the Maven projects (default: the working directory)')
-        parser.add_argument('-p', '--projects', metavar = 'project', nargs = '+',
+        parser.add_argument('-p', '--projects', metavar='project', nargs='+',
                             help='the Maven projects to analyze (default: all projects in selected directory)')
-        parser.add_argument('-P', '--skip_projects', metavar = 'project', nargs = '+', default = self.default_skip_projects,
+        parser.add_argument('-P', '--skip_projects', metavar='project', nargs='+', default=self.default_skip_projects,
                             help='the Maven projects to skip')
         parser.add_argument('-v', '--verbosity', action='count', default=0,
                             help='the verbosity of debug output')
@@ -889,23 +1003,23 @@ class Config:
                             help='fix the Maven projects\' to the latest libraries\' version')
         parser.add_argument('-t', '--type', default=FIX_LIBS_LATEST_COMMON_VERSIONS, choices=ACTIONS,
                             help='fix the Maven projects\' to the latest libraries\' version')
-        parser.add_argument('-s', '--scopes', metavar = 'scope', nargs = '+',
+        parser.add_argument('-s', '--scopes', metavar='scope', nargs='+',
                             help='the Maven scopes to work with')
-        parser.add_argument('-S', '--skip_scopes', metavar = 'scope', nargs = '+', default = self.default_skip_scopes,
+        parser.add_argument('-S', '--skip_scopes', metavar='scope', nargs='+', default=self.default_skip_scopes,
                             help='the Maven scopes to skip')
-        parser.add_argument('-l', '--libs', dest = '_libs', metavar = 'library', nargs = '+',
+        parser.add_argument('-l', '--libs', dest='_libs', metavar='library', nargs='+',
                             help='the list of libraries to process (in the form groupId:artifactId:version)')
-        parser.add_argument('-L', '--skip_libs', dest = '_skip_libs', metavar = 'library', nargs = '+', default = self.default_skip_libs,
+        parser.add_argument('-L', '--skip_libs', dest='_skip_libs', metavar='library', nargs='+', default=self.default_skip_libs,
                             help='the list of libraries to skip (in the form groupId:artifactId:version)')
-        parser.add_argument('--pom', metavar = 'pom', default = self.default_pom,
+        parser.add_argument('--pom', metavar='pom', default=self.default_pom,
                             help='the parent (main) pom.xml used instead of directory scanning')
-        parser.add_argument('--depth', type=int, default = self.default_depth,
+        parser.add_argument('--depth', type=int, default=self.default_depth,
                             help='the depth of directories to scan for pom.xml')
-        parser.add_argument('-X', '--exclude_artifacts', dest = 'exclude_artifacts', metavar = 'artifact', nargs = '+', default = self.default_exclude_artifacts,
+        parser.add_argument('-X', '--exclude_artifacts', dest='exclude_artifacts', metavar='artifact', nargs='+', default=self.default_exclude_artifacts,
                             help='the list of artifacts to exclude (right now only plugins)')
-        parser.add_argument('-r', '--remote', dest = '_remote_urls', metavar = 'url', nargs = '+', default = self.default_remote_urls,
+        parser.add_argument('-r', '--remote', dest='_remote_urls', metavar='url', nargs='+', default=self.default_remote_urls,
                             help='consult the remote (central) maven repositories')
-        parser.parse_args(namespace = self)
+        parser.parse_args(namespace=self)
 
         self.libs = None if not self._libs else Libraries(self._libs)
         self.skip_libs = None if not self._skip_libs else Libraries(self._skip_libs)
@@ -928,6 +1042,7 @@ class Config:
             self.remote_urls = REPO2 + self._remote_urls
         else:
             self.remote_urls = REPOS + self._remote_urls
+
 
 def main():
     cfg = Config()
@@ -1002,11 +1117,14 @@ def main():
     elif cfg.type == FIX_LIBS_FROM_REPO:
         map2_project_lib_versions_main, map2_project_lib_versions = maven_dependencies(cfg)
         if cfg.verbosity >= 1:
+            print("---map2_project_lib_versions_main-----------------------------------------------------------------------------------------------------------")
             print(map2_project_lib_versions_main)
+            print("---map2_project_lib_versions-----------------------------------------------------------------------------------------------------------")
             print(map2_project_lib_versions)
 
         map2_lib_version_projects_main = merge_libs(cfg, map2_project_lib_versions_main)
         if cfg.verbosity >= 3:
+            print("---map2_lib_version_projects_main-----------------------------------------------------------------------------------------------------------")
             print(map2_lib_version_projects_main)
         central_libs = {}
         for lib in map2_lib_version_projects_main.keys():
@@ -1014,18 +1132,58 @@ def main():
             if latest_version:
                 central_libs[lib] = latest_version
         if cfg.verbosity >= 2:
+            print("---central_libs-----------------------------------------------------------------------------------------------------------")
             print(central_libs)
 
         if cfg.fix >= 1:
             map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
             if cfg.verbosity >= 3:
+                print("---map_project_pom-----------------------------------------------------------------------------------------------------------")
                 print(map_project_pom)
+                print("---map_project_path-----------------------------------------------------------------------------------------------------------")
                 print(map_project_path)
             map_project_parents = build_pom_hierarchy(map_project_path)
+            if cfg.verbosity >= 3:
+                print("---map_project_parents-----------------------------------------------------------------------------------------------------------")
+                print(map_project_parents)
             map_project_pom_fixed = update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects_main, central_libs)
             if cfg.fix >= 2:
                 write_poms(map_project_pom_fixed, map_project_path)
 
+    elif cfg.type == FIX_PARENTS_FROM_REPO:
+        map2_project_anc_versions_main = maven_ancestors(cfg)
+        if cfg.verbosity >= 1:
+            print("---map2_project_anc_versions_main-----------------------------------------------------------------------------------------------------------")
+            print(map2_project_anc_versions_main)
+
+        map2_anc_version_projects_main = merge_libs(cfg, map2_project_anc_versions_main)
+        if cfg.verbosity >= 3:
+            print("---map2_anc_version_projects_main-----------------------------------------------------------------------------------------------------------")
+            print(map2_anc_version_projects_main)
+        central_ancs = {}
+        for anc in map2_anc_version_projects_main.keys():
+            latest_version = find_latest_maven_central(cfg, anc)
+            if latest_version:
+                central_ancs[anc] = latest_version
+        if cfg.verbosity >= 2:
+            print("---central_ancs-----------------------------------------------------------------------------------------------------------")
+            print(central_ancs)
+
+        if cfg.fix >= 1:
+            map_project_pom, map_project_path = read_poms(cfg, cfg.dir, cfg.depth, cfg.pom)
+            if cfg.verbosity >= 3:
+                print("---map_project_pom-----------------------------------------------------------------------------------------------------------")
+                print(map_project_pom)
+                print("---map_project_path-----------------------------------------------------------------------------------------------------------")
+                print(map_project_path)
+            map_project_parents = build_pom_hierarchy(map_project_path)
+            if cfg.verbosity >= 3:
+                print("---map_project_parents-----------------------------------------------------------------------------------------------------------")
+                print(map_project_parents)
+            map_project_pom_fixed = update_parent_in_poms(cfg, map_project_pom, central_ancs)
+            if cfg.fix >= 2:
+                write_poms(map_project_pom_fixed, map_project_path)
+    
     elif cfg.type == FIX_PLUGINS_FROM_REPO:
         map2_project_lib_versions_main = maven_plugins(cfg)
         if cfg.verbosity >= 1:
@@ -1069,6 +1227,7 @@ def main():
             map_project_pom_fixed = update_libraries_in_poms(cfg, map_project_pom, map_project_parents, map2_lib_version_projects_main, None)
             if cfg.fix >= 2:
                 write_poms(map_project_pom_fixed, map_project_path)
+
 
 if __name__ == '__main__':
     main()
