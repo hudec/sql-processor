@@ -594,9 +594,10 @@ public class SpringQuery implements SqlQuery {
                         ResultSet rsToUse = rs;
                         if (fetchSize != null)
                             rs.setFetchSize(fetchSize);
-                        if (jdbcTemplate.getNativeJdbcExtractor() != null) {
-                            rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
-                        }
+                        // SPring 5
+                        // if (jdbcTemplate.getNativeJdbcExtractor() != null) {
+                        // rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
+                        // }
                         list = getResults(rsToUse);
                         getParameters(cs, false);
                     } else {
@@ -604,9 +605,10 @@ public class SpringQuery implements SqlQuery {
                         ResultSet rsToUse = rs;
                         if (fetchSize != null)
                             rs.setFetchSize(fetchSize);
-                        if (jdbcTemplate.getNativeJdbcExtractor() != null) {
-                            rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
-                        }
+                        // SPring 5
+                        // if (jdbcTemplate.getNativeJdbcExtractor() != null) {
+                        // rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
+                        // }
                         list = getResults(rsToUse);
                     }
                 } finally {
@@ -732,9 +734,10 @@ public class SpringQuery implements SqlQuery {
                         ResultSet rsToUse = rs;
                         if (fetchSize != null)
                             rs.setFetchSize(fetchSize);
-                        if (jdbcTemplate.getNativeJdbcExtractor() != null) {
-                            rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
-                        }
+                        // Spring 5
+                        // if (jdbcTemplate.getNativeJdbcExtractor() != null) {
+                        // rsToUse = jdbcTemplate.getNativeJdbcExtractor().getNativeResultSet(rs);
+                        // }
                         list = getResults(rsToUse);
                         if (list != null && !list.isEmpty())
                             result = list.get(0);
