@@ -70,8 +70,7 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Creates a new instance. It's used from inside ANTLR parser or in the process of merging.
      * 
-     * @param dbName
-     *            the name of a database query output
+     * @param dbName the name of a database query output
      */
     SqlMappingItem(String dbName) {
         this.attributes = new ArrayList<SqlMappingAttribute>();
@@ -93,8 +92,7 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Adds a partial name of an attribute.
      * 
-     * @param name
-     *            the partial name of an attribute in the result class
+     * @param name the partial name of an attribute in the result class
      */
     SqlMappingAttribute addAttributeName(String name) {
         String[] names = name.split("=");
@@ -114,10 +112,8 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Injects value to the named attribute.
      * 
-     * @param attrName
-     *            the attribute name
-     * @param value
-     *            value for the named attribute
+     * @param attrName the attribute name
+     * @param value    value for the named attribute
      */
     SqlMappingAttribute setAttributeValue(String attrName, String value) {
         String[] values = value.split("=");
@@ -141,8 +137,7 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Sets the list of all partial attribute names in the result class.
      * 
-     * @param attributes
-     *            the list of all partial attribute names
+     * @param attributes the list of all partial attribute names
      */
     void setAttributes(List<SqlMappingAttribute> attributes) {
         this.attributes = attributes;
@@ -151,8 +146,7 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Sets the map of all partial attribute names in the result class.
      * 
-     * @param attributesMap
-     *            the map of all partial attribute names
+     * @param attributesMap the map of all partial attribute names
      */
     void setAttributesMap(Map<String, SqlMappingAttribute> attributesMap) {
         this.attributesMap = attributesMap;
@@ -161,8 +155,7 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Returns the indicator this is an identity column.
      * 
-     * @param ctx
-     *            the crate for all input parameters and the context of processing
+     * @param ctx the crate for all input parameters and the context of processing
      * @return the indicator this is an identity column
      */
     boolean isIdentity(SqlProcessContext ctx) {
@@ -199,10 +192,8 @@ class SqlMappingItem implements SqlMetaElement {
      * Assigns the internal type. This type it's used in a conversion process of SQL query output values. It can be a
      * META type or an Hibernate type.
      * 
-     * @param metaTypeName
-     *            an internal type name for this mapping rule item
-     * @param metaType
-     *            an internal type for this mapping rule item
+     * @param metaTypeName an internal type name for this mapping rule item
+     * @param metaType     an internal type for this mapping rule item
      */
     void setMetaType(String metaTypeName, SqlMetaType metaType) {
         this.sqlType = new SqlType(metaTypeName, metaType);
@@ -220,8 +211,7 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Sets the internal type of an attribute in the result class.
      * 
-     * @param sqlType
-     *            the internal type of an attribute in the result class
+     * @param sqlType the internal type of an attribute in the result class
      */
     void setSqlType(SqlType sqlType) {
         this.sqlType = sqlType;
@@ -230,10 +220,8 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Sets the modifiers. They are used to identify an identity column or the partial attribute type.
      * 
-     * @param value
-     *            the value for a special treatment, might be an identifier of value2
-     * @param value2
-     *            the value for a special treatment, might be an attribute type
+     * @param value  the value for a special treatment, might be an identifier of value2
+     * @param value2 the value for a special treatment, might be an attribute type
      */
     void setValues(String value, String value2) {
         setValues(null, value, value2);
@@ -242,12 +230,9 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Sets the modifiers. They are used to identify an identity column or the partial attribute type.
      * 
-     * @param name
-     *            the partial name in the case this modifier is related to it
-     * @param value
-     *            the value for a special treatment, might be an identifier of value2
-     * @param value2
-     *            the value for a special treatment, might be an attribute type
+     * @param name   the partial name in the case this modifier is related to it
+     * @param value  the value for a special treatment, might be an identifier of value2
+     * @param value2 the value for a special treatment, might be an attribute type
      */
     void setValues(String name, String value, String value2) {
         int ix = -1;
@@ -278,16 +263,12 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Declares a scalar query result for this mapping rule item.
      * 
-     * @param ctx
-     *            the crate for all input parameters and the context of processing
-     * @param resultClass
-     *            the class used for the return values, the SQL execution output
-     * @param moreResultClasses
-     *            more classes used for the return values, like the classes for the collections or the collections items
-     * @param query
-     *            the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with output values preparation
+     * @param ctx               the crate for all input parameters and the context of processing
+     * @param resultClass       the class used for the return values, the SQL execution output
+     * @param moreResultClasses more classes used for the return values, like the classes for the collections or the
+     *                          collections items
+     * @param query             the SQL Engine query, an adapter or proxy to the internal JDBC or ORM staff
+     * @throws org.sqlproc.engine.SqlRuntimeException in the case of any problem with output values preparation
      */
     void setQueryResultMapping(SqlProcessContext ctx, Class<?> resultClass, Map<String, Class<?>> moreResultClasses,
             SqlQuery query) throws SqlRuntimeException {
@@ -332,7 +313,8 @@ class SqlMappingItem implements SqlMetaElement {
             if (!exit) {
                 if (SqlUtils.isCollection(objClass)) {
                     String typeName = (moreResultClasses != null)
-                            ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
+                            ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE)
+                            : null;
                     Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                     if (typeClass == null)
                         typeClass = rt.typeClass;
@@ -350,7 +332,8 @@ class SqlMappingItem implements SqlMetaElement {
                     }
                 } else if (moreResultClasses != null) {
                     String typeName = (moreResultClasses != null)
-                            ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
+                            ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE)
+                            : null;
                     Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;
                     if (typeClass != null)
                         objClass = typeClass;
@@ -388,27 +371,18 @@ class SqlMappingItem implements SqlMetaElement {
     /**
      * Initializes the attribute of the result class with the output value from the SQL query execution.
      * 
-     * @param ctx
-     *            the crate for all input parameters and the context of processing
-     * @param resultInstance
-     *            the instance of the result class
-     * @param resultIndex
-     *            the index of the processed query execution output value
-     * @param resultValues
-     *            the query execution output values
-     * @param ids
-     *            the instances of all already used identities together with the related result instances based on
-     *            identities indices
-     * @param idsProcessed
-     *            the instances of all already used identities together with the related result instances based on
-     *            identities indices - the working copy
-     * @param identities
-     *            the collection of identities related to all output columns
-     * @param moreResultClasses
-     *            more result classes used for the return values, like the classes for the collections or the
-     *            collections items
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with output values handling
+     * @param ctx               the crate for all input parameters and the context of processing
+     * @param resultInstance    the instance of the result class
+     * @param resultIndex       the index of the processed query execution output value
+     * @param resultValues      the query execution output values
+     * @param ids               the instances of all already used identities together with the related result instances
+     *                          based on identities indices
+     * @param idsProcessed      the instances of all already used identities together with the related result instances
+     *                          based on identities indices - the working copy
+     * @param identities        the collection of identities related to all output columns
+     * @param moreResultClasses more result classes used for the return values, like the classes for the collections or
+     *                          the collections items
+     * @throws org.sqlproc.engine.SqlRuntimeException in the case of any problem with output values handling
      */
     void setQueryResultData(SqlProcessContext ctx, Object resultInstance, int resultIndex, Object[] resultValues,
             Map<String, Object> ids, Map<String, Object> idsProcessed, Map<String, SqlMappingIdentity> identities,
@@ -508,7 +482,8 @@ class SqlMappingItem implements SqlMetaElement {
                         nextObj = idsProcessed.get(idsKey);
                     } else {
                         String typeName = (moreResultClasses != null)
-                                ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE) : null;
+                                ? values.get(attr.getFullName() + Modifiers.MODIFIER_GTYPE)
+                                : null;
                         Class<?> typeClass = null;
                         if (typeName != null) {
                             if (typeName.toLowerCase().startsWith(Modifiers.MODIFIER_DISCRIMINATOR))
@@ -521,7 +496,23 @@ class SqlMappingItem implements SqlMetaElement {
                         if (typeClass != null) {
                             Object itemObj = ctx.getInstance(typeClass);
                             if (itemObj != null) {
-                                ((Collection) nextObj).add(itemObj);
+                                List<Integer> idents = identities.get(attr.getFullName()) != null
+                                        ? identities.get(attr.getFullName()).identityIndexes
+                                        : null;
+                                boolean nullIdentity = idents != null && !idents.isEmpty();
+                                if (nullIdentity) {
+                                    for (Integer id : idents) {
+                                        if (resultValues[id] != null) {
+                                            nullIdentity = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (nullIdentity)
+                                    logger.warn("There's null idenity " + typeClass + ", complete attribute name is "
+                                            + attr.getFullName() + ", possible type name is " + typeName);
+                                else
+                                    ((Collection) nextObj).add(itemObj);
                                 idsProcessed.put(idsKey, itemObj);
                                 nextObj = itemObj;
                             } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
@@ -568,8 +559,7 @@ class SqlMappingItem implements SqlMetaElement {
      * Merge mapping rules for one output column based on SqlMapping.g and SqlStatement.g. This mapping rule has the
      * higher priority.
      * 
-     * @param outputMapping
-     *            the mapping rule based on SqlStatement.g
+     * @param outputMapping the mapping rule based on SqlStatement.g
      * @return a new merged mapping rule item
      */
     SqlMappingItem merge(SqlMappingItem outputMapping) {
