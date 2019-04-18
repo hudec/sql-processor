@@ -1,4 +1,4 @@
-SQL Processor - Data Driven Queries - http://sql-processor.org/
+SQL Processor - Data Driven Queries - http://sql-processor.eu/
 
 The SQL Processor (SQLP) is an engine producing the ANSI SQL statements and providing their execution without the necessity to write Java plumbing code related to the ORM or JDBC API. The input to the SQL Processor is
 
