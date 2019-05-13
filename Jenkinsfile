@@ -6,7 +6,7 @@ pipeline {
   }
 	
   triggers {
-    pollSCM('* * * * *')
+    pollSCM('*/5 * * * *')
   }
 	
   stages {
@@ -18,7 +18,7 @@ pipeline {
 	  
     stage("Unit test") {
       steps {
-        sh "mvn clean test"
+        sh "mvn test"
       }
     }
   }
