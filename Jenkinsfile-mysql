@@ -6,13 +6,7 @@ pipeline {
   }
 	
   stages {
-    stage("compile") {
-      steps {
-        sh "mvn clean compile"
-      }
-    }
-	  
-    stage("mysql") {
+    stage("ITest for MySQL") {
       steps {
         script {
           docker.image('mysql:8.0.16').withRun('-e "MYSQL_ROOT_PASSWORD=sqlproc" -e "MYSQL_DATABASE=sqlproc" -e "MYSQL_USER=sqlproc" -e "MYSQL_PASSWORD=sqlproc"') { c ->
@@ -21,7 +15,7 @@ pipeline {
               sh 'while ! mysqladmin ping -hmysql --silent; do sleep 1; done'
             }
             docker.image('maven:3.6.1-jdk-8').inside("--link ${c.id}:mysql") {
-              echo "ok"
+              mvn clean package -P mssql-bamboo
             }
           }
         }
