@@ -50,6 +50,8 @@ public class TestStandardParameters extends TestDatabase {
                 && !"mssql".equalsIgnoreCase(dbType) && !"h2".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_time(SqlUtils.getTime(14, 55, 2));
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
+        if ("mysql".equalsIgnoreCase(dbType)) {
+            criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02"));
         if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123"));
         } else {
