@@ -300,7 +300,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>oracle-bamboo</id>
+            <id>oracle-itests</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.Oracle10gDialect</db.dialect>
                 <db.driver>oracle.jdbc.OracleDriver</db.driver>
@@ -346,7 +346,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>mysql-bamboo</id>
+            <id>mysql-itests</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
@@ -392,7 +392,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>postgresql-bamboo</id>
+            <id>postgresql-itests</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
                 <db.driver>org.postgresql.Driver</db.driver>
@@ -444,7 +444,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>informix-bamboo</id>
+            <id>informix-itests</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
                 <db.driver>com.informix.jdbc.IfxDriver</db.driver>
@@ -496,7 +496,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>mssql-bamboo</id>
+            <id>mssql-itests</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
                 <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
@@ -542,7 +542,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>db2-bamboo</id>
+            <id>db2-itests</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.DB2Dialect</db.dialect>
                 <db.driver>com.ibm.db2.jcc.DB2Driver</db.driver>
