@@ -105,9 +105,8 @@ public class TestValidations extends TestDatabase {
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
         p.setName(new PersonName());
-        p.getName()
-                .setFirst(
-                        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        p.getName().setFirst(
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
@@ -156,10 +155,10 @@ public class TestValidations extends TestDatabase {
             list = sqlEngine.query(session, Person.class, p);
             assertEquals(1, list.size());
             assertEquals("Toby", list.get(0).getName().getFirst());
-            if ("MYSQL".equalsIgnoreCase(dbType))
-                assertNotNull(list.get(0).getCreatedDate());
-            else
-                assertEquals(null, list.get(0).getCreatedDate());
+//            if ("MYSQL".equalsIgnoreCase(dbType))
+//                assertNotNull(list.get(0).getCreatedDate());
+//            else
+            assertEquals(null, list.get(0).getCreatedDate());
         } catch (SqlValidationException e) {
             SqlValidationResult<Set<ConstraintViolation<Person>>> result = e.getResult();
             for (ConstraintViolation<Person> violation : result.getResult()) {
@@ -212,9 +211,8 @@ public class TestValidations extends TestDatabase {
         assertNotSame(null, list.get(0).getCreatedDate());
 
         p.setName(new PersonName());
-        p.getName()
-                .setFirst(
-                        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        p.getName().setFirst(
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
         SqlCrudEngine crudEngine = getCrudEngine("UPDATE_PERSON_3");
 
