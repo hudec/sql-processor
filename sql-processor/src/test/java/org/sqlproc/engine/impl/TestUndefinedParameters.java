@@ -188,7 +188,9 @@ public class TestUndefinedParameters extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("UNDEFINED_JAVA8_INSTANT_PARAMETERS");
 
         TypesTransport criteria = new TypesTransport();
-        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
+        if ("mysql".equalsIgnoreCase(dbType)) {
+            criteria.setT_instant(Timestamp.valueOf("2009-08-31 14:55:02").toInstant());
+        } else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_instant(Timestamp.valueOf("2009-08-31 14:55:02.123").toInstant());
         } else {
             criteria.setT_instant(Timestamp.valueOf("2009-08-31 14:55:02.123456789").toInstant());
