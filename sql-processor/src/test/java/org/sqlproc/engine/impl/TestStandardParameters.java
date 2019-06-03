@@ -150,7 +150,9 @@ public class TestStandardParameters extends TestDatabase {
         if (!"oracle".equalsIgnoreCase(dbType) && !"postgresql".equalsIgnoreCase(dbType)
                 && !"mssql".equalsIgnoreCase(dbType) && !"h2".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_local_time(LocalTime.of(14, 55, 2));
-        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
+        if ("mysql".equalsIgnoreCase(dbType)) {
+            criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2));
+        } else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2, 123000000));
         } else {
             criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2, 123456789));

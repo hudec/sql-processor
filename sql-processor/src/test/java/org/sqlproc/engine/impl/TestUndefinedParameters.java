@@ -50,7 +50,9 @@ public class TestUndefinedParameters extends TestDatabase {
                 && !"mssql".equalsIgnoreCase(dbType) && !"h2".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_time(SqlUtils.getTime(14, 55, 2));
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
-        if (dbType.equalsIgnoreCase("informix") || "mssql".equalsIgnoreCase(dbType)) {
+        if ("mysql".equalsIgnoreCase(dbType)) {
+            criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02"));
+        } else if (dbType.equalsIgnoreCase("informix") || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123"));
         } else {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
@@ -148,7 +150,9 @@ public class TestUndefinedParameters extends TestDatabase {
         if (!"oracle".equalsIgnoreCase(dbType) && !"postgresql".equalsIgnoreCase(dbType)
                 && !"mssql".equalsIgnoreCase(dbType) && !"h2".equalsIgnoreCase(dbType)) // TODO
             criteria.setT_local_time(LocalTime.of(14, 55, 2));
-        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
+        if ("mysql".equalsIgnoreCase(dbType)) {
+            criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2));
+        } else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2, 123000000));
         } else {
             criteria.setT_local_date_time(LocalDateTime.of(2009, 8, 31, 14, 55, 2, 123456789));
