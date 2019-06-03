@@ -43,7 +43,7 @@
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>11.2.0.3</version.oracle>
         <version.mysql>5.1.47</version.mysql>
-        <version.postgresql>9.1-901.jdbc4</version.postgresql>
+        <version.postgresql>42.2.5</version.postgresql>
         <version.informix>3.5</version.informix>
         <version.mssql>4.1</version.mssql>
         <version.db2>3.52.95</version.db2>
@@ -384,7 +384,7 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>postgresql</groupId>
+                    <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                     <version>${version.postgresql}</version>
                     <scope>test</scope>
@@ -407,7 +407,7 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>postgresql</groupId>
+                    <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                     <version>${version.postgresql}</version>
                     <scope>test</scope>
