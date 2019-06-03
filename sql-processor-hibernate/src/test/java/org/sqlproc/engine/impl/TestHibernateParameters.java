@@ -110,7 +110,8 @@ public class TestHibernateParameters extends TestDatabase {
             assertEquals("2009-08-31 14:55:02.0", t.getT_timestamp().toString());
         else if ("hsqldb".equalsIgnoreCase(dbType) || "postgresql".equalsIgnoreCase(dbType)
                 || "db2".equalsIgnoreCase(dbType))
-            assertEquals("2009-08-31 14:55:02.123456", t.getT_timestamp().toString());
+            assertEquals("2009-08-31 14:55:02.12345" + ("postgresql".equalsIgnoreCase(dbType) ? "7" : "6"),
+                    t.getT_timestamp().toString());
         else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType))
             assertEquals("2009-08-31 14:55:02.123", t.getT_timestamp().toString());
         else
