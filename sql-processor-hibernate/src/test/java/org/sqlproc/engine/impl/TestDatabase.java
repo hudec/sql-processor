@@ -230,6 +230,11 @@ public abstract class TestDatabase extends DatabaseTestCase {
 
         public void execute(IDatabaseConnection connection, IDataSet dataSet)
                 throws DatabaseUnitException, SQLException {
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
             Statement stmt = null;
             try {
                 stmt = connection.getConnection().createStatement();
