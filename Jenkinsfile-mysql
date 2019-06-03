@@ -15,7 +15,7 @@ pipeline {
               sh 'while ! mysqladmin ping -hmysql --silent; do sleep 1; done'
             }
             docker.image('maven:3.6.1-jdk-8').inside("--link ${c.id}:mysql") {
-              sh "mvn clean package -P mssql-bamboo"
+              sh "mvn clean package -P mysql-bamboo"
             }
           }
         }
