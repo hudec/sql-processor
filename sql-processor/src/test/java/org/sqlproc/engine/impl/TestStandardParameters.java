@@ -52,7 +52,7 @@ public class TestStandardParameters extends TestDatabase {
         criteria.setT_datetime(SqlUtils.getDateTime(2009, 7, 31, 14, 55, 2));
         if ("mysql".equalsIgnoreCase(dbType)) {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02"));
-        if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
+        } else if ("informix".equalsIgnoreCase(dbType) || "mssql".equalsIgnoreCase(dbType)) {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123"));
         } else {
             criteria.setT_timestamp(Timestamp.valueOf("2009-08-31 14:55:02.123456789"));
