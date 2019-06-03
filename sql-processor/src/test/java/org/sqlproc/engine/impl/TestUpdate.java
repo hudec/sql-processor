@@ -98,9 +98,9 @@ public class TestUpdate extends TestDatabase {
         list = sqlEngine.query(session, Person.class, p);
         assertEquals(1, list.size());
         assertEquals("Toby", list.get(0).getName().getFirst());
-        if ("MYSQL".equalsIgnoreCase(dbType))
-            assertNotNull(list.get(0).getCreatedDate());
-        else
-            assertEquals(null, list.get(0).getCreatedDate());
+//        if ("MYSQL".equalsIgnoreCase(dbType))
+//            assertNotNull(list.get(0).getCreatedDate());
+//        else
+        assertEquals(null, list.get(0).getCreatedDate());
     }
 }
