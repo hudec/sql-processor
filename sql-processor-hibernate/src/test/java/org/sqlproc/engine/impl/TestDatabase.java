@@ -234,15 +234,16 @@ public abstract class TestDatabase extends DatabaseTestCase {
             try {
                 stmt = connection.getConnection().createStatement();
                 for (String sql : sqls)
-                    stmt.addBatch(sql);
+                    if (sql.startsWith("DROP"))
+                        stmt.addBatch(sql);
                 stmt.executeBatch();
-                return;
             } catch (SQLException e) {
                 System.out.println("SQLException: " + e.getMessage());
                 System.out.println("SQLException error code: " + e.getErrorCode());
                 System.out.println("SQLException sql state: " + e.getSQLState());
                 System.out.println("SQLException cause: " + e.getCause());
                 System.out.println("SQLException: " + e.getMessage());
+                throw e;
             } finally {
                 if (stmt != null) {
                     try {
@@ -254,7 +255,8 @@ public abstract class TestDatabase extends DatabaseTestCase {
             try {
                 stmt = connection.getConnection().createStatement();
                 for (String sql : sqls)
-                    stmt.addBatch(sql);
+                    if (!sql.startsWith("DROP"))
+                        stmt.addBatch(sql);
                 stmt.executeBatch();
             } catch (SQLException e) {
                 System.out.println("SQLException: " + e.getMessage());

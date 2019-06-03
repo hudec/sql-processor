@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlQueryEngine;
@@ -62,7 +61,6 @@ public class TestMoreLike extends TestDatabase {
         assertEquals(1, list.size());
     }
 
-    @Ignore
     @Test
     public void testMoreLike2() {
         SqlQueryEngine sqlEngine = getSqlEngine("LIKE_BASIC_2");
