@@ -42,7 +42,7 @@
         <version.h2>1.4.192</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>11.2.0.3</version.oracle>
-        <version.mysql>5.1.18</version.mysql>
+        <version.mysql>5.7.26</version.mysql>
         <version.postgresql>9.1-901.jdbc4</version.postgresql>
         <version.informix>3.5</version.informix>
         <version.mssql>4.1</version.mssql>
@@ -354,7 +354,7 @@
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
+                <DDL_CREATE_DB>ddl/mysql.ddl</DDL_CREATE_DB>
                 <DDL_DROP_DB />
                 <DB_TYPE>MYSQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
