@@ -9,7 +9,7 @@ pipeline {
     stage("ITests for MySQL") {
       steps {
         script {
-          docker.image('mysql:8.0').withRun('-e "MYSQL_ROOT_PASSWORD=sqlproc" -e "MYSQL_DATABASE=sqlproc" -e "MYSQL_USER=sqlproc" -e "MYSQL_PASSWORD=sqlproc"') { c ->
+          docker.image('mysql:8.0').withRun('-e "MYSQL_ROOT_PASSWORD=sqlproc" -e "MYSQL_DATABASE=sqlproc" -e "MYSQL_USER=sqlproc" -e "MYSQL_PASSWORD=sqlproc"', '--log-bin-trust-function-creators=1') { c ->
             docker.image('mysql:8.0').inside("--link ${c.id}:mysql") {
               sh 'while ! mysqladmin ping -hmysql --silent; do sleep 1; done'
             }
