@@ -15,7 +15,7 @@
     <property name="hibernate.connection.pool_size">1</property>
     <property name="hibernate.connection.autocommit">true</property>
 
-    <property name="hbm2ddl.auto">create-drop</property>
+    <!-- property name="hbm2ddl.auto">create-drop</property-->
 
     <!-- Use EHCache but not the query cache. -->
     <property name="cache.use_second_level_cache">false</property>
