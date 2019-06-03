@@ -396,11 +396,11 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
                 <db.driver>org.postgresql.Driver</db.driver>
-                <db.url>jdbc:postgresql://komin:5432/sql</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
+                <db.url>jdbc:postgresql://postgres:5432/sqlproc</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
+                <DDL_CREATE_DB>ddl/postgresql.ddl</DDL_CREATE_DB>
                 <DDL_DROP_DB />
                 <DB_TYPE>POSTGRESQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.postgresql.PostgresqlDataTypeFactory</DATATYPE_FACTORY>

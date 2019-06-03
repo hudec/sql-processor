@@ -1,0 +1,37 @@
+pipeline {
+  agent any
+	
+  triggers {
+    pollSCM('*/5 * * * *')
+  }
+	
+  stages {
+    stage("ITests for PostgreSQL") {
+      steps {
+        script {
+          docker.image('postgres:11.3').withRun('-e "POSTGRES_PASSWORD=sqlproc" -e "POSTGRES_DB=sqlproc" -e "POSTGRES_USER=sqlproc"') { c ->
+            docker.image('postgres:11.3').inside("--link ${c.id}:postgres") {
+              sh '''
+				psql --version
+				until psql -h postgres -U sqlproc -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
+            	  echo "Waiting for postgres server, $((RETRIES-=1)) remaining attempts..."
+                  sleep 1
+                done
+              '''
+            }
+            docker.image('maven:3.6.1-jdk-8').inside("--link ${c.id}:postgres") {
+              sh "mvn clean package -P postgresql-itests"
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  post {
+    always {
+      junit '**/target/surefire-reports/*.xml'
+    }
+  }
+}
+
