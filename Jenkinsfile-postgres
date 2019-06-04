@@ -4,6 +4,10 @@ pipeline {
   triggers {
     pollSCM('*/5 * * * *')
   }
+  
+  environment {
+    RETRIES = 60
+  }
 	
   stages {
     stage("ITests for PostgreSQL") {
