@@ -251,29 +251,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
                     }
                 }
             }
-//            try {
-//                stmt = connection.getConnection().createStatement();
-//                for (String sql : sqls)
-//                    if (!sql.startsWith("DROP"))
-//                        stmt.addBatch(sql);
-//                stmt.executeBatch();
-//            } catch (SQLException e) {
-//                System.out.println("SQLException: " + e.getMessage());
-//                System.out.println("SQLException error code: " + e.getErrorCode());
-//                System.out.println("SQLException sql state: " + e.getSQLState());
-//                System.out.println("SQLException cause: " + e.getCause());
-//                System.out.println("SQLException: " + e.getMessage());
-//                throw e;
-//            } finally {
-//                if (stmt != null) {
-//                    try {
-//                        stmt.close();
-//                    } catch (SQLException ignore) {
-//                    }
-//                }
-//            }
         }
-
     }
 
     protected SqlProcessorLoader getProcessorLoader(String name, SqlPluginFactory sqlPluginFactory) {
