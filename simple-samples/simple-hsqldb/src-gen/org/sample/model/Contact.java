@@ -15,11 +15,11 @@ import org.sqlproc.engine.annotation.Pojo;
 @XmlTransient
 @SuppressWarnings("all")
 public class Contact implements Serializable {
-  private final static long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public static final String ORDER_BY_ID = "ID";
   
-  public final static String ORDER_BY_PERSON = "PERSON";
+  public static final String ORDER_BY_PERSON = "PERSON";
   
   public Contact() {
   }

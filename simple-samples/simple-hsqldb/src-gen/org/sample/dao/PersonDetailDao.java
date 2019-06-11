@@ -34,7 +34,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert personDetail: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlInsertPersonDetail = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "INSERT_PERSON_DETAIL";
+    org.sqlproc.engine.SqlCrudEngine sqlInsertPersonDetail = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlInsertPersonDetail.insert(sqlSession, personDetail, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert personDetail result: " + count + " " + personDetail);
@@ -84,7 +85,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update personDetail: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlUpdateEnginePersonDetail = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "UPDATE_PERSON_DETAIL";
+    org.sqlproc.engine.SqlCrudEngine sqlUpdateEnginePersonDetail = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlUpdateEnginePersonDetail.update(sqlSession, personDetail, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update personDetail result count: " + count);
@@ -108,7 +110,8 @@ public class PersonDetailDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete personDetail: " + personDetail + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlDeleteEnginePersonDetail = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERSON_DETAIL");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "DELETE_PERSON_DETAIL";
+    org.sqlproc.engine.SqlCrudEngine sqlDeleteEnginePersonDetail = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlDeleteEnginePersonDetail.delete(sqlSession, personDetail, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete personDetail result count: " + count);
@@ -210,7 +213,7 @@ public class PersonDetailDao {
     			return true;
     		}
     	};
-    	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail().withIds_(ids_), sqlc, sqlRowProcessor);
+    	sqlEnginePersonDetail.query(sqlSession, PersonDetail.class, new PersonDetail().withIds_(ids_).withInit_(initAssociations.toArray(new String[initAssociations.size()])), sqlc, sqlRowProcessor);
     	for (Long id : ids_)
     		personDetailList.add(map.get(id));
     }

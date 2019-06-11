@@ -34,7 +34,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlInsertPerson = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "INSERT_PERSON";
+    org.sqlproc.engine.SqlCrudEngine sqlInsertPerson = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlInsertPerson.insert(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert person result: " + count + " " + person);
@@ -84,7 +85,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "UPDATE_PERSON";
+    org.sqlproc.engine.SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlUpdateEnginePerson.update(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update person result count: " + count);
@@ -108,7 +110,8 @@ public class PersonDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "DELETE_PERSON";
+    org.sqlproc.engine.SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlDeleteEnginePerson.delete(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete person result count: " + count);
@@ -210,7 +213,7 @@ public class PersonDao {
     			return true;
     		}
     	};
-    	sqlEnginePerson.query(sqlSession, Person.class, new Person().withIds_(ids_), sqlc, sqlRowProcessor);
+    	sqlEnginePerson.query(sqlSession, Person.class, new Person().withIds_(ids_).withInit_(initAssociations.toArray(new String[initAssociations.size()])), sqlc, sqlRowProcessor);
     	for (java.lang.Long id : ids_)
     		personList.add(map.get(id));
     }

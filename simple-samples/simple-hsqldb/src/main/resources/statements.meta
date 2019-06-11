@@ -1,4 +1,3 @@
-MAX_DB_COLUMN_LEN(IOPT)=30;
 SEQ=SIMPLE_SEQUENCE(OPT)=call next value for SIMPLE_SEQUENCE;
 IDSEL=COMMON(OPT)=call identity();
 

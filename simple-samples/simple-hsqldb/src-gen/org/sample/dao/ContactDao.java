@@ -34,7 +34,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert contact: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlInsertContact = sqlEngineFactory.getCheckedCrudEngine("INSERT_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "INSERT_CONTACT";
+    org.sqlproc.engine.SqlCrudEngine sqlInsertContact = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlInsertContact.insert(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert contact result: " + count + " " + contact);
@@ -84,7 +85,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update contact: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlUpdateEngineContact = sqlEngineFactory.getCheckedCrudEngine("UPDATE_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "UPDATE_CONTACT";
+    org.sqlproc.engine.SqlCrudEngine sqlUpdateEngineContact = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlUpdateEngineContact.update(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update contact result count: " + count);
@@ -108,7 +110,8 @@ public class ContactDao {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete contact: " + contact + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlDeleteEngineContact = sqlEngineFactory.getCheckedCrudEngine("DELETE_CONTACT");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "DELETE_CONTACT";
+    org.sqlproc.engine.SqlCrudEngine sqlDeleteEngineContact = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlDeleteEngineContact.delete(sqlSession, contact, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete contact result count: " + count);
@@ -210,7 +213,7 @@ public class ContactDao {
     			return true;
     		}
     	};
-    	sqlEngineContact.query(sqlSession, Contact.class, new Contact().withIds_(ids_), sqlc, sqlRowProcessor);
+    	sqlEngineContact.query(sqlSession, Contact.class, new Contact().withIds_(ids_).withInit_(initAssociations.toArray(new String[initAssociations.size()])), sqlc, sqlRowProcessor);
     	for (java.lang.Long id : ids_)
     		contactList.add(map.get(id));
     }

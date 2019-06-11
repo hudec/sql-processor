@@ -10,7 +10,7 @@ import org.sqlproc.engine.annotation.Pojo;
 @Pojo
 @SuppressWarnings("all")
 public class NewPersonRetRsResult implements Serializable {
-  private final static long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
   
   private Long id;
   

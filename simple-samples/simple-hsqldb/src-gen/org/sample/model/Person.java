@@ -15,11 +15,11 @@ import org.sqlproc.engine.annotation.Pojo;
 @Pojo
 @SuppressWarnings("all")
 public class Person implements Serializable {
-  private final static long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
   
-  public final static String ORDER_BY_ID = "ID";
+  public static final String ORDER_BY_ID = "ID";
   
-  public final static String ORDER_BY_LAST_NAME = "LAST_NAME";
+  public static final String ORDER_BY_LAST_NAME = "LAST_NAME";
   
   public Person() {
   }
