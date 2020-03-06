@@ -46,19 +46,19 @@ VERSION_DATE_TIME_AF_RE = re.compile(r'<a href="(?P<version>.+)/">(?P<version2>.
 FOR_PROJECT_RE = re.compile(r'\[INFO].+@ (?P<project>[\S]+)')
 MODULES_START_RE = re.compile(r'<modules>')
 
-REPOS = ['http://repo2.maven.org/maven2/',
-       'http://central.maven.org/maven2/',
-       'https://oss.sonatype.org/content/groups/public/'
-       ]
 
-REPO2 = ['http://repo2.maven.org/maven2/org/apache/maven/plugins/',
-       'http://repo2.maven.org/maven2/org/codehaus/mojo/',
-       'http://repo2.maven.org/maven2/org/codehaus/gmaven/',
-       'http://central.maven.org/maven2/org/jvnet/jaxb2/maven2/',
-       'http://central.maven.org/maven2/com/spotify/',
-       'http://central.maven.org/maven2/org/apache/cxf/',
-       'http://central.maven.org/maven2/org/springframework/boot/',
-       'http://central.maven.org/maven2/org/apache/tomcat/maven/'
+REPOS = ['https://repo1.maven.org/maven2/',
+         'https://oss.sonatype.org/content/groups/public/'
+        ]
+
+REPO2 = ['https://repo1.maven.org/maven2/org/apache/maven/plugins/',
+        'https://repo1.maven.org/maven2/org/codehaus/mojo/',
+        'https://repo1.maven.org/maven2/org/codehaus/gmaven/',
+        'https://central.maven.org/maven2/org/jvnet/jaxb2/maven2/',
+        'https://central.maven.org/maven2/com/spotify/',
+        'https://central.maven.org/maven2/org/apache/cxf/',
+        'https://central.maven.org/maven2/org/springframework/boot/',
+        'https://central.maven.org/maven2/org/apache/tomcat/maven/'
        ]
 
 

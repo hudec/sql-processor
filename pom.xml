@@ -32,13 +32,13 @@
         <version.hibernate>4.1.12.Final</version.hibernate>
         <version.hibernate-validator>4.3.1.Final</version.hibernate-validator>
         <version.glassfish-el>2.2.4</version.glassfish-el>
-        <version.spring>5.0.5.RELEASE</version.spring>
+        <version.spring>5.2.4.RELEASE</version.spring>
         <version.aspectjweaver>1.6.12</version.aspectjweaver>
         <version.log4j>1.2.17</version.log4j>
-        <version.slf4j>1.7.25</version.slf4j>
-        <version.junit>4.12</version.junit>
-        <version.dbunit>2.5.3</version.dbunit>
-        <version.hsqldb>2.4.0</version.hsqldb>
+        <version.slf4j>1.7.30</version.slf4j>
+        <version.junit>4.13-rc-2</version.junit>
+        <version.dbunit>2.7.0</version.dbunit>
+        <version.hsqldb>2.5.0</version.hsqldb>
         <version.h2>1.4.192</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>19.3.0.0</version.oracle>
@@ -47,10 +47,10 @@
         <version.informix>3.5</version.informix>
         <version.mssql>4.1</version.mssql>
         <version.db2>3.52.95</version.db2>
-        <version.beanutils>1.9.3</version.beanutils>
+        <version.beanutils>1.9.4</version.beanutils>
         <version.dbcp>1.4</version.dbcp>
-        <version.validation>1.1.0.Final</version.validation>
-        <version.jaxb>2.3.1</version.jaxb>
+        <version.validation>2.0.1.Final</version.validation>
+        <version.jaxb>2.4.0-b180830.0438</version.jaxb>
 
         <db.dialect>org.hibernate.dialect.HSQLDialect</db.dialect>
         <db.driver>org.hsqldb.jdbcDriver</db.driver>
