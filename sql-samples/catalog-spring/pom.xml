@@ -20,9 +20,9 @@
         <version.sql-processor>3.3.7-SNAPSHOT</version.sql-processor>
 
         <version.antlr>3.5.2</version.antlr>
-        <version.spring>5.0.5.RELEASE</version.spring>
+        <version.spring>5.2.4.RELEASE</version.spring>
         <version.log4j>2.13.1</version.log4j>
-        <version.slf4j>1.7.25</version.slf4j>
+        <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.cglib>3.2.5</version.cglib>
         <version.oracle>19.3.0.0</version.oracle>

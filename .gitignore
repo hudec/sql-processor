@@ -4,6 +4,7 @@ build
 .project
 .settings
 .DS_Store
+.factorypath
 *.iml
 *.ipr
 *.iws

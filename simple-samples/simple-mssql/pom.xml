@@ -12,7 +12,7 @@
         <version.sql-processor>3.3.7-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
         <version.log4j>2.13.1</version.log4j>
-        <version.slf4j>1.7.25</version.slf4j>
+        <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.mssql>3.0</version.mssql>
         <version.beanutils>1.9.3</version.beanutils>
