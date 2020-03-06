@@ -34,7 +34,7 @@
         <version.glassfish-el>2.2.4</version.glassfish-el>
         <version.spring>5.2.4.RELEASE</version.spring>
         <version.aspectjweaver>1.6.12</version.aspectjweaver>
-        <version.log4j>1.2.17</version.log4j>
+        <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13-rc-2</version.junit>
         <version.dbunit>2.7.0</version.dbunit>
@@ -193,8 +193,8 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${version.log4j}</version>
                 <!-- scope>test</scope -->
                 <exclusions>

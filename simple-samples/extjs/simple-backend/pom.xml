@@ -13,7 +13,7 @@
         <version.antlr>3.5.2</version.antlr>
         <spring.version>5.0.5.RELEASE</spring.version>
         <version.commons-dbcp>1.4</version.commons-dbcp>
-        <version.log4j>1.2.17</version.log4j>
+        <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.12</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.dbunit>2.4.9</version.dbunit>
@@ -147,8 +147,8 @@
             <version>${version.slf4j}</version>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
             <version>${version.log4j}</version>
             <exclusions>
                 <exclusion>

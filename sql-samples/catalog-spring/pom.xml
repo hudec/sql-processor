@@ -21,7 +21,7 @@
 
         <version.antlr>3.5.2</version.antlr>
         <version.spring>5.0.5.RELEASE</version.spring>
-        <version.log4j>1.2.17</version.log4j>
+        <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.cglib>3.2.5</version.cglib>
@@ -135,8 +135,8 @@
                 <version>${version.slf4j}</version>
             </dependency>
             <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${version.log4j}</version>
                 <exclusions>
                     <exclusion>
