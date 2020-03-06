@@ -23,7 +23,7 @@
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.dbunit>2.5.1</version.dbunit>
-        <version.hsqldb>2.4.0</version.hsqldb>
+        <version.hsqldb>2.5.0</version.hsqldb>
     </properties>
 
 
