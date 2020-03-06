@@ -14,7 +14,7 @@
         <version.log4j>1.2.17</version.log4j>
         <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.oracle>12.2.0.1</version.oracle>
+        <version.oracle>19.3.0.0</version.oracle>
         <version.validation>1.1.0.Final</version.validation>
         <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
         <version.beanutils>1.9.3</version.beanutils>
@@ -26,7 +26,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.10</version>
+				<version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -124,7 +124,7 @@
             <version>${version.slf4j}</version>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>com.oracle.ojdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>${version.oracle}</version>
         </dependency>

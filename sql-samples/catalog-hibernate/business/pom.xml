@@ -30,7 +30,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -129,8 +129,8 @@
             <id>oracle</id>
             <dependencies>
                 <dependency>
-                    <groupId>com.oracle</groupId>
-                    <artifactId>ojdbc14</artifactId>
+                    <groupId>com.oracle.ojdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
                 </dependency>
             </dependencies>
         </profile>

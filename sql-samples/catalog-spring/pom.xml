@@ -25,7 +25,7 @@
         <version.slf4j>1.7.25</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.cglib>3.2.5</version.cglib>
-        <version.oracle>10.2.0.4</version.oracle>
+        <version.oracle>19.3.0.0</version.oracle>
         <version.hsqldb>2.4.0</version.hsqldb>
         <version.servlet-api>2.5</version.servlet-api>
         <version.commons-dbcp>1.4</version.commons-dbcp>
@@ -245,8 +245,8 @@
 
             <!-- Oracle -->
             <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc14</artifactId>
+                <groupId>com.oracle.ojdbc</groupId>
+                <artifactId>ojdbc8</artifactId>
                 <version>${version.oracle}</version>
             </dependency>
 

@@ -41,7 +41,7 @@
         <version.hsqldb>2.4.0</version.hsqldb>
         <version.h2>1.4.192</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
-        <version.oracle>11.2.0.3</version.oracle>
+        <version.oracle>19.3.0.0</version.oracle>
         <version.mysql>5.1.47</version.mysql>
         <version.postgresql>42.2.5</version.postgresql>
         <version.informix>3.5</version.informix>
@@ -294,8 +294,8 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.oracle</groupId>
-                    <artifactId>ojdbc6</artifactId>
+                    <groupId>com.oracle.ojdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
                     <version>${version.oracle}</version>
                     <scope>test</scope>
                 </dependency>
@@ -317,8 +317,8 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>com.oracle</groupId>
-                    <artifactId>ojdbc6</artifactId>
+                    <groupId>com.oracle.ojdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
                     <version>${version.oracle}</version>
                     <scope>test</scope>
                 </dependency>
