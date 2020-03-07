@@ -38,16 +38,16 @@
         <version.junit>4.13-rc-2</version.junit>
         <version.dbunit>2.7.0</version.dbunit>
         <version.hsqldb>2.5.0</version.hsqldb>
-        <version.h2>1.4.192</version.h2>
+        <version.h2>2.7.0.192</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>19.3.0.0</version.oracle>
-        <version.mysql>5.1.47</version.mysql>
+        <version.mysql>5.2.7.07</version.mysql>
         <version.postgresql>42.2.5</version.postgresql>
         <version.informix>3.5</version.informix>
         <version.mssql>4.1</version.mssql>
         <version.db2>3.52.95</version.db2>
         <version.beanutils>1.9.4</version.beanutils>
-        <version.dbcp>1.4</version.dbcp>
+        <version.dbcp>2.7.0</version.dbcp>
         <version.validation>2.0.1.Final</version.validation>
         <version.jaxb>2.4.0-b180830.0438</version.jaxb>
         <version.javax-el>3.0.1-b11</version.javax-el>
@@ -233,8 +233,8 @@
                 <version>${version.h2}</version>
             </dependency>
             <dependency>
-                <groupId>commons-dbcp</groupId>
-                <artifactId>commons-dbcp</artifactId>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-dbcp2</artifactId>
                 <version>${version.dbcp}</version>
                 <scope>test</scope>
             </dependency>

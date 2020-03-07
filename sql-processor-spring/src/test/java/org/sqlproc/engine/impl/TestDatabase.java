@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConfig;
@@ -96,7 +96,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         dataSource.setUrl(testProperties.getProperty("db.url"));
         dataSource.setUsername(testProperties.getProperty("db.username"));
         dataSource.setPassword(testProperties.getProperty("db.password"));
-        dataSource.setMaxActive(1);
+        dataSource.setMaxTotal(1);
         dataSource.setAccessToUnderlyingConnectionAllowed(true);
         jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
