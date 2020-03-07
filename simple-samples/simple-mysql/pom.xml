@@ -13,8 +13,8 @@
         <version.antlr>3.5.2</version.antlr>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
-        <version.junit>4.12</version.junit>
-        <version.mysql>6.0.6</version.mysql>
+        <version.junit>4.13</version.junit>
+        <version.mysql>8.0.19</version.mysql>
         <version.sql-processor-eclipse>2.7.0</version.sql-processor-eclipse>
     </properties>
 

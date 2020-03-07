@@ -12,7 +12,7 @@
         <version.antlr>3.5.2</version.antlr>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13</version.junit>
         <version.db2>10.1</version.db2>
         <version.beanutils>1.9.3</version.beanutils>
         <version.sql-processor-eclipse>2.7.0</version.sql-processor-eclipse>

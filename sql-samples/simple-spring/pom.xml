@@ -21,7 +21,7 @@
         <version.commons-dbcp>2.7.0</version.commons-dbcp>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13</version.junit>
         <version.dbunit>2.5.1</version.dbunit>
         <version.hsqldb>2.5.0</version.hsqldb>
     </properties>

@@ -15,7 +15,7 @@
         <version.commons-dbcp>2.7.0</version.commons-dbcp>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.12</version.slf4j>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13</version.junit>
         <version.dbunit>2.4.9</version.dbunit>
         <version.hsqldb>2.5.0</version.hsqldb>
         <hibernatevalidator.version>6.1.2.Final</hibernatevalidator.version>
