@@ -15,9 +15,9 @@
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.hsqldb>2.5.0</version.hsqldb>
-        <version.validation>1.1.0.Final</version.validation>
+        <version.validation>2.0.1.Final</version.validation>
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
-        <version.glassfish-el>2.2.4</version.glassfish-el>
+        <version.javax-el>3.0.1-b11</version.javax-el>
         <version.sql-processor-eclipse>3.0.0-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
@@ -135,9 +135,14 @@
             <version>${version.validation}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${version.hibernate.validator}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${version.javax-el}</version>
         </dependency>
     </dependencies>
 

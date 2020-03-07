@@ -15,9 +15,10 @@
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.12</version.junit>
         <version.oracle>19.3.0.0</version.oracle>
-        <version.validation>1.1.0.Final</version.validation>
+        <version.validation>2.0.1.Final</version.validation>
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
         <version.beanutils>1.9.3</version.beanutils>
+        <version.javax-el>3.0.1-b11</version.javax-el>
         <version.sql-processor-eclipse>2.7.2-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
@@ -143,6 +144,11 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${version.beanutils}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${version.javax-el}</version>
         </dependency>
     </dependencies>
 

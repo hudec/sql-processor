@@ -1,5 +1,6 @@
 package org.sample;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -56,10 +57,11 @@ public class SampleValidator implements SqlValidator {
         Set<ConstraintViolation<T>> constraintViolations;
 
         public void addConstraintViolations(Set<ConstraintViolation<T>> constraintViolations) {
+            if (constraintViolations == null || constraintViolations.isEmpty())
+                return;
             if (this.constraintViolations == null)
-                this.constraintViolations = constraintViolations;
-            else
-                this.constraintViolations.addAll(constraintViolations);
+                this.constraintViolations = new LinkedHashSet<>();
+            this.constraintViolations.addAll(constraintViolations);
         }
 
         public Set<ConstraintViolation<T>> getConstraintViolations() {
