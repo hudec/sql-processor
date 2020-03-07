@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'maven:3.6.1-jdk-8'
+      image 'maven:3.6.3-jdk-11'
       args '-e TZ=Europe/Prague'
     }
   }

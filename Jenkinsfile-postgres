@@ -23,7 +23,7 @@ pipeline {
                 done
               '''
             }
-            docker.image('maven:3.6.1-jdk-8').inside("--link ${c.id}:postgres") {
+            docker.image('maven:3.6.3-jdk-11').inside("--link ${c.id}:postgres") {
               sh "mvn clean package -P postgresql-itests"
             }
           }
