@@ -15,7 +15,7 @@
         <version.junit>4.13-rc-2</version.junit>
         <version.hsqldb>2.5.0</version.hsqldb>
         <version.validation>2.0.1.Final</version.validation>
-        <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
+        <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
     </properties>
 
     <build>

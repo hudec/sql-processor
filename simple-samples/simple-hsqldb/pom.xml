@@ -16,7 +16,7 @@
         <version.junit>4.12</version.junit>
         <version.hsqldb>2.5.0</version.hsqldb>
         <version.validation>1.1.0.Final</version.validation>
-        <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
+        <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
         <version.glassfish-el>2.2.4</version.glassfish-el>
         <version.sql-processor-eclipse>3.0.0-SNAPSHOT</version.sql-processor-eclipse>
     </properties>

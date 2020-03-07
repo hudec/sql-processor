@@ -29,8 +29,7 @@
 
     <properties>
         <version.antlr>3.5.2</version.antlr>
-        <version.hibernate>4.1.12.Final</version.hibernate>
-        <version.hibernate-validator>4.3.1.Final</version.hibernate-validator>
+        <version.hibernate-validator>6.1.2.Final</version.hibernate-validator>
         <version.glassfish-el>2.2.4</version.glassfish-el>
         <version.spring>5.2.4.RELEASE</version.spring>
         <version.aspectjweaver>1.6.12</version.aspectjweaver>
@@ -51,6 +50,7 @@
         <version.dbcp>1.4</version.dbcp>
         <version.validation>2.0.1.Final</version.validation>
         <version.jaxb>2.4.0-b180830.0438</version.jaxb>
+        <version.javax-el>3.0.1-b11</version.javax-el>
 
         <db.dialect>org.hibernate.dialect.HSQLDialect</db.dialect>
         <db.driver>org.hsqldb.jdbcDriver</db.driver>
@@ -166,13 +166,6 @@
                 <version>${version.beanutils}</version>
             </dependency>
 
-            <!-- HIBERNATE -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${version.hibernate}</version>
-            </dependency>
-
             <!-- SPRING -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -273,6 +266,12 @@
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-runtime</artifactId>
                 <version>${version.jaxb}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>${version.javax-el}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

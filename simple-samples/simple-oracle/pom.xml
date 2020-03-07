@@ -16,7 +16,7 @@
         <version.junit>4.12</version.junit>
         <version.oracle>19.3.0.0</version.oracle>
         <version.validation>1.1.0.Final</version.validation>
-        <version.hibernate.validator>4.3.1.Final</version.hibernate.validator>
+        <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
         <version.beanutils>1.9.3</version.beanutils>
         <version.sql-processor-eclipse>2.7.2-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
