@@ -18,6 +18,7 @@
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
         <version.spring>5.2.4.RELEASE</version.spring>
         <version.commons-dbcp>2.7.0</version.commons-dbcp>
+        <version.javax-el>3.0.1-b11</version.javax-el>
     </properties>
 
     <build>
@@ -162,6 +163,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${version.hibernate.validator}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${version.javax-el}</version>
         </dependency>
     </dependencies>
 

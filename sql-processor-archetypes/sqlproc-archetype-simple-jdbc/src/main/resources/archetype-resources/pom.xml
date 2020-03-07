@@ -16,6 +16,7 @@
         <version.hsqldb>2.5.0</version.hsqldb>
         <version.validation>2.0.1.Final</version.validation>
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
+        <version.javax-el>3.0.1-b11</version.javax-el>
     </properties>
 
     <build>
@@ -139,6 +140,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${version.hibernate.validator}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${version.javax-el}</version>
         </dependency>
     </dependencies>
 
