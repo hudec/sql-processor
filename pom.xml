@@ -41,10 +41,10 @@
         <version.h2>1.4.200</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>19.3.0.0</version.oracle>
-        <version.mysql>5.2.7.07</version.mysql>
-        <version.postgresql>42.2.5</version.postgresql>
+        <version.mysql>8.0.19</version.mysql>
+        <version.postgresql>42.2.10</version.postgresql>
         <version.informix>4.50.3</version.informix>
-        <version.mssql>4.1</version.mssql>
+        <version.mssql>8.2.1.jre11</version.mssql>
         <version.db2>3.52.95</version.db2>
         <version.beanutils>1.9.4</version.beanutils>
         <version.dbcp>2.7.0</version.dbcp>
@@ -490,7 +490,7 @@
             <dependencies>
                 <dependency>
                     <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>sqljdbc4</artifactId>
+                    <artifactId>mssql-jdbc</artifactId>
                     <version>${version.mssql}</version>
                     <scope>test</scope>
                 </dependency>
