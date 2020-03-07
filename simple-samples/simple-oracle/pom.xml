@@ -6,7 +6,7 @@
     <artifactId>simple-oracle</artifactId>
     <version>3.5.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>SQL Processor Sample, Simple JDBC</name>
+    <name>SQL Processor Sample, Oracle JDBC</name>
 
     <properties>
         <version.sql-processor>3.5.0-SNAPSHOT</version.sql-processor>

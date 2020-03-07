@@ -5,7 +5,7 @@
     <artifactId>simple-informix</artifactId>
     <version>3.5.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>SQL Processor Sample, Simple JDBC</name>
+    <name>SQL Processor Sample, Informix JDBC</name>
 
     <properties>
         <version.sql-processor>3.5.0-SNAPSHOT</version.sql-processor>
@@ -13,7 +13,7 @@
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.12</version.junit>
-        <version.informix>4.1</version.informix>
+        <version.informix>4.50.3</version.informix>
         <version.beanutils>1.9.3</version.beanutils>
         <version.sql-processor-eclipse>2.7.0</version.sql-processor-eclipse>
     </properties>
@@ -118,12 +118,7 @@
         </dependency>
         <dependency>
             <groupId>com.ibm.informix</groupId>
-            <artifactId>ifxjdbc</artifactId>
-            <version>${version.informix}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.informix</groupId>
-            <artifactId>ifxjdbcx</artifactId>
+            <artifactId>jdbc</artifactId>
             <version>${version.informix}</version>
         </dependency>
         <dependency>

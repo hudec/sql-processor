@@ -43,7 +43,7 @@
         <version.oracle>19.3.0.0</version.oracle>
         <version.mysql>5.2.7.07</version.mysql>
         <version.postgresql>42.2.5</version.postgresql>
-        <version.informix>3.5</version.informix>
+        <version.informix>4.50.3</version.informix>
         <version.mssql>4.1</version.mssql>
         <version.db2>3.52.95</version.db2>
         <version.beanutils>1.9.4</version.beanutils>
@@ -432,13 +432,13 @@
             <dependencies>
                 <dependency>
                     <groupId>com.ibm.informix</groupId>
-                    <artifactId>ifxjdbc</artifactId>
+                    <artifactId>jdbc</artifactId>
                     <version>${version.informix}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>com.ibm.informix</groupId>
-                    <artifactId>ifxjdbcx</artifactId>
+                    <artifactId>jdbcx</artifactId>
                     <version>${version.informix}</version>
                     <scope>test</scope>
                 </dependency>
