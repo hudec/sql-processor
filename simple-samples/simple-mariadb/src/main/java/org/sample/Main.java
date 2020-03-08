@@ -32,6 +32,8 @@ import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 
+// !! not yet supported
+
 public class Main {
 
     private static final String DB_URL = "jdbc:mariadb://127.0.0.1:3306/simple?serverTimezone=Europe/Prague";

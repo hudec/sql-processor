@@ -370,6 +370,7 @@
                 </dependency>
             </dependencies>
         </profile>
+        <!-- not yet supported -->
         <profile>
             <id>mariadb</id>
             <properties>
@@ -393,6 +394,7 @@
                 </dependency>
             </dependencies>
         </profile>
+        <!-- not yet supported -->
         <profile>
             <id>mariadb-itests</id>
             <properties>
