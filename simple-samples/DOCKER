@@ -116,4 +116,5 @@ GRANT CONNECT,RESOURCE,DBA TO simple;
 
 docker run -p 3306:3306 --name mariadb1 -v /home/hudec/db/mariadb1:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=simple -e MYSQL_USER=simple -e MYSQL_PASSWORD=simple -d mariadb:10.5.1 --skip-log-bin --log_bin_trust_function_creators=1
 
+docker run -p 3306:3306 --name mariadb2 -v /home/hudec/db/mariadb2:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=sqlproc -e MYSQL_USER=sqlproc -e MYSQL_PASSWORD=sqlproc -d mariadb:10.5.1 --skip-log-bin --log_bin_trust_function_creators=1
 

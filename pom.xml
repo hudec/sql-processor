@@ -42,6 +42,7 @@
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>19.3.0.0</version.oracle>
         <version.mysql>8.0.19</version.mysql>
+        <version.mariadb>2.5.4</version.mariadb>
         <version.postgresql>42.2.10</version.postgresql>
         <version.informix>4.50.3</version.informix>
         <version.mssql>8.2.1.jre11</version.mssql>
@@ -365,6 +366,52 @@
                     <groupId>mysql</groupId>
                     <artifactId>mysql-connector-java</artifactId>
                     <version>${version.mysql}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mariadb</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.MariaDB53Dialect</db.dialect>
+                <db.driver>org.mariadb.jdbc.Driver</db.driver>
+                <db.url>jdbc:mariadb://127.0.0.1:3306/sqlproc?serverTimezone=Europe/Prague</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB>ddl/mariadb.ddl</DDL_CREATE_DB>
+                <DDL_DROP_DB />
+                <DB_TYPE>MYSQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.mariadb.jdbc</groupId>
+                    <artifactId>mariadb-java-client</artifactId>
+                    <version>${version.mariadb}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mariadb-itests</id>
+            <properties>
+                <db.dialect>org.hibernate.dialect.MariaDB53Dialect</db.dialect>
+                <db.driver>org.mariadb.jdbc.Driver</db.driver>
+                <db.url>jdbc:mariadb://mariadb:3306/sqlproc?serverTimezone=Europe/Prague</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
+                <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
+                <DDL_CREATE_DB>ddl/mariadb.ddl</DDL_CREATE_DB>
+                <DDL_DROP_DB />
+                <DB_TYPE>MYSQL</DB_TYPE>
+                <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.mariadb.jdbc</groupId>
+                    <artifactId>mariadb-java-client</artifactId>
+                    <version>${version.mariadb}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
