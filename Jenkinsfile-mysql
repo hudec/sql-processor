@@ -9,12 +9,12 @@ pipeline {
     stage("ITests for MySQL") {
       steps {
         script {
-          docker.image('mysql:  ').withRun('-e "TZ=Europe/Prague" -e "MYSQL_ROOT_PASSWORD=sqlproc" -e "MYSQL_DATABASE=sqlproc" -e "MYSQL_USER=sqlproc" -e "MYSQL_PASSWORD=sqlproc"', '--log-bin-trust-function-creators=1') { c ->
+          docker.image('mysql:  ').withRun('-e "MYSQL_ROOT_PASSWORD=sqlproc" -e "MYSQL_DATABASE=sqlproc" -e "MYSQL_USER=sqlproc" -e "MYSQL_PASSWORD=sqlproc"', '--log-bin-trust-function-creators=1') { c ->
             docker.image('mysql:8.0').inside("--link ${c.id}:mysql") {
               sh 'while ! mysqladmin ping -hmysql --silent; do sleep 1; done'
             }
             docker.image('maven:3.6.3-jdk-11').inside("--link ${c.id}:mysql") {
-              sh "TZ=Europe/Prague mvn clean package -P mysql-itests"
+              sh "mvn clean package -P mysql-itests"
             }
           }
         }
