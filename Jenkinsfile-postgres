@@ -13,7 +13,7 @@ pipeline {
     stage("ITests for PostgreSQL") {
       steps {
         script {
-          docker.image('postgres:12.2').withRun('-e "TZ=Europe/Prague" -e "POSTGRES_PASSWORD=sqlproc" -e "POSTGRES_DB=sqlproc" -e "POSTGRES_USER=sqlproc"', '--arg1 -N 200') { c ->
+          docker.image('postgres:12.2').withRun('-e "TZ=Europe/Prague" -e "POSTGRES_PASSWORD=sqlproc" -e "POSTGRES_DB=sqlproc" -e "POSTGRES_USER=sqlproc"', 'postgres -N 200') { c ->
             docker.image('postgres:12.2').inside("--link ${c.id}:postgres") {
               sh '''
 				psql --version
