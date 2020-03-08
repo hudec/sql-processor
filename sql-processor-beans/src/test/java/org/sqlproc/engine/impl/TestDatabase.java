@@ -92,7 +92,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
         dataSource.setUrl(testProperties.getProperty("db.url"));
         dataSource.setUsername(testProperties.getProperty("db.username"));
         dataSource.setPassword(testProperties.getProperty("db.password"));
-        dataSource.setMaxTotal(1);
+        dataSource.setMaxTotal(10);
         dataSource.setAccessToUnderlyingConnectionAllowed(true);
 
         validatorFactory = new SampleValidator.SampleValidatorFactory();

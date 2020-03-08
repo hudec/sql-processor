@@ -33,9 +33,11 @@ docker exec mysql1 sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_P
 sh, .sql and .sql.gz
 -----------
 
-docker run -p 3306:3306 --name mysql1 -v /home/hudec/db/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=simple -e MYSQL_USER=simple -e MYSQL_PASSWORD=simple -d mysql:8.0.19 --skip-log-bin --log_bin_trust_function_creators=1
+docker run -p 3306:3306 --name mysql1 -v /home/hudec/db/mysql1:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=simple -e MYSQL_USER=simple -e MYSQL_PASSWORD=simple -d mysql:8.0.19 --skip-log-bin --log_bin_trust_function_creators=1
 docker stop mysql1 
 docker start mysql1 
+
+docker run -p 3306:3306 --name mysql2 -v /home/hudec/db/mysql2:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=sqlproc -e MYSQL_USER=sqlproc -e MYSQL_PASSWORD=sqlproc -d mysql:8.0.19 --skip-log-bin --log_bin_trust_function_creators=1
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -76,9 +78,11 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
 EOSQL
 ------------------
 
-docker run -p 5432:5432 --name postgres2 -v /home/hudec/db/postgresql2:/var/lib/postgresql/data -e POSTGRES_DB=simple -e POSTGRES_USER=simple -e POSTGRES_PASSWORD=simple -d postgres:12.2
+docker run -p 5432:5432 --name postgres1 -v /home/hudec/db/postgresql1:/var/lib/postgresql/data -e POSTGRES_DB=simple -e POSTGRES_USER=simple -e POSTGRES_PASSWORD=simple -d postgres:12.2
 docker stop postgres2 
 docker start postgres2 
+
+docker run -p 5432:5432 --name postgres2 -v /home/hudec/db/postgresql2:/var/lib/postgresql/data -e POSTGRES_DB=sqlproc -e POSTGRES_USER=sqlproc -e POSTGRES_PASSWORD=sqlproc -d postgres:12.2
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

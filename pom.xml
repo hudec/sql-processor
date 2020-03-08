@@ -283,8 +283,8 @@
                 <db.dialect>org.hibernate.dialect.Oracle10gDialect</db.dialect>
                 <db.driver>oracle.jdbc.OracleDriver</db.driver>
                 <db.url>jdbc:oracle:thin:@127.0.0.1:1521:xe</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
@@ -306,8 +306,8 @@
                 <db.dialect>org.hibernate.dialect.Oracle10gDialect</db.dialect>
                 <db.driver>oracle.jdbc.OracleDriver</db.driver>
                 <db.url>jdbc:oracle:thin:@oracle:1521:ora11g</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
@@ -327,12 +327,12 @@
             <id>mysql</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
-                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
                 <db.url>jdbc:mysql://127.0.0.1:3306/sqlproc?serverTimezone=Europe/Prague</db.url>
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
+                <DDL_CREATE_DB>ddl/mysql.ddl</DDL_CREATE_DB>
                 <DDL_DROP_DB />
                 <DB_TYPE>MYSQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.mysql.MySqlDataTypeFactory</DATATYPE_FACTORY>
@@ -350,7 +350,7 @@
             <id>mysql-itests</id>
             <properties>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
-                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
                 <db.url>jdbc:mysql://mysql:3306/sqlproc?serverTimezone=Europe/Prague</db.url>
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
@@ -374,11 +374,11 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.PostgreSQLDialect</db.dialect>
                 <db.driver>org.postgresql.Driver</db.driver>
-                <db.url>jdbc:postgresql://127.0.0.1:5432/sql</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
+                <db.url>jdbc:postgresql://127.0.0.1:5432/sqlproc</db.url>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
-                <DDL_CREATE_DB />
+                <DDL_CREATE_DB>ddl/postgresql.ddl</DDL_CREATE_DB>
                 <DDL_DROP_DB />
                 <DB_TYPE>POSTGRESQL</DB_TYPE>
                 <DATATYPE_FACTORY>org.dbunit.ext.postgresql.PostgresqlDataTypeFactory</DATATYPE_FACTORY>
@@ -421,8 +421,8 @@
                 <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
                 <db.driver>com.informix.jdbc.IfxDriver</db.driver>
                 <db.url>jdbc:informix-sqli://localhost:1556/sql:informixserver=popel_ais3;DB_LOCALE=en_US.57372</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql123</db.password>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
@@ -450,8 +450,8 @@
                 <db.dialect>org.hibernate.dialect.InformixDialect</db.dialect>
                 <db.driver>com.informix.jdbc.IfxDriver</db.driver>
                 <db.url>jdbc:informix-sqli://prach:1556/sql:informixserver=popel_ais3;DB_LOCALE=en_US.57372</db.url>
-                <db.username>sql</db.username>
-                <db.password>sql</db.password>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
@@ -479,8 +479,8 @@
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
                 <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
                 <db.url>jdbc:sqlserver://mrkev:1433;databaseName=hudec;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true</db.url>
-                <db.username>hudec</db.username>
-                <db.password>passwd</db.password>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
@@ -502,8 +502,8 @@
                 <db.dialect>org.hibernate.dialect.SQLServer2008Dialect</db.dialect>
                 <db.driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</db.driver>
                 <db.url>jdbc:sqlserver://mrkev:1433;databaseName=sql;selectMethod=direct;sendTimeAsDatetime=true;sendStringParametersAsUnicode=true</db.url>
-                <db.username>hudec</db.username>
-                <db.password>passwd</db.password>
+                <db.username>sqlproc</db.username>
+                <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
                 <DDL_CREATE_DB />
                 <DDL_DROP_DB />
