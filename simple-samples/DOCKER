@@ -112,4 +112,8 @@ password: admin
 CREATE USER simple IDENTIFIED BY simple;
 GRANT CONNECT,RESOURCE,DBA TO simple;
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+docker run -p 3306:3306 --name mariadb1 -v /home/hudec/db/mariadb1:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=simple -e MYSQL_USER=simple -e MYSQL_PASSWORD=simple -d mariadb:10.5.1 --skip-log-bin --log_bin_trust_function_creators=1
+
 
