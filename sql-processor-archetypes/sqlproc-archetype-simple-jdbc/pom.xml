@@ -10,7 +10,7 @@
   <parent>
     <groupId>org.sqlproc</groupId>
     <artifactId>sql-processor-archetypes</artifactId>
-    <version>3.5.0</version>
+    <version>3.5.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
