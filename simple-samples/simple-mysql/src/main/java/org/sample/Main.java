@@ -34,7 +34,7 @@ import org.sqlproc.engine.util.DDLLoader;
 
 public class Main {
 
-    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple";
+    private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple?serverTimezone=Europe/Prague";
     // private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple?zeroDateTimeBehavior=convertToNull";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
@@ -106,8 +106,9 @@ public class Main {
         main.setupDb();
 
         // insert
-        Person jan = main.insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE), new Contact()
-                .withAddress("Jan address 1").withPhoneNumber("111-222-3333").withCtype(ContactCtype.HOME));
+        Person jan = main.insertPersonContacts(
+                new Person("Jan", "Jansky", PersonGender.MALE).withDateOfBirth(LocalDate.of(1962, 5, 19)), new Contact()
+                        .withAddress("Jan address 1").withPhoneNumber("111-222-3333").withCtype(ContactCtype.HOME));
         Person janik = main.insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE),
                 new Contact().withAddress("Janik address 1").withCtype(ContactCtype.BUSINESS));
         Person honza = main.insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE),
@@ -115,7 +116,8 @@ public class Main {
                 new Contact().withAddress("Honza address 2").withCtype(ContactCtype.BUSINESS));
         Person honzik = main.insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE));
         Person andrej = main.insertPersonContacts(
-                new Person("Andrej", "Andrejcek", PersonGender.MALE).withSsn("123456789"),
+                new Person("Andrej", "Andrejcek", PersonGender.MALE).withSsn("123456789")
+                        .withDateOfBirth(LocalDate.of(1963, 5, 19)),
                 new Contact().withAddress("Andrej address 1").withPhoneNumber("444-555-6666")
                         .withCtype(ContactCtype.BUSINESS));
 
@@ -135,6 +137,7 @@ public class Main {
         Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
         Assert.assertEquals(PersonGender.MALE, p.getGender());
+        Assert.assertEquals(LocalDate.of(1963, 5, 19), p.getDateOfBirth());
         Assert.assertTrue(p.getContacts().size() == 0);
 
         person = new Person();

@@ -31,7 +31,7 @@ CREATE PROCEDURE NEW_PERSON(OUT newid INTEGER, IN date_of_birth DATE, IN ssn VAR
     INSERT INTO PERSON (FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, GENDER, SSN) 
     VALUES (first_name, last_name, date_of_birth, gender, ssn);
     SELECT last_insert_id() INTO newid;
-  END
+  END;
 
 CREATE PROCEDURE NEW_PERSON_RET_RS(IN date_of_birth DATE, IN ssn VARCHAR(20), IN first_name VARCHAR(100), IN last_name VARCHAR(100), IN gender VARCHAR(1))
   BEGIN
@@ -40,9 +40,9 @@ CREATE PROCEDURE NEW_PERSON_RET_RS(IN date_of_birth DATE, IN ssn VARCHAR(20), IN
     VALUES (first_name, last_name, date_of_birth, gender, ssn);
     SELECT last_insert_id() INTO temp_id;
     SELECT * FROM PERSON WHERE ID = temp_id;
-  END
+  END;
 
 CREATE FUNCTION AN_HOUR_BEFORE(t TIMESTAMP) RETURNS TIMESTAMP
 BEGIN
       RETURN SUBTIME(t, '1:00:00.000000');
-END
+END;

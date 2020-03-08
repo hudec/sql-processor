@@ -328,7 +328,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
-                <db.url>jdbc:mysql://127.0.0.1:3306/sqlproc</db.url>
+                <db.url>jdbc:mysql://127.0.0.1:3306/sqlproc?serverTimezone=Europe/Prague</db.url>
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>
