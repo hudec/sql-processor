@@ -39,6 +39,7 @@ docker start mysql1
 
 docker run -p 3306:3306 --name mysql2 -v /home/hudec/db/mysql2:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root1234 -e MYSQL_DATABASE=sqlproc -e MYSQL_USER=sqlproc -e MYSQL_PASSWORD=sqlproc -d mysql:8.0.19 --skip-log-bin --log_bin_trust_function_creators=1
 
+SELECT @@global.time_zone, @@session.time_zone;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 docker run --name postgres2 -e POSTGRES_PASSWORD=simple -d postgres
