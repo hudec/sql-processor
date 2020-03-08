@@ -1,29 +1,27 @@
 pipeline {
   agent any
-	
+
   triggers {
     pollSCM('*/5 * * * *')
   }
-	
+
   stages {
     stage("ITests for MySQL") {
       steps {
         script {
-          docker.image('mysql:8.0.19').withRun('-e "TZ=Europe/Prague" -e "MYSQL_ROOT_PASSWORD=sqlproc" -e "MYSQL_DATABASE=sqlproc" -e "MYSQL_USER=sqlproc" -e "MYSQL_PASSWORD=sqlproc"', '--log-bin-trust-function-creators=1') { c ->
-            docker.image('mysql:8.0.19').inside("--link ${c.id}:mysql") {
+          docker.image('mysql:  ').withRun('-e "TZ=Europe/Prague" -e "MYSQL_ROOT_PASSWORD=sqlproc" -e "MYSQL_DATABASE=sqlproc" -e "MYSQL_USER=sqlproc" -e "MYSQL_PASSWORD=sqlproc"', '--log-bin-trust-function-creators=1') { c ->
+            docker.image('mysql:8.0').inside("--link ${c.id}:mysql") {
               sh 'while ! mysqladmin ping -hmysql --silent; do sleep 1; done'
             }
-            docker.image('maven:3.6.3-jdk-11').withRun('-e "TZ=Europe/Prague") { c2 ->
-              docker.image('maven:3.6.3-jdk-11').inside("--link ${c2.id}:maven") {
-                sh "mvn clean package -P mysql-itests"
-              }
+            docker.image('maven:3.6.3-jdk-11').inside("--link ${c.id}:mysql") {
+              sh "TZ=Europe/Prague mvn clean package -P mysql-itests"
             }
           }
         }
       }
     }
   }
-  
+
   post {
     always {
       junit '**/target/surefire-reports/*.xml'
