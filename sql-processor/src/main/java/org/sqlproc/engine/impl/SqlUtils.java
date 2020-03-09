@@ -110,6 +110,9 @@ public class SqlUtils {
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
         return new java.sql.Date(cal.getTime().getTime());
     }
 
@@ -286,8 +289,7 @@ public class SqlUtils {
     /**
      * Returns the indicator the investigated class is in fact a container.
      * 
-     * @param clazz
-     *            the investigated class
+     * @param clazz the investigated class
      * @return the indicator the investigated class is in fact a container
      */
     public static boolean isCollection(Class<?> clazz) {
@@ -320,8 +322,7 @@ public class SqlUtils {
     /**
      * A temporary gtype to class name conversion.
      * 
-     * @param typeName
-     *            it's a gtype
+     * @param typeName it's a gtype
      * @return a related class name
      */
     public static Class<?> getStandardModeResultClass(String typeName) {
