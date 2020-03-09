@@ -1,41 +1,67 @@
--- Drop many to many relations
-    
-DROP TABLE MEDIA_PHYSICALMEDIA CASCADE CONSTRAINTS PURGE;
+-- Drop entities
 
-DROP TABLE MEDIACHARACTER_PLAYEDBY CASCADE CONSTRAINTS PURGE;
+create or replace PROCEDURE drop_table(tab in varchar2)
+is   
+begin
+	execute immediate 'DROP TABLE ' || tab || ' CASCADE CONSTRAINTS PURGE';
+exception
+    WHEN OTHERS THEN
+    IF SQLCODE != -942 THEN
+      RAISE;
+    END IF;
+end
 
-DROP TABLE EXISTSINMEDIA_MEDIACHARACTER CASCADE CONSTRAINTS PURGE;
+create or replace PROCEDURE drop_sequence(seq in varchar2)
+is   
+begin
+    execute immediate 'DROP SEQUENCE ' || seq;
+exception
+    WHEN OTHERS THEN
+    IF SQLCODE != -2289 THEN
+      RAISE;
+    END IF;
+end
+
+exec drop_table('TABULKA');
+exec drop_sequence('TABULKA');
+
+
+exec drop_table('MEDIA_PHYSICALMEDIA');
+
+exec drop_table('MEDIACHARACTER_PLAYEDBY');
+
+exec drop_table('EXISTSINMEDIA_MEDIACHARACTER');
 
 -- Drop normal entities
     
-DROP TABLE PHYSICALMEDIA CASCADE CONSTRAINTS PURGE;
+exec drop_table('PHYSICALMEDIA');
 
-DROP TABLE MOVIE CASCADE CONSTRAINTS PURGE;
+exec drop_table('MOVIE');
 
-DROP TABLE MEDIACHARACTER CASCADE CONSTRAINTS PURGE;
+exec drop_table('MEDIACHARACTER');
 
-DROP TABLE LIBRARY CASCADE CONSTRAINTS PURGE;
+exec drop_table('LIBRARY');
 
-DROP TABLE ENGAGEMENT CASCADE CONSTRAINTS PURGE;
+exec drop_table('ENGAGEMENT');
 
-DROP TABLE PERSON CASCADE CONSTRAINTS PURGE;
+exec drop_table('PERSON');
 
-DROP TABLE CONTACT CASCADE CONSTRAINTS PURGE;
+exec drop_table('CONTACT');
 
-DROP TABLE BOOK CASCADE CONSTRAINTS PURGE;
+exec drop_table('BOOK');
 
-DROP TABLE MEDIA CASCADE CONSTRAINTS PURGE;
+exec drop_table('MEDIA');
 
--- Drop pk sequence
-    
-DROP SEQUENCE SQLPROC_SEQUENCE;
+exec drop_sequence('SQLPROC_SEQUENCE');
 
+exec drop_table('TYPES');
 
-DROP TABLE TYPES CASCADE CONSTRAINTS PURGE;
+exec drop_table('BILLING_DETAILS');
 
-DROP TABLE BILLING_DETAILS CASCADE CONSTRAINTS PURGE;
+exec drop_table('SUBSCRIBER');
 
-DROP TABLE SUBSCRIBER CASCADE CONSTRAINTS PURGE;
+drop procedure drop_table;
+drop procedure drop_sequence;
 
 
 -- Create normal entities
@@ -395,7 +421,7 @@ BEGIN
       VALUES (newid, birthdate, CURRENT_TIMESTAMP, 'test', NULL, NULL, 1, NULL, ssn_number, ssn_country, name_first, name_last, sex1, NULL);
       sex := sex1;
    END;
-END new_person;
+END new_person
 
 CREATE OR REPLACE FUNCTION new_person_ret (birthdate IN DATE, ssn_number IN VARCHAR2, ssn_country IN VARCHAR2, name_first IN VARCHAR2, name_last IN VARCHAR2, sex IN VARCHAR2)
 RETURN SYS_REFCURSOR
@@ -418,7 +444,7 @@ BEGIN
       OPEN result_cur FOR SELECT * FROM PERSON WHERE ID = newid;
       RETURN result_cur;
    END;
-END new_person_ret;
+END new_person_ret
 
 CREATE OR REPLACE PROCEDURE new_person_ret_proc (result_cur IN OUT SYS_REFCURSOR, birthdate IN DATE, ssn_number IN VARCHAR2, ssn_country IN VARCHAR2, name_first IN VARCHAR2, name_last IN VARCHAR2, sex IN VARCHAR2)
 AS 
@@ -438,12 +464,12 @@ BEGIN
 
       OPEN result_cur FOR SELECT * FROM PERSON WHERE ID = newid;
    END;
-END new_person_ret_proc;
+END new_person_ret_proc
 
 CREATE OR REPLACE FUNCTION an_hour_before (t IN DATE)
 RETURN DATE
 AS 
 BEGIN
    RETURN t - INTERVAL '1' HOUR;
-END an_hour_before;
+END an_hour_before
 
