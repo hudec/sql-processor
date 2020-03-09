@@ -19,7 +19,7 @@
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
         <version.beanutils>1.9.3</version.beanutils>
         <version.javax-el>3.0.1-b11</version.javax-el>
-        <version.sql-processor-eclipse>2.7.2-SNAPSHOT</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>3.0.0</version.sql-processor-eclipse>
     </properties>
 
     <build>

@@ -16,7 +16,7 @@
         <version.junit>4.13</version.junit>
         <version.mssql>8.2.1.jre11</version.mssql>
         <version.beanutils>1.9.3</version.beanutils>
-        <version.sql-processor-eclipse>2.7.0</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>3.0.0</version.sql-processor-eclipse>
     </properties>
 
     <build>
