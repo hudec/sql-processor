@@ -35,7 +35,7 @@
         <version.aspectjweaver>1.6.12</version.aspectjweaver>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
-        <version.junit>4.13</version.junit>
+        <version.junit>4.13.1</version.junit>
         <version.dbunit>2.7.0</version.dbunit>
         <version.hsqldb>2.5.0</version.hsqldb>
         <version.h2>1.4.200</version.h2>
