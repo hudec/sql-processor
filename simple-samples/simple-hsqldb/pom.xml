@@ -13,7 +13,7 @@
         <version.antlr>3.5.2</version.antlr>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
-        <version.junit>4.13</version.junit>
+        <version.junit>4.13.1</version.junit>
         <version.hsqldb>2.5.0</version.hsqldb>
         <version.validation>2.0.1.Final</version.validation>
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
