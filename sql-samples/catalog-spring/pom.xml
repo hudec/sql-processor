@@ -30,7 +30,7 @@
         <version.servlet-api>2.5</version.servlet-api>
         <version.commons-dbcp>2.7.0</version.commons-dbcp>
         <version.javassist>3.12.1.GA</version.javassist>
-        <version.wicket>1.5.7</version.wicket>
+        <version.wicket>7.17.0</version.wicket>
         <version.ehcache>2.6.11</version.ehcache>
         <version.javasimon>4.1.2</version.javasimon>
     </properties>
