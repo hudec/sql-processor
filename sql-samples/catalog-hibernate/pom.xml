@@ -31,7 +31,7 @@
         <version.commons-dbcp>2.7.0</version.commons-dbcp>
         <version.hibernate>4.1.7.Final</version.hibernate>
         <version.javassist>3.12.1.GA</version.javassist>
-        <version.wicket>1.5.7</version.wicket>
+        <version.wicket>7.17.0</version.wicket>
     </properties>
 
     <modules>
