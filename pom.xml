@@ -33,7 +33,7 @@
         <version.glassfish-el>2.2.4</version.glassfish-el>
         <version.spring>5.2.4.RELEASE</version.spring>
         <version.aspectjweaver>1.6.12</version.aspectjweaver>
-        <version.log4j>2.13.1</version.log4j>
+        <version.log4j>2.17.0</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13</version.junit>
         <version.dbunit>2.7.0</version.dbunit>
