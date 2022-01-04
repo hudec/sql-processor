@@ -11,7 +11,7 @@
     <properties>
         <version.sql-processor>3.5.2-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
-        <version.log4j>2.13.1</version.log4j>
+        <version.log4j>2.17.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13</version.junit>
         <version.mysql>8.0.19</version.mysql>
