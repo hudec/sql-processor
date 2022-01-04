@@ -21,7 +21,7 @@
 
         <version.antlr>3.5.2</version.antlr>
         <version.spring>5.2.4.RELEASE</version.spring>
-        <version.log4j>2.13.1</version.log4j>
+        <version.log4j>2.17.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13</version.junit>
         <version.cglib>3.2.5</version.cglib>
