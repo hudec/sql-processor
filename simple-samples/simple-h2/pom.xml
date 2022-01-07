@@ -14,7 +14,7 @@
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13</version.junit>
-        <version.h2>1.4.194</version.h2>
+        <version.h2>2.0.206</version.h2>
         <version.validation>2.0.1.Final</version.validation>
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
         <version.javax-el>3.0.1-b11</version.javax-el>
