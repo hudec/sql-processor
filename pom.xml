@@ -38,7 +38,7 @@
         <version.junit>4.13</version.junit>
         <version.dbunit>2.7.0</version.dbunit>
         <version.hsqldb>2.5.0</version.hsqldb>
-        <version.h2>1.4.200</version.h2>
+        <version.h2>2.0.206</version.h2>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.oracle>19.3.0.0</version.oracle>
         <version.mysql>8.0.19</version.mysql>
