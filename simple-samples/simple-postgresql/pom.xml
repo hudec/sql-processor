@@ -14,7 +14,7 @@
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13</version.junit>
-        <version.postgresql>42.2.10</version.postgresql>
+        <version.postgresql>42.2.25</version.postgresql>
         <version.sql-processor-eclipse>3.0.0</version.sql-processor-eclipse>
     </properties>
 
