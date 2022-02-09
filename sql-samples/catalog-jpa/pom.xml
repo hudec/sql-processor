@@ -29,7 +29,7 @@
         <version.hsqldb>2.5.0</version.hsqldb>
         <version.servlet-api>2.5</version.servlet-api>
         <version.commons-dbcp>2.7.0</version.commons-dbcp>
-        <version.hibernate>4.1.7.Final</version.hibernate>
+        <version.hibernate>5.4.24.Final</version.hibernate>
         <version.javassist>3.12.1.GA</version.javassist>
         <version.wicket>1.5.7</version.wicket>
     </properties>
