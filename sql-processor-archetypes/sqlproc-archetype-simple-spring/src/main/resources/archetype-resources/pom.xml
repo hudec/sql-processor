@@ -16,7 +16,7 @@
         <version.hsqldb>2.5.0</version.hsqldb>
         <version.validation>2.0.1.Final</version.validation>
         <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
-        <version.spring>5.2.4.RELEASE</version.spring>
+        <version.spring>5.2.22.RELEASE</version.spring>
         <version.commons-dbcp>2.7.0</version.commons-dbcp>
         <version.javax-el>3.0.1-b11</version.javax-el>
     </properties>
