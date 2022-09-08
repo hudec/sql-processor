@@ -43,7 +43,7 @@
         <version.oracle>19.3.0.0</version.oracle>
         <version.mysql>8.0.19</version.mysql>
         <version.mariadb>2.5.4</version.mariadb>
-        <version.postgresql>42.2.10</version.postgresql>
+        <version.postgresql>42.4.1</version.postgresql>
         <version.informix>4.50.3</version.informix>
         <version.mssql>8.2.1.jre11</version.mssql>
         <version.db2>3.52.95</version.db2>
