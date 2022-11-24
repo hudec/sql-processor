@@ -17,7 +17,7 @@
     <properties>
         <version.sql-processor>3.5.2-SNAPSHOT</version.sql-processor>
         <version.antlr>3.5.2</version.antlr>
-        <version.hibernate>4.1.7.Final</version.hibernate>
+        <version.hibernate>5.3.20.Final</version.hibernate>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13</version.junit>
