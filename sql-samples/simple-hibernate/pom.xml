@@ -18,14 +18,12 @@
         <version.sql-processor>3.6.0-SNAPSHOT</version.sql-processor>
         <version.antlr>3.6.0</version.antlr>
         <version.hibernate>4.1.7.Final</version.hibernate>
-        <version.log4j>2.13.1</version.log4j>
-        <version.slf4j>1.7.30</version.slf4j>
-        <version.junit>4.13</version.junit>
-        <version.dbunit>2.5.1</version.dbunit>
-        <version.hsqldb>2.5.0</version.hsqldb>
-        <!-- version.joda-time>3.6.0-SNAPSHOT</version.joda-time>
-        <version.joda-time-hibernate>1.2</version.joda-time-hibernate-->
-        <version.javassist>3.12.1.GA</version.javassist>
+        <version.log4j>2.23.1</version.log4j>
+        <version.slf4j>2.0.12</version.slf4j>
+        <version.junit>4.13.2</version.junit>
+        <version.dbunit>2.7.3</version.dbunit>
+        <version.hsqldb>2.7.2</version.hsqldb>
+        <version.javassist>3.30.2-GA</version.javassist>
     </properties>
 
 
@@ -93,7 +91,7 @@
         </dependency>
 
         <dependency>
-            <groupId>javassist</groupId>
+            <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>${version.javassist}</version>
         </dependency>
