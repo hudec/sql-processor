@@ -16,9 +16,9 @@
         <module>simple-hibernate</module>
         <module>simple-spring</module>
         <module>simple-spring-pojo</module>
-        <module>catalog-jpa</module>
+        <!--module>catalog-jpa</module>
         <module>catalog-hibernate</module>
-        <module>catalog-spring</module>
+        <module>catalog-spring</module-->
     </modules>
 
     <scm>
