@@ -15,9 +15,9 @@
         <version.slf4j>1.7.30</version.slf4j>
         <version.junit>4.13</version.junit>
         <version.hsqldb>2.5.0</version.hsqldb>
-        <version.validation>2.0.1.Final</version.validation>
-        <version.hibernate.validator>6.1.2.Final</version.hibernate.validator>
-        <version.javax-el>3.0.1-b11</version.javax-el>
+        <version.jakarta-validation>3.0.2</version.jakarta-validation>
+        <version.hibernate-validator>8.0.1.Final</version.hibernate-validator>
+        <version.glassfish-el>4.0.2</version.glassfish-el>
         <version.sql-processor-eclipse>3.0.0</version.sql-processor-eclipse>
     </properties>
 
@@ -130,19 +130,19 @@
             <version>${version.junit}</version>
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>${version.validation}</version>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${version.jakarta-validation}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${version.hibernate.validator}</version>
+            <version>${version.hibernate-validator}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>${version.javax-el}</version>
+            <artifactId>jakarta.el</artifactId>
+            <version>${version.glassfish-el}</version>
         </dependency>
     </dependencies>
 
