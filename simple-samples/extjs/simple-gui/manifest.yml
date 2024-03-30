@@ -1,7 +1,0 @@
----
-applications:
-- name: simple-gui
-  memory: 256M
-  instances: 2
-  url: simple-gui.cfapps.io
-  path: .
