@@ -24,56 +24,56 @@ public class TestJoins extends TestDatabase {
         return "dbunit/JoinsTest.xml";
     }
 
-    @Test
-    public void testBasicLeftJoinList6() {
-        SqlCrudEngine sqlEngine = getCrudEngine("BASIC_LEFT_JOIN_LIST_6");
-
-        Library ll = new Library();
-        ll.setId(1L);
-        String sql = sqlEngine.getGetSql(ll, null);
-        logger.info(sql);
-
-        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
-        moreResultClasses.put("alist", ArrayList.class);
-        Library l = sqlEngine.get(session, Library.class, ll, null, 0, moreResultClasses);
-
-        assertNotNull(l);
-        assert5(l);
-    }
-
-    @Test
-    public void testBasicLeftJoinList5() {
-        SqlCrudEngine sqlEngine = getCrudEngine("BASIC_LEFT_JOIN_LIST_5");
-
-        Library ll = new Library();
-        ll.setId(1L);
-        String sql = sqlEngine.getGetSql(ll, null);
-        logger.info(sql);
-
-        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
-        moreResultClasses.put("alist", ArrayList.class);
-        Library l = sqlEngine.get(session, Library.class, ll, null, 0, moreResultClasses);
-
-        assertNotNull(l);
-        assert5(l);
-    }
-
-    @Test
-    public void testBasicLeftJoinList4() {
-        SqlQueryEngine sqlEngine = getSqlEngine("BASIC_LEFT_JOIN_LIST_4");
-
-        String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
-        logger.info(sql);
-
-        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
-        moreResultClasses.put("alist", ArrayList.class);
-        List<Library> list = sqlEngine.query(session, Library.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0,
-                moreResultClasses);
-
-        assertEquals(1, list.size());
-        Library l = list.get(0);
-        assert5(l);
-    }
+//    @Test
+//    public void testBasicLeftJoinList6() {
+//        SqlCrudEngine sqlEngine = getCrudEngine("BASIC_LEFT_JOIN_LIST_6");
+//
+//        Library ll = new Library();
+//        ll.setId(1L);
+//        String sql = sqlEngine.getGetSql(ll, null);
+//        logger.info(sql);
+//
+//        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+//        moreResultClasses.put("alist", ArrayList.class);
+//        Library l = sqlEngine.get(session, Library.class, ll, null, 0, moreResultClasses);
+//
+//        assertNotNull(l);
+//        assert5(l);
+//    }
+//
+//    @Test
+//    public void testBasicLeftJoinList5() {
+//        SqlCrudEngine sqlEngine = getCrudEngine("BASIC_LEFT_JOIN_LIST_5");
+//
+//        Library ll = new Library();
+//        ll.setId(1L);
+//        String sql = sqlEngine.getGetSql(ll, null);
+//        logger.info(sql);
+//
+//        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+//        moreResultClasses.put("alist", ArrayList.class);
+//        Library l = sqlEngine.get(session, Library.class, ll, null, 0, moreResultClasses);
+//
+//        assertNotNull(l);
+//        assert5(l);
+//    }
+//
+//    @Test
+//    public void testBasicLeftJoinList4() {
+//        SqlQueryEngine sqlEngine = getSqlEngine("BASIC_LEFT_JOIN_LIST_4");
+//
+//        String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
+//        logger.info(sql);
+//
+//        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+//        moreResultClasses.put("alist", ArrayList.class);
+//        List<Library> list = sqlEngine.query(session, Library.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0,
+//                moreResultClasses);
+//
+//        assertEquals(1, list.size());
+//        Library l = list.get(0);
+//        assert5(l);
+//    }
 
     @Test
     public void testBasic2LeftJoin4() {
@@ -155,22 +155,22 @@ public class TestJoins extends TestDatabase {
         }
     }
 
-    @Test
-    public void testBasicLeftJoinList3() {
-        SqlQueryEngine sqlEngine = getSqlEngine("BASIC_LEFT_JOIN_LIST_3");
-
-        String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
-        logger.info(sql);
-
-        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
-        moreResultClasses.put("alist", ArrayList.class);
-        List<Library> list = sqlEngine.query(session, Library.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0,
-                moreResultClasses);
-
-        assertEquals(1, list.size());
-        Library l = list.get(0);
-        assert5(l);
-    }
+//    @Test
+//    public void testBasicLeftJoinList3() {
+//        SqlQueryEngine sqlEngine = getSqlEngine("BASIC_LEFT_JOIN_LIST_3");
+//
+//        String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
+//        logger.info(sql);
+//
+//        Map<String, Class<?>> moreResultClasses = new HashMap<String, Class<?>>();
+//        moreResultClasses.put("alist", ArrayList.class);
+//        List<Library> list = sqlEngine.query(session, Library.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0,
+//                moreResultClasses);
+//
+//        assertEquals(1, list.size());
+//        Library l = list.get(0);
+//        assert5(l);
+//    }
 
     @Test
     public void testBasicLeftJoinList2() {

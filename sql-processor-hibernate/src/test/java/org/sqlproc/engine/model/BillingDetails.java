@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public abstract class BillingDetails {
-    private Long id;
+    private Integer id;
     private Date createdDate;
     private String createdBy;
     private Date lastUpdated;
@@ -16,11 +16,11 @@ public abstract class BillingDetails {
     public BillingDetails() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         if ((this.id != null) && !this.id.equals(id)) {
             throw new IllegalArgumentException("Not allowed to change the id property.");
         }
@@ -34,7 +34,7 @@ public abstract class BillingDetails {
             throw new IllegalArgumentException("Not allowed to change the id property.");
         }
 
-        this.id = id.longValue();
+        this.id = id.intValue();
     }
 
     public Date getCreatedDate() {
