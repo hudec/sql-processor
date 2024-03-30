@@ -10,16 +10,16 @@
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>3.5.2-SNAPSHOT</version>
+        <version>3.6.0-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.sql-processor>3.5.2-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>3.6.0-SNAPSHOT</version.sql-processor>
 
-        <version.antlr>3.5.2</version.antlr>
+        <version.antlr>3.6.0</version.antlr>
         <version.spring>5.2.4.RELEASE</version.spring>
         <version.log4j>2.13.1</version.log4j>
         <version.slf4j>1.7.30</version.slf4j>

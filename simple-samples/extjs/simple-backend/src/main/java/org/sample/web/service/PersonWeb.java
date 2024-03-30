@@ -2,7 +2,7 @@ package org.sample.web.service;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.sample.model.person.Contact;
 import org.sample.model.person.Country;

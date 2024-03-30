@@ -1,7 +1,7 @@
 package org.sqlproc.engine.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import org.sqlproc.engine.annotation.Pojo;
 

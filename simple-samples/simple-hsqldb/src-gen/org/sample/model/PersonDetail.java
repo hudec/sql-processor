@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 import org.sample.model.Person;
 import org.sample.model.PersonDetailType;
 import org.sqlproc.engine.annotation.Pojo;

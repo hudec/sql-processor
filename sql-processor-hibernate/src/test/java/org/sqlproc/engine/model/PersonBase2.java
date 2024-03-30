@@ -3,7 +3,7 @@ package org.sqlproc.engine.model;
 import java.math.BigInteger;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public abstract class PersonBase2 {
 

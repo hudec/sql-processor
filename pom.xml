@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc</groupId>
     <artifactId>sql-processor-parent</artifactId>
-    <version>3.5.2-SNAPSHOT</version>
+    <version>3.6.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SQL Processor, Parent Module</name>
     <description>SQL Processor, Parent Module</description>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>5</version>
+        <version>9</version>
     </parent>
 
     <modules>
@@ -29,27 +29,28 @@
 
     <properties>
         <version.antlr>3.5.2</version.antlr>
-        <version.hibernate-validator>6.1.2.Final</version.hibernate-validator>
-        <version.glassfish-el>2.2.4</version.glassfish-el>
-        <version.spring>5.2.4.RELEASE</version.spring>
-        <version.aspectjweaver>1.6.12</version.aspectjweaver>
-        <version.log4j>2.13.1</version.log4j>
-        <version.slf4j>1.7.30</version.slf4j>
-        <version.junit>4.13</version.junit>
-        <version.dbunit>2.7.0</version.dbunit>
-        <version.hsqldb>2.5.0</version.hsqldb>
-        <version.h2>1.4.200</version.h2>
-        <version.javassist>3.12.1.GA</version.javassist>
+        <version.hibernate-validator>8.0.1.Final</version.hibernate-validator>
+        <!--version.glassfish-el>2.2.4</version.glassfish-el-->
+        <version.spring>6.1.5</version.spring>
+        <version.aspectjweaver>1.9.22</version.aspectjweaver>
+        <version.log4j>2.23.1</version.log4j>
+        <version.slf4j>2.0.12</version.slf4j>
+        <version.junit>4.13.2</version.junit>
+        <version.dbunit>2.7.3</version.dbunit>
+        <version.hsqldb>2.7.2</version.hsqldb>
+        <version.h2>2.2.224</version.h2>
+        <version.javassist>3.30.2-GA</version.javassist>
         <version.oracle>19.3.0.0</version.oracle>
-        <version.mysql>8.0.19</version.mysql>
-        <version.mariadb>2.5.4</version.mariadb>
-        <version.postgresql>42.2.10</version.postgresql>
-        <version.informix>4.50.3</version.informix>
-        <version.mssql>8.2.1.jre11</version.mssql>
-        <version.db2>3.52.95</version.db2>
+        <version.mysql>8.0.33</version.mysql>
+        <version.mariadb>3.3.3</version.mariadb>
+        <version.postgresql>42.7.3</version.postgresql>
+        <!--version.informix>4.50.3</version.informix-->
+        <!--version.mssql>8.2.1.jre11</version.mssql-->
+        <!--version.db2>3.52.95</version.db2-->
         <version.beanutils>1.9.4</version.beanutils>
-        <version.dbcp>2.7.0</version.dbcp>
-        <version.validation>2.0.1.Final</version.validation>
+        <version.dbcp>2.12.0</version.dbcp>
+        <!--version.validation>2.0.1.Final</version.validation-->
+        <version.jakarta-validation>3.0.2</version.jakarta-validation>
         <version.jaxb>2.4.0-b180830.0438</version.jaxb>
         <version.javax-el>3.0.1-b11</version.javax-el>
 
@@ -102,7 +103,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>11</release>
+                    <release>21</release>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
@@ -181,7 +182,7 @@
 
             <!-- TEST -->
             <dependency>
-                <groupId>javassist</groupId>
+                <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
                 <version>${version.javassist}</version>
                 <scope>test</scope>
@@ -239,10 +240,16 @@
                 <version>${version.dbcp}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
+            <!--dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>${version.validation}</version>
+                <scope>test</scope>
+            </dependency-->
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${version.jakarta-validation}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
