@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SequencedCollection;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -296,7 +297,7 @@ public class SqlUtils {
         if (clazz == null || clazz.getInterfaces() == null)
             return false;
         for (Class<?> clazz1 : clazz.getInterfaces()) {
-            if (clazz1 == Collection.class || clazz1 == java.util.Map.class) {
+            if (clazz1 == Collection.class || clazz1 ==  SequencedCollection.class || clazz1 == java.util.Map.class) {
                 return true;
             }
         }
