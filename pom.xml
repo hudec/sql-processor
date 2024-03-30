@@ -21,16 +21,16 @@
 
     <modules>
         <module>sql-processor</module>
-        <module>sql-processor-hibernate</module>
         <module>sql-processor-spring</module>
         <module>sql-processor-beans</module>
+        <module>sql-processor-hibernate</module>
         <module>sql-processor-archetypes</module>
     </modules>
 
     <properties>
         <version.antlr>3.5.2</version.antlr>
         <version.hibernate-validator>8.0.1.Final</version.hibernate-validator>
-        <!--version.glassfish-el>2.2.4</version.glassfish-el-->
+        <version.glassfish-el>4.0.2</version.glassfish-el>
         <version.spring>6.1.5</version.spring>
         <version.aspectjweaver>1.9.22</version.aspectjweaver>
         <version.log4j>2.23.1</version.log4j>
@@ -240,12 +240,6 @@
                 <version>${version.dbcp}</version>
                 <scope>test</scope>
             </dependency>
-            <!--dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${version.validation}</version>
-                <scope>test</scope>
-            </dependency-->
             <dependency>
                 <groupId>jakarta.validation</groupId>
                 <artifactId>jakarta.validation-api</artifactId>
@@ -258,28 +252,16 @@
                 <version>${version.hibernate-validator}</version>
                 <scope>test</scope>
             </dependency>
-            <!-- dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jakarta.el</artifactId>
                 <version>${version.glassfish-el}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.glassfish.web</groupId>
-                <artifactId>javax.el</artifactId>
-                <version>${version.glassfish-el}</version>
-                <scope>test</scope>
-            </dependency-->
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-runtime</artifactId>
                 <version>${version.jaxb}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish</groupId>
-                <artifactId>javax.el</artifactId>
-                <version>${version.javax-el}</version>
-                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
