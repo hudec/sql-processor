@@ -9,11 +9,11 @@
     <description>SQL Processor Simple Samples, Parent Module</description>
 
     <modules>
-        <module>simple-db2</module>
+        <!--module>simple-db2</module-->
         <module>simple-hsqldb</module>
         <module>simple-h2</module>
-        <module>simple-informix</module>
-        <module>simple-mssql</module>
+        <!--module>simple-informix</module-->
+        <!--module>simple-mssql</module-->
         <module>simple-mysql</module>
         <module>simple-oracle</module>
         <module>simple-postgresql</module>
