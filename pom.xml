@@ -23,7 +23,7 @@
         <module>sql-processor</module>
         <module>sql-processor-spring</module>
         <module>sql-processor-beans</module>
-        <module>sql-processor-hibernate</module>
+        <!--module>sql-processor-hibernate</module-->
         <module>sql-processor-archetypes</module>
     </modules>
 
