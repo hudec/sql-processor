@@ -493,7 +493,7 @@ public class SpringQuery implements SqlQuery {
 
     /**
      * This is a workaround, as this method is not visible in JdbcTemplate.
-     * <p/>
+     * 
      * It executes the prepared SQL statement and retrieves the values of generated identities from the statement. The
      * generated identities cannot be obtained later because the ResultSet {@link PreparedStatement#getGeneratedKeys()}
      * is closed after this method finishes.
