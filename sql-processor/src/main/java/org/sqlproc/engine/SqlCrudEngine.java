@@ -27,7 +27,7 @@ import org.sqlproc.engine.validation.SqlValidationException;
  * UPDATE_PERSON(CRUD)=
  *   update PERSON
  *   {= set name = :name}
- *   {= where {& id = :id^long^notnull}}
+ *   {= where {&amp; id = :id^long^notnull}}
  * ;
  * </pre>
  * 

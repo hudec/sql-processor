@@ -527,7 +527,7 @@ public class SqlStandardControl implements SqlControl {
     /**
      * Sets the SQL command execution callback handler.
      * 
-     * @param lowLevelSqlCallback
+     * @param sqlExecutionCallback
      *            the SQL command execution callback handler
      * @return this instance
      */

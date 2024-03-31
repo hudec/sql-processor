@@ -59,7 +59,7 @@ public interface JdbcSqlType {
     public abstract Object get(CallableStatement cs, int index) throws SQLException;
 
     /**
-     * Returns the type provided by the stack on top of which the SQL Processor works. It has to support <tt>null</tt>
+     * Returns the type provided by the stack on top of which the SQL Processor works. It has to support <code>null</code>
      * input/output values.
      * 
      * @return the provided type

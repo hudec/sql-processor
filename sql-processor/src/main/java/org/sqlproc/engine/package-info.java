@@ -13,7 +13,7 @@
  * <ul>
  * <li>A <b>META SQL query or statement</b>. META SQL is an ANSI SQL extension based on ANTLR grammar. 
  * For example the META SQL query is<br> 
- * <code>select p.ID id, p.NAME name from PERSON p {= where {& p.id=:id} {& UPPER(name)=:+p.name}}</code>
+ * <code>select p.ID id, p.NAME name from PERSON p {= where {&amp; p.id=:id} {&amp; UPPER(name)=:+p.name}}</code>
  * <li><b>Input values</b> provided by an end user. These data are collected in a search form, a standard 
  * POJO object, which can be created in a presentation layer of a web application.
  * <li>A <b>result class</b> definition, which is used to carry output data from an SQL query execution. This

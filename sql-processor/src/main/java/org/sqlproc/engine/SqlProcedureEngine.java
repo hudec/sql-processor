@@ -79,8 +79,8 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  * ;
  * </pre>
  * 
- * You can see there's a special input value <code>:<1^stamp</code> with the name <code>1</code>, which is used as an
- * index to register OUT parameter to the CallableStatement. The special character <code><</code> denotes that this
+ * You can see there's a special input value <code>:&lt;1^stamp</code> with the name <code>1</code>, which is used as an
+ * index to register OUT parameter to the CallableStatement. The special character <code>lt;</code> denotes that this
  * input parameter is in fact of type OUT.
  * 
  * <p>

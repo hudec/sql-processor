@@ -22,8 +22,8 @@ package org.sqlproc.engine;
  *   select p.ID @id, p.NAME @name
  *   from PERSON p
  *   {= where
- *    {& id=:id}
- *    {& UPPER(name) like :+name}
+ *    {&amp; id=:id}
+ *    {&amp; UPPER(name) like :+name}
  *   }
  *   {#1 order by ID}
  *   {#2 order by NAME}

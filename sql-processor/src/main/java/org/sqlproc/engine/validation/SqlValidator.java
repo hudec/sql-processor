@@ -10,8 +10,8 @@ import org.sqlproc.engine.SqlCrudEngine;
  * <p>
  * The implementation can be based for example on the Hibernate library. The working sample implementation can be seen
  * at <a
- * href="https://github.com/hudec/sql-processor/blob/master/sql-processor/src/test/java/org/sqlproc/engine/validation/
- * SampleValidator.java">Sample validator</a>. This validator in based on JSR 303. The annotated POJO (=dynamic input
+ * href="https://github.com/hudec/sql-processor/blob/master/sql-processor/src/test/java/org/sqlproc/engine/validation/SampleValidator.java">Sample validator</a>. 
+ * This validator in based on JSR 303. The annotated POJO (=dynamic input
  * forms) can be seen at <a href=
  * "https://github.com/hudec/sql-processor/blob/master/sql-processor/src/test/java/org/sqlproc/engine/model/PersonBase.java"
  * >Annotated Person POJO</a>. In the case the validation is failed, the {@link SqlValidationException} is thrown.

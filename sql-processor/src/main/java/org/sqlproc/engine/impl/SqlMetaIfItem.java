@@ -19,7 +19,7 @@ import org.sqlproc.engine.SqlFeature;
  *     SqlMetaText
  *     SqlMetaIdent
  *     SqlMetaConst
- *     SqlMetaAndOr for embedded {}, {&}, {|}
+ *     SqlMetaAndOr for embedded {}, {&amp;}, {|}
  *     SqlMetaIf for embedded {? }
  * </pre>
  * 

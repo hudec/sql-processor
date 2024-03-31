@@ -426,7 +426,7 @@ public abstract class SqlEngine {
      * <li>static input values
      * <li>ordering list directive
      * <li>optional features
-     * <ul>
+     * </ul>
      * 
      * @param sqlStatementType
      *            the SQL command type

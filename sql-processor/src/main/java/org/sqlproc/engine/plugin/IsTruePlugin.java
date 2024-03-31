@@ -13,7 +13,7 @@ import org.sqlproc.engine.type.SqlMetaType;
  * <ul>
  * <li>! an exclamation mark - for a logical negation</li>
  * <li>( and ) left and right round brackets – for a logical grouping</li>
- * <li>&& two ampersands – for a logical conjunction</li>
+ * <li>&amp;&amp; two ampersands – for a logical conjunction</li>
  * <li>|| two vertical bars – for a logical disjunction</li>
  * </ul>
  * 

@@ -140,10 +140,6 @@ public class SqlEngineConfiguration {
      * 
      * @param store
      *            the store to persist this configuration
-     * @throws IOException
-     *             in the case there's a I/O problem with the persisted file
-     * @throws JAXBException
-     *             in the case there's a problem with JAXB deserialization
      */
     public SqlEngineConfiguration(SqlEngineConfigurationStore store) {
         this.store = store;

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * <pre>
  * SqlMetaAndOr 
  *     { SqlMetaIfItem | SqlMetaIfItem...}
- *     {& SqlMetaIfItem | SqlMetaIfItem...}
+ *     {&amp; SqlMetaIfItem | SqlMetaIfItem...}
  *     {| SqlMetaIfItem | SqlMetaIfItem...}
  * </pre>
  * 
@@ -29,7 +29,7 @@ class SqlMetaAndOr implements SqlMetaElement {
     final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * The enumeration of types. These types are based on the prefix if this element: <code>{</code>, <code>{&</code>
+     * The enumeration of types. These types are based on the prefix if this element: <code>{</code>, <code>{&amp;</code>
      * and <code>{|</code>.
      */
     static enum Type {
@@ -38,7 +38,7 @@ class SqlMetaAndOr implements SqlMetaElement {
          */
         NO,
         /**
-         * The type for the element prefix <code>{&</code>.
+         * The type for the element prefix <code>{&amp;</code>.
          */
         AND,
         /**

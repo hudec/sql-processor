@@ -34,7 +34,7 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  *     SqlMetaConst
  *     { SqlMetaAndOr}
  *     {? SqlMetaIf}
- *     {& SqlMetaAndOr}
+ *     {&amp; SqlMetaAndOr}
  *     {| SqlMetaAndOr}
  *     {#DIGIT SqlMetaOrd}
  * </pre>
@@ -197,7 +197,7 @@ public class SqlMetaStatement implements SqlMetaElement {
      * <li>static input values
      * <li>ordering list directive
      * <li>optional features
-     * <ul>
+     * </ul>
      * 
      * @param sqlStatementType
      *            the SQL command type

@@ -46,8 +46,8 @@ public interface SqlQuery {
     SqlQuery setOrdered(boolean ordered);
 
     /**
-     * Returns the query results as a <tt>List</tt>. If the query contains multiple results per row, the results are
-     * returned in an instance of <tt>Object[]</tt>.
+     * Returns the query results as a <code>List</code>. If the query contains multiple results per row, the results are
+     * returned in an instance of <code>Object[]</code>.
      * 
      * @param runtime
      *            the public runtime context
@@ -62,7 +62,7 @@ public interface SqlQuery {
      * 
      * @param runtime
      *            the public runtime context
-     * @return the single result or <tt>null</tt>
+     * @return the single result or <code>null</code>
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
@@ -93,8 +93,8 @@ public interface SqlQuery {
     int update(SqlRuntimeContext runtime) throws SqlProcessorException;
 
     /**
-     * Returns the stored procedure execution results as a <tt>List</tt>. If the query contains multiple results per
-     * row, the results are returned in an instance of <tt>Object[]</tt>. It's based on the CallableStatement
+     * Returns the stored procedure execution results as a <code>List</code>. If the query contains multiple results per
+     * row, the results are returned in an instance of <code>Object[]</code>. It's based on the CallableStatement
      * invocation.
      * 
      * @param runtime
@@ -111,7 +111,7 @@ public interface SqlQuery {
      * 
      * @param runtime
      *            the public runtime context
-     * @return the single result or <tt>null</tt>
+     * @return the single result or <code>null</code>
      * @throws SqlProcessorException
      *             in the case of any problem in ORM or JDBC stack
      */
@@ -189,7 +189,7 @@ public interface SqlQuery {
 
     /**
      * Binds multiple values to a named query parameter. This is useful for binding a list of values to the query
-     * fragment <tt>in (:value_list)</tt>.
+     * fragment <code>in (:value_list)</code>.
      * 
      * @param name
      *            the name of the parameter
@@ -203,7 +203,7 @@ public interface SqlQuery {
 
     /**
      * Binds multiple values to a named query parameter. This is useful for binding a list of values to the query
-     * fragment <tt>in (:value_list)</tt>.
+     * fragment <code>in (:value_list)</code>.
      * 
      * @param name
      *            the name of the parameter

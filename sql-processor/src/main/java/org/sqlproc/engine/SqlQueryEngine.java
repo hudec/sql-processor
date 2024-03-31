@@ -28,8 +28,8 @@ import org.sqlproc.engine.type.SqlTypeFactory;
  *   select ID @id, NAME @name
  *   from PERSON
  *   {= where
- *    {& id=:id}
- *    {& UPPER(name)=:+name}
+ *    {&amp; id=:id}
+ *    {&amp; UPPER(name)=:+name}
  *   }
  *   {#1 order by ID}
  *   {#2 order by NAME}
