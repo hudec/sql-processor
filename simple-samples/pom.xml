@@ -15,6 +15,7 @@
         <!--module>simple-informix</module-->
         <!--module>simple-mssql</module-->
         <module>simple-mysql</module>
+        <module>simple-mariadb</module>
         <module>simple-oracle</module>
         <module>simple-postgresql</module>
     </modules>
