@@ -67,9 +67,9 @@
     </properties>
 
     <scm>
-        <url>scm:git:git@github.com:hudec/sql-processor.git</url>
-        <connection>scm:git:git@github.com:hudec/sql-processor.git</connection>
-        <developerConnection>scm:git:git@github.com:hudec/sql-processor.git</developerConnection>
+        <url>scm:git:https://github.com/hudec/sql-processor.git</url>
+        <connection>scm:git:https://github.com/hudec/sql-processor.git</connection>
+        <developerConnection>scm:git:https://github.com/hudec/sql-processor.git</developerConnection>
     </scm>
 
     <licenses>
