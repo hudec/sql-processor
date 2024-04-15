@@ -1,7 +1,7 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver org.postgresql.Driver;
-database-has-url "jdbc:postgresql://127.0.0.1:5432/simple";
+database-has-url "jdbc:postgresql://postgres.rob.i.cz:5433/simple";
 database-login-username simple;
 database-login-password simple;
 database-in-catalog simple;
@@ -24,6 +24,8 @@ pojogen-rename-columns contact_ctype I0->HOME I1->BUSINESS I2->ABROAD;
 pojogen-rename-columns person_gender M->MALE F->FEMALE I0->UNKNOWN; 
 // operators
 pojogen-generate-operators;
+
+pojogen-debug-level DEBUG;
 
 // use identity for primary keys
 metagen-table-identity contact CONTACT;
@@ -48,7 +50,7 @@ is-function anHourBefore an_hour_before;
 
 //metagen-function-result an_hour_before stamp;
 metagen-procedure-result-set new_person_ret_rs person;
-//metagen-debug-level DEBUG;
+metagen-debug-level DEBUG;
 compress-meta-directives;
 
 pojogen-package org.sample.model;

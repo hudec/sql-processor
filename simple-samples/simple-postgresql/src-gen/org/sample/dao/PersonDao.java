@@ -12,47 +12,48 @@ import org.sqlproc.engine.SqlSessionFactory;
 @SuppressWarnings("all")
 public class PersonDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
-  
+
   public PersonDao() {
   }
-  
+
   public PersonDao(final SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
-  
+
   public PersonDao(final SqlEngineFactory sqlEngineFactory, final SqlSessionFactory sqlSessionFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
     this.sqlSessionFactory = sqlSessionFactory;
   }
-  
+
   protected SqlEngineFactory sqlEngineFactory;
-  
+
   protected SqlSessionFactory sqlSessionFactory;
-  
+
   public Person insert(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlInsertPerson = sqlEngineFactory.getCheckedCrudEngine("INSERT_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "INSERT_PERSON";
+    org.sqlproc.engine.SqlCrudEngine sqlInsertPerson = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlInsertPerson.insert(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql insert person result: " + count + " " + person);
     }
     return (count > 0) ? person : null;
   }
-  
+
   public Person insert(final Person person, SqlControl sqlControl) {
     return insert(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
+
   public Person insert(final SqlSession sqlSession, final Person person) {
     return insert(sqlSession, person, null);
   }
-  
+
   public Person insert(final Person person) {
     return insert(person, null);
   }
-  
+
   public Person get(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get: " + person + " " + sqlControl);
@@ -66,67 +67,69 @@ public class PersonDao {
     }
     return personGot;
   }
-  
+
   public Person get(final Person person, SqlControl sqlControl) {
     return get(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
+
   public Person get(final SqlSession sqlSession, final Person person) {
     return get(sqlSession, person, null);
   }
-  
+
   public Person get(final Person person) {
     return get(person, null);
   }
-  
+
   public int update(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCheckedCrudEngine("UPDATE_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "UPDATE_PERSON";
+    org.sqlproc.engine.SqlCrudEngine sqlUpdateEnginePerson = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlUpdateEnginePerson.update(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql update person result count: " + count);
     }
     return count;
   }
-  
+
   public int update(final Person person, SqlControl sqlControl) {
     return update(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
+
   public int update(final SqlSession sqlSession, final Person person) {
     return update(sqlSession, person, null);
   }
-  
+
   public int update(final Person person) {
     return update(person, null);
   }
-  
+
   public int delete(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete person: " + person + " " + sqlControl);
     }
-    org.sqlproc.engine.SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCheckedCrudEngine("DELETE_PERSON");
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "DELETE_PERSON";
+    org.sqlproc.engine.SqlCrudEngine sqlDeleteEnginePerson = sqlEngineFactory.getCheckedCrudEngine(sqlName);
     int count = sqlDeleteEnginePerson.delete(sqlSession, person, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql delete person result count: " + count);
     }
     return count;
   }
-  
+
   public int delete(final Person person, SqlControl sqlControl) {
     return delete(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
+
   public int delete(final SqlSession sqlSession, final Person person) {
     return delete(sqlSession, person, null);
   }
-  
+
   public int delete(final Person person) {
     return delete(person, null);
   }
-  
+
   public List<Person> list(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list person: " + person + " " + sqlControl);
@@ -140,19 +143,19 @@ public class PersonDao {
     }
     return personList;
   }
-  
+
   public List<Person> list(final Person person, SqlControl sqlControl) {
     return list(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
+
   public List<Person> list(final SqlSession sqlSession, final Person person) {
     return list(sqlSession, person, null);
   }
-  
+
   public List<Person> list(final Person person) {
     return list(person, null);
   }
-  
+
   public int query(final SqlSession sqlSession, final Person person, SqlControl sqlControl, final SqlRowProcessor<Person> sqlRowProcessor) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql query person: " + person + " " + sqlControl);
@@ -166,19 +169,19 @@ public class PersonDao {
     }
     return rownums;
   }
-  
+
   public int query(final Person person, SqlControl sqlControl, final SqlRowProcessor<Person> sqlRowProcessor) {
     return query(sqlSessionFactory.getSqlSession(), person, sqlControl, sqlRowProcessor);
   }
-  
+
   public int query(final SqlSession sqlSession, final Person person, final SqlRowProcessor<Person> sqlRowProcessor) {
     return query(sqlSession, person, null, sqlRowProcessor);
   }
-  
+
   public int query(final Person person, final SqlRowProcessor<Person> sqlRowProcessor) {
     return query(person, null, sqlRowProcessor);
   }
-  
+
   public int count(final SqlSession sqlSession, final Person person, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("count person: " + person + " " + sqlControl);
@@ -192,15 +195,15 @@ public class PersonDao {
     }
     return count;
   }
-  
+
   public int count(final Person person, SqlControl sqlControl) {
     return count(sqlSessionFactory.getSqlSession(), person, sqlControl);
   }
-  
+
   public int count(final SqlSession sqlSession, final Person person) {
     return count(sqlSession, person, null);
   }
-  
+
   public int count(final Person person) {
     return count(person, null);
   }

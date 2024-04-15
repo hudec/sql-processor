@@ -122,11 +122,6 @@
             <version>${version.postgresql}</version>
         </dependency>
         <dependency>
-    		<groupId>org.apache.ignite</groupId>
-    		<artifactId>ignite-core</artifactId>
-    		<version>2.15.0</version>
-		</dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
