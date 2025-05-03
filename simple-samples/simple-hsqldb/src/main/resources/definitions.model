@@ -91,7 +91,7 @@ is-pojo NewPersonRetRsResult org.sample.model.NewPersonRetRsResult;
 is-pojo Person org.sample.model.Person;
 is-pojo PersonDetail org.sample.model.PersonDetail;
 
-is-annotation XmlTransient javax.xml.bind.annotation.XmlTransient;
+is-annotation XmlTransient jakarta.xml.bind.annotation.XmlTransient;
 pojogen-column-annotations ids XmlTransient - Person; 
 pojogen-getter-annotations ids XmlTransient - Contact; 
 pojogen-setter-annotations ids XmlTransient - PersonDetail; 
