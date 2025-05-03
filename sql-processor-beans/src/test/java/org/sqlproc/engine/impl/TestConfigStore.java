@@ -3,7 +3,7 @@ package org.sqlproc.engine.impl;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import junit.framework.TestCase;
 

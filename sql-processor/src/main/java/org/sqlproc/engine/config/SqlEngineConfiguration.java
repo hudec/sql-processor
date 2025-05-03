@@ -12,7 +12,6 @@ import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.xml.bind.JAXBException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,8 @@ import org.sqlproc.engine.config.store.SqlEngineConfigurationStore;
 import org.sqlproc.engine.config.store.XmlEngineConfiguration;
 import org.sqlproc.engine.impl.SqlProcessResult;
 import org.sqlproc.engine.impl.config.store.SimpleEngineConfigurationStore;
+
+import jakarta.xml.bind.JAXBException;
 
 /**
  * The dynamic configuration of the SQL Processor.

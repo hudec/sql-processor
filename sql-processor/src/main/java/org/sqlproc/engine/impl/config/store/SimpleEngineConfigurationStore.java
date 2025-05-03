@@ -2,7 +2,7 @@ package org.sqlproc.engine.impl.config.store;
 
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import org.sqlproc.engine.config.SqlEngineConfiguration;
 import org.sqlproc.engine.config.store.SqlEngineConfigurationStore;

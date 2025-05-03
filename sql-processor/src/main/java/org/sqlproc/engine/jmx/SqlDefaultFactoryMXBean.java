@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import org.sqlproc.engine.SqlEngine;
 import org.sqlproc.engine.SqlEngineException;
