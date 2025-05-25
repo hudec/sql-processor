@@ -6,35 +6,27 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
 import org.sample.dao.NewPersonDao;
 import org.sample.dao.NewPersonRetRsDao;
 import org.sample.dao.PersonDao;
-import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
-import org.sample.model.ContactCtype;
-import org.sample.model.NewPerson;
-import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
-import org.sample.model.PersonGender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
 import org.sqlproc.engine.SqlFeature;
 import org.sqlproc.engine.SqlSession;
 import org.sqlproc.engine.SqlSessionFactory;
-import org.sqlproc.engine.impl.SqlStandardControl;
 import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 
+@SuppressWarnings({ "unused", "resource" })
 public class Main {
 
     private static final Driver JDBC_DRIVER = new org.postgresql.Driver();
@@ -72,16 +64,17 @@ public class Main {
         ResultSet result = meta.getFunctions("simple", null, null);
         List<String> fns = new ArrayList<>();
         while (result.next()) {
-        	String name = result.getString("FUNCTION_NAME");
-        	if (!name.equalsIgnoreCase("an_hour_before") && !name.equalsIgnoreCase("new_person") && !name.equalsIgnoreCase("new_person_ret_rs"))
-        		continue;
-        	System.out.println("FUN "+name);
-        	fns.add(name);
-        	ResultSet result2 = meta.getFunctionColumns("simple", null, name, null);
-        	while (result2.next()) {
-        		String name2 = result2.getString("COLUMN_NAME");
-            	System.out.println("FUN "+name + " "+name2);
-        	}
+            String name = result.getString("FUNCTION_NAME");
+            if (!name.equalsIgnoreCase("an_hour_before") && !name.equalsIgnoreCase("new_person")
+                    && !name.equalsIgnoreCase("new_person_ret_rs"))
+                continue;
+            System.out.println("FUN " + name);
+            fns.add(name);
+            ResultSet result2 = meta.getFunctionColumns("simple", null, name, null);
+            while (result2.next()) {
+                String name2 = result2.getString("COLUMN_NAME");
+                System.out.println("FUN " + name + " " + name2);
+            }
         }
         sessionFactory = new JdbcSessionFactory(connection);
 

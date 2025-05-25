@@ -5,7 +5,6 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Assert;
@@ -34,6 +33,7 @@ import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 
+@SuppressWarnings({ "unused", "resource" })
 public class Main {
 
     private static final Driver JDBC_DRIVER = new oracle.jdbc.OracleDriver();

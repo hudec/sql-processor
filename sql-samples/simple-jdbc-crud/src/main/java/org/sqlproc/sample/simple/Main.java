@@ -44,6 +44,7 @@ import org.sqlproc.sample.simple.model.PhysicalMedia;
 import org.sqlproc.sample.simple.model.Subscriber;
 import org.sqlproc.sample.simple.type.PhoneNumberType;
 
+@SuppressWarnings({ "unused", "resource" })
 public class Main {
 
     private Connection connection;

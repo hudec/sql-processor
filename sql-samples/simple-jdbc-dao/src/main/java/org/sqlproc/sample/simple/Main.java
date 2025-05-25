@@ -41,6 +41,7 @@ import org.sqlproc.sample.simple.model.PhoneNumber;
 import org.sqlproc.sample.simple.model.PhysicalMedia;
 import org.sqlproc.sample.simple.model.Subscriber;
 
+@SuppressWarnings({ "unused", "resource" })
 public class Main {
 
     private SqlSessionFactory sessionFactory;

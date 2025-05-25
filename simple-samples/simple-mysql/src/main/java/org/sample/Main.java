@@ -32,6 +32,7 @@ import org.sqlproc.engine.jdbc.JdbcEngineFactory;
 import org.sqlproc.engine.jdbc.JdbcSessionFactory;
 import org.sqlproc.engine.util.DDLLoader;
 
+@SuppressWarnings({ "unused", "resource" })
 public class Main {
 
     private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/simple?serverTimezone=Europe/Prague";

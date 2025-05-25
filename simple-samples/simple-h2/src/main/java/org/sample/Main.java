@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -45,6 +44,7 @@ import org.sqlproc.engine.plugin.SimpleSqlPluginFactory;
 import org.sqlproc.engine.util.DDLLoader;
 import org.sqlproc.engine.validation.SqlValidationException;
 
+@SuppressWarnings({ "unused", "resource" })
 public class Main {
 
     private static final Driver JDBC_DRIVER = new org.h2.Driver();
