@@ -68,7 +68,7 @@ public abstract class SqlEnumStringType extends SqlDefaultType {
                 }
             } else {
                 List<String> vals = new ArrayList<String>();
-                for (Iterator iter = ((Collection) inputValue).iterator(); iter.hasNext();) {
+                for (Iterator<?> iter = ((Collection<?>) inputValue).iterator(); iter.hasNext();) {
                     Object val = iter.next();
                     if (!val.getClass().isEnum()) {
                         error(logger, ingoreError, "Incorrect string based enum item " + val + " for " + paramName);

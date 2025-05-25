@@ -32,7 +32,7 @@ public class JdbcSession implements InvocationHandler {
     /**
      * The contracts implemented by this dynamic proxy.
      */
-    private static final Class[] PROXY_INTERFACES = new Class[] { Connection.class, SqlSession.class };
+    private static final Class<?>[] PROXY_INTERFACES = new Class<?>[] { Connection.class, SqlSession.class };
 
     /**
      * The connection to the database. It should be opened.

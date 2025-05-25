@@ -69,7 +69,7 @@ public abstract class SqlEnumIntegerType extends SqlDefaultType {
                 }
             } else {
                 List<Integer> vals = new ArrayList<Integer>();
-                for (Iterator iter = ((Collection) inputValue).iterator(); iter.hasNext();) {
+                for (Iterator<?> iter = ((Collection<?>) inputValue).iterator(); iter.hasNext();) {
                     Object val = iter.next();
                     if (!val.getClass().isEnum()) {
                         error(logger, ingoreError, "Incorrect integer based enum item " + val + " for " + paramName);

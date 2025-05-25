@@ -81,7 +81,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             resultValue = (Integer) ((BigInteger) resultValue).intValue();
 
         if (attributeType.isEnum()) {
-            Class enumType = runtimeCtx.getEnumToClass(attributeType);
+            Class<?> enumType = runtimeCtx.getEnumToClass(attributeType);
             if (enumType == Integer.class || enumType == int.class)
                 runtimeCtx.getTypeFactory().getEnumIntegerType().setResult(runtimeCtx, resultInstance, attributeName,
                         resultValue, ingoreError);
@@ -126,7 +126,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             if (inputValue == null) {
                 query.setParameter(paramName, inputValue, getProviderSqlType());
             } else if (inputValue instanceof Collection) {
-                query.setParameterList(paramName, ((Collection) inputValue).toArray(), getProviderSqlType());
+                query.setParameterList(paramName, ((Collection<?>) inputValue).toArray(), getProviderSqlType());
             } else {
                 query.setParameter(paramName, inputValue, getProviderSqlType());
             }
@@ -135,7 +135,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
 
         if (!(inputValue instanceof Collection)) {
             if (inputTypes[0].isEnum()) {
-                Class clazz = runtimeCtx.getEnumToClass(inputTypes[0]);
+                Class<?> clazz = runtimeCtx.getEnumToClass(inputTypes[0]);
                 if (clazz == String.class) {
                     runtimeCtx.getTypeFactory().getEnumStringType().setParameter(runtimeCtx, query, paramName,
                             inputValue, ingoreError, inputTypes);
@@ -160,7 +160,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
         } else {
             List<Object> vals = new ArrayList<Object>();
             boolean isEnum = false;
-            for (Iterator iter = ((Collection) inputValue).iterator(); iter.hasNext();) {
+            for (Iterator<?> iter = ((Collection<?>) inputValue).iterator(); iter.hasNext();) {
                 Object val = iter.next();
                 if (!val.getClass().isEnum())
                     break;
@@ -178,7 +178,7 @@ public abstract class SqlDefaultType implements SqlTaggedMetaType {
             if (isEnum) {
                 query.setParameterList(paramName, vals.toArray());
             } else {
-                query.setParameterList(paramName, ((Collection) inputValue).toArray());
+                query.setParameterList(paramName, ((Collection<?>) inputValue).toArray());
             }
         }
     }
