@@ -37,9 +37,9 @@ public class JdbcFloatType extends SqlFloatType implements JdbcSqlType {
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
         if (Character.isDigit(columnLabel.charAt(0)))
-            return new Float(rs.getFloat(Integer.parseInt(columnLabel)));
+            return Float.valueOf(rs.getFloat(Integer.parseInt(columnLabel)));
         else
-            return new Float(rs.getFloat(columnLabel));
+            return Float.valueOf(rs.getFloat(columnLabel));
     }
 
     /**
@@ -55,7 +55,7 @@ public class JdbcFloatType extends SqlFloatType implements JdbcSqlType {
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = new Float(cs.getFloat(index));
+        Object result = Float.valueOf(cs.getFloat(index));
         if (cs.wasNull())
             return null;
         else

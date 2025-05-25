@@ -60,7 +60,7 @@ public class JdbcByteArrayWrapperType extends SqlByteArrayType implements JdbcSq
         int length = bytes.length;
         Byte[] result = new Byte[length];
         for (int i = 0; i < length; i++) {
-            result[i] = new Byte(bytes[i]);
+            result[i] = Byte.valueOf(bytes[i]);
         }
         return result;
     }
@@ -93,7 +93,7 @@ public class JdbcByteArrayWrapperType extends SqlByteArrayType implements JdbcSq
         int length = bytes.length;
         Byte[] result = new Byte[length];
         for (int i = 0; i < length; i++) {
-            result[i] = new Byte(bytes[i]);
+            result[i] = Byte.valueOf(bytes[i]);
         }
         return result;
     }

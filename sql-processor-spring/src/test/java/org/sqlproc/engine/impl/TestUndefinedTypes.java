@@ -47,19 +47,19 @@ public class TestUndefinedTypes extends TestDatabase {
         assertEquals(Long.valueOf(3L), t.getT_long());
 
         assertEquals(4, t.getN_byte());
-        assertEquals(new Byte((byte) 4), t.getT_byte());
+        assertEquals(Byte.valueOf((byte) 4), t.getT_byte());
 
         assertEquals(5, t.getN_short());
         assertEquals(Short.valueOf((short) 5), t.getT_short());
 
         assertEquals(6.1, t.getN_float(), 0.001);
-        assertEquals(new Float(6.1), t.getT_float(), 0.001);
+        assertEquals(Float.valueOf(6.1f), t.getT_float(), 0.001);
 
         assertEquals(7.2, t.getN_double(), 0.001);
         assertEquals(Double.valueOf(7.2), t.getT_double(), 0.001);
 
         assertEquals('x', t.getN_char());
-        assertEquals(new Character('x'), t.getT_char());
+        assertEquals(Character.valueOf('x'), t.getT_char());
 
         assertEquals("abc", t.getT_string());
 
@@ -169,19 +169,19 @@ public class TestUndefinedTypes extends TestDatabase {
         assertEquals(Long.valueOf(3L), t.getT_long());
 
         assertEquals(4, t.getN_byte());
-        assertEquals(new Byte((byte) 4), t.getT_byte());
+        assertEquals(Byte.valueOf((byte) 4), t.getT_byte());
 
         assertEquals(5, t.getN_short());
         assertEquals(Short.valueOf((short) 5), t.getT_short());
 
         assertEquals(6.1, t.getN_float(), 0.001);
-        assertEquals(new Float(6.1), t.getT_float(), 0.001);
+        assertEquals(Float.valueOf(6.1f), t.getT_float(), 0.001);
 
         assertEquals(7.2, t.getN_double(), 0.001);
         assertEquals(Double.valueOf(7.2), t.getT_double(), 0.001);
 
         assertEquals('x', t.getN_char());
-        assertEquals(new Character('x'), t.getT_char());
+        assertEquals(Character.valueOf('x'), t.getT_char());
 
         assertEquals("abc", t.getT_string());
 

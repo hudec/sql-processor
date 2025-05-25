@@ -41,7 +41,7 @@ public class JdbcCharType extends SqlCharType implements JdbcSqlType {
         if (str == null) {
             return null;
         } else {
-            return new Character(str.charAt(0));
+            return str.charAt(0);
         }
     }
 
@@ -58,6 +58,6 @@ public class JdbcCharType extends SqlCharType implements JdbcSqlType {
         String result = cs.getString(index);
         if (cs.wasNull() || result == null)
             return null;
-        return new Character(result.charAt(0));
+        return result.charAt(0);
     }
 }
