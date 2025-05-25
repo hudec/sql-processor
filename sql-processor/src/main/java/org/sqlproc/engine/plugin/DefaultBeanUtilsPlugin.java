@@ -557,7 +557,7 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
 
     protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method method, Object... args) {
         try {
-            if (!method.canAccess(bean))
+            if (!method.isAccessible())
                 try {
                     method.setAccessible(true);
                 } catch (SecurityException se) {
