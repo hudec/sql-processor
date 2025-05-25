@@ -557,18 +557,28 @@ public class DefaultBeanUtilsPlugin implements BeanUtilsPlugin {
 
     protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method method, Object... args) {
         try {
-            if (!method.isAccessible())
+            // If the member is static, supply null.
+            // Otherwise we need an actual instance of the declaring class.
+            Object receiverForAccess = Modifier.isStatic(method.getModifiers()) ? null : bean;
+
+            if (!method.canAccess(receiverForAccess)) {
+                // Java 9+: prefer trySetAccessible() so we don’t ignore the result
                 try {
-                    method.setAccessible(true);
+                    if (!method.trySetAccessible()) {
+                        logger.warn("invokeMethod: cannot make {} accessible", method);
+                    }
                 } catch (SecurityException se) {
-                    logger.warn("invokeMethod: " + bean.getClass() + " " + se.getMessage());
+                    logger.warn("invokeMethod: {} {}", bean != null ? bean.getClass() : "static", se.getMessage());
                 }
-            return method.invoke(bean, args);
-        } catch (IllegalAccessException e) {
-            throw new SqlRuntimeException(debugInfo("invokeMethod", bean, method, args), e);
-        } catch (IllegalArgumentException e) {
-            throw new SqlRuntimeException(debugInfo("invokeMethod", bean, method, args), e);
-        } catch (InvocationTargetException e) {
+            }
+
+            // For static methods the first argument may be null (or anything),
+            // but passing null is clearer.
+            Object receiverForInvoke = Modifier.isStatic(method.getModifiers()) ? null : bean;
+
+            return method.invoke(receiverForInvoke, args);
+
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             throw new SqlRuntimeException(debugInfo("invokeMethod", bean, method, args), e);
         }
     }
