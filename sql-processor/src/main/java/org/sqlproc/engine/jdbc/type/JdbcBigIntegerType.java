@@ -2,6 +2,7 @@ package org.sqlproc.engine.jdbc.type;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,11 +40,12 @@ public class JdbcBigIntegerType extends SqlBigIntegerType implements JdbcSqlType
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
         BigDecimal bigDecimal;
-        if (Character.isDigit(columnLabel.charAt(0)))
+        if (Character.isDigit(columnLabel.charAt(0))) {
             bigDecimal = rs.getBigDecimal(Integer.parseInt(columnLabel));
-        else
+        } else {
             bigDecimal = rs.getBigDecimal(columnLabel);
-        return bigDecimal == null ? null : bigDecimal.setScale(0, BigDecimal.ROUND_UNNECESSARY).unscaledValue();
+        }
+        return bigDecimal == null ? null : bigDecimal.setScale(0, RoundingMode.UNNECESSARY).unscaledValue();
     }
 
     /**

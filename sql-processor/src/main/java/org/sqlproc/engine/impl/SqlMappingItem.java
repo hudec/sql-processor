@@ -512,7 +512,7 @@ class SqlMappingItem implements SqlMetaElement {
                                     logger.warn("There's null idenity " + typeClass + ", complete attribute name is "
                                             + attr.getFullName() + ", possible type name is " + typeName);
                                 else
-                                    ((Collection<?>) nextObj).add(itemObj);
+                                    ((Collection) nextObj).add(itemObj);
                                 idsProcessed.put(idsKey, itemObj);
                                 nextObj = itemObj;
                             } else if (ctx.isFeature(SqlFeature.IGNORE_INPROPER_OUT)) {
