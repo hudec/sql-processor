@@ -199,7 +199,7 @@ public class SpringQuery implements SqlQuery {
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
-        String _query = limitType != null ? queryResult.toString() : queryString;
+        String _query = limitType != null && queryResult != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + _query);
         }
@@ -278,7 +278,7 @@ public class SpringQuery implements SqlQuery {
         final SqlFromToPlugin.LimitType limitType = (maxResults != null) ? runtimeCtx.getPluginFactory()
                 .getSqlFromToPlugin().limitQuery(runtimeCtx, queryString, queryResult, firstResult, maxResults, ordered)
                 : null;
-        String _query = limitType != null ? queryResult.toString() : queryString;
+        String _query = limitType != null && queryResult != null ? queryResult.toString() : queryString;
         if (logger.isDebugEnabled()) {
             logger.debug("list, query=" + _query);
         }
