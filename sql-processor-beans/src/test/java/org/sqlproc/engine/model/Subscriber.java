@@ -37,7 +37,7 @@ public class Subscriber {
 
     // workaround for HSQLDB, sequences return Integer
     public void setId(BigInteger id) {
-        if ((this.id != null) && !this.id.equals(id)) {
+        if ((this.id != null) && (id == null || id.compareTo(BigInteger.valueOf(this.id)) != 0)) {
             throw new IllegalArgumentException("Not allowed to change the id property.");
         }
 
