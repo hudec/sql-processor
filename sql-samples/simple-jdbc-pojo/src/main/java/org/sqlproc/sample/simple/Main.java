@@ -345,7 +345,7 @@ public class Main {
         Assert.assertEquals("Die Another Day", list.get(0).getLibrary().get(0).getTitle());
         Assert.assertTrue(list.get(0).getLibrary().get(0) instanceof Movie);
         Assert.assertEquals("def", ((Movie) list.get(0).getLibrary().get(0)).getUrlimdb());
-        Assert.assertEquals(new Integer(95), ((Movie) list.get(0).getLibrary().get(0)).getPlaylength());
+        Assert.assertEquals(Integer.valueOf(95), ((Movie) list.get(0).getLibrary().get(0)).getPlaylength());
         Assert.assertEquals("The Adventures of Robin Hood", list.get(0).getLibrary().get(1).getTitle());
         Assert.assertTrue(list.get(0).getLibrary().get(1) instanceof Book);
         Assert.assertEquals("978-0140367003", ((Book) list.get(0).getLibrary().get(1)).getIsbn());

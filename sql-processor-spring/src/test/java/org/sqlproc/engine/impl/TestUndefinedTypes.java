@@ -41,7 +41,7 @@ public class TestUndefinedTypes extends TestDatabase {
         TypesTransport t = list.get(0);
 
         assertEquals(2, t.getN_int());
-        assertEquals(new Integer(2), t.getT_int());
+        assertEquals(Integer.valueOf(2), t.getT_int());
 
         assertEquals(3, t.getN_long());
         assertEquals(Long.valueOf(3L), t.getT_long());
@@ -56,7 +56,7 @@ public class TestUndefinedTypes extends TestDatabase {
         assertEquals(new Float(6.1), t.getT_float(), 0.001);
 
         assertEquals(7.2, t.getN_double(), 0.001);
-        assertEquals(new Double(7.2), t.getT_double(), 0.001);
+        assertEquals(Double.valueOf(7.2), t.getT_double(), 0.001);
 
         assertEquals('x', t.getN_char());
         assertEquals(new Character('x'), t.getT_char());
@@ -163,7 +163,7 @@ public class TestUndefinedTypes extends TestDatabase {
         TypesTransport t = list.get(0);
 
         assertEquals(2, t.getN_int());
-        assertEquals(new Integer(2), t.getT_int());
+        assertEquals(Integer.valueOf(2), t.getT_int());
 
         assertEquals(3, t.getN_long());
         assertEquals(Long.valueOf(3L), t.getT_long());
@@ -178,7 +178,7 @@ public class TestUndefinedTypes extends TestDatabase {
         assertEquals(new Float(6.1), t.getT_float(), 0.001);
 
         assertEquals(7.2, t.getN_double(), 0.001);
-        assertEquals(new Double(7.2), t.getT_double(), 0.001);
+        assertEquals(Double.valueOf(7.2), t.getT_double(), 0.001);
 
         assertEquals('x', t.getN_char());
         assertEquals(new Character('x'), t.getT_char());

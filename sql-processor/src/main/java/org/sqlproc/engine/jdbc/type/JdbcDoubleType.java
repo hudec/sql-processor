@@ -37,9 +37,9 @@ public class JdbcDoubleType extends SqlDoubleType implements JdbcSqlType {
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
         if (Character.isDigit(columnLabel.charAt(0)))
-            return new Double(rs.getDouble(Integer.parseInt(columnLabel)));
+            return Double.valueOf(rs.getDouble(Integer.parseInt(columnLabel)));
         else
-            return new Double(rs.getDouble(columnLabel));
+            return Double.valueOf(rs.getDouble(columnLabel));
     }
 
     /**

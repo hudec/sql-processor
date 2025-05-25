@@ -37,9 +37,9 @@ public class JdbcIntegerType extends SqlIntegerType implements JdbcSqlType {
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
         if (Character.isDigit(columnLabel.charAt(0))) {
-            return new Integer(rs.getInt(Integer.parseInt(columnLabel)));
+            return Integer.valueOf(rs.getInt(Integer.parseInt(columnLabel)));
         } else {
-            return new Integer(rs.getInt(columnLabel));
+            return Integer.valueOf(rs.getInt(columnLabel));
         }
     }
 
@@ -56,7 +56,7 @@ public class JdbcIntegerType extends SqlIntegerType implements JdbcSqlType {
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = new Integer(cs.getInt(index));
+        Object result = Integer.valueOf(cs.getInt(index));
         if (cs.wasNull())
             return null;
         else
