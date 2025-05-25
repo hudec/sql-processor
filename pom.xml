@@ -36,7 +36,7 @@
         <version.junit>4.13.2</version.junit>
         <version.javassist>3.30.2-GA</version.javassist>
         <version.oracle>23.8.0.25.04</version.oracle>
-        <version.mysql>8.4.0</version.mysql>
+        <version.mysql>9.3.0</version.mysql>
         <version.mariadb>3.5.3</version.mariadb>
         <version.postgresql>42.7.5</version.postgresql>
         <version.beanutils>1.9.4</version.beanutils>

@@ -10,12 +10,11 @@
 
     <properties>
         <version.sql-processor>3.6.2-SNAPSHOT</version.sql-processor>
-        <version.antlr>3.6.0</version.antlr>
-        <version.log4j>2.23.1</version.log4j>
-        <version.slf4j>2.0.12</version.slf4j>
+        <version.log4j>2.24.3</version.log4j>
+        <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
-        <version.oracle>19.3.0.0</version.oracle>
-        <version.jakarta-validation>3.0.2</version.jakarta-validation>
+        <version.oracle>23.8.0.25.04</version.oracle>
+        <version.jakarta-validation>3.1.1</version.jakarta-validation>
         <version.hibernate-validator>8.0.1.Final</version.hibernate-validator>
         <version.glassfish-el>4.0.2</version.glassfish-el>
         <version.beanutils>1.9.4</version.beanutils>
@@ -121,7 +120,7 @@
             <version>${version.slf4j}</version>
         </dependency>
         <dependency>
-            <groupId>com.oracle.ojdbc</groupId>
+            <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>${version.oracle}</version>
         </dependency>
