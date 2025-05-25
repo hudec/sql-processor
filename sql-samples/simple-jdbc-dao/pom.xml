@@ -16,14 +16,13 @@
 
     <properties>
         <version.sql-processor>3.6.2-SNAPSHOT</version.sql-processor>
-        <version.antlr>3.6.0</version.antlr>
-        <version.spring>6.1.5</version.spring>
-        <version.commons-dbcp>2.7.0</version.commons-dbcp>
-        <version.log4j>2.23.1</version.log4j>
-        <version.slf4j>2.0.12</version.slf4j>
+        <version.spring>6.2.7</version.spring>
+        <version.commons-dbcp>2.13.0</version.commons-dbcp>
+        <version.log4j>2.24.3</version.log4j>
+        <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
         <version.dbunit>2.7.3</version.dbunit>
-        <version.hsqldb>2.7.2</version.hsqldb>
+        <version.hsqldb>2.7.4</version.hsqldb>
     </properties>
 
     <build>
