@@ -61,13 +61,13 @@ public class TestCache extends TestDatabase {
 
         assertEquals(1, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals("1953-05-16", p.getBirthDate().toString());
         assertEquals(null, p.getCreatedDate());
         assertEquals(null, p.getCreatedBy());
         assertEquals("2006-12-08 00:00:00", sdf.format(p.getLastUpdated()));
         assertEquals("dbunit", p.getLastUpdatedBy());
-        assertEquals(new Long(1), p.getVersion());
+        assertEquals(Long.valueOf(1), p.getVersion());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -111,13 +111,13 @@ public class TestCache extends TestDatabase {
 
         assertEquals(1, list.size());
         p = list.get(0);
-        assertEquals(new Long(3), p.getId());
+        assertEquals(Long.valueOf(3), p.getId());
         assertEquals("1905-02-06", p.getBirthDate().toString());
         assertEquals(null, p.getCreatedDate());
         assertEquals(null, p.getCreatedBy());
         assertEquals("2006-12-09 00:00:00", sdf.format(p.getLastUpdated()));
         assertEquals("dbunit", p.getLastUpdatedBy());
-        assertEquals(new Long(1), p.getVersion());
+        assertEquals(Long.valueOf(1), p.getVersion());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("234567", p.getSsn().getNumber());
@@ -166,13 +166,13 @@ public class TestCache extends TestDatabase {
 
         assertEquals(1, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals("1953-05-16", p.getBirthDate().toString());
         assertEquals(null, p.getCreatedDate());
         assertEquals(null, p.getCreatedBy());
         assertEquals("2006-12-08 00:00:00", sdf.format(p.getLastUpdated()));
         assertEquals("dbunit", p.getLastUpdatedBy());
-        assertEquals(new Long(1), p.getVersion());
+        assertEquals(Long.valueOf(1), p.getVersion());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -216,13 +216,13 @@ public class TestCache extends TestDatabase {
 
         assertEquals(1, list.size());
         p = list.get(0);
-        assertEquals(new Long(3), p.getId());
+        assertEquals(Long.valueOf(3), p.getId());
         assertEquals("1905-02-06", p.getBirthDate().toString());
         assertEquals(null, p.getCreatedDate());
         assertEquals(null, p.getCreatedBy());
         assertEquals("2006-12-09 00:00:00", sdf.format(p.getLastUpdated()));
         assertEquals("dbunit", p.getLastUpdatedBy());
-        assertEquals(new Long(1), p.getVersion());
+        assertEquals(Long.valueOf(1), p.getVersion());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("234567", p.getSsn().getNumber());

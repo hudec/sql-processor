@@ -37,9 +37,9 @@ public class JdbcLongType extends SqlLongType implements JdbcSqlType {
     @Override
     public Object get(ResultSet rs, String columnLabel) throws SQLException {
         if (Character.isDigit(columnLabel.charAt(0))) {
-            return new Long(rs.getLong(Integer.parseInt(columnLabel)));
+            return Long.valueOf(rs.getLong(Integer.parseInt(columnLabel)));
         } else {
-            return new Long(rs.getLong(columnLabel));
+            return Long.valueOf(rs.getLong(columnLabel));
         }
     }
 
@@ -56,7 +56,7 @@ public class JdbcLongType extends SqlLongType implements JdbcSqlType {
      */
     @Override
     public Object get(CallableStatement cs, int index) throws SQLException {
-        Object result = new Long(cs.getLong(index));
+        Object result = Long.valueOf(cs.getLong(index));
         if (cs.wasNull())
             return null;
         else

@@ -177,7 +177,7 @@ public class TestCustomTypes extends TestDatabase {
 
         assertEquals(1, list.size());
         Contact c = list.get(0);
-        assertEquals(new Long(1), c.getId());
+        assertEquals(Long.valueOf(1), c.getId());
         assertNotNull(c.getPhone());
         assertEquals("555-478-1123", c.getPhone().toString());
     }

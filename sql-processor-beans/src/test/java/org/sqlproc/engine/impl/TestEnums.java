@@ -38,7 +38,7 @@ public class TestEnums extends TestDatabase {
 
         assertTrue(list.size() > 0);
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -76,7 +76,7 @@ public class TestEnums extends TestDatabase {
 
         assertTrue(list.size() > 0);
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -120,7 +120,7 @@ public class TestEnums extends TestDatabase {
 
         assertTrue(list.size() > 0);
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -178,7 +178,7 @@ public class TestEnums extends TestDatabase {
 
         assertTrue(list.size() > 0);
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -230,7 +230,7 @@ public class TestEnums extends TestDatabase {
 
         assertTrue(list.size() > 0);
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -282,7 +282,7 @@ public class TestEnums extends TestDatabase {
 
         assertTrue(list.size() > 0);
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());
@@ -334,7 +334,7 @@ public class TestEnums extends TestDatabase {
 
         assertTrue(list.size() > 0);
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(Gender.MALE, p.getSex());
         assertNotNull(p.getSsn());
         assertEquals("123456", p.getSsn().getNumber());

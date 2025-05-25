@@ -25,7 +25,7 @@ public class TestSqlEscaped extends TestDatabase {
 
         assertEquals(2, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertNotNull(p.getName());
         assertEquals(":$@}|", p.getName().getFirst());
         assertEquals("Brosnan", p.getName().getLast());
@@ -45,7 +45,7 @@ public class TestSqlEscaped extends TestDatabase {
 
         assertEquals(2, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertNotNull(p.getName());
         assertEquals(":$@}|", p.getName().getFirst());
         assertEquals("brosnan", p.getName().getLast());

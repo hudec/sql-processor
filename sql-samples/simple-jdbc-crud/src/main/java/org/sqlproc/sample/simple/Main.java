@@ -289,7 +289,7 @@ public class Main {
         creditCard.setInit_(CreditCard.Association.subscriber.name());
         c1 = main.creditCardDao.get(creditCard);
         Assert.assertNotNull(c1);
-        Assert.assertEquals(new Long(789), c1.getCcNumber());
+        Assert.assertEquals(Long.valueOf(789), c1.getCcNumber());
         Assert.assertNotNull(c1.getSubscriber());
         Assert.assertEquals("Janik Subscr Updated", c1.getSubscriber().getName());
 
@@ -447,7 +447,7 @@ public class Main {
         Assert.assertNotNull(s.getContact());
         Assert.assertTrue(s.getBillingDetails().size() == 1);
         Assert.assertTrue(s.getBillingDetails().get(0) instanceof CreditCard);
-        Assert.assertEquals(new Long(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
+        Assert.assertEquals(Long.valueOf(789), ((CreditCard) s.getBillingDetails().get(0)).getCcNumber());
 
         // list people with associations
         list = main.personDao.list(null);

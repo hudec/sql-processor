@@ -81,13 +81,13 @@ public class TestMoreJoins extends TestDatabase {
 
         assertEquals(4, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(1), p.getId());
+        assertEquals(Long.valueOf(1), p.getId());
         assertEquals("123456", p.getSsn().getNumber());
         assertEquals("Brosnan", p.getName().getLast());
         assertNotNull(p.getContact());
         assertEquals("New Yourk", p.getContact().getCity());
         p = list.get(1);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals("234567", p.getSsn().getNumber());
         assertEquals("Berry", p.getName().getLast());
         assertNull(p.getContact());
@@ -134,7 +134,7 @@ public class TestMoreJoins extends TestDatabase {
     }
 
     private void assert2(PhysicalMedia pm) {
-        assertEquals(new Long(5), pm.getId());
+        assertEquals(Long.valueOf(5), pm.getId());
         assertEquals("xyz456", pm.getLocation());
         assertEquals(2, pm.getMedia().size());
         for (Media m : pm.getMedia()) {
@@ -194,7 +194,7 @@ public class TestMoreJoins extends TestDatabase {
     }
 
     private void assert1(Library l) {
-        assertEquals(new Long(1), l.getId());
+        assertEquals(Long.valueOf(1), l.getId());
         assertEquals("Municipal Library", l.getName());
         assertEquals(4, l.getMedia().size());
         for (PhysicalMedia pm : l.getMedia()) {

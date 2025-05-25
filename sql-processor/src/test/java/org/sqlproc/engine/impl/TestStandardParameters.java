@@ -87,7 +87,7 @@ public class TestStandardParameters extends TestDatabase {
         assertEquals(new Integer(2), t.getT_int());
 
         assertEquals(3, t.getN_long());
-        assertEquals(new Long(3L), t.getT_long());
+        assertEquals(Long.valueOf(3L), t.getT_long());
 
         assertEquals(4, t.getN_byte());
         assertEquals(new Byte((byte) 4), t.getT_byte());
@@ -249,7 +249,7 @@ public class TestStandardParameters extends TestDatabase {
         assertEquals(new Integer(2), t.getT_int());
 
         assertEquals(3, t.getN_long());
-        assertEquals(new Long(3L), t.getT_long());
+        assertEquals(Long.valueOf(3L), t.getT_long());
 
         assertEquals(4, t.getN_byte());
         assertEquals(new Byte((byte) 4), t.getT_byte());

@@ -141,7 +141,7 @@ public class TestJoins extends TestDatabase {
     }
 
     private void assert6(Library l) {
-        assertEquals(new Long(1), l.getId());
+        assertEquals(Long.valueOf(1), l.getId());
         assertEquals("Municipal Library", l.getName());
         assertEquals(2, l.getMediaSet().size());
         for (PhysicalMedia pm : l.getMediaSet()) {
@@ -204,7 +204,7 @@ public class TestJoins extends TestDatabase {
     }
 
     private void assert5(Library l) {
-        assertEquals(new Long(1), l.getId());
+        assertEquals(Long.valueOf(1), l.getId());
         assertEquals("Municipal Library", l.getName());
         assertEquals(2, l.getMediaList().size());
         for (PhysicalMedia pm : l.getMediaList()) {
@@ -253,7 +253,7 @@ public class TestJoins extends TestDatabase {
     }
 
     private void assert4(Library l) {
-        assertEquals(new Long(1), l.getId());
+        assertEquals(Long.valueOf(1), l.getId());
         assertEquals("Municipal Library", l.getName());
         assertEquals(2, l.getMedia().size());
         for (PhysicalMedia pm : l.getMedia()) {
@@ -265,7 +265,7 @@ public class TestJoins extends TestDatabase {
                         assertEquals("Pippi Långstrump i Söderhavet", m.getTitle());
                         assertEquals(1, m.getMediaCharacters().size());
                         for (MediaCharacter mc : m.getMediaCharacters()) {
-                            assertEquals(new Long(1), mc.getId());
+                            assertEquals(Long.valueOf(1), mc.getId());
                             assertEquals("Pippi", mc.getName());
                             assertEquals(0, mc.getPlayedBy().size());
                         }
@@ -285,7 +285,7 @@ public class TestJoins extends TestDatabase {
                                 assertEquals("James Bond", mc.getName());
                                 assertEquals(1, mc.getPlayedBy().size());
                                 for (Person p : mc.getPlayedBy()) {
-                                    assertEquals(new Long(1), p.getId());
+                                    assertEquals(Long.valueOf(1), p.getId());
                                     assertEquals("Brosnan", p.getName().getLast());
                                     assertEquals(Gender.MALE, p.getSex());
                                     assertEquals(Size.MIDDLE, p.getClothesSize());
@@ -294,7 +294,7 @@ public class TestJoins extends TestDatabase {
                                 assertEquals("Jinx Johnson", mc.getName());
                                 assertEquals(1, mc.getPlayedBy().size());
                                 for (Person p : mc.getPlayedBy()) {
-                                    assertEquals(new Long(2), p.getId());
+                                    assertEquals(Long.valueOf(2), p.getId());
                                     assertEquals("Berry", p.getName().getLast());
                                     assertEquals(Gender.FEMALE, p.getSex());
                                     assertEquals(Size.SMALL, p.getClothesSize());
@@ -334,7 +334,7 @@ public class TestJoins extends TestDatabase {
     }
 
     private void assert3(Library l) {
-        assertEquals(new Long(1), l.getId());
+        assertEquals(Long.valueOf(1), l.getId());
         assertEquals("Municipal Library", l.getName());
         assertEquals(2, l.getMedia().size());
         for (PhysicalMedia pm : l.getMedia()) {
@@ -359,13 +359,13 @@ public class TestJoins extends TestDatabase {
                         for (Engagement e : m.getEngagements()) {
                             if (e.getId() == 1) {
                                 assertEquals("Actor", e.getRole());
-                                assertEquals(new Long(1), e.getPerson().getId());
+                                assertEquals(Long.valueOf(1), e.getPerson().getId());
                                 assertEquals("Brosnan", e.getPerson().getName().getLast());
                                 assertEquals(Gender.MALE, e.getPerson().getSex());
                                 assertEquals(Size.MIDDLE, e.getPerson().getClothesSize());
                             } else if (e.getId() == 2) {
                                 assertEquals("Actor", e.getRole());
-                                assertEquals(new Long(2), e.getPerson().getId());
+                                assertEquals(Long.valueOf(2), e.getPerson().getId());
                                 assertEquals("Berry", e.getPerson().getName().getLast());
                                 assertEquals(Gender.FEMALE, e.getPerson().getSex());
                                 assertEquals(Size.SMALL, e.getPerson().getClothesSize());
@@ -421,7 +421,7 @@ public class TestJoins extends TestDatabase {
     }
 
     private void assert2(Library l) {
-        assertEquals(new Long(1), l.getId());
+        assertEquals(Long.valueOf(1), l.getId());
         assertEquals("Municipal Library", l.getName());
         assertEquals(2, l.getMedia().size());
         for (PhysicalMedia pm : l.getMedia()) {
@@ -510,7 +510,7 @@ public class TestJoins extends TestDatabase {
     }
 
     private void assert1(Library l) {
-        assertEquals(new Long(1), l.getId());
+        assertEquals(Long.valueOf(1), l.getId());
         assertEquals("Municipal Library", l.getName());
         assertEquals(2, l.getMedia().size());
         for (PhysicalMedia pm : l.getMedia()) {

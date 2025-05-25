@@ -41,7 +41,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(null, p.getName());
         assertEquals(null, p.getSsn());
 
@@ -58,7 +58,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals("Pierce", p.getName().getFirst());
         assertEquals("BROSNAN", p.getName().getLast());
 
@@ -71,7 +71,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals(null, p.getName());
         assertEquals(null, p.getSsn());
     }
@@ -91,7 +91,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(3, list.size());
         MediaTransport gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("Pippi Långstrump i Söderhavet", gt.getMediaTitle());
         assertEquals(null, gt.getEngagement());
 
@@ -113,7 +113,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());
@@ -135,7 +135,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         LibraryTransport gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("LibraryServiceTest", gt.getName());
         assertEquals("abc123", gt.getLocation());
 
@@ -156,7 +156,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("LibraryServiceTest", gt.getName());
         assertEquals("abc456", gt.getLocation());
         assertEquals("Die Another Day", gt.getMedia().getMediaTitle());
@@ -183,7 +183,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("LibraryServiceTest", gt.getName());
         assertEquals("abc456", gt.getLocation());
         assertEquals("Die Another Day", gt.getMedia().getMediaTitle());
@@ -204,7 +204,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("LibraryServiceTest", gt.getName());
         assertEquals("abc123", gt.getLocation());
         assertEquals(null, gt.getMedia());
@@ -225,7 +225,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(3, list.size());
         MediaTransport gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("Pippi Långstrump i Söderhavet", gt.getMediaTitle());
         assertEquals(null, gt.getEngagement());
 
@@ -247,7 +247,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());
@@ -270,7 +270,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(3, list.size());
         MediaTransport gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("Pippi Långstrump i Söderhavet", gt.getMediaTitle());
         assertEquals(null, gt.getEngagement());
 
@@ -289,7 +289,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());
@@ -314,7 +314,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());
@@ -335,7 +335,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());
@@ -359,7 +359,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(3, list.size());
         MediaTransport gt = list.get(0);
-        assertEquals(new Long(1), gt.getId());
+        assertEquals(Long.valueOf(1), gt.getId());
         assertEquals("Pippi Långstrump i Söderhavet", gt.getMediaTitle());
         assertEquals(null, gt.getEngagement());
 
@@ -380,7 +380,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());
@@ -402,7 +402,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());
@@ -428,7 +428,7 @@ public class TestAdvancedEmbeddedMapping extends TestDatabase {
 
         assertEquals(1, list.size());
         gt = list.get(0);
-        assertEquals(new Long(2), gt.getId());
+        assertEquals(Long.valueOf(2), gt.getId());
         assertEquals("Die Another Day", gt.getMediaTitle());
         assertEquals("Pierce", gt.getEngagement().getFirst());
         assertEquals("Brosnan", gt.getEngagement().getLast());

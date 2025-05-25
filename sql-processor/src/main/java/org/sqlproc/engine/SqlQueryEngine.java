@@ -94,13 +94,11 @@ public class SqlQueryEngine extends SqlEngine {
     /**
      * The ordering directive list with one ascending ordering rule.
      */
-    @Deprecated
     public static final SqlOrder ASC_ORDER = SqlOrder.getAscOrder(1);
 
     /**
      * The ordering directive list with one descending ordering rule.
      */
-    @Deprecated
     public static final SqlOrder DESC_ORDER = SqlOrder.getDescOrder(1);
 
     /**

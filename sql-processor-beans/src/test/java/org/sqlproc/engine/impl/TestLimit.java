@@ -26,7 +26,7 @@ public class TestLimit extends TestDatabase {
 
         assertEquals(7, list.size());
         for (int i = 0, n = list.size(); i < n; i++)
-            assertEquals(list.get(i).getId(), new Long(2 + i));
+            assertEquals(list.get(i).getId(), Long.valueOf(2 + i));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class TestLimit extends TestDatabase {
 
         assertEquals(3, list.size());
         for (int i = 0, n = list.size(); i < n; i++)
-            assertEquals(list.get(i).getId(), new Long(2 + i));
+            assertEquals(list.get(i).getId(), Long.valueOf(2 + i));
     }
 
     @Test
@@ -65,6 +65,6 @@ public class TestLimit extends TestDatabase {
 
         assertEquals(3, list.size());
         for (int i = 0, n = list.size(); i < n; i++)
-            assertEquals(list.get(i).getId(), new Long(4 + i));
+            assertEquals(list.get(i).getId(), Long.valueOf(4 + i));
     }
 }

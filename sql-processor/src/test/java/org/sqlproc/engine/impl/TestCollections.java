@@ -103,7 +103,7 @@ public class TestCollections extends TestDatabase {
         List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
         assertEquals(2, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals("dbunit", p.getLastUpdatedBy());
         assertNotNull(p.getName());
         assertEquals("Pierce", p.getName().getFirst());
@@ -171,7 +171,7 @@ public class TestCollections extends TestDatabase {
         List<Person> list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
         assertEquals(2, list.size());
         Person p = list.get(0);
-        assertEquals(new Long(2), p.getId());
+        assertEquals(Long.valueOf(2), p.getId());
         assertEquals("dbunit", p.getLastUpdatedBy());
         assertNotNull(p.getName());
         assertEquals("Pierce", p.getName().getFirst());
