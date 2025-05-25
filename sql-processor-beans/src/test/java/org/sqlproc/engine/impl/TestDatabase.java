@@ -112,7 +112,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
                 dbType.equalsIgnoreCase("oracle") ? testProperties.getProperty("db.username") : null);
         DatabaseConfig config = connection.getConfig();
         if (containsProperty(testProperties, DATATYPE_FACTORY)) {
-            Class clazz = Class.forName(testProperties.getProperty(DATATYPE_FACTORY));
+            Class<?> clazz = Class.forName(testProperties.getProperty(DATATYPE_FACTORY));
             config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, clazz.getConstructor().newInstance());
         }
         return connection;

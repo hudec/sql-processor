@@ -1,10 +1,9 @@
 package org.sqlproc.engine.model;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Size implements Serializable {
+public enum Size {
     SMALL(0), MIDDLE(1), BIG(2);
     private static Map<Integer, Size> identifierMap = new HashMap<Integer, Size>();
 

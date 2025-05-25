@@ -11,7 +11,7 @@ import org.junit.Ignore;
 @Ignore("Not test class.")
 public class TestUtils {
 
-    public static Locale LOCALE_CS = new Locale("cs");
+    public static Locale LOCALE_CS = Locale.forLanguageTag("cs");
 
     public static Date parse(final Object value) {
         return parse(value, Locale.getDefault());

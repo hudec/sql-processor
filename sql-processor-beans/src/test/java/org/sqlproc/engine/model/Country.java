@@ -1,13 +1,12 @@
 package org.sqlproc.engine.model;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Enum for Country
  */
-public enum Country implements Serializable {
+public enum Country {
     SWEDEN("SE", "SWE", 752), NORWAY("NO", "NOR", 578), DENMARK("DK", "DNK", 208), UNITED_STATES("US", "USA", 840), UNITED_KINGDOM(
             "GB", "GBR", 826), FRANCE("FR", "FRA", 250), CZECH_REPUBLIC("CZ", "CZE", 203);
     private static Map<String, Country> identifierMap = new HashMap<String, Country>();

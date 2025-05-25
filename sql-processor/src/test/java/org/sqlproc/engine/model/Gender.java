@@ -1,10 +1,9 @@
 package org.sqlproc.engine.model;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Gender implements Serializable {
+public enum Gender {
     FEMALE("F"), MALE("M");
 
     private static Map<String, Gender> identifierMap = new HashMap<String, Gender>();

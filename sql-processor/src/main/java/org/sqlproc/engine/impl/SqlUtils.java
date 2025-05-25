@@ -66,7 +66,7 @@ public class SqlUtils {
             return null;
         Byte[] res = new Byte[barr.length];
         for (int i = 0; i < barr.length; i++)
-            res[i] = new Byte(barr[i]);
+            res[i] = Byte.valueOf(barr[i]);
         return res;
     }
 

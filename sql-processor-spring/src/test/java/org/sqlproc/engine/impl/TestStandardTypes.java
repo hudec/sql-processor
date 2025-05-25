@@ -172,7 +172,7 @@ public class TestStandardTypes extends TestDatabase {
         assertEquals(Double.valueOf(7.2), t.getT_double(), 0.001);
 
         assertEquals('x', t.getN_char());
-        assertEquals(new Character('x'), t.getT_char());
+        assertEquals(Character.valueOf('x'), t.getT_char());
 
         assertEquals("abc", t.getT_string());
 

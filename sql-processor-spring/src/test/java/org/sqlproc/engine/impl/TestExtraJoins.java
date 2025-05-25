@@ -179,6 +179,7 @@ public class TestExtraJoins extends TestDatabase {
         return me2;
     }
 
+    @SuppressWarnings("unused")
     private Engagement assertEngagement(Set<Engagement> set, long id) {
         Engagement en2 = null;
         for (Engagement en : set) {
