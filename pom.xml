@@ -251,13 +251,13 @@
             <dependency>
                 <groupId>jakarta.el</groupId>
                 <artifactId>jakarta.el-api</artifactId>
-                <version>6.0.0</version>
+                <version>6.0.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.expressly</groupId>
                 <artifactId>expressly</artifactId>
-                <version>6.0.0-M1</version>
+                <version>6.0.0</version>
                 <scope>runtime</scope>
             </dependency>
    			<dependency>
