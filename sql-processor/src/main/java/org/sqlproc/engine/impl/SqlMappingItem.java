@@ -286,7 +286,7 @@ class SqlMappingItem implements SqlMetaElement {
                     logger.trace("<<<  setQueryResultMapping, fullName=" + getFullName() + ", dbName=" + dbName
                             + ", metaType=" + sqlType.getMetaType(ctx));
                 }
-                sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, null);
+                sqlType.getMetaType(ctx).addScalar(ctx.getTypeFactory(), query, dbName, (Class<?>[]) null);
                 return;
             }
         }
@@ -420,7 +420,7 @@ class SqlMappingItem implements SqlMetaElement {
 
             GetterType rt = ctx.getGetterType(obj, name);
             if (rt != null) {
-                Object nextObj = ctx.invokeMethod(obj, rt.methodName, null);
+                Object nextObj = ctx.invokeMethod(obj, rt.methodName, (Object[]) null);
                 if (nextObj == null) {
                     String typeName = values.get(attr.getFullName() + Modifiers.MODIFIER_TYPE);
                     Class<?> typeClass = (typeName != null) ? moreResultClasses.get(typeName) : null;

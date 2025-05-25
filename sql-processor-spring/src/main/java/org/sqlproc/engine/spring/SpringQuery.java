@@ -212,7 +212,8 @@ public class SpringQuery implements SqlQuery {
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+            @org.springframework.lang.NonNull
+            public PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
                     ps.setQueryTimeout(timeout);
@@ -223,13 +224,13 @@ public class SpringQuery implements SqlQuery {
         };
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
-            public void setValues(PreparedStatement ps) throws SQLException {
+            public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
                 setParameters(ps, limitType, 1);
             }
         };
         ResultSetExtractor<List<Map<String, Object>>> rse = new ResultSetExtractor<List<Map<String, Object>>>() {
             @Override
-            public List<Map<String, Object>> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            public List<Map<String, Object>> extractData(@org.springframework.lang.NonNull ResultSet rs) throws SQLException, DataAccessException {
                 if (fetchSize != null)
                     rs.setFetchSize(fetchSize);
                 return getResults(rs);
@@ -290,7 +291,7 @@ public class SpringQuery implements SqlQuery {
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
                     ps.setQueryTimeout(timeout);
@@ -301,13 +302,13 @@ public class SpringQuery implements SqlQuery {
         };
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
-            public void setValues(PreparedStatement ps) throws SQLException {
+            public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
                 setParameters(ps, limitType, 1);
             }
         };
         ResultSetExtractor<Integer> rse = new ResultSetExtractor<Integer>() {
             @Override
-            public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+            public Integer extractData(@org.springframework.lang.NonNull ResultSet rs) throws SQLException, DataAccessException {
                 if (fetchSize != null)
                     rs.setFetchSize(fetchSize);
                 int rownum = 0;
@@ -347,7 +348,7 @@ public class SpringQuery implements SqlQuery {
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
                 PreparedStatement ps;
                 if (isSetJDBCIdentity()) {
                     ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
@@ -361,7 +362,7 @@ public class SpringQuery implements SqlQuery {
         };
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
-            public void setValues(PreparedStatement ps) throws SQLException {
+            public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
                 setParameters(ps, null, 1);
             }
         };
@@ -414,14 +415,14 @@ public class SpringQuery implements SqlQuery {
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(identitySetter.getIdentitySelect());
                 return ps;
             }
         };
         ResultSetExtractor<Object> rse = new ResultSetExtractor<Object>() {
             @Override
-            public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+            public Object extractData(@org.springframework.lang.NonNull ResultSet rs) throws SQLException, DataAccessException {
                 Object identityValue = null;
                 while (rs.next()) {
                     if (identityType != null && identityType instanceof JdbcSqlType) {
@@ -503,7 +504,7 @@ public class SpringQuery implements SqlQuery {
 
         logger.debug("Executing prepared SQL update with generated keys retrieval");
         return jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
-            public Integer doInPreparedStatement(PreparedStatement ps) throws SQLException {
+            public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
                 try {
                     if (pss != null) {
                         pss.setValues(ps);
@@ -533,7 +534,7 @@ public class SpringQuery implements SqlQuery {
 
         logger.debug("Executing prepared SQL update");
         return jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
-            public Integer doInPreparedStatement(PreparedStatement ps) throws SQLException {
+            public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
                 try {
                     if (pss != null) {
                         pss.setValues(ps);
@@ -565,7 +566,7 @@ public class SpringQuery implements SqlQuery {
 
         CallableStatementCreator psc = new CallableStatementCreator() {
             @Override
-            public CallableStatement createCallableStatement(Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
                 Matcher matcher = CALL.matcher(queryString);
                 if (!matcher.matches())
                     throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
@@ -582,7 +583,7 @@ public class SpringQuery implements SqlQuery {
         };
 
         CallableStatementCallback<List<Map<String, Object>>> csc = new CallableStatementCallback<List<Map<String, Object>>>() {
-            public List<Map<String, Object>> doInCallableStatement(CallableStatement cs) throws SQLException {
+            public List<Map<String, Object>> doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs) throws SQLException {
                 ResultSet rs = null;
                 List<Map<String, Object>> list = null;
 
@@ -660,7 +661,7 @@ public class SpringQuery implements SqlQuery {
 
         CallableStatementCreator psc = new CallableStatementCreator() {
             @Override
-            public CallableStatement createCallableStatement(Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
                 Matcher matcher = CALL.matcher(queryString);
                 if (!matcher.matches())
                     throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
@@ -675,7 +676,7 @@ public class SpringQuery implements SqlQuery {
         };
 
         CallableStatementCallback<Integer> csc = new CallableStatementCallback<Integer>() {
-            public Integer doInCallableStatement(CallableStatement cs) throws SQLException {
+            public Integer doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs) throws SQLException {
                 setParameters(cs, null, 1);
                 cs.execute();
                 Integer updated = cs.getUpdateCount();
@@ -706,7 +707,7 @@ public class SpringQuery implements SqlQuery {
 
         CallableStatementCreator psc = new CallableStatementCreator() {
             @Override
-            public CallableStatement createCallableStatement(Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
                 Matcher matcher = CALL.matcher(queryString);
                 if (!matcher.matches())
                     throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
@@ -721,7 +722,7 @@ public class SpringQuery implements SqlQuery {
         };
 
         CallableStatementCallback<Map<String, Object>> csc = new CallableStatementCallback<Map<String, Object>>() {
-            public Map<String, Object> doInCallableStatement(CallableStatement cs) throws SQLException {
+            public Map<String, Object> doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs) throws SQLException {
                 ResultSet rs = null;
                 List<Map<String, Object>> list = null;
                 Map<String, Object> result = null;
