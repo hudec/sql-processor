@@ -22,12 +22,12 @@ public class InformixDbUnitDataTypeFactory extends DefaultDataTypeFactory {
     /**
      * Database product names supported.
      */
-    private static final Collection DATABASE_PRODUCTS = Arrays.asList(new String[] { "informix dynamic server" });
+    private static final Collection<String> DATABASE_PRODUCTS = Arrays.asList(new String[] { "informix dynamic server" });
 
     /**
      * @see org.dbunit.dataset.datatype.IDbProductRelatable#getValidDbProducts()
      */
-    public Collection getValidDbProducts() {
+    public Collection<String> getValidDbProducts() {
         return DATABASE_PRODUCTS;
     }
 }

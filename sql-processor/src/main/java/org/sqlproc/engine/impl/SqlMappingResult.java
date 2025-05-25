@@ -131,6 +131,7 @@ public class SqlMappingResult {
      * Calculates all identities related information. They are used to prevent the repeated rows in the output result
      * set. This is used for the associations (one-to-one, one-to-many and many-to-many).
      */
+    @SuppressWarnings("unused")
     void calculateIdentities() {
         int identityIndex = 0;
         for (SqlMappingItem item : mappings.values()) {

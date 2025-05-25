@@ -15,7 +15,7 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
@@ -121,7 +121,7 @@ public abstract class TestDatabase extends DatabaseTestCase {
     @Override
     protected IDataSet getDataSet() throws Exception {
         ReplacementDataSet dataSet = new ReplacementDataSet(
-                new FlatXmlDataSet(this.getClass().getClassLoader().getResourceAsStream(getDataSetFile(dbType))));
+                new FlatXmlDataSetBuilder().build(this.getClass().getClassLoader().getResourceAsStream(getDataSetFile(dbType))));
         dataSet.addReplacementObject("[NULL]", null);
         return dataSet;
     }

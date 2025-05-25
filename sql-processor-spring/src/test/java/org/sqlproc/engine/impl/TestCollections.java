@@ -70,15 +70,14 @@ public class TestCollections extends TestDatabase {
         PersonCollectionsForm pf = new PersonCollectionsForm();
         pf.setIdSet(new HashSet<Long>());
 
-        List<Person> list;
         try {
-            list = sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            sqlEngine.query(session, Person.class, null, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
             fail();
         } catch (IllegalArgumentException e) {
             assertContains(e.getMessage(), "notempty");
         }
         try {
-            list = sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            sqlEngine.query(session, Person.class, pf, null, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
             fail();
         } catch (IllegalArgumentException e) {
             assertContains(e.getMessage(), "notempty");

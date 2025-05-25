@@ -106,7 +106,7 @@ public class PhoneNumberType implements SqlTaggedMetaType {
         } else {
             if (inputValue instanceof Collection) {
                 List<String> phoneNumbers = new ArrayList<String>();
-                for (Iterator iter = ((Collection) inputValue).iterator(); iter.hasNext();) {
+                for (Iterator<?> iter = ((Collection<?>) inputValue).iterator(); iter.hasNext();) {
                     Object o = iter.next();
                     if (o != null) {
                         if (!(o instanceof PhoneNumber)) {
@@ -119,6 +119,7 @@ public class PhoneNumberType implements SqlTaggedMetaType {
                             }
                         }
                         String sPhoneNumber = ((PhoneNumber) o).toString();
+                        phoneNumbers.add(sPhoneNumber);
                     }
                 }
                 query.setParameterList(paramName, phoneNumbers.toArray(), Types.VARCHAR);

@@ -259,7 +259,7 @@ public class CommonsBeanUtilsPlugin implements BeanUtilsPlugin {
     protected Object invokeMethod(SqlRuntimeContext runtimeCtx, Object bean, Method method, Object... args)
             throws SqlRuntimeException {
         try {
-            if (!method.isAccessible())
+            if (!method.canAccess(bean))
                 try {
                     method.setAccessible(true);
                 } catch (SecurityException se) {
