@@ -49,8 +49,8 @@ public class TestMoreInhertance extends TestDatabase {
         assertTrue(bd instanceof CreditCard);
         cc = (CreditCard) bd;
         assertEquals(Long.valueOf(123456L), cc.getNumber());
-        assertEquals(new Short((short) 11), cc.getExpMonth());
-        assertEquals(new Short((short) 12), cc.getExpYear());
+        assertEquals(Short.valueOf((short) 11), cc.getExpMonth());
+        assertEquals(Short.valueOf((short) 12), cc.getExpYear());
         bd = s.getBillingDetails().get(1);
         assertEquals(Long.valueOf(2), bd.getId());
         assertEquals("BA", bd.getType());
@@ -72,8 +72,8 @@ public class TestMoreInhertance extends TestDatabase {
         assertTrue(bd instanceof CreditCard);
         cc = (CreditCard) bd;
         assertEquals(Long.valueOf(234567), cc.getNumber());
-        assertEquals(new Short((short) 10), cc.getExpMonth());
-        assertEquals(new Short((short) 11), cc.getExpYear());
+        assertEquals(Short.valueOf((short) 10), cc.getExpMonth());
+        assertEquals(Short.valueOf((short) 11), cc.getExpYear());
         bd = s.getBillingDetails().get(1);
         assertEquals(Long.valueOf(4), bd.getId());
         assertEquals("BA", bd.getType());

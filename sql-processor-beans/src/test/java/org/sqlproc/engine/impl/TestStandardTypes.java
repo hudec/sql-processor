@@ -49,7 +49,7 @@ public class TestStandardTypes extends TestDatabase {
         assertEquals(new Byte((byte) 4), t.getT_byte());
 
         assertEquals(5, t.getN_short());
-        assertEquals(new Short((short) 5), t.getT_short());
+        assertEquals(Short.valueOf((short) 5), t.getT_short());
 
         assertEquals(6.1, t.getN_float(), 0.001);
         assertEquals(new Float(6.1), t.getT_float(), 0.001);
@@ -163,7 +163,7 @@ public class TestStandardTypes extends TestDatabase {
         assertEquals(new Byte((byte) 4), t.getT_byte());
 
         assertEquals(5, t.getN_short());
-        assertEquals(new Short((short) 5), t.getT_short());
+        assertEquals(Short.valueOf((short) 5), t.getT_short());
 
         assertEquals(6.1, t.getN_float(), 0.001);
         assertEquals(new Float(6.1), t.getT_float(), 0.001);

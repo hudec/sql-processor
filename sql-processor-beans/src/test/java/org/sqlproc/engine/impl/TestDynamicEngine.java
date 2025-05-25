@@ -2,8 +2,7 @@ package org.sqlproc.engine.impl;
 
 import java.util.List;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlQueryEngine;

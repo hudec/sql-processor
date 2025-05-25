@@ -115,7 +115,6 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one ascending ordering directive
      */
-    @Deprecated
     public static SqlOrder getAscOrder(int orderId) {
         return new SqlOrder().addAscOrder(orderId);
     }
@@ -127,7 +126,6 @@ public class SqlOrder {
      *            the ordering id
      * @return the ordering directive list with one ascending ordering directive
      */
-    @Deprecated
     public static SqlOrder getAscOrderNullsLast(int orderId) {
         return new SqlOrder().addAscOrderNullsLast(orderId);
     }
