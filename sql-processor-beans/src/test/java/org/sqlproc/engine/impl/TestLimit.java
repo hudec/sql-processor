@@ -17,7 +17,6 @@ public class TestLimit extends TestDatabase {
     @Test
     public void testNoLimit() {
         SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_2");
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String sql = sqlEngine.getSql(null, null, SqlQueryEngine.ASC_ORDER);
         logger.info(sql);
@@ -32,7 +31,6 @@ public class TestLimit extends TestDatabase {
     @Test
     public void testLimitMax() {
         SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_2");
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         // PersonForm pf = new PersonForm();
         // pf.setId(2L);
@@ -53,7 +51,6 @@ public class TestLimit extends TestDatabase {
             return;
 
         SqlQueryEngine sqlEngine = getSqlEngine("FORM_BASIC_2");
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         // PersonForm pf = new PersonForm();
         // pf.setId(2L);

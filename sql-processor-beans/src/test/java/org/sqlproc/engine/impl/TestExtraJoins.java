@@ -77,6 +77,7 @@ public class TestExtraJoins extends TestDatabase {
         assertTotal(list);
     }
 
+    @SuppressWarnings("unused")
     private void assertTotal(List<Library> list) {
 
         assertEquals(4, list.size());

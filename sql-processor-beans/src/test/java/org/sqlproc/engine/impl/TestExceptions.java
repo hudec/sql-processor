@@ -50,7 +50,7 @@ public class TestExceptions extends TestDatabase {
         pf.setVersion(1L);
 
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
             fail("An exception should be thrown");
         } catch (SqlProcessorException e) {
             logger.info(e.getMessage());
@@ -60,7 +60,7 @@ public class TestExceptions extends TestDatabase {
         sqlEngine.setFeature(SqlFeature.LOG_SQL_COMMAND_FOR_EXCEPTION.name(), Boolean.TRUE);
 
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
+            sqlEngine.query(session, Person.class, pf, spf, SqlQueryEngine.ASC_ORDER, 0, 0, 0);
             fail("An exception should be thrown");
         } catch (SqlProcessorException e) {
             logger.info(e.getMessage());
@@ -73,7 +73,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Result4> list = sqlEngine.query(session, Result4.class, new Form7(), new Form7());
+            sqlEngine.query(session, Result4.class, new Form7(), new Form7());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -87,7 +87,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Result3> list = sqlEngine.query(session, Result3.class, new Form7(), new Form7());
+            sqlEngine.query(session, Result3.class, new Form7(), new Form7());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -101,7 +101,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Result2> list = sqlEngine.query(session, Result2.class, new Form7(), new Form7());
+            sqlEngine.query(session, Result2.class, new Form7(), new Form7());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -115,7 +115,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Result1> list = sqlEngine.query(session, Result1.class, new Form7(), new Form7());
+            sqlEngine.query(session, Result1.class, new Form7(), new Form7());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -129,7 +129,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Object> list = sqlEngine.query(session, Object.class, new Form7(), new Form7());
+            sqlEngine.query(session, Object.class, new Form7(), new Form7());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -143,7 +143,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, new Form5(), new Form5());
+            sqlEngine.query(session, Person.class, new Form5(), new Form5());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -157,7 +157,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, new Form3(), new Form3());
+            sqlEngine.query(session, Person.class, new Form3(), new Form3());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -171,7 +171,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, new Form2());
+            sqlEngine.query(session, Person.class, new Form2());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -185,7 +185,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, new Form1());
+            sqlEngine.query(session, Person.class, new Form1());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
@@ -199,7 +199,7 @@ public class TestExceptions extends TestDatabase {
         SqlQueryEngine sqlEngine = getSqlEngine("EXC_1");
 
         try {
-            List<Person> list = sqlEngine.query(session, Person.class, new Object());
+            sqlEngine.query(session, Person.class, new Object());
             fail("An exception should be thrown");
         } catch (SqlRuntimeException e) {
             logger.info(e.getMessage());
