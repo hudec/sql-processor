@@ -13,12 +13,6 @@
         <maven>3.0</maven>
     </prerequisites>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-
     <modules>
         <module>sql-processor</module>
         <module>sql-processor-spring</module>
@@ -83,6 +77,15 @@
             </testResource>
         </testResources>
         <plugins>
+	        <plugin>
+	          <groupId>org.sonatype.central</groupId>
+	          <artifactId>central-publishing-maven-plugin</artifactId>
+	          <version>0.7.0</version>
+	          <extensions>true</extensions>
+	          <configuration>
+	            <publishingServerId>central</publishingServerId>
+	          </configuration>
+	        </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.3.1</version>
@@ -127,7 +130,15 @@
                     <show>private</show>
                     <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
-            </plugin>
+				<executions>
+        			<execution>
+          				<id>attach-javadocs</id>
+          				<goals>
+            				<goal>jar</goal>
+          				</goals>
+        			</execution>
+      			</executions>
+           </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
@@ -618,7 +629,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.2</version>
+                        <version>3.2.7</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -632,13 +643,14 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
+        <!--profile>
             <id>javadoc-for-svn</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.11.2</version>
                         <configuration>
                             <excludePackageNames>org.sqlproc.engine.impl</excludePackageNames>
                             <outputDirectory>${basedir}</outputDirectory>
@@ -649,19 +661,8 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile-->
     </profiles>
-
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo1.maven.org/maven2</url>
-        </repository>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-        </repository>
-    </repositories>
 
     <developers>
         <developer>
