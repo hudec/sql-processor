@@ -9,13 +9,12 @@
 
     <properties>
         <version.sql-processor>3.6.2-SNAPSHOT</version.sql-processor>
-        <version.antlr>3.6.0</version.antlr>
-        <version.log4j>2.23.1</version.log4j>
-        <version.slf4j>2.0.12</version.slf4j>
+        <version.log4j>2.24.3</version.log4j>
+        <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
-        <version.hsqldb>2.7.2</version.hsqldb>
-        <version.jakarta-validation>3.0.2</version.jakarta-validation>
-        <version.hibernate-validator>8.0.1.Final</version.hibernate-validator>
+        <version.hsqldb>2.7.4</version.hsqldb>
+        <version.jakarta-validation>3.1.1</version.jakarta-validation>
+        <version.hibernate-validator>8.0.2.Final</version.hibernate-validator>
         <version.javax-el>3.0.1-b11</version.javax-el>
     </properties>
 
