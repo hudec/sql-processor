@@ -33,7 +33,7 @@
         <version.mysql>9.3.0</version.mysql>
         <version.mariadb>3.5.3</version.mariadb>
         <version.postgresql>42.7.5</version.postgresql>
-        <version.beanutils>1.9.4</version.beanutils>
+        <version.beanutils>1.11.0</version.beanutils>
         <version.dbunit>2.7.3</version.dbunit>
         <version.hsqldb>2.7.4</version.hsqldb>
         <version.h2>2.3.232</version.h2>
