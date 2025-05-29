@@ -34,7 +34,7 @@
         <version.mariadb>3.5.3</version.mariadb>
         <version.postgresql>42.7.5</version.postgresql>
         <version.beanutils>1.11.0</version.beanutils>
-        <version.dbunit>2.7.3</version.dbunit>
+        <version.dbunit>2.8.0</version.dbunit>
         <version.hsqldb>2.7.4</version.hsqldb>
         <version.h2>2.3.232</version.h2>
         <version.dbcp>2.13.0</version.dbcp>
@@ -142,7 +142,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.18.2</version>
+                <version>2.18.0</version>
             </plugin>
         </plugins>
     </build>
@@ -229,6 +229,12 @@
                 <artifactId>dbunit</artifactId>
                 <version>${version.dbunit}</version>
                 <scope>test</scope>
+                    <exclusions>
+                       <exclusion>
+                       <groupId>org.postgresql</groupId>
+                       <artifactId>postgresql</artifactId>
+                   </exclusion>
+               </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.hsqldb</groupId>
