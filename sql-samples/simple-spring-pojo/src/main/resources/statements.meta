@@ -36,7 +36,10 @@ INSERT_PERSON2(CRUD,in=Person,tab=person)=
 GET_PERSON(CRUD,in=Person,out=Person,tab=person)=
   select %PERSON_ID @personId, %NAME @name
   from %%PERSON
-  {= where %PERSON_ID = :personId}
+  {= where
+   {& %PERSON_ID = :personId}
+   {& %NAME = :name}
+  }
 ;
 
 UPDATE_PERSON(CRUD,in=Person,tab=person)=

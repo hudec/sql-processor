@@ -437,7 +437,7 @@ public class SpringQuery implements SqlQuery {
             final PreparedStatementSetter pss = new PreparedStatementSetter() {
                 @Override
                 public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
-                    setParameters(parameterValues, ps, null, 1);
+                    setParameters(paramValues, ps, null, 1);
                 }
             };
             psss.add(pss);
