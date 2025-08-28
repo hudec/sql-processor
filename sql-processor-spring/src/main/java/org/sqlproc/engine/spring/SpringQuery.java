@@ -142,10 +142,8 @@ public class SpringQuery implements SqlQuery {
     /**
      * Creates a new instance of this adapter.
      * 
-     * @param jdbcTemplate
-     *            the Spring JdbcTemplate instance
-     * @param queryString
-     *            the SQL query/statement command
+     * @param jdbcTemplate the Spring JdbcTemplate instance
+     * @param queryString  the SQL query/statement command
      */
     public SpringQuery(JdbcTemplate jdbcTemplate, String queryString) {
         this.jdbcTemplate = jdbcTemplate;
@@ -213,7 +211,8 @@ public class SpringQuery implements SqlQuery {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
             @org.springframework.lang.NonNull
-            public PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
+            public PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con)
+                    throws SQLException {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
                     ps.setQueryTimeout(timeout);
@@ -230,7 +229,8 @@ public class SpringQuery implements SqlQuery {
         };
         ResultSetExtractor<List<Map<String, Object>>> rse = new ResultSetExtractor<List<Map<String, Object>>>() {
             @Override
-            public List<Map<String, Object>> extractData(@org.springframework.lang.NonNull ResultSet rs) throws SQLException, DataAccessException {
+            public List<Map<String, Object>> extractData(@org.springframework.lang.NonNull ResultSet rs)
+                    throws SQLException, DataAccessException {
                 if (fetchSize != null)
                     rs.setFetchSize(fetchSize);
                 return getResults(rs);
@@ -291,7 +291,8 @@ public class SpringQuery implements SqlQuery {
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
-            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(
+                    @org.springframework.lang.NonNull Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(query);
                 if (sqlControl != null && sqlControl.getMaxTimeout() != null)
                     ps.setQueryTimeout(timeout);
@@ -308,7 +309,8 @@ public class SpringQuery implements SqlQuery {
         };
         ResultSetExtractor<Integer> rse = new ResultSetExtractor<Integer>() {
             @Override
-            public Integer extractData(@org.springframework.lang.NonNull ResultSet rs) throws SQLException, DataAccessException {
+            public Integer extractData(@org.springframework.lang.NonNull ResultSet rs)
+                    throws SQLException, DataAccessException {
                 if (fetchSize != null)
                     rs.setFetchSize(fetchSize);
                 int rownum = 0;
@@ -348,7 +350,8 @@ public class SpringQuery implements SqlQuery {
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
-            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(
+                    @org.springframework.lang.NonNull Connection con) throws SQLException {
                 PreparedStatement ps;
                 if (isSetJDBCIdentity()) {
                     ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
@@ -402,8 +405,7 @@ public class SpringQuery implements SqlQuery {
     /**
      * Runs the select to obtain the value of auto-generated identity.
      * 
-     * @param identityName
-     *            the identity name from the META SQL statement
+     * @param identityName the identity name from the META SQL statement
      */
     private void doIdentitySelect(final String identityName) {
         final IdentitySetter identitySetter = identitySetters.get(identityName);
@@ -415,14 +417,16 @@ public class SpringQuery implements SqlQuery {
 
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
-            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(
+                    @org.springframework.lang.NonNull Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(identitySetter.getIdentitySelect());
                 return ps;
             }
         };
         ResultSetExtractor<Object> rse = new ResultSetExtractor<Object>() {
             @Override
-            public Object extractData(@org.springframework.lang.NonNull ResultSet rs) throws SQLException, DataAccessException {
+            public Object extractData(@org.springframework.lang.NonNull ResultSet rs)
+                    throws SQLException, DataAccessException {
                 Object identityValue = null;
                 while (rs.next()) {
                     if (identityType != null && identityType instanceof JdbcSqlType) {
@@ -451,10 +455,8 @@ public class SpringQuery implements SqlQuery {
     /**
      * Retrieves the value of auto-generated identity from executed prepared statement.
      * 
-     * @param identityName
-     *            the identity name from the META SQL statement
-     * @param statement
-     *            statement to retrieve auto-generated keys from
+     * @param identityName the identity name from the META SQL statement
+     * @param statement    statement to retrieve auto-generated keys from
      */
     private void getGeneratedKeys(final String identityName, final Statement statement) {
         IdentitySetter identitySetter = identitySetters.get(identityName);
@@ -504,7 +506,8 @@ public class SpringQuery implements SqlQuery {
 
         logger.debug("Executing prepared SQL update with generated keys retrieval");
         return jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
-            public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
+            public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps)
+                    throws SQLException {
                 try {
                     if (pss != null) {
                         pss.setValues(ps);
@@ -534,7 +537,8 @@ public class SpringQuery implements SqlQuery {
 
         logger.debug("Executing prepared SQL update");
         return jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
-            public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
+            public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps)
+                    throws SQLException {
                 try {
                     if (pss != null) {
                         pss.setValues(ps);
@@ -566,7 +570,8 @@ public class SpringQuery implements SqlQuery {
 
         CallableStatementCreator psc = new CallableStatementCreator() {
             @Override
-            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(
+                    @org.springframework.lang.NonNull Connection con) throws SQLException {
                 Matcher matcher = CALL.matcher(queryString);
                 if (!matcher.matches())
                     throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
@@ -583,7 +588,8 @@ public class SpringQuery implements SqlQuery {
         };
 
         CallableStatementCallback<List<Map<String, Object>>> csc = new CallableStatementCallback<List<Map<String, Object>>>() {
-            public List<Map<String, Object>> doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs) throws SQLException {
+            public List<Map<String, Object>> doInCallableStatement(
+                    @org.springframework.lang.NonNull CallableStatement cs) throws SQLException {
                 ResultSet rs = null;
                 List<Map<String, Object>> list = null;
 
@@ -661,7 +667,8 @@ public class SpringQuery implements SqlQuery {
 
         CallableStatementCreator psc = new CallableStatementCreator() {
             @Override
-            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(
+                    @org.springframework.lang.NonNull Connection con) throws SQLException {
                 Matcher matcher = CALL.matcher(queryString);
                 if (!matcher.matches())
                     throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
@@ -676,7 +683,8 @@ public class SpringQuery implements SqlQuery {
         };
 
         CallableStatementCallback<Integer> csc = new CallableStatementCallback<Integer>() {
-            public Integer doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs) throws SQLException {
+            public Integer doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs)
+                    throws SQLException {
                 setParameters(cs, null, 1);
                 cs.execute();
                 Integer updated = cs.getUpdateCount();
@@ -707,7 +715,8 @@ public class SpringQuery implements SqlQuery {
 
         CallableStatementCreator psc = new CallableStatementCreator() {
             @Override
-            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(@org.springframework.lang.NonNull Connection con) throws SQLException {
+            public @org.springframework.lang.NonNull CallableStatement createCallableStatement(
+                    @org.springframework.lang.NonNull Connection con) throws SQLException {
                 Matcher matcher = CALL.matcher(queryString);
                 if (!matcher.matches())
                     throw new SqlProcessorException("'" + queryString + "' isn't the correct call statement");
@@ -722,7 +731,8 @@ public class SpringQuery implements SqlQuery {
         };
 
         CallableStatementCallback<Map<String, Object>> csc = new CallableStatementCallback<Map<String, Object>>() {
-            public Map<String, Object> doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs) throws SQLException {
+            public Map<String, Object> doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs)
+                    throws SQLException {
                 ResultSet rs = null;
                 List<Map<String, Object>> list = null;
                 Map<String, Object> result = null;
@@ -844,14 +854,11 @@ public class SpringQuery implements SqlQuery {
     /**
      * Sets the value of the designated parameters.
      * 
-     * @param ps
-     *            an instance of PreparedStatement
-     * @param limitType
-     *            the limit type to restrict the number of rows in the result set
-     * @param start
-     *            the index of the first parameter to bind to prepared statement
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
+     * @param ps        an instance of PreparedStatement
+     * @param limitType the limit type to restrict the number of rows in the result set
+     * @param start     the index of the first parameter to bind to prepared statement
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>PreparedStatement</code>
      */
     protected void setParameters(final PreparedStatement ps, final SqlFromToPlugin.LimitType limitType, final int start)
             throws SQLException {
@@ -897,17 +904,13 @@ public class SpringQuery implements SqlQuery {
     /**
      * Sets the limit related parameters.
      * 
-     * @param ps
-     *            an instance of PreparedStatement
-     * @param limitType
-     *            the limit type to restrict the number of rows in the result set
-     * @param ix
-     *            a column index
-     * @param afterSql
-     *            an indicator it's done after the main SQL statement execution
+     * @param ps        an instance of PreparedStatement
+     * @param limitType the limit type to restrict the number of rows in the result set
+     * @param ix        a column index
+     * @param afterSql  an indicator it's done after the main SQL statement execution
      * @return the updated column index
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>PreparedStatement</code>
      */
     protected int setLimits(final PreparedStatement ps, final SqlFromToPlugin.LimitType limitType, int ix,
             boolean afterSql) throws SQLException {
@@ -941,10 +944,9 @@ public class SpringQuery implements SqlQuery {
     /**
      * Gets the value of the designated OUT parameters.
      * 
-     * @param cs
-     *            an instance of CallableStatement
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
+     * @param cs an instance of CallableStatement
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>CallableStatement</code>
      */
     protected Map<String, Object> getParameters(final CallableStatement cs, boolean isFunction) throws SQLException {
 
@@ -979,11 +981,10 @@ public class SpringQuery implements SqlQuery {
     /**
      * Gets the value of the designated columns as the objects in the Java programming language.
      * 
-     * @param rs
-     *            an instance of ResultSet
+     * @param rs an instance of ResultSet
      * @return the result list
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>ResultSet</code>
      */
     protected List<Map<String, Object>> getResults(final ResultSet rs) throws SQLException {
         List<Map<String, Object>> result = new ArrayList<>();
@@ -1000,11 +1001,10 @@ public class SpringQuery implements SqlQuery {
     /**
      * Gets the value of the designated columns for one database row as the object in the Java programming language.
      * 
-     * @param rs
-     *            an instance of ResultSet
+     * @param rs an instance of ResultSet
      * @return the result object for one row
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>ResultSet</code>
      */
     protected Map<String, Object> getOneResult(final ResultSet rs) throws SQLException {
         if (rs == null)
@@ -1057,10 +1057,27 @@ public class SpringQuery implements SqlQuery {
     /**
      * Sets an indicator the failed SQL command should be logged
      * 
-     * @param logError
-     *            an indicator the failed SQL command should be logged
+     * @param logError an indicator the failed SQL command should be logged
      */
     public void setLogError(boolean logError) {
         this.logError = logError;
+    }
+
+    @Override
+    public Map<String, Object> getParameterValues() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void addBatchParameterValues(Map<String, Object> parameterValues) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public int[] batch(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

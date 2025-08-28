@@ -1,5 +1,7 @@
 package org.sqlproc.engine;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -80,16 +82,11 @@ public class SqlCrudEngine extends SqlEngine {
      * statements construction. More obvious is to put the META SQL statements definitions into the meta statements file
      * and engage the {@link SqlProcessorLoader} for the SqlCrudEngine instances construction.
      * 
-     * @param name
-     *            the name of this SQL Engine instance
-     * @param statement
-     *            the META SQL CRUD statement
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
-     * @throws SqlEngineException
-     *             in the case the provided statements are not compliant with the ANTLR grammar
+     * @param name          the name of this SQL Engine instance
+     * @param statement     the META SQL CRUD statement
+     * @param typeFactory   the factory for the META types construction
+     * @param pluginFactory the factory for the SQL Processor plugins
+     * @throws SqlEngineException in the case the provided statements are not compliant with the ANTLR grammar
      */
     public SqlCrudEngine(String name, String statement, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory)
             throws SqlEngineException {
@@ -106,20 +103,13 @@ public class SqlCrudEngine extends SqlEngine {
      * to put the META SQL statements definitions into the meta statements file and engage the
      * {@link SqlProcessorLoader} for the SqlCrudEngine instances construction.
      * 
-     * @param name
-     *            the name of this SQL Engine instance
-     * @param statement
-     *            the META SQL CRUD statement
-     * @param monitor
-     *            the SQL Monitor for the runtime statistics gathering
-     * @param features
-     *            the optional SQL Processor features
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
-     * @throws SqlEngineException
-     *             in the case the provided statements are not compliant with the ANTLR grammar
+     * @param name          the name of this SQL Engine instance
+     * @param statement     the META SQL CRUD statement
+     * @param monitor       the SQL Monitor for the runtime statistics gathering
+     * @param features      the optional SQL Processor features
+     * @param typeFactory   the factory for the META types construction
+     * @param pluginFactory the factory for the SQL Processor plugins
+     * @throws SqlEngineException in the case the provided statements are not compliant with the ANTLR grammar
      */
     public SqlCrudEngine(String name, String statement, SqlMonitor monitor, Map<String, Object> features,
             SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) throws SqlEngineException {
@@ -134,14 +124,10 @@ public class SqlCrudEngine extends SqlEngine {
      * constructor is devoted to be used from the custom loader, which is able to read all statements definitions from
      * an external meta statements file and create the named SqlCrudEngine instances.
      * 
-     * @param name
-     *            the name of this SQL Engine instance
-     * @param statement
-     *            the pre-compiled META SQL CRUD statement
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
+     * @param name          the name of this SQL Engine instance
+     * @param statement     the pre-compiled META SQL CRUD statement
+     * @param typeFactory   the factory for the META types construction
+     * @param pluginFactory the factory for the SQL Processor plugins
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlTypeFactory typeFactory,
             SqlPluginFactory pluginFactory) {
@@ -157,18 +143,12 @@ public class SqlCrudEngine extends SqlEngine {
      * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
      * can be involved.
      * 
-     * @param name
-     *            the name of this SQL Engine instance
-     * @param statement
-     *            the pre-compiled META SQL CRUD statement
-     * @param monitor
-     *            the SQL Monitor for the runtime statistics gathering
-     * @param features
-     *            the optional SQL Processor features
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
+     * @param name          the name of this SQL Engine instance
+     * @param statement     the pre-compiled META SQL CRUD statement
+     * @param monitor       the SQL Monitor for the runtime statistics gathering
+     * @param features      the optional SQL Processor features
+     * @param typeFactory   the factory for the META types construction
+     * @param pluginFactory the factory for the SQL Processor plugins
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMonitor monitor, Map<String, Object> features,
             SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
@@ -183,20 +163,13 @@ public class SqlCrudEngine extends SqlEngine {
      * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
      * can be involved.
      * 
-     * @param name
-     *            the name of this SQL Engine instance
-     * @param statement
-     *            the pre-compiled META SQL CRUD statement
-     * @param mapping
-     *            the pre-compiled SQL mapping rule
-     * @param monitor
-     *            the SQL Monitor for the runtime statistics gathering
-     * @param features
-     *            the optional SQL Processor features
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
+     * @param name          the name of this SQL Engine instance
+     * @param statement     the pre-compiled META SQL CRUD statement
+     * @param mapping       the pre-compiled SQL mapping rule
+     * @param monitor       the SQL Monitor for the runtime statistics gathering
+     * @param features      the optional SQL Processor features
+     * @param typeFactory   the factory for the META types construction
+     * @param pluginFactory the factory for the SQL Processor plugins
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
             Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory) {
@@ -211,22 +184,14 @@ public class SqlCrudEngine extends SqlEngine {
      * constructor, an external SQL Monitor for the runtime statistics gathering is engaged and the optional features
      * can be involved.
      * 
-     * @param name
-     *            the name of this SQL Engine instance
-     * @param statement
-     *            the pre-compiled META SQL CRUD statement
-     * @param mapping
-     *            the pre-compiled SQL mapping rule
-     * @param monitor
-     *            the SQL Monitor for the runtime statistics gathering
-     * @param features
-     *            the optional SQL Processor features
-     * @param typeFactory
-     *            the factory for the META types construction
-     * @param pluginFactory
-     *            the factory for the SQL Processor plugins
-     * @param configuration
-     *            the overall configuration, which can be persisted
+     * @param name          the name of this SQL Engine instance
+     * @param statement     the pre-compiled META SQL CRUD statement
+     * @param mapping       the pre-compiled SQL mapping rule
+     * @param monitor       the SQL Monitor for the runtime statistics gathering
+     * @param features      the optional SQL Processor features
+     * @param typeFactory   the factory for the META types construction
+     * @param pluginFactory the factory for the SQL Processor plugins
+     * @param configuration the overall configuration, which can be persisted
      */
     public SqlCrudEngine(String name, SqlMetaStatement statement, SqlMappingRule mapping, SqlMonitor monitor,
             Map<String, Object> features, SqlTypeFactory typeFactory, SqlPluginFactory pluginFactory,
@@ -259,28 +224,23 @@ public class SqlCrudEngine extends SqlEngine {
      * Runs the META SQL insert statement to persist a database row. This is the primary and the most complex SQL
      * Processor execution method to persist an instance of input values.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
-     * @param maxTimeout
-     *            The max SQL execution time. This parameter can help to protect production system against ineffective
-     *            SQL query commands. The value is in milliseconds.
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param staticInputValues  The object used for the SQL statement static input values. The class of this object is
+     *                           also named as the input class or the static parameters class. The exact class type
+     *                           isn't important, all the parameters injected into the SQL query command are picked up
+     *                           using the reflection API. Compared to dynamicInputValues input parameters, parameters
+     *                           in this class should't be produced by an end user to prevent SQL injection threat!
+     * @param maxTimeout         The max SQL execution time. This parameter can help to protect production system
+     *                           against ineffective SQL query commands. The value is in milliseconds.
      * @return The number of persisted database rows.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
@@ -293,23 +253,20 @@ public class SqlCrudEngine extends SqlEngine {
      * Runs the META SQL insert statement to persist a database row. This is the primary and the most complex SQL
      * Processor execution method to persist an instance of input values.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param sqlControl
-     *            The compound parameters controlling the META SQL execution
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param sqlControl         The compound parameters controlling the META SQL execution
      * @return The number of persisted database rows.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
-     * @throws org.sqlproc.engine.validation.SqlValidationException
-     *             in the case the validation of the input values isn't successfull
+     * @throws org.sqlproc.engine.SqlProcessorException             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException               in the case of any problem with the input/output
+     *                                                              values handling
+     * @throws org.sqlproc.engine.validation.SqlValidationException in the case the validation of the input values isn't
+     *                                                              successfull
      */
     public int insert(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
             throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
@@ -364,10 +321,8 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Internal insert implementation
      * 
-     * @param query
-     *            query
-     * @param processResult
-     *            processResult
+     * @param query         query
+     * @param processResult processResult
      * @return the result
      */
     private Integer insert(final SqlQuery query, final SqlProcessResult processResult) {
@@ -428,38 +383,33 @@ public class SqlCrudEngine extends SqlEngine {
      * execution method to obtain an unique instance of the result class. Criteria to pickup the correct database row
      * are taken from input values.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param resultClass
-     *            The class used for the return values, the SQL query execution output. This class is also named as the
-     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
-     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
-     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
-     *            be accessible using public getters and setters. The instances of this class are created on the fly in
-     *            the process of query execution using the reflection API.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
-     * @param maxTimeout
-     *            The max SQL execution time. This parameter can help to protect production system against ineffective
-     *            SQL query commands. The value is in milliseconds.
-     * @param moreResultClasses
-     *            More result classes used for the return values, like the collections classes or the collections items.
-     *            They are used mainly for the one-to-one, one-to-many and many-to-many associations.
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param resultClass        The class used for the return values, the SQL query execution output. This class is
+     *                           also named as the output class or the transport class, In fact it's a standard POJO
+     *                           class, which must include all the attributes described in the mapping rule statement.
+     *                           This class itself and all its subclasses must have public constructors without any
+     *                           parameters. All the attributes used in the mapping rule statement must be accessible
+     *                           using public getters and setters. The instances of this class are created on the fly in
+     *                           the process of query execution using the reflection API.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param staticInputValues  The object used for the SQL statement static input values. The class of this object is
+     *                           also named as the input class or the static parameters class. The exact class type
+     *                           isn't important, all the parameters injected into the SQL query command are picked up
+     *                           using the reflection API. Compared to dynamicInputValues input parameters, parameters
+     *                           in this class should't be produced by an end user to prevent SQL injection threat!
+     * @param maxTimeout         The max SQL execution time. This parameter can help to protect production system
+     *                           against ineffective SQL query commands. The value is in milliseconds.
+     * @param moreResultClasses  More result classes used for the return values, like the collections classes or the
+     *                           collections items. They are used mainly for the one-to-one, one-to-many and
+     *                           many-to-many associations.
      * @return The instance of the resultClass.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final Object staticInputValues, final int maxTimeout, final Map<String, Class<?>> moreResultClasses)
@@ -475,28 +425,24 @@ public class SqlCrudEngine extends SqlEngine {
      * execution method to obtain an unique instance of the result class. Criteria to pickup the correct database row
      * are taken from input values.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param resultClass
-     *            The class used for the return values, the SQL query execution output. This class is also named as the
-     *            output class or the transport class, In fact it's a standard POJO class, which must include all the
-     *            attributes described in the mapping rule statement. This class itself and all its subclasses must have
-     *            public constructors without any parameters. All the attributes used in the mapping rule statement must
-     *            be accessible using public getters and setters. The instances of this class are created on the fly in
-     *            the process of query execution using the reflection API.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param sqlControl
-     *            The compound parameters controlling the META SQL execution
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param resultClass        The class used for the return values, the SQL query execution output. This class is
+     *                           also named as the output class or the transport class, In fact it's a standard POJO
+     *                           class, which must include all the attributes described in the mapping rule statement.
+     *                           This class itself and all its subclasses must have public constructors without any
+     *                           parameters. All the attributes used in the mapping rule statement must be accessible
+     *                           using public getters and setters. The instances of this class are created on the fly in
+     *                           the process of query execution using the reflection API.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param sqlControl         The compound parameters controlling the META SQL execution
      * @return The instance of the resultClass.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public <E> E get(final SqlSession session, final Class<E> resultClass, final Object dynamicInputValues,
             final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException {
@@ -547,14 +493,10 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Internal get implementation
      * 
-     * @param query
-     *            query
-     * @param mappingResult
-     *            mappingResult
-     * @param resultClass
-     *            resultClass
-     * @param sqlControl
-     *            sqlCOntrol
+     * @param query         query
+     * @param mappingResult mappingResult
+     * @param resultClass   resultClass
+     * @param sqlControl    sqlCOntrol
      * @return the result
      */
     private <E> E get(final SqlQuery query, final SqlMappingResult mappingResult, final Class<E> resultClass,
@@ -623,28 +565,23 @@ public class SqlCrudEngine extends SqlEngine {
      * Processor execution method to persist an instance of input values. Changed values are taken from the input
      * values. At the same time criteria to pickup the correct database rows(s) are taken from the input values too.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
-     * @param maxTimeout
-     *            The max SQL execution time. This parameter can help to protect production system against ineffective
-     *            SQL query commands. The value is in milliseconds.
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param staticInputValues  The object used for the SQL statement static input values. The class of this object is
+     *                           also named as the input class or the static parameters class. The exact class type
+     *                           isn't important, all the parameters injected into the SQL query command are picked up
+     *                           using the reflection API. Compared to dynamicInputValues input parameters, parameters
+     *                           in this class should't be produced by an end user to prevent SQL injection threat!
+     * @param maxTimeout         The max SQL execution time. This parameter can help to protect production system
+     *                           against ineffective SQL query commands. The value is in milliseconds.
      * @return The number of updated database rows.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
@@ -658,23 +595,20 @@ public class SqlCrudEngine extends SqlEngine {
      * Processor execution method to persist an instance of input values. Changed values are taken from the input
      * values. At the same time criteria to pickup the correct database rows(s) are taken from the input values too.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param sqlControl
-     *            The compound parameters controlling the META SQL execution
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param sqlControl         The compound parameters controlling the META SQL execution
      * @return The number of updated database rows.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
-     * @throws org.sqlproc.engine.validation.SqlValidationException
-     *             in the case the validation of the input values isn't successfull
+     * @throws org.sqlproc.engine.SqlProcessorException             in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException               in the case of any problem with the input/output
+     *                                                              values handling
+     * @throws org.sqlproc.engine.validation.SqlValidationException in the case the validation of the input values isn't
+     *                                                              successfull
      */
     public int update(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
             throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
@@ -727,12 +661,131 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Internal update implementation
      * 
-     * @param query
-     *            query
+     * @param query query
      * @return the result
      */
     private Integer update(final SqlQuery query, final SqlProcessResult processResult) {
         return query.update(processResult.getRuntimeContext());
+    }
+
+    public Integer[] batchInsert(final SqlSession session, final List<?> dynamicInputValues,
+            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
+        if (logger.isDebugEnabled()) {
+            logger.debug(">> batch, session=" + session + ", dynamicInputValues=" + dynamicInputValues + ", sqlControl="
+                    + sqlControl);
+        }
+        checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
+
+        Integer[] count = null;
+        List<SqlQuery> queries = new ArrayList<>();
+        List<SqlProcessResult> processResults = new ArrayList<>();
+
+        try {
+            count = monitor.run(new SqlMonitor.Runner() {
+                public Integer[] run() {
+                    for (Object dynamicInputValue : dynamicInputValues) {
+                        final SqlProcessResult processResult = process(SqlMetaStatement.Type.CREATE, dynamicInputValue,
+                                sqlControl);
+                        processResult.validate(validator);
+                        String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                                processResult.getSql().toString());
+                        sql = SqlUtils.handleInsertSql(processResult.getIdentities(), sql);
+                        final SqlQuery query = session.createSqlQuery(sql);
+                        query.setLogError(processResult.isLogError());
+                        query.setSqlControl(sqlControl);
+                        if (!processResult.setQueryParams(session, query) && isSkipEmptyStatement(sqlControl))
+                            continue;
+                        queries.add(query);
+                        processResults.add(processResult);
+                    }
+
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer[] run() {
+                                return batch(queries, processResults);
+                            }
+                        }, Integer[].class);
+                    } else {
+                        return batch(queries, processResults);
+                    }
+                }
+            }, Integer[].class);
+            if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                sqlControl.getSqlExecutionCallback().handleOutputValues(dynamicInputValues);
+            return count;
+        } finally {
+            if (logger.isDebugEnabled()) {
+                logger.debug("<< batch, result=" + count);
+            }
+        }
+    }
+
+    public Integer[] batchUpdate(final SqlSession session, final List<?> dynamicInputValues,
+            final SqlControl sqlControl) throws SqlProcessorException, SqlRuntimeException, SqlValidationException {
+        if (logger.isDebugEnabled()) {
+            logger.debug(">> batch, session=" + session + ", dynamicInputValues=" + dynamicInputValues + ", sqlControl="
+                    + sqlControl);
+        }
+        checkDynamicInputValues(dynamicInputValues);
+        if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+            sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
+
+        Integer[] count = null;
+        List<SqlQuery> queries = new ArrayList<>();
+        List<SqlProcessResult> processResults = new ArrayList<>();
+
+        try {
+            count = monitor.run(new SqlMonitor.Runner() {
+                public Integer[] run() {
+                    for (Object dynamicInputValue : dynamicInputValues) {
+                        final SqlProcessResult processResult = process(SqlMetaStatement.Type.UPDATE, dynamicInputValue,
+                                sqlControl);
+                        processResult.validate(validator);
+                        String sql = pluginFactory.getSqlExecutionPlugin().beforeSqlExecution(name,
+                                processResult.getSql().toString());
+                        final SqlQuery query = session.createSqlQuery(sql);
+                        query.setLogError(processResult.isLogError());
+                        query.setSqlControl(sqlControl);
+                        if (!processResult.setQueryParams(session, query) && isSkipEmptyStatement(sqlControl))
+                            continue;
+                        queries.add(query);
+                        processResults.add(processResult);
+                    }
+
+                    if (monitor instanceof SqlExtendedMonitor) {
+                        SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
+                        return monitorExt.runSql(new SqlMonitor.Runner() {
+                            public Integer[] run() {
+                                return batch(queries, processResults);
+                            }
+                        }, Integer[].class);
+                    } else {
+                        return batch(queries, processResults);
+                    }
+                }
+            }, Integer[].class);
+            if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
+                sqlControl.getSqlExecutionCallback().handleOutputValues(dynamicInputValues);
+            return count;
+        } finally {
+            if (logger.isDebugEnabled()) {
+                logger.debug("<< batch, result=" + count);
+            }
+        }
+    }
+
+    private Integer[] batch(final List<SqlQuery> queries, final List<SqlProcessResult> processResults) {
+        SqlQuery query = queries.get(0);
+        for (int i = 0; i < queries.size(); i++) {
+            SqlQuery q = queries.get(i);
+            Map<String, Object> parameterValues = q.getParameterValues();
+            query.addBatchParameterValues(parameterValues);
+        }
+        int[] result = query.batch(processResults.get(0).getRuntimeContext());
+        return Arrays.stream(result).boxed().toArray(Integer[]::new);
     }
 
     /**
@@ -760,28 +813,23 @@ public class SqlCrudEngine extends SqlEngine {
      * Runs the META SQL delete statement to delete a database row. This is the primary and the most complex SQL
      * Processor execution method to delete the database row(s) based on criteria from the input values.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
-     * @param maxTimeout
-     *            The max SQL execution time. This parameter can help to protect production system against ineffective
-     *            SQL query commands. The value is in milliseconds.
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param staticInputValues  The object used for the SQL statement static input values. The class of this object is
+     *                           also named as the input class or the static parameters class. The exact class type
+     *                           isn't important, all the parameters injected into the SQL query command are picked up
+     *                           using the reflection API. Compared to dynamicInputValues input parameters, parameters
+     *                           in this class should't be produced by an end user to prevent SQL injection threat!
+     * @param maxTimeout         The max SQL execution time. This parameter can help to protect production system
+     *                           against ineffective SQL query commands. The value is in milliseconds.
      * @return The number of updated database rows.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public int delete(final SqlSession session, final Object dynamicInputValues, final Object staticInputValues,
             final int maxTimeout) throws SqlProcessorException, SqlRuntimeException {
@@ -794,21 +842,17 @@ public class SqlCrudEngine extends SqlEngine {
      * Runs the META SQL delete statement to delete a database row. This is the primary and the most complex SQL
      * Processor execution method to delete the database row(s) based on criteria from the input values.
      * 
-     * @param session
-     *            The SQL Engine session. It can work as a first level cache and the SQL query execution context. The
-     *            implementation depends on the stack, on top of which the SQL Processor works. For example it can be an
-     *            Hibernate session.
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param sqlControl
-     *            The compound parameters controlling the META SQL execution
+     * @param session            The SQL Engine session. It can work as a first level cache and the SQL query execution
+     *                           context. The implementation depends on the stack, on top of which the SQL Processor
+     *                           works. For example it can be an Hibernate session.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param sqlControl         The compound parameters controlling the META SQL execution
      * @return The number of updated database rows.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public int delete(final SqlSession session, final Object dynamicInputValues, final SqlControl sqlControl)
             throws SqlProcessorException, SqlRuntimeException {
@@ -859,8 +903,7 @@ public class SqlCrudEngine extends SqlEngine {
     /**
      * Internal delete implementation
      * 
-     * @param query
-     *            query
+     * @param query query
      * @return the result
      */
     private Integer delete(final SqlQuery query, final SqlProcessResult processResult) {
@@ -909,23 +952,20 @@ public class SqlCrudEngine extends SqlEngine {
      * statement command. This method can help to identify the exact SQL statement command, which is produced in the
      * background of the SQL Processor execution. The statement is derived from the META SQL statement.
      * 
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param staticInputValues
-     *            The object used for the SQL statement static input values. The class of this object is also named as
-     *            the input class or the static parameters class. The exact class type isn't important, all the
-     *            parameters injected into the SQL query command are picked up using the reflection API. Compared to
-     *            dynamicInputValues input parameters, parameters in this class should't be produced by an end user to
-     *            prevent SQL injection threat!
-     * @param statementType
-     *            The type of the statement under consideration. It can be CREATE, RETRIEVE, UPDATE or DELETE.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param staticInputValues  The object used for the SQL statement static input values. The class of this object is
+     *                           also named as the input class or the static parameters class. The exact class type
+     *                           isn't important, all the parameters injected into the SQL query command are picked up
+     *                           using the reflection API. Compared to dynamicInputValues input parameters, parameters
+     *                           in this class should't be produced by an end user to prevent SQL injection threat!
+     * @param statementType      The type of the statement under consideration. It can be CREATE, RETRIEVE, UPDATE or
+     *                           DELETE.
      * @return The SQL statement command derived from the META SQL statement based on the input parameters.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public String getSql(final Object dynamicInputValues, final Object staticInputValues,
             final SqlMetaStatement.Type statementType) throws SqlProcessorException, SqlRuntimeException {
@@ -939,19 +979,16 @@ public class SqlCrudEngine extends SqlEngine {
      * statement command. This method can help to identify the exact SQL statement command, which is produced in the
      * background of the SQL Processor execution. The statement is derived from the META SQL statement.
      * 
-     * @param dynamicInputValues
-     *            The object used for the SQL statement dynamic input values. The class of this object is also named as
-     *            the input class or the dynamic parameters class. The exact class type isn't important, all the
-     *            parameters settled into the SQL prepared statement are picked up using the reflection API.
-     * @param sqlControl
-     *            The compound parameters controlling the META SQL execution
-     * @param statementType
-     *            The type of the statement under consideration. It can be CREATE, RETRIEVE, UPDATE or DELETE.
+     * @param dynamicInputValues The object used for the SQL statement dynamic input values. The class of this object is
+     *                           also named as the input class or the dynamic parameters class. The exact class type
+     *                           isn't important, all the parameters settled into the SQL prepared statement are picked
+     *                           up using the reflection API.
+     * @param sqlControl         The compound parameters controlling the META SQL execution
+     * @param statementType      The type of the statement under consideration. It can be CREATE, RETRIEVE, UPDATE or
+     *                           DELETE.
      * @return The SQL statement command derived from the META SQL statement based on the input parameters.
-     * @throws org.sqlproc.engine.SqlProcessorException
-     *             in the case of any problem with ORM or JDBC stack
-     * @throws org.sqlproc.engine.SqlRuntimeException
-     *             in the case of any problem with the input/output values handling
+     * @throws org.sqlproc.engine.SqlProcessorException in the case of any problem with ORM or JDBC stack
+     * @throws org.sqlproc.engine.SqlRuntimeException   in the case of any problem with the input/output values handling
      */
     public String getSql(final Object dynamicInputValues, final SqlControl sqlControl,
             final SqlMetaStatement.Type statementType) throws SqlProcessorException, SqlRuntimeException {

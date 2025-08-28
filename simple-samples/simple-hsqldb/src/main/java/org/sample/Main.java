@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,7 +21,6 @@ import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
 import org.sample.dao.NewPersonDao;
 import org.sample.dao.NewPersonRetRsDao;
-import org.sample.dao.PersonDao;
 import org.sample.dao.PersonDetailDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
@@ -97,7 +98,7 @@ public class Main {
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
-        personDao = new PersonDao(sqlFactory, sessionFactory);
+        personDao = new PersonDaoExt(sqlFactory, sessionFactory);
         personDetailDao = new PersonDetailDao(sqlFactory, sessionFactory);
         anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
         newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
@@ -113,7 +114,7 @@ public class Main {
     }
 
     private ContactDao contactDao;
-    private PersonDao personDao;
+    private PersonDaoExt personDao;
     private PersonDetailDao personDetailDao;
     private AnHourBeforeDao anHourBeforeDao;
     private NewPersonDao newPersonDao;
@@ -470,6 +471,36 @@ public class Main {
         System.out.println();
         printEnginesUsageStatistics(configuration.getProcedureEngines());
         printProcessingCacheStatistics(sqlFactory.getProcedureEngines());
+
+        Person p1 = new Person("Person1", "Personal1", PersonGender.MALE);
+        Person p2 = new Person("Person2", "Personal2", PersonGender.MALE);
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(p1);
+        persons.add(p2);
+        Integer[] insertResults = personDao.batchInsertPersons(persons);
+        System.out.println(Arrays.toString(insertResults));
+
+        p1 = personDao.get(p1);
+        Assert.assertNotNull(p1);
+        Assert.assertNotNull(p1.getId());
+        p2 = personDao.get(p2);
+        Assert.assertNotNull(p2);
+        Assert.assertNotNull(p2.getId());
+
+        p1.setFirstName("Person1Updated");
+        p2.setLastName("Personal2Updated");
+        persons = new ArrayList<Person>();
+        persons.add(p1);
+        persons.add(p2);
+        Integer[] updateResults = personDao.batchUpdatePersons(persons);
+        System.out.println(Arrays.toString(updateResults));
+
+        p1 = personDao.get(new Person().withId(p1.getId()));
+        Assert.assertNotNull(p1);
+        Assert.assertEquals("Person1Updated", p1.getFirstName());
+        p2 = personDao.get(new Person().withId(p2.getId()));
+        Assert.assertNotNull(p2);
+        Assert.assertEquals("Personal2Updated", p2.getLastName());
     }
 
     public void printEnginesUsageStatistics(Map<String, AtomicInteger> engines) {

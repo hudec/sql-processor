@@ -68,6 +68,10 @@ public class JdbcQuery implements SqlQuery {
      */
     Map<String, Object> parameterValues = new HashMap<String, Object>();
     /**
+     * The collection of all parameters values for batch insert/update/delete.
+     */
+    List<Map<String, Object>> batchParameterValues = new ArrayList<Map<String, Object>>();
+    /**
      * The collection of all parameters types.
      */
     Map<String, Object> parameterTypes = new HashMap<String, Object>();
@@ -132,10 +136,8 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Creates a new instance of this adapter.
      * 
-     * @param connection
-     *            the connection to the database
-     * @param queryString
-     *            the SQL query/statement command
+     * @param connection  the connection to the database
+     * @param queryString the SQL query/statement command
      */
     public JdbcQuery(Connection connection, String queryString) {
         this.connection = connection;
@@ -178,6 +180,16 @@ public class JdbcQuery implements SqlQuery {
     public SqlQuery setOrdered(boolean ordered) {
         this.ordered = ordered;
         return this;
+    }
+
+    @Override
+    public Map<String, Object> getParameterValues() {
+        return parameterValues;
+    }
+
+    @Override
+    public void addBatchParameterValues(Map<String, Object> parameterValues) {
+        batchParameterValues.add(parameterValues);
     }
 
     /**
@@ -365,6 +377,50 @@ public class JdbcQuery implements SqlQuery {
         }
     }
 
+    @Override
+    public int[] batch(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("update, query=" + queryString);
+        }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(queryString, parameterValues);
+            if (sql != null)
+                queryString = sql;
+        }
+
+        PreparedStatement ps = null;
+        try {
+            final boolean retrieveIdentityFromStatement = isSetJDBCIdentity();
+
+            if (retrieveIdentityFromStatement) {
+                ps = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+            } else {
+                ps = connection.prepareStatement(queryString);
+            }
+            if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                ps.setQueryTimeout(timeout);
+            for (Map<String, Object> paramValues : batchParameterValues) {
+                this.parameterValues = paramValues;
+                setParameters(ps, null, 1);
+                ps.addBatch();
+            }
+            int[] updated = ps.executeBatch();
+            if (logger.isDebugEnabled()) {
+                logger.debug("update, number of updated rows=" + (updated != null ? updated : "null"));
+            }
+            return updated;
+        } catch (SQLException ex) {
+            throw newSqlProcessorException(ex, queryString);
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ignore) {
+                }
+            }
+        }
+    }
+
     private boolean isSetJDBCIdentity() {
         for (String identityName : identities) {
             IdentitySetter identitySetter = identitySetters.get(identityName);
@@ -378,10 +434,8 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Retrieves the value of auto-generated identity from executed prepared statement.
      * 
-     * @param identityName
-     *            the identity name from the META SQL statement
-     * @param statement
-     *            statement to retrieve auto-generated keys from
+     * @param identityName the identity name from the META SQL statement
+     * @param statement    statement to retrieve auto-generated keys from
      */
     protected void getGeneratedKeys(String identityName, Statement statement) {
         IdentitySetter identitySetter = identitySetters.get(identityName);
@@ -425,8 +479,7 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Runs the select to obtain the value of auto-generated identity.
      * 
-     * @param identityName
-     *            the identity name from the META SQL statement
+     * @param identityName the identity name from the META SQL statement
      */
     protected void doIdentitySelect(String identityName) {
         IdentitySetter identitySetter = identitySetters.get(identityName);
@@ -746,14 +799,11 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Sets the value of the designated parameters.
      * 
-     * @param ps
-     *            an instance of PreparedStatement
-     * @param limitType
-     *            the limit type to restrict the number of rows in the result set
-     * @param start
-     *            the index of the first parameter to bind to prepared statement
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
+     * @param ps        an instance of PreparedStatement
+     * @param limitType the limit type to restrict the number of rows in the result set
+     * @param start     the index of the first parameter to bind to prepared statement
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>PreparedStatement</code>
      */
     protected void setParameters(PreparedStatement ps, SqlFromToPlugin.LimitType limitType, int start)
             throws SQLException, SqlProcessorException {
@@ -825,17 +875,13 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Sets the limit related parameters.
      * 
-     * @param ps
-     *            an instance of PreparedStatement
-     * @param limitType
-     *            the limit type to restrict the number of rows in the result set
-     * @param ix
-     *            a column index
-     * @param afterSql
-     *            an indicator it's done after the main SQL statement execution
+     * @param ps        an instance of PreparedStatement
+     * @param limitType the limit type to restrict the number of rows in the result set
+     * @param ix        a column index
+     * @param afterSql  an indicator it's done after the main SQL statement execution
      * @return the updated column index
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>PreparedStatement</code>
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>PreparedStatement</code>
      */
     protected int setLimits(PreparedStatement ps, SqlFromToPlugin.LimitType limitType, int ix, boolean afterSql)
             throws SQLException {
@@ -869,10 +915,9 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Gets the value of the designated OUT parameters.
      * 
-     * @param cs
-     *            an instance of CallableStatement
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>CallableStatement</code>
+     * @param cs an instance of CallableStatement
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>CallableStatement</code>
      */
     protected Map<String, Object> getParameters(CallableStatement cs, boolean isFunction) throws SQLException {
 
@@ -907,11 +952,10 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Gets the value of the designated columns as the objects in the Java programming language.
      * 
-     * @param rs
-     *            an instance of ResultSet
+     * @param rs an instance of ResultSet
      * @return the result list
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>ResultSet</code>
      */
     protected List<Map<String, Object>> getResults(ResultSet rs) throws SQLException {
         List<Map<String, Object>> result = new ArrayList<>();
@@ -928,11 +972,10 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Gets the value of the designated columns for one database row as the object in the Java programming language.
      * 
-     * @param rs
-     *            an instance of ResultSet
+     * @param rs an instance of ResultSet
      * @return the result object for one row
-     * @throws SQLException
-     *             if a database access error occurs or this method is called on a closed <code>ResultSet</code>
+     * @throws SQLException if a database access error occurs or this method is called on a closed
+     *                      <code>ResultSet</code>
      */
     protected Map<String, Object> getOneResult(ResultSet rs) throws SQLException {
         if (rs == null)
@@ -1008,8 +1051,7 @@ public class JdbcQuery implements SqlQuery {
     /**
      * Sets an indicator the failed SQL command should be logged
      * 
-     * @param logError
-     *            an indicator the failed SQL command should be logged
+     * @param logError an indicator the failed SQL command should be logged
      */
     public void setLogError(boolean logError) {
         this.logError = logError;

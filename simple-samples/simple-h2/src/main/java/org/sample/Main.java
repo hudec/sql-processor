@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,7 +19,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Assert;
 import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
-import org.sample.dao.PersonDao;
 import org.sample.dao.PersonDetailDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.AnHourBeforeResult;
@@ -48,7 +49,7 @@ import org.sqlproc.engine.validation.SqlValidationException;
 public class Main {
 
     private static final Driver JDBC_DRIVER = new org.h2.Driver();
-    private static final String DB_URL = "jdbc:h2:mem:demo";
+    private static final String DB_URL = "jdbc:h2:mem:demo;MODE=LEGACY";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "";
     private static final SqlFeature DB_TYPE = SqlFeature.H2;
@@ -93,7 +94,7 @@ public class Main {
         sessionFactory = new JdbcSessionFactory(connection);
 
         contactDao = new ContactDao(sqlFactory, sessionFactory);
-        personDao = new PersonDao(sqlFactory, sessionFactory);
+        personDao = new PersonDaoExt(sqlFactory, sessionFactory);
         personDetailDao = new PersonDetailDao(sqlFactory, sessionFactory);
         anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
         // newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
@@ -109,7 +110,7 @@ public class Main {
     }
 
     private ContactDao contactDao;
-    private PersonDao personDao;
+    private PersonDaoExt personDao;
     private PersonDetailDao personDetailDao;
     private AnHourBeforeDao anHourBeforeDao;
     // private NewPersonDao newPersonDao;
@@ -430,6 +431,36 @@ public class Main {
         System.out.println();
         printEnginesUsageStatistics(configuration.getProcedureEngines());
         printProcessingCacheStatistics(sqlFactory.getProcedureEngines());
+
+        Person p1 = new Person("Person1", "Personal1", PersonGender.MALE);
+        Person p2 = new Person("Person2", "Personal2", PersonGender.MALE);
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(p1);
+        persons.add(p2);
+        Integer[] insertResults = personDao.batchInsertPersons(persons);
+        System.out.println(Arrays.toString(insertResults));
+
+        p1 = personDao.get(p1);
+        Assert.assertNotNull(p1);
+        Assert.assertNotNull(p1.getIdPerson());
+        p2 = personDao.get(p2);
+        Assert.assertNotNull(p2);
+        Assert.assertNotNull(p2.getIdPerson());
+
+        p1.setFirstName("Person1Updated");
+        p2.setLastName("Personal2Updated");
+        persons = new ArrayList<Person>();
+        persons.add(p1);
+        persons.add(p2);
+        Integer[] updateResults = personDao.batchUpdatePersons(persons);
+        System.out.println(Arrays.toString(updateResults));
+
+        p1 = personDao.get(new Person().withIdPerson(p1.getIdPerson()));
+        Assert.assertNotNull(p1);
+        Assert.assertEquals("Person1Updated", p1.getFirstName());
+        p2 = personDao.get(new Person().withIdPerson(p2.getIdPerson()));
+        Assert.assertNotNull(p2);
+        Assert.assertEquals("Personal2Updated", p2.getLastName());
     }
 
     public void printEnginesUsageStatistics(Map<String, AtomicInteger> engines) {
