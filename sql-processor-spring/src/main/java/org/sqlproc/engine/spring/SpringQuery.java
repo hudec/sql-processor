@@ -78,6 +78,10 @@ public class SpringQuery implements SqlQuery {
      */
     Map<String, Object> parameterValues = new HashMap<String, Object>();
     /**
+     * The collection of all parameters values for batch insert/update/delete.
+     */
+    List<Map<String, Object>> batchParameterValues = new ArrayList<Map<String, Object>>();
+    /**
      * The collection of all parameters types.
      */
     Map<String, Object> parameterTypes = new HashMap<String, Object>();
@@ -188,6 +192,16 @@ public class SpringQuery implements SqlQuery {
         return this;
     }
 
+    @Override
+    public Map<String, Object> getParameterValues() {
+        return parameterValues;
+    }
+
+    @Override
+    public void addBatchParameterValues(Map<String, Object> parameterValues) {
+        batchParameterValues.add(parameterValues);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -224,7 +238,7 @@ public class SpringQuery implements SqlQuery {
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
             public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
-                setParameters(ps, limitType, 1);
+                setParameters(parameterValues, ps, limitType, 1);
             }
         };
         ResultSetExtractor<List<Map<String, Object>>> rse = new ResultSetExtractor<List<Map<String, Object>>>() {
@@ -304,7 +318,7 @@ public class SpringQuery implements SqlQuery {
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
             public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
-                setParameters(ps, limitType, 1);
+                setParameters(parameterValues, ps, limitType, 1);
             }
         };
         ResultSetExtractor<Integer> rse = new ResultSetExtractor<Integer>() {
@@ -366,7 +380,7 @@ public class SpringQuery implements SqlQuery {
         PreparedStatementSetter pss = new PreparedStatementSetter() {
             @Override
             public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
-                setParameters(ps, null, 1);
+                setParameters(parameterValues, ps, null, 1);
             }
         };
 
@@ -385,6 +399,59 @@ public class SpringQuery implements SqlQuery {
             }
             if (logger.isDebugEnabled()) {
                 logger.debug("update, number of updated rows=" + updated);
+            }
+            return updated;
+        } catch (DataAccessException ex) {
+            throw newSqlProcessorException(ex, queryString);
+        }
+    }
+
+    @Override
+    public int[] batch(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
+        if (logger.isDebugEnabled()) {
+            logger.debug("batch, query=" + queryString);
+        }
+        if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
+            String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(queryString, parameterValues);
+            if (sql != null)
+                queryString = sql;
+        }
+
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public @org.springframework.lang.NonNull PreparedStatement createPreparedStatement(
+                    @org.springframework.lang.NonNull Connection con) throws SQLException {
+                PreparedStatement ps;
+                if (isSetJDBCIdentity()) {
+                    ps = con.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+                } else {
+                    ps = con.prepareStatement(queryString);
+                }
+                if (sqlControl != null && sqlControl.getMaxTimeout() != null)
+                    ps.setQueryTimeout(timeout);
+                return ps;
+            }
+        };
+        List<PreparedStatementSetter> psss = new ArrayList<>();
+        for (Map<String, Object> paramValues : batchParameterValues) {
+            final PreparedStatementSetter pss = new PreparedStatementSetter() {
+                @Override
+                public void setValues(@org.springframework.lang.NonNull PreparedStatement ps) throws SQLException {
+                    setParameters(parameterValues, ps, null, 1);
+                }
+            };
+            psss.add(pss);
+        }
+
+        try {
+            int[] updated;
+            if (!identities.isEmpty()) {
+                updated = updateWithoutGenKeys(psc, psss);
+            } else {
+                updated = updateWithoutGenKeys(psc, psss);
+            }
+            if (logger.isDebugEnabled()) {
+                logger.debug("batch, number of updated rows=" + updated);
             }
             return updated;
         } catch (DataAccessException ex) {
@@ -505,7 +572,7 @@ public class SpringQuery implements SqlQuery {
             final String identityName) throws DataAccessException {
 
         logger.debug("Executing prepared SQL update with generated keys retrieval");
-        return jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
+        Integer rows = jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
             public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps)
                     throws SQLException {
                 try {
@@ -527,6 +594,7 @@ public class SpringQuery implements SqlQuery {
                 }
             }
         });
+        return rows != null ? rows : 0;
     }
 
     /**
@@ -536,7 +604,7 @@ public class SpringQuery implements SqlQuery {
             throws DataAccessException {
 
         logger.debug("Executing prepared SQL update");
-        return jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
+        Integer rows = jdbcTemplate.execute(psc, new PreparedStatementCallback<Integer>() {
             public Integer doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps)
                     throws SQLException {
                 try {
@@ -555,6 +623,41 @@ public class SpringQuery implements SqlQuery {
                 }
             }
         });
+        return rows != null ? rows : 0;
+    }
+
+    /**
+     * This is a workaround, as this method is not visible in JdbcTemplate.
+     */
+    protected int[] updateWithoutGenKeys(final PreparedStatementCreator psc, final List<PreparedStatementSetter> psss)
+            throws DataAccessException {
+
+        logger.debug("Executing prepared SQL batch");
+        int[] rows = jdbcTemplate.execute(psc, new PreparedStatementCallback<int[]>() {
+            public int[] doInPreparedStatement(@org.springframework.lang.NonNull PreparedStatement ps)
+                    throws SQLException {
+                try {
+                    for (PreparedStatementSetter pss : psss) {
+                        if (pss != null) {
+                            pss.setValues(ps);
+                        }
+                        ps.addBatch();
+                    }
+                    int[] rows = ps.executeBatch();
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("SQL batch affected " + rows + " rows");
+                    }
+                    return rows;
+                } finally {
+                    for (PreparedStatementSetter pss : psss) {
+                        if (pss instanceof ParameterDisposer) {
+                            ((ParameterDisposer) pss).cleanupParameters();
+                        }
+                    }
+                }
+            }
+        });
+        return rows;
     }
 
     static final Pattern CALL = Pattern.compile("\\s*\\{?\\s*(\\?)?\\s*=?\\s*call\\s*(.*?)\\s*}?\\s*");
@@ -594,7 +697,7 @@ public class SpringQuery implements SqlQuery {
                 List<Map<String, Object>> list = null;
 
                 try {
-                    setParameters(cs, null, 1);
+                    setParameters(parameterValues, cs, null, 1);
                     boolean hasResultSet = cs.execute();
                     if (hasResultSet || cs.getMoreResults()) {
                         rs = cs.getResultSet();
@@ -685,7 +788,7 @@ public class SpringQuery implements SqlQuery {
         CallableStatementCallback<Integer> csc = new CallableStatementCallback<Integer>() {
             public Integer doInCallableStatement(@org.springframework.lang.NonNull CallableStatement cs)
                     throws SQLException {
-                setParameters(cs, null, 1);
+                setParameters(parameterValues, cs, null, 1);
                 cs.execute();
                 Integer updated = cs.getUpdateCount();
                 getParameters(cs, false);
@@ -738,7 +841,7 @@ public class SpringQuery implements SqlQuery {
                 Map<String, Object> result = null;
 
                 try {
-                    setParameters(cs, null, 1);
+                    setParameters(parameterValues, cs, null, 1);
                     boolean hasResultSet = cs.execute();
                     if (hasResultSet) {
                         rs = cs.getResultSet();
@@ -860,8 +963,8 @@ public class SpringQuery implements SqlQuery {
      * @throws SQLException if a database access error occurs or this method is called on a closed
      *                      <code>PreparedStatement</code>
      */
-    protected void setParameters(final PreparedStatement ps, final SqlFromToPlugin.LimitType limitType, final int start)
-            throws SQLException {
+    protected void setParameters(final Map<String, Object> parameterValues, final PreparedStatement ps,
+            final SqlFromToPlugin.LimitType limitType, final int start) throws SQLException {
         int ix = start;
         ix = setLimits(ps, limitType, ix, false);
         for (int i = 0, n = parameters.size(); i < n; i++) {
@@ -1061,23 +1164,5 @@ public class SpringQuery implements SqlQuery {
      */
     public void setLogError(boolean logError) {
         this.logError = logError;
-    }
-
-    @Override
-    public Map<String, Object> getParameterValues() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void addBatchParameterValues(Map<String, Object> parameterValues) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public int[] batch(SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

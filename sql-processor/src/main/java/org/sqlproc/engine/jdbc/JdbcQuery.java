@@ -380,7 +380,7 @@ public class JdbcQuery implements SqlQuery {
     @Override
     public int[] batch(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {
-            logger.debug("update, query=" + queryString);
+            logger.debug("batch, query=" + queryString);
         }
         if (sqlControl != null && sqlControl.getLowLevelSqlCallback() != null) {
             String sql = sqlControl.getLowLevelSqlCallback().handleInputValues(queryString, parameterValues);
@@ -406,7 +406,7 @@ public class JdbcQuery implements SqlQuery {
             }
             int[] updated = ps.executeBatch();
             if (logger.isDebugEnabled()) {
-                logger.debug("update, number of updated rows=" + (updated != null ? updated : "null"));
+                logger.debug("batch, number of updated rows=" + (updated != null ? updated : "null"));
             }
             return updated;
         } catch (SQLException ex) {

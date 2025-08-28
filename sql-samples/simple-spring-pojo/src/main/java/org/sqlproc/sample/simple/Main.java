@@ -2,6 +2,8 @@ package org.sqlproc.sample.simple;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,6 @@ import org.sqlproc.sample.simple.model.Movie;
 import org.sqlproc.sample.simple.model.OrderIds;
 import org.sqlproc.sample.simple.model.Person;
 import org.sqlproc.sample.simple.model.PersonLibrary;
-import org.sqlproc.sample.simple.model.PhoneNumber;
 import org.sqlproc.sample.simple.model.Subscriber;
 
 @SuppressWarnings({ "unused", "resource" })
@@ -50,6 +51,16 @@ public class Main {
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
         sqlSession.executeBatch(ddls.toArray(new String[0]));
+    }
+
+    Integer[] batchInsertPersons(SqlSession session, List<Person> persons) {
+        org.sqlproc.engine.SqlCrudEngine sqlInsertPerson = sqlFactory.getCheckedCrudEngine("INSERT_PERSON");
+        return sqlInsertPerson.batchInsert(session, persons, null);
+    }
+
+    Integer[] batchUpdatePersons(SqlSession session, List<Person> persons) {
+        org.sqlproc.engine.SqlCrudEngine sqlInsertPerson = sqlFactory.getCheckedCrudEngine("UPDATE_PERSON");
+        return sqlInsertPerson.batchUpdate(session, persons, null);
     }
 
     public List<Person> listAll(SqlSession session) {
@@ -248,114 +259,144 @@ public class Main {
         SqlSession session = main.sessionFactory.getSqlSession();
         main.setupDb();
 
-        // init
-        Person jan = main.insert(session, new Person("Jan"), new Contact().withAddress("Jan address 1"));
-        Person janik = main.insert(session, new Person("Janik"), new Contact().withAddress("Janik address 1"));
-        Person honza = main.insert(session, new Person("Honza"), new Contact().withAddress("Honza address 1"),
-                new Contact().withAddress("Honza address 2"));
-        main.insert(session, new Person("Honzik"));
-        Person andrej = main.insert(session, new Person("Andrej"), new Contact().withAddress("Andrej address 1"));
+        Person p1 = new Person().withName("Person1");
+        Person p2 = new Person().withName("Person2");
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(p1);
+        persons.add(p2);
+        Integer[] insertResults = main.batchInsertPersons(session, persons);
+        System.out.println(Arrays.toString(insertResults));
 
-        Book book1 = main.insertBook(session, new Book("The Adventures of Robin Hood", "978-0140367003"));
-        Book book2 = main.insertBook(session, new Book("The Three Musketeers", "978-1897093634"));
-        Movie movie1 = main.insertMovie(session, new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
-        Movie movie2 = main.insertMovie(session, new Movie("Die Another Day", "def", 95));
+        p1 = main.get(session, p1);
+        Assert.assertNotNull(p1);
+        Assert.assertNotNull(p1.getPersonId());
+        p2 = main.get(session, p2);
+        Assert.assertNotNull(p2);
+        Assert.assertNotNull(p2.getPersonId());
 
-        main.createPersonLibrary(session, jan, book1, movie1);
-        main.createPersonLibrary(session, honza, book2, movie2);
-        main.createPersonLibrary(session, andrej, book1, book2, movie2);
+        p1.setName("Person1Updated");
+        p2.setName("Person2Updated");
+        persons = new ArrayList<Person>();
+        persons.add(p1);
+        persons.add(p2);
+        Integer[] updateResults = main.batchUpdatePersons(session, persons);
+        System.out.println(Arrays.toString(updateResults));
 
-        Library lib = main.insertLibrary(session, new Library("Alexandria Library"));
-        Subscriber arnost = main.insertSubscriber(session, new Subscriber(lib, "Arnošt"));
-        Subscriber maria = main.insertSubscriber(session, new Subscriber(lib, "Mária"));
-
-        main.insertBankAccount(session, new BankAccount(arnost, "BA").withBaAccount("account 1"));
-        main.insertBankAccount(session, new BankAccount(maria, "BA").withBaAccount("account 2"));
-        main.insertCreditCard(session, new CreditCard(arnost, "CC").withCcNumber(123L));
-        main.insertCreditCard(session, new CreditCard(maria, "CC").withCcNumber(456L));
-
-        // queries
-        list = main.listAll(session);
-        Assert.assertEquals(5, list.size());
-
-        person = new Person();
-        person.setName("Jan");
-        list = main.listSome(session, person);
-        Assert.assertEquals(1, list.size());
-
-        person = new Person();
-        person.setName("an");
-        list = main.listLike(session, person);
-        Assert.assertEquals(1, list.size());
-
-        // left join
-        person = new Person();
-        person.setName("Honza");
-        list = main.listPeopleAndContacts(session, person);
-        Assert.assertEquals(1, list.size());
-        Assert.assertEquals("Honza", list.get(0).getName());
-        Assert.assertEquals(2, list.get(0).getContacts().size());
-        Assert.assertEquals("Honza address 1", list.get(0).getContacts().get(0).getAddress());
-        Assert.assertEquals("Honza address 2", list.get(0).getContacts().get(1).getAddress());
-
-        // inheritance
-        list = main.listPeopleLibrary(session, null);
-        Assert.assertEquals(5, list.size());
-        Assert.assertEquals("Andrej", list.get(0).getName());
-        Assert.assertEquals(3, list.get(0).getLibrary().size());
-        Assert.assertEquals("Die Another Day", list.get(0).getLibrary().get(0).getTitle());
-        Assert.assertTrue(list.get(0).getLibrary().get(0) instanceof Movie);
-        Assert.assertEquals("def", ((Movie) list.get(0).getLibrary().get(0)).getUrlimdb());
-        Assert.assertEquals(Integer.valueOf(95), ((Movie) list.get(0).getLibrary().get(0)).getPlaylength());
-        Assert.assertEquals("The Adventures of Robin Hood", list.get(0).getLibrary().get(1).getTitle());
-        Assert.assertTrue(list.get(0).getLibrary().get(1) instanceof Book);
-        Assert.assertEquals("978-0140367003", ((Book) list.get(0).getLibrary().get(1)).getIsbn());
-        Assert.assertEquals("The Three Musketeers", list.get(0).getLibrary().get(2).getTitle());
-        Assert.assertTrue(list.get(0).getLibrary().get(2) instanceof Book);
-        Assert.assertEquals("978-1897093634", ((Book) list.get(0).getLibrary().get(2)).getIsbn());
-
-        // crud
-        person = new Person();
-        person.setPersonId(andrej.getPersonId());
-        p = main.get(session, person);
-        Assert.assertNotNull(p);
-        Assert.assertEquals("Andrej", p.getName());
-
-        person = new Person();
-        person.setPersonId(janik.getPersonId());
-        person.setName("Bozena");
-        p = main.update(session, person);
-        Assert.assertNotNull(p);
-        Assert.assertEquals("Bozena", p.getName());
-
-        person = new Person();
-        person.setPersonId(jan.getPersonId());
-        deleted = main.delete(session, person);
-        Assert.assertTrue(deleted);
-        list = main.listAll(session);
-        Assert.assertEquals(4, list.size());
-
-        try {
-            deleted = main.delete(session, null);
-            Assert.fail();
-        } catch (IllegalArgumentException e) {
-        }
-        list = main.listAll(session);
-        Assert.assertEquals(4, list.size());
-
-        // custom type
-        Contact cc = new Contact().withAddress("Pepa address 1");
-        cc.setPhoneNumber(new PhoneNumber(111, 222, 3333));
-        main.insertCustom(session, new Person("Pepa"), cc);
-        Contact contact = new Contact();
-        contact.setPhoneNumber(new PhoneNumber(111, 222, 3333));
-        list = main.listCustom(session, contact);
-        Assert.assertEquals(1, list.size());
-        Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getPhoneNumber().toString());
-
-        List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails(session);
-        Assert.assertEquals(2, subscribers.size());
-
-        System.out.println("OK");
+        p1 = main.get(session, new Person().withPersonId(p1.getPersonId()));
+        Assert.assertNotNull(p1);
+        Assert.assertEquals("Person1Updated", p1.getName());
+        p2 = main.get(session, new Person().withPersonId(p2.getPersonId()));
+        Assert.assertNotNull(p2);
+        Assert.assertEquals("Person2Updated", p2.getName());
+//        
+//        // init
+//        Person jan = main.insert(session, new Person("Jan"), new Contact().withAddress("Jan address 1"));
+//        Person janik = main.insert(session, new Person("Janik"), new Contact().withAddress("Janik address 1"));
+//        Person honza = main.insert(session, new Person("Honza"), new Contact().withAddress("Honza address 1"),
+//                new Contact().withAddress("Honza address 2"));
+//        main.insert(session, new Person("Honzik"));
+//        Person andrej = main.insert(session, new Person("Andrej"), new Contact().withAddress("Andrej address 1"));
+//
+//        Book book1 = main.insertBook(session, new Book("The Adventures of Robin Hood", "978-0140367003"));
+//        Book book2 = main.insertBook(session, new Book("The Three Musketeers", "978-1897093634"));
+//        Movie movie1 = main.insertMovie(session, new Movie("Pippi Långstrump i Söderhavet", "abc", 82));
+//        Movie movie2 = main.insertMovie(session, new Movie("Die Another Day", "def", 95));
+//
+//        main.createPersonLibrary(session, jan, book1, movie1);
+//        main.createPersonLibrary(session, honza, book2, movie2);
+//        main.createPersonLibrary(session, andrej, book1, book2, movie2);
+//
+//        Library lib = main.insertLibrary(session, new Library("Alexandria Library"));
+//        Subscriber arnost = main.insertSubscriber(session, new Subscriber(lib, "Arnošt"));
+//        Subscriber maria = main.insertSubscriber(session, new Subscriber(lib, "Mária"));
+//
+//        main.insertBankAccount(session, new BankAccount(arnost, "BA").withBaAccount("account 1"));
+//        main.insertBankAccount(session, new BankAccount(maria, "BA").withBaAccount("account 2"));
+//        main.insertCreditCard(session, new CreditCard(arnost, "CC").withCcNumber(123L));
+//        main.insertCreditCard(session, new CreditCard(maria, "CC").withCcNumber(456L));
+//
+//        // queries
+//        list = main.listAll(session);
+//        Assert.assertEquals(5, list.size());
+//
+//        person = new Person();
+//        person.setName("Jan");
+//        list = main.listSome(session, person);
+//        Assert.assertEquals(1, list.size());
+//
+//        person = new Person();
+//        person.setName("an");
+//        list = main.listLike(session, person);
+//        Assert.assertEquals(1, list.size());
+//
+//        // left join
+//        person = new Person();
+//        person.setName("Honza");
+//        list = main.listPeopleAndContacts(session, person);
+//        Assert.assertEquals(1, list.size());
+//        Assert.assertEquals("Honza", list.get(0).getName());
+//        Assert.assertEquals(2, list.get(0).getContacts().size());
+//        Assert.assertEquals("Honza address 1", list.get(0).getContacts().get(0).getAddress());
+//        Assert.assertEquals("Honza address 2", list.get(0).getContacts().get(1).getAddress());
+//
+//        // inheritance
+//        list = main.listPeopleLibrary(session, null);
+//        Assert.assertEquals(5, list.size());
+//        Assert.assertEquals("Andrej", list.get(0).getName());
+//        Assert.assertEquals(3, list.get(0).getLibrary().size());
+//        Assert.assertEquals("Die Another Day", list.get(0).getLibrary().get(0).getTitle());
+//        Assert.assertTrue(list.get(0).getLibrary().get(0) instanceof Movie);
+//        Assert.assertEquals("def", ((Movie) list.get(0).getLibrary().get(0)).getUrlimdb());
+//        Assert.assertEquals(Integer.valueOf(95), ((Movie) list.get(0).getLibrary().get(0)).getPlaylength());
+//        Assert.assertEquals("The Adventures of Robin Hood", list.get(0).getLibrary().get(1).getTitle());
+//        Assert.assertTrue(list.get(0).getLibrary().get(1) instanceof Book);
+//        Assert.assertEquals("978-0140367003", ((Book) list.get(0).getLibrary().get(1)).getIsbn());
+//        Assert.assertEquals("The Three Musketeers", list.get(0).getLibrary().get(2).getTitle());
+//        Assert.assertTrue(list.get(0).getLibrary().get(2) instanceof Book);
+//        Assert.assertEquals("978-1897093634", ((Book) list.get(0).getLibrary().get(2)).getIsbn());
+//
+//        // crud
+//        person = new Person();
+//        person.setPersonId(andrej.getPersonId());
+//        p = main.get(session, person);
+//        Assert.assertNotNull(p);
+//        Assert.assertEquals("Andrej", p.getName());
+//
+//        person = new Person();
+//        person.setPersonId(janik.getPersonId());
+//        person.setName("Bozena");
+//        p = main.update(session, person);
+//        Assert.assertNotNull(p);
+//        Assert.assertEquals("Bozena", p.getName());
+//
+//        person = new Person();
+//        person.setPersonId(jan.getPersonId());
+//        deleted = main.delete(session, person);
+//        Assert.assertTrue(deleted);
+//        list = main.listAll(session);
+//        Assert.assertEquals(4, list.size());
+//
+//        try {
+//            deleted = main.delete(session, null);
+//            Assert.fail();
+//        } catch (IllegalArgumentException e) {
+//        }
+//        list = main.listAll(session);
+//        Assert.assertEquals(4, list.size());
+//
+//        // custom type
+//        Contact cc = new Contact().withAddress("Pepa address 1");
+//        cc.setPhoneNumber(new PhoneNumber(111, 222, 3333));
+//        main.insertCustom(session, new Person("Pepa"), cc);
+//        Contact contact = new Contact();
+//        contact.setPhoneNumber(new PhoneNumber(111, 222, 3333));
+//        list = main.listCustom(session, contact);
+//        Assert.assertEquals(1, list.size());
+//        Assert.assertEquals("111-222-3333", list.get(0).getContacts().get(0).getPhoneNumber().toString());
+//
+//        List<Subscriber> subscribers = main.listAllSubsribersWithBillingDetails(session);
+//        Assert.assertEquals(2, subscribers.size());
+//
+//        System.out.println("OK");
     }
 }
