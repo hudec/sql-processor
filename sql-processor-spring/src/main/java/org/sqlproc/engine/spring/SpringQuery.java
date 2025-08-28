@@ -192,11 +192,17 @@ public class SpringQuery implements SqlQuery {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<String, Object> getParameterValues() {
         return parameterValues;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addBatchParameterValues(Map<String, Object> parameterValues) {
         batchParameterValues.add(parameterValues);
@@ -406,6 +412,9 @@ public class SpringQuery implements SqlQuery {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int[] batch(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException {
         if (logger.isDebugEnabled()) {

@@ -43,8 +43,18 @@ public interface SqlQuery {
      */
     SqlQuery setOrdered(boolean ordered);
 
+    /**
+     * Returns the map of all currently bound parameter values.
+     * 
+     * @return the map of all currently bound parameter values
+     */
     Map<String, Object> getParameterValues();
 
+    /**
+     * Binds multiple values to named query parameters. This is useful for batch processing.
+     * 
+     * @param parameterValues the map of parameter names and their values
+     */
     void addBatchParameterValues(Map<String, Object> parameterValues);
 
     /**
@@ -85,6 +95,14 @@ public interface SqlQuery {
      */
     int update(SqlRuntimeContext runtime) throws SqlProcessorException;
 
+    /**
+     * Submits a batch of commands to the database for execution and if all commands execute successfully, returns an
+     * array of update counts.
+     * 
+     * @param runtimeCtx the public runtime context
+     * @return an array of update counts containing one element for each command in the batch
+     * @throws SqlProcessorException in the case of any problem in ORM or JDBC stack
+     */
     int[] batch(final SqlRuntimeContext runtimeCtx) throws SqlProcessorException;
 
     /**
