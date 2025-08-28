@@ -1,0 +1,1 @@
+mvn -Prelease-sign-artifacts clean deploy
