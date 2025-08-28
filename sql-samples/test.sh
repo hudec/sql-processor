@@ -4,12 +4,7 @@ mvn clean install
 if [ $? -ne 0 ]; then
 	exit 1
 fi
-cd simple-hibernate/
-mvn exec:java
-if [ $? -ne 0 ]; then
-	exit 1
-fi
-cd ../simple-jdbc/
+cd simple-jdbc/
 mvn exec:java
 if [ $? -ne 0 ]; then
 	exit 1
