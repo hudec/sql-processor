@@ -102,7 +102,7 @@ public class TestBatch extends TestDatabase {
         Person p = new Person();
         p.setId(3L);
         p.setSsn(new Ssn());
-        p.getSsn().setNumber("");
+        p.getSsn().setNumber("111");
         p.getSsn().setCountry(Country.UNITED_STATES);
         p.setName(new PersonName());
         p.getName().setFirst("");
@@ -114,16 +114,38 @@ public class TestBatch extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
+        Person pp = new Person();
+        pp.setId(4L);
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("222");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("");
+        pp.getName().setLast("Stephens2");
+        pp.setAge(1969, 4, 21);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedDate(new Date());
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.MIDDLE);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
+
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        logger.info("new id p: " + p.getId());
+        logger.info("new id pp: " + pp.getId());
         assertNotNull(p.getId());
+        assertNotNull(pp.getId());
 
+        // Verify first person
         Person p2 = new Person();
         p2.setId(p.getId());
         list = sqlEngine.query(session, Person.class, p2);
@@ -131,6 +153,15 @@ public class TestBatch extends TestDatabase {
         Person p3 = list.get(0);
         assertEquals("", p3.getName().getFirst());
         assertEquals("Stephens", p3.getName().getLast());
+
+        // Verify second person
+        p2 = new Person();
+        p2.setId(pp.getId());
+        list = sqlEngine.query(session, Person.class, p2);
+        assertEquals(1, list.size());
+        p3 = list.get(0);
+        assertEquals("", p3.getName().getFirst());
+        assertEquals("Stephens2", p3.getName().getLast());
     }
 
     @Test
@@ -395,12 +426,13 @@ public class TestBatch extends TestDatabase {
 
     @Test
     public void testUpdate3() {
-        Engagement e = new Engagement();
-        e.setId(1L);
-        e.setRole("Writes");
+        Engagement e1 = new Engagement();
+        e1.setId(1L);
+        e1.setRole("Writes");
         SqlCrudEngine crudEngine = getCrudEngine("UPDATE_ENGAGEMENT_3");
 
-        String sql = crudEngine.getUpdateSql(e, null);
+        // Assert SQL for e1 without PERSON
+        String sql = crudEngine.getUpdateSql(e1, null);
         logger.info(sql);
         assertContains(sql, "update ENGAGEMENT");
         assertContains(sql, "SET");
@@ -408,8 +440,9 @@ public class TestBatch extends TestDatabase {
         assertDoNotContain(sql, "UUID = ");
         assertDoNotContain(sql, "PERSON = ");
 
-        e.setPerson(new Person());
-        sql = crudEngine.getUpdateSql(e, null);
+        // Add empty PERSON to e1 (still should not include PERSON in SQL)
+        e1.setPerson(new Person());
+        sql = crudEngine.getUpdateSql(e1, null);
         logger.info(sql);
         assertContains(sql, "update ENGAGEMENT");
         assertContains(sql, "SET");
@@ -417,11 +450,13 @@ public class TestBatch extends TestDatabase {
         assertDoNotContain(sql, "UUID = ");
         assertDoNotContain(sql, "PERSON = ");
 
-        int count = crudEngine.update(session, e);
-        assertEquals(1, count);
-
-        e.getPerson().setId(01L);
-        sql = crudEngine.getUpdateSql(e, null);
+        // Create e2 with PERSON id set (PERSON should be in SQL)
+        Engagement e2 = new Engagement();
+        e2.setId(1L);
+        e2.setRole("Writes");
+        e2.setPerson(new Person());
+        e2.getPerson().setId(1L);
+        sql = crudEngine.getUpdateSql(e2, null);
         logger.info(sql);
         assertContains(sql, "update ENGAGEMENT");
         assertContains(sql, "SET");
@@ -429,8 +464,10 @@ public class TestBatch extends TestDatabase {
         assertDoNotContain(sql, "UUID = ");
         assertContains(sql, "PERSON = :person", "PERSON = ?");
 
-        count = crudEngine.update(session, e);
-        assertEquals(1, count);
+        Integer[] count = crudEngine.batchUpdate(session, java.util.Arrays.asList(e1, e2));
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
     }
 
     @Test
@@ -445,9 +482,17 @@ public class TestBatch extends TestDatabase {
         assertEquals("Halle", list.get(0).getName().getFirst());
         assertNotSame(null, list.get(0).getCreatedDate());
 
+        // First update target
         p.setName(new PersonName());
         p.getName().setFirst("Toby");
         p.setCreatedDate(null);
+
+        // Second update target
+        Person pp = new Person();
+        pp.setId(1L);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.setCreatedDate(null);
 
         SqlCrudEngine crudEngine = getCrudEngine("UPDATE_PERSON_2");
 
@@ -460,15 +505,21 @@ public class TestBatch extends TestDatabase {
         assertContains(sql, "WHERE");
         assertContains(sql, "ID = :id", "ID = ?");
 
-        int count = crudEngine.update(session, p);
-        assertEquals(1, count);
+        Integer[] count = crudEngine.batchUpdate(session, java.util.Arrays.asList(p, pp));
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
 
+        // Verify first
         list = sqlEngine.query(session, Person.class, p);
         assertEquals(1, list.size());
         assertEquals("Toby", list.get(0).getName().getFirst());
-//        if ("MYSQL".equalsIgnoreCase(dbType))
-//            assertNotNull(list.get(0).getCreatedDate());
-//        else
+        assertEquals(null, list.get(0).getCreatedDate());
+
+        // Verify second
+        list = sqlEngine.query(session, Person.class, pp);
+        assertEquals(1, list.size());
+        assertEquals("Michael", list.get(0).getName().getFirst());
         assertEquals(null, list.get(0).getCreatedDate());
     }
 
@@ -495,8 +546,10 @@ public class TestBatch extends TestDatabase {
 
         SqlStandardControl sqc = new SqlStandardControl();
         sqc.setSkipEmptyStatement(true);
-        int count = crudEngine.update(session, p, sqc);
-        assertEquals(0, count);
+
+        Integer[] count = crudEngine.batchUpdate(session, java.util.Arrays.asList(p), sqc);
+        assertEquals(1, count.length);
+        assertEquals(0, count[0].intValue());
     }
 
     @Test
@@ -511,9 +564,17 @@ public class TestBatch extends TestDatabase {
         assertEquals("Halle", list.get(0).getName().getFirst());
         assertNotSame(null, list.get(0).getCreatedDate());
 
+        // First update target
         p.setName(new PersonName());
         p.getName().setFirst("Toby");
         p.setCreatedDate(null);
+
+        // Second update target
+        Person pp = new Person();
+        pp.setId(1L);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.setCreatedDate(null);
 
         SqlCrudEngine crudEngine = getCrudEngine("UPDATE_PERSON");
 
@@ -526,15 +587,21 @@ public class TestBatch extends TestDatabase {
         assertContains(sql, "WHERE");
         assertContains(sql, "ID = :id", "ID = ?");
 
-        int count = crudEngine.update(session, p);
-        assertEquals(1, count);
+        Integer[] count = crudEngine.batchUpdate(session, java.util.Arrays.asList(p, pp));
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
 
+        // Verify first
         list = sqlEngine.query(session, Person.class, p);
         assertEquals(1, list.size());
         assertEquals("Toby", list.get(0).getName().getFirst());
-//        if ("MYSQL".equalsIgnoreCase(dbType))
-//            assertNotNull(list.get(0).getCreatedDate());
-//        else
+        assertEquals(null, list.get(0).getCreatedDate());
+
+        // Verify second
+        list = sqlEngine.query(session, Person.class, pp);
+        assertEquals(1, list.size());
+        assertEquals("Michael", list.get(0).getName().getFirst());
         assertEquals(null, list.get(0).getCreatedDate());
     }
 
