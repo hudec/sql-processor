@@ -615,7 +615,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -624,10 +623,24 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_7");
 
@@ -638,13 +651,15 @@ public class TestBatch extends TestDatabase {
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
-        assertNotNull(p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        assertNull(p.getId());
+        assertNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -658,7 +673,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -667,10 +681,24 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_6");
 
@@ -681,13 +709,15 @@ public class TestBatch extends TestDatabase {
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
-        assertNotNull(p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        assertNull(p.getId());
+        assertNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -701,7 +731,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -710,10 +739,24 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_6A");
 
@@ -724,13 +767,15 @@ public class TestBatch extends TestDatabase {
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
-        assertNotNull(p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        assertNull(p.getId());
+        assertNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -744,7 +789,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -753,10 +797,24 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_5");
 
@@ -767,13 +825,15 @@ public class TestBatch extends TestDatabase {
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
-        assertNotNull(p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        assertNull(p.getId());
+        assertNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -787,7 +847,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -796,10 +855,24 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_5A");
 
@@ -810,13 +883,15 @@ public class TestBatch extends TestDatabase {
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
-        assertNotNull(p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        assertNull(p.getId());
+        assertNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -830,7 +905,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -839,10 +913,24 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_4");
 
@@ -853,13 +941,15 @@ public class TestBatch extends TestDatabase {
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
-        assertNotNull(p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        assertNull(p.getId());
+        assertNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -873,7 +963,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -882,10 +971,24 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_3");
 
@@ -896,13 +999,15 @@ public class TestBatch extends TestDatabase {
                 ":ssn_number, :ssn_country, :name_first, :name_last, :birthDate, :sex, :createdDate, :createdBy, :version, :clothesSize)",
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
-        assertNotNull(p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
+        assertNull(p.getId());
+        assertNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -916,7 +1021,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -925,21 +1029,37 @@ public class TestBatch extends TestDatabase {
         p.getName().setLast("Stephens");
         p.setAge(1969, 4, 21);
         p.setSex(Gender.MALE);
-        // p.setCreatedDate(new Date());
         p.setCreatedBy("wlado");
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
+
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
 
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_2");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -964,18 +1084,37 @@ public class TestBatch extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
+        Person pp = new Person();
+        pp.setId(4L);
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedDate(new Date());
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
+
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
         assertNotNull(p.getId());
+        assertNotNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -1000,18 +1139,37 @@ public class TestBatch extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
+        Person pp = new Person();
+        pp.setId(4L);
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedDate(new Date());
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
+
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_OPT");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
-        logger.info("new id: " + p.getId());
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
         assertNotNull(p.getId());
+        assertNotNull(pp.getId());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -1025,7 +1183,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -1039,16 +1196,34 @@ public class TestBatch extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedDate(new Date());
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
+
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_101");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -1062,7 +1237,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -1076,16 +1250,34 @@ public class TestBatch extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedDate(new Date());
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
+
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_102");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 
     @Test
@@ -1099,7 +1291,6 @@ public class TestBatch extends TestDatabase {
         assertEquals(2, list.size());
 
         Person p = new Person();
-        // p.setId(3L);
         p.setSsn(new Ssn());
         p.getSsn().setNumber("345678");
         p.getSsn().setCountry(Country.UNITED_STATES);
@@ -1113,15 +1304,33 @@ public class TestBatch extends TestDatabase {
         p.setVersion(1L);
         p.setClothesSize(Size.MIDDLE);
 
+        Person pp = new Person();
+        pp.setSsn(new Ssn());
+        pp.getSsn().setNumber("987654");
+        pp.getSsn().setCountry(Country.UNITED_STATES);
+        pp.setName(new PersonName());
+        pp.getName().setFirst("Michael");
+        pp.getName().setLast("Johnson");
+        pp.setAge(1975, 8, 15);
+        pp.setSex(Gender.MALE);
+        pp.setCreatedDate(new Date());
+        pp.setCreatedBy("wlado");
+        pp.setVersion(1L);
+        pp.setClothesSize(Size.BIG);
+
+        List<Person> ps = java.util.Arrays.asList(p, pp);
+
         SqlCrudEngine crudEngine = getCrudEngine("INSERT_PERSON_103");
 
         String sql = crudEngine.getInsertSql(p, null);
         logger.info(sql);
 
-        int count = crudEngine.insert(session, p);
-        assertEquals(1, count);
+        Integer[] count = crudEngine.batchInsert(session, ps);
+        assertEquals(2, count.length);
+        assertEquals(1, count[0].intValue());
+        assertEquals(1, count[1].intValue());
 
         list = sqlEngine.query(session, Person.class);
-        assertEquals(3, list.size());
+        assertEquals(4, list.size());
     }
 }
