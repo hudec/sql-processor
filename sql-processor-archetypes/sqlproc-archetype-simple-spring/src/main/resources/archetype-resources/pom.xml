@@ -17,7 +17,7 @@
         <version.hibernate-validator>8.0.2.Final</version.hibernate-validator>
         <version.spring>6.2.7</version.spring>
         <version.commons-dbcp>2.13.0</version.commons-dbcp>
-        <version.javax-el>3.0.1-b11</version.javax-el>
+        <version.glassfish-el>4.0.2</version.glassfish-el>
     </properties>
 
     <build>
@@ -58,7 +58,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.2.5</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <forkMode>once</forkMode>
@@ -161,8 +161,8 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>${version.javax-el}</version>
+            <artifactId>jakarta.el</artifactId>
+            <version>${version.glassfish-el}</version>
         </dependency>
     </dependencies>
 

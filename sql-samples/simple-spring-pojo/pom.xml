@@ -21,7 +21,6 @@
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
-        <version.dbunit>2.7.3</version.dbunit>
         <version.hsqldb>2.7.4</version.hsqldb>
     </properties>
 
@@ -31,7 +30,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -64,7 +63,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.2.5</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <forkMode>once</forkMode>
@@ -74,7 +73,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <goals>

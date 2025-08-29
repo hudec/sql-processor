@@ -15,7 +15,7 @@
         <version.hsqldb>2.7.4</version.hsqldb>
         <version.jakarta-validation>3.1.1</version.jakarta-validation>
         <version.hibernate-validator>8.0.2.Final</version.hibernate-validator>
-        <version.javax-el>3.0.1-b11</version.javax-el>
+        <version.glassfish-el>4.0.2</version.glassfish-el>
     </properties>
 
     <build>
@@ -41,7 +41,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <release>21</release>
                     <encoding>UTF-8</encoding>
@@ -49,14 +49,14 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.2.5</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <forkMode>once</forkMode>
@@ -138,8 +138,8 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>${version.javax-el}</version>
+            <artifactId>jakarta.el</artifactId>
+            <version>${version.glassfish-el}</version>
         </dependency>
     </dependencies>
 
