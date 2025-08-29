@@ -706,6 +706,13 @@ public class SqlCrudEngine extends SqlEngine {
             logger.debug(">> batch, session=" + session + ", dynamicInputValues=" + dynamicInputValues + ", sqlControl="
                     + sqlControl);
         }
+        if (dynamicInputValues == null || dynamicInputValues.isEmpty()) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("<< batch, result=int[0]");
+            }
+            return new Integer[0];
+        }
+
         checkDynamicInputValues(dynamicInputValues);
         if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
             sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
@@ -797,6 +804,13 @@ public class SqlCrudEngine extends SqlEngine {
             logger.debug(">> batch, session=" + session + ", dynamicInputValues=" + dynamicInputValues + ", sqlControl="
                     + sqlControl);
         }
+        if (dynamicInputValues == null || dynamicInputValues.isEmpty()) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("<< batch, result=int[0]");
+            }
+            return new Integer[0];
+        }
+
         checkDynamicInputValues(dynamicInputValues);
         if (sqlControl != null && sqlControl.getSqlExecutionCallback() != null)
             sqlControl.getSqlExecutionCallback().handleInputValues(dynamicInputValues);
