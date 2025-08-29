@@ -548,8 +548,7 @@ public class TestBatch extends TestDatabase {
         sqc.setSkipEmptyStatement(true);
 
         Integer[] count = crudEngine.batchUpdate(session, java.util.Arrays.asList(p), sqc);
-        assertEquals(1, count.length);
-        assertEquals(0, count[0].intValue());
+        assertEquals(0, count.length);
     }
 
     @Test

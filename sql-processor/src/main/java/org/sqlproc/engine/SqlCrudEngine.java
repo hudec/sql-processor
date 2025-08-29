@@ -733,6 +733,10 @@ public class SqlCrudEngine extends SqlEngine {
                         processResults.add(processResult);
                     }
 
+                    if (queries.isEmpty()) {
+                        return new Integer[0];
+                    }
+
                     if (monitor instanceof SqlExtendedMonitor) {
                         SqlExtendedMonitor monitorExt = (SqlExtendedMonitor) monitor;
                         return monitorExt.runSql(new SqlMonitor.Runner() {
@@ -817,6 +821,10 @@ public class SqlCrudEngine extends SqlEngine {
                             continue;
                         queries.add(query);
                         processResults.add(processResult);
+                    }
+
+                    if (queries.isEmpty()) {
+                        return new Integer[0];
                     }
 
                     if (monitor instanceof SqlExtendedMonitor) {
