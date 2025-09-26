@@ -1,7 +1,7 @@
 package org.sqlproc.engine.impl;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.form.PersonForm;
 import org.sqlproc.engine.plugin.CustomizedSqlPlugins;
@@ -14,7 +14,7 @@ public class TestSqlPlugins extends TestDatabase {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testIsEmptyPlugin() {
         final SimpleSqlPluginFactory sqlPluginFactory = (SimpleSqlPluginFactory) SimpleSqlPluginFactory.getInstance();
         sqlPluginFactory.setIsEmptyPlugin(new CustomizedSqlPlugins());

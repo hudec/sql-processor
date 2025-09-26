@@ -2,9 +2,9 @@ package org.sqlproc.engine.impl;
 
 import java.util.List;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.SqlProcessorLoader;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.form.PersonForm;
@@ -28,18 +28,18 @@ public class TestDynamicEngine extends TestDatabase {
         SqlQueryEngine sqlDefaultEngine = getDefaultQueryEngine("ANSI_BASIC_2", loader);
 
         SqlQueryEngine sqlStaticEngine = getStaticQueryEngine("ANSI_BASIC_2", loader);
-        Assert.assertSame(sqlDefaultEngine, sqlStaticEngine);
+        Assertions.assertSame(sqlDefaultEngine, sqlStaticEngine);
 
         SqlQueryEngine sqlDynamicEngine = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, loader);
-        Assert.assertNotSame(sqlDefaultEngine, sqlDynamicEngine);
-        Assert.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", loader), sqlDynamicEngine);
+        Assertions.assertNotSame(sqlDefaultEngine, sqlDynamicEngine);
+        Assertions.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", loader), sqlDynamicEngine);
 
         SqlQueryEngine sqlStaticEngine2 = getStaticQueryEngine("ANSI_BASIC_2", loader);
-        Assert.assertSame(sqlStaticEngine, sqlStaticEngine2);
-        Assert.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", loader), sqlStaticEngine2);
+        Assertions.assertSame(sqlStaticEngine, sqlStaticEngine2);
+        Assertions.assertSame(getDefaultQueryEngine("ANSI_BASIC_2", loader), sqlStaticEngine2);
 
         SqlQueryEngine sqlDynamicEngine2 = getDynamicQueryEngine("ANSI_BASIC_2", ANSI_BASIC_2_DYN, loader);
-        Assert.assertNotSame(sqlDynamicEngine, sqlDynamicEngine2);
+        Assertions.assertNotSame(sqlDynamicEngine, sqlDynamicEngine2);
     }
 
     @Test

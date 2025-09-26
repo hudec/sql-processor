@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.form.NameCollectionsForm;
 import org.sqlproc.engine.form.PersonCollectionsForm;

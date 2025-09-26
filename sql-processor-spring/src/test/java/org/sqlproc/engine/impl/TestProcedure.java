@@ -3,7 +3,7 @@ package org.sqlproc.engine.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.SqlProcedureEngine;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.form.FormSimpleFunction;

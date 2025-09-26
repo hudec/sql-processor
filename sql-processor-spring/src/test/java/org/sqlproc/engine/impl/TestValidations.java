@@ -6,7 +6,7 @@ import java.util.Set;
 
 import jakarta.validation.ConstraintViolation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.SqlCrudEngine;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.model.Country;

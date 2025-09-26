@@ -3,7 +3,7 @@ package org.sqlproc.engine.impl;
 import java.util.HashSet;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.form.PersonForm;
 import org.sqlproc.engine.form.SsnForm;

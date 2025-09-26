@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.SqlQueryEngine;
 import org.sqlproc.engine.model.BankAccount;
 import org.sqlproc.engine.model.BillingDetails;

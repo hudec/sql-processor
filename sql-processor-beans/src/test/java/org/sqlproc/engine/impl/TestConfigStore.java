@@ -1,16 +1,17 @@
 package org.sqlproc.engine.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import jakarta.xml.bind.JAXBException;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sqlproc.engine.config.SqlEngineConfiguration;
 
-public class TestConfigStore extends TestCase {
+public class TestConfigStore {
 
     @Test
     public void testStore() throws IOException, JAXBException {

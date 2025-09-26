@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
-@Ignore("Not test class.")
+@Disabled("Not test class.")
 public class TestUtils {
 
     public static Locale LOCALE_CS = Locale.forLanguageTag("cs");

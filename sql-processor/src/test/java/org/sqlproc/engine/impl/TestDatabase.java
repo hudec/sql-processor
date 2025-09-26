@@ -1,5 +1,8 @@
 package org.sqlproc.engine.impl;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +22,9 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mssql.InsertIdentityOperation;
 import org.dbunit.operation.CompositeOperation;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.Ignore;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
@@ -38,7 +43,7 @@ import org.sqlproc.engine.util.PropertiesLoader;
 import org.sqlproc.engine.validation.SampleValidator;
 import org.sqlproc.engine.validation.SqlValidatorFactory;
 
-@Ignore("Not test class.")
+@Disabled("Not test class.")
 public abstract class TestDatabase extends DatabaseTestCase {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -155,12 +160,16 @@ public abstract class TestDatabase extends DatabaseTestCase {
         // }
     }
 
+    @Override
+    @BeforeEach
     protected void setUp() throws Exception {
         super.setUp();
         ParserUtils.nullCounter();
         session = new JdbcSimpleSession(dataSource.getConnection());
     }
 
+    @Override
+    @AfterEach
     protected void tearDown() throws Exception {
         super.tearDown();
         session.getConnection().close();
