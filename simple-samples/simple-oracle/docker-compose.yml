@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  oracle:
+    image: gvenzl/oracle-free:23.5-slim
+    container_name: simple-oracle
+    restart: unless-stopped
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: simple
+      APP_USER_PASSWORD: simple
+    ports:
+      - "1521:1521"
+    volumes:
+      - simple-oracle-data:/opt/oracle/oradata
+      - ./src/main/resources/oracle.ddl:/container-entrypoint-initdb.d/001-schema.sql:ro
+
+volumes:
+  simple-oracle-data:
+    driver: local

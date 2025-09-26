@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: simple-postgresql
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: simple
+      POSTGRES_USER: simple
+      POSTGRES_PASSWORD: simple
+    ports:
+      - "5432:5432"
+    volumes:
+      - simple-postgres-data:/var/lib/postgresql/data
+      - ./src/main/resources/postgresql.ddl:/docker-entrypoint-initdb.d/001-schema.sql:ro
+
+volumes:
+  simple-postgres-data:
+    driver: local

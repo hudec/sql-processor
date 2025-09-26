@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: simple-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: simple
+      MARIADB_USER: simple
+      MARIADB_PASSWORD: simple
+    ports:
+      - "3306:3306"
+    volumes:
+      - simple-mariadb-data:/var/lib/mysql
+      - ./src/main/resources/mariadb.ddl:/docker-entrypoint-initdb.d/001-schema.sql:ro
+
+volumes:
+  simple-mariadb-data:
+    driver: local

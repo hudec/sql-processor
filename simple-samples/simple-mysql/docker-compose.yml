@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: simple-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: simple
+      MYSQL_USER: simple
+      MYSQL_PASSWORD: simple
+    ports:
+      - "3306:3306"
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    volumes:
+      - simple-mysql-data:/var/lib/mysql
+      - ./src/main/resources/mysql.ddl:/docker-entrypoint-initdb.d/001-schema.sql:ro
+
+volumes:
+  simple-mysql-data:
+    driver: local
