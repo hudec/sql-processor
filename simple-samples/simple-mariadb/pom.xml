@@ -76,6 +76,12 @@
                 </executions>
                 <configuration>
                     <mainClass>org.sample.Main</mainClass>
+                    <systemProperties>
+                        <systemProperty>
+                            <key>db.ddl</key>
+                            <value>mariadb.ddl</value>
+                        </systemProperty>
+                    </systemProperties>
                 </configuration>
             </plugin>
             <plugin>

@@ -43,7 +43,7 @@ public class Main {
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
     private static final SqlFeature DB_TYPE = SqlFeature.ORACLE;
-    private static final String DB_DDL = "oracle.ddl";
+    private static final String DB_DDL = System.getProperty("db.ddl", "oracle.ddl");
     private static final String[] DB_CLEAR = new String[] { "delete from contact", "delete from person" };
 
     private final Logger logger = LoggerFactory.getLogger(getClass());

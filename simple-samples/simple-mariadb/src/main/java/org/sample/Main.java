@@ -41,7 +41,7 @@ public class Main {
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
     private static final SqlFeature DB_TYPE = SqlFeature.MYSQL;
-    private static final String DB_DDL = "mysql.ddl";
+    private static final String DB_DDL = System.getProperty("db.ddl", "mariadb.ddl");
     private static final String[] DB_CLEAR = new String[] { "delete from CONTACT", "delete from PERSON" };
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -79,7 +79,8 @@ public class Main {
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch((DB_CLEAR != null) ? DB_CLEAR : ddls.toArray(new String[0]));
+        String[] statements = ddls.isEmpty() && DB_CLEAR != null ? DB_CLEAR : ddls.toArray(new String[0]);
+        sqlSession.executeBatch(statements);
     }
 
     private ContactDao contactDao;
