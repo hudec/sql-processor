@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -80,6 +82,22 @@ public class Main {
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
         sqlSession.executeBatch(ddls.toArray(new String[0]));
+
+        try (Statement stmt = connection.createStatement()) {
+            try (ResultSet rs = stmt.executeQuery(
+                    "select object_name, object_type from user_objects where status = 'INVALID'")) {
+                while (rs.next()) {
+                    logger.warn("Invalid DB object {} ({})", rs.getString(1), rs.getString(2));
+                }
+            }
+            try (ResultSet rs = stmt.executeQuery(
+                    "select name, type, line, position, text from user_errors order by name, sequence")) {
+                while (rs.next()) {
+                    logger.warn("Compile error {} {} at {}:{} - {}", rs.getString(1), rs.getString(2), rs.getInt(3),
+                            rs.getInt(4), rs.getString(5));
+                }
+            }
+        }
     }
 
     private ContactDao contactDao;
