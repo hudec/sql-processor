@@ -96,14 +96,14 @@
 [INFO] +- org.slf4j:slf4j-reload4j:jar:2.0.17:compile
 [INFO] |  +- org.slf4j:slf4j-api:jar:2.0.17:compile
 [INFO] |  \- ch.qos.reload4j:reload4j:jar:1.2.22:compile
-[INFO] +- org.springframework:spring-jdbc:jar:6.2.7:compile
-[INFO] |  +- org.springframework:spring-beans:jar:6.2.7:compile
-[INFO] |  +- org.springframework:spring-core:jar:6.2.7:compile
-[INFO] |  |  \- org.springframework:spring-jcl:jar:6.2.7:compile
-[INFO] |  \- org.springframework:spring-tx:jar:6.2.7:compile
-[INFO] +- org.springframework:spring-context:jar:6.2.7:compile
-[INFO] |  +- org.springframework:spring-aop:jar:6.2.7:compile
-[INFO] |  +- org.springframework:spring-expression:jar:6.2.7:compile
+[INFO] +- org.springframework:spring-jdbc:jar:6.2.11:compile
+[INFO] |  +- org.springframework:spring-beans:jar:6.2.11:compile
+[INFO] |  +- org.springframework:spring-core:jar:6.2.11:compile
+[INFO] |  |  \- org.springframework:spring-jcl:jar:6.2.11:compile
+[INFO] |  \- org.springframework:spring-tx:jar:6.2.11:compile
+[INFO] +- org.springframework:spring-context:jar:6.2.11:compile
+[INFO] |  +- org.springframework:spring-aop:jar:6.2.11:compile
+[INFO] |  +- org.springframework:spring-expression:jar:6.2.11:compile
 [INFO] |  \- io.micrometer:micrometer-observation:jar:1.14.7:compile
 [INFO] |     \- io.micrometer:micrometer-commons:jar:1.14.7:compile
 [INFO] +- org.javassist:javassist:jar:3.30.2-GA:test

@@ -23,7 +23,7 @@
 
     <properties>
         <version.antlr>3.5.2</version.antlr>
-        <version.spring>6.2.7</version.spring>
+        <version.spring>6.2.11</version.spring>
         <version.aspectjweaver>1.9.24</version.aspectjweaver>
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
