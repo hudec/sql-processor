@@ -13,7 +13,7 @@ services:
       - "1521:1521"
     volumes:
       - simple-oracle-data:/opt/oracle/oradata
-      - ./src/main/resources/oracle.ddl:/container-entrypoint-initdb.d/001-schema.sql:ro
+      - ./src/main/resources/oracle-init.sql:/container-entrypoint-initdb.d/001-schema.sql:ro
 
 volumes:
   simple-oracle-data:

@@ -37,7 +37,7 @@ import org.sqlproc.engine.util.DDLLoader;
 public class Main {
 
     private static final Driver JDBC_DRIVER = new oracle.jdbc.OracleDriver();
-    private static final String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+    private static final String DB_URL = "jdbc:oracle:thin:@//127.0.0.1:1521/FREEPDB1";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
     private static final SqlFeature DB_TYPE = SqlFeature.ORACLE;
@@ -79,7 +79,7 @@ public class Main {
 
     public void setupDb() throws SQLException {
         SqlSession sqlSession = sessionFactory.getSqlSession();
-        sqlSession.executeBatch((DB_CLEAR != null) ? DB_CLEAR : ddls.toArray(new String[0]));
+        sqlSession.executeBatch(ddls.toArray(new String[0]));
     }
 
     private ContactDao contactDao;
