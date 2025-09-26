@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'maven:3.6.3-jdk-11'
+      image 'maven:3.9.9-eclipse-temurin-25'
       args '-e TZ=Europe/Prague'
     }
   }
@@ -30,4 +30,3 @@ pipeline {
     }
   }
 }
-
