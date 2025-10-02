@@ -1,7 +1,7 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver org.postgresql.Driver;
-database-has-url "jdbc:postgresql://postgres.rob.i.cz:5433/simple";
+database-has-url "jdbc:postgresql://postgres.dev.cz:5433/simple";
 database-login-username simple;
 database-login-password simple;
 database-in-catalog simple;

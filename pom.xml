@@ -314,7 +314,7 @@
             <properties>
                 <db.dialect>org.hibernate.dialect.Oracle10gDialect</db.dialect>
                 <db.driver>oracle.jdbc.OracleDriver</db.driver>
-                <db.url>jdbc:oracle:thin:@oracle.i.cz:1521:ROB19C</db.url>
+                <db.url>jdbc:oracle:thin:@oracle.dev.cz:1521:ROB19C</db.url>
                 <db.username>sqlproc</db.username>
                 <db.password>sqlproc</db.password>
                 <CONFIGURATION_NAME>hibernate.cfg.xml</CONFIGURATION_NAME>

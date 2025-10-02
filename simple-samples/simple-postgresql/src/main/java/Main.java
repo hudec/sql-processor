@@ -10,9 +10,8 @@ import org.postgresql.Driver;
 public class Main {
 
 //    public static final Driver JDBC_DRIVER = new org.apache.ignite.IgniteJdbcThinDriver();
-//    public static final String DB_URL = "jdbc:ignite:thin://strnad.i.cz:30801";
     public static final Driver JDBC_DRIVER = new org.postgresql.Driver();
-    public static final String DB_URL = "jdbc:postgresql://postgres.rob.i.cz:5433/aisv_7";
+    public static final String DB_URL = "jdbc:postgresql://postgres.dev.cz:5433/aisv_7";
 
     static {
         try {
