@@ -58,7 +58,6 @@
                 <version>3.5.3</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
-                    <forkMode>once</forkMode>
                     <childDelegation>false</childDelegation>
                 </configuration>
             </plugin>
@@ -112,7 +111,7 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
+            <artifactId>slf4j-reload4j</artifactId>
             <version>${version.slf4j}</version>
         </dependency>
         <dependency>
