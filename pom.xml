@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sqlproc</groupId>
     <artifactId>sql-processor-parent</artifactId>
-    <version>3.8.0</version>
+    <version>3.9.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>SQL Processor, Parent Module</name>
     <description>SQL Processor, Parent Module</description>
@@ -23,13 +23,13 @@
 
     <properties>
         <version.antlr>3.5.2</version.antlr>
-        <version.spring>6.2.11</version.spring>
+        <version.spring>7.0.1</version.spring>
         <version.aspectjweaver>1.9.24</version.aspectjweaver>
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
         <version.javassist>3.30.2-GA</version.javassist>
-        <version.oracle>23.8.0.25.04</version.oracle>
+        <version.oracle>23.9.0-SNAPSHOT.25.04</version.oracle>
         <version.mysql>9.3.0</version.mysql>
         <version.mariadb>3.5.3</version.mariadb>
         <version.postgresql>42.7.5</version.postgresql>

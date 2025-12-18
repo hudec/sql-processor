@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sample</groupId>
     <artifactId>simple-mysql</artifactId>
-    <version>3.8.0</version>
+    <version>3.9.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>SQL Processor Sample, MySQL JDBC</name>
 
     <properties>
-        <version.sql-processor>3.8.0</version.sql-processor>
+        <version.sql-processor>3.9.0-SNAPSHOT</version.sql-processor>
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>

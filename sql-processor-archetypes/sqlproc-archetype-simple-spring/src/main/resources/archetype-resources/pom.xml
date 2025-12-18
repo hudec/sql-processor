@@ -8,14 +8,14 @@
     <name>SQL Processor Sample, Simple Spring</name>
 
     <properties>
-        <version.sql-processor>3.8.0</version.sql-processor>
+        <version.sql-processor>3.9.0-SNAPSHOT</version.sql-processor>
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
         <version.hsqldb>2.7.4</version.hsqldb>
         <version.jakarta-validation>3.1.1</version.jakarta-validation>
         <version.hibernate-validator>8.0.2.Final</version.hibernate-validator>
-        <version.spring>6.2.11</version.spring>
+        <version.spring>7.0.1</version.spring>
         <version.commons-dbcp>2.13.0</version.commons-dbcp>
         <version.glassfish-el>4.0.2</version.glassfish-el>
     </properties>

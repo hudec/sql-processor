@@ -30,7 +30,7 @@ import org.sqlproc.engine.util.DDLLoader;
 public class Main {
 
     private static final Driver JDBC_DRIVER = new org.postgresql.Driver();
-    private static final String DB_URL = "jdbc:postgresql://postgres.dev.cz:5433/simple";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/simple";
     private static final String DB_USER = "simple";
     private static final String DB_PASSWORD = "simple";
     private static final SqlFeature DB_TYPE = SqlFeature.POSTGRESQL;

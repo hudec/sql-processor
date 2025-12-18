@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.sample</groupId>
     <artifactId>simple-postgresql</artifactId>
-    <version>3.8.0</version>
+    <version>3.7.0</version>
     <packaging>jar</packaging>
     <name>SQL Processor Sample, PostgreSQL JDBC</name>
 
     <properties>
-        <version.sql-processor>3.8.0</version.sql-processor>
+        <version.sql-processor>3.7.0</version.sql-processor>
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
         <version.postgresql>42.7.7</version.postgresql>
-        <version.sql-processor-eclipse>3.2.0-SNAPSHOT</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>3.3.0</version.sql-processor-eclipse>
     </properties>
 
     <build>
@@ -42,7 +42,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.0</version>
                 <configuration>
-                    <release>25</release>
+                    <release>21</release>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
