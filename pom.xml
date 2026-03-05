@@ -25,7 +25,7 @@
         <version.antlr>3.5.3</version.antlr>
         <version.spring>7.0.5</version.spring>
         <version.aspectjweaver>1.9.24</version.aspectjweaver>
-        <version.log4j>2.24.3</version.log4j>
+        <version.log4j>2.25.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
         <version.javassist>3.30.2-GA</version.javassist>
