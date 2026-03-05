@@ -22,7 +22,7 @@
     </modules>
 
     <properties>
-        <version.antlr>3.5.2</version.antlr>
+        <version.antlr>3.5.3</version.antlr>
         <version.spring>7.0.1</version.spring>
         <version.aspectjweaver>1.9.24</version.aspectjweaver>
         <version.log4j>2.24.3</version.log4j>
@@ -80,7 +80,7 @@
 	        <plugin>
 	          <groupId>org.sonatype.central</groupId>
 	          <artifactId>central-publishing-maven-plugin</artifactId>
-	          <version>0.8.0</version>
+	          <version>0.10.0</version>
 	          <extensions>true</extensions>
 	          <configuration>
 	            <publishingServerId>central</publishingServerId>
@@ -88,7 +88,7 @@
 	        </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.4.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -100,7 +100,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.15.0</version>
                 <configuration>
                     <release>25</release>
                     <encoding>UTF-8</encoding>
@@ -108,27 +108,27 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.5.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>3.5.5</version>
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
-                    <forkMode>once</forkMode>
-                    <childDelegation>false</childDelegation>
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
+                <version>3.12.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <show>private</show>
-                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <additionalJOptions><additionalJOption>-Xdoclint:none</additionalJOption></additionalJOptions>
                 </configuration>
 				<executions>
         			<execution>
@@ -142,7 +142,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.18.0</version>
+                <version>2.21.0</version>
             </plugin>
         </plugins>
     </build>
@@ -635,7 +635,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.7</version>
+                        <version>3.2.8</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -656,7 +656,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.11.2</version>
+                        <version>3.12.0</version>
                         <configuration>
                             <excludePackageNames>org.sqlproc.engine.impl</excludePackageNames>
                             <outputDirectory>${basedir}</outputDirectory>
