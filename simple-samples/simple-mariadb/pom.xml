@@ -10,12 +10,12 @@
 
     <properties>
         <version.sql-processor>3.9.1-SNAPSHOT</version.sql-processor>
-        <version.antlr>3.6.0</version.antlr>
-        <version.log4j>2.23.1</version.log4j>
-        <version.slf4j>2.0.12</version.slf4j>
+        <version.antlr>3.5.3</version.antlr>
+        <version.log4j>2.24.3</version.log4j>
+        <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
-        <version.mariadb>3.3.3</version.mariadb>
-        <version.sql-processor-eclipse>3.2.0-SNAPSHOT</version.sql-processor-eclipse>
+        <version.mariadb>3.5.3</version.mariadb>
+        <version.sql-processor-eclipse>3.3.0-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
     <build>

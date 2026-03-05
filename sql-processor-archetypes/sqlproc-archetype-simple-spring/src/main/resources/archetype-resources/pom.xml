@@ -15,8 +15,8 @@
         <version.hsqldb>2.7.4</version.hsqldb>
         <version.jakarta-validation>3.1.1</version.jakarta-validation>
         <version.hibernate-validator>8.0.2.Final</version.hibernate-validator>
-        <version.spring>7.0.1</version.spring>
-        <version.commons-dbcp>2.13.0</version.commons-dbcp>
+        <version.spring>7.0.5</version.spring>
+        <version.commons-dbcp>2.14.0</version.commons-dbcp>
         <version.glassfish-el>4.0.2</version.glassfish-el>
     </properties>
 

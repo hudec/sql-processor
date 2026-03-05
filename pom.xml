@@ -23,26 +23,26 @@
 
     <properties>
         <version.antlr>3.5.3</version.antlr>
-        <version.spring>7.0.1</version.spring>
+        <version.spring>7.0.5</version.spring>
         <version.aspectjweaver>1.9.24</version.aspectjweaver>
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
         <version.javassist>3.30.2-GA</version.javassist>
-        <version.oracle>23.9.1-SNAPSHOT.25.04</version.oracle>
+        <version.oracle>23.9.0.25.04</version.oracle>
         <version.mysql>9.3.0</version.mysql>
         <version.mariadb>3.5.3</version.mariadb>
-        <version.postgresql>42.7.5</version.postgresql>
+        <version.postgresql>42.7.7</version.postgresql>
         <version.beanutils>1.11.0</version.beanutils>
         <version.dbunit>2.8.0</version.dbunit>
         <version.hsqldb>2.7.4</version.hsqldb>
-        <version.h2>2.3.232</version.h2>
-        <version.dbcp>2.13.0</version.dbcp>
+        <version.h2>2.4.240</version.h2>
+        <version.dbcp>2.14.0</version.dbcp>
 
         <version.jakarta-validation>3.1.1</version.jakarta-validation>
         <version.hibernate-validator>8.0.2.Final</version.hibernate-validator>
   		<version.jakarta-el>6.0.1</version.jakarta-el>
-  		<version.jaxb>4.0.5</version.jaxb>
+  		<version.jaxb>4.0.6</version.jaxb>
   		
         <db.dialect>org.hibernate.dialect.HSQLDialect</db.dialect>
         <db.driver>org.hsqldb.jdbcDriver</db.driver>

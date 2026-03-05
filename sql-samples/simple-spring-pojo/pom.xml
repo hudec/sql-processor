@@ -16,8 +16,8 @@
 
     <properties>
         <version.sql-processor>3.9.1-SNAPSHOT</version.sql-processor>
-        <version.spring>7.0.1</version.spring>
-        <version.commons-dbcp>2.13.0</version.commons-dbcp>
+        <version.spring>7.0.5</version.spring>
+        <version.commons-dbcp>2.14.0</version.commons-dbcp>
         <version.log4j>2.24.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
