@@ -159,6 +159,14 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static final SqlMetaType OTHER = new JdbcOtherType();
     /**
+     * Singleton instance of UUID type UUID.
+     */
+    static final SqlMetaType UUID = new JdbcUuidType();
+    /**
+     * Singleton instance of OffsetDateTime type OFFSETDATETIME.
+     */
+    static final SqlMetaType OFFSET_DATE_TIME = new JdbcOffsetDateTimeType();
+    /**
      * Singleton instance of auto-generated identity type ORACLE_CURSOR.
      */
     static final SqlMetaType ORACLE_CURSOR = new JdbcOracleCursorType();
@@ -185,8 +193,8 @@ public class JdbcTypeFactory implements SqlTypeFactory {
      */
     static final SqlMetaType[] TYPES = { BIG_DECIMAL, BIG_INTEGER, BOOLEAN, BYTE_ARRAY, BYTE_ARRAY_WRAPPER, BYTE, CHAR,
             DATE_TIME, DATE, DOUBLE, ENUM_INT, ENUM_STRING, FLOAT, FROM_DATE, INTEGER, LOCAL_DATE, LOCAL_DATE_TIME,
-            LOCAL_TIME, INSTANT, LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB, OTHER,
-            ORACLE_CURSOR };
+            LOCAL_TIME, INSTANT, LONG, SHORT, STRING, TIMESTAMP, TIME, TO_DATE, TEXT, BLOB, CLOB, OTHER, UUID,
+            OFFSET_DATE_TIME, ORACLE_CURSOR };
 
     /**
      * The immutable map between the Java class types and the internal types.
