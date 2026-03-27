@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -20,6 +22,7 @@ import org.junit.Assert;
 import org.sample.dao.AnHourBeforeDao;
 import org.sample.dao.ContactDao;
 import org.sample.dao.PersonDetailDao;
+import org.sample.dao.TypesExtDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.AnHourBeforeResult;
 import org.sample.model.Contact;
@@ -28,6 +31,7 @@ import org.sample.model.Person;
 import org.sample.model.PersonDetail;
 import org.sample.model.PersonDetailType;
 import org.sample.model.PersonGender;
+import org.sample.model.TypesExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlCrudEngine;
@@ -97,6 +101,7 @@ public class Main {
         personDao = new PersonDaoExt(sqlFactory, sessionFactory);
         personDetailDao = new PersonDetailDao(sqlFactory, sessionFactory);
         anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
+        typesExtDao = new TypesExtDao(sqlFactory, sessionFactory);
         // newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
         // newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
     }
@@ -113,6 +118,7 @@ public class Main {
     private PersonDaoExt personDao;
     private PersonDetailDao personDetailDao;
     private AnHourBeforeDao anHourBeforeDao;
+    private TypesExtDao typesExtDao;
     // private NewPersonDao newPersonDao;
     // private NewPersonRetRsDao newPersonRetRsDao;
 

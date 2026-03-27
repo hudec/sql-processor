@@ -189,3 +189,34 @@ PROC_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
 PROC_AN_HOUR_BEFORE(OUT,out=AnHourBeforeResult)=
   1$p0
 ;
+
+INSERT_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  insert into %%TYPES_EXT (%ID, %T_UUID, %T_OFFSET_DATE_TIME)
+  {= values (:id(idgen=COMMON,id=ID), :uuid(type=uuid), :offsetDateTime(type=offsetdatetime)) }
+;
+
+GET_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  select %ID @id(id), %T_UUID @uuid(type=uuid), %T_OFFSET_DATE_TIME @offsetDateTime(type=offsetdatetime)
+  from %%TYPES_EXT
+  {= where
+    {& %ID ::= :id }
+    {& %T_UUID ::= :uuid(type=uuid) }
+  }
+;
+
+DELETE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  delete from %%TYPES_EXT
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_TYPES_EXT(QRY,in=TypesExt,out=TypesExt,tab=types_ext)=
+  select %ID @id(id), %T_UUID @uuid(type=uuid), %T_OFFSET_DATE_TIME @offsetDateTime(type=offsetdatetime)
+  from %%TYPES_EXT
+  {= where
+    {& %ID ::= :id }
+    {& %T_UUID ::= :uuid(type=uuid) }
+  }
+  order by %ID
+;
