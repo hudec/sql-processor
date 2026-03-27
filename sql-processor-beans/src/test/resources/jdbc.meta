@@ -1094,7 +1094,6 @@ UNDEFINED_TYPES_2(QRY)=
   where id=1
 ;
  
- 
 UNDEFINED_PARAMETERS(QRY)=
   select t.t_int n_int, t.t_int, t.t_long n_long, t.t_long, t.t_byte n_byte, t.t_byte,
   t.t_short n_short, t.t_short, t.t_float n_float, t.t_float, t.t_double n_double, t.t_double,
@@ -2094,4 +2093,41 @@ FORM_BASIC_2_CACHE(QRY)=
     {& p.VERSION = :version}
   }
   {#1 order by id}
+;
+
+UUID_OFFSET_DATE_TIME_TYPES(QRY)=
+  select t.ID, t.T_UUID, t.T_OFFSET_DATE_TIME
+  from TYPES_EXT t
+  {= where
+    {& t.ID = :id}
+  }
+  order by t.ID
+;
+UUID_OFFSET_DATE_TIME_TYPES(OUT)=
+  ID$id(type=long) T_UUID$t_uuid(type=uuid) T_OFFSET_DATE_TIME$t_offset_date_time(type=offsetdatetime)
+;
+
+UUID_OFFSET_DATE_TIME_TYPES_2(QRY)=
+  select @id(type=long), @t_uuid(type=uuid), @t_offset_date_time(type=offsetdatetime)
+  from TYPES_EXT
+  {= where
+    {& ID = :id}
+  }
+  order by ID
+;
+
+INSERT_TYPES_EXT(CRUD)=
+  insert into TYPES_EXT (ID, T_UUID, T_OFFSET_DATE_TIME)
+  {= values (:id, :t_uuid(type=uuid), :t_offset_date_time(type=offsetdatetime)) }
+;
+
+SELECT_TYPES_EXT_BY_UUID(QRY)=
+  select t.ID, t.T_UUID, t.T_OFFSET_DATE_TIME
+  from TYPES_EXT t
+  {= where
+    {& t.T_UUID = :t_uuid(type=uuid) }
+  }
+;
+SELECT_TYPES_EXT_BY_UUID(OUT)=
+  ID$id(type=long) T_UUID$t_uuid(type=uuid) T_OFFSET_DATE_TIME$t_offset_date_time(type=offsetdatetime)
 ;
