@@ -32,6 +32,21 @@ public class UuidEntity implements Serializable {
     return this;
   }
 
+  private UUID myid;
+
+  public UUID getMyid() {
+    return this.myid;
+  }
+
+  public void setMyid(final UUID myid) {
+    this.myid = myid;
+  }
+
+  public UuidEntity withMyid(final UUID myid) {
+    this.myid = myid;
+    return this;
+  }
+
   private String name;
 
   public String getName() {
@@ -83,10 +98,10 @@ public class UuidEntity implements Serializable {
 
   @Override
   public String toString() {
-    return "UuidEntity [id=" + id + ", name=" + name + ", description=" + description + "]";
+    return "UuidEntity [id=" + id + ", myid=" + myid + ", name=" + name + ", description=" + description + "]";
   }
 
   public String toStringFull() {
-    return "UuidEntity [id=" + id + ", name=" + name + ", description=" + description + "]";
+    return "UuidEntity [id=" + id + ", myid=" + myid + ", name=" + name + ", description=" + description + "]";
   }
 }

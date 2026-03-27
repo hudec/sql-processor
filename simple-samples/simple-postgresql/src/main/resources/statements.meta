@@ -166,12 +166,12 @@ SELECT_TYPES_EXT(QRY,in=TypesExt,out=TypesExt,tab=types_ext)=
 ;
 
 INSERT_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
-  insert into %%uuid_entity (%id, %name, %description)
-  {= values (:id(idgen=UUID_ENTITY,id=id,type=uuid), :name, :description) }
+  insert into %%uuid_entity (%id, {? :myid(type=uuid) | %myid, } %name, %description)
+  {= values (:id(idgen=UUID_ENTITY,id=id,type=uuid), {? :myid(type=uuid) | :myid(type=uuid), } :name, :description) }
 ;
 
 GET_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
-  select %id @id(id,type=uuid), %name @name, %description @description
+  select %id @id(id,type=uuid), %myid @myid(type=uuid), %name @name, %description @description
   from %%uuid_entity
   {= where
     {& %id ::= :id(type=uuid) }
@@ -198,7 +198,7 @@ DELETE_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
 ;
 
 SELECT_UUID_ENTITY(QRY,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
-  select %id @id(id,type=uuid), %name @name, %description @description
+  select %id @id(id,type=uuid), %myid @myid(type=uuid), %name @name, %description @description
   from %%uuid_entity
   {= where
     {& %id ::= :id(type=uuid) }

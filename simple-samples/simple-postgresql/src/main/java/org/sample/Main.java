@@ -281,15 +281,13 @@ public class Main {
 
             UUID testUuid1 = UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11");
             OffsetDateTime testOdt1 = OffsetDateTime.parse("2024-06-15T10:30:00+02:00");
-            TypesExt te1 = main.typesExtDao
-                    .insert(new TypesExt().withUuid(testUuid1).withOffsetDateTime(testOdt1));
+            TypesExt te1 = main.typesExtDao.insert(new TypesExt().withUuid(testUuid1).withOffsetDateTime(testOdt1));
             Assert.assertNotNull(te1);
             Assert.assertNotNull(te1.getId());
 
             UUID testUuid2 = UUID.fromString("b1ffcd00-ad1c-5fa9-cc7e-7ccace491b22");
             OffsetDateTime testOdt2 = OffsetDateTime.parse("2025-01-20T15:45:30+01:00");
-            TypesExt te2 = main.typesExtDao
-                    .insert(new TypesExt().withUuid(testUuid2).withOffsetDateTime(testOdt2));
+            TypesExt te2 = main.typesExtDao.insert(new TypesExt().withUuid(testUuid2).withOffsetDateTime(testOdt2));
             Assert.assertNotNull(te2);
             Assert.assertNotNull(te2.getId());
 
@@ -330,23 +328,33 @@ public class Main {
             Assert.assertEquals(2, listTe.size());
 
             // uuid primary key with gen_random_uuid()
-            UuidEntity ue1 = main.uuidEntityDao.insert(new UuidEntity("Entity One").withDescription("First UUID entity"));
+            UuidEntity ue1 = main.uuidEntityDao
+                    .insert(new UuidEntity("Entity One").withDescription("First UUID entity"));
+            ue1 = main.uuidEntityDao.get(new UuidEntity().withId(ue1.getId()));
             Assert.assertNotNull(ue1);
             Assert.assertNotNull(ue1.getId());
+            Assert.assertNotNull(ue1.getMyid());
 
-            UuidEntity ue2 = main.uuidEntityDao.insert(new UuidEntity("Entity Two").withDescription("Second UUID entity"));
+            UuidEntity ue2 = main.uuidEntityDao
+                    .insert(new UuidEntity("Entity Two").withDescription("Second UUID entity"));
+            ue2 = main.uuidEntityDao.get(new UuidEntity().withId(ue2.getId()));
             Assert.assertNotNull(ue2);
             Assert.assertNotNull(ue2.getId());
+            Assert.assertNotNull(ue2.getMyid());
             Assert.assertNotEquals(ue1.getId(), ue2.getId());
+            Assert.assertNotEquals(ue1.getMyid(), ue2.getMyid());
 
             UuidEntity ue3 = main.uuidEntityDao.insert(new UuidEntity("Entity Three"));
+            ue3 = main.uuidEntityDao.get(new UuidEntity().withId(ue3.getId()));
             Assert.assertNotNull(ue3);
             Assert.assertNotNull(ue3.getId());
+            Assert.assertNotNull(ue3.getMyid());
 
             // get by UUID id
             UuidEntity ueGet = main.uuidEntityDao.get(new UuidEntity().withId(ue1.getId()));
             Assert.assertNotNull(ueGet);
             Assert.assertEquals(ue1.getId(), ueGet.getId());
+            Assert.assertEquals(ue1.getMyid(), ueGet.getMyid());
             Assert.assertEquals("Entity One", ueGet.getName());
             Assert.assertEquals("First UUID entity", ueGet.getDescription());
 
