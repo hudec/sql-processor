@@ -8,8 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.sample.dao.AnHourBeforeDao;
@@ -17,6 +19,7 @@ import org.sample.dao.ContactDao;
 import org.sample.dao.NewPersonDao;
 import org.sample.dao.NewPersonRetRsDao;
 import org.sample.dao.PersonDao;
+import org.sample.dao.TypesExtDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactCtype;
@@ -24,6 +27,7 @@ import org.sample.model.NewPerson;
 import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
+import org.sample.model.TypesExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -44,7 +48,8 @@ public class Main {
     private static final String DB_PASSWORD = "simple";
     private static final SqlFeature DB_TYPE = SqlFeature.POSTGRESQL;
     private static final String DB_DDL = "postgresql.ddl";
-    private static final String[] DB_CLEAR = new String[] { "delete from CONTACT", "delete from PERSON" };
+    private static final String[] DB_CLEAR = new String[] { "delete from TYPES_EXT", "delete from CONTACT",
+            "delete from PERSON" };
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -92,6 +97,7 @@ public class Main {
         anHourBeforeDao = new AnHourBeforeDao(sqlFactory, sessionFactory);
         newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
         newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
+        typesExtDao = new TypesExtDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -114,6 +120,7 @@ public class Main {
     private AnHourBeforeDao anHourBeforeDao;
     private NewPersonDao newPersonDao;
     private NewPersonRetRsDao newPersonRetRsDao;
+    private TypesExtDao typesExtDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = personDao.insert(person);
@@ -265,6 +272,59 @@ public class Main {
             Assert.assertNotNull(list);
             Assert.assertEquals(1, list.size());
             Assert.assertNotNull(list.get(0).getId());
+
+            // uuid and offset date time types
+            main.connection.setAutoCommit(true);
+
+            UUID testUuid1 = UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11");
+            OffsetDateTime testOdt1 = OffsetDateTime.parse("2024-06-15T10:30:00+02:00");
+            TypesExt te1 = main.typesExtDao
+                    .insert(new TypesExt().withUuid(testUuid1).withOffsetDateTime(testOdt1));
+            Assert.assertNotNull(te1);
+            Assert.assertNotNull(te1.getId());
+
+            UUID testUuid2 = UUID.fromString("b1ffcd00-ad1c-5fa9-cc7e-7ccace491b22");
+            OffsetDateTime testOdt2 = OffsetDateTime.parse("2025-01-20T15:45:30+01:00");
+            TypesExt te2 = main.typesExtDao
+                    .insert(new TypesExt().withUuid(testUuid2).withOffsetDateTime(testOdt2));
+            Assert.assertNotNull(te2);
+            Assert.assertNotNull(te2.getId());
+
+            // get by id
+            TypesExt teGet = main.typesExtDao.get(new TypesExt().withId(te1.getId()));
+            Assert.assertNotNull(teGet);
+            Assert.assertEquals(testUuid1, teGet.getUuid());
+            Assert.assertNotNull(teGet.getOffsetDateTime());
+            Assert.assertEquals(2024, teGet.getOffsetDateTime().getYear());
+            Assert.assertEquals(6, teGet.getOffsetDateTime().getMonthValue());
+            Assert.assertEquals(15, teGet.getOffsetDateTime().getDayOfMonth());
+
+            // list all
+            List<TypesExt> listTe = main.typesExtDao.list(null);
+            Assert.assertEquals(2, listTe.size());
+
+            // list by uuid filter
+            TypesExt filter = new TypesExt().withUuid(testUuid2);
+            listTe = main.typesExtDao.list(filter);
+            Assert.assertEquals(1, listTe.size());
+            Assert.assertEquals(testUuid2, listTe.get(0).getUuid());
+            Assert.assertNotNull(listTe.get(0).getOffsetDateTime());
+            Assert.assertEquals(2025, listTe.get(0).getOffsetDateTime().getYear());
+
+            // insert with null uuid and offset date time
+            TypesExt te3 = main.typesExtDao.insert(new TypesExt());
+            Assert.assertNotNull(te3);
+            Assert.assertNotNull(te3.getId());
+            teGet = main.typesExtDao.get(new TypesExt().withId(te3.getId()));
+            Assert.assertNotNull(teGet);
+            Assert.assertNull(teGet.getUuid());
+            Assert.assertNull(teGet.getOffsetDateTime());
+
+            // delete
+            count = main.typesExtDao.delete(te1);
+            Assert.assertEquals(1, count);
+            listTe = main.typesExtDao.list(null);
+            Assert.assertEquals(2, listTe.size());
 
             System.out.println("OK");
         } finally {

@@ -130,3 +130,36 @@ PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
 PROC_NEW_PERSON_RET_RS(OUT,out=Person)=
   id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth gender$gender ssn$ssn
 ;
+
+IDSEL=TYPES_EXT(OPT)=select currval(pg_get_serial_sequence('types_ext','id'));
+
+INSERT_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  insert into %%types_ext (%id, %t_uuid, %t_offset_date_time)
+  {= values (:id(idgen=TYPES_EXT,id=id), :uuid(type=uuid), :offsetDateTime(type=offsetdatetime)) }
+;
+
+GET_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  select %id @id(id), %t_uuid @uuid(type=uuid), %t_offset_date_time @offsetDateTime(type=offsetdatetime)
+  from %%types_ext
+  {= where
+    {& %id ::= :id }
+    {& %t_uuid ::= :uuid(type=uuid) }
+  }
+;
+
+DELETE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  delete from %%types_ext
+  {= where
+    {& %id = :id(!empty) }
+  }
+;
+
+SELECT_TYPES_EXT(QRY,in=TypesExt,out=TypesExt,tab=types_ext)=
+  select %id @id(id), %t_uuid @uuid(type=uuid), %t_offset_date_time @offsetDateTime(type=offsetdatetime)
+  from %%types_ext
+  {= where
+    {& %id ::= :id }
+    {& %t_uuid ::= :uuid(type=uuid) }
+  }
+  order by %id
+;
