@@ -20,6 +20,7 @@ import org.sample.dao.NewPersonDao;
 import org.sample.dao.NewPersonRetRsDao;
 import org.sample.dao.PersonDao;
 import org.sample.dao.TypesExtDao;
+import org.sample.dao.UuidEntityDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactCtype;
@@ -28,6 +29,7 @@ import org.sample.model.NewPersonRetRs;
 import org.sample.model.Person;
 import org.sample.model.PersonGender;
 import org.sample.model.TypesExt;
+import org.sample.model.UuidEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineFactory;
@@ -48,8 +50,7 @@ public class Main {
     private static final String DB_PASSWORD = "simple";
     private static final SqlFeature DB_TYPE = SqlFeature.POSTGRESQL;
     private static final String DB_DDL = "postgresql.ddl";
-    private static final String[] DB_CLEAR = new String[] { "delete from TYPES_EXT", "delete from CONTACT",
-            "delete from PERSON" };
+    private static final String[] DB_CLEAR = null;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -98,6 +99,7 @@ public class Main {
         newPersonDao = new NewPersonDao(sqlFactory, sessionFactory);
         newPersonRetRsDao = new NewPersonRetRsDao(sqlFactory, sessionFactory);
         typesExtDao = new TypesExtDao(sqlFactory, sessionFactory);
+        uuidEntityDao = new UuidEntityDao(sqlFactory, sessionFactory);
     }
 
     public void setupDb() throws SQLException {
@@ -121,6 +123,7 @@ public class Main {
     private NewPersonDao newPersonDao;
     private NewPersonRetRsDao newPersonRetRsDao;
     private TypesExtDao typesExtDao;
+    private UuidEntityDao uuidEntityDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         Person p = personDao.insert(person);
@@ -325,6 +328,55 @@ public class Main {
             Assert.assertEquals(1, count);
             listTe = main.typesExtDao.list(null);
             Assert.assertEquals(2, listTe.size());
+
+            // uuid primary key with gen_random_uuid()
+            UuidEntity ue1 = main.uuidEntityDao.insert(new UuidEntity("Entity One").withDescription("First UUID entity"));
+            Assert.assertNotNull(ue1);
+            Assert.assertNotNull(ue1.getId());
+
+            UuidEntity ue2 = main.uuidEntityDao.insert(new UuidEntity("Entity Two").withDescription("Second UUID entity"));
+            Assert.assertNotNull(ue2);
+            Assert.assertNotNull(ue2.getId());
+            Assert.assertNotEquals(ue1.getId(), ue2.getId());
+
+            UuidEntity ue3 = main.uuidEntityDao.insert(new UuidEntity("Entity Three"));
+            Assert.assertNotNull(ue3);
+            Assert.assertNotNull(ue3.getId());
+
+            // get by UUID id
+            UuidEntity ueGet = main.uuidEntityDao.get(new UuidEntity().withId(ue1.getId()));
+            Assert.assertNotNull(ueGet);
+            Assert.assertEquals(ue1.getId(), ueGet.getId());
+            Assert.assertEquals("Entity One", ueGet.getName());
+            Assert.assertEquals("First UUID entity", ueGet.getDescription());
+
+            // update
+            UuidEntity ueUpd = new UuidEntity().withId(ue1.getId()).withName("Entity One Updated");
+            count = main.uuidEntityDao.update(ueUpd);
+            Assert.assertEquals(1, count);
+            ueGet = main.uuidEntityDao.get(new UuidEntity().withId(ue1.getId()));
+            Assert.assertNotNull(ueGet);
+            Assert.assertEquals("Entity One Updated", ueGet.getName());
+
+            // list all
+            List<UuidEntity> listUe = main.uuidEntityDao.list(null);
+            Assert.assertEquals(3, listUe.size());
+
+            // list by name filter
+            UuidEntity ueFilter = new UuidEntity().withName("Entity Two");
+            listUe = main.uuidEntityDao.list(ueFilter);
+            Assert.assertEquals(1, listUe.size());
+            Assert.assertEquals(ue2.getId(), listUe.get(0).getId());
+
+            // count
+            int ueCount = main.uuidEntityDao.count(null);
+            Assert.assertEquals(3, ueCount);
+
+            // delete
+            count = main.uuidEntityDao.delete(ue3);
+            Assert.assertEquals(1, count);
+            listUe = main.uuidEntityDao.list(null);
+            Assert.assertEquals(2, listUe.size());
 
             System.out.println("OK");
         } finally {

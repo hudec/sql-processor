@@ -43,6 +43,7 @@ metagen-not-like-columns contact phone_number;
 
 is-table contact contact;
 is-table person person;
+is-table uuid_entity uuid_entity;
 is-procedure anHourBefore an_hour_before;
 is-procedure newPerson new_person;
 is-procedure newPersonRetRs new_person_ret_rs;
@@ -61,3 +62,4 @@ is-pojo Contact org.sample.model.Contact;
 is-pojo NewPerson org.sample.model.NewPerson;
 is-pojo NewPersonRetRs org.sample.model.NewPersonRetRs;
 is-pojo Person org.sample.model.Person;
+is-pojo UuidEntity org.sample.model.UuidEntity;
