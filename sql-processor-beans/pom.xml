@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-parent</artifactId>
-        <version>3.9.1-SNAPSHOT</version>
+        <version>3.9.1</version>
         <relativePath>..</relativePath>
     </parent>
 
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>org.sqlproc</groupId>
             <artifactId>sql-processor</artifactId>
-            <version>3.9.1-SNAPSHOT</version>
+            <version>3.9.1</version>
         </dependency>
 
         <!-- ANTLR -->

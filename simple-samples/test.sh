@@ -15,12 +15,12 @@ if [ $? -ne 0 ]; then
 	exit 1
 fi
 cd ../simple-mysql/
-mvn exec:java
+#mvn exec:java
 if [ $? -ne 0 ]; then
 	exit 1
 fi
 cd ../simple-mariadb/
-mvn exec:java
+#mvn exec:java
 if [ $? -ne 0 ]; then
 	exit 1
 fi

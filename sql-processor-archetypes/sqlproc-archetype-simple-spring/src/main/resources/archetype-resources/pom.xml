@@ -8,7 +8,7 @@
     <name>SQL Processor Sample, Simple Spring</name>
 
     <properties>
-        <version.sql-processor>3.9.1-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>3.9.1</version.sql-processor>
         <version.log4j>2.25.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>

@@ -10,12 +10,12 @@
     <parent>
         <groupId>org.sqlproc</groupId>
         <artifactId>sql-processor-samples</artifactId>
-        <version>3.9.1-SNAPSHOT</version>
+        <version>3.9.1</version>
         <relativePath>..</relativePath>
     </parent>
 
     <properties>
-        <version.sql-processor>3.9.1-SNAPSHOT</version.sql-processor>
+        <version.sql-processor>3.9.1</version.sql-processor>
         <version.log4j>2.25.3</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
