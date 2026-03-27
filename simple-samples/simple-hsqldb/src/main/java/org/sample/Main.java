@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -22,6 +24,7 @@ import org.sample.dao.ContactDao;
 import org.sample.dao.NewPersonDao;
 import org.sample.dao.NewPersonRetRsDao;
 import org.sample.dao.PersonDetailDao;
+import org.sample.dao.TypesExtDao;
 import org.sample.model.AnHourBefore;
 import org.sample.model.Contact;
 import org.sample.model.ContactType;
@@ -32,6 +35,7 @@ import org.sample.model.Person;
 import org.sample.model.PersonDetail;
 import org.sample.model.PersonDetailType;
 import org.sample.model.PersonGender;
+import org.sample.model.TypesExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlControl.LowLevelSqlCallback;
@@ -119,6 +123,7 @@ public class Main {
     private AnHourBeforeDao anHourBeforeDao;
     private NewPersonDao newPersonDao;
     private NewPersonRetRsDao newPersonRetRsDao;
+    private TypesExtDao typesExtDao;
 
     public Person insertPersonContacts(Person person, Contact... contacts) {
         SqlStandardControl ssc = new SqlStandardControl().setLowLevelSqlCallback(new LowLevelSqlCallbackImpl());

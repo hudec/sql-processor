@@ -205,3 +205,34 @@ PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
 PROC_NEW_PERSON_RET_RS(OUT,out=NewPersonRetRsResult)=
   ID$id FIRST_NAME$firstName LAST_NAME$lastName DATE_OF_BIRTH$dateOfBirth GENDER$gender SSN$ssn
 ;
+
+INSERT_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  insert into %%TYPES_EXT (%ID, %T_UUID, %T_OFFSET_DATE_TIME)
+  {= values (:id(idgen=COMMON,id=id), :uuid(type=uuid), :offsetDateTime(type=offsetdatetime)) }
+;
+
+GET_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  select %ID @id(id), %T_UUID @uuid(type=uuid), %T_OFFSET_DATE_TIME @offsetDateTime(type=offsetdatetime)
+  from %%TYPES_EXT
+  {= where
+    {& %ID ::= :id }
+    {& %T_UUID ::= :uuid(type=uuid) }
+  }
+;
+
+DELETE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  delete from %%TYPES_EXT
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+SELECT_TYPES_EXT(QRY,in=TypesExt,out=TypesExt,tab=types_ext)=
+  select %ID @id(id), %T_UUID @uuid(type=uuid), %T_OFFSET_DATE_TIME @offsetDateTime(type=offsetdatetime)
+  from %%TYPES_EXT
+  {= where
+    {& %ID ::= :id }
+    {& %T_UUID ::= :uuid(type=uuid) }
+  }
+  order by %ID
+;
