@@ -1,6 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 import org.sqlproc.engine.annotation.Pojo;
 
@@ -103,5 +104,87 @@ public class UuidEntity implements Serializable {
 
   public String toStringFull() {
     return "UuidEntity [id=" + id + ", myid=" + myid + ", name=" + name + ", description=" + description + "]";
+  }
+
+  public enum Attribute {
+    myid,
+
+    description;
+  }
+
+  private Set<String> nullValues_ =  new java.util.HashSet<String>();
+
+  public void setNull_(final UuidEntity.Attribute... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (Attribute attribute : attributes)
+    	nullValues_.add(attribute.name());
+  }
+
+  public UuidEntity withNull_(final UuidEntity.Attribute... attributes) {
+    setNull_(attributes);
+    return this;
+  }
+
+  public void clearNull_(final UuidEntity.Attribute... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (Attribute attribute : attributes)
+    	nullValues_.remove(attribute.name());
+  }
+
+  public UuidEntity _clearNull_(final UuidEntity.Attribute... attributes) {
+    clearNull_(attributes);
+    return this;
+  }
+
+  public void setNull_(final String... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (String attribute : attributes)
+    	nullValues_.add(attribute);
+  }
+
+  public UuidEntity withNull_(final String... attributes) {
+    setNull_(attributes);
+    return this;
+  }
+
+  public void clearNull_(final String... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (String attribute : attributes)
+    	nullValues_.remove(attribute);
+  }
+
+  public UuidEntity _clearNull_(final String... attributes) {
+    clearNull_(attributes);
+    return this;
+  }
+
+  public Boolean isNull_(final UuidEntity.Attribute attribute) {
+    if (attribute == null)
+    	throw new IllegalArgumentException();
+    return nullValues_.contains(attribute.name());
+  }
+
+  public Boolean isNull_(final String attrName) {
+    if (attrName == null)
+    	throw new IllegalArgumentException();
+    return nullValues_.contains(attrName);
+  }
+
+  public Boolean isDef_(final String attrName, final Boolean isAttrNotNull) {
+    if (attrName == null)
+    	throw new IllegalArgumentException();
+    if (nullValues_.contains(attrName))
+    	return true;
+    if (isAttrNotNull != null)
+    	return isAttrNotNull;
+    return false;
+  }
+
+  public void clearAllNull_() {
+    nullValues_ = new java.util.HashSet<String>();
   }
 }
