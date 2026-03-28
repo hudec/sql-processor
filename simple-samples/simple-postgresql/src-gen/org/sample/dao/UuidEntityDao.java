@@ -60,6 +60,7 @@ public class UuidEntityDao {
     }
     String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "GET_UUID_ENTITY";
     org.sqlproc.engine.SqlCrudEngine sqlGetEngineUuidEntity = sqlEngineFactory.getCheckedCrudEngine(sqlName);
+    //sqlControl = getMoreResultClasses(uuidEntity, sqlControl);
     UuidEntity uuidEntityGot = sqlGetEngineUuidEntity.get(sqlSession, UuidEntity.class, uuidEntity, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get uuidEntity result: " + uuidEntityGot);
@@ -135,6 +136,7 @@ public class UuidEntityDao {
     }
     String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_UUID_ENTITY";
     org.sqlproc.engine.SqlQueryEngine sqlEngineUuidEntity = sqlEngineFactory.getCheckedQueryEngine(sqlName);
+    //sqlControl = getMoreResultClasses(uuidEntity, sqlControl);
     List<UuidEntity> uuidEntityList = sqlEngineUuidEntity.query(sqlSession, UuidEntity.class, uuidEntity, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list uuidEntity size: " + ((uuidEntityList != null) ? uuidEntityList.size() : "null"));
@@ -154,12 +156,39 @@ public class UuidEntityDao {
     return list(uuidEntity, null);
   }
 
+  public int query(final SqlSession sqlSession, final UuidEntity uuidEntity, SqlControl sqlControl, final SqlRowProcessor<UuidEntity> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query uuidEntity: " + uuidEntity + " " + sqlControl);
+    }
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_UUID_ENTITY";
+    org.sqlproc.engine.SqlQueryEngine sqlEngineUuidEntity = sqlEngineFactory.getCheckedQueryEngine(sqlName);
+    //sqlControl = getMoreResultClasses(uuidEntity, sqlControl);
+    int rownums = sqlEngineUuidEntity.query(sqlSession, UuidEntity.class, uuidEntity, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query uuidEntity size: " + rownums);
+    }
+    return rownums;
+  }
+
+  public int query(final UuidEntity uuidEntity, SqlControl sqlControl, final SqlRowProcessor<UuidEntity> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), uuidEntity, sqlControl, sqlRowProcessor);
+  }
+
+  public int query(final SqlSession sqlSession, final UuidEntity uuidEntity, final SqlRowProcessor<UuidEntity> sqlRowProcessor) {
+    return query(sqlSession, uuidEntity, null, sqlRowProcessor);
+  }
+
+  public int query(final UuidEntity uuidEntity, final SqlRowProcessor<UuidEntity> sqlRowProcessor) {
+    return query(uuidEntity, null, sqlRowProcessor);
+  }
+
   public int count(final SqlSession sqlSession, final UuidEntity uuidEntity, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("count uuidEntity: " + uuidEntity + " " + sqlControl);
     }
     String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_UUID_ENTITY";
     org.sqlproc.engine.SqlQueryEngine sqlEngineUuidEntity = sqlEngineFactory.getCheckedQueryEngine(sqlName);
+    //sqlControl = getMoreResultClasses(uuidEntity, sqlControl);
     int count = sqlEngineUuidEntity.queryCount(sqlSession, uuidEntity, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("count: " + count);

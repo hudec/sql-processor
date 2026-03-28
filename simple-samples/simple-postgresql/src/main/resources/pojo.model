@@ -45,6 +45,28 @@ package org.sample.model {
         #Attr java.util.List <Contact> contacts // null
     }
 
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,tUuid,tOffsetDateTime)
+    #Pojo TypesExt {
+        #PrimaryKey #Index
+        #Attr Long id // bigserial(19)
+        #IsDef
+        #Attr java.util.UUID tUuid // uuid(2147483647)
+        #IsDef
+        #Attr java.time.OffsetDateTime tOffsetDateTime // timestamptz(35)
+    }
+
+    #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,myid,name,description)
+    #Pojo UuidEntity {
+        #PrimaryKey #Index
+        #Attr java.util.UUID id // uuid(2147483647)
+        #Required
+        #Attr java.util.UUID myid // uuid(2147483647)
+        #Required
+        #Attr String name // varchar(100)
+        #IsDef
+        #Attr String description // varchar(500)
+    }
+
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
         #Attr java.time.LocalDateTime t // timestamp

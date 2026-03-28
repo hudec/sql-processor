@@ -8,6 +8,14 @@ package org.sample.dao {
     #Dao PersonDao {
     }
 
+    #CRUD(org.sample.model.TypesExt) #Query(org.sample.model.TypesExt)
+    #Dao TypesExtDao {
+    }
+
+    #CRUD(org.sample.model.UuidEntity) #Query(org.sample.model.UuidEntity)
+    #Dao UuidEntityDao {
+    }
+
     #ProcedureUpdate(int,org.sample.model.NewPerson)
     #Dao NewPersonDao {
     }

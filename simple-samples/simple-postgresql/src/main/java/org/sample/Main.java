@@ -329,14 +329,14 @@ public class Main {
 
             // uuid primary key with gen_random_uuid()
             UuidEntity ue1 = main.uuidEntityDao
-                    .insert(new UuidEntity("Entity One").withDescription("First UUID entity"));
+                    .insert(new UuidEntity().withName("Entity One").withDescription("First UUID entity"));
             ue1 = main.uuidEntityDao.get(new UuidEntity().withId(ue1.getId()));
             Assert.assertNotNull(ue1);
             Assert.assertNotNull(ue1.getId());
             Assert.assertNotNull(ue1.getMyid());
 
             UuidEntity ue2 = main.uuidEntityDao
-                    .insert(new UuidEntity("Entity Two").withDescription("Second UUID entity"));
+                    .insert(new UuidEntity().withName("Entity Two").withDescription("Second UUID entity"));
             ue2 = main.uuidEntityDao.get(new UuidEntity().withId(ue2.getId()));
             Assert.assertNotNull(ue2);
             Assert.assertNotNull(ue2.getId());
@@ -344,7 +344,7 @@ public class Main {
             Assert.assertNotEquals(ue1.getId(), ue2.getId());
             Assert.assertNotEquals(ue1.getMyid(), ue2.getMyid());
 
-            UuidEntity ue3 = main.uuidEntityDao.insert(new UuidEntity("Entity Three"));
+            UuidEntity ue3 = main.uuidEntityDao.insert(new UuidEntity().withName("Entity Three"));
             ue3 = main.uuidEntityDao.get(new UuidEntity().withId(ue3.getId()));
             Assert.assertNotNull(ue3);
             Assert.assertNotNull(ue3.getId());

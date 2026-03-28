@@ -1,7 +1,9 @@
 SEQ=contact_id_seq(OPT)=select nextval('contact_id_seq');
 SEQ=person_id_seq(OPT)=select nextval('person_id_seq');
-SEQ=contact_person_id_seq(OPT)=select nextval('contact_person_id_seq');
 SEQ=types_ext_id_seq(OPT)=select nextval('types_ext_id_seq');
+SEQ=contact_person_id_seq(OPT)=select nextval('contact_person_id_seq');
+IDSEL=TYPES_EXT(OPT)=select currval(pg_get_serial_sequence('types_ext','id'));
+IDSEL=UUID_ENTITY(OPT)=JDBC;
 IDSEL=CONTACT(OPT)=select currval(pg_get_serial_sequence('contact','id'));
 IDSEL=PERSON(OPT)=select currval(pg_get_serial_sequence('person','id'));
 
@@ -117,24 +119,6 @@ SELECT_PERSON(QRY,in=Person,out=Person,tab=person=p,tab=contact=c)=
   {#LAST_NAME order by %p.last_name }
 ;
 
-FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
-  :<1(type=localdatetime) = call an_hour_before(:t)
-;
-
-PROC_NEW_PERSON(CALL,in=NewPerson)=
-  call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName, :gender)
-;
-
-PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
-  :<1(type=other) = call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName, :gender)
-;
-PROC_NEW_PERSON_RET_RS(OUT,out=Person)=
-  id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth gender$gender ssn$ssn
-;
-
-IDSEL=TYPES_EXT(OPT)=select currval(pg_get_serial_sequence('types_ext','id'));
-IDSEL=UUID_ENTITY(OPT)=JDBC;
-
 INSERT_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
   insert into %%types_ext (%id, {? :tUuid(type=uuid) | %t_uuid, } %t_offset_date_time)
   {= values (:id(idgen=TYPES_EXT,id=id), {? :tUuid(type=uuid) | :tUuid(type=uuid), } :tOffsetDateTime(type=offsetdatetime)) }
@@ -224,4 +208,19 @@ SELECT_UUID_ENTITY(QRY,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
     {& UPPER(%description) like :+description }
   }
   {#ID order by %id }
+;
+
+FUN_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
+  :<1(type=localdatetime) = call an_hour_before(:t)
+;
+
+PROC_NEW_PERSON(CALL,in=NewPerson)=
+  call new_person(:<newid, :dateOfBirth, :ssn, :firstName, :lastName, :gender)
+;
+
+PROC_NEW_PERSON_RET_RS(CALL,in=NewPersonRetRs)=
+  :<1(type=other) = call new_person_ret_rs(:dateOfBirth, :ssn, :firstName, :lastName, :gender)
+;
+PROC_NEW_PERSON_RET_RS(OUT,out=Person)=
+  id$id first_name$firstName last_name$lastName date_of_birth$dateOfBirth gender$gender ssn$ssn
 ;

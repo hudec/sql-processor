@@ -1,6 +1,7 @@
 package org.sample.model;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import org.sqlproc.engine.annotation.Pojo;
@@ -10,11 +11,14 @@ import org.sqlproc.engine.annotation.Pojo;
 public class UuidEntity implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  public static final String ORDER_BY_ID = "ID";
+
   public UuidEntity() {
   }
 
-  public UuidEntity(final String name) {
+  public UuidEntity(final UUID myid, final String name) {
     super();
+    setMyid(myid);
     setName(name);
   }
 
@@ -107,8 +111,6 @@ public class UuidEntity implements Serializable {
   }
 
   public enum Attribute {
-    myid,
-
     description;
   }
 
@@ -186,5 +188,103 @@ public class UuidEntity implements Serializable {
 
   public void clearAllNull_() {
     nullValues_ = new java.util.HashSet<String>();
+  }
+
+  public enum OpAttribute {
+    id,
+
+    myid,
+
+    name,
+
+    description;
+  }
+
+  private Map<String, String> operators_ =  new java.util.HashMap<String, String>();
+
+  public Map<String, String> getOperators_() {
+    return operators_;
+  }
+
+  public String getOp_(final String attrName) {
+    if (attrName == null)
+    	throw new IllegalArgumentException();
+    return operators_.get(attrName);
+  }
+
+  public void setOp_(final String operator, final UuidEntity.OpAttribute... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+    	operators_.put(attribute.name(), operator);
+  }
+
+  public UuidEntity withOp_(final String operator, final UuidEntity.OpAttribute... attributes) {
+    setOp_(operator, attributes);
+    return this;
+  }
+
+  public void clearOp_(final UuidEntity.OpAttribute... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+    	operators_.remove(attribute.name());
+  }
+
+  public UuidEntity _clearOp_(final UuidEntity.OpAttribute... attributes) {
+    clearOp_(attributes);
+    return this;
+  }
+
+  public void setOp_(final String operator, final String... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (String attribute : attributes)
+    	operators_.put(attribute, operator);
+  }
+
+  public UuidEntity withOp_(final String operator, final String... attributes) {
+    setOp_(operator, attributes);
+    return this;
+  }
+
+  public void clearOp_(final String... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (String attribute : attributes)
+    	operators_.remove(attribute);
+  }
+
+  public UuidEntity _clearOp_(final String... attributes) {
+    clearOp_(attributes);
+    return this;
+  }
+
+  public void setNullOp_(final UuidEntity.OpAttribute... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (OpAttribute attribute : attributes)
+    	operators_.put(attribute.name(), "is null");
+  }
+
+  public UuidEntity withNullOp_(final UuidEntity.OpAttribute... attributes) {
+    setNullOp_(attributes);
+    return this;
+  }
+
+  public void setNullOp_(final String... attributes) {
+    if (attributes == null)
+    	throw new IllegalArgumentException();
+    for (String attribute : attributes)
+    	operators_.put(attribute, "is null");
+  }
+
+  public UuidEntity withNullOp_(final String... attributes) {
+    setNullOp_(attributes);
+    return this;
+  }
+
+  public void clearAllOps_() {
+    operators_ = new java.util.HashMap<String, String>();
   }
 }
