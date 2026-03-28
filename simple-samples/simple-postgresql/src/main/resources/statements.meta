@@ -148,6 +148,17 @@ GET_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
   }
 ;
 
+UPDATE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+  update %%types_ext
+  {= set
+    { ,%t_uuid = :tUuid(call=isDef) }
+    { ,%t_offset_date_time = :tOffsetDateTime(call=isDef) }
+  }
+  {= where
+    {& %id = :id(!empty) }
+  }
+;
+
 DELETE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
   delete from %%types_ext
   {= where
