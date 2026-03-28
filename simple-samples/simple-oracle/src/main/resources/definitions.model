@@ -1,7 +1,7 @@
 resolve-pojo-on;
 database-is-online;
 database-jdbc-driver oracle.jdbc.OracleDriver;
-database-has-url "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+database-has-url "jdbc:oracle:thin:@//127.0.0.1:1521/FREEPDB1";
 database-login-username simple;
 database-login-password simple;
 //database-in-catalog ;

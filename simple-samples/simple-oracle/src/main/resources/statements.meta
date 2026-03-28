@@ -1,5 +1,5 @@
 SEQ=SIMPLE_SEQUENCE(OPT)=select SIMPLE_SEQUENCE.nextval from dual;
-SEQ=NEW_SEQUENCE(OPT)=select NEW_SEQUENCE.nextval from dual;
+SEQ=TYPES_EXT_SEQUENCE(OPT)=select TYPES_EXT_SEQUENCE.nextval from dual;
 
 INSERT_CONTACT(CRUD,in=Contact,out=Contact,tab=contact)=
   insert into %%CONTACT (%ID, %PERSON_ID, %TYPE, %ADDRESS, %PHONE_NUMBER)

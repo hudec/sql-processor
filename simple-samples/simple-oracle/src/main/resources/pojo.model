@@ -1,7 +1,7 @@
 package org.sample.model {
 
-    import javax.validation.constraints.NotNull
-    import javax.validation.constraints.Size
+    import jakarta.validation.constraints.NotNull
+    import jakarta.validation.constraints.Size
 
 
     #Serializable(1)
@@ -19,7 +19,7 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey #Index
-        #Attr Long id // NUMBER(19)
+        #Attr java.math.BigInteger id // NUMBER(19)
         @NotNull
         #ToInit #Required #IsPojo
         #Attr Person person // NUMBER(19)
@@ -37,7 +37,7 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     #Pojo Person {
         #PrimaryKey #Index
-        #Attr Long id // NUMBER(19)
+        #Attr java.math.BigInteger id // NUMBER(19)
         @NotNull
         @Size(max = 100)
         #Required
