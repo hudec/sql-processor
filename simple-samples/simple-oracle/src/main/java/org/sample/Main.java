@@ -266,6 +266,12 @@ public class Main {
         Assert.assertEquals(1, list.size());
         Assert.assertNotNull(list.get(0).getId());
 
+        main.connection.close();
+        DriverManager.deregisterDriver(JDBC_DRIVER);
+
+        // Shut down Oracle JDBC internal threads (Diagnostic.CLOCK, OJDBC-WORKER-THREAD, etc.)
+        oracle.jdbc.diagnostics.Diagnostic.stopClockTimer();
+
         System.out.println("OK");
     }
 }

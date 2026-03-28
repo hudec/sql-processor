@@ -18,7 +18,7 @@
         <version.hibernate-validator>8.0.2.Final</version.hibernate-validator>
         <version.glassfish-el>4.0.2</version.glassfish-el>
         <version.beanutils>1.11.0</version.beanutils>
-        <version.sql-processor-eclipse>3.3.0-SNAPSHOT</version.sql-processor-eclipse>
+        <version.sql-processor-eclipse>3.4.0-SNAPSHOT</version.sql-processor-eclipse>
     </properties>
 
     <build>
@@ -79,6 +79,7 @@
                 </executions>
                 <configuration>
                     <mainClass>org.sample.Main</mainClass>
+                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
                 </configuration>
             </plugin>
         </plugins>
