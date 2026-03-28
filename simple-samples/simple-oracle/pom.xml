@@ -176,7 +176,7 @@
                                 <classpath>
                                     <dependency>org.sqlproc.meta:sqlmeta</dependency>
                                     <dependency>com.oracle.database.jdbc:ojdbc17</dependency>
-                                    <dependency>javax.validation:validation8api</dependency>
+                                    <dependency>jakarta.validation:jakarta.validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
                                 </classpath>
@@ -219,7 +219,7 @@
                                 <classpath>
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
                                     <dependency>com.oracle.database.jdbc:ojdbc17</dependency>
-                                    <dependency>javax.validation:validation-api</dependency>
+                                    <dependency>jakarta.validation:jakarta.validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
                                 </classpath>
@@ -264,7 +264,7 @@
                                 <classpath>
                                     <dependency>org.sqlproc.model:sqlmodel</dependency>
                                     <dependency>com.oracle.database.jdbc:ojdbc17</dependency>
-                                    <dependency>javax.validation:validation-api</dependency>
+                                    <dependency>jakarta.validation:jakarta.validation-api</dependency>
                                     <dependency>org.sqlproc:sql-processor</dependency>
                                     <dependency>org.slf4j:slf4j-api</dependency>
                                 </classpath>

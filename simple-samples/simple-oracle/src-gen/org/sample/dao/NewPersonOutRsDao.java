@@ -12,23 +12,23 @@ import org.sqlproc.engine.SqlSessionFactory;
 @SuppressWarnings("all")
 public class NewPersonOutRsDao {
   protected final Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
-  
+
   public NewPersonOutRsDao() {
   }
-  
+
   public NewPersonOutRsDao(final SqlEngineFactory sqlEngineFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
   }
-  
+
   public NewPersonOutRsDao(final SqlEngineFactory sqlEngineFactory, final SqlSessionFactory sqlSessionFactory) {
     this.sqlEngineFactory = sqlEngineFactory;
     this.sqlSessionFactory = sqlSessionFactory;
   }
-  
+
   protected SqlEngineFactory sqlEngineFactory;
-  
+
   protected SqlSessionFactory sqlSessionFactory;
-  
+
   public List<Person> newPersonOutRs(final SqlSession sqlSession, final NewPersonOutRs newPersonOutRs, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("sql newPersonOutRs: " + newPersonOutRs + " " + sqlControl);
@@ -40,15 +40,15 @@ public class NewPersonOutRsDao {
     }
     return list;
   }
-  
+
   public List<Person> newPersonOutRs(final NewPersonOutRs newPersonOutRs, SqlControl sqlControl) {
     return newPersonOutRs(sqlSessionFactory.getSqlSession(), newPersonOutRs, sqlControl);
   }
-  
+
   public List<Person> newPersonOutRs(final SqlSession sqlSession, final NewPersonOutRs newPersonOutRs) {
     return newPersonOutRs(sqlSession, newPersonOutRs, null);
   }
-  
+
   public List<Person> newPersonOutRs(final NewPersonOutRs newPersonOutRs) {
     return newPersonOutRs(newPersonOutRs, null);
   }
