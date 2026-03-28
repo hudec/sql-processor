@@ -183,40 +183,106 @@ SELECT_PERSON_DETAIL(QRY,in=PersonDetail,out=PersonDetail,tab=personDetail=p,tab
   {#PERSON order by %p.ID_PERSON }
 ;
 
-PROC_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
-  call AN_HOUR_BEFORE(:p1)
-;
-PROC_AN_HOUR_BEFORE(OUT,out=AnHourBeforeResult)=
-  1$p0
+INSERT_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=typesExt)=
+  insert into %%TYPES_EXT (%ID, {? :tUuid(type=uuid) | %T_UUID, } %T_OFFSET_DATE_TIME)
+  {= values (:id(idgen=COMMON,id=ID), {? :tUuid(type=uuid) | :tUuid(type=uuid), } :tOffsetDateTime(type=offsetdatetime)) }
 ;
 
-INSERT_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
-  insert into %%TYPES_EXT (%ID, %T_UUID, %T_OFFSET_DATE_TIME)
-  {= values (:id(idgen=COMMON,id=ID), :uuid(type=uuid), :offsetDateTime(type=offsetdatetime)) }
-;
-
-GET_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
-  select %ID @id(id), %T_UUID @uuid(type=uuid), %T_OFFSET_DATE_TIME @offsetDateTime(type=offsetdatetime)
+GET_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=typesExt)=
+  select %ID @id(id), %T_UUID @tUuid(type=uuid), %T_OFFSET_DATE_TIME @tOffsetDateTime(type=offsetdatetime)
   from %%TYPES_EXT
   {= where
     {& %ID ::= :id }
-    {& %T_UUID ::= :uuid(type=uuid) }
+    {& %T_UUID ::= :tUuid(type=uuid) }
+    {& %T_OFFSET_DATE_TIME ::= :tOffsetDateTime(type=offsetdatetime) }
   }
 ;
 
-DELETE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
+UPDATE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=typesExt)=
+  update %%TYPES_EXT
+  {= set
+    { ,%T_UUID = :tUuid(type=uuid,call=isDef) }
+    { ,%T_OFFSET_DATE_TIME = :tOffsetDateTime(type=offsetdatetime,call=isDef) }
+  }
+  {= where
+    {& %ID = :id(!empty) }
+  }
+;
+
+DELETE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=typesExt)=
   delete from %%TYPES_EXT
   {= where
     {& %ID = :id(!empty) }
   }
 ;
 
-SELECT_TYPES_EXT(QRY,in=TypesExt,out=TypesExt,tab=types_ext)=
-  select %ID @id(id), %T_UUID @uuid(type=uuid), %T_OFFSET_DATE_TIME @offsetDateTime(type=offsetdatetime)
+SELECT_TYPES_EXT(QRY,in=TypesExt,out=TypesExt,tab=typesExt)=
+  select {? :onlyIds_ | %ID @id(id) |
+    %ID @id(id), %T_UUID @tUuid(type=uuid), %T_OFFSET_DATE_TIME @tOffsetDateTime(type=offsetdatetime)
+  }
   from %%TYPES_EXT
   {= where
     {& %ID ::= :id }
-    {& %T_UUID ::= :uuid(type=uuid) }
+    {& %T_UUID ::= :tUuid(type=uuid) }
+    {& %T_OFFSET_DATE_TIME ::= :tOffsetDateTime(type=offsetdatetime) }
+    {& %ID in :ids_ }
   }
-  order by %ID
+  {#ID order by %ID }
+;
+
+INSERT_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuidEntity)=
+  insert into %%UUID_ENTITY (%ID, {? :myid(type=uuid) | %MYID, } %NAME, %DESCRIPTION)
+  {= values (:id(idgen=COMMON,id=ID,type=uuid), {? :myid(type=uuid) | :myid(type=uuid), } :name, :description) }
+;
+
+GET_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuidEntity)=
+  select %ID @id(id,type=uuid), %MYID @myid(type=uuid), %NAME @name, %DESCRIPTION @description
+  from %%UUID_ENTITY
+  {= where
+    {& %ID ::= :id(type=uuid) }
+    {& %MYID ::= :myid(type=uuid) }
+    {& %NAME ::= :name }
+    {& %DESCRIPTION ::= :description }
+  }
+;
+
+UPDATE_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuidEntity)=
+  update %%UUID_ENTITY
+  {= set
+    { ,%MYID = :myid(type=uuid,call=isDef) }
+    { ,%NAME = :name(call=isDef) }
+    { ,%DESCRIPTION = :description(call=isDef) }
+  }
+  {= where
+    {& %ID = :id(type=uuid,!empty) }
+  }
+;
+
+DELETE_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuidEntity)=
+  delete from %%UUID_ENTITY
+  {= where
+    {& %ID = :id(type=uuid,!empty) }
+  }
+;
+
+SELECT_UUID_ENTITY(QRY,in=UuidEntity,out=UuidEntity,tab=uuidEntity)=
+  select {? :onlyIds_ | %ID @id(id) |
+    %ID @id(id,type=uuid), %MYID @myid(type=uuid), %NAME @name, %DESCRIPTION @description
+  }
+  from %%UUID_ENTITY
+  {= where
+    {& %ID ::= :id(type=uuid) }
+    {& %MYID ::= :myid(type=uuid) }
+    {& %NAME ::= :name }
+    {& %DESCRIPTION ::= :description }
+    {& %ID in :ids_ }
+  }
+  {#ID order by %ID }
+;
+
+PROC_AN_HOUR_BEFORE(CALL,in=AnHourBefore)=
+  call AN_HOUR_BEFORE(:p1)
+;
+PROC_AN_HOUR_BEFORE(OUT,out=AnHourBeforeResult)=
+  1$result
 ;

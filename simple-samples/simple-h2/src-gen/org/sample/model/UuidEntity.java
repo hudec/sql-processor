@@ -1,73 +1,191 @@
 package org.sample.model;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import org.sqlproc.engine.annotation.Pojo;
 
 @Pojo
 @SuppressWarnings("all")
-public class AnHourBeforeResult implements Serializable {
+public class UuidEntity implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  private LocalDateTime result;
+  public static final String ORDER_BY_ID = "ID";
 
-  public LocalDateTime getResult() {
-    return this.result;
+  public UuidEntity() {
   }
 
-  public void setResult(final LocalDateTime result) {
-    this.result = result;
+  public UuidEntity(final UUID myid, final String name) {
+    super();
+    setMyid(myid);
+    setName(name);
   }
 
-  public AnHourBeforeResult withResult(final LocalDateTime result) {
-    this.result = result;
+  private UUID id;
+
+  public UUID getId() {
+    return this.id;
+  }
+
+  public void setId(final UUID id) {
+    this.id = id;
+  }
+
+  public UuidEntity withId(final UUID id) {
+    this.id = id;
+    return this;
+  }
+
+  @NotNull
+  private UUID myid;
+
+  public UUID getMyid() {
+    return this.myid;
+  }
+
+  public void setMyid(final UUID myid) {
+    this.myid = myid;
+  }
+
+  public UuidEntity withMyid(final UUID myid) {
+    this.myid = myid;
+    return this;
+  }
+
+  @NotNull
+  @Size(max = 100)
+  private String name;
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setName(final String name) {
+    this.name = name;
+  }
+
+  public UuidEntity withName(final String name) {
+    this.name = name;
+    return this;
+  }
+
+  @Size(max = 500)
+  private String description;
+
+  public String getDescription() {
+    return this.description;
+  }
+
+  public void setDescription(final String description) {
+    this.description = description;
+  }
+
+  public UuidEntity withDescription(final String description) {
+    this.description = description;
+    return this;
+  }
+
+  private boolean onlyIds_;
+
+  public boolean isOnlyIds_() {
+    return this.onlyIds_;
+  }
+
+  public void setOnlyIds_(final boolean onlyIds_) {
+    this.onlyIds_ = onlyIds_;
+  }
+
+  public UuidEntity withOnlyIds_(final boolean onlyIds_) {
+    this.onlyIds_ = onlyIds_;
+    return this;
+  }
+
+  private List<UUID> ids_ = new java.util.ArrayList<UUID>();
+
+  public List<UUID> getIds_() {
+    return this.ids_;
+  }
+
+  public void setIds_(final List<UUID> ids_) {
+    this.ids_ = ids_;
+  }
+
+  public UuidEntity withIds_(final List<UUID> ids_) {
+    this.ids_ = ids_;
     return this;
   }
 
   public StringBuilder getProcessingIdForAttributes_() {
-    StringBuilder result = new StringBuilder("AnHourBeforeResult");
-    if (result != null)
-    	result.append("@").append("result");
+    StringBuilder result = new StringBuilder("UuidEntity");
+    if (id != null)
+    	result.append("@").append("id");
+    if (myid != null)
+    	result.append("@").append("myid");
+    if (name != null)
+    	result.append("@").append("name");
+    if (description != null)
+    	result.append("@").append("description");
     return result;
   }
 
   @Override
+  public boolean equals(final Object obj) {
+    if (this == obj)
+    	return true;
+    if (obj == null)
+    	return false;
+    if (getClass() != obj.getClass())
+    	return false;
+    UuidEntity other = (UuidEntity) obj;
+    if (id == null || !id.equals(other.id))
+    	return false;
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return java.util.Objects.hash(id);
+  }
+
+  @Override
   public String toString() {
-    return "AnHourBeforeResult [result=" + result + "]";
+    return "UuidEntity [id=" + id + ", myid=" + myid + ", name=" + name + ", description=" + description + "]";
   }
 
   public String toStringFull() {
-    return "AnHourBeforeResult [result=" + result + "]";
+    return "UuidEntity [id=" + id + ", myid=" + myid + ", name=" + name + ", description=" + description + ", onlyIds_=" + onlyIds_ + ", ids_=" + ids_ + "]";
   }
 
   public enum Attribute {
-    result;
+    description;
   }
 
   private Set<String> nullValues_ =  new java.util.HashSet<String>();
 
-  public void setNull_(final AnHourBeforeResult.Attribute... attributes) {
+  public void setNull_(final UuidEntity.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
     	nullValues_.add(attribute.name());
   }
 
-  public AnHourBeforeResult withNull_(final AnHourBeforeResult.Attribute... attributes) {
+  public UuidEntity withNull_(final UuidEntity.Attribute... attributes) {
     setNull_(attributes);
     return this;
   }
 
-  public void clearNull_(final AnHourBeforeResult.Attribute... attributes) {
+  public void clearNull_(final UuidEntity.Attribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (Attribute attribute : attributes)
     	nullValues_.remove(attribute.name());
   }
 
-  public AnHourBeforeResult _clearNull_(final AnHourBeforeResult.Attribute... attributes) {
+  public UuidEntity _clearNull_(final UuidEntity.Attribute... attributes) {
     clearNull_(attributes);
     return this;
   }
@@ -79,7 +197,7 @@ public class AnHourBeforeResult implements Serializable {
     	nullValues_.add(attribute);
   }
 
-  public AnHourBeforeResult withNull_(final String... attributes) {
+  public UuidEntity withNull_(final String... attributes) {
     setNull_(attributes);
     return this;
   }
@@ -91,12 +209,12 @@ public class AnHourBeforeResult implements Serializable {
     	nullValues_.remove(attribute);
   }
 
-  public AnHourBeforeResult _clearNull_(final String... attributes) {
+  public UuidEntity _clearNull_(final String... attributes) {
     clearNull_(attributes);
     return this;
   }
 
-  public Boolean isNull_(final AnHourBeforeResult.Attribute attribute) {
+  public Boolean isNull_(final UuidEntity.Attribute attribute) {
     if (attribute == null)
     	throw new IllegalArgumentException();
     return nullValues_.contains(attribute.name());
@@ -134,7 +252,17 @@ public class AnHourBeforeResult implements Serializable {
   }
 
   public enum OpAttribute {
-    result;
+    id,
+
+    myid,
+
+    name,
+
+    description,
+
+    onlyIds_,
+
+    ids_;
   }
 
   private Map<String, String> operators_ =  new java.util.HashMap<String, String>();
@@ -149,26 +277,26 @@ public class AnHourBeforeResult implements Serializable {
     return operators_.get(attrName);
   }
 
-  public void setOp_(final String operator, final AnHourBeforeResult.OpAttribute... attributes) {
+  public void setOp_(final String operator, final UuidEntity.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
     	operators_.put(attribute.name(), operator);
   }
 
-  public AnHourBeforeResult withOp_(final String operator, final AnHourBeforeResult.OpAttribute... attributes) {
+  public UuidEntity withOp_(final String operator, final UuidEntity.OpAttribute... attributes) {
     setOp_(operator, attributes);
     return this;
   }
 
-  public void clearOp_(final AnHourBeforeResult.OpAttribute... attributes) {
+  public void clearOp_(final UuidEntity.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
     	operators_.remove(attribute.name());
   }
 
-  public AnHourBeforeResult _clearOp_(final AnHourBeforeResult.OpAttribute... attributes) {
+  public UuidEntity _clearOp_(final UuidEntity.OpAttribute... attributes) {
     clearOp_(attributes);
     return this;
   }
@@ -180,7 +308,7 @@ public class AnHourBeforeResult implements Serializable {
     	operators_.put(attribute, operator);
   }
 
-  public AnHourBeforeResult withOp_(final String operator, final String... attributes) {
+  public UuidEntity withOp_(final String operator, final String... attributes) {
     setOp_(operator, attributes);
     return this;
   }
@@ -192,19 +320,19 @@ public class AnHourBeforeResult implements Serializable {
     	operators_.remove(attribute);
   }
 
-  public AnHourBeforeResult _clearOp_(final String... attributes) {
+  public UuidEntity _clearOp_(final String... attributes) {
     clearOp_(attributes);
     return this;
   }
 
-  public void setNullOp_(final AnHourBeforeResult.OpAttribute... attributes) {
+  public void setNullOp_(final UuidEntity.OpAttribute... attributes) {
     if (attributes == null)
     	throw new IllegalArgumentException();
     for (OpAttribute attribute : attributes)
     	operators_.put(attribute.name(), "is null");
   }
 
-  public AnHourBeforeResult withNullOp_(final AnHourBeforeResult.OpAttribute... attributes) {
+  public UuidEntity withNullOp_(final UuidEntity.OpAttribute... attributes) {
     setNullOp_(attributes);
     return this;
   }
@@ -216,7 +344,7 @@ public class AnHourBeforeResult implements Serializable {
     	operators_.put(attribute, "is null");
   }
 
-  public AnHourBeforeResult withNullOp_(final String... attributes) {
+  public UuidEntity withNullOp_(final String... attributes) {
     setNullOp_(attributes);
     return this;
   }
@@ -237,6 +365,8 @@ public class AnHourBeforeResult implements Serializable {
   }
 
   public String getProcessingId_(final String... moreAttributes) {
+    if (ids_ != null && !ids_.isEmpty())
+    	return null;
     StringBuilder result = getProcessingIdForAttributes_();
     StringBuilder processingIdForNulls = getProcessingIdForNulls_();
     if (processingIdForNulls != null)

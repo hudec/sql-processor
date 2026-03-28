@@ -60,6 +60,7 @@ public class TypesExtDao {
     }
     String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "GET_TYPES_EXT";
     org.sqlproc.engine.SqlCrudEngine sqlGetEngineTypesExt = sqlEngineFactory.getCheckedCrudEngine(sqlName);
+    //sqlControl = getMoreResultClasses(typesExt, sqlControl);
     TypesExt typesExtGot = sqlGetEngineTypesExt.get(sqlSession, TypesExt.class, typesExt, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql get typesExt result: " + typesExtGot);
@@ -77,6 +78,31 @@ public class TypesExtDao {
 
   public TypesExt get(final TypesExt typesExt) {
     return get(typesExt, null);
+  }
+
+  public int update(final SqlSession sqlSession, final TypesExt typesExt, SqlControl sqlControl) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql update typesExt: " + typesExt + " " + sqlControl);
+    }
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "UPDATE_TYPES_EXT";
+    org.sqlproc.engine.SqlCrudEngine sqlUpdateEngineTypesExt = sqlEngineFactory.getCheckedCrudEngine(sqlName);
+    int count = sqlUpdateEngineTypesExt.update(sqlSession, typesExt, sqlControl);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql update typesExt result count: " + count);
+    }
+    return count;
+  }
+
+  public int update(final TypesExt typesExt, SqlControl sqlControl) {
+    return update(sqlSessionFactory.getSqlSession(), typesExt, sqlControl);
+  }
+
+  public int update(final SqlSession sqlSession, final TypesExt typesExt) {
+    return update(sqlSession, typesExt, null);
+  }
+
+  public int update(final TypesExt typesExt) {
+    return update(typesExt, null);
   }
 
   public int delete(final SqlSession sqlSession, final TypesExt typesExt, SqlControl sqlControl) {
@@ -110,6 +136,7 @@ public class TypesExtDao {
     }
     String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_TYPES_EXT";
     org.sqlproc.engine.SqlQueryEngine sqlEngineTypesExt = sqlEngineFactory.getCheckedQueryEngine(sqlName);
+    //sqlControl = getMoreResultClasses(typesExt, sqlControl);
     List<TypesExt> typesExtList = sqlEngineTypesExt.query(sqlSession, TypesExt.class, typesExt, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("sql list typesExt size: " + ((typesExtList != null) ? typesExtList.size() : "null"));
@@ -129,12 +156,39 @@ public class TypesExtDao {
     return list(typesExt, null);
   }
 
+  public int query(final SqlSession sqlSession, final TypesExt typesExt, SqlControl sqlControl, final SqlRowProcessor<TypesExt> sqlRowProcessor) {
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query typesExt: " + typesExt + " " + sqlControl);
+    }
+    String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_TYPES_EXT";
+    org.sqlproc.engine.SqlQueryEngine sqlEngineTypesExt = sqlEngineFactory.getCheckedQueryEngine(sqlName);
+    //sqlControl = getMoreResultClasses(typesExt, sqlControl);
+    int rownums = sqlEngineTypesExt.query(sqlSession, TypesExt.class, typesExt, sqlControl, sqlRowProcessor);
+    if (logger.isTraceEnabled()) {
+    	logger.trace("sql query typesExt size: " + rownums);
+    }
+    return rownums;
+  }
+
+  public int query(final TypesExt typesExt, SqlControl sqlControl, final SqlRowProcessor<TypesExt> sqlRowProcessor) {
+    return query(sqlSessionFactory.getSqlSession(), typesExt, sqlControl, sqlRowProcessor);
+  }
+
+  public int query(final SqlSession sqlSession, final TypesExt typesExt, final SqlRowProcessor<TypesExt> sqlRowProcessor) {
+    return query(sqlSession, typesExt, null, sqlRowProcessor);
+  }
+
+  public int query(final TypesExt typesExt, final SqlRowProcessor<TypesExt> sqlRowProcessor) {
+    return query(typesExt, null, sqlRowProcessor);
+  }
+
   public int count(final SqlSession sqlSession, final TypesExt typesExt, SqlControl sqlControl) {
     if (logger.isTraceEnabled()) {
     	logger.trace("count typesExt: " + typesExt + " " + sqlControl);
     }
     String sqlName = (sqlControl != null && sqlControl.getSqlName() != null) ? sqlControl.getSqlName() : "SELECT_TYPES_EXT";
     org.sqlproc.engine.SqlQueryEngine sqlEngineTypesExt = sqlEngineFactory.getCheckedQueryEngine(sqlName);
+    //sqlControl = getMoreResultClasses(typesExt, sqlControl);
     int count = sqlEngineTypesExt.queryCount(sqlSession, typesExt, sqlControl);
     if (logger.isTraceEnabled()) {
     	logger.trace("count: " + count);

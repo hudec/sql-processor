@@ -157,53 +157,53 @@ public class Main {
         List<Contact> listc;
 
         // insert
-        Person jan = insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE),
-                new Contact().withAddress("Jan address 1").withPhoneNumber("111-222-3333").withType(ContactType.HOME),
-                new Contact().withAddress("Jan address 2").withType(ContactType.BUSINESS));
-        PersonDetail jand = new PersonDetail().withPerson(jan).withType(PersonDetailType.I0);
+        Person jan = insertPersonContacts(new Person("Jan", "Jansky", PersonGender.MALE.getValue()),
+                new Contact().withAddress("Jan address 1").withPhoneNumber("111-222-3333").withType(ContactType.HOME.getValue()),
+                new Contact().withAddress("Jan address 2").withType(ContactType.BUSINESS.getValue()));
+        PersonDetail jand = new PersonDetail().withPerson(jan).withType(PersonDetailType.I0.getValue());
         personDetailDao.insert(jand);
-        jand = new PersonDetail().withPerson(jan).withType(PersonDetailType.I1);
+        jand = new PersonDetail().withPerson(jan).withType(PersonDetailType.I1.getValue());
         personDetailDao.insert(jand);
-        jand = new PersonDetail().withPerson(jan).withType(PersonDetailType.I2);
+        jand = new PersonDetail().withPerson(jan).withType(PersonDetailType.I2.getValue());
         personDetailDao.insert(jand);
         p = getPerson(jan.getIdPerson(), Person.Association.contacts);
         Assert.assertEquals("Jan", p.getFirstName());
         Assert.assertEquals("Jan address 1", p.getContacts().get(0).getAddress());
 
-        Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE),
-                new Contact().withAddress("Janik address 1").withType(ContactType.BUSINESS),
-                new Contact().withAddress("Janik address 2").withType(ContactType.BUSINESS));
-        PersonDetail janikd = new PersonDetail().withPerson(janik).withType(PersonDetailType.I1);
+        Person janik = insertPersonContacts(new Person("Janik", "Janicek", PersonGender.MALE.getValue()),
+                new Contact().withAddress("Janik address 1").withType(ContactType.BUSINESS.getValue()),
+                new Contact().withAddress("Janik address 2").withType(ContactType.BUSINESS.getValue()));
+        PersonDetail janikd = new PersonDetail().withPerson(janik).withType(PersonDetailType.I1.getValue());
         personDetailDao.insert(janikd);
-        janikd = new PersonDetail().withPerson(janik).withType(PersonDetailType.I3);
+        janikd = new PersonDetail().withPerson(janik).withType(PersonDetailType.I3.getValue());
         personDetailDao.insert(janikd);
         p = getPerson(janik.getIdPerson(), Person.Association.contacts);
         Assert.assertEquals("Janik", p.getFirstName());
         Assert.assertEquals("Janik address 1", p.getContacts().get(0).getAddress());
 
-        Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE),
-                new Contact().withAddress("Honza address 1").withType(ContactType.HOME),
-                new Contact().withAddress("Honza address 2").withType(ContactType.BUSINESS));
-        PersonDetail honzad = new PersonDetail().withPerson(honza).withType(PersonDetailType.I2);
+        Person honza = insertPersonContacts(new Person("Honza", "Honzovsky", PersonGender.MALE.getValue()),
+                new Contact().withAddress("Honza address 1").withType(ContactType.HOME.getValue()),
+                new Contact().withAddress("Honza address 2").withType(ContactType.BUSINESS.getValue()));
+        PersonDetail honzad = new PersonDetail().withPerson(honza).withType(PersonDetailType.I2.getValue());
         personDetailDao.insert(honzad);
-        honzad = new PersonDetail().withPerson(honza).withType(PersonDetailType.I3);
+        honzad = new PersonDetail().withPerson(honza).withType(PersonDetailType.I3.getValue());
         personDetailDao.insert(honzad);
         p = getPerson(honza.getIdPerson(), Person.Association.contacts);
         Assert.assertEquals("Honza", p.getFirstName());
         Assert.assertEquals("Honza address 2", p.getContacts().get(1).getAddress());
 
-        Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE),
-                new Contact().withAddress("Honzik address 1").withType(ContactType.HOME),
-                new Contact().withAddress("Honzik address 2").withType(ContactType.BUSINESS));
+        Person honzik = insertPersonContacts(new Person("Honzik", "Honzicek", PersonGender.MALE.getValue()),
+                new Contact().withAddress("Honzik address 1").withType(ContactType.HOME.getValue()),
+                new Contact().withAddress("Honzik address 2").withType(ContactType.BUSINESS.getValue()));
         p = getPerson(honzik.getIdPerson(), Person.Association.contacts);
         Assert.assertEquals("Honzik", p.getFirstName());
         Assert.assertEquals(2, p.getContacts().size());
 
-        Person andrej = insertPersonContacts(new Person("Andrej", "Andrejcek", PersonGender.MALE).withSsn("123456789"),
+        Person andrej = insertPersonContacts(new Person("Andrej", "Andrejcek", PersonGender.MALE.getValue()).withSsn("123456789"),
                 new Contact().withAddress("Andrej address 1").withPhoneNumber("444-555-6666")
-                        .withType(ContactType.BUSINESS),
+                        .withType(ContactType.BUSINESS.getValue()),
                 new Contact().withAddress("Andrej address 2").withPhoneNumber("444-555-6666")
-                        .withType(ContactType.BUSINESS));
+                        .withType(ContactType.BUSINESS.getValue()));
         p = getPerson(andrej.getIdPerson(), Person.Association.contacts);
         Assert.assertEquals("Andrej", p.getFirstName());
         Assert.assertEquals("Andrej address 1", p.getContacts().get(0).getAddress());
@@ -228,7 +228,7 @@ public class Main {
         Assert.assertEquals("Andrejik", p.getFirstName());
         Assert.assertEquals("Andrejcek", p.getLastName());
         Assert.assertEquals("123456789", p.getSsn());
-        Assert.assertEquals(PersonGender.MALE, p.getGender());
+        Assert.assertEquals(PersonGender.MALE.getValue(), p.getGender());
         Assert.assertTrue(p.getContacts().size() == 0);
 
         person = new Person();
@@ -438,8 +438,8 @@ public class Main {
         printEnginesUsageStatistics(configuration.getProcedureEngines());
         printProcessingCacheStatistics(sqlFactory.getProcedureEngines());
 
-        Person p1 = new Person("Person1", "Personal1", PersonGender.MALE);
-        Person p2 = new Person("Person2", "Personal2", PersonGender.MALE);
+        Person p1 = new Person("Person1", "Personal1", PersonGender.MALE.getValue());
+        Person p2 = new Person("Person2", "Personal2", PersonGender.MALE.getValue());
         List<Person> persons = new ArrayList<Person>();
         persons.add(p1);
         persons.add(p2);

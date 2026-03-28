@@ -21,6 +21,7 @@ pojogen-rename-columns CONTACT_TYPE I0->HOME I1->BUSINESS I2->ABROAD;
 pojogen-rename-columns PERSON_GENDER M->MALE F->FEMALE I0->UNKNOWN; 
 pojogen-generate-operators;
 pojogen-generate-validation-annotations;
+pojogen-types-sqltypes "UUID(16)"->java.util.UUID;
 
 metagen-global-identity COMMON - PERSON_DETAIL;
 metagen-table-sequence CONTACT SIMPLE_SEQUENCE;
@@ -33,6 +34,8 @@ daogen-package org.sample.dao;
 is-table contact CONTACT;
 is-table person PERSON;
 is-table personDetail PERSON_DETAIL;
+is-table typesExt TYPES_EXT;
+is-table uuidEntity UUID_ENTITY;
 
 is-procedure anHourBefore AN_HOUR_BEFORE;
 is-function anHourBefore AN_HOUR_BEFORE;
@@ -42,6 +45,8 @@ is-pojo AnHourBeforeResult org.sample.model.AnHourBeforeResult;
 is-pojo Contact org.sample.model.Contact;
 is-pojo Person org.sample.model.Person;
 is-pojo PersonDetail org.sample.model.PersonDetail;
+is-pojo TypesExt org.sample.model.TypesExt;
+is-pojo UuidEntity org.sample.model.UuidEntity;
 
 //database-debug-level DEBUG;
 //pojogen-debug-level DEBUG;
