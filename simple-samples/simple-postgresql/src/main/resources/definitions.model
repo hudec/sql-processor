@@ -29,6 +29,7 @@ pojogen-debug-level DEBUG;
 
 // use identity for primary keys
 metagen-table-identity contact CONTACT;
+metagen-table-identity uuid_entity UUID_ENTITY;
 //metagen-table-sequence contact contact_id_seq;
 metagen-table-sequence person person_id_seq;
 metagen-generate-idgenerators;

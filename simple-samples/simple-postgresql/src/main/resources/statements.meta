@@ -1,6 +1,7 @@
 SEQ=contact_id_seq(OPT)=select nextval('contact_id_seq');
 SEQ=person_id_seq(OPT)=select nextval('person_id_seq');
 SEQ=contact_person_id_seq(OPT)=select nextval('contact_person_id_seq');
+SEQ=types_ext_id_seq(OPT)=select nextval('types_ext_id_seq');
 IDSEL=CONTACT(OPT)=select currval(pg_get_serial_sequence('contact','id'));
 IDSEL=PERSON(OPT)=select currval(pg_get_serial_sequence('person','id'));
 
@@ -135,24 +136,25 @@ IDSEL=TYPES_EXT(OPT)=select currval(pg_get_serial_sequence('types_ext','id'));
 IDSEL=UUID_ENTITY(OPT)=JDBC;
 
 INSERT_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
-  insert into %%types_ext (%id, %t_uuid, %t_offset_date_time)
-  {= values (:id(idgen=TYPES_EXT,id=id), :uuid(type=uuid), :offsetDateTime(type=offsetdatetime)) }
+  insert into %%types_ext (%id, {? :tUuid(type=uuid) | %t_uuid, } %t_offset_date_time)
+  {= values (:id(idgen=TYPES_EXT,id=id), {? :tUuid(type=uuid) | :tUuid(type=uuid), } :tOffsetDateTime(type=offsetdatetime)) }
 ;
 
 GET_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
-  select %id @id(id), %t_uuid @uuid(type=uuid), %t_offset_date_time @offsetDateTime(type=offsetdatetime)
+  select %id @id(id), %t_uuid @tUuid(type=uuid), %t_offset_date_time @tOffsetDateTime(type=offsetdatetime)
   from %%types_ext
   {= where
     {& %id ::= :id }
-    {& %t_uuid ::= :uuid(type=uuid) }
+    {& %t_uuid ::= :tUuid(type=uuid) }
+    {& %t_offset_date_time ::= :tOffsetDateTime(type=offsetdatetime) }
   }
 ;
 
 UPDATE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
   update %%types_ext
   {= set
-    { ,%t_uuid = :tUuid(call=isDef) }
-    { ,%t_offset_date_time = :tOffsetDateTime(call=isDef) }
+    { ,%t_uuid = :tUuid(type=uuid,call=isDef) }
+    { ,%t_offset_date_time = :tOffsetDateTime(type=offsetdatetime,call=isDef) }
   }
   {= where
     {& %id = :id(!empty) }
@@ -167,13 +169,14 @@ DELETE_TYPES_EXT(CRUD,in=TypesExt,out=TypesExt,tab=types_ext)=
 ;
 
 SELECT_TYPES_EXT(QRY,in=TypesExt,out=TypesExt,tab=types_ext)=
-  select %id @id(id), %t_uuid @uuid(type=uuid), %t_offset_date_time @offsetDateTime(type=offsetdatetime)
+  select %id @id(id), %t_uuid @tUuid(type=uuid), %t_offset_date_time @tOffsetDateTime(type=offsetdatetime)
   from %%types_ext
   {= where
     {& %id ::= :id }
-    {& %t_uuid ::= :uuid(type=uuid) }
+    {& %t_uuid ::= :tUuid(type=uuid) }
+    {& %t_offset_date_time ::= :tOffsetDateTime(type=offsetdatetime) }
   }
-  order by %id
+  {#ID order by %id }
 ;
 
 INSERT_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
@@ -186,13 +189,16 @@ GET_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
   from %%uuid_entity
   {= where
     {& %id ::= :id(type=uuid) }
+    {& %myid ::= :myid(type=uuid) }
     {& %name ::= :name }
+    {& %description ::= :description }
   }
 ;
 
 UPDATE_UUID_ENTITY(CRUD,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
   update %%uuid_entity
   {= set
+    { ,%myid = :myid(type=uuid,call=isDef) }
     { ,%name = :name(call=isDef) }
     { ,%description = :description(call=isDef) }
   }
@@ -213,8 +219,9 @@ SELECT_UUID_ENTITY(QRY,in=UuidEntity,out=UuidEntity,tab=uuid_entity)=
   from %%uuid_entity
   {= where
     {& %id ::= :id(type=uuid) }
+    {& %myid ::= :myid(type=uuid) }
     {& UPPER(%name) like :+name }
     {& UPPER(%description) like :+description }
   }
-  {#NAME order by %name }
+  {#ID order by %id }
 ;

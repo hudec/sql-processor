@@ -28,33 +28,33 @@ public class TypesExt implements Serializable {
     return this;
   }
 
-  private UUID uuid;
+  private UUID tUuid;
 
-  public UUID getUuid() {
-    return this.uuid;
+  public UUID gettUuid() {
+    return this.tUuid;
   }
 
-  public void setUuid(final UUID uuid) {
-    this.uuid = uuid;
+  public void settUuid(final UUID tUuid) {
+    this.tUuid = tUuid;
   }
 
-  public TypesExt withUuid(final UUID uuid) {
-    this.uuid = uuid;
+  public TypesExt withtUuid(final UUID tUuid) {
+    this.tUuid = tUuid;
     return this;
   }
 
-  private OffsetDateTime offsetDateTime;
+  private OffsetDateTime tOffsetDateTime;
 
-  public OffsetDateTime getOffsetDateTime() {
-    return this.offsetDateTime;
+  public OffsetDateTime gettOffsetDateTime() {
+    return this.tOffsetDateTime;
   }
 
-  public void setOffsetDateTime(final OffsetDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
+  public void settOffsetDateTime(final OffsetDateTime tOffsetDateTime) {
+    this.tOffsetDateTime = tOffsetDateTime;
   }
 
-  public TypesExt withOffsetDateTime(final OffsetDateTime offsetDateTime) {
-    this.offsetDateTime = offsetDateTime;
+  public TypesExt withtOffsetDateTime(final OffsetDateTime tOffsetDateTime) {
+    this.tOffsetDateTime = tOffsetDateTime;
     return this;
   }
 
@@ -79,10 +79,10 @@ public class TypesExt implements Serializable {
 
   @Override
   public String toString() {
-    return "TypesExt [id=" + id + ", uuid=" + uuid + ", offsetDateTime=" + offsetDateTime + "]";
+    return "TypesExt [id=" + id + ", tUuid=" + tUuid + ", tOffsetDateTime=" + tOffsetDateTime + "]";
   }
 
   public String toStringFull() {
-    return "TypesExt [id=" + id + ", uuid=" + uuid + ", offsetDateTime=" + offsetDateTime + "]";
+    return "TypesExt [id=" + id + ", tUuid=" + tUuid + ", tOffsetDateTime=" + tOffsetDateTime + "]";
   }
 }

@@ -281,36 +281,36 @@ public class Main {
 
             UUID testUuid1 = UUID.fromString("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11");
             OffsetDateTime testOdt1 = OffsetDateTime.parse("2024-06-15T10:30:00+02:00");
-            TypesExt te1 = main.typesExtDao.insert(new TypesExt().withUuid(testUuid1).withOffsetDateTime(testOdt1));
+            TypesExt te1 = main.typesExtDao.insert(new TypesExt().withtUuid(testUuid1).withtOffsetDateTime(testOdt1));
             Assert.assertNotNull(te1);
             Assert.assertNotNull(te1.getId());
 
             UUID testUuid2 = UUID.fromString("b1ffcd00-ad1c-5fa9-cc7e-7ccace491b22");
             OffsetDateTime testOdt2 = OffsetDateTime.parse("2025-01-20T15:45:30+01:00");
-            TypesExt te2 = main.typesExtDao.insert(new TypesExt().withUuid(testUuid2).withOffsetDateTime(testOdt2));
+            TypesExt te2 = main.typesExtDao.insert(new TypesExt().withtUuid(testUuid2).withtOffsetDateTime(testOdt2));
             Assert.assertNotNull(te2);
             Assert.assertNotNull(te2.getId());
 
             // get by id
             TypesExt teGet = main.typesExtDao.get(new TypesExt().withId(te1.getId()));
             Assert.assertNotNull(teGet);
-            Assert.assertEquals(testUuid1, teGet.getUuid());
-            Assert.assertNotNull(teGet.getOffsetDateTime());
-            Assert.assertEquals(2024, teGet.getOffsetDateTime().getYear());
-            Assert.assertEquals(6, teGet.getOffsetDateTime().getMonthValue());
-            Assert.assertEquals(15, teGet.getOffsetDateTime().getDayOfMonth());
+            Assert.assertEquals(testUuid1, teGet.gettUuid());
+            Assert.assertNotNull(teGet.gettOffsetDateTime());
+            Assert.assertEquals(2024, teGet.gettOffsetDateTime().getYear());
+            Assert.assertEquals(6, teGet.gettOffsetDateTime().getMonthValue());
+            Assert.assertEquals(15, teGet.gettOffsetDateTime().getDayOfMonth());
 
             // list all
             List<TypesExt> listTe = main.typesExtDao.list(null);
             Assert.assertEquals(2, listTe.size());
 
             // list by uuid filter
-            TypesExt filter = new TypesExt().withUuid(testUuid2);
+            TypesExt filter = new TypesExt().withtUuid(testUuid2);
             listTe = main.typesExtDao.list(filter);
             Assert.assertEquals(1, listTe.size());
-            Assert.assertEquals(testUuid2, listTe.get(0).getUuid());
-            Assert.assertNotNull(listTe.get(0).getOffsetDateTime());
-            Assert.assertEquals(2025, listTe.get(0).getOffsetDateTime().getYear());
+            Assert.assertEquals(testUuid2, listTe.get(0).gettUuid());
+            Assert.assertNotNull(listTe.get(0).gettOffsetDateTime());
+            Assert.assertEquals(2025, listTe.get(0).gettOffsetDateTime().getYear());
 
             // insert with null uuid and offset date time
             TypesExt te3 = main.typesExtDao.insert(new TypesExt());
@@ -318,8 +318,8 @@ public class Main {
             Assert.assertNotNull(te3.getId());
             teGet = main.typesExtDao.get(new TypesExt().withId(te3.getId()));
             Assert.assertNotNull(teGet);
-            Assert.assertNull(teGet.getUuid());
-            Assert.assertNull(teGet.getOffsetDateTime());
+            Assert.assertNull(teGet.gettUuid());
+            Assert.assertNull(teGet.gettOffsetDateTime());
 
             // delete
             count = main.typesExtDao.delete(te1);
