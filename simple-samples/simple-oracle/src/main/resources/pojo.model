@@ -19,76 +19,76 @@ package org.sample.model {
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,type,address,phoneNumber)
     #Pojo Contact {
         #PrimaryKey #Index
-        #Attr java.math.BigInteger id // NUMBER(19)
+        #Attr java.math.BigInteger id
         @NotNull
         #ToInit #Required #IsPojo
-        #Attr Person person // NUMBER(19)
+        #Attr Person person
         @NotNull
         #Required
-        #Attr ContactType type // NUMBER(9)
+        #Attr ContactType type
         @Size(max = 100)
         #IsDef
-        #Attr String address // VARCHAR2(100)
+        #Attr String address
         @Size(max = 100)
         #IsDef
-        #Attr String phoneNumber // VARCHAR2(100)
+        #Attr String phoneNumber
     }
 
     #Operators #Serializable(1) #Equals(id) #HashCode(id) #ToString(id,firstName,lastName,dateOfBirth,gender,ssn)
     #Pojo Person {
         #PrimaryKey #Index
-        #Attr java.math.BigInteger id // NUMBER(19)
+        #Attr java.math.BigInteger id
         @NotNull
         @Size(max = 100)
         #Required
-        #Attr String firstName // VARCHAR2(100)
+        #Attr String firstName
         @NotNull
         @Size(max = 100)
         #Required #Index
-        #Attr String lastName // VARCHAR2(100)
+        #Attr String lastName
         #IsDef
-        #Attr java.time.LocalDateTime dateOfBirth // DATE(7)
+        #Attr java.time.LocalDateTime dateOfBirth
         @NotNull
         #Required
-        #Attr PersonGender gender // VARCHAR2(1)
+        #Attr PersonGender gender
         @Size(max = 100)
         #IsDef
-        #Attr String ssn // VARCHAR2(100)
+        #Attr String ssn
         #ToInit
-        #Attr java.util.List <Contact> contacts // null
+        #Attr java.util.List <Contact> contacts
     }
 
     #Serializable(1) #ToString(t)
     #Pojo AnHourBefore {
-        #Attr java.time.LocalDateTime t // DATE
+        #Attr java.time.LocalDateTime t
     }
 
     #Serializable(1) #ToString(newid,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPerson {
-        #Attr java.math.BigDecimal newid // NUMBER(22)
-        #Attr java.time.LocalDateTime dateOfBirth // DATE
-        #Attr String ssn // VARCHAR2
-        #Attr String firstName // VARCHAR2
-        #Attr String lastName // VARCHAR2
-        #Attr String gender // VARCHAR2
+        #Attr java.math.BigDecimal newid
+        #Attr java.time.LocalDateTime dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
     }
 
     #Serializable(1) #ToString(resultCur,dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonOutRs {
-        #Attr Object resultCur // REF CURSOR
-        #Attr java.time.LocalDateTime dateOfBirth // DATE
-        #Attr String ssn // VARCHAR2
-        #Attr String firstName // VARCHAR2
-        #Attr String lastName // VARCHAR2
-        #Attr String gender // VARCHAR2
+        #Attr Object resultCur
+        #Attr java.time.LocalDateTime dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
     }
 
     #Serializable(1) #ToString(dateOfBirth,ssn,firstName,lastName,gender)
     #Pojo NewPersonRetRs {
-        #Attr java.time.LocalDateTime dateOfBirth // DATE
-        #Attr String ssn // VARCHAR2
-        #Attr String firstName // VARCHAR2
-        #Attr String lastName // VARCHAR2
-        #Attr String gender // VARCHAR2
+        #Attr java.time.LocalDateTime dateOfBirth
+        #Attr String ssn
+        #Attr String firstName
+        #Attr String lastName
+        #Attr String gender
     }
 }
