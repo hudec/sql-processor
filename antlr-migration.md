@@ -1,278 +1,86 @@
-# ANTLR 3.5.3 → 4.13.2 Migration Plan
+# ANTLR 3.5.3 → 4.13.2 Migration
 
-## Background
+## Status: COMPLETE ✓
 
-The project uses ANTLR 3.5.3 (`org.antlr:antlr`, `org.antlr:antlr-runtime`) with the `antlr3-maven-plugin`. The target is ANTLR 4.13.2.
-
-Two grammar files exist, nearly identical:
-- `sql-processor/src/main/antlr3/org/sqlproc/engine/impl/SqlProcessor.g` — full grammar, builds domain objects via embedded Java actions
-- `sql-processor/src/main/antlr3/org/sqlproc/engine/impl/SqlProcessorLazy.g` — simplified variant, stores statements as raw strings
-
-Four hand-written Java files use ANTLR 3 directly:
-- `sql-processor/src/main/java/org/sqlproc/engine/impl/SqlProcessor.java`
-- `sql-processor/src/main/java/org/sqlproc/engine/impl/SqlMappingRule.java`
-- `sql-processor/src/main/java/org/sqlproc/engine/impl/SqlMetaStatement.java`
-- `sql-processor/src/main/java/org/sqlproc/engine/impl/ParserUtils.java`
-
-**Good news:** No tree grammars, no `CommonTree`, no `TreeAdaptor`. The grammar builds domain objects directly through embedded Java actions, which greatly simplifies the migration.
+All 246 core tests and 242 Spring module tests pass with ANTLR 4.13.2.
 
 ---
 
-## Step 1 — Maven POM changes
+## What was done
 
-### `pom.xml` (root)
+### Maven POM changes
 
-Change the ANTLR version property:
-```xml
-<version.antlr>4.13.2</version.antlr>
-```
+- `pom.xml` (root): Changed `<version.antlr>3.5.3</version.antlr>` → `4.13.2`; replaced `antlr` + `antlr-runtime` dependencies with `antlr4-runtime` in `<dependencyManagement>`
+- `sql-processor/pom.xml`: Replaced `antlr3-maven-plugin` with `antlr4-maven-plugin` (goal: `antlr4`); replaced `antlr` + `antlr-runtime` with `antlr4-runtime`
+- `sql-processor-beans/pom.xml`: Same plugin/dependency update
+- `sql-processor-spring/pom.xml`: Replaced `antlr-runtime` with `antlr4-runtime`
 
-In `<dependencyManagement>`, remove both ANTLR 3 entries and replace with:
-```xml
-<!-- ANTLR -->
-<dependency>
-    <groupId>org.antlr</groupId>
-    <artifactId>antlr4-runtime</artifactId>
-    <version>${version.antlr}</version>
-</dependency>
-```
+### Grammar files
 
-### `sql-processor/pom.xml`
+Moved from `src/main/antlr3/` to `src/main/antlr4/org/sqlproc/engine/impl/` and renamed to `.g4`.
 
-Replace the `antlr3-maven-plugin` with:
-```xml
-<plugin>
-    <groupId>org.antlr</groupId>
-    <artifactId>antlr4-maven-plugin</artifactId>
-    <version>${version.antlr}</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>antlr4</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
-```
+Applied to both `SqlProcessor.g4` and `SqlProcessorLazy.g4`:
 
-Replace runtime dependencies:
-```xml
-<!-- ANTLR -->
-<dependency>
-    <groupId>org.antlr</groupId>
-    <artifactId>antlr4-runtime</artifactId>
-</dependency>
-```
+| Change | Detail |
+|--------|--------|
+| `@header` package removed | ANTLR 4 auto-generates `package` from directory; having it in `@header` caused duplicate declarations |
+| `@members` → `@parser::members` | ANTLR 4 combined grammars inject `@members` into both Lexer and Parser; `@parser::members` restricts to Parser only |
+| `@lexer::members` removed | Caused "redefinition of members action" error; error handling moved to external listener |
+| Missing imports added to `@header` | Added `ArrayList`, `Collections`, `List`, `Stack` (needed by parser members code) |
+| `options {greedy=...}` removed | ANTLR 4 is greedy by default |
+| Character ranges rewritten | `('a'..'z')` → `[a-zA-Z]`, `('0'..'9')` → `[0-9]` |
+| Comment rules rewritten | `{$channel=HIDDEN;}` → `-> channel(HIDDEN)`; `(options{greedy=false;}:.)` → `.*?` |
+| Dynamic scopes removed | `scope { StringBuilder text; ... }` replaced with `@parser::members` fields: `_scopeText`, `_scopeHasOutputMapping`, `_scopeTypeFactory`, `_scopeSkip` |
+| `REST` token negation fixed | ANTLR 4 can't negate named tokens; changed to character literal set: `~[:;$,\-+(){}?!&\|#@^=<>%]` |
+| `String[\]` → `List<String>` | ANTLR 4.13.2 passes `\]` through verbatim (does not strip escape); avoided `[]` in rule argument lists entirely by using `List<String>` for `filters` parameter and `java.util.Collections.emptyList()` in the `parse` wrapper rule |
+| `text=option[...]` label renamed | Label `text` conflicted with ANTLR 4 built-in `$text` attribute, producing garbled generated code; renamed to `optionCtx` |
+| `fragmentType.getText()` → `$fragmentType.getText()` | ANTLR 4 requires `$` prefix for labeled token references in action code |
+| `getErrorMessage`/`reportError` removed | These ANTLR 3 override hooks don't exist in ANTLR 4; error handling delegated to `SqlProcessorErrorListener` |
 
----
+### New file: `SqlProcessorErrorListener.java`
 
-## Step 2 — Grammar file changes (both `.g` files)
+`sql-processor/src/main/java/org/sqlproc/engine/impl/SqlProcessorErrorListener.java` — implements `BaseErrorListener`, collects parse errors into `List<ErrorMsg>`.
 
-### 2a — Rename and move
+### Java caller changes
 
-Move grammar files from `src/main/antlr3/` to `src/main/antlr4/org/sqlproc/engine/impl/` and rename to `.g4`. The `antlr4-maven-plugin` scans `src/main/antlr4` by default and will pick them up automatically.
+All four hand-written files updated:
 
-### 2b — Remove `options { greedy=... }` blocks
+**Import changes (all files):**
+- `org.antlr.runtime.*` → `org.antlr.v4.runtime.*`
+- `ANTLRStringStream` → `CharStreams` (used as `CharStreams.fromString(...)`)
+- `MismatchedTokenException` → `InputMismatchException`
+- Added `Vocabulary` import
 
-ANTLR 4 is greedy by default. Strip `(options {greedy=true;} : ...)` wrappers (~14 occurrences across both files), keeping only the inner content.
+**`SqlProcessor.java`:**
+- Added `Arrays` import; changed `parser.parse2(..., filters)` → `parser.parse2(..., Arrays.asList(filters)).processor` (ANTLR 4 rule methods return `XxxContext`, not the return value directly)
+- Removed `try/catch RecognitionException`; registered `SqlProcessorErrorListener` on both lexer and parser; errors collected from listener
 
-```antlr
-// Before
-(options {greedy=true;} : LPAREN (value=IDENT | value=NUMBER) { ... } )*
+**`SqlMappingRule.java`:**
+- `parser.mapping(...).sqlMapping` instead of `parser.mapping(...)`
+- Error handling via `SqlProcessorErrorListener`
 
-// After
-(LPAREN (value=IDENT | value=NUMBER) { ... } )*
-```
+**`SqlMetaStatement.java`:**
+- `parser.meta(...).metaStatement` instead of `parser.meta(...)`
+- Error handling via `SqlProcessorErrorListener`
 
-### 2c — Rewrite lexer character ranges
-
-ANTLR 4 uses character set syntax instead of `'a'..'z'` ranges.
-
-```antlr
-// Before
-IDENT   : ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9' | '_')*;
-fragment DIGIT: ('0'..'9');
-
-// After
-IDENT   : [a-zA-Z] [a-zA-Z0-9_]*;
-fragment DIGIT: [0-9];
-```
-
-### 2d — Rewrite comment rules
-
-The hidden channel assignment syntax and non-greedy option changed.
-
-```antlr
-// Before
-ML_COMMENT : '/*' (options {greedy=false;} : .)*'*/' {$channel=HIDDEN;} ;
-SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')? {$channel=HIDDEN;} ;
-
-// After
-ML_COMMENT : '/*' .*? '*/' -> channel(HIDDEN) ;
-SL_COMMENT : '//' ~[\n\r]* ('\r'? '\n')? -> channel(HIDDEN) ;
-```
-
-### 2e — Replace `scope` declarations *(hardest part)*
-
-ANTLR 4 removed dynamic scopes. The grammar uses `$meta::text`, `$meta::typeFactory`, `$meta::skip`, and `$meta::hasOutputMapping` across many rules (~7 levels deep), as well as `$mapping::typeFactory` and `$mapping::skip`.
-
-**Strategy:** promote scope variables to parser member fields in `@members`. This works because the grammar is not re-entrant — `meta` and `mapping` are each called once per parse.
-
-Add to `@members` in both grammar files:
-```java
-private StringBuilder _scopeText;
-private boolean _scopeHasOutputMapping;
-private SqlTypeFactory _scopeTypeFactory;
-private boolean _scopeSkip;
-```
-
-Then replace all references:
-
-| Old | New |
-|---|---|
-| `$meta::text` | `_scopeText` |
-| `$meta::typeFactory` | `_scopeTypeFactory` |
-| `$meta::skip` | `_scopeSkip` |
-| `$meta::hasOutputMapping` | `_scopeHasOutputMapping` |
-| `$mapping::typeFactory` | `_scopeTypeFactory` |
-| `$mapping::skip` | `_scopeSkip` |
-
-Initialize them in the `meta` and `mapping` rules' `@init` blocks (replacing the existing `scope` init code).
-
-### 2f — Remove `getErrorMessage` / `reportError` overrides from `@members`
-
-These ANTLR 3 override hooks no longer exist in ANTLR 4. Remove both method bodies from the grammar's `@members` and `@lexer::members` blocks.
-
-Error collection moves to a custom `ANTLRErrorListener` registered at parse time (see Step 4). Keep the `List<ErrorMsg> errors` field and `getErrors()` method in `@members`, and add an `addError(ErrorMsg e)` helper for the listener to call.
-
-### 2g — Fix `REST` token negated character class
-
-ANTLR 4 cannot negate named tokens — only character sets.
-
-```antlr
-// Before (ANTLR 3) — negates named token references
-REST: ~(COLON | SEMICOLON | DOLLAR | ...);
-
-// After (ANTLR 4) — must use character literals
-REST: ~[:;$,\-+(){ }?!&|#@^=<>%];
-```
-
-Map each referenced token name to its literal character carefully.
-
-### 2h — Verify `String[\]` rule parameter syntax
-
-The entry rule uses `String[\]` to escape `]` in the parameter list. Test whether ANTLR 4 still requires this escaping. If not, change to plain `String[]`.
+**`ParserUtils.java`:**
+- `ex.token` → `ex.getOffendingToken()`
+- `ex.index` → `ex.getOffendingToken().getTokenIndex()`
+- `ex.line` → `ex.getOffendingToken().getLine()`
+- `String[] tokenNames` → `Vocabulary vocabulary`; `tokenNames[type]` → `vocabulary.getDisplayName(type)`
 
 ---
 
-## Step 3 — Update Java API in hand-written files
+## Key ANTLR 4 gotchas encountered
 
-### 3a — Import replacements (all four files)
+1. **`@members` goes to both Lexer and Parser** in combined grammars — use `@parser::members` for parser-only code.
 
-| ANTLR 3 (`org.antlr.runtime.*`) | ANTLR 4 (`org.antlr.v4.runtime.*`) |
-|---|---|
-| `ANTLRStringStream` | `CharStreams` |
-| `CommonTokenStream` | `CommonTokenStream` |
-| `RecognitionException` | `RecognitionException` |
-| `Token` | `Token` |
-| `CommonToken` | `CommonToken` |
-| `MismatchedTokenException` | `InputMismatchException` |
+2. **`@header` package duplication** — ANTLR 4 generates `package` automatically from the grammar's source directory; do not include it in `@header`.
 
-### 3b — `SqlProcessor.java`, `SqlMappingRule.java`, `SqlMetaStatement.java`
+3. **`\]` not stripped in rule arg lists** — ANTLR 4.13.2 passes `\]` through verbatim to Java. Avoid `[]` types (e.g., `String[]`) in rule parameter declarations and invocation argument lists; use `List<String>` instead.
 
-Update lexer instantiation:
-```java
-// Before
-new SqlProcessorLexer(new ANTLRStringStream(input))
+4. **Label name conflicts** — Labels named `text` conflict with ANTLR 4's built-in `$text` attribute; choose unambiguous label names.
 
-// After
-new SqlProcessorLexer(CharStreams.fromString(input))
-```
+5. **Rule methods return `XxxContext`** — In ANTLR 4, calling `parser.ruleName(...)` returns `RuleNameContext`, not the declared return value. Access the return value as `.fieldName` on the context.
 
-Remove try/catch for `RecognitionException` — ANTLR 4 parsers no longer throw it; errors go through the error listener. Register the custom error listener (see Step 4):
-
-```java
-lexer.removeErrorListeners();
-parser.removeErrorListeners();
-SqlProcessorErrorListener errorListener = new SqlProcessorErrorListener();
-lexer.addErrorListener(errorListener);
-parser.addErrorListener(errorListener);
-```
-
-After parsing, collect errors from the listener rather than from the parser's `getErrors()` method.
-
-### 3c — `ParserUtils.java`
-
-| Old ANTLR 3 access | New ANTLR 4 equivalent |
-|---|---|
-| `ex.token` | `ex.getOffendingToken()` |
-| `ex.index` | `ex.getOffendingToken().getTokenIndex()` |
-| `ex.line` | `ex.getOffendingToken().getLine()` |
-| `tokenNames[tokenType]` | `vocabulary.getDisplayName(tokenType)` |
-
-Update the `create` method signatures to accept `Vocabulary` instead of `String[]`:
-```java
-// Before
-public static ErrorMsg create(String name, String msg, RecognitionException ex, String[] tokenNames)
-
-// After
-public static ErrorMsg create(String name, String msg, RecognitionException ex, Vocabulary vocabulary)
-```
-
----
-
-## Step 4 — Create `SqlProcessorErrorListener.java`
-
-Create a new file `sql-processor/src/main/java/org/sqlproc/engine/impl/SqlProcessorErrorListener.java`:
-
-```java
-package org.sqlproc.engine.impl;
-
-import org.antlr.v4.runtime.BaseErrorListener;
-import org.antlr.v4.runtime.RecognitionException;
-import org.antlr.v4.runtime.Recognizer;
-import org.antlr.v4.runtime.Token;
-import java.util.ArrayList;
-import java.util.List;
-
-public class SqlProcessorErrorListener extends BaseErrorListener {
-
-    private final List<ErrorMsg> errors = new ArrayList<>();
-
-    @Override
-    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
-            int line, int charPositionInLine, String msg, RecognitionException e) {
-        errors.add(ParserUtils.create(null, msg, e, recognizer.getVocabulary()));
-    }
-
-    public List<ErrorMsg> getErrors() {
-        return errors;
-    }
-}
-```
-
-This replaces the `getErrorMessage` / `reportError` overrides that were previously embedded in the grammar's `@members` section.
-
----
-
-## Risks
-
-| Risk | Severity | Notes |
-|---|---|---|
-| `scope` replacement | High | ~7 rules reference scope variables; requires careful field-based refactoring across both grammar files |
-| `REST` negated character class | Medium | Named-token negation is gone; must map each token name to its literal character — easy to miss one |
-| `input.LT(-1)` behaviour | Medium | ANTLR 4's `CommonTokenStream.LT(-1)` skips hidden-channel tokens, same as ANTLR 3, but verify against actual hidden/on-channel token assignments in the migrated grammar |
-| Token integer values change | Low | Only a risk if any code uses hard-coded integers — none found in hand-written files |
-| `String[\]` parameter syntax | Low | Quick to verify with a standalone test compile |
-
----
-
-## Recommended migration order
-
-1. **Step 1 (Maven POMs)** — makes the build fail loudly with "grammar not found" rather than silently using stale artifacts
-2. **Step 4 (`SqlProcessorErrorListener`)** — no grammar dependency, can be reviewed and tested independently
-3. **Step 3c (`ParserUtils`)** — mechanical Java changes, no grammar dependency
-4. **Step 2 on `SqlProcessorLazy.g4`** — simpler grammar (no `scope`), use as proof of concept; get `mvn25 generate-sources` passing for this grammar first
-5. **Step 2 on `SqlProcessor.g4`** — full grammar migration including `scope` replacement
-6. **Steps 3a/b (Java callers)** — update `SqlProcessor.java`, `SqlMappingRule.java`, `SqlMetaStatement.java`
-7. **Verify** — `mvn25 generate-sources -pl sql-processor`, then `mvn25 test -pl sql-processor -Phsqldb`
+6. **`$` required for labels in actions** — `$label.getText()` not `label.getText()`.
