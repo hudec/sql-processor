@@ -1,6 +1,7 @@
 package org.sqlproc.engine.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -10,9 +11,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineException;
@@ -169,17 +169,18 @@ public class SqlProcessor {
         }
         SqlProcessor processor = null;
         try {
-            SqlProcessorLexer lexer = new SqlProcessorLexer(new ANTLRStringStream(sbStatements.toString()));
+            SqlProcessorLexer lexer = new SqlProcessorLexer(CharStreams.fromString(sbStatements.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
-            try {
-                processor = parser.parse2(typeFactory, defaultFeatures, onlyStatements, filters);
-            } catch (RecognitionException ex) {
-                ex.printStackTrace();
-            }
-            if (!lexer.getErrors().isEmpty() || !parser.getErrors().isEmpty() || !processor.getErrors().isEmpty()) {
-                throw new SqlEngineException("Statement error for '" + sbStatements + "'", lexer.getErrors(),
-                        parser.getErrors(), processor.getErrors());
+            SqlProcessorErrorListener errorListener = new SqlProcessorErrorListener();
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(errorListener);
+            parser.removeErrorListeners();
+            parser.addErrorListener(errorListener);
+            processor = parser.parse2(typeFactory, defaultFeatures, onlyStatements, Arrays.asList(filters)).processor;
+            if (!errorListener.getErrors().isEmpty() || !processor.getErrors().isEmpty()) {
+                throw new SqlEngineException("Statement error for '" + sbStatements + "'",
+                        errorListener.getErrors(), new ArrayList<>(), processor.getErrors());
             }
             return processor;
         } finally {
@@ -222,17 +223,18 @@ public class SqlProcessor {
         }
         SqlProcessor processor = null;
         try {
-            SqlProcessorLazyLexer lexer = new SqlProcessorLazyLexer(new ANTLRStringStream(sbStatements.toString()));
+            SqlProcessorLazyLexer lexer = new SqlProcessorLazyLexer(CharStreams.fromString(sbStatements.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorLazyParser parser = new SqlProcessorLazyParser(tokens);
-            try {
-                processor = parser.parse2(typeFactory, defaultFeatures, onlyStatements, filters);
-            } catch (RecognitionException ex) {
-                ex.printStackTrace();
-            }
-            if (!lexer.getErrors().isEmpty() || !parser.getErrors().isEmpty() || !processor.getErrors().isEmpty()) {
-                throw new SqlEngineException("Statement error for '" + sbStatements + "'", lexer.getErrors(),
-                        parser.getErrors(), processor.getErrors());
+            SqlProcessorErrorListener errorListener = new SqlProcessorErrorListener();
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(errorListener);
+            parser.removeErrorListeners();
+            parser.addErrorListener(errorListener);
+            processor = parser.parse2(typeFactory, defaultFeatures, onlyStatements, Arrays.asList(filters)).processor;
+            if (!errorListener.getErrors().isEmpty() || !processor.getErrors().isEmpty()) {
+                throw new SqlEngineException("Statement error for '" + sbStatements + "'",
+                        errorListener.getErrors(), new ArrayList<>(), processor.getErrors());
             }
             return processor;
         } finally {

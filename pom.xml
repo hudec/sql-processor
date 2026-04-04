@@ -22,7 +22,7 @@
     </modules>
 
     <properties>
-        <version.antlr>3.5.3</version.antlr>
+        <version.antlr>4.13.2</version.antlr>
         <version.spring>7.0.5</version.spring>
         <version.aspectjweaver>1.9.24</version.aspectjweaver>
         <version.log4j>2.25.3</version.log4j>
@@ -152,12 +152,7 @@
             <!-- ANTLR -->
             <dependency>
                 <groupId>org.antlr</groupId>
-                <artifactId>antlr</artifactId>
-                <version>${version.antlr}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr-runtime</artifactId>
+                <artifactId>antlr4-runtime</artifactId>
                 <version>${version.antlr}</version>
             </dependency>
 

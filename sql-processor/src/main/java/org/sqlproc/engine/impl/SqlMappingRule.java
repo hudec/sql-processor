@@ -1,11 +1,11 @@
 package org.sqlproc.engine.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlEngineException;
@@ -67,17 +67,18 @@ public class SqlMappingRule {
         SqlMappingRule mapping = null;
         try {
             StringBuilder sbMappingStatement = new StringBuilder(mappingStatement);
-            SqlProcessorLexer lexer = new SqlProcessorLexer(new ANTLRStringStream(sbMappingStatement.toString()));
+            SqlProcessorLexer lexer = new SqlProcessorLexer(CharStreams.fromString(sbMappingStatement.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
-            try {
-                mapping = parser.mapping(name, typeFactory, false);
-            } catch (RecognitionException ex) {
-                ex.printStackTrace();
-            }
-            if (!lexer.getErrors().isEmpty() || !parser.getErrors().isEmpty()) {
-                throw new SqlEngineException("Mapping error for '" + mappingStatement + "'", lexer.getErrors(),
-                        parser.getErrors());
+            SqlProcessorErrorListener errorListener = new SqlProcessorErrorListener();
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(errorListener);
+            parser.removeErrorListeners();
+            parser.addErrorListener(errorListener);
+            mapping = parser.mapping(name, typeFactory, false).sqlMapping;
+            if (!errorListener.getErrors().isEmpty()) {
+                throw new SqlEngineException("Mapping error for '" + mappingStatement + "'",
+                        errorListener.getErrors(), new ArrayList<>());
             }
             return mapping;
         } finally {

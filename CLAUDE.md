@@ -8,12 +8,12 @@ SQL Processor (SQLP) is an ANTLR-based SQL generation framework. It transforms P
 
 ## Build & compile
 
-Use `mvn25` (Java 25), not plain `mvn`:
+Use `mvn` (Java 25), not plain `mvn`:
 
 ```bash
-mvn25 compile
-mvn25 test-compile
-mvn25 package -DskipTests
+mvn compile
+mvn test-compile
+mvn package -DskipTests
 ```
 
 ## Running tests
@@ -22,13 +22,13 @@ Tests require a live database configured via `test.properties`. Use a DB profile
 
 ```bash
 # Run all tests for a module
-mvn25 test -pl sql-processor -Phsqldb
+mvn test -pl sql-processor -Phsqldb
 
 # Run a single test class
-mvn25 test -pl sql-processor -Phsqldb -Dtest=TestBasic
+mvn test -pl sql-processor -Phsqldb -Dtest=TestBasic
 
 # Run a single test method
-mvn25 test -pl sql-processor -Phsqldb -Dtest=TestBasic#testAnsiBasic
+mvn test -pl sql-processor -Phsqldb -Dtest=TestBasic#testAnsiBasic
 ```
 
 Available profiles: `hsqldb`, `h2`, `oracle`, `oracle-itests`, `mysql`, `mysql-itests`, `postgresql`, `postgresql-itests`, `mariadb`, `mariadb-itests`, `informix`, `informix-itests`, `mssql`, `mssql-itests`, `db2-itests`.

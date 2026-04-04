@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.SqlControl;
@@ -115,17 +114,18 @@ public class SqlMetaStatement implements SqlMetaElement {
         SqlMetaStatement stmt = null;
         try {
             StringBuilder sbStatements = new StringBuilder(statement);
-            SqlProcessorLexer lexer = new SqlProcessorLexer(new ANTLRStringStream(sbStatements.toString()));
+            SqlProcessorLexer lexer = new SqlProcessorLexer(CharStreams.fromString(sbStatements.toString()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SqlProcessorParser parser = new SqlProcessorParser(tokens);
-            try {
-                stmt = parser.meta(name, typeFactory, false);
-            } catch (RecognitionException ex) {
-                ex.printStackTrace();
-            }
-            if (!lexer.getErrors().isEmpty() || !parser.getErrors().isEmpty()) {
-                throw new SqlEngineException("Statement error for '" + statement + "'", lexer.getErrors(),
-                        parser.getErrors());
+            SqlProcessorErrorListener errorListener = new SqlProcessorErrorListener();
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(errorListener);
+            parser.removeErrorListeners();
+            parser.addErrorListener(errorListener);
+            stmt = parser.meta(name, typeFactory, false).metaStatement;
+            if (!errorListener.getErrors().isEmpty()) {
+                throw new SqlEngineException("Statement error for '" + statement + "'",
+                        errorListener.getErrors(), new ArrayList<>());
             }
             return stmt;
         } finally {

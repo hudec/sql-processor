@@ -27,7 +27,7 @@
         <!-- ANTLR -->
         <dependency>
             <groupId>org.antlr</groupId>
-            <artifactId>antlr-runtime</artifactId>
+            <artifactId>antlr4-runtime</artifactId>
         </dependency>
 
         <!-- LOG -->

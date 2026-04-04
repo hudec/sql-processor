@@ -3,10 +3,11 @@ package org.sqlproc.engine.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.antlr.runtime.CommonToken;
-import org.antlr.runtime.MismatchedTokenException;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.Token;
+import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.InputMismatchException;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.Vocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlproc.engine.plugin.Modifiers;
@@ -395,39 +396,43 @@ class ParserUtils {
         }
     }
 
-    public static ErrorMsg create(String name, RecognitionException ex, String[] tokenNames) {
+    public static ErrorMsg create(String name, RecognitionException ex, Vocabulary vocabulary) {
         String msg = "Parse error";
         try {
-            if (ex instanceof MismatchedTokenException) {
-                MismatchedTokenException mte = (MismatchedTokenException) ex;
-                if (ex.token.getType() == -1) {
-                    msg = "Unexpected end of file! Expecting " + tokenNames[mte.expecting];
-                } else if (tokenNames != null && ex.token != null && ex.token.getText() != null) {
-                    msg = "Unexpected token '" + ex.token.getText() + "' (type: " + tokenNames[ex.getUnexpectedType()]
-                            + ") - expecting : " + (mte.expecting == -1 ? "end of File" : tokenNames[mte.expecting]);
+            if (ex instanceof InputMismatchException) {
+                InputMismatchException mte = (InputMismatchException) ex;
+                Token offending = ex.getOffendingToken();
+                if (offending != null && offending.getType() == -1) {
+                    msg = "Unexpected end of file! Expecting " + mte.getExpectedTokens().toString(vocabulary);
+                } else if (offending != null && offending.getText() != null) {
+                    msg = "Unexpected token '" + offending.getText() + "' (type: "
+                            + vocabulary.getDisplayName(offending.getType()) + ") - expecting : "
+                            + mte.getExpectedTokens().toString(vocabulary);
                 }
-            } else if (ex.token != null && ex.token.getText() != null)
-                msg = "Unexpected token '" + ex.token.getText() + "' (type: " + tokenNames[ex.getUnexpectedType()]
-                        + ")";
+            } else if (ex != null && ex.getOffendingToken() != null && ex.getOffendingToken().getText() != null) {
+                Token offending = ex.getOffendingToken();
+                msg = "Unexpected token '" + offending.getText() + "' (type: "
+                        + vocabulary.getDisplayName(offending.getType()) + ")";
+            }
         } catch (Exception e) {
             // ignore
         }
-        return create(name, msg, ex, tokenNames);
+        return create(name, msg, ex, vocabulary);
     }
 
-    public static ErrorMsg create(String name, String msg, RecognitionException ex, String[] tokenNames) {
-        int length = 1;
-        if (ex.token != null && ex.token.getText() != null) {
-            length = ex.token.getText().length();
-        }
-        if (ex.token != null) {
-            Token t = ex.token;
+    public static ErrorMsg create(String name, String msg, RecognitionException ex, Vocabulary vocabulary) {
+        if (ex != null) {
+            Token t = ex.getOffendingToken();
             if (t instanceof CommonToken) {
                 CommonToken ct = (CommonToken) t;
                 return new ErrorMsg(name, msg, ct.getStartIndex(), ct.getStopIndex() - ct.getStartIndex(),
                         ct.getLine());
             }
+            if (t != null) {
+                int length = t.getText() != null ? t.getText().length() : 1;
+                return new ErrorMsg(name, msg, t.getStartIndex(), length, t.getLine());
+            }
         }
-        return new ErrorMsg(name, msg, ex.index >= 0 ? ex.index : 0, length, ex.line);
+        return new ErrorMsg(name, msg, 0, 1, 0);
     }
 }
