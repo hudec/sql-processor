@@ -8,12 +8,12 @@ SQL Processor (SQLP) is an ANTLR-based SQL generation framework. It transforms P
 
 ## Build & compile
 
-Use `mvn` (Java 25), not plain `mvn`:
+Use `mvn25` (the Maven wrapper that runs on JDK 25), not plain `mvn` — plain `mvn` on this machine is on JDK 21 and fails with `release version 25 not supported`:
 
 ```bash
-mvn compile
-mvn test-compile
-mvn package -DskipTests
+mvn25 compile
+mvn25 test-compile
+mvn25 package -DskipTests
 ```
 
 ## Running tests
@@ -22,13 +22,13 @@ Tests require a live database configured via `test.properties`. Use a DB profile
 
 ```bash
 # Run all tests for a module
-mvn test -pl sql-processor -Phsqldb
+mvn25 test -pl sql-processor -Phsqldb
 
 # Run a single test class
-mvn test -pl sql-processor -Phsqldb -Dtest=TestBasic
+mvn25 test -pl sql-processor -Phsqldb -Dtest=TestBasic
 
 # Run a single test method
-mvn test -pl sql-processor -Phsqldb -Dtest=TestBasic#testAnsiBasic
+mvn25 test -pl sql-processor -Phsqldb -Dtest=TestBasic#testAnsiBasic
 ```
 
 Available profiles: `hsqldb`, `h2`, `oracle`, `oracle-itests`, `mysql`, `mysql-itests`, `postgresql`, `postgresql-itests`, `mariadb`, `mariadb-itests`, `informix`, `informix-itests`, `mssql`, `mssql-itests`, `db2-itests`.
@@ -112,4 +112,11 @@ SpringSimpleSession session = new SpringSimpleSession(jdbcTemplate);
 - **`SqlControl`** carries runtime overrides (max rows, offset, order, cache key). Pass `null` for defaults
 - **`SqlOrder`**: use `SqlQueryEngine.NO_ORDER` or `sqlEngine.getOrder("id", SqlOrder.ASC)`
 - META SQL name lookup is case-insensitive but conventionally UPPER_SNAKE_CASE
-- ANTLR grammar is at `sql-processor/src/main/antlr3/org/sqlproc/engine/impl/SqlProcessor.g`
+
+## ANTLR grammar
+
+The project uses **ANTLR 4.13.2** (`antlr4-maven-plugin`, `antlr4-runtime`). Two near-identical grammars live at `sql-processor/src/main/antlr4/org/sqlproc/engine/impl/`:
+- `SqlProcessor.g4` – full grammar, builds domain objects via embedded Java actions in `@parser::members`
+- `SqlProcessorLazy.g4` – simplified variant, stores statements as raw strings
+
+Hand-written ANTLR clients are `SqlProcessor.java`, `SqlMappingRule.java`, `SqlMetaStatement.java`, and `ParserUtils.java`; lexer/parser errors are routed through `SqlProcessorErrorListener.java`. Migration history from ANTLR 3.5.3 is in `antlr-migration.md`.
