@@ -25,14 +25,14 @@
         <version.antlr>4.13.2</version.antlr>
         <version.spring>7.0.5</version.spring>
         <version.aspectjweaver>1.9.24</version.aspectjweaver>
-        <version.log4j>2.25.3</version.log4j>
+        <version.log4j>2.25.4</version.log4j>
         <version.slf4j>2.0.17</version.slf4j>
         <version.junit>4.13.2</version.junit>
         <version.javassist>3.30.2-GA</version.javassist>
         <version.oracle>23.9.0.25.04</version.oracle>
         <version.mysql>9.3.0</version.mysql>
         <version.mariadb>3.5.3</version.mariadb>
-        <version.postgresql>42.7.7</version.postgresql>
+        <version.postgresql>42.7.11</version.postgresql>
         <version.beanutils>1.11.0</version.beanutils>
         <version.dbunit>2.8.0</version.dbunit>
         <version.hsqldb>2.7.4</version.hsqldb>
